@@ -1,0 +1,13 @@
+Cryostatcontrol
+===
+
+The solution consists of two projects:
+
+CryostatControlClient
+---
+This project represents the GUI client
+
+
+CryostatControlServer
+---
+This project represents the server that comunicates with the cryostat devices.
