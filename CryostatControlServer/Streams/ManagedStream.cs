@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace CryostatControlServer.Streams
 
         private readonly TimeSpan TCP_TIMEOUT = TimeSpan.FromMilliseconds(1000);
         private byte[] readbuffer = new byte[1024];
+
+        private const bool DEBUG = true;
 
 
         enum ConnectionType
@@ -69,6 +72,12 @@ namespace CryostatControlServer.Streams
 
         public void WriteString(string stringToWrite)
         {
+            if (DEBUG)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(stringToWrite);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
             byte[] buffer = Encoding.ASCII.GetBytes(stringToWrite);
             if (isConnected())
             {
@@ -83,6 +92,12 @@ namespace CryostatControlServer.Streams
         {
             int bytes = containedStream.Read(readbuffer, 0, 1024);
             string res = Encoding.ASCII.GetString(readbuffer, 0, bytes);
+            if (DEBUG)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(res);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
             return res;
         }
 
@@ -90,6 +105,12 @@ namespace CryostatControlServer.Streams
         {
             int bytes = await containedStream.ReadAsync(readbuffer, 0, 1024);
             string res = Encoding.ASCII.GetString(readbuffer, 0, bytes);
+            if (DEBUG)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(res);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
             return res;
         }
 
