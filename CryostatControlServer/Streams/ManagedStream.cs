@@ -13,7 +13,7 @@ namespace CryostatControlServer.Streams
 {
     class ManagedStream
     {
-        private Stream containedStream;
+        public Stream containedStream { get; set; }
 
         private TcpClient tcpClient = new TcpClient();
         private SerialPort serialPort;
@@ -21,8 +21,11 @@ namespace CryostatControlServer.Streams
         private readonly TimeSpan TCP_TIMEOUT = TimeSpan.FromMilliseconds(1000);
         private byte[] readbuffer = new byte[1024];
 
-        private const bool DEBUG = true;
+        private StreamReader reader;
+        private StreamWriter writer;
 
+        private const bool DEBUG = true;
+        
 
         enum ConnectionType
         {
@@ -47,17 +50,40 @@ namespace CryostatControlServer.Streams
             containedStream = tcpClient.GetStream();
             
             connectionType = ConnectionType.TCP;
+            init();
         }
 
         public void ConnectCOM(string portname, int boudrate)
         {
             serialPort = new SerialPort(portname, boudrate);
+            serialPort.DataBits = 7;
+            serialPort.StopBits = StopBits.One;
+            serialPort.Parity = Parity.Odd;
+            serialPort.Handshake = Handshake.None;
             serialPort.Open();
             containedStream = serialPort.BaseStream;
 
             connectionType = ConnectionType.COM;
+            init();
         }
 
+        public void close()
+        {
+            switch (connectionType)
+            {
+                case ConnectionType.NONE: return;
+                case ConnectionType.TCP: tcpClient.Close();
+                    return;
+                case ConnectionType.COM: serialPort.Close();
+                    return;
+            }
+        }
+
+        private void init()
+        {
+            reader = new StreamReader(containedStream, Encoding.ASCII, false, 1024, true);
+            writer = new StreamWriter(containedStream, Encoding.ASCII, 1024, true);
+        }
 
         public bool isConnected()
         {
@@ -78,10 +104,10 @@ namespace CryostatControlServer.Streams
                 Console.Write(stringToWrite);
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            byte[] buffer = Encoding.ASCII.GetBytes(stringToWrite);
             if (isConnected())
             {
-                containedStream.Write(buffer, 0, stringToWrite.Length);
+                writer.Write(stringToWrite);
+                writer.Flush();
             }
 
         }
@@ -90,8 +116,7 @@ namespace CryostatControlServer.Streams
         //TODO: modify read to read until a \r\n or \n
         public string ReadString()
         {
-            int bytes = containedStream.Read(readbuffer, 0, 1024);
-            string res = Encoding.ASCII.GetString(readbuffer, 0, bytes);
+            string res = reader.ReadLine();
             if (DEBUG)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -103,8 +128,7 @@ namespace CryostatControlServer.Streams
 
         public async Task<string> ReadStringAsync()
         {
-            int bytes = await containedStream.ReadAsync(readbuffer, 0, 1024);
-            string res = Encoding.ASCII.GetString(readbuffer, 0, bytes);
+            string res = await reader.ReadLineAsync();
             if (DEBUG)
             {
                 Console.ForegroundColor = ConsoleColor.Green;

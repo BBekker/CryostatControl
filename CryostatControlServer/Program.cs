@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace CryostatControlServer
 {
+    
     class Program
     {
 
-        Agilent34972A H7Cooler = new Agilent34972A();
+
+        private bool run = true;
 
         static void Main(string[] args)
         {
@@ -23,10 +25,11 @@ namespace CryostatControlServer
             Console.In.ReadLine();
 
 
-            //H7 cooler test thread
+//            H7 cooler test thread
             Thread H7CoolerThread = new Thread(new ThreadStart(() =>
             {
-                    H7Cooler.init("192.168.1.100");
+                Agilent34972A H7Cooler = new Agilent34972A();
+                H7Cooler.init("192.168.1.100");
                 double[] voltages = H7Cooler.GetVoltages(new int[]
                 {
                     Agilent34972A.SENS_HE3PUMP_T,
@@ -45,8 +48,28 @@ namespace CryostatControlServer
                 
             }));
             H7CoolerThread.Start();
+
+            Thread LakeShoreThread = new Thread(new ThreadStart(() =>
+            {
+                LakeShore ls = new LakeShore();
+                ls.init("COM6");
+                while (run)
+                {
+                    double t1 = ls.readTemperature("A");
+                    double t2 = ls.readTemperature("B");
+                    Console.WriteLine("Temp 1: {0}K, Temp 2: {1}K",t1, t2);
+                    Thread.Sleep(1000);
+                    
+                }
+                ls.close();
+            }));
+            LakeShoreThread.Start();
+
+
             Console.In.ReadLine();
+            run = false;
             H7CoolerThread.Abort();
+
         }
 
             
