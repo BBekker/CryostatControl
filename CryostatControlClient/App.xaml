@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:CryostatControlClient"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="ControlStyle" TargetType="{x:Type Control}">
+            <Setter Property="FontFamily" Value="Arial" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
     </Application.Resources>
 </Application>

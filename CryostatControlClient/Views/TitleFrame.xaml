@@ -1,0 +1,9 @@
+﻿<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Grid.Resources>
+        <ResourceDictionary Source="Styles.xaml"/>
+    </Grid.Resources>
+
+    <Viewbox>
+        <Label Style="{StaticResource TitleStyle}">Cryostat Refrigerator Control</Label>
+    </Viewbox>
+</Grid>

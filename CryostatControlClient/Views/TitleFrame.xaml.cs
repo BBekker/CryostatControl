@@ -16,13 +16,12 @@ using System.Windows.Shapes;
 namespace CryostatControlClient.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TitleFrame.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class TitleFrame : Page
     {
-        public MainWindow()
+        public TitleFrame()
         {
-            Brush Background = (Brush)Application.Current.Resources["Background"];
         }
     }
 }
