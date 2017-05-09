@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NModbus4, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NModbus4.2.1.0\lib\net40\NModbus4.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,12 +46,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agilent34972A.cs" />
+    <Compile Include="Compressor\Enumerators\PressureEnum.cs" />
+    <Compile Include="Compressor\Enumerators\ErrorEnum.cs" />
+    <Compile Include="Compressor\Enumerators\EnergizedEnum.cs" />
+    <Compile Include="Compressor\Enumerators\RegistersEnum.cs" />
+    <Compile Include="Compressor\Enumerators\StatusEnum.cs" />
+    <Compile Include="Compressor\Compressor.cs" />
+    <Compile Include="Compressor\CompressorMain.cs" />
+    <Compile Include="Compressor\Enumerators\TemperatureEnum.cs" />
+    <Compile Include="Compressor\Enumerators\WarningsEnum.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Streams\ManagedStream.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
