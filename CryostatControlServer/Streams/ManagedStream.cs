@@ -42,8 +42,8 @@ namespace CryostatControlServer.Streams
                 throw new TimeoutException("TCP Connection timed out");
             }
 
-            tcpClient.SendTimeout = 500;
-            tcpClient.ReceiveTimeout = 500;
+            tcpClient.SendTimeout = 1000;
+            tcpClient.ReceiveTimeout = 1000;
             containedStream = tcpClient.GetStream();
             
             connectionType = ConnectionType.TCP;
