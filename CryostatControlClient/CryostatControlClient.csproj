@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -54,6 +55,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\LoggingFrame.xaml.cs">
+      <DependentUpon>LoggingFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GraphFrame.xaml.cs">
+      <DependentUpon>GraphFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CompressorFrame.xaml.cs">
+      <DependentUpon>CompressorFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\He7Frame.xaml.cs">
+      <DependentUpon>He7Frame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BlueforsFrame.xaml.cs">
+      <DependentUpon>BlueforsFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OverviewFrame.xaml.cs">
+      <DependentUpon>OverviewFrame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TabFrame.xaml.cs">
+      <DependentUpon>TabFrame.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\LoggingFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\GraphFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CompressorFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -66,6 +100,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\He7Frame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\BlueforsFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OverviewFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TabFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -1,0 +1,29 @@
+﻿<Grid 
+    x:Class="CryostatControlClient.Views.TabFrame"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+
+    <TabControl>
+        <TabItem Header="Overview">
+            <Frame Source="OverviewFrame.xaml"></Frame>
+        </TabItem>
+        <TabItem Header="He-7 Cooler">
+            <Frame Source="He7Frame.xaml"></Frame>
+        </TabItem>
+        <TabItem Header="BlueFors cryostat">
+            <Frame Source="BlueforsFrame.xaml"></Frame>
+        </TabItem>
+        <TabItem Header="Compressor">
+            <Frame Source="CompressorFrame.xaml"></Frame>
+        </TabItem>
+        <TabItem Header="Graph">
+            <Frame Source="GraphFrame.xaml"></Frame>
+        </TabItem>
+        <TabItem Header="Logging">
+            <Frame Source="LoggingFrame.xaml"></Frame>
+        </TabItem>
+        
+    </TabControl>
+</Grid>
+
+

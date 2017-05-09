@@ -10,19 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CryostatControlClient.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for OverviewFrame.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class He7Frame
     {
-        public MainWindow()
+        public He7Frame()
         {
-            //InitializeComponent();
         }
     }
 }

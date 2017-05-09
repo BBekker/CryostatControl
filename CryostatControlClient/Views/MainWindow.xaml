@@ -1,12 +1,32 @@
-﻿<Window x:Class="CryostatControlClient.MainWindow"
+﻿<Window x:Class="CryostatControlClient.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CryostatControlClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="400" Width="500">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Frame Source="TabFrame.xaml" Grid.Column="1" Grid.Row="0"></Frame>
         
+        
+        <Frame x:Name="a" Background="Beige" Grid.Column="0" Grid.Row="1">
+
+        </Frame>
+        <Frame x:Name="b" Background="DarkBlue" Grid.Column="0" Grid.Row="0">
+
+        </Frame>
+        <Frame x:Name="c" Background="Red" Grid.Column="1" Grid.Row="1">
+
+        </Frame>
     </Grid>
 </Window>
