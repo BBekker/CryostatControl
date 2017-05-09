@@ -29,12 +29,12 @@ namespace CryostatControlServer
             Thread H7CoolerThread = new Thread(new ThreadStart(() =>
             {
                 Agilent34972A H7Cooler = new Agilent34972A();
-                H7Cooler.init("192.168.1.100");
+                H7Cooler.Init("192.168.1.100");
                 double[] voltages = H7Cooler.GetVoltages(new int[]
                 {
                     Agilent34972A.SENS_HE3PUMP_T,
                     Agilent34972A.SENS_HE4PUMP_T,
-                }, 2);
+                });
                 Console.WriteLine($"Voltage H3: {voltages[0]}, voltage H4: {voltages[1]}");
                 for(int i = 0; i < 100000; i++)
                 {

@@ -9,12 +9,15 @@
 //
 //==============================================================================
 
+using System;
 using CryostatControlServer.Streams;
 
 namespace CryostatControlServer
 {
     internal class Agilent34972A
     {
+        private readonly ManagedStream _connection = new ManagedStream();
+
         #region Constant values
 
         // Temperature sensors
@@ -45,105 +48,106 @@ namespace CryostatControlServer
         public const int PUMP_HE4 = 205;
         public const int SWITCH_HE4 = 304;
 
-        static int[] Dig_Switch_Channels = new int[]{ SENS_HE3HEAD_T, SENS_HE4HEAD_T, PUMP_HE3, PUMP_HE4 };
+        private static readonly int[] Dig_Switch_Channels = { SENS_HE3HEAD_T, SENS_HE4HEAD_T, PUMP_HE3, PUMP_HE4 };
 
         private const int TCP_PORT = 5025;
         private const int TCP_TIMEOUT = 5000;
 
         #endregion Constant values
 
-        private ManagedStream connection = new ManagedStream();
-
-        public void init(string ip_address)
+        public void Init(string ipAddress)
         {
-            connection.ConnectTCP(ip_address, TCP_PORT);
+            _connection.ConnectTCP(ipAddress, TCP_PORT);
 
             //-------- INITIALIZE AGILENT CONTROLLER
 
-            connection.WriteString("FORM:READ:CHAN ON\n");
+            _connection.WriteString("FORM:READ:CHAN ON\n");
             CheckState();
-
-            LoadCalibration();
         }
 
+        /// <summary>
+        /// Checks if the device is in a consistent state and all commands are performed. used for synchronisation.
+        /// </summary>
+        /// <exception cref="System.Exception">invalid agilent state</exception>
         private void CheckState()
         {
-            connection.WriteString("*OPC?\n");
+            _connection.WriteString("*OPC?\n");
 
-            //H7Logger reads something back?
-            int res = int.Parse(connection.ReadString());
+            var res = int.Parse(_connection.ReadString());
             if (res < 1)
-                throw new System.Exception("invalid agilent state");
+                throw new Exception("invalid agilent state");
         }
 
-        public double[] GetVoltages(int[] sens_IDs, int n_sensors)
+        /// <summary>
+        ///     Gets voltages from the device
+        /// </summary>
+        /// <param name="sensIDs">Sensor ID's to measure.</param>
+        /// <returns>array of voltages in the same ordering as sensIDs</returns>
+        public double[] GetVoltages(int[] sensIDs)
         {
-            int[] n_chan = new int[n_sensors];
-            double[] rVolt = new double[n_sensors];
-            double[] Values = new double[2 * n_sensors];
-            double[] readVolt = new double[n_sensors];
+            var n_sensors = sensIDs.Length;
+            var n_chan = new int[n_sensors];
+            var rVolt = new double[n_sensors];
+            var Values = new double[2 * n_sensors];
+            var readVolt = new double[n_sensors];
 
-            string cmd_str = "ROUT:SCAN (@";
+            //construct a command to read all specified voltages
+            var cmd_str = "ROUT:SCAN (@";
 
-            for (int k = 0; k < (n_sensors - 1); k++)
-            {
-                cmd_str += $"{sens_IDs[k]},";
-            }
+            for (var k = 0; k < n_sensors - 1; k++)
+                cmd_str += $"{sensIDs[k]},";
 
-            cmd_str += $"{sens_IDs[n_sensors - 1]})\n";
+            cmd_str += $"{sensIDs[n_sensors - 1]})\n";
             cmd_str += "READ?\n";
-            connection.WriteString(cmd_str);
+            _connection.WriteString(cmd_str);
 
-            string res = connection.ReadString();
+            //read response
+            var res = _connection.ReadString();
+
+            //Extract data
             Values = GetDataFromString(res);
 
-            for (int k = 0; k < n_sensors; k++)
+            //split into voltages and channels
+            for (var k = 0; k < n_sensors; k++)
             {
-                rVolt[k] = (Values[(2 * k)]);
-                n_chan[k] = (int)(Values[(2 * k) + 1]);
+                rVolt[k] = Values[2 * k];
+                n_chan[k] = (int) Values[2 * k + 1];
             }
 
             //Order temperature in order of sens_IDs
-            for (int k = 0; k < n_sensors; k++)
-            {
-                for (int i = 0; i < n_sensors; i++)
-                {
-                    if (sens_IDs[i] == n_chan[k])
-                    {
-                        readVolt[i] = rVolt[k];
-                    }
-                }
-            }
+            for (var k = 0; k < n_sensors; k++)
+            for (var i = 0; i < n_sensors; i++)
+                if (sensIDs[i] == n_chan[k])
+                    readVolt[i] = rVolt[k];
 
             // Write ABOR command to return
-            connection.WriteString("ABOR\n");
+            _connection.WriteString("ABOR\n");
             CheckState();
 
             return readVolt;
         }
 
-        public void LoadCalibration()
+        /// <summary>
+        ///     Sets the heater voltage.
+        /// </summary>
+        /// <param name="heatId">The heater identifier.</param>
+        /// <param name="setVoltage">The set voltage.</param>
+        public void SetHeaterVoltage(int heatId, double setVoltage)
         {
+            _connection.WriteString($"SOUR:VOLT {setVoltage:F3}, (@{heatId})\n");
         }
-
-        public void SetHeaterVoltage(int heat_ID, double setVoltage)
-        {
-            connection.WriteString(string.Format("SOUR:VOLT {0:F3}, (@{1})\n", setVoltage, heat_ID));
-        }
-
 
 
         public void SetDigitalOutput(int switch_ID, bool b_set)
         {
+            // Get current digital output values
+            _connection.WriteString($"SOUR:DIG:DATA:BYTE? (@{CTRL_DIG_OUT})\n");
+            var res_string = _connection.ReadString();
+            var get_byte = int.Parse(res_string); //TODO: Catch error
 
-            // Get Switch Information
-            connection.WriteString($"SOUR:DIG:DATA:BYTE? (@{CTRL_DIG_OUT})\n");
-            string res_string = connection.ReadString();
-            int get_byte = int.Parse(res_string); //TODO: Catch error
-            // 
-            int bit_val = 1;
-            for (int k = 0; k < Dig_Switch_Channels.Length; k++)
-            {
+            //find corresponding bits
+            var bit_val = 1;
+            for (var k = 0; k < Dig_Switch_Channels.Length; k++)
                 if (switch_ID == Dig_Switch_Channels[k])
                 {
                     bit_val = 1 << k;
@@ -152,26 +156,27 @@ namespace CryostatControlServer
 
                     break;
                 }
-            }
 
-            int set_byte = 0;
-            if (b_set)  // Set bit : 1
-                set_byte = (get_byte | bit_val);
-            else            // Set bit : 0
+            //set or clear the bit in the old values
+            var set_byte = 0;
+            if (b_set) // Set bit : 1
+                set_byte = get_byte | bit_val;
+            else // Set bit : 0
                 set_byte = get_byte - (get_byte & bit_val);
 
-            connection.WriteString($"SOUR:DIG:DATA:BYTE {set_byte}, (@{CTRL_DIG_OUT})\n");
+            //write new configuration
+            _connection.WriteString($"SOUR:DIG:DATA:BYTE {set_byte}, (@{CTRL_DIG_OUT})\n");
         }
 
-        private double[] GetDataFromString(string dataString)
+        private static double[] GetDataFromString(string dataString)
         {
-            string[] split = dataString.Split(',');
-            double[] results = new double[split.Length];
-            for (int i = 0; i < split.Length; i++)
-            {
+            var split = dataString.Split(',');
+            var results = new double[split.Length];
+            for (var i = 0; i < split.Length; i++)
                 results[i] = double.Parse(split[i]);
-            }
             return results;
         }
+
+        
     }
 }

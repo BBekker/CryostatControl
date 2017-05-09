@@ -1,59 +1,75 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Ports;
-using System.Linq;
-using System.Text;
+﻿using CryostatControlServer.Streams;
+using System;
 using System.Threading;
-using System.Threading.Tasks;
-using CryostatControlServer.Streams;
 
 namespace CryostatControlServer
 {
-    class LakeShore
+    /// <summary>
+    /// Connection and comunication to the LakeShore 355 temperature controller.
+    /// </summary>
+    internal class LakeShore
     {
-
         #region const values
 
-        private const string INPUT_A = "A";
-        private const string INPUT_B = "B";
+        private const string COLDPLATE_3K = "A";
+        private const string COLDPLATE_5K = "B";
 
-        #endregion
+        #endregion const values
 
         private DateTime _lastCommand;
 
-        private ManagedStream ms = new ManagedStream();
+        private readonly ManagedStream _ms = new ManagedStream();
 
+        /// <summary>
+        /// Initializes by connecting to the specified portname.
+        /// </summary>
+        /// <param name="portname">The portname.</param>
         public void init(string portname)
         {
-            ms.ConnectCOM(portname, 57600);
+            _ms.ConnectCOM(portname, 57600);
 
             _lastCommand = DateTime.Now;
 
-            ms.WriteString("MODE 1\n");
+            _ms.WriteString("MODE 1\n");
             OPC();
         }
 
+        /// <summary>
+        /// Closes this instance.
+        /// </summary>
         public void close()
         {
-            ms.close();
+            _ms.Close();
         }
 
+        /// <summary>
+        /// Reads the sensor temperature in Kelvin.
+        /// </summary>
+        /// <param name="sensor">The sensor.</param>
+        /// <returns>sensor temperature in K</returns>
         public double readTemperature(string sensor)
         {
             WaitCommandInterval();
-            ms.WriteString($"KRDG? {sensor}\n");
-            string response = ms.ReadString();
+            _ms.WriteString($"KRDG? {sensor}\n");
+            string response = _ms.ReadString();
             return double.Parse(response);
         }
 
+        /// <summary>
+        /// Sends OPC command to device and waits for response.
+        /// Used to confirm connection and synchronisation of state of the device.
+        /// </summary>
         public void OPC()
         {
             WaitCommandInterval();
-            ms.WriteString("OPC?\n");
-            ms.ReadString();
+            _ms.WriteString("OPC?\n");
+            _ms.ReadString();
         }
 
+        /// <summary>
+        /// Wait until the specified minimum time between commands is passed.
+        /// The lakeshore355 manual specifies a minimum time of 50ms between commands.
+        /// </summary>
         private void WaitCommandInterval()
         {
             while (DateTime.Now - _lastCommand < TimeSpan.FromMilliseconds(50))
@@ -61,6 +77,5 @@ namespace CryostatControlServer
                 Thread.Sleep(DateTime.Now - _lastCommand);
             }
         }
-
     }
 }

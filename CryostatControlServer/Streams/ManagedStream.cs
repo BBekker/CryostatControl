@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -11,132 +8,169 @@ using System.Threading.Tasks;
 
 namespace CryostatControlServer.Streams
 {
-    class ManagedStream
+    internal class ManagedStream
     {
-        public Stream containedStream { get; set; }
-
-        private TcpClient tcpClient = new TcpClient();
-        private SerialPort serialPort;
-
         private readonly TimeSpan TCP_TIMEOUT = TimeSpan.FromMilliseconds(1000);
-        private byte[] readbuffer = new byte[1024];
 
-        private StreamReader reader;
-        private StreamWriter writer;
+        private ConnectionType _connectionType = ConnectionType.NONE;
 
-        private const bool DEBUG = true;
-        
+        private StreamReader _reader;
+        private SerialPort _serialPort;
 
-        enum ConnectionType
-        {
-            NONE,
-            TCP,
-            COM
-        }
+        private readonly TcpClient _tcpClient = new TcpClient();
+        private StreamWriter _writer;
+        public Stream ContainedStream { get; set; }
 
-        private ConnectionType connectionType = ConnectionType.NONE;
-
+        /// <summary>
+        ///     Connect to a (remote) TCP port.
+        ///     Must be called before calling any other method.
+        /// </summary>
+        /// <param name="ip">The ip adress to connect to.</param>
+        /// <param name="port">The TCP port to connect to.</param>
+        /// <exception cref="System.TimeoutException">TCP Connection timed out</exception>
         public void ConnectTCP(string ip, int port)
         {
-            Task connectTask = tcpClient.ConnectAsync(IPAddress.Parse(ip), port);
+            var connectTask = _tcpClient.ConnectAsync(IPAddress.Parse(ip), port);
             Console.WriteLine("Connecting to port...");
             if (!connectTask.Wait(TCP_TIMEOUT))
-            {
                 throw new TimeoutException("TCP Connection timed out");
-            }
 
-            tcpClient.SendTimeout = 1000;
-            tcpClient.ReceiveTimeout = 1000;
-            containedStream = tcpClient.GetStream();
+            _tcpClient.SendTimeout = 1000;
+            _tcpClient.ReceiveTimeout = 1000;
+            ContainedStream = _tcpClient.GetStream();
+
             
-            connectionType = ConnectionType.TCP;
-            init();
+
+            _connectionType = ConnectionType.TCP;
+            Init();
         }
 
+        /// <summary>
+        ///     Connect to a COM port and setup the stream.
+        ///     Must be called before calling any other method
+        /// </summary>
+        /// <param name="portname">The portname.</param>
+        /// <param name="boudrate">The boudrate.</param>
         public void ConnectCOM(string portname, int boudrate)
         {
-            serialPort = new SerialPort(portname, boudrate);
-            serialPort.DataBits = 7;
-            serialPort.StopBits = StopBits.One;
-            serialPort.Parity = Parity.Odd;
-            serialPort.Handshake = Handshake.None;
-            serialPort.Open();
-            containedStream = serialPort.BaseStream;
+            _serialPort = new SerialPort(portname, boudrate);
+            _serialPort.DataBits = 7;
+            _serialPort.StopBits = StopBits.One;
+            _serialPort.Parity = Parity.Odd;
+            _serialPort.Handshake = Handshake.None;
+            _serialPort.Open();
+            ContainedStream = _serialPort.BaseStream;
 
-            connectionType = ConnectionType.COM;
-            init();
+            _connectionType = ConnectionType.COM;
+            Init();
         }
 
-        public void close()
+        /// <summary>
+        ///     Closes the connection.
+        /// </summary>
+        public void Close()
         {
-            switch (connectionType)
+            ContainedStream.Flush();
+            switch (_connectionType)
             {
                 case ConnectionType.NONE: return;
-                case ConnectionType.TCP: tcpClient.Close();
+                case ConnectionType.TCP:
+                    _tcpClient.Close();
                     return;
-                case ConnectionType.COM: serialPort.Close();
+                case ConnectionType.COM:
+                    _serialPort.Close();
                     return;
             }
         }
 
-        private void init()
+        /// <summary>
+        ///     Initialisation code shared by connectTCP and connectCOM.
+        /// </summary>
+        private void Init()
         {
-            reader = new StreamReader(containedStream, Encoding.ASCII, false, 1024, true);
-            writer = new StreamWriter(containedStream, Encoding.ASCII, 1024, true);
+            _reader = new StreamReader(ContainedStream, Encoding.ASCII, false, 1024, true);
+            _writer = new StreamWriter(ContainedStream, Encoding.ASCII, 1024, true);
         }
 
-        public bool isConnected()
+        /// <summary>
+        ///     Determines whether this instance is connected.
+        /// </summary>
+        /// <returns>
+        ///     <c>true</c> if this instance is connected; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsConnected()
         {
-            switch (connectionType)
+            switch (_connectionType)
             {
-                    case ConnectionType.NONE: return false;
-                    case ConnectionType.TCP: return tcpClient.Connected;
-                    case ConnectionType.COM: return serialPort.IsOpen;
+                case ConnectionType.NONE: return false;
+                case ConnectionType.TCP: return _tcpClient.Connected;
+                case ConnectionType.COM: return _serialPort.IsOpen;
             }
             return false;
         }
 
+        /// <summary>
+        ///     Writes a string to the device. Does not add a terminator.
+        /// </summary>
+        /// <param name="stringToWrite">The string to write.</param>
         public void WriteString(string stringToWrite)
         {
-            if (DEBUG)
+#if (DEBUG)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write(stringToWrite);
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            if (isConnected())
+#endif
+            if (IsConnected())
             {
-                writer.Write(stringToWrite);
-                writer.Flush();
+                _writer.Write(stringToWrite);
+                _writer.Flush();
             }
-
         }
 
 
-        //TODO: modify read to read until a \r\n or \n
+        /// <summary>
+        ///     Reads a complete line from the port.
+        ///     Reads until either a newline (\n), carriage return (\r) or combination. The terminator is not included.
+        /// </summary>
+        /// <returns> The read string</returns>
         public string ReadString()
         {
-            string res = reader.ReadLine();
-            if (DEBUG)
+            var res = _reader.ReadLine();
+#if (DEBUG)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write(res);
                 Console.ForegroundColor = ConsoleColor.White;
             }
+#endif
             return res;
         }
 
+        /// <summary>
+        ///     Reads the string asynchronous. Same as ReadString
+        /// </summary>
+        /// <returns>the read string</returns>
         public async Task<string> ReadStringAsync()
         {
-            string res = await reader.ReadLineAsync();
-            if (DEBUG)
+            var res = await _reader.ReadLineAsync();
+#if (DEBUG)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write(res);
                 Console.ForegroundColor = ConsoleColor.White;
             }
+#endif
             return res;
         }
 
+
+        private enum ConnectionType
+        {
+            NONE,
+            TCP,
+            COM
+        }
     }
 }
