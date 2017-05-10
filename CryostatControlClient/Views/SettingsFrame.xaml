@@ -9,7 +9,7 @@
         <ResourceDictionary Source="Styles.xaml"/>
     </Grid.Resources>
 
-    <Viewbox Style="{StaticResource SettingsViewBoxBottom}" Grid.Row="0">
+    <Viewbox Style="{StaticResource SettingsViewBoxTop}" Grid.Row="0">
         <StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -42,7 +42,7 @@
         </StackPanel>
     </Viewbox>
 
-    <Viewbox Grid.Row="1">
+    <Viewbox Style="{StaticResource SettingsViewBoxBottom}" Grid.Row="1">
         <StackPanel Grid.Row="1">
             <xctk:DateTimePicker 
                             />

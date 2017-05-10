@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CryostatControlClient"
         mc:Ignorable="d"
         Title="Cryostat Refrigerator Control" 
-        Height="960" Width="1280" 
+        Height="700" Width="1280" 
 
         WindowStartupLocation="CenterScreen">
     <!--<Window.Resources>
