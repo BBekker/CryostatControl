@@ -46,10 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agilent34972A.cs" />
+    <Compile Include="Compressor\Enumerators\AnalogRegistersEnum.cs" />
+    <Compile Include="Compressor\Enumerators\HoldingRegistersEnum.cs" />
     <Compile Include="Compressor\Enumerators\PressureEnum.cs" />
     <Compile Include="Compressor\Enumerators\ErrorEnum.cs" />
     <Compile Include="Compressor\Enumerators\EnergizedEnum.cs" />
-    <Compile Include="Compressor\Enumerators\RegistersEnum.cs" />
     <Compile Include="Compressor\Enumerators\StatusEnum.cs" />
     <Compile Include="Compressor\Compressor.cs" />
     <Compile Include="Compressor\CompressorMain.cs" />
