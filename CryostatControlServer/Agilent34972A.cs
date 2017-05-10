@@ -1,149 +1,217 @@
-﻿//==============================================================================
-//
-// Title:       Agilent34972A.cs
-// Purpose:     A short description of the interface.
-//
-// Created on:  02/03/2011 at 16:28:02 by Joep Lohmann.
-// Modified:    08/05/2017 by Bernard Bekker
-// Copyright:   SRON. All Rights Reserved.
-//
-//==============================================================================
-
-using System;
-using System.Threading;
-using CryostatControlServer.Streams;
+﻿//-----------------------------------------------------------------------
+// <copyright file="Agilent34972A.cs" company="SRON">
+//     Copyright (c) SRON. All rights reserved.
+// </copyright>
+// <author>Bernard Bekker</author>
+//-----------------------------------------------------------------------
 
 namespace CryostatControlServer
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Threading;
+
+    using CryostatControlServer.Streams;
+
+    /// <summary>
+    /// Agilent34972 class
+    /// </summary>
     public class Agilent34972A
     {
-
-        #region Constant values
-
-        // Temperature sensors
-        public const int SENS_HE4PUMP_T = 106;
-
-        public const int SENS_HE3PUMP_T = 101;
-        public const int SENS_HE4SWITCH_T = 102;
-        public const int SENS_HE3SWITCH_T = 103;
-        public const int SENS_4KPLATE_T = 105;
-        public const int SENS_2KPLATE_T = 104;
-        public const int SENS_HE4HEAD_T = 108;
-        public const int SENS_HE3HEAD_T = 107;
-
-        // Heater sensors
-        public const int SENS_HE3PUMP = 110;
-
-        public const int SENS_HE3SWITCH = 112;
-        public const int SENS_HE4PUMP = 109;
-        public const int SENS_HE4SWITCH = 111;
-
-        // Digital Channel
-        public const int CTRL_DIG_OUT = 201;
-
-        // Heaters
-        public const int PUMP_HE3 = 204;
-
-        public const int SWITCH_HE3 = 305;
-        public const int PUMP_HE4 = 205;
-        public const int SWITCH_HE4 = 304;
-
-        private static readonly int[] Dig_Switch_Channels = { SENS_HE3HEAD_T, SENS_HE4HEAD_T, PUMP_HE3, PUMP_HE4 };
-
-        private const int TCP_PORT = 5025;
-        private const int TCP_TIMEOUT = 5000;
-
-        #endregion Constant values
-
-        private readonly ManagedStream _connection = new ManagedStream();
-
-        public void Init(string ipAddress)
-        {
-            _connection.ConnectTCP(ipAddress, TCP_PORT);
-
-            //-------- INITIALIZE AGILENT CONTROLLER
-
-            _connection.WriteString("FORM:READ:CHAN ON\n");
-            CheckState();
-        }
+        /// <summary>
+        /// The TCP port.
+        /// </summary>
+        private const int TcpPort = 5025;
 
         /// <summary>
-        /// Checks if the device is in a consistent state and all commands are performed. used for synchronisation.
+        /// The dig switch channels.
         /// </summary>
-        /// <exception cref="System.Exception">invalid agilent state</exception>
-        private void CheckState()
-        {
-            try
-            {
-                Monitor.Enter(_connection);
-                _connection.WriteString("*OPC?\n");
+        private static readonly Channels[] DigSwitchChannels = { Channels.SensHe3HeadT, Channels.SensHe4HeadT, Channels.PumpHe3, Channels.PumpHe4 };
 
-                var res = int.Parse(_connection.ReadString());
-                if (res < 1)
-                    throw new Exception("invalid agilent state");
-            }
-            finally
-            {
-                Monitor.Exit(_connection);
-            }
+        /// <summary>
+        /// The connection.
+        /// </summary>
+        private readonly ManagedStream connection = new ManagedStream();
+
+        /// <summary>
+        /// used DAQ channels.
+        /// </summary> 
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1602:EnumerationItemsMustBeDocumented", Justification = "Reviewed. Suppression is OK here.")]
+        public enum Channels
+        {
+            // Digital Channel
+            CtrlDigOut = 201,
+
+            // Heaters
+            PumpHe3 = 204,
+
+            PumpHe4 = 205,
+
+            Sens2KplateT = 104,
+
+            Sens4KplateT = 105,
+
+            SensHe3HeadT = 107,
+
+            // Heater sensors
+            SensHe3Pump = 110,
+
+            SensHe3PumpT = 101,
+
+            SensHe3Switch = 112,
+
+            SensHe3SwitchT = 103,
+
+            SensHe4HeadT = 108,
+
+            SensHe4Pump = 109,
+
+            // Temperature sensors
+            SensHe4PumpT = 106,
+
+            SensHe4Switch = 111,
+
+            SensHe4SwitchT = 102,
+
+            SwitchHe3 = 305,
+
+            SwitchHe4 = 304,
         }
 
         /// <summary>
         ///     Gets voltages from the device
         /// </summary>
-        /// <param name="sensIDs">Sensor ID's to measure.</param>
-        /// <returns>array of voltages in the same ordering as sensIDs</returns>
-        public double[] GetVoltages(int[] sensIDs)
+        /// <param name="channelIds">Sensor ID's to measure.</param>
+        /// <returns>array of voltages in the same ordering as channelIds</returns>
+        public double[] GetVoltages(Channels[] channelIds)
         {
             try
             {
-                Monitor.Enter(_connection);
-                var n_sensors = sensIDs.Length;
-                var n_chan = new int[n_sensors];
-                var rVolt = new double[n_sensors];
-                var Values = new double[2 * n_sensors];
-                var readVolt = new double[n_sensors];
+                Monitor.Enter(this.connection);
+                var nSensors = channelIds.Length;
+                var nChan = new int[nSensors];
+                var rVolt = new double[nSensors];
+               
+                var readVolt = new double[nSensors];
 
-                //construct a command to read all specified voltages
-                var cmd_str = "ROUT:SCAN (@";
+                // construct a command to read all specified voltages
+                var cmdStr = "ROUT:SCAN (@";
 
-                for (var k = 0; k < n_sensors - 1; k++)
-                    cmd_str += $"{sensIDs[k]},";
-
-                cmd_str += $"{sensIDs[n_sensors - 1]})\n";
-                cmd_str += "READ?\n";
-                _connection.WriteString(cmd_str);
-
-                //read response
-                var res = _connection.ReadString();
-
-                //Extract data
-                Values = GetDataFromString(res);
-
-                //split into voltages and channels
-                for (var k = 0; k < n_sensors; k++)
+                for (var k = 0; k < nSensors - 1; k++)
                 {
-                    rVolt[k] = Values[2 * k];
-                    n_chan[k] = (int) Values[2 * k + 1];
+                    cmdStr += $"{channelIds[k]},";
                 }
 
-                //Order temperature in order of sens_IDs
-                for (var k = 0; k < n_sensors; k++)
-                for (var i = 0; i < n_sensors; i++)
-                    if (sensIDs[i] == n_chan[k])
-                        readVolt[i] = rVolt[k];
+                cmdStr += $"{channelIds[nSensors - 1]})\n";
+                cmdStr += "READ?\n";
+                this.connection.WriteString(cmdStr);
+
+                // read response
+                var res = this.connection.ReadString();
+
+                // Extract data
+                var values = GetDataFromString(res);
+
+                // split into voltages and channels
+                for (var k = 0; k < nSensors; k++)
+                {
+                    rVolt[k] = values[2 * k];
+                    nChan[k] = (int)values[(2 * k) + 1];
+                }
+
+                // Order temperature in order of sens_IDs
+                for (var k = 0; k < nSensors; k++)
+                {
+                    for (var i = 0; i < nSensors; i++)
+                    {
+                        if ((int)channelIds[i] == nChan[k])
+                        {
+                            readVolt[i] = rVolt[k];
+                        }
+                    }
+                }
 
                 // Write ABOR command to return
-                _connection.WriteString("ABOR\n");
-                CheckState();
+                this.connection.WriteString("ABOR\n");
+                this.CheckState();
 
                 return readVolt;
             }
             finally
             {
-                Monitor.Exit(_connection);
+                Monitor.Exit(this.connection);
             }
-            
+        }
+
+        /// <summary>
+        /// Initializes the specified IP address.
+        /// </summary>
+        /// <param name="ipAddress">The IP address.</param>
+        public void Init(string ipAddress)
+        {
+            this.connection.ConnectTCP(ipAddress, TcpPort);
+
+            // -------- INITIALIZE AGILENT CONTROLLER
+            this.connection.WriteString("FORM:READ:CHAN ON\n");
+            this.CheckState();
+        }
+
+        /// <summary>
+        /// Set digital output.
+        /// </summary>
+        /// <param name="switch_ID">
+        /// The switch_ id.
+        /// </param>
+        /// <param name="b_set">
+        /// The b_set.
+        /// </param>
+        public void SetDigitalOutput(Channels switch_ID, bool b_set)
+        {
+            try
+            {
+                Monitor.Enter(this.connection);
+
+                // Get current digital output values
+                this.connection.WriteString($"SOUR:DIG:DATA:BYTE? (@{(int)Channels.CtrlDigOut})\n");
+                var resString = this.connection.ReadString();
+                var getByte = int.Parse(resString); // TODO: Catch error
+
+                // find corresponding bits
+                var bitVal = 1;
+                for (var k = 0; k < DigSwitchChannels.Length; k++)
+                {
+                    if (switch_ID == DigSwitchChannels[k])
+                    {
+                        bitVal = 1 << k;
+                        if (k < 2)
+                        {
+                            b_set = !b_set;
+                        }
+
+                        break;
+                    }
+                }
+
+                // set or clear the bit in the old values
+                var setByte = 0;
+                if (b_set)
+                {
+                    // Set bit : 1
+                    setByte = getByte | bitVal;
+                }
+                else
+                {
+                    // Set bit : 0
+                    setByte = getByte - (getByte & bitVal);
+                }
+
+                // write new configuration
+                this.connection.WriteString($"SOUR:DIG:DATA:BYTE {setByte}, (@{(int)Channels.CtrlDigOut})\n");
+            }
+            finally
+            {
+                Monitor.Exit(this.connection);
+            }
         }
 
         /// <summary>
@@ -151,67 +219,62 @@ namespace CryostatControlServer
         /// </summary>
         /// <param name="heatId">The heater identifier.</param>
         /// <param name="setVoltage">The set voltage.</param>
-        public void SetHeaterVoltage(int heatId, double setVoltage)
+        public void SetHeaterVoltage(Channels heatId, double setVoltage)
         {
             try
             {
-                Monitor.Enter(_connection);
-                _connection.WriteString($"SOUR:VOLT {setVoltage:F3}, (@{heatId})\n");
+                Monitor.Enter(this.connection);
+                this.connection.WriteString($"SOUR:VOLT {setVoltage:F3}, (@{(int)heatId})\n");
             }
             finally
             {
-                Monitor.Exit(_connection);
+                Monitor.Exit(this.connection);
             }
         }
 
-
-        public void SetDigitalOutput(int switch_ID, bool b_set)
-        {
-            try
-            {
-                Monitor.Enter(_connection);
-                // Get current digital output values
-                _connection.WriteString($"SOUR:DIG:DATA:BYTE? (@{CTRL_DIG_OUT})\n");
-                var res_string = _connection.ReadString();
-                var get_byte = int.Parse(res_string); //TODO: Catch error
-
-                //find corresponding bits
-                var bit_val = 1;
-                for (var k = 0; k < Dig_Switch_Channels.Length; k++)
-                    if (switch_ID == Dig_Switch_Channels[k])
-                    {
-                        bit_val = 1 << k;
-                        if (k < 2)
-                            b_set = !b_set;
-
-                        break;
-                    }
-
-                //set or clear the bit in the old values
-                var set_byte = 0;
-                if (b_set) // Set bit : 1
-                    set_byte = get_byte | bit_val;
-                else // Set bit : 0
-                    set_byte = get_byte - (get_byte & bit_val);
-
-                //write new configuration
-                _connection.WriteString($"SOUR:DIG:DATA:BYTE {set_byte}, (@{CTRL_DIG_OUT})\n");
-            }
-            finally
-            {
-                Monitor.Exit(_connection);
-            }
-        }
-
+        /// <summary>
+        /// Get returned data from string.
+        /// </summary>
+        /// <param name="dataString">
+        /// The data string.
+        /// </param>
+        /// <returns>
+        /// The <see cref="double[]"/>.
+        /// </returns>
         private static double[] GetDataFromString(string dataString)
         {
             var split = dataString.Split(',');
             var results = new double[split.Length];
             for (var i = 0; i < split.Length; i++)
+            {
                 results[i] = double.Parse(split[i]);
+            }
+
             return results;
         }
 
-        
+        /// <summary>
+        /// Checks if the device is in a consistent state and all commands are performed. used for synchronisation.
+        /// </summary>
+        /// <exception cref="System.Exception">invalid agilent state</exception>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
+        private void CheckState()
+        {
+            try
+            {
+                Monitor.Enter(this.connection);
+                this.connection.WriteString("*OPC?\n");
+
+                var res = int.Parse(this.connection.ReadString());
+                if (res < 1)
+                {
+                    throw new Exception("invalid agilent state");
+                }
+            }
+            finally
+            {
+                Monitor.Exit(this.connection);
+            }
+        }
     }
 }

@@ -30,18 +30,18 @@ namespace CryostatControlServer
             {
                 Agilent34972A H7Cooler = new Agilent34972A();
                 H7Cooler.Init("192.168.1.100");
-                double[] voltages = H7Cooler.GetVoltages(new int[]
+                double[] voltages = H7Cooler.GetVoltages(new[]
                 {
-                    Agilent34972A.SENS_HE3PUMP_T,
-                    Agilent34972A.SENS_HE4PUMP_T,
+                    Agilent34972A.Channels.SensHe3PumpT,
+                    Agilent34972A.Channels.SensHe4PumpT,
                 });
                 Console.WriteLine($"Voltage H3: {voltages[0]}, voltage H4: {voltages[1]}");
                 for(int i = 0; i < 100000; i++)
                 {
-                    H7Cooler.SetHeaterVoltage(Agilent34972A.PUMP_HE3, Math.Sin((double)i/100.0)+1);
-                    H7Cooler.SetDigitalOutput(Agilent34972A.SENS_HE3HEAD_T, true);
+                    H7Cooler.SetHeaterVoltage(Agilent34972A.Channels.PumpHe3, Math.Sin((double)i/100.0)+1);
+                    H7Cooler.SetDigitalOutput(Agilent34972A.Channels.SensHe3HeadT, true);
                     Thread.Sleep(1000);
-                    H7Cooler.SetDigitalOutput(Agilent34972A.SENS_HE3HEAD_T, false);
+                    H7Cooler.SetDigitalOutput(Agilent34972A.Channels.SensHe3HeadT, false);
                     Thread.Sleep(1000);
                 }
                 
@@ -52,16 +52,16 @@ namespace CryostatControlServer
             Thread LakeShoreThread = new Thread(new ThreadStart(() =>
             {
                 LakeShore ls = new LakeShore();
-                ls.init("COM6");
+                ls.Init("COM6");
                 while (run)
                 {
-                    double t1 = ls.readTemperature("A");
-                    double t2 = ls.readTemperature("B");
+                    double t1 = ls.ReadTemperature("A");
+                    double t2 = ls.ReadTemperature("B");
                     Console.WriteLine("Temp 1: {0}K, Temp 2: {1}K",t1, t2);
                     Thread.Sleep(1000);
                     
                 }
-                ls.close();
+                ls.Close();
             }));
             LakeShoreThread.Start();
 
