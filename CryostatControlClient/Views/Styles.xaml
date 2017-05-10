@@ -1,12 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CryostatControlClient"
-                    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
-    <ResourceDictionary x:Key="SettingsStyles" Source="SettingsStyles.xaml"/>
-    
+                    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+
     <!--MainWindow Styles-->
     <Style x:Key="MainWindow" TargetType="Grid">
-        <Setter Property="Background" Value="WhiteSmoke" />
+        <Setter Property="Background" Value="#585d66" />
     </Style>
 
     <!--TitleFrame Styles-->
@@ -15,47 +15,48 @@
         <Setter Property="MaxWidth" Value="620" />
     </Style>
 
-    <Style x:Key="TitleLabelStyle" TargetType="Label" BasedOn="{StaticResource ControlStyle}">
+    <Style x:Key="TitleLabelStyle" TargetType="Label">
         <Setter Property="FontSize" Value="36" />
     </Style>
 
     <!--SettingsFrame Styles-->
-    <Style x:Key="SettingsLabelLeft" TargetType="Label" BasedOn="{StaticResource ControlStyle}">
+    <Style x:Key="SettingsLabelLeft" TargetType="Label">
         <Setter Property="Margin" Value="40, 20, 0, 0"/>
     </Style>
 
-    <Style x:Key="SettingsLabelRight" TargetType="Label" BasedOn="{StaticResource ControlStyle}">
+    <Style x:Key="SettingsLabelRight" TargetType="Label">
         <Setter Property="Margin" Value="10, 20, 20, 0"/>
         <Setter Property="Foreground" Value="Green" />
     </Style>
-    
-    <Style x:Key="SettingsViewBoxTop" TargetType="Viewbox">
+
+    <Style x:Key="SettingsViewBox" TargetType="Viewbox">
         <Setter Property="MaxHeight" Value="308" />
         <Setter Property="MaxWidth" Value="256" />
     </Style>
 
-    <Style x:Key="SettingsViewBoxBottom" TargetType="Viewbox">
-        <Setter Property="MaxHeight" Value="308" />
-        <Setter Property="MaxWidth" Value="256" />
-    </Style>
-
-    <Style x:Key="SettingsComboBox" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}">
+    <Style x:Key="SettingsComboBox" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
         <Setter Property="Width" Value="240"/>
         <Setter Property="Height" Value="30"/>
-        <Setter Property="Margin" Value="20, 20, 0, 0"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="20, 20, 20, 0"/>
         <Setter Property="FontWeight" Value="Normal"></Setter>
     </Style>
 
-    <Style x:Key="SettingsButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+    <Style x:Key="SettingsButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
         <Setter Property="Width" Value="240"/>
         <Setter Property="Height" Value="30"/>
-        <Setter Property="Margin" Value="20, 20, 0, 0"/>
+        <Setter Property="Margin" Value="20, 20, 20, 0"/>
     </Style>
 
-    <Style x:Key="SettingsDateTimePicker" TargetType="xctk:DateTimePicker" BasedOn="{StaticResource ControlStyle}">
+    <Style x:Key="SettingsDatePicker" TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
         <Setter Property="Width" Value="240"/>
         <Setter Property="Height" Value="30"/>
-        <Setter Property="Margin" Value="20, 20, 0, 0"/>
+        <Setter Property="Margin" Value="20, 20, 20, 0"/>
+    </Style>
+
+    <Style x:Key="SettingsTimePicker" TargetType="materialDesign:TimePicker">
+        <Setter Property="Width" Value="240"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Margin" Value="20, 20, 20, 0"/>
+        <Setter Property="Is24Hours" Value="True"></Setter>
     </Style>
 </ResourceDictionary>
