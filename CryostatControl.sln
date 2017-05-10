@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryostatControlClient", "Cr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryostatControlServer", "CryostatControlServer\CryostatControlServer.csproj", "{4724405F-6333-4320-9896-8AAAC233293A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrystatControlServerTest", "CrystatControlServerTest\CrystatControlServerTest.csproj", "{B9B7DA52-294C-491F-8A32-FFA3EF6E066B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
