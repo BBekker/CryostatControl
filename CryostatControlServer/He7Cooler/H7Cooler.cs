@@ -8,27 +8,21 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace CryostatControlServer
+namespace CryostatControlServer.He7Cooler
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
-    using System.Linq.Expressions;
-    using System.Text;
-    using System.Threading.Tasks;
 
-    using Microsoft.Win32.SafeHandles;
-
-    class H7Cooler
+    public class H7Cooler
     {
-        private Agilent34972A device = new Agilent34972A();
+        private readonly Agilent34972A device = new Agilent34972A();
 
-        private Sensor diode_sensor = new Sensor();
+        private Sensor diodeSensor = new Sensor();
 
-        private Sensor He3_sensor = new Sensor();
+        private Sensor he3Sensor = new Sensor();
 
-        private Sensor He4_sensor = new Sensor();
+        private Sensor he4Sensor = new Sensor();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="H7Cooler"/> class. 
@@ -49,16 +43,20 @@ namespace CryostatControlServer
             this.device.Init(ip);
         }
 
+        /// <summary>
+        /// Load sensor calibration values.
+        /// </summary>
         private void LoadCalibration()
         {
-            this.diode_sensor.LoadSensorCalibrationFromFile("diode.cal", 1, 0);
-            this.He3_sensor.LoadSensorCalibrationFromFile("RUOX.cal", 3, 0);
-            this.He4_sensor.LoadSensorCalibrationFromFile("RUOX.cal", 4, 0);
+            //TODO: Load this from settings
+            this.diodeSensor.LoadSensorCalibrationFromFile("DIODE.cal", 1, 0);
+            this.he3Sensor.LoadSensorCalibrationFromFile("RUOX.cal", 3, 0);
+            this.he4Sensor.LoadSensorCalibrationFromFile("RUOX.cal", 4, 0);
         }
 
 
 
-        private class Sensor
+        public class Sensor
         {
             /// <summary>
             /// The calibration data.
@@ -107,12 +105,36 @@ namespace CryostatControlServer
                 }
             }
 
+            /// <summary>
+            /// Add a calibration data point.
+            /// Exists mainly to be able to test this class.
+            /// </summary>
+            /// <param name="datapoint">
+            /// The data point.
+            /// </param>
+            public void AddCalibrationDatapoint(Tuple<double, double> datapoint)
+            {
+                this.calibrationData.Add(datapoint);
+                this.calibrationData.Sort((first, second) => (int)(first.Item1 - second.Item1));
+            }
+
+            /// <summary>
+            /// Convert a voltage to a temperature using the loaded calibration
+            /// </summary>
+            /// <param name="readVolt">
+            /// The sensor voltage.
+            /// </param>
+            /// <returns>
+            /// The temperature in Kelvin <see cref="double"/>.
+            /// </returns>
+            /// <exception cref="InvalidOperationException">
+            /// </exception>
             public double ConvertTemperature(double readVolt)
             {
                 //Check if voltage is outside of the range of calibration values
-                if (readVolt > this.calibrationData[this.calibrationData.Count].Item1)
+                if (readVolt > this.calibrationData[this.calibrationData.Count-1].Item1)
                 {
-                    return this.calibrationData[this.calibrationData.Count].Item2;
+                    return this.calibrationData[this.calibrationData.Count-1].Item2;
                 }
 
                 if (readVolt < this.calibrationData[0].Item1)
@@ -123,7 +145,7 @@ namespace CryostatControlServer
                 // find closest calibration points and linearly interpolate between them.
                 for (int i = 1; i < this.calibrationData.Count; i++)
                 {
-                    if (this.calibrationData[i].Item1 > readVolt)
+                    if (this.calibrationData[i].Item1 >= readVolt)
                     {
                         return InterpolateTemperature(readVolt, this.calibrationData[i - 1], this.calibrationData[i]);
                     }
