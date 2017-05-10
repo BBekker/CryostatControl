@@ -9,11 +9,11 @@
         Height="960" Width="1280" 
 
         WindowStartupLocation="CenterScreen">
-    <Window.Resources>
+    <!--<Window.Resources>
         <ResourceDictionary Source="Styles.xaml"/>
-    </Window.Resources>
+    </Window.Resources>-->
     
-    <Grid Style="{StaticResource MainWindow}">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="4*" />

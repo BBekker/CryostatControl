@@ -8,8 +8,8 @@
     <Grid.Resources>
         <ResourceDictionary Source="Styles.xaml"/>
     </Grid.Resources>
-    
-    <Viewbox Grid.Row="0" Style="{StaticResource SettingsViewBoxTop}">
+
+    <Viewbox Style="{StaticResource SettingsViewBoxBottom}" Grid.Row="0">
         <StackPanel>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -42,10 +42,10 @@
         </StackPanel>
     </Viewbox>
 
-    <Viewbox Grid.Row="1" Style="{StaticResource SettingsViewBoxBottom}">
+    <Viewbox Grid.Row="1">
         <StackPanel Grid.Row="1">
             <xctk:DateTimePicker 
-                Style="{StaticResource SettingsDateTimePicker}"            />
+                            />
             <ComboBox Style="{StaticResource SettingsComboBox}">
                 <ComboBoxItem>Cool down</ComboBoxItem>
                 <ComboBoxItem>Recycle</ComboBoxItem>
