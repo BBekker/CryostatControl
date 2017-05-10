@@ -10,7 +10,12 @@
     </Style>
 
     <!--TitleFrame Styles-->
-    <Style x:Key="TitleStyle" TargetType="Label" BasedOn="{StaticResource ControlStyle}">
+    <Style x:Key="TitleBoxStyle" TargetType="Viewbox">
+        <Setter Property="MaxHeight" Value="50" />
+        <Setter Property="MaxWidth" Value="620" />
+    </Style>
+
+    <Style x:Key="TitleLabelStyle" TargetType="Label" BasedOn="{StaticResource ControlStyle}">
         <Setter Property="FontSize" Value="36" />
     </Style>
 

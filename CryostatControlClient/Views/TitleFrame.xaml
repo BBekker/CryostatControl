@@ -3,7 +3,7 @@
         <ResourceDictionary Source="Styles.xaml"/>
     </Grid.Resources>
 
-    <Viewbox>
-        <Label Style="{StaticResource TitleStyle}">Cryostat Refrigerator Control</Label>
+    <Viewbox Style="{StaticResource TitleBoxStyle}">
+        <Label Style="{StaticResource TitleLabelStyle}">Cryostat Refrigerator Control</Label>
     </Viewbox>
 </Grid>
