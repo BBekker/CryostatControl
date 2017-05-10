@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CryostatControlServer.Compressor
+﻿namespace CryostatControlServer.Compressor
 {
+    using System;
+
     internal class CompressorMain
     {
         #region Fields
@@ -65,11 +60,8 @@ namespace CryostatControlServer.Compressor
 
         public static void Main(String[] args)
         {
-            CompressorUnit = new Compressor(local);
+            CompressorUnit = new Compressor(compressorAddress);
             TestStatus();
-            TestTemperatures();
-            TestPressure();
-            TestMisc();
             Console.Read();
         }
 

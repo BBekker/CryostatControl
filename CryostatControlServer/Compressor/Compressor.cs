@@ -64,8 +64,8 @@ namespace CryostatControlServer.Compressor
         /// </summary>
         public void TurnOn()
         {
-            const ushort on = 0x001;
-            this.master.WriteSingleRegister(Slave, (ushort)HoldingRegistersEnum.Control, on);
+            const ushort On = 0x001;
+            this.master.WriteSingleRegister(Slave, (ushort)HoldingRegistersEnum.Control, On);
             Console.WriteLine("Compressor turned on");
         }
 
@@ -74,8 +74,8 @@ namespace CryostatControlServer.Compressor
         /// </summary>
         public void TurnOff()
         {
-            const ushort off = 0x00FF;
-            this.master.WriteSingleRegister(Slave, (ushort)HoldingRegistersEnum.Control, off);
+            const ushort Off = 0x00FF;
+            this.master.WriteSingleRegister(Slave, (ushort)HoldingRegistersEnum.Control, Off);
             Console.WriteLine("Compressor turned off");
         }
 
@@ -295,8 +295,6 @@ namespace CryostatControlServer.Compressor
         /// <returns>float number from the two<see cref="ushort"/></returns>
         private float ParseFloat(ushort[] input)
         {
-            Console.WriteLine("eerste {0}", input[0]);
-            Console.WriteLine("tweede {0}", input[1]);
             byte[] bytes1 = BitConverter.GetBytes(input[0]);
             byte[] bytes2 = BitConverter.GetBytes(input[1]);
             byte[] arbyWorker = new byte[4];
