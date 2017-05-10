@@ -4,7 +4,7 @@
 // </copyright>
 // <author>Bernard Bekker</author>
 // <summary>
-//   
+//   Connection and comunication to the LakeShore 355 temperature controller.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -25,6 +25,7 @@ namespace CryostatControlServer
         private const string Coldplate3K = "A";
         private const string Coldplate5K = "B";
 
+        private const int Boudrate = 57600;
         #endregion const 
 
         /// <summary>
@@ -44,7 +45,7 @@ namespace CryostatControlServer
         /// <param name="portname">The port name.</param>
         public void Init(string portname)
         {
-            this.ms.ConnectCOM(portname, 57600);
+            this.ms.ConnectCOM(portname, Boudrate);
 
             this.lastCommand = DateTime.Now;
 

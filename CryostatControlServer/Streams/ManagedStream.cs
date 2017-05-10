@@ -29,12 +29,17 @@ namespace CryostatControlServer.Streams
     internal class ManagedStream
     {
         /// <summary>
-        /// The tcp timeout.
+        /// The buffer size of the reader and writer.
+        /// </summary>
+        private const int BufferSize = 1024;
+
+        /// <summary>
+        /// The TCP timeout.
         /// </summary>
         private readonly TimeSpan tcpTimeout = TimeSpan.FromMilliseconds(1000);
 
         /// <summary>
-        /// The tcp client.
+        /// The TCP client.
         /// </summary>
         private readonly TcpClient tcpClient = new TcpClient();
 
@@ -91,8 +96,8 @@ namespace CryostatControlServer.Streams
                 throw new TimeoutException("TCP Connection timed out");
             }
 
-            this.tcpClient.SendTimeout = 1000;
-            this.tcpClient.ReceiveTimeout = 1000;
+            this.tcpClient.SendTimeout = (int)this.tcpTimeout.TotalMilliseconds;
+            this.tcpClient.ReceiveTimeout = (int)this.tcpTimeout.TotalMilliseconds;
             this.containedStream = this.tcpClient.GetStream();
 
             this.connectionType = ConnectionType.TCP;
@@ -216,8 +221,8 @@ namespace CryostatControlServer.Streams
         /// </summary>
         private void Init()
         {
-            this.reader = new StreamReader(this.containedStream, Encoding.ASCII, false, 1024, true);
-            this.writer = new StreamWriter(this.containedStream, Encoding.ASCII, 1024, true);
+            this.reader = new StreamReader(this.containedStream, Encoding.ASCII, false, BufferSize, true);
+            this.writer = new StreamWriter(this.containedStream, Encoding.ASCII, BufferSize, true);
         }
     }
 }

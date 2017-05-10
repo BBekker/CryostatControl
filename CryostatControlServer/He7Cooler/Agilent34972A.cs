@@ -5,7 +5,7 @@
 // <author>Bernard Bekker</author>
 //-----------------------------------------------------------------------
 
-namespace CryostatControlServer
+namespace CryostatControlServer.He7Cooler
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
@@ -33,50 +33,6 @@ namespace CryostatControlServer
         /// </summary>
         private readonly ManagedStream connection = new ManagedStream();
 
-        /// <summary>
-        /// used DAQ channels.
-        /// </summary> 
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1602:EnumerationItemsMustBeDocumented", Justification = "Reviewed. Suppression is OK here.")]
-        public enum Channels
-        {
-            // Digital Channel
-            CtrlDigOut = 201,
-
-            // Heaters
-            PumpHe3 = 204,
-
-            PumpHe4 = 205,
-
-            Sens2KplateT = 104,
-
-            Sens4KplateT = 105,
-
-            SensHe3HeadT = 107,
-
-            // Heater sensors
-            SensHe3Pump = 110,
-
-            SensHe3PumpT = 101,
-
-            SensHe3Switch = 112,
-
-            SensHe3SwitchT = 103,
-
-            SensHe4HeadT = 108,
-
-            SensHe4Pump = 109,
-
-            // Temperature sensors
-            SensHe4PumpT = 106,
-
-            SensHe4Switch = 111,
-
-            SensHe4SwitchT = 102,
-
-            SwitchHe3 = 305,
-
-            SwitchHe4 = 304,
-        }
 
         /// <summary>
         ///     Gets voltages from the device
@@ -96,7 +52,6 @@ namespace CryostatControlServer
 
                 // construct a command to read all specified voltages
                 var cmdStr = "ROUT:SCAN (@";
-
                 for (var k = 0; k < nSensors - 1; k++)
                 {
                     cmdStr += $"{channelIds[k]},";
@@ -104,12 +59,9 @@ namespace CryostatControlServer
 
                 cmdStr += $"{channelIds[nSensors - 1]})\n";
                 cmdStr += "READ?\n";
+
                 this.connection.WriteString(cmdStr);
-
-                // read response
                 var res = this.connection.ReadString();
-
-                // Extract data
                 var values = GetDataFromString(res);
 
                 // split into voltages and channels
@@ -151,7 +103,6 @@ namespace CryostatControlServer
         {
             this.connection.ConnectTCP(ipAddress, TcpPort);
 
-            // -------- INITIALIZE AGILENT CONTROLLER
             this.connection.WriteString("FORM:READ:CHAN ON\n");
             this.CheckState();
         }
@@ -196,16 +147,13 @@ namespace CryostatControlServer
                 var setByte = 0;
                 if (b_set)
                 {
-                    // Set bit : 1
                     setByte = getByte | bitVal;
                 }
                 else
                 {
-                    // Set bit : 0
                     setByte = getByte - (getByte & bitVal);
                 }
-
-                // write new configuration
+                
                 this.connection.WriteString($"SOUR:DIG:DATA:BYTE {setByte}, (@{(int)Channels.CtrlDigOut})\n");
             }
             finally

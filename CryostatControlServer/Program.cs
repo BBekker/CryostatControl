@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace CryostatControlServer
 {
-    
+    using CryostatControlServer.He7Cooler;
+
     class Program
     {
 
@@ -32,16 +33,16 @@ namespace CryostatControlServer
                 H7Cooler.Init("192.168.1.100");
                 double[] voltages = H7Cooler.GetVoltages(new[]
                 {
-                    Agilent34972A.Channels.SensHe3PumpT,
-                    Agilent34972A.Channels.SensHe4PumpT,
+                    Channels.SensHe3PumpT,
+                    Channels.SensHe4PumpT,
                 });
                 Console.WriteLine($"Voltage H3: {voltages[0]}, voltage H4: {voltages[1]}");
                 for(int i = 0; i < 100000; i++)
                 {
-                    H7Cooler.SetHeaterVoltage(Agilent34972A.Channels.PumpHe3, Math.Sin((double)i/100.0)+1);
-                    H7Cooler.SetDigitalOutput(Agilent34972A.Channels.SensHe3HeadT, true);
+                    H7Cooler.SetHeaterVoltage(Channels.PumpHe3, Math.Sin((double)i/100.0)+1);
+                    H7Cooler.SetDigitalOutput(Channels.SensHe3HeadT, true);
                     Thread.Sleep(1000);
-                    H7Cooler.SetDigitalOutput(Agilent34972A.Channels.SensHe3HeadT, false);
+                    H7Cooler.SetDigitalOutput(Channels.SensHe3HeadT, false);
                     Thread.Sleep(1000);
                 }
                 
