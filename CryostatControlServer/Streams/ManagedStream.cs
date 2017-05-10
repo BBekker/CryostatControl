@@ -8,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace CryostatControlServer.Streams
 {
+    /// <summary>
+    /// MannagedStream
+    /// 
+    /// MannagedStream is a standerdized class to communicate to a TCP or Serial Port. It tries to handle as many common issues as possible.
+    /// Methods are not re-entrant, since most devices are neither. THe code calling methods in this class should take care to only issue one command at the time.
+    /// </summary>
     internal class ManagedStream
     {
         private readonly TimeSpan TCP_TIMEOUT = TimeSpan.FromMilliseconds(1000);

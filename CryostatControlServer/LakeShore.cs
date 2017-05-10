@@ -26,6 +26,7 @@ namespace CryostatControlServer
         /// <param name="portname">The portname.</param>
         public void init(string portname)
         {
+            
             _ms.ConnectCOM(portname, 57600);
 
             _lastCommand = DateTime.Now;
@@ -49,10 +50,18 @@ namespace CryostatControlServer
         /// <returns>sensor temperature in K</returns>
         public double readTemperature(string sensor)
         {
-            WaitCommandInterval();
-            _ms.WriteString($"KRDG? {sensor}\n");
-            string response = _ms.ReadString();
-            return double.Parse(response);
+            try
+            {
+                Monitor.Enter(_ms);
+                WaitCommandInterval();
+                _ms.WriteString($"KRDG? {sensor}\n");
+                string response = _ms.ReadString();
+                return double.Parse(response);
+            }
+            finally
+            {
+                Monitor.Exit(_ms);
+            }
         }
 
         /// <summary>
@@ -61,9 +70,17 @@ namespace CryostatControlServer
         /// </summary>
         public void OPC()
         {
-            WaitCommandInterval();
-            _ms.WriteString("OPC?\n");
-            _ms.ReadString();
+            try
+            {
+                Monitor.Enter(_ms);
+                WaitCommandInterval();
+                _ms.WriteString("OPC?\n");
+                _ms.ReadString();
+            }
+            finally
+            {
+                Monitor.Exit(_ms);
+            }
         }
 
         /// <summary>
@@ -76,6 +93,7 @@ namespace CryostatControlServer
             {
                 Thread.Sleep(DateTime.Now - _lastCommand);
             }
+            _lastCommand = DateTime.Now;
         }
     }
 }

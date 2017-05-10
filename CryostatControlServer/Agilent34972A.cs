@@ -10,13 +10,13 @@
 //==============================================================================
 
 using System;
+using System.Threading;
 using CryostatControlServer.Streams;
 
 namespace CryostatControlServer
 {
-    internal class Agilent34972A
+    public class Agilent34972A
     {
-        private readonly ManagedStream _connection = new ManagedStream();
 
         #region Constant values
 
@@ -55,6 +55,8 @@ namespace CryostatControlServer
 
         #endregion Constant values
 
+        private readonly ManagedStream _connection = new ManagedStream();
+
         public void Init(string ipAddress)
         {
             _connection.ConnectTCP(ipAddress, TCP_PORT);
@@ -71,11 +73,19 @@ namespace CryostatControlServer
         /// <exception cref="System.Exception">invalid agilent state</exception>
         private void CheckState()
         {
-            _connection.WriteString("*OPC?\n");
+            try
+            {
+                Monitor.Enter(_connection);
+                _connection.WriteString("*OPC?\n");
 
-            var res = int.Parse(_connection.ReadString());
-            if (res < 1)
-                throw new Exception("invalid agilent state");
+                var res = int.Parse(_connection.ReadString());
+                if (res < 1)
+                    throw new Exception("invalid agilent state");
+            }
+            finally
+            {
+                Monitor.Exit(_connection);
+            }
         }
 
         /// <summary>
@@ -85,46 +95,55 @@ namespace CryostatControlServer
         /// <returns>array of voltages in the same ordering as sensIDs</returns>
         public double[] GetVoltages(int[] sensIDs)
         {
-            var n_sensors = sensIDs.Length;
-            var n_chan = new int[n_sensors];
-            var rVolt = new double[n_sensors];
-            var Values = new double[2 * n_sensors];
-            var readVolt = new double[n_sensors];
-
-            //construct a command to read all specified voltages
-            var cmd_str = "ROUT:SCAN (@";
-
-            for (var k = 0; k < n_sensors - 1; k++)
-                cmd_str += $"{sensIDs[k]},";
-
-            cmd_str += $"{sensIDs[n_sensors - 1]})\n";
-            cmd_str += "READ?\n";
-            _connection.WriteString(cmd_str);
-
-            //read response
-            var res = _connection.ReadString();
-
-            //Extract data
-            Values = GetDataFromString(res);
-
-            //split into voltages and channels
-            for (var k = 0; k < n_sensors; k++)
+            try
             {
-                rVolt[k] = Values[2 * k];
-                n_chan[k] = (int) Values[2 * k + 1];
+                Monitor.Enter(_connection);
+                var n_sensors = sensIDs.Length;
+                var n_chan = new int[n_sensors];
+                var rVolt = new double[n_sensors];
+                var Values = new double[2 * n_sensors];
+                var readVolt = new double[n_sensors];
+
+                //construct a command to read all specified voltages
+                var cmd_str = "ROUT:SCAN (@";
+
+                for (var k = 0; k < n_sensors - 1; k++)
+                    cmd_str += $"{sensIDs[k]},";
+
+                cmd_str += $"{sensIDs[n_sensors - 1]})\n";
+                cmd_str += "READ?\n";
+                _connection.WriteString(cmd_str);
+
+                //read response
+                var res = _connection.ReadString();
+
+                //Extract data
+                Values = GetDataFromString(res);
+
+                //split into voltages and channels
+                for (var k = 0; k < n_sensors; k++)
+                {
+                    rVolt[k] = Values[2 * k];
+                    n_chan[k] = (int) Values[2 * k + 1];
+                }
+
+                //Order temperature in order of sens_IDs
+                for (var k = 0; k < n_sensors; k++)
+                for (var i = 0; i < n_sensors; i++)
+                    if (sensIDs[i] == n_chan[k])
+                        readVolt[i] = rVolt[k];
+
+                // Write ABOR command to return
+                _connection.WriteString("ABOR\n");
+                CheckState();
+
+                return readVolt;
             }
-
-            //Order temperature in order of sens_IDs
-            for (var k = 0; k < n_sensors; k++)
-            for (var i = 0; i < n_sensors; i++)
-                if (sensIDs[i] == n_chan[k])
-                    readVolt[i] = rVolt[k];
-
-            // Write ABOR command to return
-            _connection.WriteString("ABOR\n");
-            CheckState();
-
-            return readVolt;
+            finally
+            {
+                Monitor.Exit(_connection);
+            }
+            
         }
 
         /// <summary>
@@ -134,38 +153,54 @@ namespace CryostatControlServer
         /// <param name="setVoltage">The set voltage.</param>
         public void SetHeaterVoltage(int heatId, double setVoltage)
         {
-            _connection.WriteString($"SOUR:VOLT {setVoltage:F3}, (@{heatId})\n");
+            try
+            {
+                Monitor.Enter(_connection);
+                _connection.WriteString($"SOUR:VOLT {setVoltage:F3}, (@{heatId})\n");
+            }
+            finally
+            {
+                Monitor.Exit(_connection);
+            }
         }
 
 
         public void SetDigitalOutput(int switch_ID, bool b_set)
         {
-            // Get current digital output values
-            _connection.WriteString($"SOUR:DIG:DATA:BYTE? (@{CTRL_DIG_OUT})\n");
-            var res_string = _connection.ReadString();
-            var get_byte = int.Parse(res_string); //TODO: Catch error
+            try
+            {
+                Monitor.Enter(_connection);
+                // Get current digital output values
+                _connection.WriteString($"SOUR:DIG:DATA:BYTE? (@{CTRL_DIG_OUT})\n");
+                var res_string = _connection.ReadString();
+                var get_byte = int.Parse(res_string); //TODO: Catch error
 
-            //find corresponding bits
-            var bit_val = 1;
-            for (var k = 0; k < Dig_Switch_Channels.Length; k++)
-                if (switch_ID == Dig_Switch_Channels[k])
-                {
-                    bit_val = 1 << k;
-                    if (k < 2)
-                        b_set = !b_set;
+                //find corresponding bits
+                var bit_val = 1;
+                for (var k = 0; k < Dig_Switch_Channels.Length; k++)
+                    if (switch_ID == Dig_Switch_Channels[k])
+                    {
+                        bit_val = 1 << k;
+                        if (k < 2)
+                            b_set = !b_set;
 
-                    break;
-                }
+                        break;
+                    }
 
-            //set or clear the bit in the old values
-            var set_byte = 0;
-            if (b_set) // Set bit : 1
-                set_byte = get_byte | bit_val;
-            else // Set bit : 0
-                set_byte = get_byte - (get_byte & bit_val);
+                //set or clear the bit in the old values
+                var set_byte = 0;
+                if (b_set) // Set bit : 1
+                    set_byte = get_byte | bit_val;
+                else // Set bit : 0
+                    set_byte = get_byte - (get_byte & bit_val);
 
-            //write new configuration
-            _connection.WriteString($"SOUR:DIG:DATA:BYTE {set_byte}, (@{CTRL_DIG_OUT})\n");
+                //write new configuration
+                _connection.WriteString($"SOUR:DIG:DATA:BYTE {set_byte}, (@{CTRL_DIG_OUT})\n");
+            }
+            finally
+            {
+                Monitor.Exit(_connection);
+            }
         }
 
         private static double[] GetDataFromString(string dataString)
