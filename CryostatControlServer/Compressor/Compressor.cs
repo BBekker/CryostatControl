@@ -37,6 +37,16 @@ namespace CryostatControlServer.Compressor
         private const ushort DoubleRegister = 2;
 
         /// <summary>
+        /// Amount of temperature register needed to read.
+        /// </summary>
+        private const ushort TemperatureRegister = 8;
+
+        /// <summary>
+        /// Amount of pressure register needed to read.
+        /// </summary>
+        private const ushort PressureRegister = 10;
+
+        /// <summary>
         /// Master instance where MODBUS calls can be called on.
         /// </summary>
         private readonly ModbusIpMaster master;
@@ -289,14 +299,63 @@ namespace CryostatControlServer.Compressor
         }
 
         /// <summary>
-        /// Helper method for converting the incoming <see cref="ushort"/> into floats. By shifting the bytes.
+        /// Reads all temperature registers.
+        /// </summary>
+        /// <returns>Array with floats of the registers</returns>
+        public float[] ReadAllTemperatures()
+        {
+            return this.ReadAll(
+                (ushort)AnalogRegistersEnum.CoolantInTemp,
+                TemperatureRegister);
+        }
+
+        /// <summary>
+        /// Reads all pressure registers.
+        /// </summary>
+        /// <returns>Array with floats of the registers</returns>
+        public float[] ReadAllPressures()
+        {
+            return this.ReadAll((ushort)AnalogRegistersEnum.LowPressure, PressureRegister);
+        }
+
+        /// <summary>
+        /// Reads all the requested registers and parse them into <see cref="float"/>.
+        /// </summary>
+        /// <param name="startRegister">The start register.</param>
+        /// <param name="amountOfRegisters">The amount of registers.</param>
+        /// <returns>The values of the register in <see cref="float"/></returns>
+        public float[] ReadAll(ushort startRegister, ushort amountOfRegisters)
+        {
+            float[] floats = new float[4];
+            ushort[] data = this.master.ReadInputRegisters(startRegister, amountOfRegisters);
+            for (ushort i = 0; i < data.Length / 2; i++)
+            {
+                floats[i] = this.ParseFloat(data[i], data[i + 1]);
+            }
+
+            return floats;
+        }
+
+        /// <summary>
+        /// Helper method for converting the incoming two <see cref="ushort"/> into <see cref="float"/>. By shifting the bytes.
         /// </summary>
         /// <param name="input">array with two <see cref="ushort"/> variables</param>
         /// <returns>float number from the two<see cref="ushort"/></returns>
         private float ParseFloat(ushort[] input)
         {
-            byte[] bytes1 = BitConverter.GetBytes(input[0]);
-            byte[] bytes2 = BitConverter.GetBytes(input[1]);
+            return this.ParseFloat(input[0], input[1]);
+        }
+
+        /// <summary>
+        /// Helper method for converting the incoming two <see cref="ushort"/> into <see cref="float"/>. By shifting the bytes.
+        /// </summary>
+        /// <param name="data1">First <see cref="ushort"/> input</param>
+        /// <param name="data2">Second <see cref="ushort"/> input</param>
+        /// <returns>float number from the two<see cref="ushort"/></returns>
+        private float ParseFloat(ushort data1, ushort data2)
+        {
+            byte[] bytes1 = BitConverter.GetBytes(data1);
+            byte[] bytes2 = BitConverter.GetBytes(data2);
             byte[] arbyWorker = new byte[4];
             arbyWorker[3] = bytes2[1];
             arbyWorker[2] = bytes2[0];
