@@ -13,6 +13,7 @@ namespace CryostatControlServer.He7Cooler
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Security.Cryptography;
 
     public class H7Cooler
     {
@@ -62,8 +63,8 @@ namespace CryostatControlServer.He7Cooler
             /// The calibration data.
             /// </summary>
             private List<Tuple<double, double>> calibrationData = new List<Tuple<double, double>>();
-            
 
+            public int CalibrationSize => this.calibrationData.Count;
 
             public Sensor()
             {
@@ -97,7 +98,7 @@ namespace CryostatControlServer.He7Cooler
                         this.calibrationData.Add(
                             new Tuple<double, double>(double.Parse(columns[voltColumn]), double.Parse(columns[tempColumn])));
                     }
-                    this.calibrationData.Sort((first, second) => (int)(first.Item1 - second.Item1));
+                    this.calibrationData.Sort((first, second) => (first.Item1 - second.Item1) < 0 ? -1 : 1);
                 }
                 finally
                 {
@@ -117,6 +118,7 @@ namespace CryostatControlServer.He7Cooler
                 this.calibrationData.Add(datapoint);
                 this.calibrationData.Sort((first, second) => (int)(first.Item1 - second.Item1));
             }
+            
 
             /// <summary>
             /// Convert a voltage to a temperature using the loaded calibration
