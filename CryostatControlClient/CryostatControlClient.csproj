@@ -73,6 +73,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\He7Model.cs" />
     <Compile Include="Views\He7\2KPlate.xaml.cs">
       <DependentUpon>2KPlate.xaml</DependentUpon>
     </Compile>
