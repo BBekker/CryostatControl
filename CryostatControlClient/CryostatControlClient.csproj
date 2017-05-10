@@ -83,6 +83,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
   	</Page>
+    <Compile Include="Models\CompressorModel.cs" />
+    <Compile Include="Models\OverviewModel.cs" />
     <Compile Include="Views\LoggingFrame.xaml.cs">
       <DependentUpon>LoggingFrame.xaml</DependentUpon>
     </Compile>
@@ -181,7 +183,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
