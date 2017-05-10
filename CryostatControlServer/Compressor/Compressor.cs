@@ -17,7 +17,7 @@ namespace CryostatControlServer.Compressor
         #region Fields
 
         /// <summary>
-        /// The slave number, needed for identification.
+        /// The Slave number, needed for identification.
         /// </summary>
         private const byte Slave = 1;
 
@@ -64,7 +64,7 @@ namespace CryostatControlServer.Compressor
         /// </summary>
         public void TurnOn()
         {
-            ushort on = 0x001;
+            const ushort on = 0x001;
             this.master.WriteSingleRegister(Slave, (ushort)HoldingRegistersEnum.Control, on);
             Console.WriteLine("Compressor turned on");
         }
@@ -74,7 +74,7 @@ namespace CryostatControlServer.Compressor
         /// </summary>
         public void TurnOff()
         {
-            ushort off = 0x00FF;
+            const ushort off = 0x00FF;
             this.master.WriteSingleRegister(Slave, (ushort)HoldingRegistersEnum.Control, off);
             Console.WriteLine("Compressor turned off");
         }
@@ -230,6 +230,16 @@ namespace CryostatControlServer.Compressor
         public float ReadMotorCurrent()
         {
             ushort[] status = this.master.ReadInputRegisters((ushort)AnalogRegistersEnum.MotorCurrent, DoubleRegister);
+            return this.ParseFloat(status);
+        }
+
+        /// <summary>
+        /// Reads the hours of operation of the compressor.
+        /// </summary>
+        /// <returns>Hours of operation</returns>
+        public float ReadHoursOfOperation()
+        {
+            ushort[] status = this.master.ReadInputRegisters((ushort)AnalogRegistersEnum.HoursOfOperation, DoubleRegister);
             return this.ParseFloat(status);
         }
 
