@@ -41,7 +41,5 @@ namespace CryostatControlServer.He7Cooler
         PumpHe4 = 205,
         SwitchHe3 = 305,
         SwitchHe4 = 304,
-
-
     }
 }

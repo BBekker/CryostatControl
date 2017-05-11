@@ -1,8 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DigitalSwitch.cs" company="SRON">
+//   All rights reseverd.
+// </copyright>
+// <author>Bernard Bekker</author>
+// <summary>
+//   The digital switches.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.He7Cooler
 {

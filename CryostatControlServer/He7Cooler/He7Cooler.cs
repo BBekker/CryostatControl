@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="He7Cooler.cs" company="SRON">
-//   
+//   All rights reserved. 2017.
 // </copyright>
 // <author>Bernard Bekker</author>
 // <summary>
@@ -16,25 +16,41 @@ namespace CryostatControlServer.He7Cooler
     using System.Security.Cryptography;
     using System.Threading;
 
+    /// <summary>
+    /// He7 Cooler class. 
+    /// Represents the He7 cooler controls. Read and set voltages and digital bits.
+    /// </summary>
     public class He7Cooler
-    {
-        private const int readInterval = 100;
+    { 
+        /// <summary>
+        /// The interval between voltage samples
+        /// </summary>
+        private const int ReadInterval = 100;
 
-        protected List<Channels> channelsToRead = new List<Channels>();
-
-        private Dictionary<Channels, double> values;
-
+        /// <summary>
+        /// The connected device.
+        /// </summary>
         private readonly Agilent34972A device = new Agilent34972A();
 
-        
+        /// <summary>
+        /// The channels to read.
+        /// </summary>
+        private List<Channels> channelsToRead = new List<Channels>();
+
+        /// <summary>
+        /// The current voltage of each channel.
+        /// </summary>
+        private Dictionary<Channels, double> values;
+
+        /// <summary>
+        /// The thread reading voltages.
+        /// </summary>
         private Thread readThread;
+
+        /// <summary>
+        /// Is the sampling of voltages started.
+        /// </summary>
         private bool isStarted = false;
-
-
-        // static switch_type Switches[] = { {SENS_HE3HEAD_T, CTRL_MON_HE3HEAD_T},
-        // {SENS_HE4HEAD_T,CTRL_MON_HE4HEAD_T},
-        // {PUMP_HE3, CTRL_SWITCH_HE3PUMP},
-        // {PUMP_HE4, CTRL_SWITCH_HE4PUMP} };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="He7Cooler"/> class. 
@@ -49,35 +65,26 @@ namespace CryostatControlServer.He7Cooler
         /// <param name="ip">
         /// The IP to connect to.
         /// </param>
-         public void Connect(string ip)
-         {
+        public void Connect(string ip)
+        {
             this.device.Init(ip);
             this.isStarted = true;
-            this.readThread = new Thread(mainLoop);
+            this.readThread = new Thread(this.MainLoop);
             this.readThread.Start();
-         }
+        }
 
+        /// <summary>
+        /// Stop the reading thread and disconnect from the device.
+        /// </summary>
         public void Disconnect()
         {
             this.isStarted = false;
             this.device.Disconnect();
         }
 
-        public void mainLoop()
-        {
-            while (isStarted)
-            {
-                this.ReadVoltages();
-                Thread.Sleep(100);
-            }
-        }
-        
-
-        protected void SetVoltage(Channels channel, double volts)
-        {
-            this.device.SetHeaterVoltage(channel, volts);
-        }
-
+        /// <summary>
+        /// Read the voltages of all registered channels
+        /// </summary>
         public void ReadVoltages()
         {
             Channels[] channels = this.channelsToRead.ToArray();
@@ -102,48 +109,175 @@ namespace CryostatControlServer.He7Cooler
             this.device.SetDigitalOutput((int)theSwitch, value);
         }
 
+        /// <summary>
+        /// Set the voltage of a channel
+        /// </summary>
+        /// <param name="channel">
+        /// The channel.
+        /// </param>
+        /// <param name="volts">
+        /// The voltage
+        /// </param>
+        protected void SetVoltage(Channels channel, double volts)
+        {
+            this.device.SetHeaterVoltage(channel, volts);
+        }
+
+        /// <summary>
+        /// The add channel.
+        /// </summary>
+        /// <param name="channel">
+        /// The channel.
+        /// </param>
+        protected void AddChannel(Channels channel)
+        {
+            this.channelsToRead.Add(channel);
+        }
+
+        /// <summary>
+        /// The remove channel.
+        /// </summary>
+        /// <param name="channel">
+        /// The channel.
+        /// </param>
+        protected void RemoveChannel(Channels channel)
+        {
+            this.channelsToRead.Remove(channel);
+        }
+
+        /// <summary>
+        /// The main loop of the thread that reads voltages from the He7 cooler.
+        /// </summary>
+        private void MainLoop()
+        {
+            while (this.isStarted)
+            {
+                this.ReadVoltages();
+                Thread.Sleep(ReadInterval);
+            }
+        }
+
+        /// <summary>
+        /// Representation a heater element on the H7 cooler.
+        /// </summary>
         public class Heater
         {
+            /// <summary>
+            /// The default safe range high.
+            /// </summary>
+            private const double DefaultSafeRangeHigh = 10.0;
+
+            /// <summary>
+            /// The default safe range low.
+            /// </summary>
+            private const double DefaultSafeRangeLow = 0.0;
+
+            /// <summary>
+            /// The channel where current voltage is read.
+            /// </summary>
             private Channels inchannel;
 
+            /// <summary>
+            /// The channel where to output the voltage setpoint.
+            /// </summary>
             private Channels outchannel;
 
+            /// <summary>
+            /// The H7 cooler device.
+            /// </summary>
             private He7Cooler device;
 
-            public double voltage
-            {
-                get => this.device.values[this.inchannel];
-                set => this.setOutput(this.voltage);
-            }
-
-            Heater(Channels outputChannel, Channels inputChannel, He7Cooler device)
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Heater"/> class.
+            /// </summary>
+            /// <param name="outputChannel">
+            /// The voltage output channel.
+            /// </param>
+            /// <param name="inputChannel">
+            /// The voltage input channel.
+            /// </param>
+            /// <param name="device">
+            /// The He7 cooler device the heater is connected to.
+            /// </param>
+            public Heater(Channels outputChannel, Channels inputChannel, He7Cooler device)
             {
                 this.inchannel = inputChannel;
                 this.outchannel = outputChannel;
                 this.device = device;
                 device.channelsToRead.Add(inputChannel);
+                this.SafeRangeHigh = DefaultSafeRangeHigh;
+                this.SafeRangeLow = DefaultSafeRangeLow;
             }
 
-            void setOutput(double volts)
+            /// <summary>
+            /// Gets or sets the voltage safe range high side.
+            /// </summary>
+            public double SafeRangeHigh { get; set; }
+
+            /// <summary>
+            /// Gets or sets the voltage safe range low side.
+            /// </summary>
+            public double SafeRangeLow { get; set; }
+
+            /// <summary>
+            /// Gets or sets the voltage of the heater.
+            /// </summary>
+            public double Voltage
             {
+                get => this.device.values[this.inchannel];
+                set => this.SetOutput(this.Voltage);
+            }
+
+            /// <summary>
+            /// The set output.
+            /// </summary>
+            /// <param name="volts">
+            /// The volts.
+            /// </param>
+            private void SetOutput(double volts)
+            {
+                if (volts > this.SafeRangeHigh || volts < this.SafeRangeLow)
+                {
+                    throw new ArgumentOutOfRangeException(
+                        $"Voltage setpoint of {volts} is out of the safe range from {this.SafeRangeLow} to {this.SafeRangeHigh}");
+                }
+
                 this.device.SetVoltage(this.outchannel, volts);
             }
         }
 
+        /// <summary>
+        /// Representation of a sensor on the H7 cooler.
+        /// </summary>
         public class Sensor
         {
-
+            /// <summary>
+            /// The Agilent data channel.
+            /// </summary>
             private Channels channel;
 
+            /// <summary>
+            /// The He7 cooler.
+            /// </summary>
             private He7Cooler device;
 
+            /// <summary>
+            /// The sensor calibration.
+            /// </summary>
             private Calibration calibration;
 
-            public double Value
-            {
-                get => calibration.ConvertValue(this.device.values[this.channel]);
-            }
-
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Sensor"/> class.
+            /// </summary>
+            /// <param name="channel">
+            /// The agilent channel of the sensor.
+            /// </param>
+            /// <param name="device">
+            /// The He7 cooler device.
+            /// </param>
+            /// <param name="calibration">
+            /// The calibration.
+            /// </param>
             public Sensor(Channels channel, He7Cooler device, Calibration calibration)
             {
                 this.channel = channel;
@@ -151,30 +285,58 @@ namespace CryostatControlServer.He7Cooler
                 device.channelsToRead.Add(channel);
             }
 
+            /// <summary>
+            /// Finalizes an instance of the <see cref="Sensor"/> class.  Removes it from the list of channels to read.
+            /// </summary>
             ~Sensor()
             {
                 this.device.channelsToRead.Remove(this.channel);
             }
 
+            /// <summary>
+            /// Gets the current calibrated value of the sensor.
+            /// </summary>
+            public double Value => this.calibration.ConvertValue(this.device.values[this.channel]);
 
+            /// <summary>
+            /// Sensor calibration representation
+            /// </summary>
             public class Calibration
             {
-                
                 /// <summary>
                 /// The calibration data.
                 /// </summary>
                 private List<Tuple<double, double>> calibrationData = new List<Tuple<double, double>>();
 
-                public int CalibrationSize => this.calibrationData.Count;
-
+                /// <summary>
+                /// Initializes a new instance of the <see cref="Calibration"/> class. 
+                /// Initializes an empty instance without calibration.
+                /// </summary>
                 public Calibration()
                 {
                 }
 
+                /// <summary>
+                /// Initializes a new instance of the <see cref="Calibration"/> class.
+                /// </summary>
+                /// <param name="filename">
+                /// The filename of the calibration file.
+                /// </param>
+                /// <param name="voltColumn">
+                /// The volt column index.
+                /// </param>
+                /// <param name="tempColumn">
+                /// The temp column index.
+                /// </param>
                 public Calibration(string filename, int voltColumn, int tempColumn)
                 {
                     this.LoadSensorCalibrationFromFile(filename, voltColumn, tempColumn);
                 }
+
+                /// <summary>
+                /// The amount of data points in the calibration
+                /// </summary>
+                public int CalibrationSize => this.calibrationData.Count;
 
                 /// <summary>
                 /// Load sensor calibration from file.
@@ -236,6 +398,7 @@ namespace CryostatControlServer.He7Cooler
                 /// The temperature in Kelvin <see cref="double"/>.
                 /// </returns>
                 /// <exception cref="InvalidOperationException">
+                /// Thrown if there is no calibration found. Should never happen, does not need to be handled.
                 /// </exception>
                 public double ConvertValue(double readVolt)
                 {

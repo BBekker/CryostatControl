@@ -112,8 +112,8 @@ namespace CryostatControlServer.He7Cooler
         /// <summary>
         /// Set digital output.
         /// </summary>
-        /// <param name="switch_ID">
-        /// The switch_ id.
+        /// <param name="bit">
+        /// The bit index.
         /// </param>
         /// <param name="b_set">
         /// The b_set.
