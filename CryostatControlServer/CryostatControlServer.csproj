@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NModbus4, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NModbus4.2.1.0\lib\net40\NModbus4.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,6 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compressor\Enumerators\AnalogRegistersEnum.cs" />
+    <Compile Include="Compressor\Enumerators\HoldingRegistersEnum.cs" />
+    <Compile Include="Compressor\Enumerators\PressureEnum.cs" />
+    <Compile Include="Compressor\Enumerators\ErrorEnum.cs" />
+    <Compile Include="Compressor\Enumerators\EnergizedEnum.cs" />
+    <Compile Include="Compressor\Enumerators\StatusEnum.cs" />
+    <Compile Include="Compressor\Compressor.cs" />
+    <Compile Include="Compressor\CompressorMain.cs" />
+    <Compile Include="Compressor\Enumerators\TemperatureEnum.cs" />
+    <Compile Include="Compressor\Enumerators\WarningsEnum.cs" />
     <Compile Include="He7Cooler\Agilent34972A.cs" />
     <Compile Include="He7Cooler\Channels.cs" />
     <Compile Include="LakeShore.cs" />
@@ -51,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
