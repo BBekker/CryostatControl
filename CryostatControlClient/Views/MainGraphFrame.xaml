@@ -1,0 +1,11 @@
+﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Page.Resources>
+        <ResourceDictionary Source="Styles.xaml"/>
+    </Page.Resources>
+
+    <Border Style="{StaticResource GraphBorder}">
+        <Grid Style="{StaticResource MainGraphFrame}">
+            <Label>Hier komt een graph</Label>
+        </Grid>
+    </Border>
+</Page>

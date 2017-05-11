@@ -37,14 +37,14 @@
     <Reference Include="CircularGauge, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CircularGauge.1.0.0\lib\Net40-Client\CircularGauge.dll</HintPath>
     </Reference>
-    <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Dragablz, Version=0.0.3.186, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dragablz.0.0.3.186\lib\net45\Dragablz.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors">
       <HintPath>..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.3.0.823, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.2.3.0.823\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Expression.Drawing, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Expression.Drawing.3.0.0\lib\net45\Microsoft.Expression.Drawing.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -85,12 +85,77 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\AbstractModel.cs" />
+    <Compile Include="Models\He7Model.cs" />
+    <Compile Include="Views\He7\2KPlate.xaml.cs">
+      <DependentUpon>2KPlate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\He7\4KPlate.xaml.cs">
+      <DependentUpon>4KPlate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\He7\He3Pump.xaml.cs">
+      <DependentUpon>He3Pump.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\He7\He3Stage.xaml.cs">
+      <DependentUpon>He3Stage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\He7\He3Switch.xaml.cs">
+      <DependentUpon>He3Switch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\He7\He4Pump.xaml.cs">
+      <DependentUpon>He4Pump.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\He7\He4Stage.xaml.cs">
+      <DependentUpon>He4Stage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\He7\He4Switch.xaml.cs">
+      <DependentUpon>He4Switch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainGraphFrame.xaml.cs">
+      <DependentUpon>MainGraphFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingsFrame.xaml.cs">
       <DependentUpon>SettingsFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TitleFrame.xaml.cs">
       <DependentUpon>TitleFrame.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\He7\2KPlate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\He7\4KPlate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\He7\He3Pump.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\He7\He3Stage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\He7\He3Switch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\He7\He4Pump.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\He7\He4Stage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\He7\He4Switch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainGraphFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -196,6 +261,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

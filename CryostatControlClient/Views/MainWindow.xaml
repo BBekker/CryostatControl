@@ -6,27 +6,25 @@
         xmlns:local="clr-namespace:CryostatControlClient"
         mc:Ignorable="d"
         Title="Cryostat Refrigerator Control" 
-        Height="700" Width="1280" 
-
+        Height="960" Width="1280" 
         WindowStartupLocation="CenterScreen">
-    <!--<Window.Resources>
-        <ResourceDictionary Source="Styles.xaml"/>
-    </Window.Resources>-->
     
-    <Grid>
+    <Window.Resources>
+        <ResourceDictionary Source="Styles.xaml"/>
+    </Window.Resources>
+    
+    <Grid Style="{StaticResource MainWindow}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="6*"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Frame Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Source="TitleFrame.xaml" HorizontalAlignment="Center" VerticalAlignment="Center"></Frame>
-        <Frame Grid.Column="0" Grid.Row="1" Source="SettingsFrame.xaml"></Frame>
-        <Frame Grid.Column="0" Grid.Row="2"></Frame>
-        <Frame Grid.Column="1" Grid.Row="1" Source="TabFrame.xaml"></Frame>
-        <Frame Grid.Column="1" Grid.Row="2"></Frame>
+        <!--<Frame Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Source="TitleFrame.xaml" HorizontalAlignment="Center" VerticalAlignment="Center"></Frame>-->
+        <Frame Grid.Column="0" Grid.Row="0" Source="SettingsFrame.xaml"></Frame>
+        <Frame Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Source="MainGraphFrame.xaml"></Frame>
+        <Frame Grid.Column="1" Grid.Row="0" Source="TabFrame.xaml"></Frame>
     </Grid>
 </Window>

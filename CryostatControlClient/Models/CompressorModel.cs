@@ -7,18 +7,8 @@ using System.ComponentModel;
 
 namespace CryostatControlClient.Models
 {
-    public class CompressorModel : INotifyPropertyChanged
+    public class CompressorModel : AbstractModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            if(PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
         private int operatingState;
         private int compressorRunning;
         private int warningState;

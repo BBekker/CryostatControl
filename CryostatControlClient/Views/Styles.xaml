@@ -2,12 +2,32 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CryostatControlClient"
                     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-                    xmlns:gauge="clr-namespace:CircularGauge;assembly=CircularGauge">
+                    xmlns:gauge="clr-namespace:CircularGauge;assembly=CircularGauge"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz">
     <ResourceDictionary x:Key="SettingsStyles" Source="SettingsStyles.xaml"/>
-    
+  
     <!--MainWindow Styles-->
     <Style x:Key="MainWindow" TargetType="Grid">
-        <Setter Property="Background" Value="WhiteSmoke" />
+        <Setter Property="Background" Value="#ffffff" />
+    </Style>
+
+    <Style x:Key="FrameBorder" TargetType="Border">
+        <Setter Property="Background" Value="#eeeeee" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <Style x:Key="SettingBorder" TargetType="Border" BasedOn="{StaticResource FrameBorder}">
+        <Setter Property="Margin" Value="20 20 0 0" />
+    </Style>
+
+    <Style x:Key="GraphBorder" TargetType="Border" BasedOn="{StaticResource FrameBorder}">
+        <Setter Property="Margin" Value="20 20 20 20" />
+    </Style>
+
+    <Style x:Key="TabBorder" TargetType="Border" BasedOn="{StaticResource FrameBorder}">
+        <Setter Property="Margin" Value="20 20 20 0" />
     </Style>
 
     <!--TitleFrame Styles-->
@@ -16,58 +36,84 @@
         <Setter Property="MaxWidth" Value="620" />
     </Style>
 
-    <Style x:Key="TitleLabelStyle" TargetType="Label" BasedOn="{StaticResource ControlStyle}">
+    <Style x:Key="TitleLabelStyle" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
         <Setter Property="FontSize" Value="36" />
     </Style>
 
     <!--SettingsFrame Styles-->
-    <Style x:Key="SettingsLabelLeft" TargetType="Label" BasedOn="{StaticResource ControlStyle}">
-        <Setter Property="Margin" Value="40, 20, 0, 0"/>
-    </Style>
-
-    <Style x:Key="SettingsLabelRight" TargetType="Label" BasedOn="{StaticResource ControlStyle}">
-        <Setter Property="Margin" Value="10, 20, 20, 0"/>
-        <Setter Property="Foreground" Value="Green" />
+    <Style x:Key="SettingFrame" TargetType="Grid">
+        <Setter Property="Background" Value="Transparent"/>
     </Style>
     
-    <Style x:Key="SettingsViewBoxTop" TargetType="Viewbox">
+    <Style x:Key="SettingsLabelLeft" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
+        <Setter Property="Margin" Value="20, 20, 0, 0"/>
+        <Setter Property="FontSize" Value="16"></Setter>
+    </Style>
+
+    <Style x:Key="SettingsLabelRight" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
+        <Setter Property="Margin" Value="10, 20, 20, 0"/>
+        <Setter Property="Foreground" Value="#53d100" />
+        <Setter Property="FontSize" Value="16"></Setter>
+    </Style>
+
+    <Style x:Key="SettingsViewBox" TargetType="Viewbox">
         <Setter Property="MaxHeight" Value="308" />
         <Setter Property="MaxWidth" Value="256" />
     </Style>
 
-    <Style x:Key="SettingsViewBoxBottom" TargetType="Viewbox">
-        <Setter Property="MaxHeight" Value="308" />
-        <Setter Property="MaxWidth" Value="256" />
-    </Style>
-
-    <Style x:Key="SettingsComboBox" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}">
+    <Style x:Key="SettingsComboBox" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
         <Setter Property="Width" Value="240"/>
         <Setter Property="Height" Value="30"/>
-        <Setter Property="Margin" Value="20, 20, 0, 0"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="FontWeight" Value="Normal"></Setter>
+        <Setter Property="Margin" Value="20, 20, 20, 0"/>
+        <Setter Property="FontSize" Value="16"></Setter>
     </Style>
 
-    <Style x:Key="SettingsButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedDarkButton}">
+    <Style x:Key="SettingsButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
         <Setter Property="Width" Value="240"/>
-        <Setter Property="Height" Value="30"/>
-        <Setter Property="Margin" Value="20, 20, 0, 0"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Margin" Value="20, 20, 20, 20"/>
+        <Setter Property="FontSize" Value="16"></Setter>
     </Style>
 
-    <Style x:Key="SettingsDateTimePicker" TargetType="xctk:DateTimePicker" BasedOn="{StaticResource ControlStyle}">
+    <Style x:Key="SettingsDatePicker" TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
         <Setter Property="Width" Value="240"/>
-        <Setter Property="Height" Value="30"/>
-        <Setter Property="Margin" Value="20, 20, 0, 0"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Margin" Value="20, 20, 20, 0"/>
+        <Setter Property="FontSize" Value="16"></Setter>
+    </Style>
+
+    <Style x:Key="SettingsTimePicker" TargetType="materialDesign:TimePicker">
+        <Setter Property="Width" Value="240"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Margin" Value="20, 20, 20, 0"/>
+        <Setter Property="Is24Hours" Value="True"></Setter>
+        <Setter Property="FontSize" Value="16"></Setter>
+    </Style>
+    
+    <!--TabFrame Styles-->
+    <Style x:Key="TabFrame" TargetType="dragablz:TabablzControl" BasedOn="{StaticResource MaterialDesignTabablzControlStyle}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="TextElement.Foreground" Value="Black"/>
+    </Style>
+    
+    <!--GraphFrame Styles-->
+    <Style x:Key="MainGraphFrame" TargetType="Grid">
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+
+    <Style x:Key="mdTabHeader" TargetType="{x:Type TabItem}" BasedOn="{StaticResource MaterialDesignDragableTabItemStyle}">
+         <Setter Property="Foreground" Value="Black"/>
     </Style>
 
     <!--CompressorFrame Styles-->
-    <Style x:Key="CompressorTitles" TargetType="Label" BasedOn="{StaticResource ControlStyle}">
+    <Style x:Key="CompressorTitles" TargetType="Label">
         <Setter Property="Margin" Value="0, 10, 0, 0"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Normal"/>
     </Style>
 
-    <Style x:Key="compressorValues" TargetType="Label" BasedOn="{StaticResource ControlStyle}">
+    <Style x:Key="compressorValues" TargetType="Label">
         <Setter Property="Margin" Value="0, 0, 0, 0"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Normal"/>
@@ -75,7 +121,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
-    <Style x:Key="pressureValues" TargetType="Label" BasedOn="{StaticResource ControlStyle}">
+    <Style x:Key="pressureValues" TargetType="Label">
         <Setter Property="Margin" Value="0, 0, 0, 0"/>
         <Setter Property="FontWeight" Value="Normal"/>
         <Setter Property="FontSize" Value="10"/>
