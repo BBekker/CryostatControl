@@ -109,12 +109,12 @@ namespace CryostatControlServer.Streams
         ///     Must be called before calling any other method
         /// </summary>
         /// <param name="portname">The portname.</param>
-        /// <param name="boudrate">The boudrate.</param>
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
+        /// <param name="baudRate">The baud rate.</param>
         // ReSharper disable once InconsistentNaming
-        public void ConnectCOM(string portname, int boudrate)
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
+        public void ConnectCOM(string portname, int baudRate)
         {
-            this.serialPort = new SerialPort(portname, boudrate);
+            this.serialPort = new SerialPort(portname, baudRate);
             this.serialPort.DataBits = 7;
             this.serialPort.StopBits = StopBits.One;
             this.serialPort.Parity = Parity.Odd;

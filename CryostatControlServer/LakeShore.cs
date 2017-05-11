@@ -33,9 +33,9 @@ namespace CryostatControlServer
         public const string ColdPlate5K = "B";
 
         /// <summary>
-        /// The boud rate of the  COM connection
+        /// The baud rate of the  COM connection
         /// </summary>
-        private const int BoudRate = 57600;
+        private const int BaudRate = 57600;
 
         #endregion const 
 
@@ -56,7 +56,7 @@ namespace CryostatControlServer
         /// <param name="portname">The port name.</param>
         public void Init(string portname)
         {
-            this.ms.ConnectCOM(portname, BoudRate);
+            this.ms.ConnectCOM(portname, BaudRate);
 
             this.lastCommand = DateTime.Now;
 
