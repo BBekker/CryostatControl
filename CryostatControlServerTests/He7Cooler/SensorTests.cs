@@ -6,8 +6,11 @@ namespace CryostatControlServerTests
 {
     using CryostatControlServer.He7Cooler;
 
+    /// <summary>
+    /// The sensor tests.
+    /// </summary>
     [TestClass]
-    public class UnitTest1
+    public class SensorTests
     {
         [TestMethod]
         public void TestCalibration()
