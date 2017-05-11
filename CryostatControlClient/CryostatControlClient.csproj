@@ -108,6 +108,9 @@
     <Compile Include="Views\He7\He4Switch.xaml.cs">
       <DependentUpon>He4Switch.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MainGraphFrame.xaml.cs">
+      <DependentUpon>MainGraphFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingsFrame.xaml.cs">
       <DependentUpon>SettingsFrame.xaml</DependentUpon>
     </Compile>
@@ -143,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\He7\He4Switch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainGraphFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
