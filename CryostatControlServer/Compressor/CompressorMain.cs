@@ -4,7 +4,7 @@ namespace CryostatControlServer.Compressor
 {
     using System;
 
-    internal class CompressorMain
+    public class CompressorMain
     {
         #region Fields
 

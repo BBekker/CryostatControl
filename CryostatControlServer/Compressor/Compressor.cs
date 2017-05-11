@@ -12,7 +12,7 @@ namespace CryostatControlServer.Compressor
     /// <summary>
     /// Compressor class, which contains the functions for the compressor.
     /// </summary>
-    internal class Compressor
+    public class Compressor
     {
         #region Fields
 
