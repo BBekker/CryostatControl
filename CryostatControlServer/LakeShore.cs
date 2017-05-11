@@ -16,26 +16,26 @@ namespace CryostatControlServer
     using CryostatControlServer.Streams;
 
     /// <summary>
-    /// Connection and comunication to the LakeShore 355 temperature controller.
+    /// Connection and communication to the LakeShore 355 temperature controller.
     /// </summary>
     internal class LakeShore
     {
         #region const values
 
         /// <summary>
-        /// The 3K coldplate id
+        /// The 3K cold plate id
         /// </summary>
-        private const string Coldplate3K = "A";
+        public const string ColdPlate3K = "A";
 
         /// <summary>
-        /// The 5k coldplate id
+        /// The 5k cold plate id
         /// </summary>
-        private const string Coldplate5K = "B";
+        public const string ColdPlate5K = "B";
 
         /// <summary>
-        /// The boudrate of the  COM connection
+        /// The boud rate of the  COM connection
         /// </summary>
-        private const int Boudrate = 57600;
+        private const int BoudRate = 57600;
 
         #endregion const 
 
@@ -56,7 +56,7 @@ namespace CryostatControlServer
         /// <param name="portname">The port name.</param>
         public void Init(string portname)
         {
-            this.ms.ConnectCOM(portname, Boudrate);
+            this.ms.ConnectCOM(portname, BoudRate);
 
             this.lastCommand = DateTime.Now;
 
