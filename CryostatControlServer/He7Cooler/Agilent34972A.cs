@@ -33,7 +33,6 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         private readonly ManagedStream connection = new ManagedStream();
 
-
         /// <summary>
         ///     Gets voltages from the device
         /// </summary>
@@ -44,20 +43,20 @@ namespace CryostatControlServer.He7Cooler
             try
             {
                 Monitor.Enter(this.connection);
-                var nSensors = channelIds.Length;
-                var nChan = new int[nSensors];
-                var rVolt = new double[nSensors];
+                var numSensors = channelIds.Length;
+                var returnedChannels = new int[numSensors];
+                var returnedVolts = new double[numSensors];
                
-                var readVolt = new double[nSensors];
+                var readVolt = new double[numSensors];
 
                 // construct a command to read all specified voltages
                 var cmdStr = "ROUT:SCAN (@";
-                for (var k = 0; k < nSensors - 1; k++)
+                for (var k = 0; k < numSensors - 1; k++)
                 {
                     cmdStr += $"{channelIds[k]},";
                 }
 
-                cmdStr += $"{channelIds[nSensors - 1]})\n";
+                cmdStr += $"{channelIds[numSensors - 1]})\n";
                 cmdStr += "READ?\n";
 
                 this.connection.WriteString(cmdStr);
@@ -65,20 +64,20 @@ namespace CryostatControlServer.He7Cooler
                 var values = GetDataFromString(res);
 
                 // split into voltages and channels
-                for (var k = 0; k < nSensors; k++)
+                for (var k = 0; k < numSensors; k++)
                 {
-                    rVolt[k] = values[2 * k];
-                    nChan[k] = (int)values[(2 * k) + 1];
+                    returnedVolts[k] = values[2 * k];
+                    returnedChannels[k] = (int)values[(2 * k) + 1];
                 }
 
                 // Order temperature in order of sens_IDs
-                for (var k = 0; k < nSensors; k++)
+                for (var k = 0; k < numSensors; k++)
                 {
-                    for (var i = 0; i < nSensors; i++)
+                    for (var i = 0; i < numSensors; i++)
                     {
-                        if ((int)channelIds[i] == nChan[k])
+                        if ((int)channelIds[i] == returnedChannels[k])
                         {
-                            readVolt[i] = rVolt[k];
+                            readVolt[i] = returnedVolts[k];
                         }
                     }
                 }

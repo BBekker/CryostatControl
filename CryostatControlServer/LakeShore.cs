@@ -22,10 +22,21 @@ namespace CryostatControlServer
     {
         #region const values
 
+        /// <summary>
+        /// The 3K coldplate id
+        /// </summary>
         private const string Coldplate3K = "A";
+
+        /// <summary>
+        /// The 5k coldplate id
+        /// </summary>
         private const string Coldplate5K = "B";
 
+        /// <summary>
+        /// The boudrate of the  COM connection
+        /// </summary>
         private const int Boudrate = 57600;
+
         #endregion const 
 
         /// <summary>
