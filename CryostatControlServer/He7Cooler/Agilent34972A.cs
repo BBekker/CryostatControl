@@ -24,11 +24,6 @@ namespace CryostatControlServer.He7Cooler
         private const int TcpPort = 5025;
 
         /// <summary>
-        /// The dig switch channels.
-        /// </summary>
-        private static readonly Channels[] DigSwitchChannels = { Channels.SensHe3HeadT, Channels.SensHe4HeadT, Channels.PumpHe3, Channels.PumpHe4 };
-
-        /// <summary>
         /// The connection.
         /// </summary>
         private readonly ManagedStream connection = new ManagedStream();
@@ -108,6 +103,14 @@ namespace CryostatControlServer.He7Cooler
         }
 
         /// <summary>
+        /// Disconnect the device.
+        /// </summary>
+        public void Disconnect()
+        {
+            this.connection.Close();
+        }
+
+        /// <summary>
         /// Set digital output.
         /// </summary>
         /// <param name="switch_ID">
@@ -116,7 +119,7 @@ namespace CryostatControlServer.He7Cooler
         /// <param name="b_set">
         /// The b_set.
         /// </param>
-        public void SetDigitalOutput(Channels switch_ID, bool b_set)
+        public void SetDigitalOutput(int bit, bool b_set)
         {
             try
             {
@@ -127,22 +130,12 @@ namespace CryostatControlServer.He7Cooler
                 var resString = this.connection.ReadString();
                 var getByte = int.Parse(resString); // TODO: Catch error
 
-                // find corresponding bits
-                var bitVal = 1;
-                for (var k = 0; k < DigSwitchChannels.Length; k++)
+                var bitVal = 1 << bit;
+                if (bit < 2)
                 {
-                    if (switch_ID == DigSwitchChannels[k])
-                    {
-                        bitVal = 1 << k;
-                        if (k < 2)
-                        {
-                            b_set = !b_set;
-                        }
-
-                        break;
-                    }
+                    b_set = !b_set;
                 }
-
+                        
                 // set or clear the bit in the old values
                 var setByte = 0;
                 if (b_set)
