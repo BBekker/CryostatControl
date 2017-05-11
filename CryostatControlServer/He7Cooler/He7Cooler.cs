@@ -40,7 +40,7 @@ namespace CryostatControlServer.He7Cooler
         /// <summary>
         /// The current voltage of each channel.
         /// </summary>
-        private Dictionary<Channels, double> values;
+        private Dictionary<Channels, double> values = new Dictionary<Channels, double>();
 
         /// <summary>
         /// The thread reading voltages.
@@ -281,6 +281,7 @@ namespace CryostatControlServer.He7Cooler
             public Sensor(Channels channel, He7Cooler device, Calibration calibration)
             {
                 this.channel = channel;
+                this.calibration = calibration;
                 this.device = device;
                 device.channelsToRead.Add(channel);
             }

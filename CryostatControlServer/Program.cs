@@ -77,7 +77,7 @@ namespace CryostatControlServer
                 var He3SwitchV = new He7Cooler.He7Cooler.Sensor(Channels.SensHe3Switch, cooler, this.EmptyCalibration);
                 cooler.Connect("192.168.1.100");
 
-                while (1)
+                while (true)
                 {
                     Console.WriteLine("HE3plate {0}K, He4Plate: {1}K", He3HeadT.Value, He4HeadT.Value);
                 }
