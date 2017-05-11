@@ -84,8 +84,15 @@ namespace CryostatControlServer.He7Cooler
             /// </summary>
             public double Voltage
             {
-                get => this.device.values[this.inchannel];
-                set => this.SetOutput(this.Voltage);
+                get
+                {
+                    return this.device.values[this.inchannel];
+                }
+
+                set
+                {
+                    this.SetOutput(value);
+                }
             }
 
             /// <summary>
