@@ -14,22 +14,22 @@
                 <dragablz:InterTabController />
             </dragablz:TabablzControl.InterTabController>
             <TabItem Header="Overview">
-                <Frame Source="OverviewFrame.xaml"></Frame>
+                <Frame Source="Tabs/OverviewFrame.xaml"></Frame>
             </TabItem>
             <TabItem Header="He-7 Cooler">
-                <Frame Source="He7Frame.xaml"></Frame>
+                <Frame Source="Tabs/He7Frame.xaml"></Frame>
             </TabItem>
             <TabItem Header="BlueFors cryostat">
-                <Frame Source="BlueforsFrame.xaml"></Frame>
+                <Frame Source="Tabs/BlueforsFrame.xaml"></Frame>
             </TabItem>
             <TabItem Header="Compressor">
-                <Frame Source="CompressorFrame.xaml"></Frame>
+                <Frame Source="Tabs/CompressorFrame.xaml"></Frame>
             </TabItem>
             <TabItem Header="Graph">
-                <Frame Source="GraphFrame.xaml"></Frame>
+                <Frame Source="Tabs/GraphFrame.xaml"></Frame>
             </TabItem>
             <TabItem Header="Logging">
-                <Frame Source="LoggingFrame.xaml"></Frame>
+                <Frame Source="Tabs/LoggingFrame.xaml"></Frame>
             </TabItem>
 
         </dragablz:TabablzControl>
