@@ -1,20 +1,18 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="App.xaml.cs" company="SRON">
+// <copyright file="OverviewModel.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
-//   Interaction logic for App.xaml
+//   Defines the OverviewModel type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace CryostatControlClient
+namespace CryostatControlClient.Models
 {
-    using System.Windows;
-
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// The overview model.
     /// </summary>
-    public partial class App
+    public class OverviewModel
     {
     }
 }

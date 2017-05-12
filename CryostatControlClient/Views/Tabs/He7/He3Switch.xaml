@@ -1,0 +1,35 @@
+﻿<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Grid.Resources>
+        <ResourceDictionary Source="../../Styles.xaml"/>
+    </Grid.Resources>
+    
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource He7Title}">He3 Switch</Label>
+
+    <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Max1</Label>
+    <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource He7TextBox}">10.00</TextBox>
+
+    <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource He7Label}">Max2</Label>
+    <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource He7TextBox}">15.00</TextBox>
+
+    <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
+    <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource He7Label}">16.20</Label>
+
+    <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
+    <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}">2.99</Label>
+
+    <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
+    <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource He7TextBox}">3.00</TextBox>
+</Grid>

@@ -1,20 +1,20 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="App.xaml.cs" company="SRON">
+// <copyright file="4KPlate.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
-//   Interaction logic for App.xaml
+//   Interaction logic for FourKPlate.xaml
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace CryostatControlClient
+namespace CryostatControlClient.Views.Tabs.He7
 {
     using System.Windows;
 
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Interaction logic for _4KPlate.xaml
     /// </summary>
-    public partial class App
+    public partial class _4KPlate : Window
     {
     }
 }

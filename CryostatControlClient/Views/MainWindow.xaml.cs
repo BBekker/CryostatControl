@@ -1,20 +1,20 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="App.xaml.cs" company="SRON">
+// <copyright file="MainWindow.xaml.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
-//   Interaction logic for App.xaml
+//   Interaction logic for MainWindow.xaml
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace CryostatControlClient
+namespace CryostatControlClient.Views
 {
     using System.Windows;
 
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class App
+    public partial class MainWindow : Window
     {
     }
 }

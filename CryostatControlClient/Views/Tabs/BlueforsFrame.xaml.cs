@@ -1,20 +1,18 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="App.xaml.cs" company="SRON">
+// <copyright file="BlueforsFrame.xaml.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
-//   Interaction logic for App.xaml
+//   Interaction logic for OverviewFrame.xaml
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace CryostatControlClient
+namespace CryostatControlClient.Views
 {
-    using System.Windows;
-
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Interaction logic for OverviewFrame.xaml
     /// </summary>
-    public partial class App
+    public partial class BlueforsFrame
     {
     }
 }
