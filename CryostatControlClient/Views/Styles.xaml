@@ -12,24 +12,6 @@
         <Setter Property="Background" Value="#ffffff" />
     </Style>
 
-    <Style x:Key="FrameBorder" TargetType="Border">
-        <Setter Property="Background" Value="#eeeeee" />
-        <Setter Property="CornerRadius" Value="10" />
-        <Setter Property="BorderThickness" Value="1" />
-    </Style>
-
-    <Style x:Key="SettingBorder" TargetType="Border" BasedOn="{StaticResource FrameBorder}">
-        <Setter Property="Margin" Value="20 20 0 0" />
-    </Style>
-
-    <Style x:Key="GraphBorder" TargetType="Border" BasedOn="{StaticResource FrameBorder}">
-        <Setter Property="Margin" Value="20 20 20 20" />
-    </Style>
-
-    <Style x:Key="TabBorder" TargetType="Border" BasedOn="{StaticResource FrameBorder}">
-        <Setter Property="Margin" Value="20 20 20 0" />
-    </Style>
-
     <Style x:Key="graphCard" TargetType="materialDesign:Card" >
         <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1" />
         <Setter Property="MinWidth" Value="1000" />
@@ -39,26 +21,16 @@
 
     <Style x:Key="settingCard" TargetType="materialDesign:Card" >
         <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1" />
-        <Setter Property="MinWidth" Value="180" />
+        <Setter Property="MinWidth" Value="240" />
         <Setter Property="MinHeight" Value="440" />
         <Setter Property="Margin" Value="5,5,5,5" />
     </Style>
 
     <Style x:Key="tabFrameCard" TargetType="materialDesign:Card" >
         <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1" />
-        <Setter Property="MinWidth" Value="900" />
+        <Setter Property="MinWidth" Value="850" />
         <Setter Property="MinHeight" Value="440" />
         <Setter Property="Margin" Value="5,5,5,5" />
-    </Style>
-
-    <!--TitleFrame Styles-->
-    <Style x:Key="TitleBoxStyle" TargetType="Viewbox">
-        <Setter Property="MaxHeight" Value="50" />
-        <Setter Property="MaxWidth" Value="620" />
-    </Style>
-
-    <Style x:Key="TitleLabelStyle" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
-        <Setter Property="FontSize" Value="36" />
     </Style>
 
     <!--SettingsFrame Styles-->
@@ -67,50 +39,48 @@
     </Style>
     
     <Style x:Key="SettingsLabelLeft" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
-        <Setter Property="Margin" Value="20, 20, 0, 0"/>
-        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="Margin" Value="5,2,0,0"/>
+        <Setter Property="FontSize" Value="12"></Setter>
     </Style>
 
     <Style x:Key="SettingsLabelRight" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
-        <Setter Property="Margin" Value="10, 20, 20, 0"/>
+        <Setter Property="Margin" Value="5, 2, 0, 0"/>
         <Setter Property="Foreground" Value="#53d100" />
-        <Setter Property="FontSize" Value="16"></Setter>
-    </Style>
-
-    <Style x:Key="SettingsViewBox" TargetType="Viewbox">
-        <Setter Property="MaxHeight" Value="308" />
-        <Setter Property="MaxWidth" Value="256" />
+        <Setter Property="FontSize" Value="12"></Setter>
     </Style>
 
     <Style x:Key="SettingsComboBox" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
-        <Setter Property="Width" Value="240"/>
-        <Setter Property="Height" Value="30"/>
-        <Setter Property="Margin" Value="20, 20, 20, 0"/>
-        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="Margin" Value="5,10,0,0"/>
+        <Setter Property="FontSize" Value="12"></Setter>
     </Style>
 
     <Style x:Key="SettingsButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-        <Setter Property="Width" Value="240"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="Margin" Value="20, 20, 20, 20"/>
-        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="Margin" Value="5, 5, 0, 0"/>
+        <Setter Property="FontSize" Value="12"></Setter>
     </Style>
 
     <Style x:Key="SettingsDatePicker" TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
-        <Setter Property="Width" Value="240"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="Margin" Value="20, 20, 20, 0"/>
-        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="Margin" Value="5,2,0,0"/>
+        <Setter Property="FontSize" Value="12"></Setter>
     </Style>
 
     <Style x:Key="SettingsTimePicker" TargetType="materialDesign:TimePicker">
-        <Setter Property="Width" Value="240"/>
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="Margin" Value="20, 20, 20, 0"/>
+        <Setter Property="Margin" Value="5,2,0,0"/>
         <Setter Property="Is24Hours" Value="True"></Setter>
-        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="FontSize" Value="12"></Setter>
     </Style>
-    
+
+    <Style x:Key="SettingsRadioButtons" TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignRadioButton}">
+        <Setter Property="Margin" Value="5,5,0,0"/>
+        <Setter Property="FontSize" Value="12"></Setter>
+    </Style>
+
+    <Style x:Key="SettingsDevicesList" TargetType="Border">
+        <Setter Property="Margin" Value="2,2,2,2"></Setter>
+        <Setter Property="BorderBrush" Value="Blue"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+    </Style>
+
     <!--TabFrame Styles-->
     <Style x:Key="TabFrame" TargetType="dragablz:TabablzControl" BasedOn="{StaticResource MaterialDesignTabablzControlStyle}">
         <Setter Property="Background" Value="Transparent"/>

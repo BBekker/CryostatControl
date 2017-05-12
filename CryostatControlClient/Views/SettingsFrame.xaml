@@ -9,10 +9,6 @@
     <!--<Border materialDesign:ShadowAssist.ShadowDepth="Depth5">-->
     <materialDesign:Card Style="{StaticResource settingCard}">
         <Grid Style="{StaticResource SettingFrame}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-            </Grid.RowDefinitions>
 
             <StackPanel>
                 <Grid>
@@ -28,34 +24,35 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
 
-                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="0">Server</Label>
+                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="0">He-7</Label>
                     <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="0">Connected</Label>
 
-                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="1">Compressor</Label>
+                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="1">BlueFors</Label>
                     <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="1">Connected</Label>
 
-                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="2">BlueFors</Label>
+                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="2">Compressor</Label>
                     <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="2">Connected</Label>
 
-                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="3">He-7</Label>
+                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="3">Server</Label>
                     <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="3">Connected</Label>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="4">Modus</Label>
                     <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="4">Cooling down</Label>
                 </Grid>
-            </StackPanel>
-
-            <StackPanel Grid.Row="1">
-                <DatePicker materialDesign:HintAssist.Hint="Pick Date" Style="{StaticResource SettingsDatePicker}" />
-                <materialDesign:TimePicker materialDesign:HintAssist.Hint="Pick Time" Style="{StaticResource SettingsTimePicker}"/>
+                <!--<DatePicker materialDesign:HintAssist.Hint="Pick Date" Style="{StaticResource SettingsDatePicker}" />
+                <materialDesign:TimePicker materialDesign:HintAssist.Hint="Pick Time" Style="{StaticResource SettingsTimePicker}"/>-->
 
                 <ComboBox SelectedIndex="0" Style="{StaticResource SettingsComboBox}">
                     <ComboBoxItem>Cool down</ComboBoxItem>
                     <ComboBoxItem>Recycle</ComboBoxItem>
                     <ComboBoxItem>Warm up</ComboBoxItem>
-                    <ComboBoxItem>Manual control</ComboBoxItem>
+                    <!--<ComboBoxItem>Manual control</ComboBoxItem>-->
                 </ComboBox>
                 <Button Style="{StaticResource SettingsButton}">Start</Button>
+                <StackPanel>
+                    <RadioButton Name="startNow" Style="{StaticResource SettingsRadioButtons}" GroupName="startOption" IsChecked="True">Start Now</RadioButton>
+                    <RadioButton Name="startScheduled" Style="{StaticResource SettingsRadioButtons}" GroupName="startOption">Scheduled Start</RadioButton>
+                </StackPanel>
             </StackPanel>
         </Grid>
     </materialDesign:Card>
