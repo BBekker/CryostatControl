@@ -38,7 +38,7 @@ namespace CryostatControlServer
             Console.In.ReadLine();
 
 
-//            H7 cooler test thread
+            //            H7 cooler test thread
             Thread H7CoolerThread = new Thread(new ThreadStart(() =>
             {
                 
@@ -88,9 +88,9 @@ namespace CryostatControlServer
                 {
                     double t1 = ls.ReadTemperature("A");
                     double t2 = ls.ReadTemperature("B");
-                    Console.WriteLine("Temp 1: {0}K, Temp 2: {1}K",t1, t2);
+                    Console.WriteLine("Temp 1: {0}K, Temp 2: {1}K", t1, t2);
                     Thread.Sleep(1000);
-                    
+
                 }
                 ls.Close();
             }));
@@ -103,7 +103,7 @@ namespace CryostatControlServer
 
         }
 
-            
+
 
     }
 }
