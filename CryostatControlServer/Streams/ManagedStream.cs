@@ -36,7 +36,7 @@ namespace CryostatControlServer.Streams
         /// <summary>
         /// The TCP timeout.
         /// </summary>
-        private readonly TimeSpan tcpTimeout = TimeSpan.FromMilliseconds(1000);
+        private readonly TimeSpan tcpTimeout = TimeSpan.FromMilliseconds(5000);
 
         /// <summary>
         /// The TCP client.
