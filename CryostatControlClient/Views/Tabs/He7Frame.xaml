@@ -3,40 +3,58 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Background="{DynamicResource MaterialDesignPaper}">
 
+    <Grid.Resources>
+        <ResourceDictionary Source="../Styles.xaml"/>
+    </Grid.Resources>
+
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="4*" />
+        <ColumnDefinition Width="16*" />
         <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="2*" />
+        <ColumnDefinition Width="8*" />
         <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="2*" />
+        <ColumnDefinition Width="8*" />
         <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="4*" />
+        <ColumnDefinition Width="16*" />
         <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-        <RowDefinition Height="2*" />
-        <RowDefinition Height="8*" />
         <RowDefinition Height="*" />
-        <RowDefinition Height="2*" />
-        <RowDefinition Height="*" />
-        <RowDefinition Height="2*" />
+        <RowDefinition Height="16*" />
         <RowDefinition Height="*" />
         <RowDefinition Height="4*" />
         <RowDefinition Height="*" />
+        <RowDefinition Height="4*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="8*" />
+        <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-    <Frame Grid.Column="1" Grid.Row="1" Source="He7/He4Pump.xaml" Background="Green"></Frame>
-    <Frame Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="7" Source="He7/4KPlate.xaml" Background="Purple"></Frame>
-    <Frame Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="7" Source="He7/2KPlate.xaml" Background="Blue"></Frame>
-    <Frame Grid.Column="1" Grid.Row="7" Source="He7/He4Stage.xaml" Background="Pink"></Frame>
+    <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource He7Border}">
+        <Frame Source="He7/He4Pump.xaml" />    
+    </Border>
+    <Border Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="7" Style="{StaticResource He7Border}">
+        <Frame Source="He7/4kPlate.xaml" />
+    </Border>
+    <Border Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="7" Style="{StaticResource He7Border}">
+        <Frame Source="He7/2KPlate.xaml" />
+    </Border>
+    <Border Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" Style="{StaticResource He7Border}">
+        <Frame Source="He7/He4Stage.xaml" />
+    </Border>
 
-    <Frame Grid.Column="3" Grid.Row="1" Source="He7/He4Switch.xaml" Background="LightBlue"></Frame>
-    
-    <Frame Grid.Column="5" Grid.Row="1" Source="He7/He3Switch.xaml" Background="LightBlue"></Frame>
+    <Border Grid.Column="3" Grid.Row="1" Style="{StaticResource He7Border}">
+        <Frame Source="He7/He4Switch.xaml" />
+    </Border>
 
-    <Frame Grid.Column="7" Grid.Row="1" Source="He7/He3Pump.xaml" Background="Green"></Frame>
-    <Frame Grid.Column="7" Grid.Row="7" Source="He7/He3Stage.xaml" Background="Pink"></Frame>
+    <Border Grid.Column="5" Grid.Row="1" Style="{StaticResource He7Border}">
+        <Frame Source="He7/He3Switch.xaml" />
+    </Border>
 
-
+    <Border Grid.Column="7" Grid.Row="1" Style="{StaticResource He7Border}">
+        <Frame Source="He7/He3Pump.xaml" />
+    </Border>
+    <Border Grid.Column="5" Grid.Row="7" Grid.ColumnSpan="3" Style="{StaticResource He7Border}">
+        <Frame Source="He7/He3Stage.xaml" />
+    </Border>
 </Grid>

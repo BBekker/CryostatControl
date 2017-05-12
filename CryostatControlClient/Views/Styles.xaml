@@ -169,4 +169,37 @@
         <Setter Property="Height" Value="20"/>
         <Setter Property="IsIndeterminate" Value="False"/>
     </Style>
+
+    <!--He7Frame Style-->
+    <Style x:Key="He7Border" TargetType="Border">
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="#03A9F4" Opacity="0.2"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="He7Title" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style x:Key="He7Label" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Margin" Value="10 0 0 1" />
+        <!--<Setter Property="Background" Value="White" />-->
+    </Style>
+
+    <Style x:Key="He7TextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Margin" Value="10 0 0 1" />
+        <Setter Property="Background" Value="White" />
+    </Style>
+
 </ResourceDictionary>
