@@ -48,10 +48,10 @@ namespace CryostatControlServer.He7Cooler
                 var cmdStr = "ROUT:SCAN (@";
                 for (var k = 0; k < numSensors - 1; k++)
                 {
-                    cmdStr += $"{channelIds[k]},";
+                    cmdStr += $"{(int)channelIds[k]},";
                 }
 
-                cmdStr += $"{channelIds[numSensors - 1]})\n";
+                cmdStr += $"{(int)channelIds[numSensors - 1]})\n";
                 cmdStr += "READ?\n";
 
                 this.connection.WriteString(cmdStr);

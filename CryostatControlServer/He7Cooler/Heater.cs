@@ -64,9 +64,17 @@ namespace CryostatControlServer.He7Cooler
                 this.inchannel = inputChannel;
                 this.outchannel = outputChannel;
                 this.device = device;
-                device.channelsToRead.Add(inputChannel);
+                device.AddChannel(inputChannel);
                 this.SafeRangeHigh = DefaultSafeRangeHigh;
                 this.SafeRangeLow = DefaultSafeRangeLow;
+            }
+
+            /// <summary>
+            /// Finalizes an instance of the <see cref="Heater"/> class. 
+            /// </summary>  
+            ~Heater()
+            {
+                this.device.RemoveChannel(this.inchannel);
             }
 
             /// <summary>

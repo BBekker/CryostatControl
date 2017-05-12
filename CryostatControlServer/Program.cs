@@ -47,32 +47,34 @@ namespace CryostatControlServer
                 
                 var He3PumpT = new He7Cooler.He7Cooler.Sensor(Channels.SensHe3PumpT, cooler, this.DiodeCalibration);
 
-                var He4PumpT = new He7Cooler.He7Cooler.Sensor(Channels.SensHe4PumpT, cooler, this.DiodeCalibration);
+                //var He4PumpT = new He7Cooler.He7Cooler.Sensor(Channels.SensHe4PumpT, cooler, this.DiodeCalibration);
 
-                var He4SwitchT = new He7Cooler.He7Cooler.Sensor(Channels.SensHe4SwitchT, cooler, this.DiodeCalibration);
+//                var He4SwitchT = new He7Cooler.He7Cooler.Sensor(Channels.SensHe4SwitchT, cooler, this.DiodeCalibration);
 
-                var He3SwitchT = new He7Cooler.He7Cooler.Sensor(Channels.SensHe3SwitchT, cooler, this.DiodeCalibration);
+//                var He3SwitchT = new He7Cooler.He7Cooler.Sensor(Channels.SensHe3SwitchT, cooler, this.DiodeCalibration);
 
-                var Plate4KT = new He7Cooler.He7Cooler.Sensor(Channels.Sens4KplateT, cooler, this.DiodeCalibration);
+//                var Plate4KT = new He7Cooler.He7Cooler.Sensor(Channels.Sens4KplateT, cooler, this.DiodeCalibration);
 
-                var Plate2KT = new He7Cooler.He7Cooler.Sensor(Channels.Sens2KplateT, cooler, this.DiodeCalibration);
+//                var Plate2KT = new He7Cooler.He7Cooler.Sensor(Channels.Sens2KplateT, cooler, this.DiodeCalibration);
 
                 var He4HeadT = new He7Cooler.He7Cooler.Sensor(Channels.SensHe4HeadT, cooler, this.He4Calibration);
 
                 var He3HeadT = new He7Cooler.He7Cooler.Sensor(Channels.SensHe3HeadT, cooler, this.He3Calibration);
 
-                var He3PumpV = new He7Cooler.He7Cooler.Sensor(Channels.SensHe3Pump, cooler, this.EmptyCalibration);
+//                var He3PumpV = new He7Cooler.He7Cooler.Sensor(Channels.SensHe3Pump, cooler, this.EmptyCalibration);
 
-                var He4PumpV = new He7Cooler.He7Cooler.Sensor(Channels.SensHe4Pump, cooler, this.EmptyCalibration);
+//                var He4PumpV = new He7Cooler.He7Cooler.Sensor(Channels.SensHe4Pump, cooler, this.EmptyCalibration);
 
-                var He4SwitchV = new He7Cooler.He7Cooler.Sensor(Channels.SensHe4Switch, cooler, this.EmptyCalibration);
+//                var He4SwitchV = new He7Cooler.He7Cooler.Sensor(Channels.SensHe4Switch, cooler, this.EmptyCalibration);
 
-                var He3SwitchV = new He7Cooler.He7Cooler.Sensor(Channels.SensHe3Switch, cooler, this.EmptyCalibration);
+//                var He3SwitchV = new He7Cooler.He7Cooler.Sensor(Channels.SensHe3Switch, cooler, this.EmptyCalibration);
                 cooler.Connect("192.168.1.100");
-
+                Thread.Sleep(2000);
                 while (true)
                 {
-                    Console.WriteLine("HE3plate {0}K, He4Plate: {1}K", He3HeadT.Value, He4HeadT.Value);
+                    
+                    Console.WriteLine("HE3plate {0}K, He4Plate: {1}K, H3PumpT: {2}K", He3HeadT.Value, He4HeadT.Value, He3PumpT.Value);
+                    Thread.Sleep(1000);
                 }
                
 

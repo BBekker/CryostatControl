@@ -11,6 +11,7 @@
 namespace CryostatControlServer.He7Cooler
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
 
     /// <summary>
@@ -30,9 +31,9 @@ namespace CryostatControlServer.He7Cooler
         private readonly Agilent34972A device = new Agilent34972A();
 
         /// <summary>
-        /// The channels to read.
+        /// The amound in sensor readers per channel.
         /// </summary>
-        private List<Channels> channelsToRead = new List<Channels>();
+        private Dictionary<Channels, int> readersPerChannel = new Dictionary<Channels, int>();
 
         /// <summary>
         /// The current voltage of each channel.
@@ -77,7 +78,12 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         public void ReadVoltages()
         {
-            Channels[] channels = this.channelsToRead.ToArray();
+
+
+            Channels[] channels = this.readersPerChannel
+                .Where((pair) => pair.Value > 0)
+                .Select(pair => pair.Key)
+                .ToArray();
             double[] voltages = this.device.GetVoltages(channels);
             for (int i = 0; i < channels.Length; i++)
             {
@@ -121,7 +127,7 @@ namespace CryostatControlServer.He7Cooler
         /// </param>
         protected void AddChannel(Channels channel)
         {
-            this.channelsToRead.Add(channel);
+            this.readersPerChannel[channel]++;
         }
 
         /// <summary>
@@ -132,7 +138,10 @@ namespace CryostatControlServer.He7Cooler
         /// </param>
         protected void RemoveChannel(Channels channel)
         {
-            this.channelsToRead.Remove(channel);
+            if (this.readersPerChannel[channel] > 0)
+            {
+                this.readersPerChannel[channel]--;
+            }
         }
 
         /// <summary>

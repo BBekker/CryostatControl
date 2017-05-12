@@ -56,7 +56,8 @@ namespace CryostatControlServer.He7Cooler
                 this.channel = channel;
                 this.calibration = calibration;
                 this.device = device;
-                device.channelsToRead.Add(channel);
+                device.AddChannel(channel);
+                device.values.Add(channel, 0.0);
             }
 
             /// <summary>
@@ -64,7 +65,7 @@ namespace CryostatControlServer.He7Cooler
             /// </summary>
             ~Sensor()
             {
-                this.device.channelsToRead.Remove(this.channel);
+                this.device.RemoveChannel(this.channel);
             }
 
             /// <summary>
