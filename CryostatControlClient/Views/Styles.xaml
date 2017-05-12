@@ -30,6 +30,27 @@
         <Setter Property="Margin" Value="20 20 20 0" />
     </Style>
 
+    <Style x:Key="graphCard" TargetType="materialDesign:Card" >
+        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1" />
+        <Setter Property="MinWidth" Value="1000" />
+        <Setter Property="MinHeight" Value="200" />
+        <Setter Property="Margin" Value="5,5,5,5" />
+    </Style>
+
+    <Style x:Key="settingCard" TargetType="materialDesign:Card" >
+        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1" />
+        <Setter Property="MinWidth" Value="180" />
+        <Setter Property="MinHeight" Value="440" />
+        <Setter Property="Margin" Value="5,5,5,5" />
+    </Style>
+
+    <Style x:Key="tabFrameCard" TargetType="materialDesign:Card" >
+        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1" />
+        <Setter Property="MinWidth" Value="900" />
+        <Setter Property="MinHeight" Value="440" />
+        <Setter Property="Margin" Value="5,5,5,5" />
+    </Style>
+
     <!--TitleFrame Styles-->
     <Style x:Key="TitleBoxStyle" TargetType="Viewbox">
         <Setter Property="MaxHeight" Value="50" />
