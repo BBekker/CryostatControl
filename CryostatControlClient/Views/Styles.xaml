@@ -35,6 +35,7 @@
         <Setter Property="MinWidth" Value="1000" />
         <Setter Property="MinHeight" Value="200" />
         <Setter Property="Margin" Value="5,5,5,5" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
 
     <Style x:Key="settingCard" TargetType="materialDesign:Card" >
@@ -42,6 +43,7 @@
         <Setter Property="MinWidth" Value="180" />
         <Setter Property="MinHeight" Value="440" />
         <Setter Property="Margin" Value="5,5,5,5" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
 
     <Style x:Key="tabFrameCard" TargetType="materialDesign:Card" >
@@ -49,6 +51,7 @@
         <Setter Property="MinWidth" Value="900" />
         <Setter Property="MinHeight" Value="440" />
         <Setter Property="Margin" Value="5,5,5,5" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
 
     <!--TitleFrame Styles-->
