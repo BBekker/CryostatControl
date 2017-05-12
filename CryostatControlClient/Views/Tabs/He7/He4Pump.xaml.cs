@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="He4Pump.xaml.cs" company="SRON">
+//   k
+// </copyright>
+// <summary>
+//   Interaction logic for He4Pump.xaml
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-namespace CryostatControlClient.Views.He7
+namespace CryostatControlClient.Views.Tabs.He7
 {
+    using System.Windows;
+
     /// <summary>
     /// Interaction logic for He4Pump.xaml
     /// </summary>
     public partial class He4Pump : Window
     {
-        public He4Pump()
-        {
-        }
     }
 }

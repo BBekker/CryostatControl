@@ -1,23 +1,25 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TabFrame.xaml.cs" company="SRON">
+// <copyright file="_4KPlate.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
-//   Interaction logic for Window1.xaml
+//   Interaction logic for _4KPlate.xaml
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace CryostatControlClient.Views
+namespace CryostatControlClient.Views.Tabs.He7
 {
+    using System.Windows;
+
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for _4KPlate.xaml
     /// </summary>
-    public partial class TabFrame 
+    public partial class _4KPlate : Window
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TabFrame"/> class.
+        /// Initializes a new instance of the <see cref="_4KPlate"/> class.
         /// </summary>
-        public TabFrame()
+        public _4KPlate()
         {
         }
     }

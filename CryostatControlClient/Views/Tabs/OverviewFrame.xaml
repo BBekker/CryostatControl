@@ -1,4 +1,4 @@
-﻿<Grid x:Class="CryostatControlClient.Views.OverviewFrame"
+﻿<Grid x:Class="CryostatControlClient.Views.Tabs.OverviewFrame"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Background="{DynamicResource MaterialDesignPaper}">

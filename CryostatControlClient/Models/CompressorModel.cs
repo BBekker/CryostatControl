@@ -1,4 +1,4 @@
-﻿//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
 // <copyright file="CompressorModel.cs" company="SRON">
 //     Copyright (c) SRON. All rights reserved.
 // </copyright>
@@ -8,9 +8,9 @@ namespace CryostatControlClient.Models
     using System;
 
     /// <summary>
-    /// Model for the compressor
-    /// </summary>
     /// <seealso cref="CryostatControlClient.Models.AbstractModel" />
+    /// The compressor model.
+    /// </summary>
     public class CompressorModel : AbstractModel
     {
         #region Fields

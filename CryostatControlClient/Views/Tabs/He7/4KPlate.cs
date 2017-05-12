@@ -1,18 +1,20 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="GraphFrame.xaml.cs" company="SRON">
+// <copyright file="4KPlate.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
-//   Interaction logic for OverviewFrame.xaml
+//   Interaction logic for FourKPlate.xaml
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace CryostatControlClient.Views.Tabs
+namespace CryostatControlClient.Views.Tabs.He7
 {
+    using System.Windows;
+
     /// <summary>
-    /// Interaction logic for OverviewFrame.xaml
+    /// Interaction logic for _4KPlate.xaml
     /// </summary>
-    public partial class GraphFrame
+    public partial class _4KPlate : Window
     {
     }
 }

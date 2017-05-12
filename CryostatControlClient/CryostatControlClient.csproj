@@ -90,9 +90,6 @@
     <Compile Include="Views\Tabs\He7\2KPlate.xaml.cs">
       <DependentUpon>2KPlate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Tabs\He7\4KPlate.xaml.cs">
-      <DependentUpon>4KPlate.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Tabs\He7\He3Pump.xaml.cs">
       <DependentUpon>He3Pump.xaml</DependentUpon>
     </Compile>
@@ -159,6 +156,7 @@
     </Page>
     <Compile Include="Models\CompressorModel.cs" />
     <Compile Include="Models\OverviewModel.cs" />
+    <Compile Include="Views\Tabs\He7\4KPlate.cs" />
     <Compile Include="Views\Tabs\LoggingFrame.xaml.cs">
       <DependentUpon>LoggingFrame.xaml</DependentUpon>
     </Compile>

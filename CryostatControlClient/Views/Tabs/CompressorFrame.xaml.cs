@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CompressorFrame.xaml.cs" company="SRON">
+//   k
+// </copyright>
+// <summary>
+//   Interaction logic for OverviewFrame.xaml
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.Views
 {
@@ -19,8 +14,5 @@ namespace CryostatControlClient.Views
     /// </summary>
     public partial class CompressorFrame
     {
-        public CompressorFrame()
-        {
-        }
     }
 }
