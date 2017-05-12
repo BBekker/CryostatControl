@@ -1,10 +1,18 @@
 ﻿<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Grid.Resources>
+        <ResourceDictionary Source="../../Styles.xaml"/>
+    </Grid.Resources>
+    
     <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="2*" />
+        <ColumnDefinition Width="2*" />
         <ColumnDefinition Width="*" />
         <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="8*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="6*" />
     </Grid.ColumnDefinitions>
 
-    <Label Grid.Column="0">2K Plate</Label>
-    <Label Grid.Column="1">0.80</Label>
+    <Label Grid.Column="0" Style="{StaticResource He7Title}">2K Plate</Label>
+    <Label Grid.Column="1" Style="{StaticResource He7Label}">0.80 K</Label>
 </Grid>

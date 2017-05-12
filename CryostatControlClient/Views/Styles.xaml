@@ -17,6 +17,7 @@
         <Setter Property="MinWidth" Value="1000" />
         <Setter Property="MinHeight" Value="200" />
         <Setter Property="Margin" Value="5,5,5,5" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
 
     <Style x:Key="settingCard" TargetType="materialDesign:Card" >
@@ -24,6 +25,7 @@
         <Setter Property="MinWidth" Value="240" />
         <Setter Property="MinHeight" Value="440" />
         <Setter Property="Margin" Value="5,5,5,5" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
 
     <Style x:Key="tabFrameCard" TargetType="materialDesign:Card" >
@@ -31,6 +33,7 @@
         <Setter Property="MinWidth" Value="850" />
         <Setter Property="MinHeight" Value="440" />
         <Setter Property="Margin" Value="5,5,5,5" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
 
     <!--SettingsFrame Styles-->
@@ -159,5 +162,34 @@
         <Setter Property="Background" Value="White"/>
         <Setter Property="Height" Value="20"/>
         <Setter Property="IsIndeterminate" Value="False"/>
+    </Style>
+
+    <!--He7Frame Style-->
+    <Style x:Key="He7Card" TargetType="materialDesign:Card" >
+        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth3" />
+        <!--<Setter Property="materialDesign:ColorZone.Mode" Value="Light"></Setter>-->
+        <Setter Property="Background" Value="#E0E0E0"></Setter>
+    </Style>
+    
+    <Style x:Key="He7Title" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style x:Key="He7Label" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <Style x:Key="He7TextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Margin" Value="5 0 0 1" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="Width" Value="40" />
     </Style>
 </ResourceDictionary>
