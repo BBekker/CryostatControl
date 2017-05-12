@@ -1,37 +1,318 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="He7Model.cs" company="SRON">
+// SRON 2017.
+// </copyright>
+// <summary>
+//   Model for He7-cooler.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.Models
 {
+    /// <summary>
+    /// Model for the He7-cooler.
+    /// </summary>
+    /// <seealso cref="CryostatControlClient.Models.AbstractModel" />
     public class He7Model : AbstractModel
     {
-        private int he4PumpTemp;
-        private int he4PumpVolt;
-        private int he3PumpTemp;
-        private int he3PumpVolt;
-        private int he4SwitchTemp;
-        private int he4SwitchVolt;
-        private int he3SwitchTemp;
-        private int he3SwitchVolt;
-        private int twoKPlateTemp;
+        /// <summary>
+        /// The four k plate temporary
+        /// </summary>
         private int fourKPlateTemp;
-        private int he4HeadTemp;
+
+        /// <summary>
+        /// The he3 head temporary
+        /// </summary>
         private int he3HeadTemp;
 
-        public int He4PumpTemp { get => he4PumpTemp; set { he4PumpTemp = value; OnPropertyChanged("He4PumpTemp"); } }
-        public int He4PumpVolt { get => he4PumpVolt; set { he4PumpVolt = value; OnPropertyChanged("He4PumpVolt"); } }
-        public int He3PumpTemp { get => he3PumpTemp; set { he3PumpTemp = value; OnPropertyChanged("He3PumpTemp"); } }
-        public int He3PumpVolt { get => he3PumpVolt; set { he3PumpVolt = value; OnPropertyChanged("He3PumpVolt"); } }
-        public int He4SwitchTemp { get => he4SwitchTemp; set { he4SwitchTemp = value; OnPropertyChanged("He4SwitchTemp"); } }
-        public int He4SwitchVolt { get => he4SwitchVolt; set { he4SwitchVolt = value; OnPropertyChanged("He4SwitchVolt"); } }
-        public int He3SwitchTemp { get => he3SwitchTemp; set { he3SwitchTemp = value; OnPropertyChanged("He3SwitchTemp"); } }
-        public int He3SwitchVolt { get => he3SwitchVolt; set { he3SwitchVolt = value; OnPropertyChanged("He3SwitchVolt"); } }
-        public int TwoKPlateTemp { get => twoKPlateTemp; set { twoKPlateTemp = value; OnPropertyChanged("TwoKPlateTemp"); } }
-        public int FourKPlateTemp { get => fourKPlateTemp; set { fourKPlateTemp = value; OnPropertyChanged("FourKPlateTemp"); } }
-        public int He4HeadTemp { get => he4HeadTemp; set { he4HeadTemp = value; OnPropertyChanged("He4HeadTemp"); } }
-        public int He3HeadTemp { get => he3HeadTemp; set { he3HeadTemp = value; OnPropertyChanged("He3HeadTemp"); } }
+        /// <summary>
+        /// The he3 pump temporary
+        /// </summary>
+        private int he3PumpTemp;
+
+        /// <summary>
+        /// The he3 pump volt
+        /// </summary>
+        private int he3PumpVolt;
+
+        /// <summary>
+        /// The he3 switch temporary
+        /// </summary>
+        private int he3SwitchTemp;
+
+        /// <summary>
+        /// The he3 switch volt
+        /// </summary>
+        private int he3SwitchVolt;
+
+        /// <summary>
+        /// The he4 head temporary
+        /// </summary>
+        private int he4HeadTemp;
+
+        /// <summary>
+        /// The he4 pump temporary
+        /// </summary>
+        private int he4PumpTemp;
+
+        /// <summary>
+        /// The he4 pump volt
+        /// </summary>
+        private int he4PumpVolt;
+
+        /// <summary>
+        /// The he4 switch temporary
+        /// </summary>
+        private int he4SwitchTemp;
+
+        /// <summary>
+        /// The he4 switch volt
+        /// </summary>
+        private int he4SwitchVolt;
+
+        /// <summary>
+        /// The two k plate temporary
+        /// </summary>
+        private int twoKPlateTemp;
+
+        /// <summary>
+        /// Gets or sets the four k plate temporary.
+        /// </summary>
+        /// <value>
+        /// The four k plate temporary.
+        /// </value>
+        public int FourKPlateTemp
+        {
+            get
+            {
+                return this.fourKPlateTemp;
+            }
+
+            set
+            {
+                this.fourKPlateTemp = value;
+                this.OnPropertyChanged("FourKPlateTemp");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he3 head temporary.
+        /// </summary>
+        /// <value>
+        /// The he3 head temporary.
+        /// </value>
+        public int He3HeadTemp
+        {
+            get
+            {
+                return this.he3HeadTemp;
+            }
+
+            set
+            {
+                this.he3HeadTemp = value;
+                this.OnPropertyChanged("He3HeadTemp");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he3 pump temporary.
+        /// </summary>
+        /// <value>
+        /// The he3 pump temporary.
+        /// </value>
+        public int He3PumpTemp
+        {
+            get
+            {
+                return this.he3PumpTemp;
+            }
+
+            set
+            {
+                this.he3PumpTemp = value;
+                this.OnPropertyChanged("He3PumpTemp");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he3 pump volt.
+        /// </summary>
+        /// <value>
+        /// The he3 pump volt.
+        /// </value>
+        public int He3PumpVolt
+        {
+            get
+            {
+                return this.he3PumpVolt;
+            }
+
+            set
+            {
+                this.he3PumpVolt = value;
+                this.OnPropertyChanged("He3PumpVolt");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he3 switch temporary.
+        /// </summary>
+        /// <value>
+        /// The he3 switch temporary.
+        /// </value>
+        public int He3SwitchTemp
+        {
+            get
+            {
+                return this.he3SwitchTemp;
+            }
+
+            set
+            {
+                this.he3SwitchTemp = value;
+                this.OnPropertyChanged("He3SwitchTemp");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he3 switch volt.
+        /// </summary>
+        /// <value>
+        /// The he3 switch volt.
+        /// </value>
+        public int He3SwitchVolt
+        {
+            get
+            {
+                return this.he3SwitchVolt;
+            }
+
+            set
+            {
+                this.he3SwitchVolt = value;
+                this.OnPropertyChanged("He3SwitchVolt");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he4 head temporary.
+        /// </summary>
+        /// <value>
+        /// The he4 head temporary.
+        /// </value>
+        public int He4HeadTemp
+        {
+            get
+            {
+                return this.he4HeadTemp;
+            }
+
+            set
+            {
+                this.he4HeadTemp = value;
+                this.OnPropertyChanged("He4HeadTemp");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he4 pump temporary.
+        /// </summary>
+        /// <value>
+        /// The he4 pump temporary.
+        /// </value>
+        public int He4PumpTemp
+        {
+            get
+            {
+                return this.he4PumpTemp;
+            }
+
+            set
+            {
+                this.he4PumpTemp = value;
+                this.OnPropertyChanged("He4PumpTemp");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he4 pump volt.
+        /// </summary>
+        /// <value>
+        /// The he4 pump volt.
+        /// </value>
+        public int He4PumpVolt
+        {
+            get
+            {
+                return this.he4PumpVolt;
+            }
+
+            set
+            {
+                this.he4PumpVolt = value;
+                this.OnPropertyChanged("He4PumpVolt");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he4 switch temporary.
+        /// </summary>
+        /// <value>
+        /// The he4 switch temporary.
+        /// </value>
+        public int He4SwitchTemp
+        {
+            get
+            {
+                return this.he4SwitchTemp;
+            }
+
+            set
+            {
+                this.he4SwitchTemp = value;
+                this.OnPropertyChanged("He4SwitchTemp");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he4 switch volt.
+        /// </summary>
+        /// <value>
+        /// The he4 switch volt.
+        /// </value>
+        public int He4SwitchVolt
+        {
+            get
+            {
+                return this.he4SwitchVolt;
+            }
+
+            set
+            {
+                this.he4SwitchVolt = value;
+                this.OnPropertyChanged("He4SwitchVolt");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the two k plate temporary.
+        /// </summary>
+        /// <value>
+        /// The two k plate temporary.
+        /// </value>
+        public int TwoKPlateTemp
+        {
+            get
+            {
+                return this.twoKPlateTemp;
+            }
+
+            set
+            {
+                this.twoKPlateTemp = value;
+                this.OnPropertyChanged("TwoKPlateTemp");
+            }
+        }
     }
 }
