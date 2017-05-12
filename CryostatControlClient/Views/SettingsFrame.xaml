@@ -6,61 +6,59 @@
         <ResourceDictionary Source="Styles.xaml"/>
     </Page.Resources>
 
-    <Border Style="{StaticResource SettingBorder}">
+    <!--<Border materialDesign:ShadowAssist.ShadowDepth="Depth5">-->
+    <materialDesign:Card Style="{StaticResource settingCard}">
         <Grid Style="{StaticResource SettingFrame}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
 
-            <Viewbox Style="{StaticResource SettingsViewBox}" Grid.Row="0">
-                <StackPanel>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                            <RowDefinition Height="1*"/>
-                        </Grid.RowDefinitions>
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
 
-                        <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="0">Server</Label>
-                        <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="0">Connected</Label>
+                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="0">Server</Label>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="0">Connected</Label>
 
-                        <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="1">Compressor</Label>
-                        <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="1">Connected</Label>
+                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="1">Compressor</Label>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="1">Connected</Label>
 
-                        <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="2">BlueFors</Label>
-                        <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="2">Connected</Label>
+                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="2">BlueFors</Label>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="2">Connected</Label>
 
-                        <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="3">He-7</Label>
-                        <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="3">Connected</Label>
+                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="3">He-7</Label>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="3">Connected</Label>
 
-                        <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="4">Modus</Label>
-                        <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="4">Cooling down</Label>
-                    </Grid>
-                </StackPanel>
-            </Viewbox>
+                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="4">Modus</Label>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="4">Cooling down</Label>
+                </Grid>
+            </StackPanel>
 
-            <Viewbox Style="{StaticResource SettingsViewBox}" Grid.Row="1">
-                <StackPanel>
-                    <DatePicker materialDesign:HintAssist.Hint="Pick Date" Style="{StaticResource SettingsDatePicker}" />
-                    <materialDesign:TimePicker materialDesign:HintAssist.Hint="Pick Time" Style="{StaticResource SettingsTimePicker}"/>
+            <StackPanel Grid.Row="1">
+                <DatePicker materialDesign:HintAssist.Hint="Pick Date" Style="{StaticResource SettingsDatePicker}" />
+                <materialDesign:TimePicker materialDesign:HintAssist.Hint="Pick Time" Style="{StaticResource SettingsTimePicker}"/>
 
-                    <ComboBox SelectedIndex="0" Style="{StaticResource SettingsComboBox}">
-                        <ComboBoxItem>Cool down</ComboBoxItem>
-                        <ComboBoxItem>Recycle</ComboBoxItem>
-                        <ComboBoxItem>Warm up</ComboBoxItem>
-                        <ComboBoxItem>Manual control</ComboBoxItem>
-                    </ComboBox>
-                    <Button Style="{StaticResource SettingsButton}">Start</Button>
-                </StackPanel>
-            </Viewbox>
+                <ComboBox SelectedIndex="0" Style="{StaticResource SettingsComboBox}">
+                    <ComboBoxItem>Cool down</ComboBoxItem>
+                    <ComboBoxItem>Recycle</ComboBoxItem>
+                    <ComboBoxItem>Warm up</ComboBoxItem>
+                    <ComboBoxItem>Manual control</ComboBoxItem>
+                </ComboBox>
+                <Button Style="{StaticResource SettingsButton}">Start</Button>
+            </StackPanel>
         </Grid>
-    </Border>
+    </materialDesign:Card>
+    <!--</Border>-->
 </Page>
 
