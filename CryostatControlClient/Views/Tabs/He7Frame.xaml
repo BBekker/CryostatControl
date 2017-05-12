@@ -1,6 +1,7 @@
 ﻿<Grid x:Class="CryostatControlClient.Views.He7Frame"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Background="{DynamicResource MaterialDesignPaper}">
 
     <Grid.Resources>
@@ -30,31 +31,31 @@
         <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-    <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource He7Border}">
+    <materialDesign:Card Grid.Column="1" Grid.Row="1" Style="{StaticResource He7Card}">
         <Frame Source="He7/He4Pump.xaml" />    
-    </Border>
-    <Border Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="7" Style="{StaticResource He7Border}">
+    </materialDesign:Card>
+    <materialDesign:Card Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="7" Style="{StaticResource He7Card}">
         <Frame Source="He7/4kPlate.xaml" />
-    </Border>
-    <Border Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="7" Style="{StaticResource He7Border}">
+    </materialDesign:Card>
+    <materialDesign:Card Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="7" Style="{StaticResource He7Card}">
         <Frame Source="He7/2KPlate.xaml" />
-    </Border>
-    <Border Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" Style="{StaticResource He7Border}">
+    </materialDesign:Card>
+    <materialDesign:Card Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" Style="{StaticResource He7Card}">
         <Frame Source="He7/He4Stage.xaml" />
-    </Border>
+    </materialDesign:Card>
 
-    <Border Grid.Column="3" Grid.Row="1" Style="{StaticResource He7Border}">
+    <materialDesign:Card Grid.Column="3" Grid.Row="1" Style="{StaticResource He7Card}">
         <Frame Source="He7/He4Switch.xaml" />
-    </Border>
+    </materialDesign:Card>
 
-    <Border Grid.Column="5" Grid.Row="1" Style="{StaticResource He7Border}">
+    <materialDesign:Card Grid.Column="5" Grid.Row="1" Style="{StaticResource He7Card}">
         <Frame Source="He7/He3Switch.xaml" />
-    </Border>
+    </materialDesign:Card>
 
-    <Border Grid.Column="7" Grid.Row="1" Style="{StaticResource He7Border}">
+    <materialDesign:Card Grid.Column="7" Grid.Row="1" Style="{StaticResource He7Card}">
         <Frame Source="He7/He3Pump.xaml" />
-    </Border>
-    <Border Grid.Column="5" Grid.Row="7" Grid.ColumnSpan="3" Style="{StaticResource He7Border}">
+    </materialDesign:Card>
+    <materialDesign:Card Grid.Column="5" Grid.Row="7" Grid.ColumnSpan="3" Style="{StaticResource He7Card}">
         <Frame Source="He7/He3Stage.xaml" />
-    </Border>
+    </materialDesign:Card>
 </Grid>

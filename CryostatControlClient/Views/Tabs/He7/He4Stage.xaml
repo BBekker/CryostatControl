@@ -12,7 +12,6 @@
     <Grid.RowDefinitions>
         <RowDefinition Height="*" />
         <RowDefinition Height="*" />
-        <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
     <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Style="{StaticResource He7Title}">He4 Stage</Label>
@@ -22,6 +21,4 @@
 
     <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource He7Label}">Max</Label>
     <TextBox Grid.Row="1" Grid.Column="3" Style="{StaticResource He7TextBox}">4.25</TextBox>
-
-    <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">v</Label>
 </Grid>
