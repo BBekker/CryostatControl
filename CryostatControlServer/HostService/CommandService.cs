@@ -15,11 +15,10 @@ namespace CryostatControlServer.HostService
     {
         #region Methods
 
-        /// <inheritdoc cref="ICommandService.SayHello"/>>
-        public string SayHello(string name)
+        /// <inheritdoc cref="ICommandService.IsAlive"/>
+        public bool IsAlive()
         {
-            Console.WriteLine("hello called");
-            return "hello " + name;
+            return true;
         }
 
         /// <inheritdoc cref="ICommandService.Cooldown"/>>
@@ -44,12 +43,6 @@ namespace CryostatControlServer.HostService
         public float ReadSensor(int id)
         {
             return 0;
-        }
-
-        /// <inheritdoc cref="ICommandService.UpdateSensor"/>>
-        public bool UpdateSensor(int id, float value)
-        {
-            return false;
         }
 
         #endregion Methods

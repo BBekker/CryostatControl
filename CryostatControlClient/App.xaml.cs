@@ -30,7 +30,14 @@ namespace CryostatControlClient
 
             CommandServiceClient client = new CommandServiceClient();
 
-            Console.WriteLine("{0}", client.SayHello("Maiko"));
+            try
+            {
+                Console.WriteLine("Server is alive: {0}", client.IsAlive());
+            }
+            catch (System.ServiceModel.EndpointNotFoundException exception)
+            {
+                Console.WriteLine("Server is alive: {0}", false);
+            }
         }
 
         #endregion Methods

@@ -6,22 +6,98 @@
       <xsd:import schemaLocation="http://localhost:8080/SRON?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="ICommandService_SayHello_InputMessage">
-    <wsdl:part name="parameters" element="tns:SayHello" />
+  <wsdl:message name="ICommandService_IsAlive_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsAlive" />
   </wsdl:message>
-  <wsdl:message name="ICommandService_SayHello_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SayHelloResponse" />
+  <wsdl:message name="ICommandService_IsAlive_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsAliveResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_Cooldown_InputMessage">
+    <wsdl:part name="parameters" element="tns:Cooldown" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_Cooldown_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CooldownResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_Recycle_InputMessage">
+    <wsdl:part name="parameters" element="tns:Recycle" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_Recycle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecycleResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_Warmup_InputMessage">
+    <wsdl:part name="parameters" element="tns:Warmup" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_Warmup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WarmupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_ReadSensor_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReadSensor" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_ReadSensor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReadSensorResponse" />
   </wsdl:message>
   <wsdl:portType name="ICommandService">
-    <wsdl:operation name="SayHello">
-      <wsdl:input wsam:Action="http://tempuri.org/ICommandService/SayHello" message="tns:ICommandService_SayHello_InputMessage" />
-      <wsdl:output wsam:Action="http://tempuri.org/ICommandService/SayHelloResponse" message="tns:ICommandService_SayHello_OutputMessage" />
+    <wsdl:operation name="IsAlive">
+      <wsdl:input wsam:Action="http://tempuri.org/ICommandService/IsAlive" message="tns:ICommandService_IsAlive_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/ICommandService/IsAliveResponse" message="tns:ICommandService_IsAlive_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Cooldown">
+      <wsdl:input wsam:Action="http://tempuri.org/ICommandService/Cooldown" message="tns:ICommandService_Cooldown_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/ICommandService/CooldownResponse" message="tns:ICommandService_Cooldown_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Recycle">
+      <wsdl:input wsam:Action="http://tempuri.org/ICommandService/Recycle" message="tns:ICommandService_Recycle_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/ICommandService/RecycleResponse" message="tns:ICommandService_Recycle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Warmup">
+      <wsdl:input wsam:Action="http://tempuri.org/ICommandService/Warmup" message="tns:ICommandService_Warmup_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/ICommandService/WarmupResponse" message="tns:ICommandService_Warmup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadSensor">
+      <wsdl:input wsam:Action="http://tempuri.org/ICommandService/ReadSensor" message="tns:ICommandService_ReadSensor_InputMessage" />
+      <wsdl:output wsam:Action="http://tempuri.org/ICommandService/ReadSensorResponse" message="tns:ICommandService_ReadSensor_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICommandService" type="tns:ICommandService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="SayHello">
-      <soap:operation soapAction="http://tempuri.org/ICommandService/SayHello" style="document" />
+    <wsdl:operation name="IsAlive">
+      <soap:operation soapAction="http://tempuri.org/ICommandService/IsAlive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Cooldown">
+      <soap:operation soapAction="http://tempuri.org/ICommandService/Cooldown" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Recycle">
+      <soap:operation soapAction="http://tempuri.org/ICommandService/Recycle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Warmup">
+      <soap:operation soapAction="http://tempuri.org/ICommandService/Warmup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadSensor">
+      <soap:operation soapAction="http://tempuri.org/ICommandService/ReadSensor" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

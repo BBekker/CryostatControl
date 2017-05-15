@@ -16,12 +16,11 @@ namespace CryostatControlServer.HostService
         #region Methods
 
         /// <summary>
-        /// Says hello.
+        /// Method to check if the host is running
         /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns>Hello string with name</returns>
+        /// <returns>The service state</returns>
         [OperationContract]
-        string SayHello(string name);
+        bool IsAlive();
 
         /// <summary>
         /// Start cool down process
@@ -51,15 +50,6 @@ namespace CryostatControlServer.HostService
         /// <returns>Current value of the sensor</returns>
         [OperationContract]
         float ReadSensor(int id);
-
-        /// <summary>
-        /// Sets the specified sensor to the given value.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="value">The value.</param>
-        /// <returns>If the value could be set or not</returns>
-        [OperationContract]
-        bool UpdateSensor(int id, float value);
 
         #endregion Methods
     }

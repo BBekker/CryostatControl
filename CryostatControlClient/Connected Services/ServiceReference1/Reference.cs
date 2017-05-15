@@ -15,11 +15,35 @@ namespace CryostatControlClient.ServiceReference1 {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.ICommandService")]
     public interface ICommandService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/SayHello", ReplyAction="http://tempuri.org/ICommandService/SayHelloResponse")]
-        string SayHello(string name);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsAlive", ReplyAction="http://tempuri.org/ICommandService/IsAliveResponse")]
+        bool IsAlive();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/SayHello", ReplyAction="http://tempuri.org/ICommandService/SayHelloResponse")]
-        System.Threading.Tasks.Task<string> SayHelloAsync(string name);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsAlive", ReplyAction="http://tempuri.org/ICommandService/IsAliveResponse")]
+        System.Threading.Tasks.Task<bool> IsAliveAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Cooldown", ReplyAction="http://tempuri.org/ICommandService/CooldownResponse")]
+        bool Cooldown();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Cooldown", ReplyAction="http://tempuri.org/ICommandService/CooldownResponse")]
+        System.Threading.Tasks.Task<bool> CooldownAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Recycle", ReplyAction="http://tempuri.org/ICommandService/RecycleResponse")]
+        bool Recycle();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Recycle", ReplyAction="http://tempuri.org/ICommandService/RecycleResponse")]
+        System.Threading.Tasks.Task<bool> RecycleAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Warmup", ReplyAction="http://tempuri.org/ICommandService/WarmupResponse")]
+        bool Warmup();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Warmup", ReplyAction="http://tempuri.org/ICommandService/WarmupResponse")]
+        System.Threading.Tasks.Task<bool> WarmupAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadSensor", ReplyAction="http://tempuri.org/ICommandService/ReadSensorResponse")]
+        float ReadSensor(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadSensor", ReplyAction="http://tempuri.org/ICommandService/ReadSensorResponse")]
+        System.Threading.Tasks.Task<float> ReadSensorAsync(int id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -49,12 +73,44 @@ namespace CryostatControlClient.ServiceReference1 {
                 base(binding, remoteAddress) {
         }
         
-        public string SayHello(string name) {
-            return base.Channel.SayHello(name);
+        public bool IsAlive() {
+            return base.Channel.IsAlive();
         }
         
-        public System.Threading.Tasks.Task<string> SayHelloAsync(string name) {
-            return base.Channel.SayHelloAsync(name);
+        public System.Threading.Tasks.Task<bool> IsAliveAsync() {
+            return base.Channel.IsAliveAsync();
+        }
+        
+        public bool Cooldown() {
+            return base.Channel.Cooldown();
+        }
+        
+        public System.Threading.Tasks.Task<bool> CooldownAsync() {
+            return base.Channel.CooldownAsync();
+        }
+        
+        public bool Recycle() {
+            return base.Channel.Recycle();
+        }
+        
+        public System.Threading.Tasks.Task<bool> RecycleAsync() {
+            return base.Channel.RecycleAsync();
+        }
+        
+        public bool Warmup() {
+            return base.Channel.Warmup();
+        }
+        
+        public System.Threading.Tasks.Task<bool> WarmupAsync() {
+            return base.Channel.WarmupAsync();
+        }
+        
+        public float ReadSensor(int id) {
+            return base.Channel.ReadSensor(id);
+        }
+        
+        public System.Threading.Tasks.Task<float> ReadSensorAsync(int id) {
+            return base.Channel.ReadSensorAsync(id);
         }
     }
 }
