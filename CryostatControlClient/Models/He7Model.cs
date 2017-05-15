@@ -15,6 +15,8 @@ namespace CryostatControlClient.Models
     /// <seealso cref="CryostatControlClient.Models.AbstractModel" />
     public class He7Model : AbstractModel
     {
+        #region Fields
+
         /// <summary>
         /// The four k plate temporary
         /// </summary>
@@ -74,6 +76,10 @@ namespace CryostatControlClient.Models
         /// The two k plate temporary
         /// </summary>
         private int twoKPlateTemp;
+
+        #endregion Fields
+
+        #region Properties
 
         /// <summary>
         /// Gets or sets the four k plate temporary.
@@ -314,5 +320,7 @@ namespace CryostatControlClient.Models
                 this.OnPropertyChanged("TwoKPlateTemp");
             }
         }
+
+    #endregion Properties
     }
 }
