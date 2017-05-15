@@ -22,7 +22,7 @@ namespace CryostatControlServer.He7Cooler
         /// <summary>
         /// Representation of a sensor on the H7 cooler.
         /// </summary>
-        public class Sensor
+        public class Sensor : ISensor
         {
             /// <summary>
             /// The Agilent data channel.
@@ -67,6 +67,12 @@ namespace CryostatControlServer.He7Cooler
             {
                 this.device.RemoveChannel(this.channel);
             }
+
+            /// <summary>
+            /// Gets or sets the interval.
+            /// This is ignored for now, sensors are always read as fast as possible. 
+            /// </summary>
+            public int Interval { get; set; }
 
             /// <summary>
             /// Gets the current calibrated value of the sensor.

@@ -8,7 +8,8 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace CryostatControlServer
+namespace CryostatControlServer.LakeShore
+
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
@@ -18,7 +19,7 @@ namespace CryostatControlServer
     /// <summary>
     /// Connection and communication to the LakeShore 355 temperature controller.
     /// </summary>
-    internal class LakeShore
+    public class LakeShore
     {
         #region const values
 
@@ -37,6 +38,11 @@ namespace CryostatControlServer
         /// </summary>
         private const int BaudRate = 57600;
 
+        /// <summary>
+        /// The read interval.
+        /// </summary>
+        private const int ReadInterval = 1000;
+
         #endregion const 
 
         /// <summary>
@@ -45,10 +51,20 @@ namespace CryostatControlServer
         private readonly ManagedStream ms = new ManagedStream();
 
         /// <summary>
+        /// Gets or sets the latest sensor values;
+        /// </summary>
+        public double[] SensorValues { get; set; } = new double[2]{0, 0};
+
+        /// <summary>
         /// The time of the last command. Commands need to be spaced at least 50ms
         /// </summary>
         [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         private DateTime lastCommand;
+
+        /// <summary>
+        /// The read thread.
+        /// </summary>
+        private Thread readthread;
 
         /// <summary>
         /// Initializes by connecting to the specified port name.
@@ -62,6 +78,17 @@ namespace CryostatControlServer
 
             this.ms.WriteString("MODE 1\n");
             this.OPC();
+
+            this.readthread = new Thread(
+                () =>
+                    {
+                        while (true)
+                        {
+                            this.SensorValues[0] = ReadTemperature("A");
+                            this.SensorValues[1] = ReadTemperature("B");
+                            Thread.Sleep(ReadInterval);
+                        }
+                    });
         }
 
         /// <summary>
@@ -69,15 +96,21 @@ namespace CryostatControlServer
         /// </summary>
         public void Close()
         {
+            //Stop the read thread inside a lock to prevent stopping while thread holds the lock.
+            Monitor.Enter(this.ms);
+            this.readthread.Abort();
+            Monitor.Exit(this.ms);
             this.ms.Close();
         }
+
+
 
         /// <summary>
         /// Reads the sensor temperature in Kelvin.
         /// </summary>
         /// <param name="sensor">The sensor.</param>
         /// <returns>sensor temperature in K</returns>
-        public double ReadTemperature(string sensor)
+        private double ReadTemperature(string sensor)
         {
             try
             {

@@ -6,6 +6,7 @@ using System.Threading;
 namespace CryostatControlServer
 {
     using CryostatControlServer.He7Cooler;
+    using CryostatControlServer.LakeShore;
 
     class Program
     {
@@ -84,12 +85,14 @@ namespace CryostatControlServer
 
             Thread LakeShoreThread = new Thread(new ThreadStart(() =>
             {
-                LakeShore ls = new LakeShore();
+                LakeShore.LakeShore ls = new LakeShore.LakeShore();
                 ls.Init("COM6");
+                var sensorA = new Sensor(SensorEnum.Sensor1,ls);
+                var sensorB = new Sensor(SensorEnum.Sensor2,ls);
                 while (run)
                 {
-                    double t1 = ls.ReadTemperature("A");
-                    double t2 = ls.ReadTemperature("B");
+                    double t1 = sensorA.Value;
+                    double t2 = sensorB.Value;
                     Console.WriteLine("Temp 1: {0}K, Temp 2: {1}K", t1, t2);
                     Thread.Sleep(1000);
 
