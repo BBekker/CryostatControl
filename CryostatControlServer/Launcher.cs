@@ -1,4 +1,9 @@
-﻿namespace CryostatControlServer
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Launcher.cs" company="SRON">
+//      Copyright (c) SRON. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+namespace CryostatControlServer
 {
     using System;
     using System.ServiceModel;
@@ -6,10 +11,17 @@
 
     using CryostatControlServer.HostService;
 
+    /// <summary>
+    /// Launcher for the server application
+    /// </summary>
     public class Launcher
     {
         #region Methods
 
+        /// <summary>
+        /// Main method
+        /// </summary>
+        /// <param name="args">The arguments.</param>
         public static void Main(string[] args)
         {
             Uri baseAddress = new Uri("http://localhost:8080/SRON");
