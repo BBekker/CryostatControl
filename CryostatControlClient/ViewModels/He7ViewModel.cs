@@ -10,6 +10,10 @@ namespace CryostatControlClient.ViewModels
 
     public class He7ViewModel : AbstractViewModel
     {
-        public override event NotifyCollectionChangedEventHandler CollectionChanged;
+    
+        public He7ViewModel()
+        {
+            
+        }
     }
 }

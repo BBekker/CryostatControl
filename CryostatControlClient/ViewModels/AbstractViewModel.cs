@@ -15,18 +15,13 @@ namespace CryostatControlClient.ViewModels
     /// <summary>
     /// The abstract view model.
     /// </summary>
-    public abstract class AbstractViewModel : INotifyCollectionChanged
+    public abstract class AbstractViewModel : INotifyPropertyChanged
     {
 
         /// <summary>
         /// The property changed.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// The collection changed.
-        /// </summary>
-        public abstract event NotifyCollectionChangedEventHandler CollectionChanged;
 
         /// <summary>
         /// The raise property changed.
