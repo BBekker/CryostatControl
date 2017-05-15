@@ -10,8 +10,7 @@ namespace CryostatControlClient.Models
     /// <summary>
     /// The Bluefors model
     /// </summary>
-    /// <seealso cref="CryostatControlClient.Models.AbstractModel" />
-    public class BlueforsModel : AbstractModel
+    public class BlueforsModel
     {
         #region Fields
 
@@ -45,7 +44,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.coldPlate3KTemp = value;
-                this.OnPropertyChanged("ColdPlate3KTemp");
             }
         }
 
@@ -65,7 +63,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.coldPlate5KTemp = value;
-                this.OnPropertyChanged("ColdPlate5KTemp");
             }
         }
 
