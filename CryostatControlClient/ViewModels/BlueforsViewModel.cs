@@ -14,7 +14,7 @@ namespace CryostatControlClient.ViewModels
     /// <summary>
     /// Bluefors ViewModel
     /// </summary>
-    public class BlueforsViewModel
+    public class BlueforsViewModel : AbstractViewModel
     {
         #region Fields
 
@@ -55,6 +55,7 @@ namespace CryostatControlClient.ViewModels
             set
             {
                 this.blueforsModel.ColdPlate3KTemp = value;
+                this.RaisePropertyChanged("ColdPlate3KTemp");
             }
         }
 
@@ -68,12 +69,13 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.ColdPlate5KTemp;
+                return this.blueforsModel.ColdPlate5KTemp;
             }
 
             set
             {
-                this.ColdPlate5KTemp = value;
+                this.blueforsModel.ColdPlate5KTemp = value;
+                this.RaisePropertyChanged("ColdPlate5KTemp");
             }
         }
 
