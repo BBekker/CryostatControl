@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ISensor.cs" company="SRON">
+//   bla
+// </copyright>
+// <author>Bernard Bekker</author>
+// <summary>
+//   The Sensor interface.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer
 {
-    using System.Data;
-
     /// <summary>
     /// The Sensor interface.
     /// </summary>
