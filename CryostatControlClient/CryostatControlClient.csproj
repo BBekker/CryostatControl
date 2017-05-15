@@ -88,9 +88,9 @@
     <Compile Include="Models\BlueforsModel.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Models\He7Model.cs" />
     <Compile Include="ViewModels\AbstractViewModel.cs" />
     <Compile Include="ViewModels\BlueforsViewModel.cs" />
+    <Compile Include="ViewModels\CompressorViewModel.cs" />
     <Compile Include="Views\Tabs\He7\2KPlate.xaml.cs">
       <DependentUpon>2KPlate.xaml</DependentUpon>
     </Compile>
