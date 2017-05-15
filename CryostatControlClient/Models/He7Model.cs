@@ -91,7 +91,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.fourKPlateTemp = value;
-                this.OnPropertyChanged("FourKPlateTemp");
             }
         }
 
@@ -111,7 +110,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3HeadTemp = value;
-                this.OnPropertyChanged("He3HeadTemp");
             }
         }
 
@@ -131,7 +129,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3PumpTemp = value;
-                this.OnPropertyChanged("He3PumpTemp");
             }
         }
 
@@ -151,7 +148,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3PumpVolt = value;
-                this.OnPropertyChanged("He3PumpVolt");
             }
         }
 
@@ -171,7 +167,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3SwitchTemp = value;
-                this.OnPropertyChanged("He3SwitchTemp");
             }
         }
 
@@ -191,7 +186,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3SwitchVolt = value;
-                this.OnPropertyChanged("He3SwitchVolt");
             }
         }
 
@@ -211,7 +205,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4HeadTemp = value;
-                this.OnPropertyChanged("He4HeadTemp");
             }
         }
 
@@ -231,7 +224,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4PumpTemp = value;
-                this.OnPropertyChanged("He4PumpTemp");
             }
         }
 
@@ -251,7 +243,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4PumpVolt = value;
-                this.OnPropertyChanged("He4PumpVolt");
             }
         }
 
@@ -271,7 +262,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4SwitchTemp = value;
-                this.OnPropertyChanged("He4SwitchTemp");
             }
         }
 
@@ -291,7 +281,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4SwitchVolt = value;
-                this.OnPropertyChanged("He4SwitchVolt");
             }
         }
 
@@ -311,7 +300,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.twoKPlateTemp = value;
-                this.OnPropertyChanged("TwoKPlateTemp");
             }
         }
     }
