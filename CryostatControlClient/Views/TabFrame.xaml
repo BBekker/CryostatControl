@@ -11,9 +11,6 @@
 
     <materialDesign:Card Style="{StaticResource tabFrameCard}">
         <dragablz:TabablzControl Style="{StaticResource TabFrame}">
-            <dragablz:TabablzControl.InterTabController>
-                <dragablz:InterTabController />
-            </dragablz:TabablzControl.InterTabController>
             <TabItem Header="Overview">
                 <Frame Source="Tabs/OverviewFrame.xaml" />
             </TabItem>
