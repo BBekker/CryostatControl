@@ -39,7 +39,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Label>51.78 K</Label>    
+                    <Label Content="{Binding BlueforsViewModel.ColdPlate3KTemp}" />    
                 </Grid>
 
 
@@ -68,13 +68,13 @@
                         <Border Grid.Column="1" Grid.Row="0" Background="Transparent" CornerRadius="0 0 15 15" BorderBrush="Black" BorderThickness="1 0 1 1" Padding="10 50 10 50">
                             <Border CornerRadius="5" Background="RosyBrown">
                                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="50">
-                                    <Label>He7-cooler</Label>
+                                    <Label Content="He7 cooler"/>
                                 </Grid>
                             </Border>
                         </Border>
                         
                         <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Label>3.01 K</Label>    
+                            <Label Content="{Binding BlueforsViewModel.ColdPlate3KTemp}" />    
                         </Grid>
                     </Grid>
                 </Border>
