@@ -39,9 +39,10 @@ namespace CryostatControlClient.Views
 
             this.DataContext = dc;
 
-            dc.BlueforsViewModel.ColdPlate5KTemp = 3000;
-            dc.CompressorViewModel.OperatingState = 1000;
-            dc.He7ViewModel.FourKPlateTemp = 5000;
+            // test setters
+            // dc.BlueforsViewModel.ColdPlate50KTemp = 3000;
+            // dc.CompressorViewModel.OperatingState = 1000;
+            // dc.He7ViewModel.FourKPlateTemp = 5000;
         }
     }
 }

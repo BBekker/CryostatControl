@@ -43,7 +43,7 @@ namespace CryostatControlClient.ViewModels
         /// Gets or sets the cold plate 3 K temperature.
         /// </summary>
         /// <value>
-        /// The cold plate3 k temporary.
+        /// The cold plate3 k temperature.
         /// </value>
         public int ColdPlate3KTemp
         {
@@ -60,12 +60,12 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the cold plate 5 K temperature.
+        /// Gets or sets the cold plate 50 K temperature.
         /// </summary>
         /// <value>
-        /// The cold plate 5 K temporary.
+        /// The cold plate 50 K temperature.
         /// </value>
-        public int ColdPlate5KTemp
+        public int ColdPlate50KTemp
         {
             get
             {
