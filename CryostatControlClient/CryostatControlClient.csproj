@@ -87,19 +87,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\BlueforsModel.cs"/>
+    <Compile Include="Models\BlueforsModel.cs" />
     <Compile Include="Connected Services\ServiceReference1\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Models\AbstractModel.cs" />
     <Compile Include="Models\He7Model.cs" />
     <Compile Include="ViewModels\AbstractViewModel.cs" />
     <Compile Include="ViewModels\BlueforsViewModel.cs" />
     <Compile Include="ViewModels\CompressorViewModel.cs" />
     <Compile Include="ViewModels\DataContext.cs" />
-    <Compile Include="Models\He7Model.cs" />
     <Compile Include="ViewModels\He7ViewModel.cs" />
     <Compile Include="Views\MainGraphFrame.xaml.cs">
       <DependentUpon>MainGraphFrame.xaml</DependentUpon>
