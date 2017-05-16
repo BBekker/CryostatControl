@@ -120,10 +120,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the coolant in temporary.
+        /// Gets or sets the coolant in temperature.
         /// </summary>
         /// <value>
-        /// The coolant in temporary.
+        /// The coolant in temperature.
         /// </value>
         public int CoolantInTemp
         {
@@ -140,10 +140,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the coolant out temporary.
+        /// Gets or sets the coolant out temperature.
         /// </summary>
         /// <value>
-        /// The coolant out temporary.
+        /// The coolant out temperature.
         /// </value>
         public int CoolantOutTemp
         {
@@ -160,10 +160,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the oil temporary.
+        /// Gets or sets the oil temperature.
         /// </summary>
         /// <value>
-        /// The oil temporary.
+        /// The oil temperature.
         /// </value>
         public int OilTemp
         {
@@ -180,10 +180,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the helium temporary.
+        /// Gets or sets the helium temperature.
         /// </summary>
         /// <value>
-        /// The helium temporary.
+        /// The helium temperature.
         /// </value>
         public int HeliumTemp
         {
@@ -360,10 +360,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the temporary scale.
+        /// Gets or sets the temperature scale.
         /// </summary>
         /// <value>
-        /// The temporary scale.
+        /// The temperature scale.
         /// </value>
         public int TempScale
         {

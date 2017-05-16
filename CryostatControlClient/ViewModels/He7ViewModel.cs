@@ -30,10 +30,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the four k plate temporary.
+        /// Gets or sets the four k plate temperature.
         /// </summary>
         /// <value>
-        /// The four k plate temporary.
+        /// The four k plate temperature.
         /// </value>
         public int FourKPlateTemp
         {
@@ -50,10 +50,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the he3 head temporary.
+        /// Gets or sets the he3 head temperature.
         /// </summary>
         /// <value>
-        /// The he3 head temporary.
+        /// The he3 head temperature.
         /// </value>
         public int He3HeadTemp
         {
@@ -70,10 +70,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the he3 pump temporary.
+        /// Gets or sets the he3 pump temperature.
         /// </summary>
         /// <value>
-        /// The he3 pump temporary.
+        /// The he3 pump temperature.
         /// </value>
         public int He3PumpTemp
         {
@@ -110,10 +110,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the he3 switch temporary.
+        /// Gets or sets the he3 switch temperature.
         /// </summary>
         /// <value>
-        /// The he3 switch temporary.
+        /// The he3 switch temperature.
         /// </value>
         public int He3SwitchTemp
         {
@@ -150,10 +150,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the he4 head temporary.
+        /// Gets or sets the he4 head temperature.
         /// </summary>
         /// <value>
-        /// The he4 head temporary.
+        /// The he4 head temperature.
         /// </value>
         public int He4HeadTemp
         {
@@ -170,10 +170,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the he4 pump temporary.
+        /// Gets or sets the he4 pump temperature.
         /// </summary>
         /// <value>
-        /// The he4 pump temporary.
+        /// The he4 pump temperature.
         /// </value>
         public int He4PumpTemp
         {
@@ -210,10 +210,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the he4 switch temporary.
+        /// Gets or sets the he4 switch temperature.
         /// </summary>
         /// <value>
-        /// The he4 switch temporary.
+        /// The he4 switch temperature.
         /// </value>
         public int He4SwitchTemp
         {
@@ -250,10 +250,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the two k plate temporary.
+        /// Gets or sets the two k plate temperature.
         /// </summary>
         /// <value>
-        /// The two k plate temporary.
+        /// The two k plate temperature.
         /// </value>
         public int TwoKPlateTemp
         {
