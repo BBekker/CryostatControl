@@ -16,11 +16,9 @@ namespace CryostatControlClient.ViewModels
     using System.Threading.Tasks;
 
     /// <summary>
-    /// DataContext class containing containing all view models
+    /// The data context.
     /// </summary>
-    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
-    /// <seealso cref="CryostatControlClient.ViewModels.AbstractViewModel" />
-    public class DataContext : INotifyPropertyChanged
+    public class DataContext 
     {
         #region Fields
 
@@ -54,11 +52,6 @@ namespace CryostatControlClient.ViewModels
         }
 
         #endregion Constructor
-
-        /// <summary>
-        /// Occurs when a property value changes.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
 
         #region Properties
 

@@ -28,7 +28,6 @@ namespace CryostatControlClient.Views
             this.Loaded += this.MainWindowLoaded;
         }
 
-
         /// <summary>
         /// Handles the Loaded event of the MainWindow control.
         /// </summary>

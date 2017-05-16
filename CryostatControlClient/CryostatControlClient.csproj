@@ -93,65 +93,12 @@
     <Compile Include="ViewModels\DataContext.cs" />
     <Compile Include="Models\He7Model.cs" />
     <Compile Include="ViewModels\He7ViewModel.cs" />
-    <Compile Include="Views\Tabs\He7\2KPlate.xaml.cs">
-      <DependentUpon>2KPlate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Tabs\He7\He3Pump.xaml.cs">
-      <DependentUpon>He3Pump.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Tabs\He7\He3Stage.xaml.cs">
-      <DependentUpon>He3Stage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Tabs\He7\He3Switch.xaml.cs">
-      <DependentUpon>He3Switch.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Tabs\He7\He4Pump.xaml.cs">
-      <DependentUpon>He4Pump.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Tabs\He7\He4Stage.xaml.cs">
-      <DependentUpon>He4Stage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Tabs\He7\He4Switch.xaml.cs">
-      <DependentUpon>He4Switch.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainGraphFrame.xaml.cs">
       <DependentUpon>MainGraphFrame.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsFrame.xaml.cs">
       <DependentUpon>SettingsFrame.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\Tabs\He7\2KPlate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Tabs\He7\4KPlate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Tabs\He7\He3Pump.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Tabs\He7\He3Stage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Tabs\He7\He3Switch.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Tabs\He7\He4Pump.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Tabs\He7\He4Stage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Tabs\He7\He4Switch.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\MainGraphFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -162,7 +109,6 @@
     </Page>
     <Compile Include="Models\CompressorModel.cs" />
     <Compile Include="Models\OverviewModel.cs" />
-    <Compile Include="Views\Tabs\He7\4KPlate.cs" />
     <Compile Include="Views\Tabs\LoggingFrame.xaml.cs">
       <DependentUpon>LoggingFrame.xaml</DependentUpon>
     </Compile>

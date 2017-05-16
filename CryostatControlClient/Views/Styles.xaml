@@ -5,14 +5,14 @@
                     xmlns:gauge="clr-namespace:CircularGauge;assembly=CircularGauge"
                     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz">
-    <ResourceDictionary x:Key="SettingsStyles" Source="SettingsStyles.xaml"/>
-  
+    <ResourceDictionary x:Key="SettingsStyles" Source="SettingsStyles.xaml" />
+
     <!--MainWindow Styles-->
     <Style x:Key="MainWindow" TargetType="Grid">
         <Setter Property="Background" Value="#ffffff" />
     </Style>
 
-    <Style x:Key="graphCard" TargetType="materialDesign:Card" >
+    <Style x:Key="graphCard" TargetType="materialDesign:Card">
         <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1" />
         <Setter Property="MinWidth" Value="1000" />
         <Setter Property="MinHeight" Value="200" />
@@ -20,7 +20,7 @@
         <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
 
-    <Style x:Key="settingCard" TargetType="materialDesign:Card" >
+    <Style x:Key="settingCard" TargetType="materialDesign:Card">
         <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1" />
         <Setter Property="MinWidth" Value="240" />
         <Setter Property="MinHeight" Value="440" />
@@ -28,7 +28,7 @@
         <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
 
-    <Style x:Key="tabFrameCard" TargetType="materialDesign:Card" >
+    <Style x:Key="tabFrameCard" TargetType="materialDesign:Card">
         <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1" />
         <Setter Property="MinWidth" Value="850" />
         <Setter Property="MinHeight" Value="440" />
@@ -38,139 +38,142 @@
 
     <!--SettingsFrame Styles-->
     <Style x:Key="SettingFrame" TargetType="Grid">
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Background" Value="Transparent" />
     </Style>
-    
+
     <Style x:Key="SettingsLabelLeft" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
-        <Setter Property="Margin" Value="5,2,0,0"/>
-        <Setter Property="FontSize" Value="12"></Setter>
+        <Setter Property="Margin" Value="5,2,0,0" />
+        <Setter Property="FontSize" Value="12" />
     </Style>
 
     <Style x:Key="SettingsLabelRight" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
-        <Setter Property="Margin" Value="5, 2, 0, 0"/>
+        <Setter Property="Margin" Value="5, 2, 0, 0" />
         <Setter Property="Foreground" Value="#53d100" />
-        <Setter Property="FontSize" Value="12"></Setter>
+        <Setter Property="FontSize" Value="12" />
     </Style>
 
     <Style x:Key="SettingsComboBox" TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
-        <Setter Property="Margin" Value="5,10,0,0"/>
-        <Setter Property="FontSize" Value="12"></Setter>
+        <Setter Property="Margin" Value="5,10,0,0" />
+        <Setter Property="FontSize" Value="12" />
     </Style>
 
     <Style x:Key="SettingsButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-        <Setter Property="Margin" Value="5, 5, 0, 0"/>
-        <Setter Property="FontSize" Value="12"></Setter>
+        <Setter Property="Margin" Value="5, 5, 0, 0" />
+        <Setter Property="FontSize" Value="12" />
     </Style>
 
-    <Style x:Key="SettingsDatePicker" TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
-        <Setter Property="Margin" Value="5,2,0,0"/>
-        <Setter Property="FontSize" Value="12"></Setter>
+    <Style x:Key="SettingsDatePicker" TargetType="DatePicker"
+           BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
+        <Setter Property="Margin" Value="5,2,0,0" />
+        <Setter Property="FontSize" Value="12" />
     </Style>
 
     <Style x:Key="SettingsTimePicker" TargetType="materialDesign:TimePicker">
-        <Setter Property="Margin" Value="5,2,0,0"/>
-        <Setter Property="Is24Hours" Value="True"></Setter>
-        <Setter Property="FontSize" Value="12"></Setter>
+        <Setter Property="Margin" Value="5,2,0,0" />
+        <Setter Property="Is24Hours" Value="True" />
+        <Setter Property="FontSize" Value="12" />
     </Style>
 
     <Style x:Key="SettingsRadioButtons" TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignRadioButton}">
-        <Setter Property="Margin" Value="5,5,0,0"/>
-        <Setter Property="FontSize" Value="12"></Setter>
+        <Setter Property="Margin" Value="5,5,0,0" />
+        <Setter Property="FontSize" Value="12" />
     </Style>
 
     <Style x:Key="SettingsDevicesList" TargetType="Border">
-        <Setter Property="Margin" Value="2,2,2,2"></Setter>
-        <Setter Property="BorderBrush" Value="Blue"></Setter>
-        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="Margin" Value="2,2,2,2" />
+        <Setter Property="BorderBrush" Value="Blue" />
+        <Setter Property="BorderThickness" Value="1" />
     </Style>
 
     <!--TabFrame Styles-->
-    <Style x:Key="TabFrame" TargetType="dragablz:TabablzControl" BasedOn="{StaticResource MaterialDesignTabablzControlStyle}">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
-        <Setter Property="TextElement.Foreground" Value="Black"/>
-    </Style>
-    
-    <!--GraphFrame Styles-->
-    <Style x:Key="MainGraphFrame" TargetType="Grid">
-        <Setter Property="Background" Value="Transparent"/>
+    <Style x:Key="TabFrame" TargetType="dragablz:TabablzControl"
+           BasedOn="{StaticResource MaterialDesignTabablzControlStyle}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="TextElement.Foreground" Value="Black" />
     </Style>
 
-    <Style x:Key="mdTabHeader" TargetType="{x:Type TabItem}" BasedOn="{StaticResource MaterialDesignDragableTabItemStyle}">
-         <Setter Property="Foreground" Value="Black"/>
+    <!--GraphFrame Styles-->
+    <Style x:Key="MainGraphFrame" TargetType="Grid">
+        <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Style x:Key="mdTabHeader" TargetType="{x:Type TabItem}"
+           BasedOn="{StaticResource MaterialDesignDragableTabItemStyle}">
+        <Setter Property="Foreground" Value="Black" />
     </Style>
 
     <!--CompressorFrame Styles-->
     <Style x:Key="CompressorTitles" TargetType="Label">
-        <Setter Property="Margin" Value="0, 10, 0, 0"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Margin" Value="0, 10, 0, 0" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="Normal" />
     </Style>
 
     <Style x:Key="compressorValues" TargetType="Label">
-        <Setter Property="Margin" Value="0, 0, 0, 0"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="FontWeight" Value="Normal"/>
-        <Setter Property="FontSize" Value="10"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0, 0, 0, 0" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
     <Style x:Key="pressureValues" TargetType="Label">
-        <Setter Property="Margin" Value="0, 0, 0, 0"/>
-        <Setter Property="FontWeight" Value="Normal"/>
-        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Margin" Value="0, 0, 0, 0" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="FontSize" Value="10" />
     </Style>
 
     <Style x:Key="pressureGauge" TargetType="gauge:CircularGaugeControl">
-        <Setter Property="Radius" Value="150"/>
+        <Setter Property="Radius" Value="150" />
         <Setter Property="ScaleRadius" Value="110" />
-                      <Setter Property="ScaleStartAngle" Value="120"/> 
-                      <Setter Property="ScaleSweepAngle" Value="300"/>
-                      <Setter Property="PointerLength" Value="85" />
-                      <Setter Property="PointerCapRadius" Value="35" />
-                      <Setter Property="MinValue" Value="0" />
-                      <Setter Property="MaxValue" Value="400"/> 
-                      <Setter Property="MajorDivisionsCount" Value="20" />
-                      <Setter Property="MinorDivisionsCount" Value="5" />
-                      <Setter Property="CurrentValue" Value="100"/>
-                      <Setter Property="RangeIndicatorThickness" Value="8"/>
-                      <Setter Property="RangeIndicatorRadius" Value="120"/>
-                      <Setter Property="RangeIndicatorLightRadius" Value="10"/>
-                      <Setter Property="RangeIndicatorLightOffset" Value="80"/>
-                      <Setter Property="ScaleLabelRadius" Value="90"/>
-                      <Setter Property="ScaleLabelSize" Value="40,20"/>
-            <Setter Property="ScaleLabelFontSize" Value="15"/>
-            <Setter Property="ScaleLabelForeground" Value="LightGray"/>
-            <!--<Setter Property="MajorTickSize" Value="10,3"/>-->
-            <Setter Property="MinorTickSize" Value="3,1"/>
-            <Setter Property="MajorTickColor" Value="LightGray"/>
-            <Setter Property="MinorTickColor" Value="LightGray"/>
-            <Setter Property="GaugeBackgroundColor" Value="Black"/>
-            <Setter Property="PointerThickness" Value ="16"/>
-            <Setter Property="OptimalRangeStartValue" Value="133"/>
-            <Setter Property="OptimalRangeEndValue" Value="266" />
-            <Setter Property="DialTextOffset" Value="40"/>
-            <Setter Property="DialText" Value="Black"/>
-            <Setter Property="DialTextColor" Value="Black"/>
+        <Setter Property="ScaleStartAngle" Value="120" />
+        <Setter Property="ScaleSweepAngle" Value="300" />
+        <Setter Property="PointerLength" Value="85" />
+        <Setter Property="PointerCapRadius" Value="35" />
+        <Setter Property="MinValue" Value="0" />
+        <Setter Property="MaxValue" Value="400" />
+        <Setter Property="MajorDivisionsCount" Value="20" />
+        <Setter Property="MinorDivisionsCount" Value="5" />
+        <Setter Property="CurrentValue" Value="100" />
+        <Setter Property="RangeIndicatorThickness" Value="8" />
+        <Setter Property="RangeIndicatorRadius" Value="120" />
+        <Setter Property="RangeIndicatorLightRadius" Value="10" />
+        <Setter Property="RangeIndicatorLightOffset" Value="80" />
+        <Setter Property="ScaleLabelRadius" Value="90" />
+        <Setter Property="ScaleLabelSize" Value="40,20" />
+        <Setter Property="ScaleLabelFontSize" Value="15" />
+        <Setter Property="ScaleLabelForeground" Value="LightGray" />
+        <!--<Setter Property="MajorTickSize" Value="10,3"/>-->
+        <Setter Property="MinorTickSize" Value="3,1" />
+        <Setter Property="MajorTickColor" Value="LightGray" />
+        <Setter Property="MinorTickColor" Value="LightGray" />
+        <Setter Property="GaugeBackgroundColor" Value="Black" />
+        <Setter Property="PointerThickness" Value="16" />
+        <Setter Property="OptimalRangeStartValue" Value="133" />
+        <Setter Property="OptimalRangeEndValue" Value="266" />
+        <Setter Property="DialTextOffset" Value="40" />
+        <Setter Property="DialText" Value="Black" />
+        <Setter Property="DialTextColor" Value="Black" />
     </Style>
 
     <Style x:Key="tempBar" TargetType="ProgressBar" BasedOn="{StaticResource MaterialDesignLinearProgressBar}">
-        <Setter Property="Minimum" Value="0"/>
-        <Setter Property="Maximum" Value="50"/>
-        <Setter Property="Orientation" Value="Vertical"/>
-        <Setter Property="Foreground" Value="Green"/>
-        <Setter Property="Background" Value="White"/>
-        <Setter Property="Height" Value="20"/>
-        <Setter Property="IsIndeterminate" Value="False"/>
+        <Setter Property="Minimum" Value="0" />
+        <Setter Property="Maximum" Value="50" />
+        <Setter Property="Orientation" Value="Vertical" />
+        <Setter Property="Foreground" Value="Green" />
+        <Setter Property="Background" Value="White" />
+        <Setter Property="Height" Value="20" />
+        <Setter Property="IsIndeterminate" Value="False" />
     </Style>
 
     <!--He7Frame Style-->
-    <Style x:Key="He7Card" TargetType="materialDesign:Card" >
+    <Style x:Key="He7Card" TargetType="materialDesign:Card">
         <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth3" />
         <!--<Setter Property="materialDesign:ColorZone.Mode" Value="Light"></Setter>-->
-        <Setter Property="Background" Value="#E0E0E0"></Setter>
+        <Setter Property="Background" Value="#E0E0E0" />
     </Style>
-    
+
     <Style x:Key="He7Title" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
