@@ -22,20 +22,26 @@ namespace CryostatControlClient
     {
         #region Methods
 
+        /// <summary>
+        /// Executes the specified action.
+        /// </summary>
+        /// <param name="action">The action.</param>
+        /// <param name="timeoutInMilliseconds">The timeout in milliseconds.</param>
+        /// <param name="client">The client.</param>
+        /// <returns>Returns the task</returns>
         public async Task Execute(Action<DataGetClient> action, int timeoutInMilliseconds, DataGetClient client)
         {
             await Task.Delay(timeoutInMilliseconds);
             action(client);
         }
 
+        /// <summary>
+        /// Unsubscribes the specified client.
+        /// </summary>
+        /// <param name="client">The client.</param>
         public void Unsubscribe(DataGetClient client)
         {
             client.UnsubscribeForData();
-        }
-
-        public void Test()
-        {
-            Console.WriteLine("I can say hello");
         }
 
         /// <summary>
@@ -56,7 +62,7 @@ namespace CryostatControlClient
             {
                 Console.WriteLine("Server is alive: {0}", commandClient.IsAlive());
             }
-            catch (System.ServiceModel.EndpointNotFoundException exception)
+            catch (System.ServiceModel.EndpointNotFoundException)
             {
                 Console.WriteLine("Server is alive: {0}", false);
             }
@@ -64,7 +70,7 @@ namespace CryostatControlClient
             Console.WriteLine("Subscribed for data");
             dataClient.SubscribeForData(1000);
 
-            //Execute(this.Unsubscribe, 1000, dataClient);
+            ////Execute(this.Unsubscribe, 1000, dataClient);
         }
 
         #endregion Methods

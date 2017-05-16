@@ -92,7 +92,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="DataClientCallback.cs" />
+    <Compile Include="DataClientCallback.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Models\AbstractModel.cs" />
     <Compile Include="Models\He7Model.cs" />
     <Compile Include="Views\Tabs\He7\2KPlate.xaml.cs">
@@ -291,6 +293,12 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CryostatControlServer\CryostatControlServer.csproj">
+      <Project>{4724405F-6333-4320-9896-8AAAC233293A}</Project>
+      <Name>CryostatControlServer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
