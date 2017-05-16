@@ -84,6 +84,40 @@ namespace CryostatControlServer.He7Cooler
             /// </summary>
             public class Calibration
             {
+                #region default calibrations
+
+                /// <summary>
+                /// The ruox file.
+                /// </summary>
+                private const string RUOXFile = "..\\..\\RUOX.CAL";
+
+                /// <summary>
+                /// The diode file.
+                /// </summary>
+                private const string DIODEFile = "..\\..\\DIODE.CAL";
+
+                /// <summary>
+                /// Gets the he 3 calibration.
+                /// </summary>
+                public static Calibration He3Calibration { get; } = new CryostatControlServer.He7Cooler.He7Cooler.Sensor.Calibration(RUOXFile, 2, 0);
+
+                /// <summary>
+                /// Gets the he 4 calibration.
+                /// </summary>
+                public static Calibration He4Calibration { get; } = new CryostatControlServer.He7Cooler.He7Cooler.Sensor.Calibration(RUOXFile, 3, 0);
+
+                /// <summary>
+                /// Gets the diode calibration.
+                /// </summary>
+                public static Calibration DiodeCalibration { get; }= new CryostatControlServer.He7Cooler.He7Cooler.Sensor.Calibration(DIODEFile, 1, 0);
+
+                /// <summary>
+                /// Gets the empty calibration.
+                /// </summary>
+                public static Calibration EmptyCalibration { get; }= new CryostatControlServer.He7Cooler.He7Cooler.Sensor.Calibration();
+
+                #endregion default calibration
+
                 /// <summary>
                 /// The calibration data.
                 /// </summary>
