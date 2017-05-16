@@ -20,25 +20,30 @@ namespace CryostatControlClient.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
-            this.Loaded += this.MainWindow_Loaded;
+            this.Loaded += this.MainWindowLoaded;
         }
 
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="MainWindow" /> class.
+        /// Handles the Loaded event of the MainWindow control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private void MainWindowLoaded(object sender, RoutedEventArgs e)
         {
-            BlueforsViewModel dc = new BlueforsViewModel();
+            DataContext dc = new DataContext();
 
             this.DataContext = dc;
 
-            dc.ColdPlate3KTemp = 3000;
+            dc.BVM.ColdPlate3KTemp = 3000;
+            dc.CVM.OperatingState = 1000;
 
-            Console.WriteLine(dc.ColdPlate3KTemp);
+            Console.WriteLine(dc.BVM.ColdPlate3KTemp);
         }
     }
 }
