@@ -18,15 +18,15 @@
     <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource He7Title}">He4 Pump</Label>
 
     <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Max</Label>
-    <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>/>
+    <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>
 
     <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
-    <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He4PumpVolt}"></Label>
+    <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.He4PumpVolt}"></Label>
 
     <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
-    <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He4PumpTemp}"/>
+    <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.He4PumpTemp}"/>
 
     <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
-    <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>/>
+    <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>
 
 </Grid>
