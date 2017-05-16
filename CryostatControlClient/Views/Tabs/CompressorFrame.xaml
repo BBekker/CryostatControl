@@ -28,9 +28,9 @@
         </Grid.RowDefinitions>
         <Label Style="{StaticResource CompressorTitles}" x:Name="waterInTempTitle" Grid.Row="0" >Water In</Label>
 
-        <ProgressBar x:Name="waterInTempMeter" Grid.Row="1" Style="{StaticResource tempBar}" Value="30"></ProgressBar>
+        <ProgressBar x:Name="waterInTempMeter" Grid.Row="1" Style="{StaticResource tempBar}" Value="{Binding CompressorViewModel.CoolantInTemp}"></ProgressBar>
 
-        <Label Style="{StaticResource compressorValues}" x:Name="waterInTemp" Grid.Row="2">30</Label>
+        <Label Style="{StaticResource compressorValues}" x:Name="waterInTemp" Grid.Row="2" Content="{Binding CompressorViewModel.CoolantInTemp}" />
     </Grid>
 
     <Grid Grid.Column="1" Grid.Row="0">
@@ -41,9 +41,9 @@
         </Grid.RowDefinitions>
         <Label Style="{StaticResource CompressorTitles}" x:Name="waterOutTempTitle" Grid.Row="0" Grid.Column="1" >Water Out</Label>
 
-        <ProgressBar x:Name="waterOutTempMeter" Grid.Row="1" Style="{StaticResource tempBar}" Value="20"></ProgressBar>
+        <ProgressBar x:Name="waterOutTempMeter" Grid.Row="1" Style="{StaticResource tempBar}" Value="{Binding CompressorViewModel.CoolantOutTemp}"></ProgressBar>
 
-        <Label Style="{StaticResource compressorValues}" x:Name="waterOutTemp" Grid.Row="2" Grid.Column="1" >20</Label>
+        <Label Style="{StaticResource compressorValues}" x:Name="waterOutTemp" Grid.Row="2" Grid.Column="1" Content="{Binding CompressorViewModel.CoolantOutTemp}" />
     </Grid>
 
     <Grid Grid.Column="2" Grid.Row="0">
@@ -54,9 +54,9 @@
         </Grid.RowDefinitions>
         <Label Style="{StaticResource CompressorTitles}" x:Name="heliumTempTitle" Grid.Row="0" Grid.Column="2" >Helium</Label>
 
-        <ProgressBar x:Name="heliumTempMeter" Grid.Row="1" Style="{StaticResource tempBar}" Value="40"></ProgressBar>
+        <ProgressBar x:Name="heliumTempMeter" Grid.Row="1" Style="{StaticResource tempBar}" Value="{Binding CompressorViewModel.HeliumTemp}"></ProgressBar>
 
-        <Label Style="{StaticResource compressorValues}" x:Name="heliumTemp" Grid.Row="2" Grid.Column="2" >40</Label>
+        <Label Style="{StaticResource compressorValues}" x:Name="heliumTemp" Grid.Row="2" Grid.Column="2" Content="{Binding CompressorViewModel.HeliumTemp}" />
     </Grid>
 
     <Grid Grid.Column="3" Grid.Row="0">
@@ -67,9 +67,9 @@
         </Grid.RowDefinitions>
         <Label Style="{StaticResource CompressorTitles}" x:Name="oilTempTitle" Grid.Row="0" Grid.Column="3" >Oil</Label>
 
-        <ProgressBar x:Name="oilTempMeter" Grid.Row="1" Style="{StaticResource tempBar}" Value="10"></ProgressBar>
+        <ProgressBar x:Name="oilTempMeter" Grid.Row="1" Style="{StaticResource tempBar}" Value="{Binding CompressorViewModel.OilTemp}"></ProgressBar>
 
-        <Label Style="{StaticResource compressorValues}" x:Name="oilTemp" Grid.Row="2" Grid.Column="3" >10</Label>
+        <Label Style="{StaticResource compressorValues}" x:Name="oilTemp" Grid.Row="2" Grid.Column="3" Content="{Binding CompressorViewModel.OilTemp}" />
     </Grid>
 
     <Grid Grid.Column="4" Grid.Row="0">
@@ -78,14 +78,23 @@
             <RowDefinition Height="4*"/>
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Style="{StaticResource CompressorTitles}" x:Name="pressureTitle" Grid.Row="0">Pressure</Label>
-        <Viewbox Grid.Row="1">
-            <gauge:CircularGaugeControl x:Name="pressureGauge" Style="{StaticResource pressureGauge}"></gauge:CircularGaugeControl>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Style="{StaticResource CompressorTitles}" x:Name="pressureTitle" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">Pressure</Label>
+        <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <gauge:CircularGaugeControl x:Name="pressureGauge" Style="{StaticResource pressureGauge}" CurrentValue="{Binding LowPressure}"></gauge:CircularGaugeControl>
         </Viewbox>
-        <StackPanel  Grid.Row="2">
+        <StackPanel  Grid.Row="2" Grid.Column="0">
             <Label Style="{StaticResource pressureValues}" x:Name="avgDelta" >Avg. Delta:</Label>
             <Label Style="{StaticResource pressureValues}" x:Name="avgLow" >Avg. Low:</Label>
             <Label Style="{StaticResource pressureValues}" x:Name="avgHigh" >Avg. High:</Label>
+        </StackPanel>
+        <StackPanel  Grid.Row="2" Grid.Column="1">
+            <Label Style="{StaticResource pressureValues}" Content="{Binding DeltaPressureAverage}" />
+            <Label Style="{StaticResource pressureValues}" Content="{Binding LowPressureAverage}" />
+            <Label Style="{StaticResource pressureValues}" Content="{Binding HighPressureAverage}" />
         </StackPanel>
     </Grid>
     <Grid Grid.Row="1" Grid.ColumnSpan="5">
