@@ -78,8 +78,6 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         public void ReadVoltages()
         {
-
-
             Channels[] channels = this.readersPerChannel
                 .Where((pair) => pair.Value > 0)
                 .Select(pair => pair.Key)
