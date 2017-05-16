@@ -1,0 +1,8 @@
+<StyleCopSettings Version="105">
+  <GlobalSettings>
+    <CollectionProperty Name="RecognizedWords">
+      <Value>bluefors</Value>
+      <Value>xaml</Value>
+    </CollectionProperty>
+  </GlobalSettings>
+</StyleCopSettings>

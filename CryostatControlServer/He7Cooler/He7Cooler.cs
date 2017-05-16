@@ -19,7 +19,27 @@ namespace CryostatControlServer.He7Cooler
     /// Represents the He7 cooler controls. Read and set voltages and digital bits.
     /// </summary>
     public partial class He7Cooler
-    { 
+    {
+        /// <summary>
+        /// The ruox calibration file location.
+        /// </summary>
+        private const string RuoxFile = "..\\..\\RUOX.CAL";
+
+        /// <summary>
+        /// The he 3 column.
+        /// </summary>
+        private const int He3Col = 2;
+
+        /// <summary>
+        /// The he 4 column.
+        /// </summary>
+        private const int He4Col = 3;
+
+        /// <summary>
+        /// The diode calibration file location.
+        /// </summary>
+        private const string DiodeFile = "..\\..\\DIODE.CAL";
+
         /// <summary>
         /// The interval between voltage samples
         /// </summary>
@@ -51,6 +71,105 @@ namespace CryostatControlServer.He7Cooler
         private bool isStarted = false;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="He7Cooler"/> class.
+        /// </summary>
+        public He7Cooler()
+        {
+             Sensor.Calibration he3Calibration = new Sensor.Calibration(RuoxFile, He3Col, 0);
+             Sensor.Calibration he4Calibration = new Sensor.Calibration(RuoxFile, He4Col, 0);
+             Sensor.Calibration diodeCalibration = new Sensor.Calibration(DiodeFile, 1, 0);
+
+            this.He3PumpT = new Sensor(Channels.SensHe3PumpT, this, diodeCalibration);
+
+            this.He4PumpT = new Sensor(Channels.SensHe4PumpT, this, diodeCalibration);
+
+            this.He4SwitchT = new Sensor(Channels.SensHe4SwitchT, this, diodeCalibration);
+
+            this.He3SwitchT = new Sensor(Channels.SensHe3SwitchT, this, diodeCalibration);
+
+            this.Plate4KT = new Sensor(Channels.Sens4KplateT, this, diodeCalibration);
+
+            this.Plate2KT = new Sensor(Channels.Sens2KplateT, this, diodeCalibration);
+
+            this.He4HeadT = new Sensor(Channels.SensHe4HeadT, this, he4Calibration);
+
+            this.He3HeadT = new Sensor(Channels.SensHe3HeadT, this, he3Calibration);
+
+            this.He3Pump = new Heater(Channels.PumpHe3, Channels.SensHe3Pump, this);
+            this.He4Pump = new Heater(Channels.PumpHe4, Channels.SensHe4Pump, this);
+            this.He3Switch = new Heater(Channels.SwitchHe3, Channels.SensHe3Switch, this);
+            this.He4Switch = new Heater(Channels.SwitchHe4, Channels.SensHe4Switch, this);
+        }
+
+        #region Sensors
+
+        /// <summary>
+        /// Gets the he 3 pump temperature sensor.
+        /// </summary>
+        public Sensor He3PumpT { get; private set; }
+
+        /// <summary>
+        /// Gets the he 4 pump temperature sensor.
+        /// </summary>
+        public Sensor He4PumpT { get; private set; }
+
+        /// <summary>
+        /// Gets the he 4 switch temperature sensor.
+        /// </summary>
+        public Sensor He4SwitchT { get; private set; }
+
+        /// <summary>
+        /// Gets the he 3 switch temperature sensor.
+        /// </summary>
+        public Sensor He3SwitchT { get; private set; }
+
+        /// <summary>
+        /// Gets the plate 4k temperature sensor.
+        /// </summary>
+        public Sensor Plate4KT { get; private set; }
+
+        /// <summary>
+        /// Gets the plate 2k temperature sensor.
+        /// </summary>
+        public Sensor Plate2KT { get; private set; }
+
+        /// <summary>
+        /// Gets the he 4 head temperature sensor.
+        /// </summary>
+        public Sensor He4HeadT { get; private set; }
+
+        /// <summary>
+        /// Gets the he 3 head temperature sensor.
+        /// </summary>
+        public Sensor He3HeadT { get; private set; }
+
+        #endregion Sensors
+
+        #region Heaters
+
+        /// <summary>
+        /// Gets the he 3 pump.
+        /// </summary>
+        public Heater He3Pump { get; private set; }
+
+        /// <summary>
+        /// Gets the he 4 pump.
+        /// </summary>
+        public Heater He4Pump { get; private set; }
+
+        /// <summary>
+        /// Gets the he 3 switch.
+        /// </summary>
+        public Heater He3Switch { get; private set; }
+
+        /// <summary>
+        /// Gets the he 4 switch.
+        /// </summary>
+        public Heater He4Switch { get; private set; }
+
+        #endregion Heaters
+
+        /// <summary>
         /// Connect to the Agilent device.
         /// </summary>
         /// <param name="ip">
@@ -78,8 +197,6 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         public void ReadVoltages()
         {
-
-
             Channels[] channels = this.readersPerChannel
                 .Where((pair) => pair.Value > 0)
                 .Select(pair => pair.Key)

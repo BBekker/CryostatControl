@@ -254,6 +254,21 @@ namespace CryostatControlServer.Compressor
         }
 
         /// <summary>
+        /// Reads an analog register.
+        /// </summary>
+        /// <param name="register">
+        /// The register.
+        /// </param>
+        /// <returns>
+        /// The <see cref="float"/>.
+        /// </returns>
+        public float ReadAnalogRegister(AnalogRegistersEnum register)
+        {
+            ushort[] status = this.master.ReadInputRegisters((ushort)register, DoubleRegister);
+            return this.ParseFloat(status);
+        }
+
+        /// <summary>
         /// Reads the pressure scale of the compressor.
         /// </summary>
         /// <returns>Pressure scale.</returns>
@@ -326,7 +341,7 @@ namespace CryostatControlServer.Compressor
         /// <returns>The values of the register in <see cref="float"/></returns>
         public float[] ReadAll(ushort startRegister, ushort amountOfRegisters)
         {
-            float[] floats = new float[4];
+            float[] floats = new float[amountOfRegisters / 2];
             ushort[] data = this.master.ReadInputRegisters(startRegister, amountOfRegisters);
             for (ushort i = 0; i < data.Length / 2; i++)
             {

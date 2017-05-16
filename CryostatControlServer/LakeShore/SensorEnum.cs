@@ -1,26 +1,27 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="_4KPlate.cs" company="SRON">
-//   k
+// <copyright file="SensorEnum.cs" company="SRON">
+//   bla
 // </copyright>
 // <summary>
-//   Interaction logic for _4KPlate.xaml
+//   The sensor enum.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace CryostatControlClient.Views.Tabs.He7
+namespace CryostatControlServer.LakeShore
 {
-    using System.Windows;
-
     /// <summary>
-    /// Interaction logic for _4KPlate.xaml
+    /// The sensor enum.
     /// </summary>
-    public partial class _4KPlate : Window
+    public enum SensorEnum
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="_4KPlate"/> class.
+        /// The sensor 1.
         /// </summary>
-        public _4KPlate()
-        {
-        }
+        Sensor1,
+
+        /// <summary>
+        /// The sensor 2.
+        /// </summary>
+        Sensor2,
     }
 }

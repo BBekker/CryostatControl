@@ -1,120 +1,41 @@
-//-----------------------------------------------------------------------
-// <copyright file="CompressorModel.cs" company="SRON">
-//     Copyright (c) SRON. All rights reserved.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CompressorViewModel.cs" company="SRON">
+//   k
 // </copyright>
-//-----------------------------------------------------------------------
-namespace CryostatControlClient.Models
+// <summary>
+//   The abstract view model.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace CryostatControlClient.ViewModels
 {
-    using System;
+    using CryostatControlClient.Models;
 
     /// <summary>
-    /// The compressor model.
+    /// Compressor ViewModel
     /// </summary>
-    public class CompressorModel
+    public class CompressorViewModel : AbstractViewModel
     {
         #region Fields
 
         /// <summary>
-        /// The operating state
+        /// The compressor model
         /// </summary>
-        private int operatingState;
-
-        /// <summary>
-        /// The compressor running
-        /// </summary>
-        private int compressorRunning;
-
-        /// <summary>
-        /// The warning state
-        /// </summary>
-        private int warningState;
-
-        /// <summary>
-        /// The alarm state
-        /// </summary>
-        private int alarmState;
-
-        /// <summary>
-        /// The coolant in temperature
-        /// </summary>
-        private int coolantInTemp;
-
-        /// <summary>
-        /// The coolant out temperature
-        /// </summary>
-        private int coolantOutTemp;
-
-        /// <summary>
-        /// The oil temperature
-        /// </summary>
-        private int oilTemp;
-
-        /// <summary>
-        /// The helium temperature
-        /// </summary>
-        private int heliumTemp;
-
-        /// <summary>
-        /// The low pressure
-        /// </summary>
-        private int lowPressure;
-
-        /// <summary>
-        /// The low pressure average
-        /// </summary>
-        private int lowPressureAverage;
-
-        /// <summary>
-        /// The high pressure
-        /// </summary>
-        private int highPressure;
-
-        /// <summary>
-        /// The high pressure average
-        /// </summary>
-        private int highPressureAverage;
-
-        /// <summary>
-        /// The delta pressure average
-        /// </summary>
-        private int deltaPressureAverage;
-
-        /// <summary>
-        /// The motor current
-        /// </summary>
-        private int motorCurrent;
-
-        /// <summary>
-        /// The hours of operation
-        /// </summary>
-        private int hoursOfOperation;
-
-        /// <summary>
-        /// The pressure scale
-        /// </summary>
-        private int pressureScale;
-
-        /// <summary>
-        /// The temperature scale
-        /// </summary>
-        private int tempScale;
-
-        /// <summary>
-        /// The panel serial number
-        /// </summary>
-        private int panelSerialNumber;
-
-        /// <summary>
-        /// The model major minor numbers
-        /// </summary>
-        private int modelMajorMinorNumbers;
-
-        /// <summary>
-        /// The power on
-        /// </summary>
-        private bool powerOn;
+        private CompressorModel compressorModel;
 
         #endregion Fields
+
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CompressorViewModel"/> class.
+        /// </summary>
+        public CompressorViewModel()
+        {
+            this.compressorModel = new CompressorModel();
+        }
+
+        #endregion Constructor
 
         #region Properties
 
@@ -128,12 +49,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.operatingState;
+                return this.compressorModel.OperatingState;
             }
 
             set
             {
-                this.operatingState = value;
+                this.compressorModel.OperatingState = value;
+                this.RaisePropertyChanged("OperatingState");
             }
         }
 
@@ -147,12 +69,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.compressorRunning;
+                return this.compressorModel.CompressorRunning;
             }
 
             set
             {
-                this.compressorRunning = value;
+                this.compressorModel.CompressorRunning = value;
+                this.RaisePropertyChanged("CompressorRunning");
             }
         }
 
@@ -166,12 +89,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.warningState;
+                return this.compressorModel.WarningState;
             }
 
             set
             {
-                this.warningState = value;
+                this.compressorModel.WarningState = value;
+                this.RaisePropertyChanged("WarningState");
             }
         }
 
@@ -185,12 +109,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.alarmState;
+                return this.compressorModel.AlarmState;
             }
 
             set
             {
-                this.alarmState = value;
+                this.compressorModel.AlarmState = value;
+                this.RaisePropertyChanged("AlarmState");
             }
         }
 
@@ -204,12 +129,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.coolantInTemp;
+                return this.compressorModel.CoolantInTemp;
             }
 
             set
             {
-                this.coolantInTemp = value;
+                this.compressorModel.CoolantInTemp = value;
+                this.RaisePropertyChanged("CoolantInTemp");
             }
         }
 
@@ -223,12 +149,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.coolantOutTemp;
+                return this.compressorModel.CoolantOutTemp;
             }
 
             set
             {
-                this.coolantOutTemp = value;
+                this.compressorModel.CoolantOutTemp = value;
+                this.RaisePropertyChanged("CoolantOutTemp");
             }
         }
 
@@ -242,12 +169,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.oilTemp;
+                return this.compressorModel.OilTemp;
             }
 
             set
             {
-                this.oilTemp = value;
+                this.compressorModel.OilTemp = value;
+                this.RaisePropertyChanged("OilTemp");
             }
         }
 
@@ -261,12 +189,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.heliumTemp;
+                return this.compressorModel.HeliumTemp;
             }
 
             set
             {
-                this.heliumTemp = value;
+                this.compressorModel.HeliumTemp = value;
+                this.RaisePropertyChanged("HeliumTemp");
             }
         }
 
@@ -280,12 +209,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.lowPressure;
+                return this.compressorModel.LowPressure;
             }
 
             set
             {
-                this.lowPressure = value;
+                this.compressorModel.LowPressure = value;
+                this.RaisePropertyChanged("LowPressure");
             }
         }
 
@@ -299,12 +229,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.lowPressureAverage;
+                return this.compressorModel.LowPressureAverage;
             }
 
             set
             {
-                this.lowPressureAverage = value;
+                this.compressorModel.LowPressureAverage = value;
+                this.RaisePropertyChanged("LowPressureAverage");
             }
         }
 
@@ -318,12 +249,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.highPressure;
+                return this.compressorModel.HighPressure;
             }
 
             set
             {
-                this.highPressure = value;
+                this.compressorModel.HighPressure = value;
+                this.RaisePropertyChanged("HighPressure");
             }
         }
 
@@ -337,12 +269,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.highPressureAverage;
+                return this.compressorModel.HighPressureAverage;
             }
 
             set
             {
-                this.highPressureAverage = value;
+                this.compressorModel.HighPressureAverage = value;
+                this.RaisePropertyChanged("HighPressureAverage");
             }
         }
 
@@ -356,12 +289,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.deltaPressureAverage;
+                return this.compressorModel.DeltaPressureAverage;
             }
 
             set
             {
-                this.deltaPressureAverage = value;
+                this.compressorModel.DeltaPressureAverage = value;
+                this.RaisePropertyChanged("DeltaPressureAverage");
             }
         }
 
@@ -375,12 +309,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.motorCurrent;
+                return this.compressorModel.MotorCurrent;
             }
 
             set
             {
-                this.motorCurrent = value;
+                this.compressorModel.MotorCurrent = value;
+                this.RaisePropertyChanged("MotorCurrent");
             }
         }
 
@@ -394,12 +329,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.hoursOfOperation;
+                return this.compressorModel.HoursOfOperation;
             }
 
             set
             {
-                this.hoursOfOperation = value;
+                this.compressorModel.HoursOfOperation = value;
+                this.RaisePropertyChanged("HoursOfOperation");
             }
         }
 
@@ -413,12 +349,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.pressureScale;
+                return this.compressorModel.PressureScale;
             }
 
             set
             {
-                this.pressureScale = value;
+                this.compressorModel.PressureScale = value;
+                this.RaisePropertyChanged("PressureScale");
             }
         }
 
@@ -432,12 +369,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.tempScale;
+                return this.compressorModel.TempScale;
             }
 
             set
             {
-                this.tempScale = value;
+                this.compressorModel.TempScale = value;
+                this.RaisePropertyChanged("TempScale");
             }
         }
 
@@ -451,12 +389,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.panelSerialNumber;
+                return this.compressorModel.PanelSerialNumber;
             }
 
             set
             {
-                this.panelSerialNumber = value;
+                this.compressorModel.PanelSerialNumber = value;
+                this.RaisePropertyChanged("PanelSerialNumber");
             }
         }
 
@@ -470,12 +409,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.modelMajorMinorNumbers;
+                return this.compressorModel.ModelMajorMinorNumbers;
             }
 
             set
             {
-                this.modelMajorMinorNumbers = value;
+                this.compressorModel.ModelMajorMinorNumbers = value;
+                this.RaisePropertyChanged("ModelMajorMinorNumbers");
             }
         }
 
@@ -489,12 +429,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.powerOn;
+                return this.compressorModel.PowerOn;
             }
 
             set
             {
-                this.powerOn = value;
+                this.compressorModel.PowerOn = value;
+                this.RaisePropertyChanged("PowerOn");
             }
         }
 
