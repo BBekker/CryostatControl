@@ -110,6 +110,6 @@
         </StackPanel>
     </Grid>
     <Grid Grid.Row="1" Grid.ColumnSpan="5">
-        <Label Style="{StaticResource CompressorTitles}" x:Name="compressorState" Grid.Row="0">Ready To Start</Label>
+        <Label Style="{StaticResource CompressorTitles}" x:Name="CompressorState" Grid.Row="0" Content="{Binding CompressorViewModel.OperatingStateConverted}"/>
     </Grid>
 </Grid>

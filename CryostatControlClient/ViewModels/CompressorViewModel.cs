@@ -60,6 +60,17 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
+        /// Gets the operating state converted.
+        /// </summary>
+        public string OperatingStateConverted
+        {
+            get
+            {
+                return this.ConvertOperatingStateNumberToString(this.compressorModel.OperatingState);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the compressor running.
         /// </summary>
         /// <value>
@@ -99,6 +110,14 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
+        public string WarningStateConverted
+        {
+            get
+            {
+                return this.ConvertWarningStateNumberToString(this.compressorModel.WarningState);
+            }
+        }
+
         /// <summary>
         /// Gets or sets the state of the alarm.
         /// </summary>
@@ -116,6 +135,17 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.AlarmState = value;
                 this.RaisePropertyChanged("AlarmState");
+            }
+        }
+
+        /// <summary>
+        /// Gets the alarm state converted.
+        /// </summary>
+        public string AlarmStateConverted
+        {
+            get
+            {
+                return this.ConvertAlarmStateNumberToString(this.compressorModel.AlarmState);
             }
         }
 
@@ -440,5 +470,103 @@ namespace CryostatControlClient.ViewModels
         }
 
         #endregion Properties
+
+        /// <summary>
+        /// Convert operating state number to string.
+        /// </summary>
+        /// <param name="operatingStateNumber">
+        /// The operating state number.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string ConvertOperatingStateNumberToString(int operatingStateNumber)
+        {
+            switch (operatingStateNumber)
+            {
+                case 0: return "Ready to Start";
+                case 2: return "Starting";
+                case 3: return "Running";
+                case 5: return "Stopping";
+                case 6: return "Error Lockout";
+                case 7: return "Error";
+                case 8: return "Helium Cool Down";
+                case 9: return "Error Power Related";
+                case 16: return "Error Recovery";
+                default: return "No Information";
+            }
+        }
+
+        /// <summary>
+        /// Convert warning state number to string.
+        /// </summary>
+        /// <param name="warningStateNumber">
+        /// The warning state number.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string ConvertWarningStateNumberToString(int warningStateNumber)
+        {
+            switch (warningStateNumber)
+            {
+                case 0: return "No warnings";
+                case -1: return "Coolant IN running High";
+                case -2: return "Coolant IN running Low";
+                case -4: return "Coolant OUT running High";
+                case -8: return "Coolant OUT running Low";
+                case -16: return "Oil running High";
+                case -32: return "Oil running Low";
+                case -64: return "Helium running High";
+                case -128: return "Helium running Low";
+                case -256: return "Low Pressure running High";
+                case -512: return "Low Pressure running Low";
+                case -1024: return "High Pressure running High";
+                case -2048: return "High Pressure running Low";
+                case -4096: return "Delta Pressure running High";
+                case -8192: return "Delta Pressure running Low";
+                case -131072: return "Static Pressure running High";
+                case -262144: return "Static Pressure running Low";
+                case -524288: return "Cold head motor Stall";
+                default: return "No Information";
+            }
+        }
+
+        /// <summary>
+        /// Convert alarm state number to string.
+        /// </summary>
+        /// <param name="alarmStateNumber">
+        /// The alarm state number.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string ConvertAlarmStateNumberToString(int alarmStateNumber)
+        {
+            switch (alarmStateNumber)
+            {
+                case 0: return "No Errors";
+                case -1: return "Coolant IN High";
+                case -2: return "Coolant IN Low";
+                case -4: return "Coolant OUT High";
+                case -8: return "Coolant OUT Low";
+                case -16: return "Oil High";
+                case -32: return "Oil Low";
+                case -64: return "Helium High";
+                case -128: return "Helium Low";
+                case -256: return "Low Pressure High";
+                case -512: return "Low Pressure Low";
+                case -1024: return "High Pressure High";
+                case -2048: return "High Pressure Low";
+                case -4096: return "Delta Pressure High";
+                case -8192: return "Delta Pressure Low";
+                case -16384: return "Motor Current Low";
+                case -32768: return "Three Phase Error";
+                case -65536: return "Power Supply Error";
+                case -131072: return "Static Pressure High";
+                case -262144: return "Static Pressure Low";
+                default: return "No Information";
+            }
+        }
     }
 }
