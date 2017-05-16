@@ -1,85 +1,30 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="He7Model.cs" company="SRON">
-// SRON 2017.
+// <copyright file="He7ViewModel.cs" company="SRON">
+//   k
 // </copyright>
 // <summary>
-//   Model for He7-cooler.
+//   Defines the He7ViewModel type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace CryostatControlClient.Models
+namespace CryostatControlClient.ViewModels
 {
+    using CryostatControlClient.Models;
+
     /// <summary>
-    /// Model for the He7-cooler.
+    /// The he 7 view model.
     /// </summary>
-    /// <seealso cref="CryostatControlClient.Models.AbstractModel" />
-    public class He7Model : AbstractModel
+    public class He7ViewModel : AbstractViewModel
     {
-        #region Fields
-
         /// <summary>
-        /// The four k plate temporary
+        /// The he 7 model.
         /// </summary>
-        private int fourKPlateTemp;
+        private He7Model he7Model;
 
-        /// <summary>
-        /// The he3 head temporary
-        /// </summary>
-        private int he3HeadTemp;
-
-        /// <summary>
-        /// The he3 pump temporary
-        /// </summary>
-        private int he3PumpTemp;
-
-        /// <summary>
-        /// The he3 pump volt
-        /// </summary>
-        private int he3PumpVolt;
-
-        /// <summary>
-        /// The he3 switch temporary
-        /// </summary>
-        private int he3SwitchTemp;
-
-        /// <summary>
-        /// The he3 switch volt
-        /// </summary>
-        private int he3SwitchVolt;
-
-        /// <summary>
-        /// The he4 head temporary
-        /// </summary>
-        private int he4HeadTemp;
-
-        /// <summary>
-        /// The he4 pump temporary
-        /// </summary>
-        private int he4PumpTemp;
-
-        /// <summary>
-        /// The he4 pump volt
-        /// </summary>
-        private int he4PumpVolt;
-
-        /// <summary>
-        /// The he4 switch temporary
-        /// </summary>
-        private int he4SwitchTemp;
-
-        /// <summary>
-        /// The he4 switch volt
-        /// </summary>
-        private int he4SwitchVolt;
-
-        /// <summary>
-        /// The two k plate temporary
-        /// </summary>
-        private int twoKPlateTemp;
-
-        #endregion Fields
-
-        #region Properties
+        public He7ViewModel()
+        {
+            this.he7Model = new He7Model();
+        }
 
         /// <summary>
         /// Gets or sets the four k plate temporary.
@@ -91,12 +36,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.fourKPlateTemp;
+                return this.he7Model.FourKPlateTemp;
             }
 
             set
             {
-                this.fourKPlateTemp = value;
+                this.he7Model.FourKPlateTemp = value;
+                this.RaisePropertyChanged("FourKPlateTemp");
             }
         }
 
@@ -110,12 +56,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he3HeadTemp;
+                return this.he7Model.He3HeadTemp;
             }
 
             set
             {
-                this.he3HeadTemp = value;
+                this.he7Model.He3HeadTemp = value;
+                this.RaisePropertyChanged("He3HeadTemp");
             }
         }
 
@@ -129,12 +76,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he3PumpTemp;
+                return this.he7Model.He3PumpTemp;
             }
 
             set
             {
-                this.he3PumpTemp = value;
+                this.he7Model.He3HeadTemp = value;
+                this.RaisePropertyChanged("He3PumpTemp");
             }
         }
 
@@ -148,12 +96,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he3PumpVolt;
+                return this.he7Model.He3PumpVolt;
             }
 
             set
             {
-                this.he3PumpVolt = value;
+                this.he7Model.He3PumpVolt = value;
+                this.RaisePropertyChanged("He3PumpVolt");
             }
         }
 
@@ -167,12 +116,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he3SwitchTemp;
+                return this.he7Model.He3SwitchTemp;
             }
 
             set
             {
-                this.he3SwitchTemp = value;
+                this.he7Model.He3SwitchTemp = value;
+                this.RaisePropertyChanged("He3SwitchTemp");
             }
         }
 
@@ -186,12 +136,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he3SwitchVolt;
+                return this.he7Model.He3SwitchVolt;
             }
 
             set
             {
-                this.he3SwitchVolt = value;
+                this.he7Model.He3SwitchVolt = value;
+                this.RaisePropertyChanged("He3SwitchVolt");
             }
         }
 
@@ -205,12 +156,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he4HeadTemp;
+                return this.he7Model.He4HeadTemp;
             }
 
             set
             {
-                this.he4HeadTemp = value;
+                this.he7Model.He4HeadTemp = value;
+                this.RaisePropertyChanged("He4HeadTemp");
             }
         }
 
@@ -224,12 +176,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he4PumpTemp;
+                return this.he7Model.He4PumpTemp;
             }
 
             set
             {
-                this.he4PumpTemp = value;
+                this.he7Model.He4PumpTemp = value;
+                this.RaisePropertyChanged("He4PumpTemp");
             }
         }
 
@@ -243,12 +196,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he4PumpVolt;
+                return this.he7Model.He4PumpVolt;
             }
 
             set
             {
-                this.he4PumpVolt = value;
+                this.he7Model.He4PumpVolt = value;
+                this.RaisePropertyChanged("He4PumpVolt");
             }
         }
 
@@ -262,12 +216,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he4SwitchTemp;
+                return this.he7Model.He4SwitchTemp;
             }
 
             set
             {
-                this.he4SwitchTemp = value;
+                this.he7Model.He4SwitchTemp = value;
+                this.RaisePropertyChanged("He4SwitchTemp");
             }
         }
 
@@ -281,12 +236,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he4SwitchVolt;
+                return this.he7Model.He4SwitchVolt;
             }
 
             set
             {
-                this.he4SwitchVolt = value;
+                this.he7Model.He4SwitchVolt = value;
+                this.RaisePropertyChanged("He4SwitchVolt");
             }
         }
 
@@ -300,15 +256,14 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.twoKPlateTemp;
+                return this.he7Model.TwoKPlateTemp;
             }
 
             set
             {
-                this.twoKPlateTemp = value;
+                this.he7Model.TwoKPlateTemp = value;
+                this.RaisePropertyChanged("TwoKPlateTemp");
             }
         }
-
-    #endregion Properties
     }
 }

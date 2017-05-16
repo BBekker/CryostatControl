@@ -14,5 +14,5 @@
     </Grid.ColumnDefinitions>
 
     <Label Grid.Column="0" Style="{StaticResource He7Title}">2K Plate</Label>
-    <Label Grid.Column="1" Style="{StaticResource He7Label}">0.80 K</Label>
+    <Label Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding TwoKPlateTemp}"/>
 </Grid>
