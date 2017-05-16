@@ -91,7 +91,6 @@
     <Compile Include="ViewModels\BlueforsViewModel.cs" />
     <Compile Include="ViewModels\CompressorViewModel.cs" />
     <Compile Include="ViewModels\DataContext.cs" />
-    <Compile Include="Models\AbstractModel.cs" />
     <Compile Include="Models\He7Model.cs" />
     <Compile Include="ViewModels\He7ViewModel.cs" />
     <Compile Include="Views\Tabs\He7\2KPlate.xaml.cs">

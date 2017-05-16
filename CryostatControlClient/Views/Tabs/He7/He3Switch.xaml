@@ -28,7 +28,7 @@
     <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He3SwitchTemp}"/>
 
     <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
-    <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He3SwitchVolt}">
+    <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He3SwitchVolt}" />
 
     <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
     <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>

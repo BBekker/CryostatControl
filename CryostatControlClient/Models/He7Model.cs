@@ -13,7 +13,7 @@ namespace CryostatControlClient.Models
     /// Model for the He7-cooler.
     /// </summary>
     /// <seealso cref="CryostatControlClient.Models.AbstractModel" />
-    public class He7Model : AbstractModel
+    public class He7Model
     {
         #region Fields
 
