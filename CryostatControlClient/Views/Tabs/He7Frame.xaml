@@ -1,11 +1,11 @@
 ﻿<Grid x:Class="CryostatControlClient.Views.He7Frame"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Background="{DynamicResource MaterialDesignPaper}">
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Background="{DynamicResource MaterialDesignPaper}">
 
     <Grid.Resources>
-        <ResourceDictionary Source="../Styles.xaml"/>
+        <ResourceDictionary Source="../Styles.xaml" />
     </Grid.Resources>
 
     <Grid.ColumnDefinitions>
@@ -32,30 +32,222 @@
     </Grid.RowDefinitions>
 
     <materialDesign:Card Grid.Column="1" Grid.Row="1" Style="{StaticResource He7Card}">
-        <Frame Source="He7/He4Pump.xaml" />    
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource He7Title}">He4 Pump</Label>
+
+            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Max</Label>
+            <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>
+
+            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
+            <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource He7Label}"
+                   Content="{Binding He7ViewModel.He4PumpVolt}" />
+
+            <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
+            <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource He7Label}"
+                   Content="{Binding He7ViewModel.He4PumpTemp}" />
+
+            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
+            <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>
+
+        </Grid>
     </materialDesign:Card>
     <materialDesign:Card Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="7" Style="{StaticResource He7Card}">
-        <Frame Source="He7/4kPlate.xaml" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="6*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Style="{StaticResource He7Title}">4K Plate</Label>
+            <Label Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.FourKPlateTemp}" />
+            <Label Grid.Column="2" Style="{StaticResource He7Label}">Max1</Label>
+            <TextBox Grid.Column="3" Style="{StaticResource He7TextBox}">xx</TextBox>
+            <Label Grid.Column="4" Style="{StaticResource He7Label}">Max2</Label>
+            <TextBox Grid.Column="5" Style="{StaticResource He7TextBox}">xx</TextBox>
+        </Grid>
     </materialDesign:Card>
     <materialDesign:Card Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="7" Style="{StaticResource He7Card}">
-        <Frame Source="He7/2KPlate.xaml" />
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="6*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Style="{StaticResource He7Title}">2K Plate</Label>
+            <Label Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.TwoKPlateTemp}" />
+        </Grid>
     </materialDesign:Card>
     <materialDesign:Card Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" Style="{StaticResource He7Card}">
-        <Frame Source="He7/He4Stage.xaml" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Style="{StaticResource He7Title}">He4 Stage</Label>
+
+            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
+            <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource He7Label}">xx</Label>
+
+            <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource He7Label}">Max</Label>
+            <TextBox Grid.Row="1" Grid.Column="3" Style="{StaticResource He7TextBox}">xx</TextBox>
+        </Grid>
+
     </materialDesign:Card>
 
     <materialDesign:Card Grid.Column="3" Grid.Row="1" Style="{StaticResource He7Card}">
-        <Frame Source="He7/He4Switch.xaml" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource He7Title}">He4 Switch</Label>
+
+            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Max1</Label>
+            <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>
+
+            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource He7Label}">Max2</Label>
+            <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>
+
+            <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
+            <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource He7Label}"
+                   Content="{Binding He7ViewModel.He4SwitchTemp}" />
+
+            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
+            <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}"
+                   Content="{Binding He7ViewModel.He4SwitchVolt}" />
+
+            <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
+            <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>
+        </Grid>
+
     </materialDesign:Card>
 
     <materialDesign:Card Grid.Column="5" Grid.Row="1" Style="{StaticResource He7Card}">
-        <Frame Source="He7/He3Switch.xaml" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource He7Title}">He3 Switch</Label>
+
+            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Max1</Label>
+            <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>
+
+            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource He7Label}">Max2</Label>
+            <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>
+
+            <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
+            <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource He7Label}"
+                   Content="{Binding He7ViewModel.He3SwitchTemp}" />
+
+            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
+            <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}"
+                   Content="{Binding He7ViewModel.He3SwitchVolt}" />
+
+            <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
+            <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>
+        </Grid>
     </materialDesign:Card>
 
     <materialDesign:Card Grid.Column="7" Grid.Row="1" Style="{StaticResource He7Card}">
-        <Frame Source="He7/He3Pump.xaml" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource He7Title}">He3 Pump</Label>
+
+            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Max</Label>
+            <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>
+
+            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
+            <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource He7Label}"
+                   Content="{Binding He7ViewModel.He3PumpVolt}" />
+
+            <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
+            <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource He7Label}"
+                   Content="{Binding He7ViewModel.He3PumpTemp}" />
+
+            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
+            <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>
+        </Grid>
     </materialDesign:Card>
     <materialDesign:Card Grid.Column="5" Grid.Row="7" Grid.ColumnSpan="3" Style="{StaticResource He7Card}">
-        <Frame Source="He7/He3Stage.xaml" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Style="{StaticResource He7Title}">He3 Stage</Label>
+
+            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
+            <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource He7Label}">xx</Label>
+
+            <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource He7Label}">Max</Label>
+            <TextBox Grid.Row="1" Grid.Column="3" Style="{StaticResource He7TextBox}">xx</TextBox>
+        </Grid>
     </materialDesign:Card>
 </Grid>
