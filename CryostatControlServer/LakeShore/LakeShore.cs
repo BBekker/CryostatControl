@@ -8,7 +8,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace CryostatControlServer
+namespace CryostatControlServer.LakeShore
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
@@ -18,8 +18,8 @@ namespace CryostatControlServer
     /// <summary>
     /// Connection and communication to the LakeShore 355 temperature controller.
     /// </summary>
-    internal class LakeShore
-    {
+    public class LakeShore
+    { 
         #region const values
 
         /// <summary>
@@ -37,6 +37,11 @@ namespace CryostatControlServer
         /// </summary>
         private const int BaudRate = 57600;
 
+        /// <summary>
+        /// The read interval.
+        /// </summary>
+        private const int ReadInterval = 1000;
+
         #endregion const 
 
         /// <summary>
@@ -51,6 +56,16 @@ namespace CryostatControlServer
         private DateTime lastCommand;
 
         /// <summary>
+        /// The read thread.
+        /// </summary>
+        private Thread readthread;
+
+        /// <summary>
+        /// Gets or sets the latest sensor values;
+        /// </summary>
+        public double[] SensorValues { get; set; } = new double[2] { 0, 0 };
+
+        /// <summary>
         /// Initializes by connecting to the specified port name.
         /// </summary>
         /// <param name="portname">The port name.</param>
@@ -62,6 +77,17 @@ namespace CryostatControlServer
 
             this.ms.WriteString("MODE 1\n");
             this.OPC();
+
+            this.readthread = new Thread(
+                () =>
+                    {
+                        while (true)
+                        {
+                            this.SensorValues[0] = ReadTemperature("A");
+                            this.SensorValues[1] = ReadTemperature("B");
+                            Thread.Sleep(ReadInterval);
+                        }
+                    });
         }
 
         /// <summary>
@@ -69,28 +95,11 @@ namespace CryostatControlServer
         /// </summary>
         public void Close()
         {
+            // Stop the read thread inside a lock to prevent stopping while thread holds the lock.
+            Monitor.Enter(this.ms);
+            this.readthread.Abort();
+            Monitor.Exit(this.ms);
             this.ms.Close();
-        }
-
-        /// <summary>
-        /// Reads the sensor temperature in Kelvin.
-        /// </summary>
-        /// <param name="sensor">The sensor.</param>
-        /// <returns>sensor temperature in K</returns>
-        public double ReadTemperature(string sensor)
-        {
-            try
-            {
-                Monitor.Enter(this.ms);
-                this.WaitCommandInterval();
-                this.ms.WriteString($"KRDG? {sensor}\n");
-                string response = this.ms.ReadString();
-                return double.Parse(response);
-            }
-            finally
-            {
-                Monitor.Exit(this.ms);
-            }
         }
 
         /// <summary>
@@ -107,6 +116,27 @@ namespace CryostatControlServer
                 this.WaitCommandInterval();
                 this.ms.WriteString("OPC?\n");
                 this.ms.ReadString();
+            }
+            finally
+            {
+                Monitor.Exit(this.ms);
+            }
+        }
+
+        /// <summary>
+        /// Reads the sensor temperature in Kelvin.
+        /// </summary>
+        /// <param name="sensor">The sensor.</param>
+        /// <returns>sensor temperature in K</returns>
+        private double ReadTemperature(string sensor)
+        {
+            try
+            {
+                Monitor.Enter(this.ms);
+                this.WaitCommandInterval();
+                this.ms.WriteString($"KRDG? {sensor}\n");
+                string response = this.ms.ReadString();
+                return double.Parse(response);
             }
             finally
             {
