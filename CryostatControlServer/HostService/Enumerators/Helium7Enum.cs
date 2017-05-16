@@ -1,5 +1,16 @@
-﻿namespace CryostatControlServer.HostService.Enumerators
+﻿//-----------------------------------------------------------------------
+// <copyright file="Helium7Enum.cs" company="SRON">
+//     Copyright (c) SRON. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace CryostatControlServer.HostService.Enumerators
 {
+    using System.Diagnostics.CodeAnalysis;
+
+    /// <summary>
+    /// Enumerator for the BlueFors values
+    /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1602:EnumerationItemsMustBeDocumented", Justification = "Reviewed. Suppression is OK here.")]
     public enum Helium7Enum
     {
         ConnectontionState = 0,

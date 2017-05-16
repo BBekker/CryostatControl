@@ -5,9 +5,7 @@
 //-----------------------------------------------------------------------
 namespace CryostatControlServer.HostService
 {
-    using System;
     using System.Collections;
-    using System.Collections.Generic;
     using System.ServiceModel;
     using System.Threading;
 
@@ -19,6 +17,9 @@ namespace CryostatControlServer.HostService
     {
         #region Fields
 
+        /// <summary>
+        /// The callback list
+        /// </summary>
         private ArrayList callbackList = new ArrayList();
 
         #endregion Fields
@@ -55,6 +56,7 @@ namespace CryostatControlServer.HostService
             return 0;
         }
 
+        /// <inheritdoc cref="IDataGet.SubscribeForData"/>>
         public void SubscribeForData(int interval)
         {
             IDataGetCallback client =
@@ -62,10 +64,11 @@ namespace CryostatControlServer.HostService
             if (!this.callbackList.Contains(client))
             {
                 this.callbackList.Add(client);
-                Timer ticker = new Timer(TimerMethod, client, 0, interval);
+                Timer ticker = new Timer(this.TimerMethod, client, 0, interval);
             }
         }
 
+        /// <inheritdoc cref="IDataGet.UnsubscribeForData"/>>
         public void UnsubscribeForData()
         {
             IDataGetCallback client =
@@ -76,6 +79,10 @@ namespace CryostatControlServer.HostService
             }
         }
 
+        /// <summary>
+        /// Timer method to send mock data
+        /// </summary>
+        /// <param name="state">The state.</param>
         private void TimerMethod(object state)
         {
             IDataGetCallback client = (IDataGetCallback)state;
