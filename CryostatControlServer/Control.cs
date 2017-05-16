@@ -27,7 +27,6 @@
             CooldownWaitForPressure,
             CooldownStartCompressor,
             CooldownWait70K,
-            CooldownDisableHeatSwitch,
             CooldownWait4K,
             CooldownCondenseHe4,
             CooldownTurnOffHe4,
@@ -39,7 +38,22 @@
 
 
         }
+
         private Controlstate state = Controlstate.Setup;
+
+        private Controlstate State
+        {
+            set
+            {
+                Console.WriteLine("[Control] Switched from state {0} to {1}", this.state, value);
+                this.state = value;
+                
+            }
+            get
+            {
+                return this.state;
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Control"/> class.
@@ -104,15 +118,73 @@
         He7Cooler.He7Cooler.Heater He4Switch;
         He7Cooler.He7Cooler.Heater He3Switch;
 
+        private double HeaterTemperatureSetpoint = 35.0;
+
+        private double He4HeaterVoltage = 10.0;
+
+        private double He3HeaterVoltage = 6.0;
+
+        private double He3SwitchVoltage = 3.0;
+
+        private double He4SwitchVoltage = 4.0;
+
+        private double He7StartTemperature = 70.0;
+
+        private double HeatSwitchSafeValue = 9.0;
+
+        private double HeatSwitchOnTemperature = 15.0;
+
+        /// <summary>
+        /// Checks if the heat switches are allowed to be turned on.
+        /// If the cooler temperature is too high, the heaters are turned off.
+        /// </summary>
+        private void SafetyCheckHeatSwitch()
+        {
+            if (this.Plate4KT.Value > HeatSwitchSafeValue && this.He4Switch.Voltage > 0.2)
+            {
+                this.He4Switch.Voltage = 0.0;
+            }
+
+            if (this.Plate4KT.Value > HeatSwitchSafeValue && this.He3Switch.Voltage > 0.2)
+            {
+                this.He3Switch.Voltage = 0.0;
+            }
+        }
+
+        /// <summary>
+        /// Safety check of the pump heaters.
+        /// If the cooler is to warm, the heaters are turned off
+        /// </summary>
+        private void SafetyCheckPumps()
+        {
+            if (this.Plate4KT.Value > 70.0 && this.He3Pump.Voltage > 0.2)
+            {
+                this.He3Pump.Voltage = 0.0;
+            }
+
+            if (this.Plate4KT.Value > 70.0 && this.He4Pump.Voltage > 0.2)
+            {
+                this.He4Pump.Voltage = 0.0;
+            }
+        }
+
+        /// <summary>
+        /// The state machine that controls the heater.
+        /// Controls the 
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// </exception>
         void StateMachine()
         {
-
-            switch (this.state)
+            this.SafetyCheckHeatSwitch();
+            this.SafetyCheckPumps();
+            
+            switch (this.State)
             {
                 case Controlstate.Setup:
                     if (this.cooler != null && this.lakeshore != null && this.compressor != null)
                     { 
-                        this.state = Controlstate.Standby;
+                        this.State = Controlstate.Standby;
                     }
                     break;
 
@@ -123,114 +195,99 @@
                     break;
 
                 case Controlstate.CooldownStart:
-                    this.state = Controlstate.CooldownWaitForPressure;
+                    this.State = Controlstate.CooldownWaitForPressure;
                     break;
 
                 case Controlstate.CooldownWaitForPressure:
                     //TODO: wait for pressure when sensor is connected
-                    this.state = Controlstate.CooldownStartCompressor;
+                    this.State = Controlstate.CooldownStartCompressor;
                     break;
 
                 case Controlstate.CooldownStartCompressor:
-                    this.compressor.TurnOn();
-                    this.state = Controlstate.CooldownWait70K;
+                    try
+                    {
+                        this.compressor.TurnOn();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Compressor gave error: " + ex);
+                    }
+
+                    this.State = Controlstate.CooldownWait70K;
                     break;
 
                 case Controlstate.CooldownWait70K:
-                    if (this.He3PumpT.Value < 70.0 || this.He4PumpT.Value < 70.0)
+                    if (this.He3PumpT.Value < this.He7StartTemperature || this.He4PumpT.Value < this.He7StartTemperature)
                     {
-                        this.state = Controlstate.CooldownDisableHeatSwitch;
+                        this.State = Controlstate.CooldownWait4K;
                     }
                     break;
 
-                case Controlstate.CooldownDisableHeatSwitch:
-                    new He7Cooler.He7Cooler.Heater(Channels.SwitchHe3, Channels.SensHe3Switch, this.cooler).Voltage = 0.0;
-                    new He7Cooler.He7Cooler.Heater(Channels.SwitchHe4, Channels.SensHe4Switch, this.cooler).Voltage = 0.0;
-                    this.state = Controlstate.CooldownWait4K;
-                    break;
-
                 case Controlstate.CooldownWait4K:
-                    this.ControlHeater(this.He3Pump, this.He3PumpT, 35, 10);
-                    this.ControlHeater(this.He4Pump, this.He4PumpT, 35, 10);
+                    this.ControlHeater(this.He3Pump, this.He3PumpT, this.HeaterTemperatureSetpoint, this.He3HeaterVoltage);
+                    this.ControlHeater(this.He4Pump, this.He4PumpT, this.HeaterTemperatureSetpoint, this.He4HeaterVoltage);
                     if (this.He3HeadT.Value < 4.0 && this.He4HeadT.Value < 4.0)
                     {
-                        this.state = Controlstate.CooldownCondenseHe4;
+                        this.State = Controlstate.CooldownCondenseHe4;
                     }
 
                     break;
                 case Controlstate.CooldownCondenseHe4:
-                    this.ControlHeater(this.He3Pump, this.He3PumpT, 35, 10);
-                    this.ControlHeater(this.He4Pump, this.He4PumpT, 35, 10);
+                    this.ControlHeater(this.He3Pump, this.He3PumpT, this.HeaterTemperatureSetpoint, this.He3HeaterVoltage);
+                    this.ControlHeater(this.He4Pump, this.He4PumpT, this.HeaterTemperatureSetpoint, this.He4HeaterVoltage);
                     if (this.He4HeadT.Value < 4.0)
                     {
-                        this.state = Controlstate.CooldownCondenseHe4;
+                        this.State = Controlstate.CooldownCondenseHe4;
                     }
                     break;
                 case Controlstate.CooldownTurnOffHe4:
-                    this.ControlHeater(this.He3Pump, this.He3PumpT, 35, 10);
+                    this.ControlHeater(this.He3Pump, this.He3PumpT, this.HeaterTemperatureSetpoint, this.He3HeaterVoltage);
                     this.He4Pump.Voltage = 0.0;
                     break;
 
                 case Controlstate.CooldownControlHe4Switch:
-                    this.ControlHeater(this.He3Pump, this.He3PumpT, 35, 10);
+                    this.ControlHeater(this.He3Pump, this.He3PumpT, this.HeaterTemperatureSetpoint, this.He3HeaterVoltage);
 
-                    //I don't know why we measure the 4k plate... Should never get this high anyway
-                    if (this.Plate4KT.Value > 9.0)
+                    if (this.Plate4KT.Value < this.HeatSwitchSafeValue)
                     {
-                        this.He4Switch.Voltage = 0.0;
-                    }
-                    else
-                    {
-                        this.He4Switch.Voltage = 4.0;
+                        this.He4Switch.Voltage = this.He4SwitchVoltage;
                     }
 
-                    if ((this.He4SwitchT.Value > 15.0) && (this.Plate4KT.Value < 9.0))
+                    if (this.He4SwitchT.Value > this.HeatSwitchOnTemperature)
                     {
-                        // Shouldn't we turn off the switch here? Or at least keep controlling it?
-                        this.state = Controlstate.CooldownCondenseHe3;
+                        this.State = Controlstate.CooldownCondenseHe3;
                     }
                     break;
 
                 case Controlstate.CooldownCondenseHe3:
-                    this.ControlHeater(this.He3Pump, this.He3PumpT, 35, 10);
+                    this.ControlHeater(this.He3Pump, this.He3PumpT, this.HeaterTemperatureSetpoint, this.He3HeaterVoltage);
                     if (this.He3HeadT.Value < 2.0)
                     {
-                        this.state = Controlstate.CooldownDisableHe3PumpHeater;
+                        this.State = Controlstate.CooldownDisableHe3PumpHeater;
                     }
                     break;
 
                 case Controlstate.CooldownDisableHe3PumpHeater:
                     this.He3Pump.Voltage = 0.0;
-                    state = Controlstate.CooldownControlHe3;
+                    this.State = Controlstate.CooldownControlHe3;
                     break;
 
                 case Controlstate.CooldownControlHe3:
-                    //Also mysterious
-                    //I don't know why we measure the 4k plate... Should never get this high anyway
-                    if (this.Plate4KT.Value > 9.0)
+                    if (this.Plate4KT.Value < this.HeatSwitchSafeValue)
                     {
-                        this.He3Switch.Voltage = 0.0;
-                    }
-                    else
-                    {
-                        this.He3Switch.Voltage = 3.0;
+                        this.He3Switch.Voltage = this.He3SwitchVoltage;
                     }
 
-                    if ((this.He3SwitchT.Value > 15.0) && (this.Plate4KT.Value < 9.0))
+                    if (this.He3SwitchT.Value > this.HeatSwitchOnTemperature)
                     {
-                        // Shouldn't we turn off the switch here? Or at least keep controlling it?
-                        // also  strange conditions
-                        this.state = Controlstate.CooldownFinished;
+                        this.State = Controlstate.CooldownFinished;
                     }
                     break;
                 case Controlstate.CooldownFinished:
+                    this.State = Controlstate.Standby;
                     break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
+                    
             }
-
-            
 
         }
 
