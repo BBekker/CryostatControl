@@ -21,9 +21,6 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private He7Model he7Model;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="He7ViewModel"/> class.
-        /// </summary>
         public He7ViewModel()
         {
             this.he7Model = new He7Model();
@@ -204,7 +201,7 @@ namespace CryostatControlClient.ViewModels
 
             set
             {
-                this.he7Model.He3PumpVolt = value;
+                this.he7Model.He4PumpVolt = value;
                 this.RaisePropertyChanged("He4PumpVolt");
             }
         }

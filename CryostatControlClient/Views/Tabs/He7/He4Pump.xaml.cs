@@ -9,7 +9,10 @@
 
 namespace CryostatControlClient.Views.Tabs.He7
 {
+    using System;
     using System.Windows;
+
+    using CryostatControlClient.ViewModels;
 
     /// <summary>
     /// Interaction logic for He4Pump.xaml
