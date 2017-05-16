@@ -9,6 +9,7 @@
 namespace CryostatControlClient
 {
     using System;
+    using System.ServiceModel;
     using System.Windows;
 
     using CryostatControlClient.ServiceReference1;
@@ -28,16 +29,23 @@ namespace CryostatControlClient
         {
             base.OnStartup(e);
 
-            CommandServiceClient client = new CommandServiceClient();
+            CommandServiceClient commandClient = new CommandServiceClient();
+
+            DataClientCallback callback = new DataClientCallback();
+            InstanceContext instanceContext = new InstanceContext(callback);
+            DataGetClient dataClient = new DataGetClient(instanceContext);
 
             try
             {
-                Console.WriteLine("Server is alive: {0}", client.IsAlive());
+                Console.WriteLine("Server is alive: {0}", commandClient.IsAlive());
             }
             catch (System.ServiceModel.EndpointNotFoundException exception)
             {
                 Console.WriteLine("Server is alive: {0}", false);
             }
+
+            Console.WriteLine("Subscribed for data");
+            dataClient.SubscribeForData(1000);
         }
 
         #endregion Methods

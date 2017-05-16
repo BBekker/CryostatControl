@@ -30,10 +30,10 @@ namespace CryostatControlServer
             using (ServiceHost host = new ServiceHost(typeof(CommandService), baseAddress))
             {
                 // Enable metadata publishing.
-                ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-                smb.HttpGetEnabled = true;
-                smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
-                host.Description.Behaviors.Add(smb);
+                //ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+                //smb.HttpGetEnabled = true;
+                //smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
+                //host.Description.Behaviors.Add(smb);
 
                 // Open the ServiceHost to start listening for messages. Since
                 // no endpoints are explicitly configured, the runtime will create

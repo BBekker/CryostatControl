@@ -113,4 +113,59 @@ namespace CryostatControlClient.ServiceReference1 {
             return base.Channel.ReadSensorAsync(id);
         }
     }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IDataGet", CallbackContract=typeof(CryostatControlClient.ServiceReference1.IDataGetCallback), SessionMode=System.ServiceModel.SessionMode.Required)]
+    public interface IDataGet {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SubscribeForData")]
+        void SubscribeForData(int interval);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SubscribeForData")]
+        System.Threading.Tasks.Task SubscribeForDataAsync(int interval);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IDataGetCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SendData")]
+        void SendData(float[] data);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IDataGetChannel : CryostatControlClient.ServiceReference1.IDataGet, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class DataGetClient : System.ServiceModel.DuplexClientBase<CryostatControlClient.ServiceReference1.IDataGet>, CryostatControlClient.ServiceReference1.IDataGet {
+        
+        public DataGetClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
+        }
+        
+        public DataGetClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
+        }
+        
+        public DataGetClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public DataGetClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public DataGetClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void SubscribeForData(int interval) {
+            base.Channel.SubscribeForData(interval);
+        }
+        
+        public System.Threading.Tasks.Task SubscribeForDataAsync(int interval) {
+            return base.Channel.SubscribeForDataAsync(interval);
+        }
+    }
 }

@@ -92,6 +92,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="DataClientCallback.cs" />
     <Compile Include="Models\AbstractModel.cs" />
     <Compile Include="Models\He7Model.cs" />
     <Compile Include="Views\Tabs\He7\2KPlate.xaml.cs">
@@ -253,6 +254,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\ServiceReference1\SRON1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceReference1\SRON2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />

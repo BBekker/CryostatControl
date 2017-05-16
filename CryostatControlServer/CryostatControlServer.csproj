@@ -63,7 +63,9 @@
     <Compile Include="He7Cooler\Heater.cs" />
     <Compile Include="He7Cooler\Sensor.cs" />
     <Compile Include="HostService\CommandService.cs" />
+    <Compile Include="HostService\IDataGetCallback.cs" />
     <Compile Include="HostService\ICommandService.cs" />
+    <Compile Include="HostService\IDataGet.cs" />
     <Compile Include="LakeShore.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="Program.cs" />
