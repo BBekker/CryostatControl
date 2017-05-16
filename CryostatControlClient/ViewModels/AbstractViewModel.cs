@@ -9,7 +9,6 @@
 
 namespace CryostatControlClient.ViewModels
 {
-    using System.Collections.Specialized;
     using System.ComponentModel;
 
     /// <summary>
@@ -17,7 +16,6 @@ namespace CryostatControlClient.ViewModels
     /// </summary>
     public abstract class AbstractViewModel : INotifyPropertyChanged
     {
-
         /// <summary>
         /// The property changed.
         /// </summary>
