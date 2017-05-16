@@ -10,6 +10,7 @@ namespace CryostatControlClient
 {
     using System;
     using System.ServiceModel;
+    using System.Threading.Tasks;
     using System.Windows;
 
     using CryostatControlClient.ServiceReference1;
@@ -20,6 +21,17 @@ namespace CryostatControlClient
     public partial class App
     {
         #region Methods
+
+        public async Task Execute(Action<DataGetClient> action, int timeoutInMilliseconds, DataGetClient client)
+        {
+            await Task.Delay(timeoutInMilliseconds);
+            action(client);
+        }
+
+        public void Unsubscribe(DataGetClient client)
+        {
+            Console.WriteLine("unsubscribe");
+        }
 
         /// <summary>
         /// Raises the <see cref="E:System.Windows.Application.Startup" /> event.
@@ -46,6 +58,8 @@ namespace CryostatControlClient
 
             Console.WriteLine("Subscribed for data");
             dataClient.SubscribeForData(1000);
+
+            Execute(this.Unsubscribe, 1000, dataClient);
         }
 
         #endregion Methods
