@@ -33,6 +33,11 @@ namespace CryostatControlClient
             client.UnsubscribeForData();
         }
 
+        public void Test()
+        {
+            Console.WriteLine("I can say hello");
+        }
+
         /// <summary>
         /// Raises the <see cref="E:System.Windows.Application.Startup" /> event.
         /// </summary>
@@ -43,7 +48,7 @@ namespace CryostatControlClient
 
             CommandServiceClient commandClient = new CommandServiceClient();
 
-            DataClientCallback callback = new DataClientCallback();
+            DataClientCallback callback = new DataClientCallback(this);
             InstanceContext instanceContext = new InstanceContext(callback);
             DataGetClient dataClient = new DataGetClient(instanceContext);
 

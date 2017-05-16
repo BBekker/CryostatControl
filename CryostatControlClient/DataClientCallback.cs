@@ -1,11 +1,27 @@
 ﻿namespace CryostatControlClient
 {
     using System;
+    using System.Windows;
 
     using CryostatControlClient.ServiceReference1;
 
     public class DataClientCallback : IDataGetCallback
     {
+        #region Fields
+
+        private App MainApp;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public DataClientCallback(App app)
+        {
+            this.MainApp = app;
+        }
+
+        #endregion Constructors
+
         #region Methods
 
         public void SendBlueForsData(float[] data)
