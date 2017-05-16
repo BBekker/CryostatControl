@@ -123,13 +123,25 @@ namespace CryostatControlClient.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SubscribeForData")]
         System.Threading.Tasks.Task SubscribeForDataAsync(int interval);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UnsubscribeForData")]
+        void UnsubscribeForData();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UnsubscribeForData")]
+        System.Threading.Tasks.Task UnsubscribeForDataAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IDataGetCallback {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SendData")]
-        void SendData(float[] data);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SendBlueForsData")]
+        void SendBlueForsData(float[] data);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SendCompressorData")]
+        void SendCompressorData(float[] data);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SendHelium7Data")]
+        void SendHelium7Data(float[] data);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -166,6 +178,14 @@ namespace CryostatControlClient.ServiceReference1 {
         
         public System.Threading.Tasks.Task SubscribeForDataAsync(int interval) {
             return base.Channel.SubscribeForDataAsync(interval);
+        }
+        
+        public void UnsubscribeForData() {
+            base.Channel.UnsubscribeForData();
+        }
+        
+        public System.Threading.Tasks.Task UnsubscribeForDataAsync() {
+            return base.Channel.UnsubscribeForDataAsync();
         }
     }
 }

@@ -66,12 +66,22 @@ namespace CryostatControlServer.HostService
             }
         }
 
+        public void UnsubscribeForData()
+        {
+            IDataGetCallback client =
+                OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
+            if (this.callbackList.Contains(client))
+            {
+                this.callbackList.Remove(client);
+            }
+        }
+
         private void TimerMethod(object state)
         {
             IDataGetCallback client = (IDataGetCallback)state;
             float[] data = new float[1];
             data[0] = 42;
-            client.SendData(data);
+            client.SendCompressorData(data);
         }
 
         #endregion Methods

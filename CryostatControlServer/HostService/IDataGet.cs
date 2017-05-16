@@ -12,6 +12,9 @@
         [OperationContract(IsOneWay = true)]
         void SubscribeForData(int interval);
 
+        [OperationContract(IsOneWay = true)]
+        void UnsubscribeForData();
+
         #endregion Methods
     }
 }

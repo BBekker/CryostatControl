@@ -4,13 +4,23 @@
 
     using CryostatControlClient.ServiceReference1;
 
-    internal class DataClientCallback : IDataGetCallback
+    public class DataClientCallback : IDataGetCallback
     {
         #region Methods
 
-        public void SendData(float[] data)
+        public void SendBlueForsData(float[] data)
         {
-            Console.WriteLine("Received: {0}", data[0]);
+            Console.WriteLine("Received BlueFors: {0}", data[0]);
+        }
+
+        public void SendCompressorData(float[] data)
+        {
+            Console.WriteLine("Received Compressor: {0}", data[0]);
+        }
+
+        public void SendHelium7Data(float[] data)
+        {
+            Console.WriteLine("Received Helium 7: {0}", data[0]);
         }
 
         #endregion Methods

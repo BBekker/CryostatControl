@@ -30,7 +30,7 @@ namespace CryostatControlClient
 
         public void Unsubscribe(DataGetClient client)
         {
-            Console.WriteLine("unsubscribe");
+            client.UnsubscribeForData();
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace CryostatControlClient
             Console.WriteLine("Subscribed for data");
             dataClient.SubscribeForData(1000);
 
-            Execute(this.Unsubscribe, 1000, dataClient);
+            //Execute(this.Unsubscribe, 1000, dataClient);
         }
 
         #endregion Methods
