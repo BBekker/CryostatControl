@@ -27,10 +27,10 @@ namespace CryostatControlServer
 
         private bool run = true;
 
-        static void Main(string[] args)
-        {
-            new Program();
-        }
+        //static void Main(string[] args)
+        //{
+        //    new Program();
+        //}
 
         Program()
         {
