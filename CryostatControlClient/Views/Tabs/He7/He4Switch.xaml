@@ -25,10 +25,10 @@
     <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>
 
     <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
-    <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He4SwitchTemp}"/>
+    <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.He4SwitchTemp}"/>
 
     <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
-    <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He4SwitchVolt}"/>
+    <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.He4SwitchVolt}"/>
 
     <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
     <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource He7TextBox}">xx</TextBox>
