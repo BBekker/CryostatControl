@@ -11,9 +11,11 @@ namespace CryostatControlServer.HostService.Enumerators
     /// Enumerator for the Compressor values
     /// </summary>
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1602:EnumerationItemsMustBeDocumented", Justification = "Reviewed. Suppression is OK here.")]
-    public enum CompressorEnum
+    public enum DataEnumerator
     {
-        ConnectionState = 0,
+        // helium cooler
+        HeConnectionState = 0,
+
         He3Head = 1,
         He3Pump = 2,
         He4Head = 3,
@@ -24,7 +26,27 @@ namespace CryostatControlServer.HostService.Enumerators
         He3SwitchVolt = 8,
         He4SwitchTemp = 9,
         He4SwitchVolt = 10,
-        Plate2K = 11,
-        Plate4K = 12
+        HePlate2K = 11,
+        HePlate4K = 12,
+
+        // Compressor
+        ComConnectionState = 13,
+
+        ComWaterIn = 14,
+        ComWaterOut = 15,
+        ComHelium = 16,
+        ComOil = 17,
+        ComLow = 18,
+        ComLowAvg = 19,
+        ComHigh = 20,
+        ComHighAvg = 21,
+        ComDeltaAvg = 22,
+
+        // Lakeshore
+        LakeConnectionState = 23,
+
+        LakePlate50K = 24,
+        LakePlate3K = 25,
+        LakeHeater = 26
     }
 }
