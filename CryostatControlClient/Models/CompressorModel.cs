@@ -19,67 +19,67 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The operating state
         /// </summary>
-        private float operatingState;
+        private double operatingState;
 
         /// <summary>
         /// The warning state
         /// </summary>
-        private float warningState;
+        private double warningState;
 
         /// <summary>
         /// The error state
         /// </summary>
-        private float errorState;
+        private double errorState;
 
         /// <summary>
         /// The water in temperature
         /// </summary>
-        private float waterInTemp;
+        private double waterInTemp;
 
         /// <summary>
         /// The water out temperature
         /// </summary>
-        private float waterOutTemp;
+        private double waterOutTemp;
 
         /// <summary>
         /// The oil temperature
         /// </summary>
-        private float oilTemp;
+        private double oilTemp;
 
         /// <summary>
         /// The helium temperature
         /// </summary>
-        private float heliumTemp;
+        private double heliumTemp;
 
         /// <summary>
         /// The low pressure
         /// </summary>
-        private float lowPressure;
+        private double lowPressure;
 
         /// <summary>
         /// The low pressure average
         /// </summary>
-        private float lowPressureAverage;
+        private double lowPressureAverage;
 
         /// <summary>
         /// The high pressure
         /// </summary>
-        private float highPressure;
+        private double highPressure;
 
         /// <summary>
         /// The high pressure average
         /// </summary>
-        private float highPressureAverage;
+        private double highPressureAverage;
 
         /// <summary>
         /// The delta pressure average
         /// </summary>
-        private float deltaPressureAverage;
+        private double deltaPressureAverage;
 
         /// <summary>
         /// The hours of operation
         /// </summary>
-        private float hoursOfOperation;
+        private double hoursOfOperation;
 
         /// <summary>
         /// The pressure scale
@@ -94,7 +94,7 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The connection state
         /// </summary>
-        private float connectionState;
+        private double connectionState;
 
         #endregion Fields
 
@@ -106,7 +106,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The state of the operating.
         /// </value>
-        public float OperatingState
+        public double OperatingState
         {
             get
             {
@@ -125,7 +125,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The state of the warning.
         /// </value>
-        public float WarningState
+        public double WarningState
         {
             get
             {
@@ -144,7 +144,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The state of the alarm.
         /// </value>
-        public float ErrorState
+        public double ErrorState
         {
             get
             {
@@ -163,7 +163,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The coolant in temperature.
         /// </value>
-        public float WaterInTemp
+        public double WaterInTemp
         {
             get
             {
@@ -182,7 +182,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The coolant out temperature.
         /// </value>
-        public float WaterOutTemp
+        public double WaterOutTemp
         {
             get
             {
@@ -201,7 +201,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The oil temperature.
         /// </value>
-        public float OilTemp
+        public double OilTemp
         {
             get
             {
@@ -220,7 +220,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The helium temperature.
         /// </value>
-        public float HeliumTemp
+        public double HeliumTemp
         {
             get
             {
@@ -239,7 +239,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The low pressure.
         /// </value>
-        public float LowPressure
+        public double LowPressure
         {
             get
             {
@@ -258,7 +258,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The low pressure average.
         /// </value>
-        public float LowPressureAverage
+        public double LowPressureAverage
         {
             get
             {
@@ -277,7 +277,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The high pressure.
         /// </value>
-        public float HighPressure
+        public double HighPressure
         {
             get
             {
@@ -296,7 +296,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The high pressure average.
         /// </value>
-        public float HighPressureAverage
+        public double HighPressureAverage
         {
             get
             {
@@ -315,7 +315,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The delta pressure average.
         /// </value>
-        public float DeltaPressureAverage
+        public double DeltaPressureAverage
         {
             get
             {
@@ -334,7 +334,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The hours of operation.
         /// </value>
-        public float HoursOfOperation
+        public double HoursOfOperation
         {
             get
             {
@@ -391,7 +391,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The connection state.
         /// </value>
-        public float ConnectionState
+        public double ConnectionState
         {
             get
             {

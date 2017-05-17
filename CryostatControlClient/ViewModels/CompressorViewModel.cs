@@ -45,7 +45,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The state of the operating.
         /// </value>
-        public float OperatingState
+        public double OperatingState
         {
             get
             {
@@ -77,7 +77,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The state of the warning.
         /// </value>
-        public float WarningState
+        public double WarningState
         {
             get
             {
@@ -105,7 +105,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The state of the alarm.
         /// </value>
-        public float ErrorState
+        public double ErrorState
         {
             get
             {
@@ -136,7 +136,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The Water in temperature.
         /// </value>
-        public float WaterInTemp
+        public double WaterInTemp
         {
             get
             {
@@ -156,7 +156,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The Water out temperature.
         /// </value>
-        public float WaterOutTemp
+        public double WaterOutTemp
         {
             get
             {
@@ -176,7 +176,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The oil temperature.
         /// </value>
-        public float OilTemp
+        public double OilTemp
         {
             get
             {
@@ -196,7 +196,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The helium temperature.
         /// </value>
-        public float HeliumTemp
+        public double HeliumTemp
         {
             get
             {
@@ -216,7 +216,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The low pressure.
         /// </value>
-        public float LowPressure
+        public double LowPressure
         {
             get
             {
@@ -236,7 +236,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The low pressure average.
         /// </value>
-        public float LowPressureAverage
+        public double LowPressureAverage
         {
             get
             {
@@ -256,7 +256,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The high pressure.
         /// </value>
-        public float HighPressure
+        public double HighPressure
         {
             get
             {
@@ -276,7 +276,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The high pressure average.
         /// </value>
-        public float HighPressureAverage
+        public double HighPressureAverage
         {
             get
             {
@@ -296,7 +296,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The delta pressure average.
         /// </value>
-        public float DeltaPressureAverage
+        public double DeltaPressureAverage
         {
             get
             {
@@ -316,7 +316,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The hours of operation.
         /// </value>
-        public float HoursOfOperation
+        public double HoursOfOperation
         {
             get
             {
@@ -376,7 +376,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         ///   <c>true</c> if [power on]; otherwise, <c>false</c>.
         /// </value>
-        public float ConnectionState
+        public double ConnectionState
         {
             get
             {
@@ -401,7 +401,7 @@ namespace CryostatControlClient.ViewModels
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string ConvertOperatingStateNumberToString(float operatingStateNumber)
+        public string ConvertOperatingStateNumberToString(double operatingStateNumber)
         {
             switch (operatingStateNumber)
             {
@@ -427,7 +427,7 @@ namespace CryostatControlClient.ViewModels
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string ConvertWarningStateNumberToString(float warningStateNumber)
+        public string ConvertWarningStateNumberToString(double warningStateNumber)
         {
             switch (warningStateNumber)
             {
@@ -462,7 +462,7 @@ namespace CryostatControlClient.ViewModels
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string ConvertErrorStateNumberToString(float errorStateNumber)
+        public string ConvertErrorStateNumberToString(double errorStateNumber)
         {
             switch (errorStateNumber)
             {
