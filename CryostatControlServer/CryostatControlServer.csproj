@@ -84,7 +84,10 @@
     <Compile Include="LakeShore\Sensor.cs" />
     <Compile Include="LakeShore\SensorEnum.cs" />
     <Compile Include="HostService\CommandService.cs" />
+    <Compile Include="HostService\Enumerators\DataEnumerator.cs" />
+    <Compile Include="HostService\IDataGetCallback.cs" />
     <Compile Include="HostService\ICommandService.cs" />
+    <Compile Include="HostService\IDataGet.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,7 +100,9 @@
     <Compile Include="Streams\ManagedStream.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
