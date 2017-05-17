@@ -32,7 +32,6 @@ namespace CryostatControlClient.Models
         /// </summary>
         private double fourKPlateMax2;
 
-
         /// <summary>
         /// The he3 head temperature
         /// </summary>
@@ -87,7 +86,6 @@ namespace CryostatControlClient.Models
         /// The he 3 switch max 2.
         /// </summary>
         private double he3SwitchMax2;
-
 
         /// <summary>
         /// The he4 head temperature

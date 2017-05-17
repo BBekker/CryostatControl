@@ -9,6 +9,7 @@
 
 namespace CryostatControlClient.ViewModels
 {
+    using System;
     using CryostatControlClient.Models;
 
     /// <summary>
@@ -91,6 +92,9 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the warning state converted.
+        /// </summary>
         public string WarningStateConverted
         {
             get
@@ -387,6 +391,18 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.ConnectionState = value;
                 this.RaisePropertyChanged("ConnectionState");
+                this.RaisePropertyChanged("ConnectionStateConverted");
+            }
+        }
+
+        /// <summary>
+        /// Gets the connection state converted.
+        /// </summary>
+        public string ConnectionStateConverted
+        {
+            get
+            {
+                return this.ConvertConnectionStateNumberToString(this.compressorModel.ConnectionState);
             }
         }
 

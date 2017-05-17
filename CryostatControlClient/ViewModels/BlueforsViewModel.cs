@@ -40,42 +40,88 @@ namespace CryostatControlClient.ViewModels
         #region Properties
 
         /// <summary>
-        /// Gets or sets the cold plate 3 K temperature.
+        /// Gets or sets the cold plate 30 K temperature.
         /// </summary>
         /// <value>
-        /// The cold plate3 k temporary.
+        /// The cold plate 30 k temporary.
         /// </value>
-        public int ColdPlate3KTemp
+        public double ColdPlate30KTemp
         {
             get
             {
-                return this.blueforsModel.ColdPlate3KTemp;
+                return this.blueforsModel.ColdPlate30KTemp;
             }
 
             set
             {
-                this.blueforsModel.ColdPlate3KTemp = value;
-                this.RaisePropertyChanged("ColdPlate3KTemp");
+                this.blueforsModel.ColdPlate30KTemp = value;
+                this.RaisePropertyChanged("ColdPlate30KTemp");
             }
         }
 
         /// <summary>
-        /// Gets or sets the cold plate 5 K temperature.
+        /// Gets or sets the cold plate 50 K temperature.
         /// </summary>
         /// <value>
-        /// The cold plate 5 K temporary.
+        /// The cold plate 50 K temporary.
         /// </value>
-        public int ColdPlate5KTemp
+        public double ColdPlate50KTemp
         {
             get
             {
-                return this.blueforsModel.ColdPlate5KTemp;
+                return this.blueforsModel.ColdPlate50KTemp;
             }
 
             set
             {
-                this.blueforsModel.ColdPlate5KTemp = value;
-                this.RaisePropertyChanged("ColdPlate5KTemp");
+                this.blueforsModel.ColdPlate50KTemp = value;
+                this.RaisePropertyChanged("ColdPlate50KTemp");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the connection state.
+        /// </summary>
+        public double ConnectionState
+        {
+            get
+            {
+                return this.blueforsModel.ConnectionState;
+            }
+
+            set
+            {
+                this.blueforsModel.ConnectionState = value;
+                this.RaisePropertyChanged("ConnectionState");
+                this.RaisePropertyChanged("ConnectionStateConverted");
+            }
+        }
+
+        /// <summary>
+        /// Gets the connection state converted.
+        /// </summary>
+        public string ConnectionStateConverted
+        {
+            get
+            {
+                return this.ConvertConnectionStateNumberToString(this.blueforsModel.ConnectionState);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the heater power.
+        /// </summary>
+        public double HeaterPower
+        {
+            get
+            {
+                return this.blueforsModel.HeaterPower;
+            }
+
+            set
+            {
+                this.blueforsModel.HeaterPower = value;
+                this.RaisePropertyChanged("HeaterPower");
             }
         }
 

@@ -39,7 +39,7 @@ namespace CryostatControlClient.Views
 
             this.DataContext = dc;
 
-            dc.BlueforsViewModel.ColdPlate5KTemp = 3000;
+            dc.BlueforsViewModel.ColdPlate50KTemp = 3000;
             dc.CompressorViewModel.HighPressure = 200;
             dc.CompressorViewModel.PressureScale = "PSI";
             dc.CompressorViewModel.TempScale = "K";

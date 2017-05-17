@@ -509,6 +509,18 @@ namespace CryostatControlClient.ViewModels
             {
                 this.he7Model.ConnectionState = value;
                 this.RaisePropertyChanged("ConnectionState");
+                this.RaisePropertyChanged("ConnectionStateConverted");
+            }
+        }
+
+        /// <summary>
+        /// Gets the connection state converted.
+        /// </summary>
+        public string ConnectionStateConverted
+        {
+            get
+            {
+                return this.ConvertConnectionStateNumberToString(this.he7Model.ConnectionState);
             }
         }
     }
