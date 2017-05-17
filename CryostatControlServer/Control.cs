@@ -1,13 +1,174 @@
-﻿namespace CryostatControlServer
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Control.cs" company="SRON">
+//   bla
+// </copyright>
+// <summary>
+//   Defines the Control type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace CryostatControlServer
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
 
-    class Control
+    /// <summary>
+    /// Control class, controls the cryostat using a state machine.
+    /// </summary>
+    public class Control
     {
+        /// <summary>
+        /// The compressor
+        /// </summary>
         private Compressor.Compressor compressor;
 
+        /// <summary>
+        /// The H7 cooler
+        /// </summary>
         private He7Cooler.He7Cooler cooler;
+
+        /// <summary>
+        /// The lakeshore.
+        /// </summary>
+        private LakeShore.LakeShore lakeshore;
+
+        /// <summary>
+        /// The state.
+        /// </summary>
+        private Controlstate state = Controlstate.Setup;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Control"/> class.
+        /// </summary>
+        /// <param name="cooler">
+        /// The cooler.
+        /// </param>
+        /// <param name="ls">
+        /// The ls.
+        /// </param>
+        /// <param name="compressor">
+        /// The compressor.
+        /// </param>
+        public Control(He7Cooler.He7Cooler cooler, LakeShore.LakeShore ls, Compressor.Compressor compressor)
+        {
+            this.cooler = cooler;
+            this.lakeshore = ls;
+            this.compressor = compressor;
+        }
+
+        /// <summary>
+        /// Enum of possible states for the control statemachine
+        /// </summary>
+        public enum Controlstate
+        {
+            /// <summary>
+            /// Waiting for everything to be connected and ready
+            /// </summary>
+            Setup,
+
+            /// <summary>
+            /// Everything ready, waiting for a command
+            /// </summary>
+            Standby,
+
+            /// <summary>
+            /// Manual control mode
+            /// </summary>
+            Manual,
+
+            /// <summary>
+            /// Entry point for the cool down routine.
+            /// </summary>
+            CooldownStart,
+
+            /// <summary>
+            /// Wait for the pressure inside the cryostat to drop below the critical point.
+            /// </summary>
+            CooldownWaitForPressure,
+
+            /// <summary>
+            /// Start the pulse tube compressor.
+            /// </summary>
+            CooldownStartCompressor,
+
+            /// <summary>
+            /// Wait for the pulse tube to cool the cryostat to 70K.
+            /// </summary>
+            CooldownWait70K,
+
+            /// <summary>
+            /// Activate pump heaters and wait to cool to 4K.
+            /// </summary>
+            CooldownWait4K,
+
+            /// <summary>
+            /// Wait for all He4 to be condensed
+            /// </summary>
+            CooldownCondenseHe4,
+
+            /// <summary>
+            /// Turn off the He4 heater
+            /// </summary>
+            CooldownTurnOffHe4,
+
+            /// <summary>
+            /// Turn on the He4 switch.
+            /// </summary>
+            CooldownControlHe4Switch,
+
+            /// <summary>
+            /// He4 cooling down the He3.
+            /// Wait for He3 to be condensed.
+            /// </summary>
+            CooldownCondenseHe3,
+
+            /// <summary>
+            /// disable he3 pump heater
+            /// </summary>
+            CooldownDisableHe3PumpHeater,
+
+            /// <summary>
+            /// Turn on the He3 heat switch.
+            /// </summary>
+            CooldownControlHe3,
+
+            /// <summary>
+            /// "Fridge is cooling nicely." 
+            ///             - Chase Reasearch He7 cooler manual
+            /// </summary>
+            CooldownFinished,
+
+            /// <summary>
+            /// Recycle sequence entry point
+            /// </summary>
+            RecycleStart,
+
+            /// <summary>
+            /// Heat pumps
+            /// Rest of recycle follows cool down from "CooldownTurnOffHe4"
+            /// </summary>
+            RecycleHeatPumps,
+
+            /// <summary>
+            /// Warm up entry point
+            /// </summary>
+            WarmupStart,
+
+            /// <summary>
+            /// Warming up stuff
+            /// </summary>
+            WarmupHeating,
+
+            /// <summary>
+            /// The warm up is finished
+            /// </summary>
+            WarmupFinished,
+
+            /// <summary>
+            /// Cancel the current action and go back to standy.
+            /// </summary>
+            CancelAll,
+        }
 
         /// <summary>
         /// Gets or sets the he 3 heater voltage.
@@ -17,7 +178,7 @@
         /// <summary>
         /// Gets or sets the he 3 switch voltage.
         /// </summary>
-        public double He3SwitchVoltage { get; set; }  = 3.0;
+        public double He3SwitchVoltage { get; set; } = 3.0;
 
         /// <summary>
         /// Gets or sets the he 4 heater voltage.
@@ -55,85 +216,19 @@
         public double HeatupTemperature { get; set; } = 50.0;
 
         /// <summary>
-        /// The lakeshore.
+        /// Gets the state.
         /// </summary>
-        private LakeShore.LakeShore lakeshore;
-
-        /// <summary>
+        /// <value>
         /// The state.
-        /// </summary>
-        private Controlstate state = Controlstate.Setup;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Control"/> class.
-        /// </summary>
-        /// <param name="cooler">
-        /// The cooler.
-        /// </param>
-        /// <param name="ls">
-        /// The ls.
-        /// </param>
-        /// <param name="compressor">
-        /// The compressor.
-        /// </param>
-        public Control(He7Cooler.He7Cooler cooler, LakeShore.LakeShore ls, Compressor.Compressor compressor)
-        {
-            this.cooler = cooler;
-            this.lakeshore = ls;
-            this.compressor = compressor;
-        }
-
-        enum Controlstate
-        {
-            Setup,
-
-            Standby,
-
-            Manual,
-
-            CooldownStart,
-
-            CooldownWaitForPressure,
-
-            CooldownStartCompressor,
-
-            CooldownWait70K,
-
-            CooldownWait4K,
-
-            CooldownCondenseHe4,
-
-            CooldownTurnOffHe4,
-
-            CooldownControlHe4Switch,
-
-            CooldownCondenseHe3,
-
-            CooldownDisableHe3PumpHeater,
-
-            CooldownControlHe3,
-
-            CooldownFinished,
-
-            RecycleStart,
-
-            RecycleHeatPumps,
-
-            WarmupStart,
-
-            WarmupHeating,
-
-            WarmupFinished
-        }
-
-        private Controlstate State
+        /// </value>
+        public Controlstate State
         {
             get
             {
                 return this.state;
             }
 
-            set
+            private set
             {
                 Console.WriteLine("[Control] Switched from state {0} to {1}", this.state, value);
                 this.state = value;
@@ -141,8 +236,61 @@
         }
 
         /// <summary>
+        /// Starts the cool down id possible.
+        /// </summary>
+        /// <returns>true if cool down is started, false otherwise</returns>
+        public bool StartCooldown()
+        {
+            if (this.State == Controlstate.Standby)
+            {
+                this.State = Controlstate.CooldownStart;
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Starts the heat up.
+        /// </summary>
+        /// <returns>true if heat up is started, false otherwise</returns>
+        public bool StartHeatup()
+        {
+            if (this.State == Controlstate.Standby)
+            {
+                this.State = Controlstate.WarmupStart;
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Starts a recycle.
+        /// </summary>
+        /// <returns>true if recycle is started, false otherwise</returns>
+        public bool StartRecycle()
+        {
+            if (this.State == Controlstate.Standby)
+            {
+                this.State = Controlstate.RecycleStart;
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Cancels the current command safely.
+        /// </summary>
+        public void CancelCommand()
+        {
+            this.State = Controlstate.CancelAll;
+        }
+
+        /// <summary>
         /// Control a heater
-        /// Uses a simple P controller, might be updated to PI later.
+        /// Uses a simple P controllerfor the last part, might be updated to PI later.
         /// </summary>
         /// <param name="heater">
         /// The heater.
@@ -171,11 +319,6 @@
             {
                 heater.Voltage = 0.0;
             }
-        }
-
-        private double Min(double d1, double d2, double d3, double d4)
-        {
-            return Math.Min(Math.Min(Math.Min(d1, d2), d3), d4);
         }
 
         /// <summary>
@@ -216,9 +359,7 @@
         /// The state machine that controls the heater.
         /// Controls the 
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// </exception>
-        void StateMachine()
+        private void StateMachine()
         {
             this.SafetyCheckHeatSwitch();
             this.SafetyCheckPumps();
@@ -299,7 +440,7 @@
                         this.He4HeaterVoltage);
                     if (this.cooler.He4HeadT.Value < 4.0)
                     {
-                        this.State = Controlstate.CooldownCondenseHe4;
+                        this.State = Controlstate.CooldownTurnOffHe4;
                     }
 
                     break;
@@ -311,6 +452,7 @@
                         this.HeaterTemperatureSetpoint,
                         this.He3HeaterVoltage);
                     this.cooler.He4Pump.Voltage = 0.0;
+                    this.State = Controlstate.CooldownControlHe4Switch;
                     break;
 
                 case Controlstate.CooldownControlHe4Switch:
@@ -426,6 +568,25 @@
                     break;
 
                 case Controlstate.WarmupFinished:
+                    this.State = Controlstate.Standby;
+                    break;
+
+                case Controlstate.CancelAll:
+                    this.cooler.He3Pump.Voltage = 0.0;
+                    this.cooler.He4Pump.Voltage = 0.0;
+
+                    // Keep switches on if cold, turn off otherwise.
+                    if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue)
+                    {
+                        this.cooler.He3Switch.Voltage = this.He3SwitchVoltage;
+                        this.cooler.He4Switch.Voltage = this.He4SwitchVoltage;
+                    }
+                    else
+                    {
+                        this.cooler.He3Switch.Voltage = 0.0;
+                        this.cooler.He4Switch.Voltage = 0.0;
+                    }
+
                     this.State = Controlstate.Standby;
                     break;
             }
