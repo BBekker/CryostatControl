@@ -2,58 +2,67 @@
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Threading;
-
-    using He7Cooler;
-    using LakeShore;
-    using Compressor;
 
     class Control
     {
-        private He7Cooler.He7Cooler cooler;
-
-        private LakeShore.LakeShore lakeshore;
-
         private Compressor.Compressor compressor;
 
-        
+        private He7Cooler.He7Cooler cooler;
 
-        enum Controlstate
-        {
-            Setup,
-            Standby,
-            Manual,
-            CooldownStart,
-            CooldownWaitForPressure,
-            CooldownStartCompressor,
-            CooldownWait70K,
-            CooldownWait4K,
-            CooldownCondenseHe4,
-            CooldownTurnOffHe4,
-            CooldownControlHe4Switch,
-            CooldownCondenseHe3,
-            CooldownDisableHe3PumpHeater,
-            CooldownControlHe3,
-            CooldownFinished,
+        /// <summary>
+        /// Gets or sets the he 3 heater voltage.
+        /// </summary>
+        public double He3HeaterVoltage { get; set; } = 6.0;
 
+        /// <summary>
+        /// Gets or sets the he 3 switch voltage.
+        /// </summary>
+        public double He3SwitchVoltage { get; set; }  = 3.0;
 
-        }
+        /// <summary>
+        /// Gets or sets the he 4 heater voltage.
+        /// </summary>
+        public double He4HeaterVoltage { get; set; } = 10.0;
 
+        /// <summary>
+        /// Gets or sets the he 4 switch voltage.
+        /// </summary>
+        public double He4SwitchVoltage { get; set; } = 4.0;
+
+        /// <summary>
+        /// Gets or sets the he 7 start temperature.
+        /// </summary>
+        public double He7StartTemperature { get; set; } = 70.0;
+
+        /// <summary>
+        /// Gets or sets the heater temperature set point.
+        /// </summary>
+        public double HeaterTemperatureSetpoint { get; set; } = 35.0;
+
+        /// <summary>
+        /// Gets or sets the heat switch on temperature.
+        /// </summary>
+        public double HeatSwitchOnTemperature { get; set; } = 15.0;
+
+        /// <summary>
+        /// Gets or sets the heat switch safe value.
+        /// </summary>
+        public double HeatSwitchSafeValue { get; set; } = 9.0;
+
+        /// <summary>
+        /// Gets or sets the heat up temperature.
+        /// </summary>
+        public double HeatupTemperature { get; set; } = 50.0;
+
+        /// <summary>
+        /// The lakeshore.
+        /// </summary>
+        private LakeShore.LakeShore lakeshore;
+
+        /// <summary>
+        /// The state.
+        /// </summary>
         private Controlstate state = Controlstate.Setup;
-
-        private Controlstate State
-        {
-            set
-            {
-                Console.WriteLine("[Control] Switched from state {0} to {1}", this.state, value);
-                this.state = value;
-                
-            }
-            get
-            {
-                return this.state;
-            }
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Control"/> class.
@@ -72,223 +81,63 @@
             this.cooler = cooler;
             this.lakeshore = ls;
             this.compressor = compressor;
-
-            He3PumpT = new He7Cooler.He7Cooler.Sensor(Channels.SensHe3PumpT, cooler, He7Cooler.He7Cooler.Sensor.Calibration.DiodeCalibration);
-
-            He4PumpT = new He7Cooler.He7Cooler.Sensor(Channels.SensHe4PumpT, cooler, He7Cooler.He7Cooler.Sensor.Calibration.DiodeCalibration);
-
-            He4SwitchT = new He7Cooler.He7Cooler.Sensor(Channels.SensHe4SwitchT, cooler, He7Cooler.He7Cooler.Sensor.Calibration.DiodeCalibration);
-
-            He3SwitchT = new He7Cooler.He7Cooler.Sensor(Channels.SensHe3SwitchT, cooler, He7Cooler.He7Cooler.Sensor.Calibration.DiodeCalibration);
-
-            Plate4KT = new He7Cooler.He7Cooler.Sensor(Channels.Sens4KplateT, cooler, He7Cooler.He7Cooler.Sensor.Calibration.DiodeCalibration);
-
-            Plate2KT = new He7Cooler.He7Cooler.Sensor(Channels.Sens2KplateT, cooler, He7Cooler.He7Cooler.Sensor.Calibration.DiodeCalibration);
-
-            He4HeadT = new He7Cooler.He7Cooler.Sensor(Channels.SensHe4HeadT, cooler, He7Cooler.He7Cooler.Sensor.Calibration.He4Calibration);
-
-            He3HeadT = new He7Cooler.He7Cooler.Sensor(Channels.SensHe3HeadT, cooler, He7Cooler.He7Cooler.Sensor.Calibration.He3Calibration);
-
-            He3Pump = new He7Cooler.He7Cooler.Heater(Channels.PumpHe3, Channels.SensHe3Pump, cooler);
-            He4Pump = new He7Cooler.He7Cooler.Heater(Channels.PumpHe4, Channels.SensHe4Pump, cooler);
-            He4Switch = new He7Cooler.He7Cooler.Heater(Channels.SwitchHe4, Channels.SensHe4Switch, cooler);
-            He3Switch = new He7Cooler.He7Cooler.Heater(Channels.SwitchHe3, Channels.SensHe3Switch, cooler);
-
-
         }
 
-        private He7Cooler.He7Cooler.Sensor He3PumpT;
-
-        He7Cooler.He7Cooler.Sensor He4PumpT;
-
-        He7Cooler.He7Cooler.Sensor He4SwitchT;
-
-        He7Cooler.He7Cooler.Sensor He3SwitchT;
-
-        He7Cooler.He7Cooler.Sensor Plate4KT;
-
-        He7Cooler.He7Cooler.Sensor Plate2KT;
-
-        He7Cooler.He7Cooler.Sensor He4HeadT;
-
-        He7Cooler.He7Cooler.Sensor He3HeadT;
-
-        He7Cooler.He7Cooler.Heater He3Pump;
-        He7Cooler.He7Cooler.Heater He4Pump;
-        He7Cooler.He7Cooler.Heater He4Switch;
-        He7Cooler.He7Cooler.Heater He3Switch;
-
-        private double HeaterTemperatureSetpoint = 35.0;
-
-        private double He4HeaterVoltage = 10.0;
-
-        private double He3HeaterVoltage = 6.0;
-
-        private double He3SwitchVoltage = 3.0;
-
-        private double He4SwitchVoltage = 4.0;
-
-        private double He7StartTemperature = 70.0;
-
-        private double HeatSwitchSafeValue = 9.0;
-
-        private double HeatSwitchOnTemperature = 15.0;
-
-        /// <summary>
-        /// Checks if the heat switches are allowed to be turned on.
-        /// If the cooler temperature is too high, the heaters are turned off.
-        /// </summary>
-        private void SafetyCheckHeatSwitch()
+        enum Controlstate
         {
-            if (this.Plate4KT.Value > HeatSwitchSafeValue && this.He4Switch.Voltage > 0.2)
-            {
-                this.He4Switch.Voltage = 0.0;
-            }
+            Setup,
 
-            if (this.Plate4KT.Value > HeatSwitchSafeValue && this.He3Switch.Voltage > 0.2)
-            {
-                this.He3Switch.Voltage = 0.0;
-            }
+            Standby,
+
+            Manual,
+
+            CooldownStart,
+
+            CooldownWaitForPressure,
+
+            CooldownStartCompressor,
+
+            CooldownWait70K,
+
+            CooldownWait4K,
+
+            CooldownCondenseHe4,
+
+            CooldownTurnOffHe4,
+
+            CooldownControlHe4Switch,
+
+            CooldownCondenseHe3,
+
+            CooldownDisableHe3PumpHeater,
+
+            CooldownControlHe3,
+
+            CooldownFinished,
+
+            RecycleStart,
+
+            RecycleHeatPumps,
+
+            WarmupStart,
+
+            WarmupHeating,
+
+            WarmupFinished
         }
 
-        /// <summary>
-        /// Safety check of the pump heaters.
-        /// If the cooler is to warm, the heaters are turned off
-        /// </summary>
-        private void SafetyCheckPumps()
+        private Controlstate State
         {
-            if (this.Plate4KT.Value > 70.0 && this.He3Pump.Voltage > 0.2)
+            get
             {
-                this.He3Pump.Voltage = 0.0;
+                return this.state;
             }
 
-            if (this.Plate4KT.Value > 70.0 && this.He4Pump.Voltage > 0.2)
+            set
             {
-                this.He4Pump.Voltage = 0.0;
+                Console.WriteLine("[Control] Switched from state {0} to {1}", this.state, value);
+                this.state = value;
             }
-        }
-
-        /// <summary>
-        /// The state machine that controls the heater.
-        /// Controls the 
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// </exception>
-        void StateMachine()
-        {
-            this.SafetyCheckHeatSwitch();
-            this.SafetyCheckPumps();
-            
-            switch (this.State)
-            {
-                case Controlstate.Setup:
-                    if (this.cooler != null && this.lakeshore != null && this.compressor != null)
-                    { 
-                        this.State = Controlstate.Standby;
-                    }
-                    break;
-
-                case Controlstate.Standby:
-                    break;
-
-                case Controlstate.Manual:
-                    break;
-
-                case Controlstate.CooldownStart:
-                    this.State = Controlstate.CooldownWaitForPressure;
-                    break;
-
-                case Controlstate.CooldownWaitForPressure:
-                    //TODO: wait for pressure when sensor is connected
-                    this.State = Controlstate.CooldownStartCompressor;
-                    break;
-
-                case Controlstate.CooldownStartCompressor:
-                    try
-                    {
-                        this.compressor.TurnOn();
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Compressor gave error: " + ex);
-                    }
-
-                    this.State = Controlstate.CooldownWait70K;
-                    break;
-
-                case Controlstate.CooldownWait70K:
-                    if (this.He3PumpT.Value < this.He7StartTemperature || this.He4PumpT.Value < this.He7StartTemperature)
-                    {
-                        this.State = Controlstate.CooldownWait4K;
-                    }
-                    break;
-
-                case Controlstate.CooldownWait4K:
-                    this.ControlHeater(this.He3Pump, this.He3PumpT, this.HeaterTemperatureSetpoint, this.He3HeaterVoltage);
-                    this.ControlHeater(this.He4Pump, this.He4PumpT, this.HeaterTemperatureSetpoint, this.He4HeaterVoltage);
-                    if (this.He3HeadT.Value < 4.0 && this.He4HeadT.Value < 4.0)
-                    {
-                        this.State = Controlstate.CooldownCondenseHe4;
-                    }
-
-                    break;
-                case Controlstate.CooldownCondenseHe4:
-                    this.ControlHeater(this.He3Pump, this.He3PumpT, this.HeaterTemperatureSetpoint, this.He3HeaterVoltage);
-                    this.ControlHeater(this.He4Pump, this.He4PumpT, this.HeaterTemperatureSetpoint, this.He4HeaterVoltage);
-                    if (this.He4HeadT.Value < 4.0)
-                    {
-                        this.State = Controlstate.CooldownCondenseHe4;
-                    }
-                    break;
-                case Controlstate.CooldownTurnOffHe4:
-                    this.ControlHeater(this.He3Pump, this.He3PumpT, this.HeaterTemperatureSetpoint, this.He3HeaterVoltage);
-                    this.He4Pump.Voltage = 0.0;
-                    break;
-
-                case Controlstate.CooldownControlHe4Switch:
-                    this.ControlHeater(this.He3Pump, this.He3PumpT, this.HeaterTemperatureSetpoint, this.He3HeaterVoltage);
-
-                    if (this.Plate4KT.Value < this.HeatSwitchSafeValue)
-                    {
-                        this.He4Switch.Voltage = this.He4SwitchVoltage;
-                    }
-
-                    if (this.He4SwitchT.Value > this.HeatSwitchOnTemperature)
-                    {
-                        this.State = Controlstate.CooldownCondenseHe3;
-                    }
-                    break;
-
-                case Controlstate.CooldownCondenseHe3:
-                    this.ControlHeater(this.He3Pump, this.He3PumpT, this.HeaterTemperatureSetpoint, this.He3HeaterVoltage);
-                    if (this.He3HeadT.Value < 2.0)
-                    {
-                        this.State = Controlstate.CooldownDisableHe3PumpHeater;
-                    }
-                    break;
-
-                case Controlstate.CooldownDisableHe3PumpHeater:
-                    this.He3Pump.Voltage = 0.0;
-                    this.State = Controlstate.CooldownControlHe3;
-                    break;
-
-                case Controlstate.CooldownControlHe3:
-                    if (this.Plate4KT.Value < this.HeatSwitchSafeValue)
-                    {
-                        this.He3Switch.Voltage = this.He3SwitchVoltage;
-                    }
-
-                    if (this.He3SwitchT.Value > this.HeatSwitchOnTemperature)
-                    {
-                        this.State = Controlstate.CooldownFinished;
-                    }
-                    break;
-                case Controlstate.CooldownFinished:
-                    this.State = Controlstate.Standby;
-                    break;
-                    
-            }
-
         }
 
         /// <summary>
@@ -307,7 +156,10 @@
         /// <param name="voltage">
         /// The voltage used to control the heater.
         /// </param>
-        [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1306:FieldNamesMustBeginWithLowerCaseLetter", Justification = "SI naming, T is uppercase")]
+        [SuppressMessage(
+            "StyleCop.CSharp.NamingRules",
+            "SA1306:FieldNamesMustBeginWithLowerCaseLetter",
+            Justification = "SI naming, T is uppercase")]
         private void ControlHeater(He7Cooler.He7Cooler.Heater heater, ISensor sensor, double TSet, double voltage)
         {
             double kP = voltage * 0.2;
@@ -318,6 +170,264 @@
             else
             {
                 heater.Voltage = 0.0;
+            }
+        }
+
+        private double Min(double d1, double d2, double d3, double d4)
+        {
+            return Math.Min(Math.Min(Math.Min(d1, d2), d3), d4);
+        }
+
+        /// <summary>
+        /// Checks if the heat switches are allowed to be turned on.
+        /// If the cooler temperature is too high, the heaters are turned off.
+        /// </summary>
+        private void SafetyCheckHeatSwitch()
+        {
+            if (this.cooler.Plate4KT.Value > this.HeatSwitchSafeValue && this.cooler.He4Switch.Voltage > 0.2)
+            {
+                this.cooler.He4Switch.Voltage = 0.0;
+            }
+
+            if (this.cooler.Plate4KT.Value > this.HeatSwitchSafeValue && this.cooler.He3Switch.Voltage > 0.2)
+            {
+                this.cooler.He3Switch.Voltage = 0.0;
+            }
+        }
+
+        /// <summary>
+        /// Safety check of the pump heaters.
+        /// If the cooler is to warm, the heaters are turned off
+        /// </summary>
+        private void SafetyCheckPumps()
+        {
+            if (this.cooler.Plate4KT.Value > 70.0 && this.cooler.He3Pump.Voltage > 0.2)
+            {
+                this.cooler.He3Pump.Voltage = 0.0;
+            }
+
+            if (this.cooler.Plate4KT.Value > 70.0 && this.cooler.He4Pump.Voltage > 0.2)
+            {
+                this.cooler.He4Pump.Voltage = 0.0;
+            }
+        }
+
+        /// <summary>
+        /// The state machine that controls the heater.
+        /// Controls the 
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// </exception>
+        void StateMachine()
+        {
+            this.SafetyCheckHeatSwitch();
+            this.SafetyCheckPumps();
+
+            switch (this.State)
+            {
+                case Controlstate.Setup:
+                    if (this.cooler != null && this.lakeshore != null && this.compressor != null)
+                    {
+                        this.State = Controlstate.Standby;
+                    }
+
+                    break;
+
+                case Controlstate.Standby: break;
+
+                case Controlstate.Manual: break;
+
+                case Controlstate.CooldownStart:
+                    this.State = Controlstate.CooldownWaitForPressure;
+                    break;
+
+                case Controlstate.CooldownWaitForPressure:
+                    // TODO: wait for pressure when sensor is connected
+                    this.State = Controlstate.CooldownStartCompressor;
+                    break;
+
+                case Controlstate.CooldownStartCompressor:
+                    try
+                    {
+                        this.compressor.TurnOn();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Compressor gave error: " + ex);
+                    }
+
+                    this.State = Controlstate.CooldownWait70K;
+                    break;
+
+                case Controlstate.CooldownWait70K:
+                    if (this.cooler.He3PumpT.Value < this.He7StartTemperature
+                        || this.cooler.He4PumpT.Value < this.He7StartTemperature)
+                    {
+                        this.State = Controlstate.CooldownWait4K;
+                    }
+
+                    break;
+
+                case Controlstate.CooldownWait4K:
+                    this.ControlHeater(
+                        this.cooler.He3Pump,
+                        this.cooler.He3PumpT,
+                        this.HeaterTemperatureSetpoint,
+                        this.He3HeaterVoltage);
+                    this.ControlHeater(
+                        this.cooler.He4Pump,
+                        this.cooler.He4PumpT,
+                        this.HeaterTemperatureSetpoint,
+                        this.He4HeaterVoltage);
+                    if (this.cooler.He3HeadT.Value < 4.0 && this.cooler.He4HeadT.Value < 4.0)
+                    {
+                        this.State = Controlstate.CooldownCondenseHe4;
+                    }
+
+                    break;
+
+                case Controlstate.CooldownCondenseHe4:
+                    this.ControlHeater(
+                        this.cooler.He3Pump,
+                        this.cooler.He3PumpT,
+                        this.HeaterTemperatureSetpoint,
+                        this.He3HeaterVoltage);
+                    this.ControlHeater(
+                        this.cooler.He4Pump,
+                        this.cooler.He4PumpT,
+                        this.HeaterTemperatureSetpoint,
+                        this.He4HeaterVoltage);
+                    if (this.cooler.He4HeadT.Value < 4.0)
+                    {
+                        this.State = Controlstate.CooldownCondenseHe4;
+                    }
+
+                    break;
+
+                case Controlstate.CooldownTurnOffHe4:
+                    this.ControlHeater(
+                        this.cooler.He3Pump,
+                        this.cooler.He3PumpT,
+                        this.HeaterTemperatureSetpoint,
+                        this.He3HeaterVoltage);
+                    this.cooler.He4Pump.Voltage = 0.0;
+                    break;
+
+                case Controlstate.CooldownControlHe4Switch:
+                    this.ControlHeater(
+                        this.cooler.He3Pump,
+                        this.cooler.He3PumpT,
+                        this.HeaterTemperatureSetpoint,
+                        this.He3HeaterVoltage);
+
+                    if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue)
+                    {
+                        this.cooler.He4Switch.Voltage = this.He4SwitchVoltage;
+                    }
+
+                    if (this.cooler.He4SwitchT.Value > this.HeatSwitchOnTemperature)
+                    {
+                        this.State = Controlstate.CooldownCondenseHe3;
+                    }
+
+                    break;
+
+                case Controlstate.CooldownCondenseHe3:
+                    this.ControlHeater(
+                        this.cooler.He3Pump,
+                        this.cooler.He3PumpT,
+                        this.HeaterTemperatureSetpoint,
+                        this.He3HeaterVoltage);
+                    if (this.cooler.He3HeadT.Value < 2.0)
+                    {
+                        this.State = Controlstate.CooldownDisableHe3PumpHeater;
+                    }
+
+                    break;
+
+                case Controlstate.CooldownDisableHe3PumpHeater:
+                    this.cooler.He3Pump.Voltage = 0.0;
+                    this.State = Controlstate.CooldownControlHe3;
+                    break;
+
+                case Controlstate.CooldownControlHe3:
+                    if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue)
+                    {
+                        this.cooler.He3Switch.Voltage = this.He3SwitchVoltage;
+                    }
+
+                    if (this.cooler.He3SwitchT.Value > this.HeatSwitchOnTemperature)
+                    {
+                        this.State = Controlstate.CooldownFinished;
+                    }
+
+                    break;
+
+                case Controlstate.CooldownFinished:
+                    this.State = Controlstate.Standby;
+                    break;
+
+                case Controlstate.RecycleStart:
+                    this.cooler.He3Switch.Voltage = 0.0;
+                    this.cooler.He3Switch.Voltage = 0.0;
+
+                    this.State = Controlstate.RecycleHeatPumps;
+                    break;
+
+                case Controlstate.RecycleHeatPumps:
+                    this.ControlHeater(
+                        this.cooler.He3Pump,
+                        this.cooler.He3PumpT,
+                        this.HeaterTemperatureSetpoint,
+                        this.He3HeaterVoltage);
+                    this.ControlHeater(
+                        this.cooler.He4Pump,
+                        this.cooler.He4PumpT,
+                        this.HeaterTemperatureSetpoint,
+                        this.He4HeaterVoltage);
+                    if (this.cooler.He3PumpT.Value > this.HeaterTemperatureSetpoint - 1.0
+                        && this.cooler.He4PumpT.Value > this.HeaterTemperatureSetpoint - 1.0)
+                    {
+                        this.State = Controlstate.CooldownTurnOffHe4;
+                    }
+
+                    break;
+
+                case Controlstate.WarmupStart:
+                    // TODO: start Lakeshore heater?
+                    break;
+
+                case Controlstate.WarmupHeating:
+                    this.ControlHeater(
+                        this.cooler.He3Pump,
+                        this.cooler.He3PumpT,
+                        this.HeatupTemperature,
+                        this.He3HeaterVoltage);
+                    this.ControlHeater(
+                        this.cooler.He4Pump,
+                        this.cooler.He4PumpT,
+                        this.HeatupTemperature,
+                        this.He4HeaterVoltage);
+                    this.ControlHeater(
+                        this.cooler.He3Switch,
+                        this.cooler.He3SwitchT,
+                        this.HeatupTemperature,
+                        this.He4HeaterVoltage);
+                    this.ControlHeater(
+                        this.cooler.He4Switch,
+                        this.cooler.He4SwitchT,
+                        this.HeatupTemperature,
+                        this.He4HeaterVoltage);
+                    if (this.cooler.He4PumpT.Value > this.HeatupTemperature - 1.0)
+                    {
+                        this.State = Controlstate.WarmupFinished;
+                    }
+
+                    break;
+
+                case Controlstate.WarmupFinished:
+                    this.State = Controlstate.Standby;
+                    break;
             }
         }
     }
