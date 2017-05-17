@@ -5,9 +5,14 @@
 //-----------------------------------------------------------------------
 namespace CryostatControlServer.HostService
 {
+    using System;
     using System.Collections;
+    using System.Linq;
     using System.ServiceModel;
     using System.Threading;
+
+    using CryostatControlServer.Compressor;
+    using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
     /// Service class which handles the incoming methods calls.
@@ -86,8 +91,13 @@ namespace CryostatControlServer.HostService
         private void TimerMethod(object state)
         {
             IDataGetCallback client = (IDataGetCallback)state;
-            float[] data = new float[1];
-            data[0] = 42;
+            int max = (int)Enum.GetValues(typeof(Helium7Enum)).Cast<Helium7Enum>().Max();
+            float[] data = new float[max];
+            Random r = new Random();
+            data[(int)Helium7Enum.ConnectontionState] = r.Next(100);
+
+
+
             client.SendCompressorData(data);
         }
 

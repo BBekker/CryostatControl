@@ -7,6 +7,7 @@ namespace CryostatControlClient
 {
     using System;
     using CryostatControlClient.ServiceReference1;
+    using CryostatControlClient.Views;
 
     /// <summary>
     /// Class which handles the data callback calls from the server
@@ -21,6 +22,11 @@ namespace CryostatControlClient
         /// </summary>
         private App mainApp;
 
+        /// <summary>
+        /// The main window
+        /// </summary>
+        private MainWindow mainWindow;
+
         #endregion Fields
 
         #region Constructors
@@ -32,6 +38,7 @@ namespace CryostatControlClient
         public DataClientCallback(App app)
         {
             this.mainApp = app;
+            this.mainWindow = this.mainApp.MainWindow as MainWindow;
         }
 
         #endregion Constructors
@@ -44,6 +51,7 @@ namespace CryostatControlClient
         /// <param name="data">The data.</param>
         public void SendBlueForsData(float[] data)
         {
+            this.mainWindow.UpdateBluefors(data);
             Console.WriteLine("Received BlueFors: {0}", data[0]);
         }
 
@@ -53,6 +61,7 @@ namespace CryostatControlClient
         /// <param name="data">The data.</param>
         public void SendCompressorData(float[] data)
         {
+            this.mainWindow.UpdateCompressor(data);
             Console.WriteLine("Received Compressor: {0}", data[0]);
         }
 
@@ -62,6 +71,7 @@ namespace CryostatControlClient
         /// <param name="data">The data.</param>
         public void SendHelium7Data(float[] data)
         {
+            this.mainWindow.UpdateHe7(data);
             Console.WriteLine("Received Helium 7: {0}", data[0]);
         }
 
