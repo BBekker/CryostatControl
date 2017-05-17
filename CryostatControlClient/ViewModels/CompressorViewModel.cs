@@ -45,7 +45,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The state of the operating.
         /// </value>
-        public int OperatingState
+        public float OperatingState
         {
             get
             {
@@ -56,6 +56,7 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.OperatingState = value;
                 this.RaisePropertyChanged("OperatingState");
+                this.RaisePropertyChanged("OperatingStateConverted");
             }
         }
 
@@ -71,32 +72,12 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the compressor running.
-        /// </summary>
-        /// <value>
-        /// The compressor running.
-        /// </value>
-        public int CompressorRunning
-        {
-            get
-            {
-                return this.compressorModel.CompressorRunning;
-            }
-
-            set
-            {
-                this.compressorModel.CompressorRunning = value;
-                this.RaisePropertyChanged("CompressorRunning");
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the state of the warning.
         /// </summary>
         /// <value>
         /// The state of the warning.
         /// </value>
-        public int WarningState
+        public float WarningState
         {
             get
             {
@@ -124,78 +105,78 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The state of the alarm.
         /// </value>
-        public int AlarmState
+        public float ErrorState
         {
             get
             {
-                return this.compressorModel.AlarmState;
+                return this.compressorModel.ErrorState;
             }
 
             set
             {
-                this.compressorModel.AlarmState = value;
-                this.RaisePropertyChanged("AlarmState");
+                this.compressorModel.ErrorState = value;
+                this.RaisePropertyChanged("ErrorState");
             }
         }
 
         /// <summary>
         /// Gets the alarm state converted.
         /// </summary>
-        public string AlarmStateConverted
+        public string ErrorStateConverted
         {
             get
             {
-                return this.ConvertAlarmStateNumberToString(this.compressorModel.AlarmState);
+                return this.ConvertErrorStateNumberToString(this.compressorModel.ErrorState);
             }
         }
 
         /// <summary>
-        /// Gets or sets the coolant in temporary.
+        /// Gets or sets the Water in temperature.
         /// </summary>
         /// <value>
-        /// The coolant in temporary.
+        /// The Water in temperature.
         /// </value>
-        public int CoolantInTemp
+        public float WaterInTemp
         {
             get
             {
-                return this.compressorModel.CoolantInTemp;
+                return this.compressorModel.WaterInTemp;
             }
 
             set
             {
-                this.compressorModel.CoolantInTemp = value;
-                this.RaisePropertyChanged("CoolantInTemp");
+                this.compressorModel.WaterInTemp = value;
+                this.RaisePropertyChanged("WaterInTemp");
             }
         }
 
         /// <summary>
-        /// Gets or sets the coolant out temporary.
+        /// Gets or sets the Water out temperature.
         /// </summary>
         /// <value>
-        /// The coolant out temporary.
+        /// The Water out temperature.
         /// </value>
-        public int CoolantOutTemp
+        public float WaterOutTemp
         {
             get
             {
-                return this.compressorModel.CoolantOutTemp;
+                return this.compressorModel.WaterOutTemp;
             }
 
             set
             {
-                this.compressorModel.CoolantOutTemp = value;
-                this.RaisePropertyChanged("CoolantOutTemp");
+                this.compressorModel.WaterOutTemp = value;
+                this.RaisePropertyChanged("WaterOutTemp");
             }
         }
 
         /// <summary>
-        /// Gets or sets the oil temporary.
+        /// Gets or sets the oil temperature.
         /// </summary>
         /// <value>
-        /// The oil temporary.
+        /// The oil temperature.
         /// </value>
-        public int OilTemp
+        public float OilTemp
         {
             get
             {
@@ -210,12 +191,12 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the helium temporary.
+        /// Gets or sets the helium temperature.
         /// </summary>
         /// <value>
-        /// The helium temporary.
+        /// The helium temperature.
         /// </value>
-        public int HeliumTemp
+        public float HeliumTemp
         {
             get
             {
@@ -235,7 +216,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The low pressure.
         /// </value>
-        public int LowPressure
+        public float LowPressure
         {
             get
             {
@@ -255,7 +236,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The low pressure average.
         /// </value>
-        public int LowPressureAverage
+        public float LowPressureAverage
         {
             get
             {
@@ -275,7 +256,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The high pressure.
         /// </value>
-        public int HighPressure
+        public float HighPressure
         {
             get
             {
@@ -295,7 +276,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The high pressure average.
         /// </value>
-        public int HighPressureAverage
+        public float HighPressureAverage
         {
             get
             {
@@ -315,7 +296,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The delta pressure average.
         /// </value>
-        public int DeltaPressureAverage
+        public float DeltaPressureAverage
         {
             get
             {
@@ -330,32 +311,12 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the motor current.
-        /// </summary>
-        /// <value>
-        /// The motor current.
-        /// </value>
-        public int MotorCurrent
-        {
-            get
-            {
-                return this.compressorModel.MotorCurrent;
-            }
-
-            set
-            {
-                this.compressorModel.MotorCurrent = value;
-                this.RaisePropertyChanged("MotorCurrent");
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the hours of operation.
         /// </summary>
         /// <value>
         /// The hours of operation.
         /// </value>
-        public int HoursOfOperation
+        public float HoursOfOperation
         {
             get
             {
@@ -375,7 +336,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The pressure scale.
         /// </value>
-        public int PressureScale
+        public string PressureScale
         {
             get
             {
@@ -390,12 +351,12 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the temporary scale.
+        /// Gets or sets the temperature scale.
         /// </summary>
         /// <value>
-        /// The temporary scale.
+        /// The temperature scale.
         /// </value>
-        public int TempScale
+        public string TempScale
         {
             get
             {
@@ -410,62 +371,22 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the panel serial number.
-        /// </summary>
-        /// <value>
-        /// The panel serial number.
-        /// </value>
-        public int PanelSerialNumber
-        {
-            get
-            {
-                return this.compressorModel.PanelSerialNumber;
-            }
-
-            set
-            {
-                this.compressorModel.PanelSerialNumber = value;
-                this.RaisePropertyChanged("PanelSerialNumber");
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the model major minor numbers.
-        /// </summary>
-        /// <value>
-        /// The model major minor numbers.
-        /// </value>
-        public int ModelMajorMinorNumbers
-        {
-            get
-            {
-                return this.compressorModel.ModelMajorMinorNumbers;
-            }
-
-            set
-            {
-                this.compressorModel.ModelMajorMinorNumbers = value;
-                this.RaisePropertyChanged("ModelMajorMinorNumbers");
-            }
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether [power on].
         /// </summary>
         /// <value>
         ///   <c>true</c> if [power on]; otherwise, <c>false</c>.
         /// </value>
-        public bool PowerOn
+        public float ConnectionState
         {
             get
             {
-                return this.compressorModel.PowerOn;
+                return this.compressorModel.ConnectionState;
             }
 
             set
             {
-                this.compressorModel.PowerOn = value;
-                this.RaisePropertyChanged("PowerOn");
+                this.compressorModel.ConnectionState = value;
+                this.RaisePropertyChanged("ConnectionState");
             }
         }
 
@@ -480,7 +401,7 @@ namespace CryostatControlClient.ViewModels
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string ConvertOperatingStateNumberToString(int operatingStateNumber)
+        public string ConvertOperatingStateNumberToString(float operatingStateNumber)
         {
             switch (operatingStateNumber)
             {
@@ -506,15 +427,15 @@ namespace CryostatControlClient.ViewModels
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string ConvertWarningStateNumberToString(int warningStateNumber)
+        public string ConvertWarningStateNumberToString(float warningStateNumber)
         {
             switch (warningStateNumber)
             {
                 case 0: return "No warnings";
-                case -1: return "Coolant IN running High";
-                case -2: return "Coolant IN running Low";
-                case -4: return "Coolant OUT running High";
-                case -8: return "Coolant OUT running Low";
+                case -1: return "Water IN running High";
+                case -2: return "Water IN running Low";
+                case -4: return "Water OUT running High";
+                case -8: return "Water OUT running Low";
                 case -16: return "Oil running High";
                 case -32: return "Oil running Low";
                 case -64: return "Helium running High";
@@ -535,21 +456,21 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Convert alarm state number to string.
         /// </summary>
-        /// <param name="alarmStateNumber">
+        /// <param name="errorStateNumber">
         /// The alarm state number.
         /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string ConvertAlarmStateNumberToString(int alarmStateNumber)
+        public string ConvertErrorStateNumberToString(float errorStateNumber)
         {
-            switch (alarmStateNumber)
+            switch (errorStateNumber)
             {
                 case 0: return "No Errors";
-                case -1: return "Coolant IN High";
-                case -2: return "Coolant IN Low";
-                case -4: return "Coolant OUT High";
-                case -8: return "Coolant OUT Low";
+                case -1: return "Water IN High";
+                case -2: return "Water IN Low";
+                case -4: return "Water OUT High";
+                case -8: return "Water OUT Low";
                 case -16: return "Oil High";
                 case -32: return "Oil Low";
                 case -64: return "Helium High";

@@ -31,7 +31,7 @@
                     <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="1">Connected</Label>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="2">Compressor</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="2">Connected</Label>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="2" Content="{Binding CompressorViewModel.OperatingStateConverted}"/>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="3">Server</Label>
                     <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="3">Connected</Label>
