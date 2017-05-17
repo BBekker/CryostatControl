@@ -5,7 +5,8 @@
 //-----------------------------------------------------------------------
 namespace CryostatControlServer.HostService
 {
-    using System.Collections;
+    using System;
+    using System.Collections.Generic;
     using System.ServiceModel;
     using System.Threading;
 
@@ -20,7 +21,7 @@ namespace CryostatControlServer.HostService
         /// <summary>
         /// The callback list
         /// </summary>
-        private ArrayList callbackList = new ArrayList();
+        private Dictionary<IDataGetCallback, Timer> callbacksListeners = new Dictionary<IDataGetCallback, Timer>();
 
         #endregion Fields
 
@@ -61,10 +62,9 @@ namespace CryostatControlServer.HostService
         {
             IDataGetCallback client =
                 OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            if (!this.callbackList.Contains(client))
+            if (!this.callbacksListeners.ContainsKey(client))
             {
-                this.callbackList.Add(client);
-                Timer ticker = new Timer(this.TimerMethod, client, 0, interval);
+                this.callbacksListeners.Add(client, new Timer(this.TimerMethod, client, 0, interval));
             }
         }
 
@@ -73,9 +73,11 @@ namespace CryostatControlServer.HostService
         {
             IDataGetCallback client =
                 OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            if (this.callbackList.Contains(client))
+            if (this.callbacksListeners.ContainsKey(client))
             {
-                this.callbackList.Remove(client);
+                Timer timer = this.callbacksListeners[client];
+                timer.Dispose();
+                this.callbacksListeners.Remove(client);
             }
         }
 
@@ -85,6 +87,7 @@ namespace CryostatControlServer.HostService
         /// <param name="state">The state.</param>
         private void TimerMethod(object state)
         {
+            Console.WriteLine("sending data to client");
             IDataGetCallback client = (IDataGetCallback)state;
             float[] data = new float[1];
             data[0] = 42;
