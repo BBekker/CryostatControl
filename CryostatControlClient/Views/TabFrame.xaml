@@ -10,8 +10,8 @@
     </Page.Resources>
 
     <materialDesign:Card Style="{StaticResource tabFrameCard}">
-        <dragablz:TabablzControl Style="{StaticResource TabFrame}">
-            <TabItem Header="Overview">
+        <dragablz:TabablzControl Style="{StaticResource TabFrame}" SelectedIndex="{Binding TestViewModel.SelectedTabIndex}" >
+            <TabItem Header="Overview" >
                 <Frame Source="Tabs/OverviewFrame.xaml" />
             </TabItem>
             <TabItem Header="He-7 Cooler">

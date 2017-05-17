@@ -100,6 +100,10 @@
     <Compile Include="ViewModels\CompressorViewModel.cs" />
     <Compile Include="ViewModels\DataContext.cs" />
     <Compile Include="ViewModels\He7ViewModel.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
+    <Compile Include="ViewModels\TestViewModel.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Views\MainGraphFrame.xaml.cs">
       <DependentUpon>MainGraphFrame.xaml</DependentUpon>
     </Compile>
