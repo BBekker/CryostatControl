@@ -6,7 +6,7 @@
 namespace CryostatControlServer.HostService
 {
     using System;
-    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using System.ServiceModel;
     using System.Threading;
@@ -25,7 +25,7 @@ namespace CryostatControlServer.HostService
         /// <summary>
         /// The callback list
         /// </summary>
-        private ArrayList callbackList = new ArrayList();
+        private Dictionary<IDataGetCallback, Timer> callbacksListeners = new Dictionary<IDataGetCallback, Timer>();
 
         #endregion Fields
 
@@ -66,10 +66,9 @@ namespace CryostatControlServer.HostService
         {
             IDataGetCallback client =
                 OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            if (!this.callbackList.Contains(client))
+            if (!this.callbacksListeners.ContainsKey(client))
             {
-                this.callbackList.Add(client);
-                Timer ticker = new Timer(this.TimerMethod, client, 0, interval);
+                this.callbacksListeners.Add(client, new Timer(this.TimerMethod, client, 0, interval));
             }
         }
 
@@ -78,9 +77,11 @@ namespace CryostatControlServer.HostService
         {
             IDataGetCallback client =
                 OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            if (this.callbackList.Contains(client))
+            if (this.callbacksListeners.ContainsKey(client))
             {
-                this.callbackList.Remove(client);
+                Timer timer = this.callbacksListeners[client];
+                timer.Dispose();
+                this.callbacksListeners.Remove(client);
             }
         }
 
@@ -90,15 +91,18 @@ namespace CryostatControlServer.HostService
         /// <param name="state">The state.</param>
         private void TimerMethod(object state)
         {
+            Console.WriteLine("sending data to client");
             IDataGetCallback client = (IDataGetCallback)state;
-            int max = (int)Enum.GetValues(typeof(Helium7Enum)).Cast<Helium7Enum>().Max();
+
+            int max = (int)Enum.GetValues(typeof(DataEnumerator)).Cast<DataEnumerator>().Max();
             float[] data = new float[max];
             Random r = new Random();
-            data[(int)Helium7Enum.ConnectontionState] = r.Next(100);
+            for (int i = 0; i < max; i++)
+            {
+                data[i] = r.Next(100);
+            }
 
-
-
-            client.SendCompressorData(data);
+            client.SendData(data);
         }
 
         #endregion Methods

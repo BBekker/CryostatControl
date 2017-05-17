@@ -50,35 +50,84 @@ namespace CryostatControlClient.Views
         /// Updates the compressor viewmodel.
         /// </summary>
         /// <param name="data">The data.</param>
-        public void UpdateCompressor(float[] data)
+        public void UpdateViewModels(float[] data)
+        {
+            Console.WriteLine("Received data: {0}" ,data[0]);
+            this.UpdateHe7ViewModel(data);
+            this.UpdateBlueforsViewModel(data);
+            this.UpdateCompressorViewModel(data);
+        }
+
+        /// <summary>
+        /// Updates the he7 view model.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        private void UpdateHe7ViewModel(float[] data)
         {
             if (this.dc != null)
             {
-                //update all compressor values
+                //this.dc.He7ViewModel. = data[DataEnumerator.HeConnectionState];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He3Head];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He3HeadMax];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He3Pump];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He3PumpMax];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He4Head];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He4HeadMax];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He4Pump];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He4PumpMax];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He3Volt];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He4Volt];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He3SwitchTemp];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He3SwitchVolt];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He3SwitchMax1];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He3SwitchMax2];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He4SwitchTemp];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He4SwitchVolt];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He4SwitchMax1];
+                //this.dc.He7ViewModel. = data[DataEnumerator.He4SwitchMax2];
+                //this.dc.He7ViewModel. = data[DataEnumerator.HePlate2K];
+                //this.dc.He7ViewModel. = data[DataEnumerator.HePlate4K];
+                //this.dc.He7ViewModel. = data[DataEnumerator.HePlate4Kmax1];
+                //this.dc.He7ViewModel. = data[DataEnumerator.HePlate4Kmax2];
             }
         }
 
         /// <summary>
-        /// Updates the he7 viewmodel.
+        /// Updates the bluefors view model.
         /// </summary>
         /// <param name="data">The data.</param>
-        public void UpdateHe7(float[] data)
+        private void UpdateBlueforsViewModel(float[] data)
         {
             if (this.dc != null)
             {
-                //update all he7 values
+                //this.dc.BlueforsViewModel. = data[DataEnumerator.ComConnectionState];
+                //this.dc.BlueforsViewModel. = data[DataEnumerator.ComWaterIn];
+                //this.dc.BlueforsViewModel. = data[DataEnumerator.ComWaterOut];
+                //this.dc.BlueforsViewModel. = data[DataEnumerator.ComHelium];
+                //this.dc.BlueforsViewModel. = data[DataEnumerator.ComOil];
+                //this.dc.BlueforsViewModel. = data[DataEnumerator.ComLow];
+                //this.dc.BlueforsViewModel. = data[DataEnumerator.ComLowAvg];
+                //this.dc.BlueforsViewModel. = data[DataEnumerator.ComHigh];
+                //this.dc.BlueforsViewModel. = data[DataEnumerator.ComHighAvg];
+                //this.dc.BlueforsViewModel. = data[DataEnumerator.ComDeltaAvg];
+                //this.dc.BlueforsViewModel. = data[DataEnumerator.ComError];
+                //this.dc.BlueforsViewModel. = data[DataEnumerator.ComWarning];
+                //this.dc.BlueforsViewModel. = data[DataEnumerator.ComHoursOfOperation];
             }
         }
 
         /// <summary>
-        /// Updates the bluefors viewmodel.
+        /// Updates the compressor view model.
         /// </summary>
         /// <param name="data">The data.</param>
-        public void UpdateBluefors(float[] data)
+        private void UpdateCompressorViewModel(float[] data)
         {
             if (this.dc != null)
             {
-                //update all bluefors values
+                //this.dc.CompressorViewModel. = data[DataEnumerator.LakeConnectionState];
+                //this.dc.CompressorViewModel. = data[DataEnumerator.LakePlate50K];
+                //this.dc.CompressorViewModel. = data[DataEnumerator.LakePlate3K];
+                //this.dc.CompressorViewModel. = data[DataEnumerator.LakeHeater];
             }
         }
 

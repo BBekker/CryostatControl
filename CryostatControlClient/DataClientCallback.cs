@@ -46,33 +46,16 @@ namespace CryostatControlClient
         #region Methods
 
         /// <summary>
-        /// Handles the data for the BlueFors
+        /// Handles the data retrieved for all sensors.
         /// </summary>
         /// <param name="data">The data.</param>
-        public void SendBlueForsData(float[] data)
+        public void SendData(float[] data)
         {
-            this.mainWindow.UpdateBluefors(data);
-            Console.WriteLine("Received BlueFors: {0}", data[0]);
-        }
-
-        /// <summary>
-        /// Handles the data for the Compressor
-        /// </summary>
-        /// <param name="data">The data.</param>
-        public void SendCompressorData(float[] data)
-        {
-            this.mainWindow.UpdateCompressor(data);
-            Console.WriteLine("Received Compressor: {0}", data[0]);
-        }
-
-        /// <summary>
-        /// Handles the data for the Helium cooler
-        /// </summary>
-        /// <param name="data">The data.</param>
-        public void SendHelium7Data(float[] data)
-        {
-            this.mainWindow.UpdateHe7(data);
-            Console.WriteLine("Received Helium 7: {0}", data[0]);
+            if (this.mainWindow != null)
+            {
+                this.mainWindow.UpdateViewModels(data);
+            }
+            Console.WriteLine("Received: {0}", data[0]);
         }
 
         #endregion Methods
