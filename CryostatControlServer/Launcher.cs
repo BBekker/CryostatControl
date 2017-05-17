@@ -9,6 +9,7 @@ namespace CryostatControlServer
     using System.ServiceModel;
     using System.ServiceModel.Description;
 
+    using CryostatControlServer.Compressor;
     using CryostatControlServer.HostService;
 
     /// <summary>

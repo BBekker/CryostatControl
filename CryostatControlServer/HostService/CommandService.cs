@@ -89,7 +89,7 @@ namespace CryostatControlServer.HostService
         {
             Console.WriteLine("sending data to client");
             IDataGetCallback client = (IDataGetCallback)state;
-            float[] data = new float[1];
+            double[] data = new double[1];
             data[0] = 42;
             client.SendData(data);
         }
