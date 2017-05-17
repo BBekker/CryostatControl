@@ -1,20 +1,20 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AbstractModel.cs" company="SRON">
-//  Ok 
+// <copyright file="AbstractViewModel.cs" company="SRON">
+//   k
 // </copyright>
 // <summary>
-//   Defines the AbstractModel type.
+//   The abstract view model.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace CryostatControlClient.Models
+namespace CryostatControlClient.ViewModels
 {
     using System.ComponentModel;
 
     /// <summary>
-    /// The abstract model.
+    /// The abstract view model.
     /// </summary>
-    public abstract class AbstractModel : INotifyPropertyChanged
+    public abstract class AbstractViewModel : INotifyPropertyChanged
     {
         /// <summary>
         /// The property changed.
@@ -22,12 +22,12 @@ namespace CryostatControlClient.Models
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// The on property changed.
+        /// The raise property changed.
         /// </summary>
         /// <param name="propertyName">
         /// The property name.
         /// </param>
-        protected void OnPropertyChanged(string propertyName)
+        protected void RaisePropertyChanged(string propertyName)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

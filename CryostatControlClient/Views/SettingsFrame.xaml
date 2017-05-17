@@ -3,7 +3,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
     <Page.Resources>
-        <ResourceDictionary Source="Styles.xaml"/>
+        <ResourceDictionary Source="Styles.xaml" />
     </Page.Resources>
 
     <!--<Border materialDesign:ShadowAssist.ShadowDepth="Depth5">-->
@@ -17,11 +17,11 @@
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="0">He-7</Label>
@@ -50,12 +50,17 @@
                 </ComboBox>
                 <Button Style="{StaticResource SettingsButton}">Start</Button>
                 <StackPanel>
-                    <RadioButton Name="startNow" Style="{StaticResource SettingsRadioButtons}" GroupName="startOption" IsChecked="True">Start Now</RadioButton>
-                    <RadioButton Name="startScheduled" Style="{StaticResource SettingsRadioButtons}" GroupName="startOption">Scheduled Start</RadioButton>
+                    <RadioButton Name="startNow" Style="{StaticResource SettingsRadioButtons}" GroupName="startOption"
+                                 IsChecked="True">
+                        Start Now
+                    </RadioButton>
+                    <RadioButton Name="startScheduled" Style="{StaticResource SettingsRadioButtons}"
+                                 GroupName="startOption">
+                        Scheduled Start
+                    </RadioButton>
                 </StackPanel>
             </StackPanel>
         </Grid>
     </materialDesign:Card>
     <!--</Border>-->
 </Page>
-
