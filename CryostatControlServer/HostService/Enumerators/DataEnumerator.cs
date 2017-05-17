@@ -53,12 +53,13 @@ namespace CryostatControlServer.HostService.Enumerators
         ComDeltaAvg = 30,
         ComError = 31,
         ComWarning = 32,
+        ComHoursOfOperation = 33,
 
         // Lakeshore
-        LakeConnectionState = 33,
+        LakeConnectionState = 34,
 
-        LakePlate50K = 34,
-        LakePlate3K = 35,
-        LakeHeater = 36
+        LakePlate50K = 35,
+        LakePlate3K = 36,
+        LakeHeater = 37
     }
 }

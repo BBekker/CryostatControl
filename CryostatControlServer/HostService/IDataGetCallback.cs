@@ -15,25 +15,11 @@ namespace CryostatControlServer.HostService
         #region Methods
 
         /// <summary>
-        /// Sends the BlueFors data.
+        /// Sends the data readout.
         /// </summary>
         /// <param name="data">The data.</param>
         [OperationContract(IsOneWay = true)]
-        void SendBlueForsData(float[] data);
-
-        /// <summary>
-        /// Sends the compressor data.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        [OperationContract(IsOneWay = true)]
-        void SendCompressorData(float[] data);
-
-        /// <summary>
-        /// Sends the helium7 data.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        [OperationContract(IsOneWay = true)]
-        void SendHelium7Data(float[] data);
+        void SendData(float[] data);
 
         #endregion Methods
     }

@@ -91,7 +91,7 @@ namespace CryostatControlServer.HostService
             IDataGetCallback client = (IDataGetCallback)state;
             float[] data = new float[1];
             data[0] = 42;
-            client.SendCompressorData(data);
+            client.SendData(data);
         }
 
         #endregion Methods
