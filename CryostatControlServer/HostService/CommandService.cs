@@ -18,12 +18,23 @@ namespace CryostatControlServer.HostService
     {
         #region Fields
 
+        private CryostatControl cryostatControl;
+
         /// <summary>
         /// The callback list
         /// </summary>
         private Dictionary<IDataGetCallback, Timer> callbacksListeners = new Dictionary<IDataGetCallback, Timer>();
 
         #endregion Fields
+
+        #region Constructors
+
+        public CommandService()
+        {
+            this.cryostatControl = new CryostatControl();
+        }
+
+        #endregion Constructors
 
         #region Methods
 
@@ -89,8 +100,7 @@ namespace CryostatControlServer.HostService
         {
             Console.WriteLine("sending data to client");
             IDataGetCallback client = (IDataGetCallback)state;
-            double[] data = new double[1];
-            data[0] = 42;
+            double[] data = this.cryostatControl.fillData();
             client.SendData(data);
         }
 
