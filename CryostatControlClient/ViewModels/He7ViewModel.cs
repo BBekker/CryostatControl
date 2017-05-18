@@ -9,6 +9,8 @@
 
 namespace CryostatControlClient.ViewModels
 {
+    using System.Windows.Input;
+
     using CryostatControlClient.Models;
 
     /// <summary>
@@ -22,11 +24,36 @@ namespace CryostatControlClient.ViewModels
         private He7Model he7Model;
 
         /// <summary>
+        /// The update button command
+        /// </summary>
+        private ICommand updateCommand;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="He7ViewModel"/> class.
         /// </summary>
         public He7ViewModel()
         {
             this.he7Model = new He7Model();
+
+            this.UpdateButtonCommand = new RelayCommand(this.OnClickUpdate, param => true);
+        }
+
+        /// <summary>
+        /// Gets or sets the update button command.
+        /// </summary>
+        /// <value>
+        /// The hi button command.
+        /// </value>
+        public ICommand UpdateButtonCommand
+        {
+            get
+            {
+                return this.updateCommand;
+            }
+            set
+            {
+                this.updateCommand = value;
+            }
         }
 
         /// <summary>
@@ -522,6 +549,15 @@ namespace CryostatControlClient.ViewModels
             {
                 return this.ConvertConnectionStateNumberToString(this.he7Model.ConnectionState);
             }
+        }
+
+        /// <summary>
+        /// Shows the message.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        public void OnClickUpdate(object obj)
+        {
+            this.RaisePropertyChanged("UpdateHe7Pressed");
         }
     }
 }

@@ -48,7 +48,7 @@
                     <ComboBoxItem>Recycle</ComboBoxItem>
                     <ComboBoxItem>Warm up</ComboBoxItem>
                 </ComboBox>
-                <Button Style="{StaticResource SettingsButton}" Command="{Binding TestViewModel.StartButtonCommand}">Start</Button>
+                <Button Style="{StaticResource SettingsButton}" Command="{Binding ModusViewModel.StartButtonCommand}">Start</Button>
                 <StackPanel>
                     <RadioButton Command="{Binding TestViewModel.RadioButtonCommand}" CommandParameter="Now" Name="startNow" Style="{StaticResource SettingsRadioButtons}" GroupName="startOption"
                                  IsChecked="True">

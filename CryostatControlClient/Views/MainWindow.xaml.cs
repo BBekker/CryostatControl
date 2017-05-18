@@ -47,6 +47,11 @@ namespace CryostatControlClient.Views
         private PropertyChangedEventHandler modusHandler;
 
         /// <summary>
+        /// The handler
+        /// </summary>
+        private PropertyChangedEventHandler heHandler;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
         public MainWindow()
@@ -55,6 +60,7 @@ namespace CryostatControlClient.Views
             this.dataReceiver = new DataReceiver();
 
             this.modusHandler = this.HandleModus;
+            this.heHandler = this.HandleHe;
         }
 
         #endregion Constructor
@@ -81,7 +87,8 @@ namespace CryostatControlClient.Views
 
             this.DataContext = this.viewModelContainer;
 
-            this.viewModelContainer.TestViewModel.PropertyChanged += this.modusHandler;
+            this.viewModelContainer.ModusViewModel.PropertyChanged += this.modusHandler;
+            this.viewModelContainer.He7ViewModel.PropertyChanged += this.heHandler;
         }
 
         /// <summary>
@@ -95,14 +102,33 @@ namespace CryostatControlClient.Views
 
             if (action == "StartPressed")
             {
-                string radio = this.viewModelContainer.TestViewModel.SelectedComboIndex + string.Empty;
-                string time = this.viewModelContainer.TestViewModel.Time;
+                string radio = this.viewModelContainer.ModusViewModel.SelectedComboIndex + string.Empty;
+                string time = this.viewModelContainer.ModusViewModel.Time;
 
                 Console.WriteLine("Start           - {0} - {1}", radio, time);
             }
             else
             {
-                Console.WriteLine("Unknown command -" + action);
+                Console.WriteLine("Unknown command - " + action);
+            }
+        }
+
+        /// <summary>
+        /// Handles the changes.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs" /> instance containing the event data.</param>
+        private void HandleHe(object sender, PropertyChangedEventArgs e)
+        {
+            string action = e.PropertyName;
+
+            if (action == "UpdateHe7Pressed")
+            {
+                Console.WriteLine("Update He       -");
+            }
+            else
+            {
+                //Console.WriteLine("Unknown command - " + action);
             }
         }
 

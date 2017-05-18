@@ -40,7 +40,7 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// The test view model
         /// </summary>
-        private ModusViewModel testViewModel;
+        private ModusViewModel modusViewModel;
 
         #endregion Fields
 
@@ -54,7 +54,7 @@ namespace CryostatControlClient.ViewModels
             this.blueforsViewModel = new BlueforsViewModel();
             this.compressorViewModel = new CompressorViewModel();
             this.he7ViewModel = new He7ViewModel();
-            this.testViewModel = new ModusViewModel();
+            this.modusViewModel = new ModusViewModel();
         }
 
         #endregion Constructor
@@ -109,11 +109,11 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The TestViewModel.
         /// </value>
-        public ModusViewModel TestViewModel
+        public ModusViewModel ModusViewModel
         {
             get
             {
-                return this.testViewModel;
+                return this.modusViewModel;
             }
         }
 

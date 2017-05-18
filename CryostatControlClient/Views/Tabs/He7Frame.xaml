@@ -31,6 +31,8 @@
         <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
+    <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource SettingsButton}" Command="{Binding He7ViewModel.UpdateButtonCommand}">Start</Button>
+    
     <materialDesign:Card Grid.Column="1" Grid.Row="1" Style="{StaticResource He7Card}">
         <Grid>
             <Grid.ColumnDefinitions>
