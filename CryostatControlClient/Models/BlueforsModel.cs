@@ -17,10 +17,10 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The cold plate 3 K temperature
         /// </summary>
-        private double coldPlate30KTemp;
+        private double coldPlate3KTemp;
 
         /// <summary>
-        /// The cold plate 5 K temperature
+        /// The cold plate 50 K temperature
         /// </summary>
         private double coldPlate50KTemp;
 
@@ -39,21 +39,21 @@ namespace CryostatControlClient.Models
         #region Properties
 
         /// <summary>
-        /// Gets or sets the cold plate 30 K temperature.
+        /// Gets or sets the cold plate 3 K temperature.
         /// </summary>
         /// <value>
-        /// The cold plate 30k temperature.
+        /// The cold plate 3K temperature.
         /// </value>
-        public double ColdPlate30KTemp
+        public double ColdPlate3KTemp
         {
             get
             {
-                return this.coldPlate30KTemp;
+                return this.coldPlate3KTemp;
             }
 
             set
             {
-                this.coldPlate30KTemp = value;
+                this.coldPlate3KTemp = value;
             }
         }
 

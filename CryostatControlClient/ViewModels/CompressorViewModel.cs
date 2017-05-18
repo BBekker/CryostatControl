@@ -38,6 +38,7 @@ namespace CryostatControlClient.ViewModels
 
         #endregion Constructor
 
+
         #region Properties
 
         /// <summary>

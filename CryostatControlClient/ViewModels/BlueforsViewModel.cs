@@ -40,22 +40,22 @@ namespace CryostatControlClient.ViewModels
         #region Properties
 
         /// <summary>
-        /// Gets or sets the cold plate 30 K temperature.
+        /// Gets or sets the cold plate 3 K temperature.
         /// </summary>
         /// <value>
-        /// The cold plate 30 k temporary.
+        /// The cold plate 3 K temperature.
         /// </value>
-        public double ColdPlate30KTemp
+        public double ColdPlate3KTemp
         {
             get
             {
-                return this.blueforsModel.ColdPlate30KTemp;
+                return this.blueforsModel.ColdPlate3KTemp;
             }
 
             set
             {
-                this.blueforsModel.ColdPlate30KTemp = value;
-                this.RaisePropertyChanged("ColdPlate30KTemp");
+                this.blueforsModel.ColdPlate3KTemp = value;
+                this.RaisePropertyChanged("ColdPlate3KTemp");
             }
         }
 
@@ -63,7 +63,7 @@ namespace CryostatControlClient.ViewModels
         /// Gets or sets the cold plate 50 K temperature.
         /// </summary>
         /// <value>
-        /// The cold plate 50 K temporary.
+        /// The cold plate 50 K temperature.
         /// </value>
         public double ColdPlate50KTemp
         {
