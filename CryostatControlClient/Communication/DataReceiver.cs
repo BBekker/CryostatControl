@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="He7ViewModel.cs" company="SRON">
+// <copyright file="DataReceiver.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
@@ -105,6 +105,5 @@ namespace CryostatControlClient.Communication
         }
 
         #endregion Methods  
-
     }
 }

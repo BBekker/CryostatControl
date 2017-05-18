@@ -62,7 +62,6 @@ namespace CryostatControlClient.Views
             this.dataReceiver.UpdateViewModels(data, this.viewModelContainer);
         }
 
-
         /// <summary>
         /// Handles the Loaded event of the MainWindow control.
         /// </summary>

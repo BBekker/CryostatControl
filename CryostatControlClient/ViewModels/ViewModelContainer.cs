@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DataContext.cs" company="SRON">
+// <copyright file="ViewModelContainer.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
