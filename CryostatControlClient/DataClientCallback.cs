@@ -42,7 +42,7 @@ namespace CryostatControlClient
         /// Handles the data retrieved for all sensors.
         /// </summary>
         /// <param name="data">The data.</param>
-        public void SendData(float[] data)
+        public void SendData(double[] data)
         {
             Console.WriteLine("Received: {0}", data[0]);
         }

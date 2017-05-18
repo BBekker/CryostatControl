@@ -17,12 +17,22 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The cold plate 3 K temperature
         /// </summary>
-        private int coldPlate3KTemp;
+        private double coldPlate3KTemp;
 
         /// <summary>
         /// The cold plate 50 K temperature
         /// </summary>
-        private int coldPlate50KTemp;
+        private double coldPlate50KTemp;
+
+        /// <summary>
+        /// The connection state.
+        /// </summary>
+        private double connectionState;
+
+        /// <summary>
+        /// The heater power.
+        /// </summary>
+        private double heaterPower;
 
         #endregion Fields
 
@@ -32,9 +42,9 @@ namespace CryostatControlClient.Models
         /// Gets or sets the cold plate 3 K temperature.
         /// </summary>
         /// <value>
-        /// The cold plate3 k temperature.
+        /// The cold plate 3K temperature.
         /// </value>
-        public int ColdPlate3KTemp
+        public double ColdPlate3KTemp
         {
             get
             {
@@ -53,7 +63,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The cold plate 50 K temperature.
         /// </value>
-        public int ColdPlate5KTemp
+        public double ColdPlate50KTemp
         {
             get
             {
@@ -63,6 +73,38 @@ namespace CryostatControlClient.Models
             set
             {
                 this.coldPlate50KTemp = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the connection state.
+        /// </summary>
+        public double ConnectionState
+        {
+            get
+            {
+                return this.connectionState;
+            }
+
+            set
+            {
+                this.connectionState = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the heater power.
+        /// </summary>
+        public double HeaterPower
+        {
+            get
+            {
+                return this.heaterPower;
+            }
+
+            set
+            {
+                this.heaterPower = value;
             }
         }
 
