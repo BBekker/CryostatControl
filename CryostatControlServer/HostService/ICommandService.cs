@@ -75,12 +75,25 @@ namespace CryostatControlServer.HostService
         [OperationContract]
         float ReadSensor(int id);
 
+        /// <summary>
+        /// Reads the compressor temperature scale.
+        /// </summary>
+        /// <returns>Temperature scale in double</returns>
         [OperationContract]
         double ReadCompressorTemperatureScale();
 
+        /// <summary>
+        /// Reads the compressor pressure scale.
+        /// </summary>
+        /// <returns>Pressure scale in double</returns>
         [OperationContract]
         double ReadCompressorPressureScale();
 
+        /// <summary>
+        /// Writes the allowed settings to server.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <returns>If the values have been written</returns>
         [OperationContract]
         bool WriteSettingValues(double[] values);
 

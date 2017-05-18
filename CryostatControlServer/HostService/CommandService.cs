@@ -94,16 +94,19 @@ namespace CryostatControlServer.HostService
             return 0;
         }
 
+        /// <inheritdoc cref="ICommandService.ReadCompressorTemperatureScale"/>>
         public double ReadCompressorTemperatureScale()
         {
-            throw new NotImplementedException();
+            return this.cryostatControl.ReadCompressorTemperatureScale();
         }
 
+        /// <inheritdoc cref="ICommandService.ReadCompressorPressureScale"/>>
         public double ReadCompressorPressureScale()
         {
-            throw new NotImplementedException();
+            return this.cryostatControl.ReadCompressorPressureScale();
         }
 
+        /// <inheritdoc cref="ICommandService.ReadSensor"/>>
         public bool WriteSettingValues(double[] values)
         {
             throw new NotImplementedException();

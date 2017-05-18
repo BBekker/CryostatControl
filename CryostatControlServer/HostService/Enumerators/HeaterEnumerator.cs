@@ -1,5 +1,16 @@
-﻿namespace CryostatControlServer.HostService.Enumerators
+﻿//-----------------------------------------------------------------------
+// <copyright file="HeaterEnumerator.cs" company="SRON">
+//     Copyright (c) SRON. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+namespace CryostatControlServer.HostService.Enumerators
 {
+    using System.Diagnostics.CodeAnalysis;
+
+    /// <summary>
+    /// Enumerator for the heater places
+    /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1602:EnumerationItemsMustBeDocumented", Justification = "Reviewed. Suppression is OK here.")]
     public enum HeaterEnumerator
     {
         He3Pump = 0,

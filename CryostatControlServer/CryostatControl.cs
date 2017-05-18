@@ -49,9 +49,10 @@ namespace CryostatControlServer
         /// </summary>
         private ISensor[] sensors = new ISensor[(int)DataEnumerator.SensorAmount];
 
+        /// <summary>
+        /// The heaters
+        /// </summary>
         private He7Cooler.He7Cooler.Heater[] heaters = new He7Cooler.He7Cooler.Heater[(int)HeaterEnumerator.HeaterAmount];
-
-        private double[] heaterExpectedValues = new double[(int)HeaterEnumerator.HeaterAmount];
 
         /// <summary>
         /// The compressor
@@ -124,6 +125,7 @@ namespace CryostatControlServer
             {
                 return false;
             }
+
             if (status)
             {
                 this.compressor.TurnOn();
@@ -132,6 +134,7 @@ namespace CryostatControlServer
             {
                 this.compressor.TurnOff();
             }
+
             return true;
         }
 
@@ -151,13 +154,36 @@ namespace CryostatControlServer
             {
                 return false;
             }
+
             for (int i = 0; i < values.Length; i++)
             {
                 this.heaters[i].Voltage = values[i];
             }
+
             return true;
         }
 
+        /// <summary>
+        /// Reads the compressor temperature scale.
+        /// </summary>
+        /// <returns>Temperature scale as double</returns>
+        public double ReadCompressorTemperatureScale()
+        {
+            return (double)this.compressor.ReadTemperatureScale();
+        }
+
+        /// <summary>
+        /// Reads the compressor pressure scale.
+        /// </summary>
+        /// <returns>Pressure scale as double</returns>
+        public double ReadCompressorPressureScale()
+        {
+            return (double)this.compressor.ReadPressureScale();
+        }
+
+        /// <summary>
+        /// Fills the heaters.
+        /// </summary>
         private void FillHeaters()
         {
             this.heaters[(int)HeaterEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.PumpHe3, Channels.SensHe3Pump, this.he7Cooler);

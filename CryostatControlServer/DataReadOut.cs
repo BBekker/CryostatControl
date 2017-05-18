@@ -34,7 +34,6 @@ namespace CryostatControlServer
         /// </summary>
         /// <param name="compressor">The compressor.</param>
         /// <param name="sensors">The sensors.</param>
-        /// <param name="heaters">The heaters.</param>
         public DataReadOut(
             Compressor.Compressor compressor,
             ISensor[] sensors)
