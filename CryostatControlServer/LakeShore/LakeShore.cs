@@ -13,15 +13,14 @@ namespace CryostatControlServer.LakeShore
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Threading;
+
     using CryostatControlServer.Streams;
 
     /// <summary>
     /// Connection and communication to the LakeShore 355 temperature controller.
     /// </summary>
     public class LakeShore
-    { 
-        #region const values
-
+    {
         /// <summary>
         /// The 3K cold plate id
         /// </summary>
@@ -42,18 +41,19 @@ namespace CryostatControlServer.LakeShore
         /// </summary>
         private const int ReadInterval = 1000;
 
-        #endregion const 
+        /// <summary>
+        /// The time of the last command. Commands need to be spaced at least 50ms
+        /// </summary>
+        [SuppressMessage(
+            "StyleCop.CSharp.DocumentationRules",
+            "SA1650:ElementDocumentationMustBeSpelledCorrectly",
+            Justification = "Reviewed. Suppression is OK here.")]
+        private DateTime lastCommand;
 
         /// <summary>
         /// The connection.
         /// </summary>
-        private readonly ManagedStream ms = new ManagedStream();
-
-        /// <summary>
-        /// The time of the last command. Commands need to be spaced at least 50ms
-        /// </summary>
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        private DateTime lastCommand;
+        private IManagedStream ms;
 
         /// <summary>
         /// The read thread.
@@ -64,31 +64,6 @@ namespace CryostatControlServer.LakeShore
         /// Gets or sets the latest sensor values;
         /// </summary>
         public double[] SensorValues { get; set; } = new double[2] { 0, 0 };
-
-        /// <summary>
-        /// Initializes by connecting to the specified port name.
-        /// </summary>
-        /// <param name="portname">The port name.</param>
-        public void Init(string portname)
-        {
-            this.ms.ConnectCOM(portname, BaudRate);
-
-            this.lastCommand = DateTime.Now;
-
-            this.ms.WriteString("MODE 1\n");
-            this.OPC();
-
-            this.readthread = new Thread(
-                () =>
-                    {
-                        while (true)
-                        {
-                            this.SensorValues[0] = ReadTemperature("A");
-                            this.SensorValues[1] = ReadTemperature("B");
-                            Thread.Sleep(ReadInterval);
-                        }
-                    });
-        }
 
         /// <summary>
         /// Closes this instance.
@@ -103,11 +78,40 @@ namespace CryostatControlServer.LakeShore
         }
 
         /// <summary>
+        /// Initializes by connecting to the specified port name.
+        /// </summary>
+        /// <param name="portname">The port name.</param>
+        public void Init(string portname)
+        {
+            this.ms = new ManagedCOMStream(portname, BaudRate);
+            this.ms.Open();
+
+            this.StartReading();
+        }
+
+        /// <summary>
+        /// Initializes by connecting to the specified port name.
+        /// </summary>
+        /// <param name="managedStream">
+        /// The managed Stream.
+        /// </param>
+        public void Init(IManagedStream managedStream)
+        {
+            this.ms = managedStream;
+            this.ms.Open();
+
+            this.StartReading();
+        }
+
+        /// <summary>
         /// Sends OPC command to device and waits for response.
         /// Used to confirm connection and synchronisation of state of the device.
         /// </summary>
         // ReSharper disable once InconsistentNaming
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage(
+            "StyleCop.CSharp.DocumentationRules",
+            "SA1650:ElementDocumentationMustBeSpelledCorrectly",
+            Justification = "Reviewed. Suppression is OK here.")]
         public void OPC()
         {
             try
@@ -145,10 +149,35 @@ namespace CryostatControlServer.LakeShore
         }
 
         /// <summary>
+        /// Start reading temperatures.
+        /// </summary>
+        private void StartReading()
+        {
+            this.lastCommand = DateTime.Now;
+
+            this.ms.WriteString("MODE 1\n");
+            this.OPC();
+
+            this.readthread = new Thread(
+                () =>
+                    {
+                        while (true)
+                        {
+                            this.SensorValues[0] = this.ReadTemperature("A");
+                            this.SensorValues[1] = this.ReadTemperature("B");
+                            Thread.Sleep(ReadInterval);
+                        }
+                    });
+        }
+
+        /// <summary>
         /// Wait until the specified minimum time between commands is passed.
         /// The lakeshore355 manual specifies a minimum time of 50ms between commands.
         /// </summary>
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage(
+            "StyleCop.CSharp.DocumentationRules",
+            "SA1650:ElementDocumentationMustBeSpelledCorrectly",
+            Justification = "Reviewed. Suppression is OK here.")]
         private void WaitCommandInterval()
         {
             while (DateTime.Now - this.lastCommand < TimeSpan.FromMilliseconds(50))
