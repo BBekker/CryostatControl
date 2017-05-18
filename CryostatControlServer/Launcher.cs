@@ -51,7 +51,7 @@ namespace CryostatControlServer
         /// <param name="args">The arguments.</param>
         public static void Main(string[] args)
         {
-            ////InitComponents();
+            InitComponents();
             StartHost();
         }
 
@@ -60,11 +60,9 @@ namespace CryostatControlServer
         /// </summary>
         private static void InitComponents()
         {
-            lakeShore = new LakeShore.LakeShore();
-            he7Cooler = new He7Cooler.He7Cooler();
-
             try
             {
+                lakeShore = new LakeShore.LakeShore();
                 lakeShore.Init("COM1");
             }
             catch (Exception)
@@ -76,6 +74,7 @@ namespace CryostatControlServer
 
             try
             {
+                he7Cooler = new He7Cooler.He7Cooler();
                 he7Cooler.Connect(CompressorHost);
             }
             catch (Exception)
@@ -103,7 +102,7 @@ namespace CryostatControlServer
         private static void StartHost()
         {
             CommandService hostService = new CommandService(compressor, lakeShore, he7Cooler);
-            Uri baseAddress = new Uri(HostAddress);
+            Uri baseAddress = new Uri("http://localhost:8080/SRON");
             using (ServiceHost host = new ServiceHost(hostService, baseAddress))
             {
                 // Enable metadata publishing.
