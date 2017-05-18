@@ -48,7 +48,7 @@ namespace CryostatControlServer.He7Cooler
         /// <summary>
         /// The connected device.
         /// </summary>
-        private readonly Agilent34972A device = new Agilent34972A();
+        private Agilent34972A device = new Agilent34972A();
 
         /// <summary>
         /// The amound in sensor readers per channel.
@@ -178,6 +178,21 @@ namespace CryostatControlServer.He7Cooler
         public void Connect(string ip)
         {
             this.device.Init(ip);
+            this.isStarted = true;
+            this.readThread = new Thread(this.MainLoop);
+            this.readThread.Start();
+        }
+
+        /// <summary>
+        /// Connect using an already initialized Agilent device.
+        /// Used for testing.
+        /// </summary>
+        /// <param name="device">
+        /// The initialized device.
+        /// </param>
+        public void Connect(Agilent34972A device)
+        {
+            this.device = device;
             this.isStarted = true;
             this.readThread = new Thread(this.MainLoop);
             this.readThread.Start();

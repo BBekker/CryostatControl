@@ -5,6 +5,9 @@ using CryostatControlServer;
 namespace CryostatControlServerTests
 {
     using CryostatControlServer.He7Cooler;
+    using CryostatControlServer.Streams;
+
+    using Moq;
 
     /// <summary>
     /// The sensor tests.
@@ -52,6 +55,20 @@ namespace CryostatControlServerTests
             Assert.AreEqual(17.5, testSensor2.ConvertValue(1.215), 0.1);
             Assert.AreEqual(0.8, testSensor2.ConvertValue(1.8), 0.001);
 
+        }
+
+        [TestMethod]
+        public void TestInitialisation()
+        {
+            var mockH7 = new Mock<IManagedStream>();
+            mockH7.Setup(stream => stream.Open());
+            mockH7.Setup(stream => stream.ReadString()).Returns("1\n");
+
+            var agilent = new Agilent34972A();
+            agilent.Init(mockH7.Object);
+            var cooler = new He7Cooler();
+            cooler.Connect(agilent);
+            cooler.Disconnect();
         }
     }
 }
