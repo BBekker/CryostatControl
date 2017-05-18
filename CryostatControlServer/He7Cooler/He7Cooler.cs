@@ -10,7 +10,9 @@
 
 namespace CryostatControlServer.He7Cooler
 {
+    using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
     using System.Threading;
 
@@ -197,10 +199,10 @@ namespace CryostatControlServer.He7Cooler
         /// <param name="device">
         /// The initialized device.
         /// </param>
-        public void Connect(Agilent34972A device)
+        public void Connect(Agilent34972A device, bool startReading)
         {
             this.device = device;
-            this.isStarted = true;
+            this.isStarted = startReading;
             this.readThread = new Thread(this.MainLoop);
             this.readThread.Start();
         }
@@ -223,10 +225,17 @@ namespace CryostatControlServer.He7Cooler
                 .Where((pair) => pair.Value > 0)
                 .Select(pair => pair.Key)
                 .ToArray();
-            double[] voltages = this.device.GetVoltages(channels);
-            for (int i = 0; i < channels.Length; i++)
+            try
             {
-                this.values[channels[i]] = voltages[i];
+                double[] voltages = this.device.GetVoltages(channels);
+                for (int i = 0; i < channels.Length; i++)
+                {
+                    this.values[channels[i]] = voltages[i];
+                }
+            }
+            catch (AgilentException ex)
+            {
+                Console.WriteLine("Reading values failed: "+ex.ToString());
             }
         }
 
@@ -268,9 +277,11 @@ namespace CryostatControlServer.He7Cooler
         {
             if (!this.readersPerChannel.ContainsKey(channel))
             {
+                this.values.Add(channel, 0.0);
                 this.readersPerChannel[channel] = 0;
             }
             this.readersPerChannel[channel]++;
+
         }
 
         /// <summary>
@@ -281,6 +292,7 @@ namespace CryostatControlServer.He7Cooler
         /// </param>
         protected void RemoveChannel(Channels channel)
         {
+            if(this.readersPerChannel.ContainsKey(channel))
             if (this.readersPerChannel[channel] > 0)
             {
                 this.readersPerChannel[channel]--;

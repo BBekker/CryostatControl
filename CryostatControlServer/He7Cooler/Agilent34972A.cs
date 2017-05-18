@@ -58,6 +58,11 @@ namespace CryostatControlServer.He7Cooler
                 var res = this.connection.ReadString();
                 var values = GetDataFromString(res);
 
+                if (values.Length != 2*channelIds.Length)
+                {
+                    throw new AgilentException("Amount of values returned by the device did not match request.");
+                }
+
                 // split into voltages and channels
                 for (var k = 0; k < numSensors; k++)
                 {
@@ -224,7 +229,7 @@ namespace CryostatControlServer.He7Cooler
                 var res = int.Parse(this.connection.ReadString());
                 if (res < 1)
                 {
-                    throw new Exception("invalid agilent state");
+                    throw new AgilentException("invalid agilent state");
                 }
             }
             finally

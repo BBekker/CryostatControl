@@ -54,8 +54,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="He7Cooler\He7Response.cs" />
     <Compile Include="He7Cooler\SensorTests.cs" />
+    <Compile Include="He7Cooler\He7CoolerSmokeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

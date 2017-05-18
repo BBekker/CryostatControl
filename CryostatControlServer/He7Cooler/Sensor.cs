@@ -57,7 +57,6 @@ namespace CryostatControlServer.He7Cooler
                 this.calibration = calibration;
                 this.device = device;
                 device.AddChannel(channel);
-                device.values.Add(channel, 0.0);
             }
 
             /// <summary>

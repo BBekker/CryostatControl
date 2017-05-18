@@ -1,11 +1,11 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CryostatControlServer;
-
-namespace CryostatControlServerTests
+﻿namespace CryostatControlServerTests.He7Cooler
 {
+    using System;
+
     using CryostatControlServer.He7Cooler;
     using CryostatControlServer.Streams;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using Moq;
 
@@ -57,18 +57,6 @@ namespace CryostatControlServerTests
 
         }
 
-        [TestMethod]
-        public void TestInitialisation()
-        {
-            var mockH7 = new Mock<IManagedStream>();
-            mockH7.Setup(stream => stream.Open());
-            mockH7.Setup(stream => stream.ReadString()).Returns("1\n");
-
-            var agilent = new Agilent34972A();
-            agilent.Init(mockH7.Object);
-            var cooler = new He7Cooler();
-            cooler.Connect(agilent);
-            cooler.Disconnect();
-        }
+       
     }
 }

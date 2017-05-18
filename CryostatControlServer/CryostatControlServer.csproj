@@ -74,6 +74,7 @@
     <Compile Include="Compressor\Enumerators\WarningsEnum.cs" />
     <Compile Include="Compressor\Sensor.cs" />
     <Compile Include="He7Cooler\Agilent34972A.cs" />
+    <Compile Include="He7Cooler\AgilentException.cs" />
     <Compile Include="He7Cooler\Channels.cs" />
     <Compile Include="He7Cooler\DigitalSwitch.cs" />
     <Compile Include="He7Cooler\He7Cooler.cs" />
@@ -97,7 +98,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="Streams\ManagedStream.cs" />
     <Compile Include="Streams\BaseManagedStream.cs" />
     <Compile Include="Streams\IManagedStream.cs" />
     <Compile Include="Streams\ManagedCOMStream.cs" />
