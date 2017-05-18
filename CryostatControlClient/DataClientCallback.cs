@@ -7,6 +7,7 @@ namespace CryostatControlClient
 {
     using System;
     using CryostatControlClient.ServiceReference1;
+    using CryostatControlClient.Views;
 
     /// <summary>
     /// Class which handles the data callback calls from the server
@@ -21,6 +22,11 @@ namespace CryostatControlClient
         /// </summary>
         private App mainApp;
 
+        /// <summary>
+        /// The main window
+        /// </summary>
+        private MainWindow mainWindow;
+
         #endregion Fields
 
         #region Constructors
@@ -32,6 +38,7 @@ namespace CryostatControlClient
         public DataClientCallback(App app)
         {
             this.mainApp = app;
+            this.mainWindow = this.mainApp.MainWindow as MainWindow;
         }
 
         #endregion Constructors
@@ -44,7 +51,14 @@ namespace CryostatControlClient
         /// <param name="data">The data.</param>
         public void SendData(double[] data)
         {
-            Console.WriteLine("Received: {0}", data[0]);
+            if (this.mainWindow == null)
+            {
+                this.mainWindow = this.mainApp.MainWindow as MainWindow;
+            }
+            else
+            {
+                this.mainWindow.UpdateViewModels(data);
+            }
         }
 
         #endregion Methods

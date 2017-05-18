@@ -7,8 +7,11 @@ namespace CryostatControlServer.HostService
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.ServiceModel;
     using System.Threading;
+
+    using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
     /// Service class which handles the incoming methods calls.

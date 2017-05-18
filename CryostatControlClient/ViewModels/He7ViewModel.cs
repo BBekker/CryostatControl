@@ -110,13 +110,13 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.he7Model.He3HeadTemp;
+                return this.he7Model.He3HeadMax;
             }
 
             set
             {
-                this.he7Model.He3HeadTemp = value;
-                this.RaisePropertyChanged("He3HeadTemp");
+                this.he7Model.He3HeadMax = value;
+                this.RaisePropertyChanged("He3HeadMax");
             }
         }
 
@@ -135,7 +135,7 @@ namespace CryostatControlClient.ViewModels
 
             set
             {
-                this.he7Model.He3HeadTemp = value;
+                this.he7Model.He3PumpTemp = value;
                 this.RaisePropertyChanged("He3PumpTemp");
             }
         }
