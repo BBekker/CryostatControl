@@ -49,9 +49,13 @@ namespace CryostatControlClient
         /// Handles the data retrieved for all sensors.
         /// </summary>
         /// <param name="data">The data.</param>
-        public void SendData(float[] data)
+        public void SendData(double[] data)
         {
-            if (this.mainWindow != null)
+            if (this.mainWindow == null)
+            {
+                this.mainWindow = this.mainApp.MainWindow as MainWindow;
+            }
+            else
             {
                 this.mainWindow.UpdateViewModels(data);
             }

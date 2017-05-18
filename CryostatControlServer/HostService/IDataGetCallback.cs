@@ -19,7 +19,7 @@ namespace CryostatControlServer.HostService
         /// </summary>
         /// <param name="data">The data.</param>
         [OperationContract(IsOneWay = true)]
-        void SendData(float[] data);
+        void SendData(double[] data);
 
         #endregion Methods
     }

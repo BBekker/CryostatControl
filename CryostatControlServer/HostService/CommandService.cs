@@ -11,7 +11,6 @@ namespace CryostatControlServer.HostService
     using System.ServiceModel;
     using System.Threading;
 
-    using CryostatControlServer.Compressor;
     using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
@@ -23,11 +22,34 @@ namespace CryostatControlServer.HostService
         #region Fields
 
         /// <summary>
+        /// The cryostat control
+        /// </summary>
+        private readonly CryostatControl cryostatControl;
+
+        /// <summary>
         /// The callback list
         /// </summary>
-        private Dictionary<IDataGetCallback, Timer> callbacksListeners = new Dictionary<IDataGetCallback, Timer>();
+        private readonly Dictionary<IDataGetCallback, Timer> callbacksListeners = new Dictionary<IDataGetCallback, Timer>();
 
         #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommandService"/> class.
+        /// </summary>
+        /// <param name="compressor">The compressor.</param>
+        /// <param name="lakeShore">The lake shore.</param>
+        /// <param name="he7Cooler">The he7 cooler.</param>
+        public CommandService(
+            Compressor.Compressor compressor,
+            LakeShore.LakeShore lakeShore,
+            He7Cooler.He7Cooler he7Cooler)
+        {
+            this.cryostatControl = new CryostatControl(compressor, lakeShore, he7Cooler);
+        }
+
+        #endregion Constructors
 
         #region Methods
 
@@ -93,15 +115,7 @@ namespace CryostatControlServer.HostService
         {
             Console.WriteLine("sending data to client");
             IDataGetCallback client = (IDataGetCallback)state;
-
-            int max = (int)Enum.GetValues(typeof(DataEnumerator)).Cast<DataEnumerator>().Max();
-            float[] data = new float[max];
-            Random r = new Random();
-            for (int i = 0; i < max; i++)
-            {
-                data[i] = r.Next(100);
-            }
-
+            double[] data = this.cryostatControl.ReadData();
             client.SendData(data);
         }
 
