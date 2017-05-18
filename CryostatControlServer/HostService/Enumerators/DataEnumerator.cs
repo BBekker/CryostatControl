@@ -63,6 +63,6 @@ namespace CryostatControlServer.HostService.Enumerators
 
         LakeHeater = 39,
 
-        DataLenght = 40
+        DataLength = 40
     }
 }

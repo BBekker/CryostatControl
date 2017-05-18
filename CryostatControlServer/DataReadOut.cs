@@ -43,12 +43,12 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// Fills data array with mock values, than it calls the methods which actually fill the array with data.
+        /// Fills data array with mock values, then it calls the methods which actually fill the array with data.
         /// </summary>
         /// <returns>array filled with available data</returns>
         public double[] FillData()
         {
-            double[] data = new double[(int)DataEnumerator.DataLenght];
+            double[] data = new double[(int)DataEnumerator.DataLength];
             for (int i = 0; i < data.Length; i++)
             {
                 data[i] = double.MinValue;
