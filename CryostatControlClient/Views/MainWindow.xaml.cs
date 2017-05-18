@@ -10,6 +10,7 @@
 namespace CryostatControlClient.Views
 {
     using System;
+    using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
 
@@ -21,11 +22,22 @@ namespace CryostatControlClient.Views
     public partial class MainWindow : Window
     {
         /// <summary>
+        /// The handler
+        /// </summary>
+        private PropertyChangedEventHandler handler;
+
+        /// <summary>
+        /// The dc
+        /// </summary>
+        private DataContext dc;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
         public MainWindow()
         {
             this.Loaded += this.MainWindowLoaded;
+            this.handler = new PropertyChangedEventHandler(this.HandleChanges);
         }
 
         /// <summary>
@@ -35,14 +47,49 @@ namespace CryostatControlClient.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void MainWindowLoaded(object sender, RoutedEventArgs e)
         {
-            DataContext dc = new DataContext();
+            this.dc = new DataContext();
 
-            this.DataContext = dc;
+            this.DataContext = this.dc;
+
+            this.dc.TestViewModel.PropertyChanged += this.handler;
+            this.dc.He7ViewModel.PropertyChanged += this.handler;
+
+            this.dc.He7ViewModel.He4PumpTemp = 5000;
 
             // test setters
             // dc.BlueforsViewModel.ColdPlate50KTemp = 3000;
             // dc.CompressorViewModel.OperatingState = 1000;
             // dc.He7ViewModel.FourKPlateTemp = 5000;
+        }
+
+        /// <summary>
+        /// Handles the changes.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void HandleChanges(object sender, PropertyChangedEventArgs e)
+        {
+            string action = e.PropertyName;
+
+            if (action == "StartPressed")
+            {
+                string radio = this.dc.TestViewModel.SelectedComboIndex + string.Empty;
+                string time = this.dc.TestViewModel.Time;
+
+                Console.WriteLine("Start - {0} - {1}", radio, time);
+            }
+            else if (action == "SelectedTabIndex")
+            {
+                Console.WriteLine("Changing tabs");
+            }
+            else
+            {
+                Console.WriteLine("***************************************************************");
+                Console.WriteLine("Sender - {0}", sender);
+                Console.WriteLine("Args   - {0}", e.PropertyName);
+                Console.WriteLine("Value  - {0}", (sender as He7ViewModel).He4PumpTemp);
+                //Console.WriteLine("Set value - {0} - {1}", "Test", "Test");
+            }
         }
     }
 }

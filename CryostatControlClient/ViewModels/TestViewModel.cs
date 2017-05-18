@@ -19,6 +19,8 @@ namespace CryostatControlClient.ViewModels
     /// <seealso cref="CryostatControlClient.ViewModels.AbstractViewModel" />
     public class TestViewModel : AbstractViewModel
     {
+        #region Fields
+
         /// <summary>
         /// The start button command
         /// </summary>
@@ -44,15 +46,38 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private int selectedComboIndex;
 
+        #endregion
+
+        #region Constructor
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TestViewModel"/> class.
         /// </summary>
         public TestViewModel()
         {
             this.time = "Now";
+            He7ViewModel.PropertyChanged += this.PropertyChanged;
 
-            this.StartButtonCommand = new RelayCommand(this.ShowMessage, param => true);
-            this.RadioButtonCommand = new RelayCommand(this.SetTime, param => true);
+            this.StartButtonCommand = new RelayCommand(this.OnClickStart, param => true);
+            this.RadioButtonCommand = new RelayCommand(this.OnChangeRadio, param => true);
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the time.
+        /// </summary>
+        /// <value>
+        /// The time.
+        /// </value>
+        public string Time
+        {
+            get
+            {
+                return this.time;
+            }
         }
 
         /// <summary>
@@ -71,7 +96,6 @@ namespace CryostatControlClient.ViewModels
             {
                 this.selectedTabIndex = value;
                 this.RaisePropertyChanged("SelectedTabIndex");
-                Console.WriteLine("Changing Tabs {0}", this.selectedTabIndex);
             }
         }
 
@@ -90,9 +114,12 @@ namespace CryostatControlClient.ViewModels
             set
             {
                 this.selectedComboIndex = value;
-                this.RaisePropertyChanged("SelectedComboIndex");
             }
         }
+
+        #endregion Properties
+
+        #region Commands
 
         /// <summary>
         /// Gets or sets the hi button command.
@@ -109,6 +136,7 @@ namespace CryostatControlClient.ViewModels
             set
             {
                 this.startButtonCommand = value;
+                this.RaisePropertyChanged("StartPressed");
             }
         }
 
@@ -130,11 +158,15 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
         /// Shows the message.
         /// </summary>
         /// <param name="obj">The object.</param>
-        public void SetTime(object obj)
+        public void OnChangeRadio(object obj)
         {
             this.time = obj.ToString();
         }
@@ -142,17 +174,12 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Shows the message.
         /// </summary>
-        public void ShowMessage(object obj)
+        /// <param name="obj">The object.</param>
+        public void OnClickStart(object obj)
         {
             Console.WriteLine("Start - {0} - {1}", this.selectedComboIndex, this.time);
         }
 
-        /// <summary>
-        /// Tabs the message.
-        /// </summary>
-        public void TabMessage(object obj)
-        {
-            Console.WriteLine("Changing Tab");
-        }
+        #endregion Methods
     }
 }
