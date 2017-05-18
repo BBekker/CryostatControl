@@ -419,7 +419,7 @@ namespace CryostatControlClient.ViewModels
         /// </returns>
         public string ConvertOperatingStateNumberToString(double operatingStateNumber)
         {
-            switch (operatingStateNumber)
+            switch ((int)operatingStateNumber)
             {
                 case 0: return "Ready to Start";
                 case 2: return "Starting";
@@ -445,7 +445,7 @@ namespace CryostatControlClient.ViewModels
         /// </returns>
         public string ConvertWarningStateNumberToString(double warningStateNumber)
         {
-            switch (warningStateNumber)
+            switch ((int)warningStateNumber)
             {
                 case 0: return "No warnings";
                 case -1: return "Water IN running High";
@@ -480,7 +480,7 @@ namespace CryostatControlClient.ViewModels
         /// </returns>
         public string ConvertErrorStateNumberToString(double errorStateNumber)
         {
-            switch (errorStateNumber)
+            switch ((int)errorStateNumber)
             {
                 case 0: return "No Errors";
                 case -1: return "Water IN High";

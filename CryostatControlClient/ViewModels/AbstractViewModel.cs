@@ -32,7 +32,7 @@ namespace CryostatControlClient.ViewModels
         /// </returns>
         public string ConvertConnectionStateNumberToString(double connectionState)
         {
-            switch (connectionState)
+            switch ((int)connectionState)
             {
                 case 0: return "Disconnected";
                 case 1: return "Connected";
