@@ -30,10 +30,11 @@ namespace CryostatControlServer
         #region Methods
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataReadOut"/> class.
+        /// Initializes a new instance of the <see cref="DataReadOut" /> class.
         /// </summary>
         /// <param name="compressor">The compressor.</param>
         /// <param name="sensors">The sensors.</param>
+        /// <param name="heaters">The heaters.</param>
         public DataReadOut(
             Compressor.Compressor compressor,
             ISensor[] sensors)

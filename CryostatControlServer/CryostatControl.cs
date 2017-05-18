@@ -49,9 +49,9 @@ namespace CryostatControlServer
         /// </summary>
         private ISensor[] sensors = new ISensor[(int)DataEnumerator.SensorAmount];
 
-        private He7Cooler.He7Cooler.Heater[] heaters = new He7Cooler.He7Cooler.Heater[(int)WriteEnumerator.HeaterAmount];
+        private He7Cooler.He7Cooler.Heater[] heaters = new He7Cooler.He7Cooler.Heater[(int)HeaterEnumerator.HeaterAmount];
 
-        private double[] heaterExpectedValues = new double[(int)WriteEnumerator.HeaterAmount];
+        private double[] heaterExpectedValues = new double[(int)HeaterEnumerator.HeaterAmount];
 
         /// <summary>
         /// The compressor
@@ -147,7 +147,7 @@ namespace CryostatControlServer
         {
             ////todo add safety check
 
-            if (values.Length != (int)WriteEnumerator.HeaterAmount || !this.manualControl)
+            if (values.Length != (int)HeaterEnumerator.HeaterAmount || !this.manualControl)
             {
                 return false;
             }
@@ -160,10 +160,10 @@ namespace CryostatControlServer
 
         private void FillHeaters()
         {
-            this.heaters[(int)WriteEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.PumpHe3, Channels.SensHe3Pump, this.he7Cooler);
-            this.heaters[(int)WriteEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.PumpHe4, Channels.SensHe4Pump, this.he7Cooler);
-            this.heaters[(int)WriteEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.SwitchHe3, Channels.SensHe3Switch, this.he7Cooler);
-            this.heaters[(int)WriteEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.SwitchHe4, Channels.SensHe4Switch, this.he7Cooler);
+            this.heaters[(int)HeaterEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.PumpHe3, Channels.SensHe3Pump, this.he7Cooler);
+            this.heaters[(int)HeaterEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.PumpHe4, Channels.SensHe4Pump, this.he7Cooler);
+            this.heaters[(int)HeaterEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.SwitchHe3, Channels.SensHe3Switch, this.he7Cooler);
+            this.heaters[(int)HeaterEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.SwitchHe4, Channels.SensHe4Switch, this.he7Cooler);
         }
 
         /// <summary>
@@ -246,13 +246,13 @@ namespace CryostatControlServer
                 this.sensors[(int)DataEnumerator.He3SwitchTemp] = new He7Cooler.He7Cooler.Sensor(Channels.SensHe3SwitchT, this.he7Cooler, diodeCalibration);
                 this.sensors[(int)DataEnumerator.He4Head] = new He7Cooler.He7Cooler.Sensor(Channels.SensHe4HeadT, this.he7Cooler, he4Calibration);
 
-                this.sensors[(int)DataEnumerator.He3Volt] =
+                this.sensors[(int)DataEnumerator.He3VoltActual] =
                     new He7Cooler.He7Cooler.Sensor(Channels.SensHe3Pump, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
-                this.sensors[(int)DataEnumerator.He4SwitchVolt] =
+                this.sensors[(int)DataEnumerator.He4SwitchVoltActual] =
                     new He7Cooler.He7Cooler.Sensor(Channels.SwitchHe4, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
-                this.sensors[(int)DataEnumerator.He3SwitchVolt] =
+                this.sensors[(int)DataEnumerator.He3SwitchVoltActual] =
                     new He7Cooler.He7Cooler.Sensor(Channels.SwitchHe3, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
-                this.sensors[(int)DataEnumerator.He4Volt] =
+                this.sensors[(int)DataEnumerator.He4VoltActual] =
                     new He7Cooler.He7Cooler.Sensor(Channels.SensHe4Pump, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
             }
             catch (Exception)

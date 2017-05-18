@@ -1,6 +1,6 @@
 ﻿namespace CryostatControlServer.HostService.Enumerators
 {
-    public enum WriteEnumerator
+    public enum HeaterEnumerator
     {
         He3Pump = 0,
         He4Pump = 1,

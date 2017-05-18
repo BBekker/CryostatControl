@@ -85,13 +85,28 @@ namespace CryostatControlServer.HostService
         /// <inheritdoc cref="ICommandService.WriteHelium7"/>
         public bool WriteHelium7(double[] data)
         {
-            return data.Length == (int)WriteEnumerator.HeaterAmount && this.cryostatControl.WriteHelium7Heaters(data);
+            return data.Length == (int)HeaterEnumerator.HeaterAmount && this.cryostatControl.WriteHelium7Heaters(data);
         }
 
         /// <inheritdoc cref="ICommandService.ReadSensor"/>>
         public float ReadSensor(int id)
         {
             return 0;
+        }
+
+        public double ReadCompressorTemperatureScale()
+        {
+            throw new NotImplementedException();
+        }
+
+        public double ReadCompressorPressureScale()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool WriteSettingValues(double[] values)
+        {
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc cref="IDataGet.SubscribeForData"/>>

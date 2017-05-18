@@ -56,8 +56,16 @@ namespace CryostatControlServer.HostService
         [OperationContract]
         bool ControlCompressor(bool status);
 
+        /// <summary>
+        /// Writes values to the helium7 heaters.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <returns>
+        /// <c>true</c> values could be set.
+        /// <c>false</c> values could not be set, either there is no connection,
+        /// input values are incorrect or manual control isn't allowed</returns>
         [OperationContract]
-        bool WriteHelium7(double[] data);
+        bool WriteHelium7(double[] values);
 
         /// <summary>
         /// Reads the specified sensor.
@@ -66,6 +74,15 @@ namespace CryostatControlServer.HostService
         /// <returns>Current value of the sensor</returns>
         [OperationContract]
         float ReadSensor(int id);
+
+        [OperationContract]
+        double ReadCompressorTemperatureScale();
+
+        [OperationContract]
+        double ReadCompressorPressureScale();
+
+        [OperationContract]
+        bool WriteSettingValues(double[] values);
 
         #endregion Methods
     }
