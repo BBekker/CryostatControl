@@ -17,7 +17,7 @@ namespace CryostatControlClient.ViewModels
     /// For trying out
     /// </summary>
     /// <seealso cref="CryostatControlClient.ViewModels.AbstractViewModel" />
-    public class TestViewModel : AbstractViewModel
+    public class ModusViewModel : AbstractViewModel
     {
         #region Fields
 
@@ -39,11 +39,6 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// The selected tab index
         /// </summary>
-        private int selectedTabIndex;
-
-        /// <summary>
-        /// The selected tab index
-        /// </summary>
         private int selectedComboIndex;
 
         #endregion
@@ -51,12 +46,11 @@ namespace CryostatControlClient.ViewModels
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TestViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ModusViewModel"/> class.
         /// </summary>
-        public TestViewModel()
+        public ModusViewModel()
         {
             this.time = "Now";
-            He7ViewModel.PropertyChanged += this.PropertyChanged;
 
             this.StartButtonCommand = new RelayCommand(this.OnClickStart, param => true);
             this.RadioButtonCommand = new RelayCommand(this.OnChangeRadio, param => true);
@@ -77,25 +71,6 @@ namespace CryostatControlClient.ViewModels
             get
             {
                 return this.time;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the index of the selected tab.
-        /// </summary>
-        /// <value>
-        /// The index of the selected tab.
-        /// </value>
-        public int SelectedTabIndex
-        {
-            get
-            {
-                return this.selectedTabIndex;
-            }
-            set
-            {
-                this.selectedTabIndex = value;
-                this.RaisePropertyChanged("SelectedTabIndex");
             }
         }
 

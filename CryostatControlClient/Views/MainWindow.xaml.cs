@@ -37,7 +37,7 @@ namespace CryostatControlClient.Views
         public MainWindow()
         {
             this.Loaded += this.MainWindowLoaded;
-            this.handler = new PropertyChangedEventHandler(this.HandleChanges);
+            this.handler = this.HandleChanges;
         }
 
         /// <summary>
@@ -53,13 +53,6 @@ namespace CryostatControlClient.Views
 
             this.dc.TestViewModel.PropertyChanged += this.handler;
             this.dc.He7ViewModel.PropertyChanged += this.handler;
-
-            this.dc.He7ViewModel.He4PumpTemp = 5000;
-
-            // test setters
-            // dc.BlueforsViewModel.ColdPlate50KTemp = 3000;
-            // dc.CompressorViewModel.OperatingState = 1000;
-            // dc.He7ViewModel.FourKPlateTemp = 5000;
         }
 
         /// <summary>

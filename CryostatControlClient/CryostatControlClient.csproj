@@ -101,7 +101,7 @@
     <Compile Include="ViewModels\DataContext.cs" />
     <Compile Include="ViewModels\He7ViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
-    <Compile Include="ViewModels\TestViewModel.cs">
+    <Compile Include="ViewModels\ModusViewModel.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Views\MainGraphFrame.xaml.cs">
