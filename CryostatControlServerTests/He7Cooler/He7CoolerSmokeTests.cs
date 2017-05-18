@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CryostatControlServerTests.He7Cooler
 {
+    using System.Threading;
+
     using CryostatControlServer.He7Cooler;
     using CryostatControlServer.Streams;
 
@@ -71,10 +73,36 @@ namespace CryostatControlServerTests.He7Cooler
             cooler.ReadVoltages();
             Assert.AreEqual(33.0, cooler.He3HeadT.Value, 0.01);
 
+            cooler.Disconnect();
+        }
 
+
+        [TestMethod]
+        public void SmokeTestReadValuesThreaded()
+        {
+            //Set up mock
+            var mockH7 = new Mock<IManagedStream>();
+            var fakeresponser = new He7ResponseGenerator();
+            mockH7.Setup(stream => stream.Open());
+            mockH7.Setup(stream => stream.WriteString(It.IsAny<string>()))
+                .Callback((string s) => fakeresponser.ListenToAny(s));
+            mockH7.Setup(stream => stream.ReadString()).Returns(() => fakeresponser.RespondToRead());
+
+
+            var agilent = new Agilent34972A();
+            agilent.Init(mockH7.Object);
+            var cooler = new CryostatControlServer.He7Cooler.He7Cooler();
+            cooler.Connect(agilent, true);
+
+            fakeresponser.responsevalues[(int)Channels.SensHe3HeadT] = 0.2147;
+            fakeresponser.responsevalues[(int)Channels.SensHe3Pump] = 5.0;
+            Thread.Sleep(500);
+
+            Assert.AreEqual(5.0, cooler.He3Pump.Voltage);
+
+            Assert.AreEqual(33.0, cooler.He3HeadT.Value, 0.01);
 
             cooler.Disconnect();
-
         }
     }
 }

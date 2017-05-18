@@ -168,6 +168,7 @@ namespace CryostatControlServer.LakeShore
                             Thread.Sleep(ReadInterval);
                         }
                     });
+            this.readthread.Start();
         }
 
         /// <summary>
