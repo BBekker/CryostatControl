@@ -25,17 +25,17 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// The BVM
         /// </summary>
-        private BlueforsViewModel bvm;
+        private BlueforsViewModel blueforsViewModel;
 
         /// <summary>
         /// The CVM
         /// </summary>
-        private CompressorViewModel cvm;
+        private CompressorViewModel compressorViewModel;
 
         /// <summary>
         /// The HVM
         /// </summary>
-        private He7ViewModel hvm;
+        private He7ViewModel he7ViewModel;
 
         #endregion Fields
 
@@ -46,9 +46,9 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         public DataContext()
         {
-            this.bvm = new BlueforsViewModel();
-            this.cvm = new CompressorViewModel();
-            this.hvm = new He7ViewModel();
+            this.blueforsViewModel = new BlueforsViewModel();
+            this.compressorViewModel = new CompressorViewModel();
+            this.he7ViewModel = new He7ViewModel();
         }
 
         #endregion Constructor
@@ -65,7 +65,7 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.bvm;
+                return this.blueforsViewModel;
             }
         }
 
@@ -79,7 +79,7 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.cvm;
+                return this.compressorViewModel;
             }
         }
 
@@ -93,7 +93,7 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.hvm;
+                return this.he7ViewModel;
             }
         }
 

@@ -11,20 +11,17 @@
 
     <materialDesign:Card Style="{StaticResource tabFrameCard}">
         <dragablz:TabablzControl Style="{StaticResource TabFrame}">
-            <dragablz:TabablzControl.InterTabController>
-                <dragablz:InterTabController />
-            </dragablz:TabablzControl.InterTabController>
-            <TabItem Header="He-7 Cooler">
-                <Frame Source="Tabs/He7Frame.xaml" />
-            </TabItem>
             <TabItem Header="Overview">
                 <Frame Source="Tabs/OverviewFrame.xaml" />
             </TabItem>
-            <TabItem Header="Compressor">
-                <Frame Source="Tabs/CompressorFrame.xaml" />
+            <TabItem Header="He-7 Cooler">
+                <Frame Source="Tabs/He7Frame.xaml" />
             </TabItem>
             <TabItem Header="BlueFors cryostat">
                 <Frame Source="Tabs/BlueforsFrame.xaml" />
+            </TabItem>
+            <TabItem Header="Compressor">
+                <Frame Source="Tabs/CompressorFrame.xaml" />
             </TabItem>
             <TabItem Header="Graph">
                 <Frame Source="Tabs/GraphFrame.xaml" />
