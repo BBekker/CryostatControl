@@ -20,62 +20,137 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The four k plate temperature
         /// </summary>
-        private int fourKPlateTemp;
+        private double fourKPlateTemp;
+
+        /// <summary>
+        /// The four k plate max 1.
+        /// </summary>
+        private double fourKPlateMax1;
+
+        /// <summary>
+        /// The four k plate max 2.
+        /// </summary>
+        private double fourKPlateMax2;
 
         /// <summary>
         /// The he3 head temperature
         /// </summary>
-        private int he3HeadTemp;
+        private double he3HeadTemp;
+
+        /// <summary>
+        /// The he 3 head max.
+        /// </summary>
+        private double he3HeadMax;
 
         /// <summary>
         /// The he3 pump temperature
         /// </summary>
-        private int he3PumpTemp;
+        private double he3PumpTemp;
 
         /// <summary>
         /// The he3 pump volt
         /// </summary>
-        private int he3PumpVolt;
+        private double he3PumpActualVolt;
+
+        /// <summary>
+        /// The he 3 pump new volt.
+        /// </summary>
+        private double he3PumpNewVolt;
+
+        /// <summary>
+        /// The he 3 pump max.
+        /// </summary>
+        private double he3PumpMax;
 
         /// <summary>
         /// The he3 switch temperature
         /// </summary>
-        private int he3SwitchTemp;
+        private double he3SwitchTemp;
 
         /// <summary>
-        /// The he3 switch volt
+        /// The he3 switch actual volt
         /// </summary>
-        private int he3SwitchVolt;
+        private double he3SwitchActualVolt;
+
+        /// <summary>
+        /// The he 3 switch new volt.
+        /// </summary>
+        private double he3SwitchNewVolt;
+
+        /// <summary>
+        /// The he 3 switch max 1.
+        /// </summary>
+        private double he3SwitchMax1;
+
+        /// <summary>
+        /// The he 3 switch max 2.
+        /// </summary>
+        private double he3SwitchMax2;
 
         /// <summary>
         /// The he4 head temperature
         /// </summary>
-        private int he4HeadTemp;
+        private double he4HeadTemp;
+
+        /// <summary>
+        /// The he 4 head max.
+        /// </summary>
+        private double he4HeadMax;
 
         /// <summary>
         /// The he4 pump temperature
         /// </summary>
-        private int he4PumpTemp;
+        private double he4PumpTemp;
 
         /// <summary>
-        /// The he4 pump volt
+        /// The he4 pump actual volt
         /// </summary>
-        private int he4PumpVolt;
+        private double he4PumpActualVolt;
+
+        /// <summary>
+        /// The he 4 pump new volt.
+        /// </summary>
+        private double he4PumpNewVolt;
+
+        /// <summary>
+        /// The he 4 pump max.
+        /// </summary>
+        private double he4PumpMax;
 
         /// <summary>
         /// The he4 switch temperature
         /// </summary>
-        private int he4SwitchTemp;
+        private double he4SwitchTemp;
 
         /// <summary>
-        /// The he4 switch volt
+        /// The he4 switch actual volt
         /// </summary>
-        private int he4SwitchVolt;
+        private double he4SwitchActualVolt;
+
+        /// <summary>
+        /// The he4 switch new volt
+        /// </summary>
+        private double he4SwitchNewVolt;
+
+        /// <summary>
+        /// The he 4 switch max 1.
+        /// </summary>
+        private double he4SwitchMax1;
+
+        /// <summary>
+        /// The he 4 switch max 2.
+        /// </summary>
+        private double he4SwitchMax2;
 
         /// <summary>
         /// The two k plate temperature
         /// </summary>
-        private int twoKPlateTemp;
+        private double twoKPlateTemp;
+
+        /// <summary>
+        /// The connection state.
+        /// </summary>
+        private double connectionState;
 
         #endregion Fields
 
@@ -87,7 +162,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The four k plate temperature.
         /// </value>
-        public int FourKPlateTemp
+        public double FourKPlateTemp
         {
             get
             {
@@ -101,12 +176,44 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
+        /// Gets or sets the four k plate max 1.
+        /// </summary>
+        public double FourKPlateMax1
+        {
+            get
+            {
+                return this.fourKPlateMax1;
+            }
+
+            set
+            {
+                this.fourKPlateMax1 = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the four k plate max 2.
+        /// </summary>
+        public double FourKPlateMax2
+        {
+            get
+            {
+                return this.fourKPlateMax2;
+            }
+
+            set
+            {
+                this.fourKPlateMax2 = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the he3 head temperature.
         /// </summary>
         /// <value>
         /// The he3 head temperature.
         /// </value>
-        public int He3HeadTemp
+        public double He3HeadTemp
         {
             get
             {
@@ -120,12 +227,28 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
+        /// Gets or sets the he 3 head max.
+        /// </summary>
+        public double He3HeadMax
+        {
+            get
+            {
+                return this.he3HeadMax;
+            }
+
+            set
+            {
+                this.he3HeadMax = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the he3 pump temperature.
         /// </summary>
         /// <value>
         /// The he3 pump temperature.
         /// </value>
-        public int He3PumpTemp
+        public double He3PumpTemp
         {
             get
             {
@@ -139,21 +262,50 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he3 pump volt.
+        /// Gets or sets the he 3 pump actual volt.
         /// </summary>
-        /// <value>
-        /// The he3 pump volt.
-        /// </value>
-        public int He3PumpVolt
+        public double He3PumpActualVolt
         {
             get
             {
-                return this.he3PumpVolt;
+                return this.he3PumpActualVolt;
             }
 
             set
             {
-                this.he3PumpVolt = value;
+                this.he3PumpActualVolt = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he 3 pump new volt.
+        /// </summary>
+        public double He3PumpNewVolt
+        {
+            get
+            {
+                return this.he3PumpNewVolt;
+            }
+
+            set
+            {
+                this.he3PumpNewVolt = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he 3 pump max.
+        /// </summary>
+        public double He3PumpMax
+        {
+            get
+            {
+                return this.he3PumpMax;
+            }
+
+            set
+            {
+                this.he3PumpMax = value;
             }
         }
 
@@ -163,7 +315,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he3 switch temperature.
         /// </value>
-        public int He3SwitchTemp
+        public double He3SwitchTemp
         {
             get
             {
@@ -177,21 +329,66 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he3 switch volt.
+        /// Gets or sets the he 3 switch actual volt.
         /// </summary>
-        /// <value>
-        /// The he3 switch volt.
-        /// </value>
-        public int He3SwitchVolt
+        public double He3SwitchActualVolt
         {
             get
             {
-                return this.he3SwitchVolt;
+                return this.he3SwitchActualVolt;
             }
 
             set
             {
-                this.he3SwitchVolt = value;
+                this.he3SwitchActualVolt = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he 3 switch new volt.
+        /// </summary>
+        public double He3SwitchNewVolt
+        {
+            get
+            {
+                return this.he3SwitchNewVolt;
+            }
+
+            set
+            {
+                this.he3SwitchNewVolt = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he 3 switch max 1.
+        /// </summary>
+        public double He3SwitchMax1
+        {
+            get
+            {
+                return this.he3SwitchMax1;
+            }
+
+            set
+            {
+                this.he3SwitchMax1 = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he 3 switch max 2.
+        /// </summary>
+        public double He3SwitchMax2
+        {
+            get
+            {
+                return this.he3SwitchMax2;
+            }
+
+            set
+            {
+                this.he3SwitchMax2 = value;
             }
         }
 
@@ -201,7 +398,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he4 head temperature.
         /// </value>
-        public int He4HeadTemp
+        public double He4HeadTemp
         {
             get
             {
@@ -215,12 +412,28 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
+        /// Gets or sets the he 4 head max.
+        /// </summary>
+        public double He4HeadMax
+        {
+            get
+            {
+                return this.he4HeadMax;
+            }
+
+            set
+            {
+                this.he4HeadMax = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the he4 pump temperature.
         /// </summary>
         /// <value>
         /// The he4 pump temperature.
         /// </value>
-        public int He4PumpTemp
+        public double He4PumpTemp
         {
             get
             {
@@ -234,21 +447,50 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he4 pump volt.
+        /// Gets or sets the he 4 pump actual volt.
         /// </summary>
-        /// <value>
-        /// The he4 pump volt.
-        /// </value>
-        public int He4PumpVolt
+        public double He4PumpActualVolt
         {
             get
             {
-                return this.he4PumpVolt;
+                return this.he4PumpActualVolt;
             }
 
             set
             {
-                this.he4PumpVolt = value;
+                this.he4PumpActualVolt = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he 4 pump new volt.
+        /// </summary>
+        public double He4PumpNewVolt
+        {
+            get
+            {
+                return this.he4PumpNewVolt;
+            }
+
+            set
+            {
+                this.he4PumpNewVolt = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he 4 pump max.
+        /// </summary>
+        public double He4PumpMax
+        {
+            get
+            {
+                return this.he4PumpMax;
+            }
+
+            set
+            {
+                this.he4PumpMax = value;
             }
         }
 
@@ -258,7 +500,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he4 switch temperature.
         /// </value>
-        public int He4SwitchTemp
+        public double He4SwitchTemp
         {
             get
             {
@@ -272,21 +514,66 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he4 switch volt.
+        /// Gets or sets the he 4 switch actual volt.
         /// </summary>
-        /// <value>
-        /// The he4 switch volt.
-        /// </value>
-        public int He4SwitchVolt
+        public double He4SwitchActualVolt
         {
             get
             {
-                return this.he4SwitchVolt;
+                return this.he4SwitchActualVolt;
             }
 
             set
             {
-                this.he4SwitchVolt = value;
+                this.he4SwitchActualVolt = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he 4 switch new volt.
+        /// </summary>
+        public double He4SwitchNewVolt
+        {
+            get
+            {
+                return this.he4SwitchNewVolt;
+            }
+
+            set
+            {
+                this.he4SwitchNewVolt = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he 4 switch max 1.
+        /// </summary>
+        public double He4SwitchMax1
+        {
+            get
+            {
+                return this.he4SwitchMax1;
+            }
+
+            set
+            {
+                this.he4SwitchMax1 = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he 4 switch max 2.
+        /// </summary>
+        public double He4SwitchMax2
+        {
+            get
+            {
+                return this.he4SwitchMax2;
+            }
+
+            set
+            {
+                this.he4SwitchMax2 = value;
             }
         }
 
@@ -296,7 +583,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The two k plate temperature.
         /// </value>
-        public int TwoKPlateTemp
+        public double TwoKPlateTemp
         {
             get
             {
@@ -309,6 +596,22 @@ namespace CryostatControlClient.Models
             }
         }
 
-    #endregion Properties
+        /// <summary>
+        /// Gets or sets the connection state.
+        /// </summary>
+        public double ConnectionState
+        {
+            get
+            {
+                return this.connectionState;
+            }
+
+            set
+            {
+                this.connectionState = value;
+            }
+        }
+
+        #endregion Properties
     }
 }

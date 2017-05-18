@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryostatControlServer", "Cr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryostatControlServerTests", "CryostatControlServerTests\CryostatControlServerTests.csproj", "{3551FA04-53E2-49F4-9DA1-5601611DDDC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryostatControlClientTests", "CryostatControlClientTests\CryostatControlClientTests.csproj", "{296D25B2-26B7-4866-B42B-ABA8D0EF0728}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3551FA04-53E2-49F4-9DA1-5601611DDDC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3551FA04-53E2-49F4-9DA1-5601611DDDC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3551FA04-53E2-49F4-9DA1-5601611DDDC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{296D25B2-26B7-4866-B42B-ABA8D0EF0728}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{296D25B2-26B7-4866-B42B-ABA8D0EF0728}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{296D25B2-26B7-4866-B42B-ABA8D0EF0728}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{296D25B2-26B7-4866-B42B-ABA8D0EF0728}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
