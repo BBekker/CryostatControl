@@ -22,6 +22,25 @@ namespace CryostatControlClient.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
+        /// Convert connection state number to string.
+        /// </summary>
+        /// <param name="connectionState">
+        /// The connection state.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string ConvertConnectionStateNumberToString(double connectionState)
+        {
+            switch ((int)connectionState)
+            {
+                case 0: return "Disconnected";
+                case 1: return "Connected";
+                default: return "No information";
+            }
+        }
+
+        /// <summary>
         /// The raise property changed.
         /// </summary>
         /// <param name="propertyName">
