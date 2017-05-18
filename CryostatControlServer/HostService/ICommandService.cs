@@ -44,6 +44,22 @@ namespace CryostatControlServer.HostService
         bool Warmup();
 
         /// <summary>
+        /// Sets the compressor on or off.
+        /// <c>true</c> to turn the compressor on.
+        /// <c>false</c> to turn the compressor off.
+        /// </summary>
+        /// <param name="status">if set to <c>true</c> [compressor on] if <c>false</c> [compressor off]</param>
+        /// <returns>
+        /// <c>true</c> if the status is set
+        /// <c>false</c> status could not been set either there is no connection or the compressor is controlled by an automatic process.
+        /// </returns>
+        [OperationContract]
+        bool ControlCompressor(bool status);
+
+        [OperationContract]
+        bool WriteHelium7(double[] data);
+
+        /// <summary>
         /// Reads the specified sensor.
         /// </summary>
         /// <param name="id">The identifier of the sensor</param>

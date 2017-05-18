@@ -49,6 +49,10 @@ namespace CryostatControlServer
         /// </summary>
         private ISensor[] sensors = new ISensor[(int)DataEnumerator.SensorAmount];
 
+        private He7Cooler.He7Cooler.Heater[] heaters = new He7Cooler.He7Cooler.Heater[(int)WriteEnumerator.HeaterAmount];
+
+        private double[] heaterExpectedValues = new double[(int)WriteEnumerator.HeaterAmount];
+
         /// <summary>
         /// The compressor
         /// </summary>
@@ -63,6 +67,11 @@ namespace CryostatControlServer
         /// The he7 cooler
         /// </summary>
         private He7Cooler.He7Cooler he7Cooler;
+
+        /// <summary>
+        /// Manual control is allowed or not
+        /// </summary>
+        private bool manualControl = true;
 
         #endregion Fields
 
@@ -83,6 +92,7 @@ namespace CryostatControlServer
             this.lakeShore = lakeShore;
             this.he7Cooler = he7Cooler;
 
+            ////this.FillHeaters();
             ////this.FillSensors();
             this.dataReadOut = new DataReadOut(this.compressor, this.sensors);
         }
@@ -98,6 +108,62 @@ namespace CryostatControlServer
         public double[] ReadData()
         {
             return this.dataReadOut.FillData();
+        }
+
+        /// <summary>
+        /// Turns the compressor on or off.
+        /// </summary>
+        /// <param name="status">if set to <c>true</c> [on].</param>
+        /// <returns>
+        /// <c>true</c> if the status is set.
+        /// <c>false</c> status could not been set, either is has no connection or manual control isn't allowed.
+        /// </returns>
+        public bool ControlCompressor(bool status)
+        {
+            if (!this.manualControl)
+            {
+                return false;
+            }
+            if (status)
+            {
+                this.compressor.TurnOn();
+            }
+            else
+            {
+                this.compressor.TurnOff();
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Writes values to the helium7 heaters.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <returns>
+        /// <c>true</c> values could be set.
+        /// <c>false</c> values could not be set, either there is no connection,
+        /// input values are incorrect or manual control isn't allowed</returns>
+        public bool WriteHelium7Heaters(double[] values)
+        {
+            ////todo add safety check
+
+            if (values.Length != (int)WriteEnumerator.HeaterAmount || !this.manualControl)
+            {
+                return false;
+            }
+            for (int i = 0; i < values.Length; i++)
+            {
+                this.heaters[i].Voltage = values[i];
+            }
+            return true;
+        }
+
+        private void FillHeaters()
+        {
+            this.heaters[(int)WriteEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.PumpHe3, Channels.SensHe3Pump, this.he7Cooler);
+            this.heaters[(int)WriteEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.PumpHe4, Channels.SensHe4Pump, this.he7Cooler);
+            this.heaters[(int)WriteEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.SwitchHe3, Channels.SensHe3Switch, this.he7Cooler);
+            this.heaters[(int)WriteEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.SwitchHe4, Channels.SensHe4Switch, this.he7Cooler);
         }
 
         /// <summary>

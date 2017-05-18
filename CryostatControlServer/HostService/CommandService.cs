@@ -10,6 +10,8 @@ namespace CryostatControlServer.HostService
     using System.ServiceModel;
     using System.Threading;
 
+    using CryostatControlServer.HostService.Enumerators;
+
     /// <summary>
     /// Service class which handles the incoming methods calls.
     /// </summary>
@@ -72,6 +74,18 @@ namespace CryostatControlServer.HostService
         public bool Warmup()
         {
             return false;
+        }
+
+        /// <inheritdoc cref="ICommandService.ControlCompressor"/>
+        public bool ControlCompressor(bool status)
+        {
+            return this.cryostatControl.ControlCompressor(status);
+        }
+
+        /// <inheritdoc cref="ICommandService.WriteHelium7"/>
+        public bool WriteHelium7(double[] data)
+        {
+            return data.Length == (int)WriteEnumerator.HeaterAmount && this.cryostatControl.WriteHelium7Heaters(data);
         }
 
         /// <inheritdoc cref="ICommandService.ReadSensor"/>>
