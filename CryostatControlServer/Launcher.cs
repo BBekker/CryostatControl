@@ -7,9 +7,6 @@ namespace CryostatControlServer
 {
     using System;
     using System.ServiceModel;
-    using System.ServiceModel.Description;
-
-    using CryostatControlServer.Compressor;
     using CryostatControlServer.HostService;
 
     /// <summary>
@@ -19,11 +16,29 @@ namespace CryostatControlServer
     {
         #region Fields
 
-        private const string localhost = "127.0.0.1";
+        /// <summary>
+        /// The host address for the compressor
+        /// </summary>
+        private const string CompressorHost = "127.0.0.1";
+
+        /// <summary>
+        /// The host address
+        /// </summary>
+        private const string HostAddress = "http://localhost:8080/SRON";
+
+        /// <summary>
+        /// The compressor
+        /// </summary>
         private static Compressor.Compressor compressor;
 
+        /// <summary>
+        /// The lake shore
+        /// </summary>
         private static LakeShore.LakeShore lakeShore;
 
+        /// <summary>
+        /// The he7 cooler
+        /// </summary>
         private static He7Cooler.He7Cooler he7Cooler;
 
         #endregion Fields
@@ -36,52 +51,59 @@ namespace CryostatControlServer
         /// <param name="args">The arguments.</param>
         public static void Main(string[] args)
         {
-            //this.lakeShore = new LakeShore.LakeShore();
-            //this.he7Cooler = new He7Cooler.He7Cooler();
+            ////InitComponents();
+            StartHost();
+        }
 
-            //try
-            //{
-            //    this.lakeShore.Init("COM1");
-            //}
-            //catch (Exception)
-            //{
-            //    Console.WriteLine("No connection with LakeShore");
-
-            //    //todo handle exception
-            //}
-
-            //try
-            //{
-            //    this.he7Cooler.Connect(localhost);
-            //}
-            //catch (Exception)
-            //{
-            //    Console.WriteLine("No connection with He7");
-
-            //    //todo handle exception
-            //}
+        /// <summary>
+        /// Initializes the components.
+        /// </summary>
+        private static void InitComponents()
+        {
+            lakeShore = new LakeShore.LakeShore();
+            he7Cooler = new He7Cooler.He7Cooler();
 
             try
             {
-                compressor = new Compressor.Compressor(localhost);
+                lakeShore.Init("COM1");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("No connection with LakeShore");
+
+                ////todo handle exception
+            }
+
+            try
+            {
+                he7Cooler.Connect(CompressorHost);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("No connection with He7");
+
+                ////todo handle exception
+            }
+
+            try
+            {
+                compressor = new Compressor.Compressor(CompressorHost);
             }
             catch (Exception)
             {
                 Console.WriteLine("No connection with Compressor");
 
-                //todo handle exception
+                ////todo handle exception
             }
-
-            StartHost();
         }
 
+        /// <summary>
+        /// Starts the web service.
+        /// </summary>
         private static void StartHost()
         {
             CommandService hostService = new CommandService(compressor, lakeShore, he7Cooler);
-
-            Uri baseAddress = new Uri("http://localhost:8080/SRON");
-
-            // Create the ServiceHost.
+            Uri baseAddress = new Uri(HostAddress);
             using (ServiceHost host = new ServiceHost(hostService, baseAddress))
             {
                 // Enable metadata publishing.
@@ -89,22 +111,12 @@ namespace CryostatControlServer
                 ////smb.HttpGetEnabled = true;
                 ////smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
                 ////host.Description.Behaviors.Add(smb);
-
-                // Open the ServiceHost to start listening for messages. Since
-                // no endpoints are explicitly configured, the runtime will create
-                // one endpoint per base address for each service contract implemented
-                // by the service.
-
                 ((ServiceBehaviorAttribute)host.Description.Behaviors[typeof(ServiceBehaviorAttribute)])
                     .InstanceContextMode = InstanceContextMode.Single;
-
                 host.Open();
-
                 Console.WriteLine("The service is ready at {0}", baseAddress);
                 Console.WriteLine("Press <Enter> to stop the service.");
                 Console.ReadLine();
-
-                // Close the ServiceHost.
                 host.Close();
             }
         }

@@ -1,4 +1,9 @@
-﻿namespace CryostatControlServer
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CryostatControl.cs" company="SRON">
+//      Copyright (c) SRON. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+namespace CryostatControlServer
 {
     using System;
 
@@ -7,12 +12,15 @@
     using CryostatControlServer.HostService.Enumerators;
     using CryostatControlServer.LakeShore;
 
+    /// <summary>
+    /// Class which handles all the request by the client.
+    /// </summary>
     public class CryostatControl
     {
         #region Fields
 
         /// <summary>
-        /// The ruox calibration file location.
+        /// The calibration file location for helium heads.
         /// </summary>
         private const string RuoxFile = "..\\..\\RUOX.CAL";
 
@@ -31,19 +39,41 @@
         /// </summary>
         private const string DiodeFile = "..\\..\\DIODE.CAL";
 
+        /// <summary>
+        /// The data read out
+        /// </summary>
+        private readonly DataReadOut dataReadOut;
+
+        /// <summary>
+        /// The sensors
+        /// </summary>
         private ISensor[] sensors = new ISensor[(int)DataEnumerator.SensorAmount];
+
+        /// <summary>
+        /// The compressor
+        /// </summary>
         private Compressor.Compressor compressor;
 
+        /// <summary>
+        /// The lake shore
+        /// </summary>
         private LakeShore.LakeShore lakeShore;
 
+        /// <summary>
+        /// The he7 cooler
+        /// </summary>
         private He7Cooler.He7Cooler he7Cooler;
-
-        private DataReadOut dataReadOut;
 
         #endregion Fields
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CryostatControl"/> class.
+        /// </summary>
+        /// <param name="compressor">The compressor.</param>
+        /// <param name="lakeShore">The lake shore.</param>
+        /// <param name="he7Cooler">The he7 cooler.</param>
         public CryostatControl(
             Compressor.Compressor compressor,
             LakeShore.LakeShore lakeShore,
@@ -53,7 +83,7 @@
             this.lakeShore = lakeShore;
             this.he7Cooler = he7Cooler;
 
-            //this.FillSensors();
+            ////this.FillSensors();
             this.dataReadOut = new DataReadOut(this.compressor, this.sensors);
         }
 
@@ -61,22 +91,33 @@
 
         #region Methods
 
+        /// <summary>
+        /// Reads the data.
+        /// </summary>
+        /// <returns>data array with sensor values</returns>
         public double[] ReadData()
         {
-            return this.dataReadOut.fillData();
+            return this.dataReadOut.FillData();
         }
 
+        /// <summary>
+        /// Fills the sensors initially with empty sensors than fills it for each component.
+        /// </summary>
         private void FillSensors()
         {
             for (int i = 0; i < this.sensors.Length; i++)
             {
                 this.sensors[i] = new EmptySensor();
             }
+
             this.FillLakeShoreSensors();
             this.FillCompressorSensors();
             this.FillHe7Sensors();
         }
 
+        /// <summary>
+        /// Fills the lake shore sensors.
+        /// </summary>
         private void FillLakeShoreSensors()
         {
             try
@@ -90,10 +131,13 @@
             {
                 Console.WriteLine("Something went wrong filling lakeShore sensors");
 
-                //todo: handle it further, try reconnecting?
+                ////todo: handle it further, try reconnecting?
             }
         }
 
+        /// <summary>
+        /// Fills the compressor sensors.
+        /// </summary>
         private void FillCompressorSensors()
         {
             try
@@ -112,10 +156,13 @@
             {
                 Console.WriteLine("Something went wrong filling Compressor sensors");
 
-                //todo: handle it further, try reconnecting?
+                ////todo: handle it further, try reconnecting?
             }
         }
 
+        /// <summary>
+        /// Fills the he7 sensors.
+        /// </summary>
         private void FillHe7Sensors()
         {
             try
@@ -146,7 +193,7 @@
             {
                 Console.WriteLine("Something went wrong filling He7 sensors");
 
-                //todo: handle it further, try reconnecting?
+                ////todo: handle it further, try reconnecting?
             }
         }
 

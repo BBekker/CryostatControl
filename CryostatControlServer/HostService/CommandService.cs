@@ -18,17 +18,26 @@ namespace CryostatControlServer.HostService
     {
         #region Fields
 
-        private CryostatControl cryostatControl;
+        /// <summary>
+        /// The cryostat control
+        /// </summary>
+        private readonly CryostatControl cryostatControl;
 
         /// <summary>
         /// The callback list
         /// </summary>
-        private Dictionary<IDataGetCallback, Timer> callbacksListeners = new Dictionary<IDataGetCallback, Timer>();
+        private readonly Dictionary<IDataGetCallback, Timer> callbacksListeners = new Dictionary<IDataGetCallback, Timer>();
 
         #endregion Fields
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommandService"/> class.
+        /// </summary>
+        /// <param name="compressor">The compressor.</param>
+        /// <param name="lakeShore">The lake shore.</param>
+        /// <param name="he7Cooler">The he7 cooler.</param>
         public CommandService(
             Compressor.Compressor compressor,
             LakeShore.LakeShore lakeShore,

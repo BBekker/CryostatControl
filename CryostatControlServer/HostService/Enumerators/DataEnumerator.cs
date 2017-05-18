@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="CompressorEnum.cs" company="SRON">
+// <copyright file="DataEnumerator.cs" company="SRON">
 //     Copyright (c) SRON. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
