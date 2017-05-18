@@ -3,6 +3,7 @@
     <CollectionProperty Name="RecognizedWords">
       <Value>bluefors</Value>
       <Value>xaml</Value>
+      <Value>modi</Value>
     </CollectionProperty>
   </GlobalSettings>
 </StyleCopSettings>

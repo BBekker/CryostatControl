@@ -13,6 +13,8 @@ namespace CryostatControlClient.ViewModels
     using System.Collections.ObjectModel;
     using System.Windows.Input;
 
+    using CryostatControlClient.Models;
+
     /// <summary>
     /// For trying out
     /// </summary>
@@ -32,14 +34,9 @@ namespace CryostatControlClient.ViewModels
         private ICommand radioButtonCommand;
 
         /// <summary>
-        /// The command
+        /// The modus model
         /// </summary>
-        private string time;
-
-        /// <summary>
-        /// The selected tab index
-        /// </summary>
-        private int selectedComboIndex;
+        private ModusModel modusModel;
 
         #endregion
 
@@ -50,7 +47,7 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         public ModusViewModel()
         {
-            this.time = "Now";
+            this.modusModel = new ModusModel();
 
             this.StartButtonCommand = new RelayCommand(this.OnClickStart, param => true);
             this.RadioButtonCommand = new RelayCommand(this.OnChangeRadio, param => true);
@@ -70,7 +67,11 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.time;
+                return this.modusModel.Time;
+            }
+            set
+            {
+                this.modusModel.Time = value;
             }
         }
 
@@ -84,11 +85,11 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.selectedComboIndex;
+                return this.modusModel.SelectedComboIndex;
             }
             set
             {
-                this.selectedComboIndex = value;
+                this.modusModel.SelectedComboIndex = value;
             }
         }
 
@@ -111,7 +112,6 @@ namespace CryostatControlClient.ViewModels
             set
             {
                 this.startButtonCommand = value;
-                this.RaisePropertyChanged("StartPressed");
             }
         }
 
@@ -143,7 +143,7 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         public void OnChangeRadio(object obj)
         {
-            this.time = obj.ToString();
+            this.Time = obj.ToString();
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         public void OnClickStart(object obj)
         {
-            Console.WriteLine("Start - {0} - {1}", this.selectedComboIndex, this.time);
+            this.RaisePropertyChanged("StartPressed");
         }
 
         #endregion Methods

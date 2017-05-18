@@ -24,7 +24,7 @@ namespace CryostatControlClient.Views
         /// <summary>
         /// The handler
         /// </summary>
-        private PropertyChangedEventHandler handler;
+        private PropertyChangedEventHandler modusHandler;
 
         /// <summary>
         /// The dc
@@ -37,7 +37,7 @@ namespace CryostatControlClient.Views
         public MainWindow()
         {
             this.Loaded += this.MainWindowLoaded;
-            this.handler = this.HandleChanges;
+            this.modusHandler = this.HandleModus;
         }
 
         /// <summary>
@@ -51,8 +51,8 @@ namespace CryostatControlClient.Views
 
             this.DataContext = this.dc;
 
-            this.dc.TestViewModel.PropertyChanged += this.handler;
-            this.dc.He7ViewModel.PropertyChanged += this.handler;
+            this.dc.TestViewModel.PropertyChanged += this.modusHandler;
+            //this.dc.He7ViewModel.PropertyChanged += this.handler;
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace CryostatControlClient.Views
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
-        private void HandleChanges(object sender, PropertyChangedEventArgs e)
+        private void HandleModus(object sender, PropertyChangedEventArgs e)
         {
             string action = e.PropertyName;
 
@@ -69,19 +69,11 @@ namespace CryostatControlClient.Views
                 string radio = this.dc.TestViewModel.SelectedComboIndex + string.Empty;
                 string time = this.dc.TestViewModel.Time;
 
-                Console.WriteLine("Start - {0} - {1}", radio, time);
-            }
-            else if (action == "SelectedTabIndex")
-            {
-                Console.WriteLine("Changing tabs");
+                Console.WriteLine("Start           - {0} - {1}", radio, time);
             }
             else
             {
-                Console.WriteLine("***************************************************************");
-                Console.WriteLine("Sender - {0}", sender);
-                Console.WriteLine("Args   - {0}", e.PropertyName);
-                Console.WriteLine("Value  - {0}", (sender as He7ViewModel).He4PumpTemp);
-                //Console.WriteLine("Set value - {0} - {1}", "Test", "Test");
+                Console.WriteLine("Unknown command -" + action);
             }
         }
     }
