@@ -135,7 +135,7 @@ namespace CryostatControlClient.ServiceReference1 {
     public interface IDataGetCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SendData")]
-        void SendData(float[] data);
+        void SendData(double[] data);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

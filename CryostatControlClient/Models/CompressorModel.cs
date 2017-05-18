@@ -7,6 +7,8 @@ namespace CryostatControlClient.Models
 {
     using System;
 
+    using Dragablz.Dockablz;
+
     /// <summary>
     /// The compressor model.
     /// </summary>
@@ -17,102 +19,82 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The operating state
         /// </summary>
-        private int operatingState;
-
-        /// <summary>
-        /// The compressor running
-        /// </summary>
-        private int compressorRunning;
+        private double operatingState;
 
         /// <summary>
         /// The warning state
         /// </summary>
-        private int warningState;
+        private double warningState;
 
         /// <summary>
-        /// The alarm state
+        /// The error state
         /// </summary>
-        private int alarmState;
+        private double errorState;
 
         /// <summary>
-        /// The coolant in temperature
+        /// The water in temperature
         /// </summary>
-        private int coolantInTemp;
+        private double waterInTemp;
 
         /// <summary>
-        /// The coolant out temperature
+        /// The water out temperature
         /// </summary>
-        private int coolantOutTemp;
+        private double waterOutTemp;
 
         /// <summary>
         /// The oil temperature
         /// </summary>
-        private int oilTemp;
+        private double oilTemp;
 
         /// <summary>
         /// The helium temperature
         /// </summary>
-        private int heliumTemp;
+        private double heliumTemp;
 
         /// <summary>
         /// The low pressure
         /// </summary>
-        private int lowPressure;
+        private double lowPressure;
 
         /// <summary>
         /// The low pressure average
         /// </summary>
-        private int lowPressureAverage;
+        private double lowPressureAverage;
 
         /// <summary>
         /// The high pressure
         /// </summary>
-        private int highPressure;
+        private double highPressure;
 
         /// <summary>
         /// The high pressure average
         /// </summary>
-        private int highPressureAverage;
+        private double highPressureAverage;
 
         /// <summary>
         /// The delta pressure average
         /// </summary>
-        private int deltaPressureAverage;
-
-        /// <summary>
-        /// The motor current
-        /// </summary>
-        private int motorCurrent;
+        private double deltaPressureAverage;
 
         /// <summary>
         /// The hours of operation
         /// </summary>
-        private int hoursOfOperation;
+        private double hoursOfOperation;
 
         /// <summary>
         /// The pressure scale
         /// </summary>
-        private int pressureScale;
+        private string pressureScale;
 
         /// <summary>
         /// The temperature scale
         /// </summary>
-        private int tempScale;
+        private string tempScale;
 
         /// <summary>
-        /// The panel serial number
+        /// The connection state
         /// </summary>
-        private int panelSerialNumber;
-
-        /// <summary>
-        /// The model major minor numbers
-        /// </summary>
-        private int modelMajorMinorNumbers;
-
-        /// <summary>
-        /// The power on
-        /// </summary>
-        private bool powerOn;
+        private double connectionState;
 
         #endregion Fields
 
@@ -124,7 +106,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The state of the operating.
         /// </value>
-        public int OperatingState
+        public double OperatingState
         {
             get
             {
@@ -138,31 +120,12 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the compressor running.
-        /// </summary>
-        /// <value>
-        /// The compressor running.
-        /// </value>
-        public int CompressorRunning
-        {
-            get
-            {
-                return this.compressorRunning;
-            }
-
-            set
-            {
-                this.compressorRunning = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the state of the warning.
         /// </summary>
         /// <value>
         /// The state of the warning.
         /// </value>
-        public int WarningState
+        public double WarningState
         {
             get
             {
@@ -181,16 +144,16 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The state of the alarm.
         /// </value>
-        public int AlarmState
+        public double ErrorState
         {
             get
             {
-                return this.alarmState;
+                return this.errorState;
             }
 
             set
             {
-                this.alarmState = value;
+                this.errorState = value;
             }
         }
 
@@ -200,16 +163,16 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The coolant in temperature.
         /// </value>
-        public int CoolantInTemp
+        public double WaterInTemp
         {
             get
             {
-                return this.coolantInTemp;
+                return this.waterInTemp;
             }
 
             set
             {
-                this.coolantInTemp = value;
+                this.waterInTemp = value;
             }
         }
 
@@ -219,16 +182,16 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The coolant out temperature.
         /// </value>
-        public int CoolantOutTemp
+        public double WaterOutTemp
         {
             get
             {
-                return this.coolantOutTemp;
+                return this.waterOutTemp;
             }
 
             set
             {
-                this.coolantOutTemp = value;
+                this.waterOutTemp = value;
             }
         }
 
@@ -238,7 +201,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The oil temperature.
         /// </value>
-        public int OilTemp
+        public double OilTemp
         {
             get
             {
@@ -257,7 +220,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The helium temperature.
         /// </value>
-        public int HeliumTemp
+        public double HeliumTemp
         {
             get
             {
@@ -276,7 +239,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The low pressure.
         /// </value>
-        public int LowPressure
+        public double LowPressure
         {
             get
             {
@@ -295,7 +258,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The low pressure average.
         /// </value>
-        public int LowPressureAverage
+        public double LowPressureAverage
         {
             get
             {
@@ -314,7 +277,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The high pressure.
         /// </value>
-        public int HighPressure
+        public double HighPressure
         {
             get
             {
@@ -333,7 +296,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The high pressure average.
         /// </value>
-        public int HighPressureAverage
+        public double HighPressureAverage
         {
             get
             {
@@ -352,7 +315,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The delta pressure average.
         /// </value>
-        public int DeltaPressureAverage
+        public double DeltaPressureAverage
         {
             get
             {
@@ -366,31 +329,12 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the motor current.
-        /// </summary>
-        /// <value>
-        /// The motor current.
-        /// </value>
-        public int MotorCurrent
-        {
-            get
-            {
-                return this.motorCurrent;
-            }
-
-            set
-            {
-                this.motorCurrent = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the hours of operation.
         /// </summary>
         /// <value>
         /// The hours of operation.
         /// </value>
-        public int HoursOfOperation
+        public double HoursOfOperation
         {
             get
             {
@@ -409,7 +353,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The pressure scale.
         /// </value>
-        public int PressureScale
+        public string PressureScale
         {
             get
             {
@@ -428,7 +372,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The temperature scale.
         /// </value>
-        public int TempScale
+        public string TempScale
         {
             get
             {
@@ -442,59 +386,21 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the panel serial number.
+        /// Gets or sets the connection state.
         /// </summary>
         /// <value>
-        /// The panel serial number.
+        /// The connection state.
         /// </value>
-        public int PanelSerialNumber
+        public double ConnectionState
         {
             get
             {
-                return this.panelSerialNumber;
+                return this.connectionState;
             }
 
             set
             {
-                this.panelSerialNumber = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the model major minor numbers.
-        /// </summary>
-        /// <value>
-        /// The model major minor numbers.
-        /// </value>
-        public int ModelMajorMinorNumbers
-        {
-            get
-            {
-                return this.modelMajorMinorNumbers;
-            }
-
-            set
-            {
-                this.modelMajorMinorNumbers = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [power on].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [power on]; otherwise, <c>false</c>.
-        /// </value>
-        public bool PowerOn
-        {
-            get
-            {
-                return this.powerOn;
-            }
-
-            set
-            {
-                this.powerOn = value;
+                this.connectionState = value;
             }
         }
 

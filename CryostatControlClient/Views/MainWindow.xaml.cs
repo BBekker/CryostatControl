@@ -14,22 +14,37 @@ namespace CryostatControlClient.Views
     using System.Windows;
     using System.Windows.Controls;
 
+    using CryostatControlClient.Communication;
     using CryostatControlClient.ViewModels;
+
+    using CryostatControlServer.Compressor;
+    using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Fields
+
+        /// <summary>
+        /// The viewmodel container
+        /// </summary>
+        private ViewModelContainer viewModelContainer;
+
+        /// <summary>
+        /// The data receiver
+        /// </summary>
+        private DataReceiver dataReceiver;
+
+        #endregion Fields
+
+        #region Constructor
+
         /// <summary>
         /// The handler
         /// </summary>
         private PropertyChangedEventHandler modusHandler;
-
-        /// <summary>
-        /// The dc
-        /// </summary>
-        private DataContext dc;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -37,7 +52,22 @@ namespace CryostatControlClient.Views
         public MainWindow()
         {
             this.Loaded += this.MainWindowLoaded;
+            this.dataReceiver = new DataReceiver();
+
             this.modusHandler = this.HandleModus;
+        }
+
+        #endregion Constructor
+
+        #region Methods
+
+        /// <summary>
+        /// Updates the view models.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        public void UpdateViewModels(double[] data)
+        {
+            this.dataReceiver.UpdateViewModels(data, this.viewModelContainer);
         }
 
         /// <summary>
@@ -47,12 +77,11 @@ namespace CryostatControlClient.Views
         /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void MainWindowLoaded(object sender, RoutedEventArgs e)
         {
-            this.dc = new DataContext();
+            this.viewModelContainer = new ViewModelContainer();
 
-            this.DataContext = this.dc;
+            this.DataContext = this.viewModelContainer;
 
-            this.dc.TestViewModel.PropertyChanged += this.modusHandler;
-            //this.dc.He7ViewModel.PropertyChanged += this.handler;
+            this.viewModelContainer.TestViewModel.PropertyChanged += this.modusHandler;
         }
 
         /// <summary>
@@ -66,8 +95,8 @@ namespace CryostatControlClient.Views
 
             if (action == "StartPressed")
             {
-                string radio = this.dc.TestViewModel.SelectedComboIndex + string.Empty;
-                string time = this.dc.TestViewModel.Time;
+                string radio = this.viewModelContainer.TestViewModel.SelectedComboIndex + string.Empty;
+                string time = this.viewModelContainer.TestViewModel.Time;
 
                 Console.WriteLine("Start           - {0} - {1}", radio, time);
             }
@@ -76,5 +105,7 @@ namespace CryostatControlClient.Views
                 Console.WriteLine("Unknown command -" + action);
             }
         }
+
+        #endregion Methods
     }
 }

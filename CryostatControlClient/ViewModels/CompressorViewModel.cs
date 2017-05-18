@@ -9,6 +9,7 @@
 
 namespace CryostatControlClient.ViewModels
 {
+    using System;
     using CryostatControlClient.Models;
 
     /// <summary>
@@ -45,7 +46,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The state of the operating.
         /// </value>
-        public int OperatingState
+        public double OperatingState
         {
             get
             {
@@ -56,26 +57,18 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.OperatingState = value;
                 this.RaisePropertyChanged("OperatingState");
+                this.RaisePropertyChanged("OperatingStateConverted");
             }
         }
 
         /// <summary>
-        /// Gets or sets the compressor running.
+        /// Gets the operating state converted.
         /// </summary>
-        /// <value>
-        /// The compressor running.
-        /// </value>
-        public int CompressorRunning
+        public string OperatingStateConverted
         {
             get
             {
-                return this.compressorModel.CompressorRunning;
-            }
-
-            set
-            {
-                this.compressorModel.CompressorRunning = value;
-                this.RaisePropertyChanged("CompressorRunning");
+                return this.ConvertOperatingStateNumberToString(this.compressorModel.OperatingState);
             }
         }
 
@@ -85,7 +78,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The state of the warning.
         /// </value>
-        public int WarningState
+        public double WarningState
         {
             get
             {
@@ -100,62 +93,84 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
+        /// Gets the warning state converted.
+        /// </summary>
+        public string WarningStateConverted
+        {
+            get
+            {
+                return this.ConvertWarningStateNumberToString(this.compressorModel.WarningState);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the state of the alarm.
         /// </summary>
         /// <value>
         /// The state of the alarm.
         /// </value>
-        public int AlarmState
+        public double ErrorState
         {
             get
             {
-                return this.compressorModel.AlarmState;
+                return this.compressorModel.ErrorState;
             }
 
             set
             {
-                this.compressorModel.AlarmState = value;
-                this.RaisePropertyChanged("AlarmState");
+                this.compressorModel.ErrorState = value;
+                this.RaisePropertyChanged("ErrorState");
             }
         }
 
         /// <summary>
-        /// Gets or sets the coolant in temperature.
+        /// Gets the alarm state converted.
         /// </summary>
-        /// <value>
-        /// The coolant in temperature.
-        /// </value>
-        public int CoolantInTemp
+        public string ErrorStateConverted
         {
             get
             {
-                return this.compressorModel.CoolantInTemp;
-            }
-
-            set
-            {
-                this.compressorModel.CoolantInTemp = value;
-                this.RaisePropertyChanged("CoolantInTemp");
+                return this.ConvertErrorStateNumberToString(this.compressorModel.ErrorState);
             }
         }
 
         /// <summary>
-        /// Gets or sets the coolant out temperature.
+        /// Gets or sets the Water in temperature.
         /// </summary>
         /// <value>
-        /// The coolant out temperature.
+        /// The Water in temperature.
         /// </value>
-        public int CoolantOutTemp
+        public double WaterInTemp
         {
             get
             {
-                return this.compressorModel.CoolantOutTemp;
+                return this.compressorModel.WaterInTemp;
             }
 
             set
             {
-                this.compressorModel.CoolantOutTemp = value;
-                this.RaisePropertyChanged("CoolantOutTemp");
+                this.compressorModel.WaterInTemp = value;
+                this.RaisePropertyChanged("WaterInTemp");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the Water out temperature.
+        /// </summary>
+        /// <value>
+        /// The Water out temperature.
+        /// </value>
+        public double WaterOutTemp
+        {
+            get
+            {
+                return this.compressorModel.WaterOutTemp;
+            }
+
+            set
+            {
+                this.compressorModel.WaterOutTemp = value;
+                this.RaisePropertyChanged("WaterOutTemp");
             }
         }
 
@@ -165,7 +180,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The oil temperature.
         /// </value>
-        public int OilTemp
+        public double OilTemp
         {
             get
             {
@@ -185,7 +200,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The helium temperature.
         /// </value>
-        public int HeliumTemp
+        public double HeliumTemp
         {
             get
             {
@@ -205,7 +220,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The low pressure.
         /// </value>
-        public int LowPressure
+        public double LowPressure
         {
             get
             {
@@ -225,7 +240,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The low pressure average.
         /// </value>
-        public int LowPressureAverage
+        public double LowPressureAverage
         {
             get
             {
@@ -245,7 +260,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The high pressure.
         /// </value>
-        public int HighPressure
+        public double HighPressure
         {
             get
             {
@@ -265,7 +280,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The high pressure average.
         /// </value>
-        public int HighPressureAverage
+        public double HighPressureAverage
         {
             get
             {
@@ -285,7 +300,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The delta pressure average.
         /// </value>
-        public int DeltaPressureAverage
+        public double DeltaPressureAverage
         {
             get
             {
@@ -300,32 +315,12 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the motor current.
-        /// </summary>
-        /// <value>
-        /// The motor current.
-        /// </value>
-        public int MotorCurrent
-        {
-            get
-            {
-                return this.compressorModel.MotorCurrent;
-            }
-
-            set
-            {
-                this.compressorModel.MotorCurrent = value;
-                this.RaisePropertyChanged("MotorCurrent");
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the hours of operation.
         /// </summary>
         /// <value>
         /// The hours of operation.
         /// </value>
-        public int HoursOfOperation
+        public double HoursOfOperation
         {
             get
             {
@@ -345,7 +340,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The pressure scale.
         /// </value>
-        public int PressureScale
+        public string PressureScale
         {
             get
             {
@@ -365,7 +360,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The temperature scale.
         /// </value>
-        public int TempScale
+        public string TempScale
         {
             get
             {
@@ -380,65 +375,139 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the panel serial number.
-        /// </summary>
-        /// <value>
-        /// The panel serial number.
-        /// </value>
-        public int PanelSerialNumber
-        {
-            get
-            {
-                return this.compressorModel.PanelSerialNumber;
-            }
-
-            set
-            {
-                this.compressorModel.PanelSerialNumber = value;
-                this.RaisePropertyChanged("PanelSerialNumber");
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the model major minor numbers.
-        /// </summary>
-        /// <value>
-        /// The model major minor numbers.
-        /// </value>
-        public int ModelMajorMinorNumbers
-        {
-            get
-            {
-                return this.compressorModel.ModelMajorMinorNumbers;
-            }
-
-            set
-            {
-                this.compressorModel.ModelMajorMinorNumbers = value;
-                this.RaisePropertyChanged("ModelMajorMinorNumbers");
-            }
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether [power on].
         /// </summary>
         /// <value>
         ///   <c>true</c> if [power on]; otherwise, <c>false</c>.
         /// </value>
-        public bool PowerOn
+        public double ConnectionState
         {
             get
             {
-                return this.compressorModel.PowerOn;
+                return this.compressorModel.ConnectionState;
             }
 
             set
             {
-                this.compressorModel.PowerOn = value;
-                this.RaisePropertyChanged("PowerOn");
+                this.compressorModel.ConnectionState = value;
+                this.RaisePropertyChanged("ConnectionState");
+                this.RaisePropertyChanged("ConnectionStateConverted");
+            }
+        }
+
+        /// <summary>
+        /// Gets the connection state converted.
+        /// </summary>
+        public string ConnectionStateConverted
+        {
+            get
+            {
+                return this.ConvertConnectionStateNumberToString(this.compressorModel.ConnectionState);
             }
         }
 
         #endregion Properties
+
+        #region Methods
+
+        /// <summary>
+        /// Convert operating state number to string.
+        /// </summary>
+        /// <param name="operatingStateNumber">
+        /// The operating state number.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string ConvertOperatingStateNumberToString(double operatingStateNumber)
+        {
+            switch ((int)operatingStateNumber)
+            {
+                case 0: return "Ready to Start";
+                case 2: return "Starting";
+                case 3: return "Running";
+                case 5: return "Stopping";
+                case 6: return "Error Lockout";
+                case 7: return "Error";
+                case 8: return "Helium Cool Down";
+                case 9: return "Error Power Related";
+                case 16: return "Error Recovery";
+                default: return "No Information";
+            }
+        }
+
+        /// <summary>
+        /// Convert warning state number to string.
+        /// </summary>
+        /// <param name="warningStateNumber">
+        /// The warning state number.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string ConvertWarningStateNumberToString(double warningStateNumber)
+        {
+            switch ((int)warningStateNumber)
+            {
+                case 0: return "No warnings";
+                case -1: return "Water IN running High";
+                case -2: return "Water IN running Low";
+                case -4: return "Water OUT running High";
+                case -8: return "Water OUT running Low";
+                case -16: return "Oil running High";
+                case -32: return "Oil running Low";
+                case -64: return "Helium running High";
+                case -128: return "Helium running Low";
+                case -256: return "Low Pressure running High";
+                case -512: return "Low Pressure running Low";
+                case -1024: return "High Pressure running High";
+                case -2048: return "High Pressure running Low";
+                case -4096: return "Delta Pressure running High";
+                case -8192: return "Delta Pressure running Low";
+                case -131072: return "Static Pressure running High";
+                case -262144: return "Static Pressure running Low";
+                case -524288: return "Cold head motor Stall";
+                default: return "No Information";
+            }
+        }
+
+        /// <summary>
+        /// Convert alarm state number to string.
+        /// </summary>
+        /// <param name="errorStateNumber">
+        /// The alarm state number.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string ConvertErrorStateNumberToString(double errorStateNumber)
+        {
+            switch ((int)errorStateNumber)
+            {
+                case 0: return "No Errors";
+                case -1: return "Water IN High";
+                case -2: return "Water IN Low";
+                case -4: return "Water OUT High";
+                case -8: return "Water OUT Low";
+                case -16: return "Oil High";
+                case -32: return "Oil Low";
+                case -64: return "Helium High";
+                case -128: return "Helium Low";
+                case -256: return "Low Pressure High";
+                case -512: return "Low Pressure Low";
+                case -1024: return "High Pressure High";
+                case -2048: return "High Pressure Low";
+                case -4096: return "Delta Pressure High";
+                case -8192: return "Delta Pressure Low";
+                case -16384: return "Motor Current Low";
+                case -32768: return "Three Phase Error";
+                case -65536: return "Power Supply Error";
+                case -131072: return "Static Pressure High";
+                case -262144: return "Static Pressure Low";
+                default: return "No Information";
+            }
+        }
+
+        #endregion Methods
     }
 }

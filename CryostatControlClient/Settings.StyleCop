@@ -4,6 +4,7 @@
       <Value>bluefors</Value>
       <Value>xaml</Value>
       <Value>modi</Value>
+      <Value>viewmodel</Value>
     </CollectionProperty>
   </GlobalSettings>
 </StyleCopSettings>
