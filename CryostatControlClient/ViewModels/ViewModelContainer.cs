@@ -18,7 +18,7 @@ namespace CryostatControlClient.ViewModels
     /// <summary>
     /// The data context.
     /// </summary>
-    public class DataContext 
+    public class ViewModelContainer 
     {
         #region Fields
 
@@ -42,9 +42,9 @@ namespace CryostatControlClient.ViewModels
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataContext"/> class.
+        /// Initializes a new instance of the <see cref="ViewModelContainer" /> class.
         /// </summary>
-        public DataContext()
+        public ViewModelContainer()
         {
             this.blueforsViewModel = new BlueforsViewModel();
             this.compressorViewModel = new CompressorViewModel();

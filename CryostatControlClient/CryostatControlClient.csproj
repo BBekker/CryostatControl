@@ -87,6 +87,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Communication\DataReceiver.cs" />
     <Compile Include="Models\BlueforsModel.cs" />
     <Compile Include="Connected Services\ServiceReference1\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -98,7 +99,7 @@
     <Compile Include="ViewModels\AbstractViewModel.cs" />
     <Compile Include="ViewModels\BlueforsViewModel.cs" />
     <Compile Include="ViewModels\CompressorViewModel.cs" />
-    <Compile Include="ViewModels\DataContext.cs" />
+    <Compile Include="ViewModels\ViewModelContainer.cs" />
     <Compile Include="ViewModels\He7ViewModel.cs" />
     <Compile Include="Views\MainGraphFrame.xaml.cs">
       <DependentUpon>MainGraphFrame.xaml</DependentUpon>
