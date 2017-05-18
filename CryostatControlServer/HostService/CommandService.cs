@@ -29,9 +29,12 @@ namespace CryostatControlServer.HostService
 
         #region Constructors
 
-        public CommandService()
+        public CommandService(
+            Compressor.Compressor compressor,
+            LakeShore.LakeShore lakeShore,
+            He7Cooler.He7Cooler he7Cooler)
         {
-            this.cryostatControl = new CryostatControl();
+            this.cryostatControl = new CryostatControl(compressor, lakeShore, he7Cooler);
         }
 
         #endregion Constructors
@@ -100,7 +103,7 @@ namespace CryostatControlServer.HostService
         {
             Console.WriteLine("sending data to client");
             IDataGetCallback client = (IDataGetCallback)state;
-            double[] data = this.cryostatControl.fillData();
+            double[] data = this.cryostatControl.ReadData();
             client.SendData(data);
         }
 

@@ -58,6 +58,7 @@
     <Compile Include="Compressor\Enumerators\WarningsEnum.cs" />
     <Compile Include="Compressor\Sensor.cs" />
     <Compile Include="CryostatControl.cs" />
+    <Compile Include="DataReadOut.cs" />
     <Compile Include="He7Cooler\Agilent34972A.cs" />
     <Compile Include="He7Cooler\Channels.cs" />
     <Compile Include="He7Cooler\DigitalSwitch.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="HostService\IDataGet.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="EmptySensor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Streams\ManagedStream.cs" />
   </ItemGroup>

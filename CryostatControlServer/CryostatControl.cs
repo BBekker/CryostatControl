@@ -1,7 +1,6 @@
 ﻿namespace CryostatControlServer
 {
     using System;
-    using System.IO;
 
     using CryostatControlServer.Compressor;
     using CryostatControlServer.He7Cooler;
@@ -32,7 +31,6 @@
         /// </summary>
         private const string DiodeFile = "..\\..\\DIODE.CAL";
 
-        private const string localhost = "127.0.0.1";
         private ISensor[] sensors = new ISensor[(int)DataEnumerator.SensorAmount];
         private Compressor.Compressor compressor;
 
@@ -40,61 +38,32 @@
 
         private He7Cooler.He7Cooler he7Cooler;
 
+        private DataReadOut dataReadOut;
+
         #endregion Fields
+
+        #region Constructors
+
+        public CryostatControl(
+            Compressor.Compressor compressor,
+            LakeShore.LakeShore lakeShore,
+            He7Cooler.He7Cooler he7Cooler)
+        {
+            this.compressor = compressor;
+            this.lakeShore = lakeShore;
+            this.he7Cooler = he7Cooler;
+
+            //this.FillSensors();
+            this.dataReadOut = new DataReadOut(this.compressor, this.sensors);
+        }
+
+        #endregion Constructors
 
         #region Methods
 
-        public CryostatControl()
+        public double[] ReadData()
         {
-            this.lakeShore = new LakeShore.LakeShore();
-            this.he7Cooler = new He7Cooler.He7Cooler();
-
-            try
-            {
-                this.lakeShore.Init("COM1");
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("No connection with LakeShore");
-
-                //todo handle exception
-            }
-
-            try
-            {
-                this.he7Cooler.Connect(localhost);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("No connection with He7");
-
-                //todo handle exception
-            }
-
-            try
-            {
-                this.compressor = new Compressor.Compressor(localhost);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("No connection with Compressor");
-
-                //todo handle exception
-            }
-
-            this.FillSensors();
-        }
-
-        public double[] fillData()
-        {
-            double[] data = new double[(int)DataEnumerator.DataLenght];
-            for (int i = 0; i < data.Length; i++)
-            {
-                data[i] = double.MinValue;
-            }
-            this.FillDataWithSensor(data);
-            this.FillCompressorData(data);
-            return data;
+            return this.dataReadOut.fillData();
         }
 
         private void FillSensors()
@@ -165,7 +134,7 @@
                 this.sensors[(int)DataEnumerator.He4Head] = new He7Cooler.He7Cooler.Sensor(Channels.SensHe4HeadT, this.he7Cooler, he4Calibration);
 
                 this.sensors[(int)DataEnumerator.He3Volt] =
-                     new He7Cooler.He7Cooler.Sensor(Channels.SensHe3Pump, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
+                    new He7Cooler.He7Cooler.Sensor(Channels.SensHe3Pump, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
                 this.sensors[(int)DataEnumerator.He4SwitchVolt] =
                     new He7Cooler.He7Cooler.Sensor(Channels.SwitchHe4, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
                 this.sensors[(int)DataEnumerator.He3SwitchVolt] =
@@ -178,30 +147,6 @@
                 Console.WriteLine("Something went wrong filling He7 sensors");
 
                 //todo: handle it further, try reconnecting?
-            }
-        }
-
-        private void FillDataWithSensor(double[] data)
-        {
-            for (int i = 0; i < (int)DataEnumerator.SensorAmount; i++)
-            {
-                data[i] = this.sensors[i].Value;
-            }
-        }
-
-        private void FillCompressorData(double[] data)
-        {
-            try
-            {
-                data[(int)DataEnumerator.ComError] = (double)this.compressor.ReadErrorState();
-                data[(int)DataEnumerator.ComWarning] = (double)this.compressor.ReadWarningState();
-                data[(int)DataEnumerator.ComHoursOfOperation] = (double)this.compressor.ReadHoursOfOperation();
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Something went wrong with the compressor");
-
-                //todo handle exception
             }
         }
 
