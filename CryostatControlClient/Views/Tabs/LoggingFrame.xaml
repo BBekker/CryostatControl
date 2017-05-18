@@ -87,7 +87,7 @@
             <CheckBox>Low average</CheckBox>
             <CheckBox>High</CheckBox>
             <CheckBox>High average</CheckBox>
-            <CheckBox>Average average</CheckBox>
+            <CheckBox>Delta average</CheckBox>
         </StackPanel>
     </Grid>
 </Page>
