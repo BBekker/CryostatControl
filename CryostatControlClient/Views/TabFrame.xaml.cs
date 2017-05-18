@@ -9,6 +9,8 @@
 
 namespace CryostatControlClient.Views
 {
+    using System.Windows;
+
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
@@ -19,6 +21,11 @@ namespace CryostatControlClient.Views
         /// </summary>
         public TabFrame()
         {
+        }
+
+        private void FrameNavigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+            ((FrameworkElement)e.Content).DataContext = this.DataContext;
         }
     }
 }
