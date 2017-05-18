@@ -23,8 +23,8 @@
     <Label Grid.Row="1" Grid.Column="0">50K Plate</Label>
     <Label Grid.Row="1" Grid.Column="1" Content="{Binding BlueforsViewModel.ColdPlate50KTemp}" />
 
-    <Label Grid.Row="2" Grid.Column="0">30K Plate</Label>
-    <Label Grid.Row="2" Grid.Column="1" Content="{Binding BlueforsViewModel.ColdPlate30KTemp}" />
+    <Label Grid.Row="2" Grid.Column="0">3K Plate</Label>
+    <Label Grid.Row="2" Grid.Column="1" Content="{Binding BlueforsViewModel.ColdPlate3KTemp}" />
 
     <Label Grid.Row="3" Grid.Column="0">Heater</Label>
     <Label Grid.Row="3" Grid.Column="1" Content="xx" />
