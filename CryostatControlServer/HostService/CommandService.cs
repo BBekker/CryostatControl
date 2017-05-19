@@ -7,6 +7,7 @@ namespace CryostatControlServer.HostService
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.ServiceModel;
     using System.Threading;
 
@@ -145,7 +146,14 @@ namespace CryostatControlServer.HostService
             Console.WriteLine("sending data to client");
             IDataGetCallback client = (IDataGetCallback)state;
             double[] data = this.cryostatControl.ReadData();
-            client.SendData(data);
+            try
+            {
+                client.SendData(data);
+            }
+            catch (TimeoutException)
+            {
+                this.callbacksListeners.Remove(client);
+            }
         }
 
         #endregion Methods

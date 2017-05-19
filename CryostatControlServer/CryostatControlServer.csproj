@@ -101,7 +101,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="Streams\ManagedStream.cs" />
+    <Compile Include="Streams\BaseManagedStream.cs" />
+    <Compile Include="Streams\IManagedStream.cs" />
+    <Compile Include="Streams\ManagedCOMStream.cs" />
+    <Compile Include="Streams\ManagedTcpStream.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
