@@ -93,8 +93,17 @@ namespace CryostatControlServer
             this.lakeShore = lakeShore;
             this.he7Cooler = he7Cooler;
 
-            ////this.FillHeaters();
-            ////this.FillSensors();
+            try
+            {
+                this.FillHeaters();
+                this.FillSensors();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Something went wrong when filling the sensors");
+                ////todo handle it further.
+            }
+
             this.dataReadOut = new DataReadOut(this.compressor, this.sensors);
         }
 
@@ -119,7 +128,7 @@ namespace CryostatControlServer
         /// <c>true</c> if the status is set.
         /// <c>false</c> status could not been set, either is has no connection or manual control isn't allowed.
         /// </returns>
-        public bool ControlCompressor(bool status)
+        public bool SetCompressorState(bool status)
         {
             if (!this.manualControl)
             {

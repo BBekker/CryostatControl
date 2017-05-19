@@ -7,6 +7,9 @@ namespace CryostatControlServer.HostService
 {
     using System.ServiceModel;
 
+    using CryostatControlServer.Compressor;
+    using CryostatControlServer.HostService.Enumerators;
+
     /// <summary>
     /// Interface for the available commands
     /// </summary>
@@ -54,10 +57,11 @@ namespace CryostatControlServer.HostService
         /// <c>false</c> status could not been set either there is no connection or the compressor is controlled by an automatic process.
         /// </returns>
         [OperationContract]
-        bool ControlCompressor(bool status);
+        bool SetCompressorState(bool status);
 
         /// <summary>
         /// Writes values to the helium7 heaters.
+        /// <seealso cref="HeaterEnumerator"/> for position for each heater.
         /// </summary>
         /// <param name="values">The values.</param>
         /// <returns>
@@ -68,24 +72,16 @@ namespace CryostatControlServer.HostService
         bool WriteHelium7(double[] values);
 
         /// <summary>
-        /// Reads the specified sensor.
-        /// </summary>
-        /// <param name="id">The identifier of the sensor</param>
-        /// <returns>Current value of the sensor</returns>
-        [OperationContract]
-        float ReadSensor(int id);
-
-        /// <summary>
         /// Reads the compressor temperature scale.
         /// </summary>
-        /// <returns>Temperature scale in double</returns>
+        /// <returns>Temperature scale in double <seealso cref="TemperatureEnum"/></returns>
         [OperationContract]
         double ReadCompressorTemperatureScale();
 
         /// <summary>
         /// Reads the compressor pressure scale.
         /// </summary>
-        /// <returns>Pressure scale in double</returns>
+        /// <returns>Pressure scale in double <seealso cref="PressureEnum"/></returns>
         [OperationContract]
         double ReadCompressorPressureScale();
 

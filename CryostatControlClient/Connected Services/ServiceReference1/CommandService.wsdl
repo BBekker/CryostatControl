@@ -248,7 +248,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_ControlCompressor_Input_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_SetCompressorState_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -267,7 +267,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_ControlCompressor_output_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_SetCompressorState_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -306,44 +306,6 @@
     </wsp:ExactlyOne>
   </wsp:Policy>
   <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_WriteHelium7_output_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_ReadSensor_Input_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_ReadSensor_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -679,23 +641,17 @@
   <wsdl:message name="ICommandService_Warmup_OutputMessage">
     <wsdl:part name="parameters" element="tns:WarmupResponse" />
   </wsdl:message>
-  <wsdl:message name="ICommandService_ControlCompressor_InputMessage">
-    <wsdl:part name="parameters" element="tns:ControlCompressor" />
+  <wsdl:message name="ICommandService_SetCompressorState_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetCompressorState" />
   </wsdl:message>
-  <wsdl:message name="ICommandService_ControlCompressor_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ControlCompressorResponse" />
+  <wsdl:message name="ICommandService_SetCompressorState_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetCompressorStateResponse" />
   </wsdl:message>
   <wsdl:message name="ICommandService_WriteHelium7_InputMessage">
     <wsdl:part name="parameters" element="tns:WriteHelium7" />
   </wsdl:message>
   <wsdl:message name="ICommandService_WriteHelium7_OutputMessage">
     <wsdl:part name="parameters" element="tns:WriteHelium7Response" />
-  </wsdl:message>
-  <wsdl:message name="ICommandService_ReadSensor_InputMessage">
-    <wsdl:part name="parameters" element="tns:ReadSensor" />
-  </wsdl:message>
-  <wsdl:message name="ICommandService_ReadSensor_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ReadSensorResponse" />
   </wsdl:message>
   <wsdl:message name="ICommandService_ReadCompressorTemperatureScale_InputMessage">
     <wsdl:part name="parameters" element="tns:ReadCompressorTemperatureScale" />
@@ -741,17 +697,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/Warmup" message="tns:ICommandService_Warmup_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/WarmupResponse" message="tns:ICommandService_Warmup_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ControlCompressor">
-      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/ControlCompressor" message="tns:ICommandService_ControlCompressor_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/ControlCompressorResponse" message="tns:ICommandService_ControlCompressor_OutputMessage" />
+    <wsdl:operation name="SetCompressorState">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/SetCompressorState" message="tns:ICommandService_SetCompressorState_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/SetCompressorStateResponse" message="tns:ICommandService_SetCompressorState_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="WriteHelium7">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/WriteHelium7" message="tns:ICommandService_WriteHelium7_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/WriteHelium7Response" message="tns:ICommandService_WriteHelium7_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ReadSensor">
-      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/ReadSensor" message="tns:ICommandService_ReadSensor_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/ReadSensorResponse" message="tns:ICommandService_ReadSensor_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ReadCompressorTemperatureScale">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/ReadCompressorTemperatureScale" message="tns:ICommandService_ReadCompressorTemperatureScale_InputMessage" />
@@ -824,14 +776,14 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ControlCompressor">
-      <soap12:operation soapAction="http://tempuri.org/ICommandService/ControlCompressor" style="document" />
+    <wsdl:operation name="SetCompressorState">
+      <soap12:operation soapAction="http://tempuri.org/ICommandService/SetCompressorState" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_ControlCompressor_Input_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_SetCompressorState_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_ControlCompressor_output_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_SetCompressorState_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -843,17 +795,6 @@
       </wsdl:input>
       <wsdl:output>
         <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_WriteHelium7_output_policy" />
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ReadSensor">
-      <soap12:operation soapAction="http://tempuri.org/ICommandService/ReadSensor" style="document" />
-      <wsdl:input>
-        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_ReadSensor_Input_policy" />
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_ReadSensor_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

@@ -39,23 +39,17 @@ namespace CryostatControlClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Warmup", ReplyAction="http://tempuri.org/ICommandService/WarmupResponse")]
         System.Threading.Tasks.Task<bool> WarmupAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ControlCompressor", ReplyAction="http://tempuri.org/ICommandService/ControlCompressorResponse")]
-        bool ControlCompressor(bool status);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/SetCompressorState", ReplyAction="http://tempuri.org/ICommandService/SetCompressorStateResponse")]
+        bool SetCompressorState(bool status);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ControlCompressor", ReplyAction="http://tempuri.org/ICommandService/ControlCompressorResponse")]
-        System.Threading.Tasks.Task<bool> ControlCompressorAsync(bool status);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/SetCompressorState", ReplyAction="http://tempuri.org/ICommandService/SetCompressorStateResponse")]
+        System.Threading.Tasks.Task<bool> SetCompressorStateAsync(bool status);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteHelium7", ReplyAction="http://tempuri.org/ICommandService/WriteHelium7Response")]
         bool WriteHelium7(double[] values);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteHelium7", ReplyAction="http://tempuri.org/ICommandService/WriteHelium7Response")]
         System.Threading.Tasks.Task<bool> WriteHelium7Async(double[] values);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadSensor", ReplyAction="http://tempuri.org/ICommandService/ReadSensorResponse")]
-        float ReadSensor(int id);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadSensor", ReplyAction="http://tempuri.org/ICommandService/ReadSensorResponse")]
-        System.Threading.Tasks.Task<float> ReadSensorAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadCompressorTemperatureScale", ReplyAction="http://tempuri.org/ICommandService/ReadCompressorTemperatureScaleResponse")]
         double ReadCompressorTemperatureScale();
@@ -135,12 +129,12 @@ namespace CryostatControlClient.ServiceReference1 {
             return base.Channel.WarmupAsync();
         }
         
-        public bool ControlCompressor(bool status) {
-            return base.Channel.ControlCompressor(status);
+        public bool SetCompressorState(bool status) {
+            return base.Channel.SetCompressorState(status);
         }
         
-        public System.Threading.Tasks.Task<bool> ControlCompressorAsync(bool status) {
-            return base.Channel.ControlCompressorAsync(status);
+        public System.Threading.Tasks.Task<bool> SetCompressorStateAsync(bool status) {
+            return base.Channel.SetCompressorStateAsync(status);
         }
         
         public bool WriteHelium7(double[] values) {
@@ -149,14 +143,6 @@ namespace CryostatControlClient.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> WriteHelium7Async(double[] values) {
             return base.Channel.WriteHelium7Async(values);
-        }
-        
-        public float ReadSensor(int id) {
-            return base.Channel.ReadSensor(id);
-        }
-        
-        public System.Threading.Tasks.Task<float> ReadSensorAsync(int id) {
-            return base.Channel.ReadSensorAsync(id);
         }
         
         public double ReadCompressorTemperatureScale() {
