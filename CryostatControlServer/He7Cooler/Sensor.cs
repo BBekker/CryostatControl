@@ -25,6 +25,11 @@ namespace CryostatControlServer.He7Cooler
         public class Sensor : ISensor
         {
             /// <summary>
+            /// The sensor calibration.
+            /// </summary>
+            private Calibration calibration;
+
+            /// <summary>
             /// The Agilent data channel.
             /// </summary>
             private Channels channel;
@@ -33,11 +38,6 @@ namespace CryostatControlServer.He7Cooler
             /// The He7 cooler.
             /// </summary>
             private He7Cooler device;
-
-            /// <summary>
-            /// The sensor calibration.
-            /// </summary>
-            private Calibration calibration;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="Sensor"/> class.
@@ -57,8 +57,7 @@ namespace CryostatControlServer.He7Cooler
                 this.calibration = calibration;
                 this.device = device;
                 device.AddChannel(channel);
-                if(!device.values.ContainsKey(channel))
-                    device.values.Add(channel, 0.0);
+                device.values.Add(channel, 0.0);
             }
 
             /// <summary>
@@ -85,6 +84,16 @@ namespace CryostatControlServer.He7Cooler
             /// </summary>
             public class Calibration
             {
+                /// <summary>
+                /// The diode file.
+                /// </summary>
+                private const string DIODEFile = "..\\..\\DIODE.CAL";
+
+                /// <summary>
+                /// The ruox file.
+                /// </summary>
+                private const string RUOXFile = "..\\..\\RUOX.CAL";
+
                 /// <summary>
                 /// The calibration data.
                 /// </summary>
@@ -116,46 +125,29 @@ namespace CryostatControlServer.He7Cooler
                 }
 
                 /// <summary>
+                /// Gets the diode calibration.
+                /// </summary>
+                public static Calibration DiodeCalibration { get; } = new Calibration(DIODEFile, 1, 0);
+
+                /// <summary>
+                /// Gets the empty calibration.
+                /// </summary>
+                public static Calibration EmptyCalibration { get; } = new Calibration();
+
+                /// <summary>
+                /// Gets the he 3 calibration.
+                /// </summary>
+                public static Calibration He3Calibration { get; } = new Calibration(RUOXFile, 2, 0);
+
+                /// <summary>
+                /// Gets the he 4 calibration.
+                /// </summary>
+                public static Calibration He4Calibration { get; } = new Calibration(RUOXFile, 3, 0);
+
+                /// <summary>
                 /// The amount of data points in the calibration
                 /// </summary>
                 public int CalibrationSize => this.calibrationData.Count;
-
-                /// <summary>
-                /// Load sensor calibration from file.
-                /// </summary>
-                /// <param name="filename">
-                /// The filename.
-                /// </param>
-                /// <param name="voltColumn">
-                /// The volt column.
-                /// </param>
-                /// <param name="tempColumn">
-                /// The temp column.
-                /// </param>
-                public void LoadSensorCalibrationFromFile(string filename, int voltColumn, int tempColumn)
-                {
-                    StreamReader reader = new StreamReader(filename);
-                    try
-                    {
-                        // skip first line that contains headers
-                        reader.ReadLine();
-                        string line;
-                        while ((line = reader.ReadLine()) != null)
-                        {
-                            string[] columns = line.Split('\t');
-                            this.calibrationData.Add(
-                                new Tuple<double, double>(
-                                    double.Parse(columns[voltColumn]),
-                                    double.Parse(columns[tempColumn])));
-                        }
-
-                        this.calibrationData.Sort((first, second) => (first.Item1 - second.Item1) < 0 ? -1 : 1);
-                    }
-                    finally
-                    {
-                        reader.Close();
-                    }
-                }
 
                 /// <summary>
                 /// Add a calibration data point.
@@ -215,6 +207,43 @@ namespace CryostatControlServer.He7Cooler
 
                     // this should never be reached.
                     throw new InvalidOperationException("Calibration code failed.");
+                }
+
+                /// <summary>
+                /// Load sensor calibration from file.
+                /// </summary>
+                /// <param name="filename">
+                /// The filename.
+                /// </param>
+                /// <param name="voltColumn">
+                /// The volt column.
+                /// </param>
+                /// <param name="tempColumn">
+                /// The temp column.
+                /// </param>
+                public void LoadSensorCalibrationFromFile(string filename, int voltColumn, int tempColumn)
+                {
+                    StreamReader reader = new StreamReader(filename);
+                    try
+                    {
+                        // skip first line that contains headers
+                        reader.ReadLine();
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            string[] columns = line.Split('\t');
+                            this.calibrationData.Add(
+                                new Tuple<double, double>(
+                                    double.Parse(columns[voltColumn]),
+                                    double.Parse(columns[tempColumn])));
+                        }
+
+                        this.calibrationData.Sort((first, second) => (first.Item1 - second.Item1) < 0 ? -1 : 1);
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
                 }
 
                 /// <summary>

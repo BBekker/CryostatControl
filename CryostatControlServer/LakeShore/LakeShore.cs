@@ -53,7 +53,7 @@ namespace CryostatControlServer.LakeShore
         /// <summary>
         /// The connection.
         /// </summary>
-        private IManagedStream ms;
+        private IManagedStream stream;
 
         /// <summary>
         /// The read thread.
@@ -71,10 +71,10 @@ namespace CryostatControlServer.LakeShore
         public void Close()
         {
             // Stop the read thread inside a lock to prevent stopping while thread holds the lock.
-            Monitor.Enter(this.ms);
+            Monitor.Enter(this.stream);
             this.readthread.Abort();
-            Monitor.Exit(this.ms);
-            this.ms.Close();
+            Monitor.Exit(this.stream);
+            this.stream.Close();
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace CryostatControlServer.LakeShore
         /// <param name="portname">The port name.</param>
         public void Init(string portname)
         {
-            this.ms = new ManagedCOMStream(portname, BaudRate);
-            this.ms.Open();
+            this.stream = new ManagedCOMStream(portname, BaudRate);
+            this.stream.Open();
 
             this.StartReading();
         }
@@ -97,8 +97,8 @@ namespace CryostatControlServer.LakeShore
         /// </param>
         public void Init(IManagedStream managedStream)
         {
-            this.ms = managedStream;
-            this.ms.Open();
+            this.stream = managedStream;
+            this.stream.Open();
 
             this.StartReading();
         }
@@ -116,14 +116,14 @@ namespace CryostatControlServer.LakeShore
         {
             try
             {
-                Monitor.Enter(this.ms);
+                Monitor.Enter(this.stream);
                 this.WaitCommandInterval();
-                this.ms.WriteString("OPC?\n");
-                this.ms.ReadString();
+                this.stream.WriteString("OPC?\n");
+                this.stream.ReadString();
             }
             finally
             {
-                Monitor.Exit(this.ms);
+                Monitor.Exit(this.stream);
             }
         }
 
@@ -136,15 +136,15 @@ namespace CryostatControlServer.LakeShore
         {
             try
             {
-                Monitor.Enter(this.ms);
+                Monitor.Enter(this.stream);
                 this.WaitCommandInterval();
-                this.ms.WriteString($"KRDG? {sensor}\n");
-                string response = this.ms.ReadString();
+                this.stream.WriteString($"KRDG? {sensor}\n");
+                string response = this.stream.ReadString();
                 return double.Parse(response);
             }
             finally
             {
-                Monitor.Exit(this.ms);
+                Monitor.Exit(this.stream);
             }
         }
 
@@ -155,7 +155,7 @@ namespace CryostatControlServer.LakeShore
         {
             this.lastCommand = DateTime.Now;
 
-            this.ms.WriteString("MODE 1\n");
+            this.stream.WriteString("MODE 1\n");
             this.OPC();
 
             this.readthread = new Thread(
@@ -168,6 +168,7 @@ namespace CryostatControlServer.LakeShore
                             Thread.Sleep(ReadInterval);
                         }
                     });
+            this.readthread.Start();
         }
 
         /// <summary>
