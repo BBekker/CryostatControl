@@ -19,7 +19,9 @@ namespace CryostatControlServer
         /// <summary>
         /// The host address for the compressor
         /// </summary>
-        private const string CompressorHost = "127.0.0.1";
+        private const string CompressorHost = "169.254.16.68";
+
+        private const string CoolerHost = "192.168.1.100";
 
         /// <summary>
         /// The host address
@@ -63,7 +65,7 @@ namespace CryostatControlServer
             try
             {
                 lakeShore = new LakeShore.LakeShore();
-                lakeShore.Init("COM1");
+                lakeShore.Init("COM6");
             }
             catch (Exception)
             {
@@ -75,7 +77,7 @@ namespace CryostatControlServer
             try
             {
                 he7Cooler = new He7Cooler.He7Cooler();
-                he7Cooler.Connect(CompressorHost);
+                he7Cooler.Connect(CoolerHost);
             }
             catch (Exception)
             {

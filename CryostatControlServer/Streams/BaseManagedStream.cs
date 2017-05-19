@@ -19,6 +19,8 @@ namespace CryostatControlServer.Streams
     /// </summary>
     public abstract class BaseManagedStream : IManagedStream
     {
+        #region Fields
+
         /// <summary>
         /// The buffer size of the reader and writer.
         /// </summary>
@@ -34,10 +36,18 @@ namespace CryostatControlServer.Streams
         /// </summary>
         private StreamWriter writer;
 
+        #endregion Fields
+
+        #region Properties
+
         /// <summary>
         /// Gets or sets the contained stream.
         /// </summary>
         protected Stream ContainedStream { get; set; }
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// The open.
@@ -82,13 +92,14 @@ namespace CryostatControlServer.Streams
         public string ReadString()
         {
             var res = this.reader.ReadLine();
-#if (DEBUG)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write(res);
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-#endif
+
+            //#if (DEBUG)
+            //            {
+            //                Console.ForegroundColor = ConsoleColor.Green;
+            //                Console.Write(res);
+            //                Console.ForegroundColor = ConsoleColor.White;
+            //            }
+            //#endif
             return res;
         }
 
@@ -99,13 +110,14 @@ namespace CryostatControlServer.Streams
         public async Task<string> ReadStringAsync()
         {
             var res = await this.reader.ReadLineAsync();
-#if (DEBUG)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write(res);
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-#endif
+
+            //#if (DEBUG)
+            //            {
+            //                Console.ForegroundColor = ConsoleColor.Green;
+            //                Console.Write(res);
+            //                Console.ForegroundColor = ConsoleColor.White;
+            //            }
+            //#endif
             return res;
         }
 
@@ -117,5 +129,7 @@ namespace CryostatControlServer.Streams
             this.reader = new StreamReader(this.ContainedStream, Encoding.ASCII, false, BufferSize, true);
             this.writer = new StreamWriter(this.ContainedStream, Encoding.ASCII, BufferSize, true);
         }
+
+        #endregion Methods
     }
 }
