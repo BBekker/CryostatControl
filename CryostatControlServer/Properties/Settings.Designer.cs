@@ -178,5 +178,41 @@ namespace CryostatControlServer.Properties {
                 this["ControllerHeatupTemperature"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public double ControllerHe4StartTemperature {
+            get {
+                return ((double)(this["ControllerHe4StartTemperature"]));
+            }
+            set {
+                this["ControllerHe4StartTemperature"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public double ControllerHe3StartTemperature {
+            get {
+                return ((double)(this["ControllerHe3StartTemperature"]));
+            }
+            set {
+                this["ControllerHe3StartTemperature"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public double ControllerDisableHeaterHeatSwitchTemperature {
+            get {
+                return ((double)(this["ControllerDisableHeaterHeatSwitchTemperature"]));
+            }
+            set {
+                this["ControllerDisableHeaterHeatSwitchTemperature"] = value;
+            }
+        }
     }
 }

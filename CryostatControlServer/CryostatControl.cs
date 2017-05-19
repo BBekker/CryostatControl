@@ -69,6 +69,9 @@ namespace CryostatControlServer
         /// </summary>
         private He7Cooler.He7Cooler he7Cooler;
 
+        /// <summary>
+        /// The controller.
+        /// </summary>
         private Controller controller;
 
         /// <summary>
@@ -83,9 +86,18 @@ namespace CryostatControlServer
         /// <summary>
         /// Initializes a new instance of the <see cref="CryostatControl"/> class.
         /// </summary>
-        /// <param name="compressor">The compressor.</param>
-        /// <param name="lakeShore">The lake shore.</param>
-        /// <param name="he7Cooler">The he7 cooler.</param>
+        /// <param name="compressor">
+        /// The compressor.
+        /// </param>
+        /// <param name="lakeShore">
+        /// The lake shore.
+        /// </param>
+        /// <param name="he7Cooler">
+        /// The he7 cooler.
+        /// </param>
+        /// <param name="controller">
+        /// The controller.
+        /// </param>
         public CryostatControl(
             Compressor.Compressor compressor,
             LakeShore.LakeShore lakeShore,
@@ -112,9 +124,7 @@ namespace CryostatControlServer
         }
 
         #endregion Constructors
-
         #region Methods
-
 
         /// <summary>
         /// Cancels the current command safely.

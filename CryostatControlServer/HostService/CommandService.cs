@@ -39,9 +39,9 @@ namespace CryostatControlServer.HostService
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandService"/> class.
         /// </summary>
-        /// <param name="compressor">The compressor.</param>
-        /// <param name="lakeShore">The lake shore.</param>
-        /// <param name="he7Cooler">The he7 cooler.</param>
+        /// <param name="cryostatControl">
+        /// The cryostat Control.
+        /// </param>
         public CommandService(CryostatControl cryostatControl)
         {
             this.cryostatControl = cryostatControl;
@@ -112,6 +112,7 @@ namespace CryostatControlServer.HostService
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -131,6 +132,7 @@ namespace CryostatControlServer.HostService
                     }
                 }
             }
+
             return values;
         }
 

@@ -41,6 +41,9 @@ namespace CryostatControlServer
         /// </summary>
         private static He7Cooler.He7Cooler he7Cooler;
 
+        /// <summary>
+        /// The cryostat control.
+        /// </summary>
         private static CryostatControl cryostatControl;
 
         /// <summary>
@@ -105,7 +108,6 @@ namespace CryostatControlServer
             controller = new Controller(he7Cooler, lakeShore, compressor);
 
             cryostatControl = new CryostatControl(compressor, lakeShore, he7Cooler, controller);
-
         }
 
         /// <summary>

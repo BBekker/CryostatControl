@@ -109,7 +109,6 @@ namespace CryostatControlServer.HostService
         [OperationContract]
         double[] ReadSettings();
 
-
         #endregion Methods
     }
 }

@@ -32,5 +32,8 @@ namespace CryostatControlServer.HostService.Enumerators
         ControllerHeatSwitchOnTemperature,
         ControllerHeatSwitchSafeValue,
         ControllerHeatupTemperature,
+        ControllerHe4StartTemperature,
+        ControllerHe3StartTemperature,
+        ControllerDisableHeaterHeatSwitchTemperature,
     }
 }
