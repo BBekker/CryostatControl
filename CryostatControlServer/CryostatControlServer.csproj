@@ -85,6 +85,7 @@
     <Compile Include="He7Cooler\Heater.cs" />
     <Compile Include="He7Cooler\Sensor.cs" />
     <Compile Include="HostService\Enumerators\HeaterEnumerator.cs" />
+    <Compile Include="HostService\Enumerators\SettingEnumerator.cs" />
     <Compile Include="ISensor.cs" />
     <Compile Include="LakeShore\LakeShore.cs" />
     <Compile Include="LakeShore\Sensor.cs" />

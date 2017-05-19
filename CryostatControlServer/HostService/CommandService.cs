@@ -7,6 +7,7 @@ namespace CryostatControlServer.HostService
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
     using System.ServiceModel;
     using System.Threading;
@@ -102,9 +103,38 @@ namespace CryostatControlServer.HostService
         }
 
         /// <inheritdoc cref="ICommandService.WriteSettingValues"/>>
-        public bool WriteSettingValues(double[] values)
+        public bool WriteSettingValue(int setting, double value)
         {
-            throw new NotImplementedException();
+            SettingEnumerator settingEnum = (SettingEnumerator)setting;
+
+            foreach (SettingsProperty prop in Properties.Settings.Default.Properties)
+            {
+                if (prop.Name == settingEnum.ToString())
+                {
+                    Properties.Settings.Default[prop.Name] = value;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <inheritdoc cref="ICommandService.ReadSettings"/>
+        public double[] ReadSettings()
+        {
+            var settings = Enum.GetValues(typeof(SettingEnumerator)).Cast<SettingEnumerator>();
+
+            var values = new double[settings.ToArray().Length];
+            foreach (SettingEnumerator setting in settings)
+            {
+                foreach (SettingsProperty prop in Properties.Settings.Default.Properties)
+                {
+                    if (prop.Name == setting.ToString())
+                    {
+                        values[(int)setting] = (double)Properties.Settings.Default[setting.ToString()];
+                    }
+                }
+            }
+            return values;
         }
 
         /// <inheritdoc cref="IDataGet.SubscribeForData"/>>

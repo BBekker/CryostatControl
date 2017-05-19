@@ -88,10 +88,27 @@ namespace CryostatControlServer.HostService
         /// <summary>
         /// Writes the allowed settings to server.
         /// </summary>
-        /// <param name="values">The values.</param>
-        /// <returns>If the values have been written</returns>
+        /// <param name="setting">
+        /// The setting <see cref="SettingEnumerator"/>.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <returns>
+        /// If the values have been written
+        /// </returns>
         [OperationContract]
-        bool WriteSettingValues(double[] values);
+        bool WriteSettingValue(int setting, double value);
+
+        /// <summary>
+        /// Read all settings, ordered by the SettingEnumerator
+        /// </summary>
+        /// <returns>
+        /// The settings ordered by SettingEnumerator <see cref="double[]"/>.
+        /// </returns>
+        [OperationContract]
+        double[] ReadSettings();
+
 
         #endregion Methods
     }
