@@ -149,6 +149,7 @@ namespace CryostatControlServer
 
         /// <summary>
         /// Writes values to the helium7 heaters.
+        /// <seealso cref="HeaterEnumerator"/> for position for each heater.
         /// </summary>
         /// <param name="values">The values.</param>
         /// <returns>
@@ -175,7 +176,7 @@ namespace CryostatControlServer
         /// <summary>
         /// Reads the compressor temperature scale.
         /// </summary>
-        /// <returns>Temperature scale as double</returns>
+        /// <returns>Temperature scale in double <seealso cref="TemperatureEnum"/></returns>
         public double ReadCompressorTemperatureScale()
         {
             return (double)this.compressor.ReadTemperatureScale();
@@ -184,7 +185,7 @@ namespace CryostatControlServer
         /// <summary>
         /// Reads the compressor pressure scale.
         /// </summary>
-        /// <returns>Pressure scale as double</returns>
+        /// <returns>Pressure scale in double <seealso cref="PressureEnum"/></returns>
         public double ReadCompressorPressureScale()
         {
             return (double)this.compressor.ReadPressureScale();
@@ -192,6 +193,7 @@ namespace CryostatControlServer
 
         /// <summary>
         /// Fills the heaters.
+        /// <seealso cref="HeaterEnumerator"/> for the position of each heater
         /// </summary>
         private void FillHeaters()
         {
@@ -203,6 +205,7 @@ namespace CryostatControlServer
 
         /// <summary>
         /// Fills the sensors initially with empty sensors than fills it for each component.
+        /// <seealso cref="DataEnumerator"/> for the position of each sensor
         /// </summary>
         private void FillSensors()
         {
