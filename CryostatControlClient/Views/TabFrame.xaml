@@ -27,7 +27,7 @@
                 <Frame Source="Tabs/GraphFrame.xaml" />
             </TabItem>
             <TabItem Header="Logging">
-                <Frame Source="Tabs/LoggingFrame.xaml" />
+                <Frame Source="Tabs/LoggingFrame.xaml" Navigated="FrameNavigated"/>
             </TabItem>
 
         </dragablz:TabablzControl>

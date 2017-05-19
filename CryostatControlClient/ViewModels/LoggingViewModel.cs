@@ -1,154 +1,33 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LoggingModel.cs" company="SRON">
+// <copyright file="LoggingViewModel.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
-//   Defines the LoggingModel type.
+//   Defines the LoggingViewModel type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace CryostatControlClient.Models
+namespace CryostatControlClient.ViewModels
 {
+    using CryostatControlClient.Models;
+
     /// <summary>
-    /// The logging model.
+    /// The logging view model.
     /// </summary>
-    public class LoggingModel
+    public class LoggingViewModel : AbstractViewModel
     {
+        /// <summary>
+        /// The logging model.
+        /// </summary>
+        private LoggingModel loggingModel;
 
         /// <summary>
-        /// The he3 cold head temperature
+        /// Initializes a new instance of the <see cref="LoggingViewModel"/> class.
         /// </summary>
-        private bool he3ColdHeadTemp;
-
-        /// <summary>
-        /// The he3 warm head temperature
-        /// </summary>
-        private bool he3WarmHeadTemp;
-
-        /// <summary>
-        /// The he3 switch temperature
-        /// </summary>
-        private bool he3SwitchTemp;
-
-        /// <summary>
-        /// The he4 cold head temperature
-        /// </summary>
-        private bool he4ColdHeadTemp;
-
-        /// <summary>
-        /// The he4 warm head temperature
-        /// </summary>
-        private bool he4WarmHeadTemp;
-
-        /// <summary>
-        /// The he4 switch temperature
-        /// </summary>
-        private bool he4SwitchTemp;
-
-        /// <summary>
-        /// The two k plate temperature
-        /// </summary>
-        private bool twoKPlateTemp;
-
-        /// <summary>
-        /// The four k plate temperature
-        /// </summary>
-        private bool fourKPlateTemp;
-
-        /// <summary>
-        /// The he3 pump volt
-        /// </summary>
-        private bool he3PumpVolt;
-
-        /// <summary>
-        /// The he3 switch volt
-        /// </summary>
-        private bool he3SwitchVolt;
-
-        /// <summary>
-        /// The he4 pump volt
-        /// </summary>
-        private bool he4PumpVolt;
-
-        /// <summary>
-        /// The he4 switch volt
-        /// </summary>
-        private bool he4SwitchVolt;
-
-        /// <summary>
-        /// The bluefors50 k shield temperature
-        /// </summary>
-        private bool bluefors50KShieldTemp;
-
-        /// <summary>
-        /// The bluefors3 k shield temperature
-        /// </summary>
-        private bool bluefors3KShieldTemp;
-
-        /// <summary>
-        /// The bluefors heater
-        /// </summary>
-        private bool blueforsHeater;
-
-        /// <summary>
-        /// The bluefors50 k shield pressure
-        /// </summary>
-        private bool bluefors50KShieldPressure;
-
-        /// <summary>
-        /// The bluefors3 k shield pressure
-        /// </summary>
-        private bool bluefors3KShieldPressure;
-
-        /// <summary>
-        /// The compressor water in temperature
-        /// </summary>
-        private bool compressorWaterInTemp;
-
-        /// <summary>
-        /// The compressor water out temperature
-        /// </summary>
-        private bool compressorWaterOutTemp;
-
-        /// <summary>
-        /// The compressor helium temperature
-        /// </summary>
-        private bool compressorHeliumTemp;
-
-        /// <summary>
-        /// The compressor oil temperature
-        /// </summary>
-        private bool compressorOilTemp;
-
-        /// <summary>
-        /// The compressor low pressure
-        /// </summary>
-        private bool compressorLowPressure;
-
-        /// <summary>
-        /// The compressor low average pressure
-        /// </summary>
-        private bool compressorLowAveragePressure;
-
-        /// <summary>
-        /// The compressor high pressure
-        /// </summary>
-        private bool compressorHighPressure;
-
-        /// <summary>
-        /// The compressor high average pressure
-        /// </summary>
-        private bool compressorHighAveragePressure;
-
-        /// <summary>
-        /// The compressor delta average pressure
-        /// </summary>
-        private bool compressorDeltaAveragePressure;
-
-        /// <summary>
-        /// The logging interval
-        /// </summary>
-        private int loggingInterval;
+        public LoggingViewModel() 
+        {
+            this.loggingModel = new LoggingModel();
+        }
 
         /// <summary>
         /// Gets or sets the he3 cold head temperature.
@@ -160,12 +39,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he3ColdHeadTemp;
+                return this.loggingModel.He3ColdHeadTemp;
             }
 
             set
             {
-                this.he3ColdHeadTemp = value;
+                this.loggingModel.He3ColdHeadTemp = value;
+                this.RaisePropertyChanged("He3ColdHeadTemp");
             }
         }
 
@@ -179,12 +59,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this. he3WarmHeadTemp;
+                return this.loggingModel.He3WarmHeadTemp;
             }
 
             set
             {
-                this.he3WarmHeadTemp = value;
+                this.loggingModel.He3WarmHeadTemp = value;
+                this.RaisePropertyChanged("He3WarmHeadTemp");
             }
         }
 
@@ -198,12 +79,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he3SwitchTemp;
+                return this.loggingModel.He3SwitchTemp;
             }
 
             set
             {
-                this.he3SwitchTemp = value;
+                this.loggingModel.He3SwitchTemp = value;
+                this.RaisePropertyChanged("He3SwitchTemp");
             }
         }
 
@@ -217,12 +99,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he4ColdHeadTemp;
+                return this.loggingModel.He4ColdHeadTemp;
             }
 
             set
             {
-                this.he4ColdHeadTemp = value;
+                this.loggingModel.He4ColdHeadTemp = value;
+                this.RaisePropertyChanged("He4ColdHeadTemp");
             }
         }
 
@@ -236,12 +119,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he4WarmHeadTemp;
+                return this.loggingModel.He4WarmHeadTemp;
             }
 
             set
             {
-                this.he4WarmHeadTemp = value;
+                this.loggingModel.He4WarmHeadTemp = value;
+                this.RaisePropertyChanged("He4WarmHeadTemp");
             }
         }
 
@@ -255,12 +139,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he4SwitchTemp;
+                return this.loggingModel.He4SwitchTemp;
             }
 
             set
             {
-                this.he4SwitchTemp = value;
+                this.loggingModel.He4SwitchTemp = value;
+                this.RaisePropertyChanged("He4SwitchTemp");
             }
         }
 
@@ -274,12 +159,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.twoKPlateTemp;
+                return this.loggingModel.TwoKPlateTemp;
             }
 
             set
             {
-                this.twoKPlateTemp = value;
+                this.loggingModel.TwoKPlateTemp = value;
+                this.RaisePropertyChanged("TwoKPlateTemp");
             }
         }
 
@@ -293,12 +179,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.fourKPlateTemp;
+                return this.loggingModel.FourKPlateTemp;
             }
 
             set
             {
-                this.fourKPlateTemp = value;
+                this.loggingModel.FourKPlateTemp = value;
+                this.RaisePropertyChanged("FourKPlateTemp");
             }
         }
 
@@ -312,12 +199,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he3PumpVolt;
+                return this.loggingModel.He3PumpVolt;
             }
 
             set
             {
-                this.he3PumpVolt = value;
+                this.loggingModel.He3PumpVolt = value;
+                this.RaisePropertyChanged("He3PumpVolt");
             }
         }
 
@@ -331,12 +219,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he3SwitchVolt;
+                return this.loggingModel.He3SwitchVolt;
             }
 
             set
             {
-                this.he3SwitchVolt = value;
+                this.loggingModel.He3SwitchVolt = value;
+                this.RaisePropertyChanged("He3SwitchVolt");
             }
         }
 
@@ -350,12 +239,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he4PumpVolt;
+                return this.loggingModel.He4PumpVolt;
             }
 
             set
             {
-                this.he4PumpVolt = value;
+                this.loggingModel.He4PumpVolt = value;
+                this.RaisePropertyChanged("He4PumpVolt");
             }
         }
 
@@ -369,12 +259,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he4SwitchVolt;
+                return this.loggingModel.He4SwitchVolt;
             }
 
             set
             {
-                this.he4SwitchVolt = value;
+                this.loggingModel.He4SwitchVolt = value;
+                this.RaisePropertyChanged("He4SwitchVolt");
             }
         }
 
@@ -388,12 +279,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.bluefors50KShieldTemp;
+                return this.loggingModel.Bluefors50KShieldTemp;
             }
 
             set
             {
-                this.bluefors50KShieldTemp = value;
+                this.loggingModel.Bluefors50KShieldTemp = value;
+                this.RaisePropertyChanged("Bluefors50KShieldTemp");
             }
         }
 
@@ -407,12 +299,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.bluefors3KShieldTemp;
+                return this.loggingModel.Bluefors3KShieldTemp;
             }
 
             set
             {
-                this.bluefors3KShieldTemp = value;
+                this.loggingModel.Bluefors3KShieldTemp = value;
+                this.RaisePropertyChanged("Bluefors3KShieldTemp");
             }
         }
 
@@ -426,12 +319,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.blueforsHeater;
+                return this.loggingModel.BlueforsHeater;
             }
 
             set
             {
-                this.blueforsHeater = value;
+                this.loggingModel.BlueforsHeater = value;
+                this.RaisePropertyChanged("BlueforsHeater");
             }
         }
 
@@ -445,12 +339,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.bluefors50KShieldPressure;
+                return this.loggingModel.Bluefors50KShieldPressure;
             }
 
             set
             {
-                this.bluefors50KShieldPressure = value;
+                this.loggingModel.Bluefors50KShieldPressure = value;
+                this.RaisePropertyChanged("Bluefors50KShieldPressure");
             }
         }
 
@@ -464,12 +359,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.bluefors3KShieldPressure;
+                return this.loggingModel.Bluefors3KShieldPressure;
             }
 
             set
             {
-                this.bluefors3KShieldPressure = value;
+                this.loggingModel.Bluefors3KShieldPressure = value;
+                this.RaisePropertyChanged("Bluefors3KShieldPressure");
             }
         }
 
@@ -483,12 +379,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.compressorWaterInTemp;
+                return this.loggingModel.CompressorWaterInTemp;
             }
 
             set
             {
-                this.compressorWaterInTemp = value;
+                this.loggingModel.CompressorWaterInTemp = value;
+                this.RaisePropertyChanged("CompressorWaterInTemp");
             }
         }
 
@@ -502,12 +399,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.compressorWaterOutTemp;
+                return this.loggingModel.CompressorWaterOutTemp;
             }
 
             set
             {
-                this.compressorWaterOutTemp = value;
+                this.loggingModel.CompressorWaterOutTemp = value;
+                this.RaisePropertyChanged("CompressorWaterOutTemp");
             }
         }
 
@@ -521,12 +419,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.compressorHeliumTemp;
+                return this.loggingModel.CompressorHeliumTemp;
             }
 
             set
             {
-                this.compressorHeliumTemp = value;
+                this.loggingModel.CompressorHeliumTemp = value;
+                this.RaisePropertyChanged("CompressorHeliumTemp");
             }
         }
 
@@ -540,12 +439,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.compressorOilTemp;
+                return this.loggingModel.CompressorOilTemp;
             }
 
             set
             {
-                this.compressorOilTemp = value;
+                this.loggingModel.CompressorOilTemp = value;
+                this.RaisePropertyChanged("CompressorOilTemp");
             }
         }
 
@@ -559,12 +459,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.compressorLowPressure;
+                return this.loggingModel.CompressorLowPressure;
             }
 
             set
             {
-                this.compressorLowPressure = value;
+                this.loggingModel.CompressorLowPressure = value;
+                this.RaisePropertyChanged("CompressorLowPressure");
             }
         }
 
@@ -578,12 +479,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.compressorLowAveragePressure;
+                return this.loggingModel.CompressorLowAveragePressure;
             }
 
             set
             {
-                this.compressorLowAveragePressure = value;
+                this.loggingModel.CompressorLowAveragePressure = value;
+                this.RaisePropertyChanged("CompressorLowAveragePressure");
             }
         }
 
@@ -597,12 +499,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.compressorHighPressure;
+                return this.loggingModel.CompressorHighPressure;
             }
 
             set
             {
-                this.compressorHighPressure = value;
+                this.loggingModel.CompressorHighPressure = value;
+                this.RaisePropertyChanged("CompressorHighPressure");
             }
         }
 
@@ -616,12 +519,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.compressorHighAveragePressure;
+                return this.loggingModel.CompressorHighAveragePressure;
             }
 
             set
             {
-                this.compressorHighAveragePressure = value;
+                this.loggingModel.CompressorHighAveragePressure = value;
+                this.RaisePropertyChanged("CompressorHighAveragePressure");
             }
         }
 
@@ -635,12 +539,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.compressorDeltaAveragePressure;
+                return this.loggingModel.CompressorDeltaAveragePressure;
             }
 
             set
             {
-                this.compressorDeltaAveragePressure = value;
+                this.loggingModel.CompressorDeltaAveragePressure = value;
+                this.RaisePropertyChanged("CompressorDeltaAveragePressure");
             }
         }
 
@@ -654,12 +559,13 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.loggingInterval;
+                return this.loggingModel.LoggingInterval;
             }
 
             set
             {
-                this.loggingInterval = value;
+                this.loggingModel.LoggingInterval = value;
+                this.RaisePropertyChanged("LoggingInterval");
             }
         }
     }
