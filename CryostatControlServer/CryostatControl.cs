@@ -69,6 +69,8 @@ namespace CryostatControlServer
         /// </summary>
         private He7Cooler.He7Cooler he7Cooler;
 
+        private Controller controller;
+
         /// <summary>
         /// Manual control is allowed or not
         /// </summary>
@@ -87,11 +89,13 @@ namespace CryostatControlServer
         public CryostatControl(
             Compressor.Compressor compressor,
             LakeShore.LakeShore lakeShore,
-            He7Cooler.He7Cooler he7Cooler)
+            He7Cooler.He7Cooler he7Cooler,
+            Controller controller)
         {
             this.compressor = compressor;
             this.lakeShore = lakeShore;
             this.he7Cooler = he7Cooler;
+            this.controller = controller;
 
             try
             {
@@ -110,6 +114,53 @@ namespace CryostatControlServer
         #endregion Constructors
 
         #region Methods
+
+
+        /// <summary>
+        /// Cancels the current command safely.
+        /// </summary>
+        public void CancelCommand()
+        {
+            this.controller.CancelCommand();
+        }
+
+        /// <summary>
+        /// Starts the cool down id possible.
+        /// </summary>
+        /// <returns>true if cool down is started, false otherwise</returns>
+        public bool StartCooldown()
+        {
+            return this.controller.StartCooldown();
+        }
+
+        /// <summary>
+        /// Starts the heat up.
+        /// </summary>
+        /// <returns>true if heat up is started, false otherwise</returns>
+        public bool StartHeatup()
+        {
+            return this.controller.StartHeatup();
+        }
+
+        /// <summary>
+        /// Switch to manual control. Can only be started from Standby.
+        /// </summary>
+        /// <returns>
+        /// true if switched to manual control, false otherwise <see cref="bool"/>.
+        /// </returns>
+        public bool StartManualControl()
+        {
+            return this.controller.StartManualControl();
+        }
+
+        /// <summary>
+        /// Starts a recycle.
+        /// </summary>
+        /// <returns>true if recycle is started, false otherwise</returns>
+        public bool StartRecycle()
+        {
+            return this.controller.StartRecycle();
+        }
 
         /// <summary>
         /// Reads the data.

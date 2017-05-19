@@ -42,12 +42,9 @@ namespace CryostatControlServer.HostService
         /// <param name="compressor">The compressor.</param>
         /// <param name="lakeShore">The lake shore.</param>
         /// <param name="he7Cooler">The he7 cooler.</param>
-        public CommandService(
-            Compressor.Compressor compressor,
-            LakeShore.LakeShore lakeShore,
-            He7Cooler.He7Cooler he7Cooler)
+        public CommandService(CryostatControl cryostatControl)
         {
-            this.cryostatControl = new CryostatControl(compressor, lakeShore, he7Cooler);
+            this.cryostatControl = cryostatControl;
         }
 
         #endregion Constructors
@@ -63,19 +60,19 @@ namespace CryostatControlServer.HostService
         /// <inheritdoc cref="ICommandService.Cooldown"/>>
         public bool Cooldown()
         {
-            return false;
+            return this.cryostatControl.StartCooldown();
         }
 
         /// <inheritdoc cref="ICommandService.Recycle"/>>
         public bool Recycle()
         {
-            return false;
+            return this.cryostatControl.StartRecycle();
         }
 
         /// <inheritdoc cref="ICommandService.Warmup"/>>
         public bool Warmup()
         {
-            return false;
+            return this.cryostatControl.StartHeatup();
         }
 
         /// <inheritdoc cref="ICommandService.SetCompressorState"/>
