@@ -50,6 +50,11 @@ namespace CryostatControlServer
         private ISensor[] sensors = new ISensor[(int)DataEnumerator.SensorAmount];
 
         /// <summary>
+        /// The heaters
+        /// </summary>
+        private He7Cooler.He7Cooler.Heater[] heaters = new He7Cooler.He7Cooler.Heater[(int)HeaterEnumerator.HeaterAmount];
+
+        /// <summary>
         /// The compressor
         /// </summary>
         private Compressor.Compressor compressor;
@@ -63,6 +68,11 @@ namespace CryostatControlServer
         /// The he7 cooler
         /// </summary>
         private He7Cooler.He7Cooler he7Cooler;
+
+        /// <summary>
+        /// Manual control is allowed or not
+        /// </summary>
+        private bool manualControl = true;
 
         #endregion Fields
 
@@ -83,7 +93,17 @@ namespace CryostatControlServer
             this.lakeShore = lakeShore;
             this.he7Cooler = he7Cooler;
 
-            ////this.FillSensors();
+            try
+            {
+                this.FillHeaters();
+                this.FillSensors();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Something went wrong when filling the sensors");
+                ////todo handle it further.
+            }
+
             this.dataReadOut = new DataReadOut(this.compressor, this.sensors);
         }
 
@@ -101,7 +121,91 @@ namespace CryostatControlServer
         }
 
         /// <summary>
+        /// Turns the compressor on or off.
+        /// </summary>
+        /// <param name="status">if set to <c>true</c> [on].</param>
+        /// <returns>
+        /// <c>true</c> if the status is set.
+        /// <c>false</c> status could not been set, either is has no connection or manual control isn't allowed.
+        /// </returns>
+        public bool SetCompressorState(bool status)
+        {
+            if (!this.manualControl)
+            {
+                return false;
+            }
+
+            if (status)
+            {
+                this.compressor.TurnOn();
+            }
+            else
+            {
+                this.compressor.TurnOff();
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Writes values to the helium7 heaters.
+        /// <seealso cref="HeaterEnumerator"/> for position for each heater.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <returns>
+        /// <c>true</c> values could be set.
+        /// <c>false</c> values could not be set, either there is no connection,
+        /// input values are incorrect or manual control isn't allowed</returns>
+        public bool WriteHelium7Heaters(double[] values)
+        {
+            ////todo add safety check
+
+            if (values.Length != (int)HeaterEnumerator.HeaterAmount || !this.manualControl)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                this.heaters[i].Voltage = values[i];
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Reads the compressor temperature scale.
+        /// </summary>
+        /// <returns>Temperature scale in double <seealso cref="TemperatureEnum"/></returns>
+        public double ReadCompressorTemperatureScale()
+        {
+            return (double)this.compressor.ReadTemperatureScale();
+        }
+
+        /// <summary>
+        /// Reads the compressor pressure scale.
+        /// </summary>
+        /// <returns>Pressure scale in double <seealso cref="PressureEnum"/></returns>
+        public double ReadCompressorPressureScale()
+        {
+            return (double)this.compressor.ReadPressureScale();
+        }
+
+        /// <summary>
+        /// Fills the heaters.
+        /// <seealso cref="HeaterEnumerator"/> for the position of each heater
+        /// </summary>
+        private void FillHeaters()
+        {
+            this.heaters[(int)HeaterEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.PumpHe3, Channels.SensHe3Pump, this.he7Cooler);
+            this.heaters[(int)HeaterEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.PumpHe4, Channels.SensHe4Pump, this.he7Cooler);
+            this.heaters[(int)HeaterEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.SwitchHe3, Channels.SensHe3Switch, this.he7Cooler);
+            this.heaters[(int)HeaterEnumerator.He3Pump] = new He7Cooler.He7Cooler.Heater(Channels.SwitchHe4, Channels.SensHe4Switch, this.he7Cooler);
+        }
+
+        /// <summary>
         /// Fills the sensors initially with empty sensors than fills it for each component.
+        /// <seealso cref="DataEnumerator"/> for the position of each sensor
         /// </summary>
         private void FillSensors()
         {
@@ -180,13 +284,13 @@ namespace CryostatControlServer
                 this.sensors[(int)DataEnumerator.He3SwitchTemp] = new He7Cooler.He7Cooler.Sensor(Channels.SensHe3SwitchT, this.he7Cooler, diodeCalibration);
                 this.sensors[(int)DataEnumerator.He4Head] = new He7Cooler.He7Cooler.Sensor(Channels.SensHe4HeadT, this.he7Cooler, he4Calibration);
 
-                this.sensors[(int)DataEnumerator.He3Volt] =
+                this.sensors[(int)DataEnumerator.He3VoltActual] =
                     new He7Cooler.He7Cooler.Sensor(Channels.SensHe3Pump, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
-                this.sensors[(int)DataEnumerator.He4SwitchVolt] =
+                this.sensors[(int)DataEnumerator.He4SwitchVoltActual] =
                     new He7Cooler.He7Cooler.Sensor(Channels.SwitchHe4, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
-                this.sensors[(int)DataEnumerator.He3SwitchVolt] =
+                this.sensors[(int)DataEnumerator.He3SwitchVoltActual] =
                     new He7Cooler.He7Cooler.Sensor(Channels.SwitchHe3, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
-                this.sensors[(int)DataEnumerator.He4Volt] =
+                this.sensors[(int)DataEnumerator.He4VoltActual] =
                     new He7Cooler.He7Cooler.Sensor(Channels.SensHe4Pump, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
             }
             catch (Exception)

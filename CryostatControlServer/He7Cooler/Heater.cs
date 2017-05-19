@@ -17,11 +17,15 @@ namespace CryostatControlServer.He7Cooler
     /// </summary>
     public partial class He7Cooler
     {
+        #region Classes
+
         /// <summary>
         /// Representation a heater element on the H7 cooler.
         /// </summary>
         public class Heater
         {
+            #region Fields
+
             /// <summary>
             /// The default safe range high.
             /// </summary>
@@ -47,6 +51,10 @@ namespace CryostatControlServer.He7Cooler
             /// </summary>
             private He7Cooler device;
 
+            #endregion Fields
+
+            #region Constructors
+
             /// <summary>
             /// Initializes a new instance of the <see cref="Heater"/> class.
             /// </summary>
@@ -69,13 +77,21 @@ namespace CryostatControlServer.He7Cooler
                 this.SafeRangeLow = DefaultSafeRangeLow;
             }
 
+            #endregion Constructors
+
+            #region Destructors
+
             /// <summary>
-            /// Finalizes an instance of the <see cref="Heater"/> class. 
-            /// </summary>  
+            /// Finalizes an instance of the <see cref="Heater"/> class.
+            /// </summary>
             ~Heater()
             {
                 this.device.RemoveChannel(this.inchannel);
             }
+
+            #endregion Destructors
+
+            #region Properties
 
             /// <summary>
             /// Gets or sets the voltage safe range high side.
@@ -103,6 +119,10 @@ namespace CryostatControlServer.He7Cooler
                 }
             }
 
+            #endregion Properties
+
+            #region Methods
+
             /// <summary>
             /// The set output.
             /// </summary>
@@ -119,6 +139,10 @@ namespace CryostatControlServer.He7Cooler
 
                 this.device.SetVoltage(this.outchannel, volts);
             }
+
+            #endregion Methods
         }
+
+        #endregion Classes
     }
 }

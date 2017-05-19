@@ -77,10 +77,34 @@ namespace CryostatControlServer.HostService
             return false;
         }
 
-        /// <inheritdoc cref="ICommandService.ReadSensor"/>>
-        public float ReadSensor(int id)
+        /// <inheritdoc cref="ICommandService.SetCompressorState"/>
+        public bool SetCompressorState(bool status)
         {
-            return 0;
+            return this.cryostatControl.SetCompressorState(status);
+        }
+
+        /// <inheritdoc cref="ICommandService.WriteHelium7"/>
+        public bool WriteHelium7(double[] data)
+        {
+            return data.Length == (int)HeaterEnumerator.HeaterAmount && this.cryostatControl.WriteHelium7Heaters(data);
+        }
+
+        /// <inheritdoc cref="ICommandService.ReadCompressorTemperatureScale"/>>
+        public double ReadCompressorTemperatureScale()
+        {
+            return this.cryostatControl.ReadCompressorTemperatureScale();
+        }
+
+        /// <inheritdoc cref="ICommandService.ReadCompressorPressureScale"/>>
+        public double ReadCompressorPressureScale()
+        {
+            return this.cryostatControl.ReadCompressorPressureScale();
+        }
+
+        /// <inheritdoc cref="ICommandService.WriteSettingValues"/>>
+        public bool WriteSettingValues(double[] values)
+        {
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc cref="IDataGet.SubscribeForData"/>>

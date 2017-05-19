@@ -30,7 +30,7 @@ namespace CryostatControlServer
         #region Methods
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataReadOut"/> class.
+        /// Initializes a new instance of the <see cref="DataReadOut" /> class.
         /// </summary>
         /// <param name="compressor">The compressor.</param>
         /// <param name="sensors">The sensors.</param>
@@ -53,9 +53,18 @@ namespace CryostatControlServer
             {
                 data[i] = double.MinValue;
             }
-            ////this.FillDataWithSensor(data);
-            ////this.FillCompressorData(data);
-            this.FillWithMockData(data);
+
+            try
+            {
+                this.FillDataWithSensor(data);
+                this.FillCompressorData(data);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Data could not be read out and will be filled with mock data");
+                this.FillWithMockData(data);
+            }
+
             return data;
         }
 
