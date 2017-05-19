@@ -6,6 +6,7 @@
 namespace CryostatControlServer
 {
     using System;
+    using System.IO.Ports;
     using System.ServiceModel;
     using CryostatControlServer.HostService;
 
@@ -56,22 +57,44 @@ namespace CryostatControlServer
         }
 
         /// <summary>
+        /// Find the lakeshore com port and connect
+        /// </summary>
+        /// <returns>
+        /// The <see cref="LakeShore"/>.
+        /// </returns>
+        private static LakeShore.LakeShore FindLakeshore()
+        {
+            string[] names = SerialPort.GetPortNames();
+            LakeShore.LakeShore newLakeShore = new LakeShore.LakeShore();
+            foreach (string name in names)
+            {
+                try
+                {
+                    newLakeShore.Init(name);
+                    return newLakeShore;
+                }
+                catch (Exception)
+                {
+                    //ignore this exception and try new port
+                }
+            }
+            return null;
+        }
+
+
+        /// <summary>
         /// Initializes the components.
         /// </summary>
         private static void InitComponents()
         {
-            try
-            {
-                lakeShore = new LakeShore.LakeShore();
-                lakeShore.Init("COM1");
-            }
-            catch (Exception)
+            
+            lakeShore = FindLakeshore();
+
+            if (lakeShore == null)
             {
                 Console.WriteLine("No connection with LakeShore");
-
-                ////todo handle exception
             }
-
+                
             try
             {
                 he7Cooler = new He7Cooler.He7Cooler();
