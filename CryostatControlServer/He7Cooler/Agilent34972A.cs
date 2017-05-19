@@ -26,7 +26,7 @@ namespace CryostatControlServer.He7Cooler
         /// <summary>
         /// The connection.
         /// </summary>
-        private readonly ManagedStream connection = new ManagedStream();
+        private IManagedStream connection;
 
         /// <summary>
         ///     Gets voltages from the device
@@ -95,7 +95,23 @@ namespace CryostatControlServer.He7Cooler
         /// <param name="ipAddress">The IP address.</param>
         public void Init(string ipAddress)
         {
-            this.connection.ConnectTCP(ipAddress, TcpPort);
+            this.connection = new ManagedTcpStream(ipAddress, TcpPort);
+            this.connection.Open();
+
+            this.connection.WriteString("FORM:READ:CHAN ON\n");
+            this.CheckState();
+        }
+
+        /// <summary>
+        /// Initializes using a provided managedStream
+        /// </summary>
+        /// <param name="managedStream">
+        /// The managed Stream.
+        /// </param>
+        public void Init(IManagedStream managedStream)
+        {
+            this.connection = managedStream;
+            this.connection.Open();
 
             this.connection.WriteString("FORM:READ:CHAN ON\n");
             this.CheckState();

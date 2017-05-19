@@ -39,11 +39,35 @@ namespace CryostatControlClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Warmup", ReplyAction="http://tempuri.org/ICommandService/WarmupResponse")]
         System.Threading.Tasks.Task<bool> WarmupAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadSensor", ReplyAction="http://tempuri.org/ICommandService/ReadSensorResponse")]
-        float ReadSensor(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/SetCompressorState", ReplyAction="http://tempuri.org/ICommandService/SetCompressorStateResponse")]
+        bool SetCompressorState(bool status);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadSensor", ReplyAction="http://tempuri.org/ICommandService/ReadSensorResponse")]
-        System.Threading.Tasks.Task<float> ReadSensorAsync(int id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/SetCompressorState", ReplyAction="http://tempuri.org/ICommandService/SetCompressorStateResponse")]
+        System.Threading.Tasks.Task<bool> SetCompressorStateAsync(bool status);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteHelium7", ReplyAction="http://tempuri.org/ICommandService/WriteHelium7Response")]
+        bool WriteHelium7(double[] values);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteHelium7", ReplyAction="http://tempuri.org/ICommandService/WriteHelium7Response")]
+        System.Threading.Tasks.Task<bool> WriteHelium7Async(double[] values);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadCompressorTemperatureScale", ReplyAction="http://tempuri.org/ICommandService/ReadCompressorTemperatureScaleResponse")]
+        double ReadCompressorTemperatureScale();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadCompressorTemperatureScale", ReplyAction="http://tempuri.org/ICommandService/ReadCompressorTemperatureScaleResponse")]
+        System.Threading.Tasks.Task<double> ReadCompressorTemperatureScaleAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadCompressorPressureScale", ReplyAction="http://tempuri.org/ICommandService/ReadCompressorPressureScaleResponse")]
+        double ReadCompressorPressureScale();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadCompressorPressureScale", ReplyAction="http://tempuri.org/ICommandService/ReadCompressorPressureScaleResponse")]
+        System.Threading.Tasks.Task<double> ReadCompressorPressureScaleAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteSettingValues", ReplyAction="http://tempuri.org/ICommandService/WriteSettingValuesResponse")]
+        bool WriteSettingValues(double[] values);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteSettingValues", ReplyAction="http://tempuri.org/ICommandService/WriteSettingValuesResponse")]
+        System.Threading.Tasks.Task<bool> WriteSettingValuesAsync(double[] values);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -105,12 +129,113 @@ namespace CryostatControlClient.ServiceReference1 {
             return base.Channel.WarmupAsync();
         }
         
-        public float ReadSensor(int id) {
-            return base.Channel.ReadSensor(id);
+        public bool SetCompressorState(bool status) {
+            return base.Channel.SetCompressorState(status);
         }
         
-        public System.Threading.Tasks.Task<float> ReadSensorAsync(int id) {
-            return base.Channel.ReadSensorAsync(id);
+        public System.Threading.Tasks.Task<bool> SetCompressorStateAsync(bool status) {
+            return base.Channel.SetCompressorStateAsync(status);
+        }
+        
+        public bool WriteHelium7(double[] values) {
+            return base.Channel.WriteHelium7(values);
+        }
+        
+        public System.Threading.Tasks.Task<bool> WriteHelium7Async(double[] values) {
+            return base.Channel.WriteHelium7Async(values);
+        }
+        
+        public double ReadCompressorTemperatureScale() {
+            return base.Channel.ReadCompressorTemperatureScale();
+        }
+        
+        public System.Threading.Tasks.Task<double> ReadCompressorTemperatureScaleAsync() {
+            return base.Channel.ReadCompressorTemperatureScaleAsync();
+        }
+        
+        public double ReadCompressorPressureScale() {
+            return base.Channel.ReadCompressorPressureScale();
+        }
+        
+        public System.Threading.Tasks.Task<double> ReadCompressorPressureScaleAsync() {
+            return base.Channel.ReadCompressorPressureScaleAsync();
+        }
+        
+        public bool WriteSettingValues(double[] values) {
+            return base.Channel.WriteSettingValues(values);
+        }
+        
+        public System.Threading.Tasks.Task<bool> WriteSettingValuesAsync(double[] values) {
+            return base.Channel.WriteSettingValuesAsync(values);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IDataGet", CallbackContract=typeof(CryostatControlClient.ServiceReference1.IDataGetCallback), SessionMode=System.ServiceModel.SessionMode.Required)]
+    public interface IDataGet {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SubscribeForData")]
+        void SubscribeForData(int interval);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SubscribeForData")]
+        System.Threading.Tasks.Task SubscribeForDataAsync(int interval);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UnsubscribeForData")]
+        void UnsubscribeForData();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UnsubscribeForData")]
+        System.Threading.Tasks.Task UnsubscribeForDataAsync();
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IDataGetCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SendData")]
+        void SendData(double[] data);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IDataGetChannel : CryostatControlClient.ServiceReference1.IDataGet, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class DataGetClient : System.ServiceModel.DuplexClientBase<CryostatControlClient.ServiceReference1.IDataGet>, CryostatControlClient.ServiceReference1.IDataGet {
+        
+        public DataGetClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
+        }
+        
+        public DataGetClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
+        }
+        
+        public DataGetClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public DataGetClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public DataGetClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void SubscribeForData(int interval) {
+            base.Channel.SubscribeForData(interval);
+        }
+        
+        public System.Threading.Tasks.Task SubscribeForDataAsync(int interval) {
+            return base.Channel.SubscribeForDataAsync(interval);
+        }
+        
+        public void UnsubscribeForData() {
+            base.Channel.UnsubscribeForData();
+        }
+        
+        public System.Threading.Tasks.Task UnsubscribeForDataAsync() {
+            return base.Channel.UnsubscribeForDataAsync();
         }
     }
 }

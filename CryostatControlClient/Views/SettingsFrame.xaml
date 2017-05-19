@@ -25,19 +25,19 @@
                     </Grid.RowDefinitions>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="0">He-7</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="0">Connected</Label>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="0" Content="{Binding He7ViewModel.ConnectionStateConverted}"/>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="1">BlueFors</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="1">Connected</Label>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="1" Content="{Binding BlueforsViewModel.ConnectionStateConverted}"/>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="2">Compressor</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="2">Connected</Label>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="2" Content="{Binding CompressorViewModel.ConnectionStateConverted}"/>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="3">Server</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="3">Connected</Label>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="3">xx</Label>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="4">Modus</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="4">Cooling down</Label>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="4">xx</Label>
                 </Grid>
                 <!--<DatePicker materialDesign:HintAssist.Hint="Pick Date" Style="{StaticResource SettingsDatePicker}" />
                 <materialDesign:TimePicker materialDesign:HintAssist.Hint="Pick Time" Style="{StaticResource SettingsTimePicker}"/>-->
