@@ -70,5 +70,113 @@ namespace CryostatControlServer.Properties {
                 this["He3SwitchMaxVoltage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public double ControllerHe3HeaterVoltage {
+            get {
+                return ((double)(this["ControllerHe3HeaterVoltage"]));
+            }
+            set {
+                this["ControllerHe3HeaterVoltage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public double ControllerHe3SwitchVoltage {
+            get {
+                return ((double)(this["ControllerHe3SwitchVoltage"]));
+            }
+            set {
+                this["ControllerHe3SwitchVoltage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public double ControllerHe4HeaterVoltage {
+            get {
+                return ((double)(this["ControllerHe4HeaterVoltage"]));
+            }
+            set {
+                this["ControllerHe4HeaterVoltage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public double ControllerHe4SwitchVoltage {
+            get {
+                return ((double)(this["ControllerHe4SwitchVoltage"]));
+            }
+            set {
+                this["ControllerHe4SwitchVoltage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("70")]
+        public double ControllerHe7StartTemperature {
+            get {
+                return ((double)(this["ControllerHe7StartTemperature"]));
+            }
+            set {
+                this["ControllerHe7StartTemperature"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("35")]
+        public double ControllerHeaterTemperatureSetpoint {
+            get {
+                return ((double)(this["ControllerHeaterTemperatureSetpoint"]));
+            }
+            set {
+                this["ControllerHeaterTemperatureSetpoint"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public double ControllerHeatSwitchOnTemperature {
+            get {
+                return ((double)(this["ControllerHeatSwitchOnTemperature"]));
+            }
+            set {
+                this["ControllerHeatSwitchOnTemperature"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9")]
+        public double ControllerHeatSwitchSafeValue {
+            get {
+                return ((double)(this["ControllerHeatSwitchSafeValue"]));
+            }
+            set {
+                this["ControllerHeatSwitchSafeValue"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public double ControllerHeatupTemperature {
+            get {
+                return ((double)(this["ControllerHeatupTemperature"]));
+            }
+            set {
+                this["ControllerHeatupTemperature"] = value;
+            }
+        }
     }
 }

@@ -13,6 +13,8 @@ namespace CryostatControlServer
     using System.Diagnostics.CodeAnalysis;
     using System.Threading;
 
+    using CryostatControlServer.Properties;
+
     /// <summary>
     /// Control class, controls the cryostat using a state machine.
     /// </summary>
@@ -21,7 +23,7 @@ namespace CryostatControlServer
         /// <summary>
         /// The timer period.
         /// </summary>
-        private const int TimerPeriod = 5000;
+        private readonly int TimerPeriod = 5000;
 
         /// <summary>
         /// The compressor
@@ -80,47 +82,138 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the he 3 heater voltage.
         /// </summary>
-        public double He3HeaterVoltage { get; set; } = 6.0;
+        public double He3HeaterVoltage
+        {
+            get
+            {
+                return Settings.Default.ControllerHe3HeaterVoltage;
+            }
+            set
+            {
+                Settings.Default.ControllerHe3HeaterVoltage = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the he 3 switch voltage.
         /// </summary>
-        public double He3SwitchVoltage { get; set; } = 3.0;
+        public double He3SwitchVoltage
+        {
+            get
+            {
+                return Settings.Default.ControllerHe3SwitchVoltage;
+            }
+            set
+            {
+                Settings.Default.ControllerHe3SwitchVoltage = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the he 4 heater voltage.
         /// </summary>
-        public double He4HeaterVoltage { get; set; } = 10.0;
+        public double He4HeaterVoltage
+        {
+            get
+            {
+                return Settings.Default.ControllerHe4HeaterVoltage;
+            }
+            set
+            {
+                Settings.Default.ControllerHe4HeaterVoltage = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the he 4 switch voltage.
         /// </summary>
-        public double He4SwitchVoltage { get; set; } = 4.0;
+        public double He4SwitchVoltage
+        {
+            get
+            {
+                return Settings.Default.ControllerHe4SwitchVoltage;
+            }
+            set
+            {
+                Settings.Default.ControllerHe4SwitchVoltage = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the he 7 start temperature.
         /// </summary>
-        public double He7StartTemperature { get; set; } = 70.0;
+        public double He7StartTemperature
+        {
+            get
+            {
+                return Settings.Default.ControllerHe7StartTemperature;
+            }
+
+            set
+            {
+                Settings.Default.ControllerHe7StartTemperature = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the heater temperature set point.
         /// </summary>
-        public double HeaterTemperatureSetpoint { get; set; } = 35.0;
+        public double HeaterTemperatureSetpoint
+        {
+            get
+            {
+                return Settings.Default.ControllerHeaterTemperatureSetpoint;
+            }
+            set
+            {
+                Settings.Default.ControllerHeaterTemperatureSetpoint = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the heat switch on temperature.
         /// </summary>
-        public double HeatSwitchOnTemperature { get; set; } = 15.0;
+        public double HeatSwitchOnTemperature
+        {
+            get
+            {
+                return Settings.Default.ControllerHeatSwitchOnTemperature;
+            }
+            set
+            {
+                Settings.Default.ControllerHeatSwitchOnTemperature = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the heat switch safe value.
         /// </summary>
-        public double HeatSwitchSafeValue { get; set; } = 9.0;
+        public double HeatSwitchSafeValue
+        {
+            get
+            {
+                return Settings.Default.ControllerHeatSwitchSafeValue;
+            }
+            set
+            {
+                Settings.Default.ControllerHeatSwitchSafeValue = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the heat up temperature.
         /// </summary>
-        public double HeatupTemperature { get; set; } = 50.0;
+        public double HeatupTemperature
+        {
+            get
+            {
+                return Settings.Default.ControllerHeatupTemperature;
+            }
+            set
+            {
+                Settings.Default.ControllerHeatupTemperature = value;
+            }
+        }
 
         /// <summary>
         /// Gets the state.
