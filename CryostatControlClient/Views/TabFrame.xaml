@@ -15,13 +15,13 @@
                 <Frame Source="Tabs/OverviewFrame.xaml" />
             </TabItem>
             <TabItem Header="He-7 Cooler">
-                <Frame Source="Tabs/He7Frame.xaml" />
+                <Frame Source="Tabs/He7Frame.xaml" Navigated="FrameNavigated"/>
             </TabItem>
             <TabItem Header="BlueFors cryostat">
-                <Frame Source="Tabs/BlueforsFrame.xaml" />
+                <Frame Source="Tabs/BlueforsFrame.xaml" Navigated="FrameNavigated"/>
             </TabItem>
             <TabItem Header="Compressor">
-                <Frame Source="Tabs/CompressorFrame.xaml" />
+                <Frame Source="Tabs/CompressorFrame.xaml" Navigated="FrameNavigated"/>
             </TabItem>
             <TabItem Header="Graph">
                 <Frame Source="Tabs/GraphFrame.xaml" />

@@ -14,6 +14,8 @@ namespace CryostatControlServer.He7Cooler
     using System.Linq;
     using System.Threading;
 
+    using CryostatControlServer.Properties;
+
     /// <summary>
     /// He7 Cooler class. 
     /// Represents the He7 cooler controls. Read and set voltages and digital bits.
@@ -99,6 +101,11 @@ namespace CryostatControlServer.He7Cooler
             this.He4Pump = new Heater(Channels.PumpHe4, Channels.SensHe4Pump, this);
             this.He3Switch = new Heater(Channels.SwitchHe3, Channels.SensHe3Switch, this);
             this.He4Switch = new Heater(Channels.SwitchHe4, Channels.SensHe4Switch, this);
+
+            this.He3Pump.SafeRangeHigh = Settings.Default.He3PumpMaxVoltage;
+            this.He4Pump.SafeRangeHigh = Settings.Default.He4PumpMaxVoltage;
+            this.He4Switch.SafeRangeHigh = Settings.Default.He4SwitchMaxVoltage;
+            this.He3Switch.SafeRangeHigh = Settings.Default.He3SwitchMaxVoltage;
         }
 
         #region Sensors
@@ -244,6 +251,10 @@ namespace CryostatControlServer.He7Cooler
         /// </param>
         protected void AddChannel(Channels channel)
         {
+            if (!this.readersPerChannel.ContainsKey(channel))
+            {
+                this.readersPerChannel[channel] = 0;
+            }
             this.readersPerChannel[channel]++;
         }
 
