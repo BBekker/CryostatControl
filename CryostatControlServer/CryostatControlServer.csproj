@@ -57,7 +57,8 @@
     <Compile Include="Compressor\Enumerators\TemperatureEnum.cs" />
     <Compile Include="Compressor\Enumerators\WarningsEnum.cs" />
     <Compile Include="Compressor\Sensor.cs" />
-    <Compile Include="Control.cs" />
+    <Compile Include="Controller.cs" />
+    <Compile Include="ControlState.cs" />
     <Compile Include="He7Cooler\Agilent34972A.cs" />
     <Compile Include="He7Cooler\Channels.cs" />
     <Compile Include="He7Cooler\DigitalSwitch.cs" />
