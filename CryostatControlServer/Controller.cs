@@ -11,6 +11,7 @@ namespace CryostatControlServer
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Threading;
 
     /// <summary>
     /// Control class, controls the cryostat using a state machine.
@@ -18,9 +19,19 @@ namespace CryostatControlServer
     public class Controller
     {
         /// <summary>
+        /// The timer period.
+        /// </summary>
+        private const int TimerPeriod = 5000;
+
+        /// <summary>
         /// The compressor
         /// </summary>
         private Compressor.Compressor compressor;
+
+        /// <summary>
+        /// The control timer.
+        /// </summary>
+        private Timer controlTimer;
 
         /// <summary>
         /// The H7 cooler
@@ -38,13 +49,13 @@ namespace CryostatControlServer
         private Controlstate state = Controlstate.Setup;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Control"/> class.
+        /// Initializes a new instance of the <see cref="Controller"/> class. 
         /// </summary>
         /// <param name="cooler">
         /// The cooler.
         /// </param>
         /// <param name="ls">
-        /// The ls.
+        /// The Lake Shore instance.
         /// </param>
         /// <param name="compressor">
         /// The compressor.
@@ -54,6 +65,16 @@ namespace CryostatControlServer
             this.cooler = cooler;
             this.lakeshore = ls;
             this.compressor = compressor;
+
+            this.StartStateMachine();
+        }
+
+        /// <summary>
+        /// Finalizes an instance of the <see cref="Controller"/> class. 
+        /// </summary>
+        ~Controller()
+        {
+            this.StopStateMachine();
         }
 
         /// <summary>
@@ -122,6 +143,14 @@ namespace CryostatControlServer
         }
 
         /// <summary>
+        /// Cancels the current command safely.
+        /// </summary>
+        public void CancelCommand()
+        {
+            this.State = Controlstate.CancelAll;
+        }
+
+        /// <summary>
         /// Starts the cool down id possible.
         /// </summary>
         /// <returns>true if cool down is started, false otherwise</returns>
@@ -152,21 +181,6 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// Starts a recycle.
-        /// </summary>
-        /// <returns>true if recycle is started, false otherwise</returns>
-        public bool StartRecycle()
-        {
-            if (this.State == Controlstate.Standby)
-            {
-                this.State = Controlstate.RecycleStart;
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
         /// Switch to manual control. Can only be started from Standby.
         /// </summary>
         /// <returns>
@@ -184,16 +198,23 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// Cancels the current command safely.
+        /// Starts a recycle.
         /// </summary>
-        public void CancelCommand()
+        /// <returns>true if recycle is started, false otherwise</returns>
+        public bool StartRecycle()
         {
-            this.State = Controlstate.CancelAll;
+            if (this.State == Controlstate.Standby)
+            {
+                this.State = Controlstate.RecycleStart;
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
         /// Control a heater
-        /// Uses a simple P controllerfor the last part, might be updated to PI later.
+        /// Uses a simple P controller for the last part, might be updated to PI later.
         /// </summary>
         /// <param name="heater">
         /// The heater.
@@ -256,6 +277,14 @@ namespace CryostatControlServer
             {
                 this.cooler.He4Pump.Voltage = 0.0;
             }
+        }
+
+        /// <summary>
+        /// Start the thread running the state machine.
+        /// </summary>
+        private void StartStateMachine()
+        {
+            this.controlTimer = new Timer(timerState => this.StateMachine(), null, 0, this.TimerPeriod);
         }
 
         /// <summary>
@@ -506,6 +535,14 @@ namespace CryostatControlServer
                     this.State = Controlstate.Standby;
                     break;
             }
+        }
+
+        /// <summary>
+        /// Stop the thread running the state machine.
+        /// </summary>
+        private void StopStateMachine()
+        {
+            this.controlTimer.Dispose();
         }
     }
 }

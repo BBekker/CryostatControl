@@ -41,6 +41,11 @@ namespace CryostatControlServer
         /// </summary>
         private static He7Cooler.He7Cooler he7Cooler;
 
+        /// <summary>
+        /// The controller.
+        /// </summary>
+        private static Controller controller;
+
         #endregion Fields
 
         #region Methods
@@ -94,6 +99,9 @@ namespace CryostatControlServer
 
                 ////todo handle exception
             }
+
+            controller = new Controller(he7Cooler, lakeShore, compressor);
+
         }
 
         /// <summary>
