@@ -15,6 +15,7 @@ namespace CryostatControlClient.Views
     using System.Windows.Controls;
 
     using CryostatControlClient.Communication;
+    using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.ViewModels;
 
     using CryostatControlServer.Compressor;
@@ -37,9 +38,10 @@ namespace CryostatControlClient.Views
         /// </summary>
         private DataReceiver dataReceiver;
 
-        #endregion Fields
-
-        #region Constructor
+        /// <summary>
+        /// The data sender
+        /// </summary>
+        private DataSender dataSender;
 
         /// <summary>
         /// The handler
@@ -51,13 +53,21 @@ namespace CryostatControlClient.Views
         /// </summary>
         private PropertyChangedEventHandler heHandler;
 
+        #endregion Fields
+
+        #region Constructor
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
         /// </summary>
         public MainWindow()
         {
             this.Loaded += this.MainWindowLoaded;
+
+            CommandServiceClient commandServiceClient = (Application.Current as App).CommandServiceClient;
+
             this.dataReceiver = new DataReceiver();
+            this.dataSender = new DataSender(commandServiceClient);
 
             this.modusHandler = this.HandleModus;
             this.heHandler = this.HandleHe;
@@ -102,14 +112,11 @@ namespace CryostatControlClient.Views
 
             if (action == "StartPressed")
             {
-                string radio = this.viewModelContainer.ModusViewModel.SelectedComboIndex + string.Empty;
-                string time = this.viewModelContainer.ModusViewModel.Time;
-
-                Console.WriteLine("Start           - {0} - {1}", radio, time);
+                this.dataSender.UpdateModus(this.viewModelContainer);
             }
             else
             {
-                Console.WriteLine("Unknown command - " + action);
+                // todo: unknow action, throw exception or something?
             }
         }
 
@@ -124,36 +131,7 @@ namespace CryostatControlClient.Views
 
             if (action == "UpdateHe7Pressed")
             {
-                double he4PumpMax = this.viewModelContainer.He7ViewModel.He4PumpMax;
-                double he4PumpNewVolt = this.viewModelContainer.He7ViewModel.He4PumpNewVolt;
-                double he3PumpMax = this.viewModelContainer.He7ViewModel.He3PumpMax;
-                double he3PumpNewVolt = this.viewModelContainer.He7ViewModel.He3PumpNewVolt;
-                double he4SwitchMax1 = this.viewModelContainer.He7ViewModel.He4SwitchMax1;
-                double he4SwitchMax2 = this.viewModelContainer.He7ViewModel.He4SwitchMax2;
-                double he4SwitchNewVolt = this.viewModelContainer.He7ViewModel.He4SwitchNewVolt;
-                double he3SwitchMax1 = this.viewModelContainer.He7ViewModel.He3SwitchMax1;
-                double he3SwitchMax2 = this.viewModelContainer.He7ViewModel.He3SwitchMax2;
-                double he3SwitchNewVolt = this.viewModelContainer.He7ViewModel.He3SwitchNewVolt;
-                double fourKPlateMax1 = this.viewModelContainer.He7ViewModel.FourKPlateMax1;
-                double fourKPlateMax2 = this.viewModelContainer.He7ViewModel.FourKPlateMax2;
-                double he4HeadMax = this.viewModelContainer.He7ViewModel.He4HeadMax;
-                double he3HeadMax = this.viewModelContainer.He7ViewModel.He3HeadMax;
-                
-                Console.WriteLine("Update He       - ");
-                Console.WriteLine("    He4PumpMax        - {0}", he4PumpMax);
-                Console.WriteLine("    He4PumpNewVolt    - {0}", he4PumpNewVolt);
-                Console.WriteLine("    He3PumpMax        - {0}", he3PumpMax);
-                Console.WriteLine("    He3PumpNewVolt    - {0}", he3PumpNewVolt);
-                Console.WriteLine("    he4SwitchMax1     - {0}", he4SwitchMax1);
-                Console.WriteLine("    he4SwitchMax2     - {0}", he4SwitchMax2);
-                Console.WriteLine("    he4SwitchNewVolt  - {0}", he4SwitchNewVolt);
-                Console.WriteLine("    he3SwitchMax1     - {0}", he3SwitchMax1);
-                Console.WriteLine("    he3SwitchMax2     - {0}", he3SwitchMax2);
-                Console.WriteLine("    he3SwitchNewVolt  - {0}", he3SwitchNewVolt);
-                Console.WriteLine("    fourKPlateMax1    - {0}", fourKPlateMax1);
-                Console.WriteLine("    fourKPlateMax2    - {0}", fourKPlateMax2);
-                Console.WriteLine("    he4HeadMax        - {0}", he4HeadMax);
-                Console.WriteLine("    he3HeadMax        - {0}", he3HeadMax);
+                this.dataSender.UpdateHelium(this.viewModelContainer);
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AbstractViewModel.cs" company="SRON">
+// <copyright file="RelayCommand.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>

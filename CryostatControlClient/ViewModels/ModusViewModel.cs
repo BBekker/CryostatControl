@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TestViewModel.cs" company="SRON">
+// <copyright file="ModusViewModel.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
@@ -58,7 +58,7 @@ namespace CryostatControlClient.ViewModels
         #region Properties
 
         /// <summary>
-        /// Gets the time.
+        /// Gets or sets the time.
         /// </summary>
         /// <value>
         /// The time.
@@ -69,6 +69,7 @@ namespace CryostatControlClient.ViewModels
             {
                 return this.modusModel.Time;
             }
+
             set
             {
                 this.modusModel.Time = value;
@@ -87,6 +88,7 @@ namespace CryostatControlClient.ViewModels
             {
                 return this.modusModel.SelectedComboIndex;
             }
+
             set
             {
                 this.modusModel.SelectedComboIndex = value;
@@ -109,6 +111,7 @@ namespace CryostatControlClient.ViewModels
             {
                 return this.startButtonCommand;
             }
+
             set
             {
                 this.startButtonCommand = value;
@@ -127,6 +130,7 @@ namespace CryostatControlClient.ViewModels
             {
                 return this.radioButtonCommand;
             }
+
             set
             {
                 this.radioButtonCommand = value;

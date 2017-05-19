@@ -105,6 +105,5 @@ namespace CryostatControlClient.Communication
         }
 
         #endregion Methods
-
     }
 }

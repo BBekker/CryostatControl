@@ -88,6 +88,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Communication\DataReceiver.cs" />
+    <Compile Include="Communication\DataSender.cs" />
+    <Compile Include="Communication\ModusEnumerator.cs" />
     <Compile Include="Models\BlueforsModel.cs" />
     <Compile Include="Connected Services\ServiceReference1\Reference.cs">
       <AutoGen>True</AutoGen>

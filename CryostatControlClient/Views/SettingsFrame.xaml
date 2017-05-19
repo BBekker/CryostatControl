@@ -43,18 +43,18 @@
                 <materialDesign:TimePicker materialDesign:HintAssist.Hint="Pick Time" Style="{StaticResource SettingsTimePicker}"/>-->
 
                 <ComboBox Style="{StaticResource SettingsComboBox}"
-                          SelectedIndex="{Binding TestViewModel.SelectedComboIndex}">
+                          SelectedIndex="{Binding ModusViewModel.SelectedComboIndex}">
                     <ComboBoxItem>Cool down</ComboBoxItem>
                     <ComboBoxItem>Recycle</ComboBoxItem>
                     <ComboBoxItem>Warm up</ComboBoxItem>
                 </ComboBox>
                 <Button Style="{StaticResource SettingsButton}" Command="{Binding ModusViewModel.StartButtonCommand}">Start</Button>
                 <StackPanel>
-                    <RadioButton Command="{Binding TestViewModel.RadioButtonCommand}" CommandParameter="Now" Name="startNow" Style="{StaticResource SettingsRadioButtons}" GroupName="startOption"
+                    <RadioButton Command="{Binding ModusViewModel.RadioButtonCommand}" CommandParameter="Now" Name="startNow" Style="{StaticResource SettingsRadioButtons}" GroupName="startOption"
                                  IsChecked="True">
                         Start Now
                     </RadioButton>
-                    <RadioButton Command="{Binding TestViewModel.RadioButtonCommand}" CommandParameter="Scheduled" Name="startScheduled" Style="{StaticResource SettingsRadioButtons}"
+                    <RadioButton Command="{Binding ModusViewModel.RadioButtonCommand}" CommandParameter="Scheduled" Name="startScheduled" Style="{StaticResource SettingsRadioButtons}"
                                  GroupName="startOption">
                         Scheduled Start
                     </RadioButton>
