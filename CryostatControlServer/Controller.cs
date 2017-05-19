@@ -49,7 +49,7 @@ namespace CryostatControlServer
         /// <param name="compressor">
         /// The compressor.
         /// </param>
-        public Control(He7Cooler.He7Cooler cooler, LakeShore.LakeShore ls, Compressor.Compressor compressor)
+        public Controller(He7Cooler.He7Cooler cooler, LakeShore.LakeShore ls, Compressor.Compressor compressor)
         {
             this.cooler = cooler;
             this.lakeshore = ls;
