@@ -56,14 +56,25 @@ namespace CryostatControlServer
 
             try
             {
-                this.FillDataWithSensor(data);
+                
                 this.FillCompressorData(data);
             }
             catch (Exception)
             {
                 Console.WriteLine("Data could not be read out and will be filled with mock data");
-                this.FillWithMockData(data);
+                
             }
+
+            try
+            {
+                this.FillDataWithSensor(data);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Data could not be read out and will be filled with mock data");
+
+            }
+
 
             return data;
         }

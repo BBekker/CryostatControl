@@ -93,13 +93,13 @@ namespace CryostatControlServer.Streams
         {
             var res = this.reader.ReadLine();
 
-            //#if (DEBUG)
-            //            {
-            //                Console.ForegroundColor = ConsoleColor.Green;
-            //                Console.Write(res);
-            //                Console.ForegroundColor = ConsoleColor.White;
-            //            }
-            //#endif
+            #if (DEBUG)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write(res);
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+            #endif
             return res;
         }
 
@@ -111,13 +111,13 @@ namespace CryostatControlServer.Streams
         {
             var res = await this.reader.ReadLineAsync();
 
-            //#if (DEBUG)
-            //            {
-            //                Console.ForegroundColor = ConsoleColor.Green;
-            //                Console.Write(res);
-            //                Console.ForegroundColor = ConsoleColor.White;
-            //            }
-            //#endif
+            #if (DEBUG)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write(res);
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+            #endif
             return res;
         }
 

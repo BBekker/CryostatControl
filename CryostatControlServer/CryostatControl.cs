@@ -93,16 +93,10 @@ namespace CryostatControlServer
             this.lakeShore = lakeShore;
             this.he7Cooler = he7Cooler;
 
-            try
-            {
+
                 this.FillHeaters();
                 this.FillSensors();
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Something went wrong when filling the sensors");
-                ////todo handle it further.
-            }
+
 
             this.dataReadOut = new DataReadOut(this.compressor, this.sensors);
         }
@@ -266,8 +260,7 @@ namespace CryostatControlServer
         /// </summary>
         private void FillHe7Sensors()
         {
-            try
-            {
+            
                 He7Cooler.He7Cooler.Sensor.Calibration he3Calibration = new He7Cooler.He7Cooler.Sensor.Calibration(RuoxFile, He3Col, 0);
                 He7Cooler.He7Cooler.Sensor.Calibration he4Calibration = new He7Cooler.He7Cooler.Sensor.Calibration(RuoxFile, He4Col, 0);
                 He7Cooler.He7Cooler.Sensor.Calibration diodeCalibration = new He7Cooler.He7Cooler.Sensor.Calibration(DiodeFile, 1, 0);
@@ -289,13 +282,7 @@ namespace CryostatControlServer
                     new He7Cooler.He7Cooler.Sensor(Channels.SwitchHe3, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
                 this.sensors[(int)DataEnumerator.He4VoltActual] =
                     new He7Cooler.He7Cooler.Sensor(Channels.SensHe4Pump, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Something went wrong filling He7 sensors");
-
-                ////todo: handle it further, try reconnecting?
-            }
+            
         }
 
         #endregion Methods
