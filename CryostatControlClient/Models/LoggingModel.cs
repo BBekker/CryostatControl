@@ -148,7 +148,12 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The logging interval
         /// </summary>
-        private int loggingInterval;
+        private double loggingInterval;
+
+        /// <summary>
+        /// The preset ComboBox
+        /// </summary>
+        private int presetComboBox;
 
         /// <summary>
         /// Gets or sets the he3 cold head temperature.
@@ -650,7 +655,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The logging interval.
         /// </value>
-        public int LoggingInterval
+        public double LoggingInterval
         {
             get
             {
@@ -660,6 +665,25 @@ namespace CryostatControlClient.Models
             set
             {
                 this.loggingInterval = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the preset ComboBox.
+        /// </summary>
+        /// <value>
+        /// The preset ComboBox.
+        /// </value>
+        public int PresetComboBox
+        {
+            get
+            {
+                return this.presetComboBox;
+            }
+
+            set
+            {
+                this.presetComboBox = value;
             }
         }
     }

@@ -9,7 +9,10 @@
 
 namespace CryostatControlClient.ViewModels
 {
+    using System;
+
     using CryostatControlClient.Models;
+    using CryostatControlClient.ViewModels.LoggingPresets;
 
     /// <summary>
     /// The logging view model.
@@ -22,12 +25,20 @@ namespace CryostatControlClient.ViewModels
         private LoggingModel loggingModel;
 
         /// <summary>
+        /// The logging preset
+        /// </summary>
+        private ILoggingPreset loggingPreset;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="LoggingViewModel"/> class.
         /// </summary>
-        public LoggingViewModel() 
+        public LoggingViewModel()
         {
+            //this.loggingPreset = new LogAllPreset(this);
             this.loggingModel = new LoggingModel();
         }
+
+        #region Properties
 
         /// <summary>
         /// Gets or sets the he3 cold head temperature.
@@ -555,7 +566,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The logging interval.
         /// </value>
-        public int LoggingInterval
+        public double LoggingInterval
         {
             get
             {
@@ -566,6 +577,55 @@ namespace CryostatControlClient.ViewModels
             {
                 this.loggingModel.LoggingInterval = value;
                 this.RaisePropertyChanged("LoggingInterval");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the preset ComboBox.
+        /// </summary>
+        /// <value>
+        /// The preset ComboBox.
+        /// </value>
+        public int PresetComboBox
+        {
+            get
+            {
+                return this.loggingModel.PresetComboBox;
+            }
+
+            set
+            {
+                this.loggingModel.PresetComboBox = value;
+                this.ConvertIntToPreset(value);
+                this.RaisePropertyChanged("PresetComboBox");
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Converts the int to preset.
+        /// </summary>
+        /// <param name="presetNumber">The preset number.</param>
+        public void ConvertIntToPreset(int presetNumber)
+        {
+            switch (presetNumber)
+            {
+                case 0:
+                    this.loggingPreset = new LogNothingPreset(this);
+                    break;
+                case 1:
+                    this.loggingPreset = new LogAllPreset(this);
+                    break;
+                case 2:
+                    this.loggingPreset = new LogCompressorPreset(this);
+                    break;
+                case 3:
+                    this.loggingPreset = new LogHe7Preset(this);
+                    break;
+                case 4:
+                    this.loggingPreset = new LogBlueforsPreset(this);
+                    break;
             }
         }
     }
