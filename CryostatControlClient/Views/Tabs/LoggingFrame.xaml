@@ -52,11 +52,11 @@
         <StackPanel Grid.Column="1" Grid.Row="0">
             <Label x:Name="He7Cooler" FontSize="32" FontWeight="Bold">He-7 Cooler</Label>
             <Label FontSize="24" FontWeight="Bold">Temperatures</Label>
-            <CheckBox IsChecked="{Binding LoggingViewModel.He3ColdHeadTemp}">He-3 cold head</CheckBox>
-            <CheckBox IsChecked="{Binding LoggingViewModel.He3WarmHeadTemp}">He-3 warm head</CheckBox>
+            <CheckBox IsChecked="{Binding LoggingViewModel.He3HeadTemp}">He-3 head</CheckBox>
+            <CheckBox IsChecked="{Binding LoggingViewModel.He3PumpTemp}">He-3 pump</CheckBox>
             <CheckBox IsChecked="{Binding LoggingViewModel.He3SwitchTemp}">He-3 switch</CheckBox>
-            <CheckBox IsChecked="{Binding LoggingViewModel.He4ColdHeadTemp}">He-4 cold head</CheckBox>
-            <CheckBox IsChecked="{Binding LoggingViewModel.He4WarmHeadTemp}">He-4 warm head</CheckBox>
+            <CheckBox IsChecked="{Binding LoggingViewModel.He4PumpTemp}">He-4 pump</CheckBox>
+            <CheckBox IsChecked="{Binding LoggingViewModel.He4HeadTemp}">He-4 head</CheckBox>
             <CheckBox IsChecked="{Binding LoggingViewModel.He4SwitchTemp}">He-4 switch</CheckBox>
             <CheckBox IsChecked="{Binding LoggingViewModel.TwoKPlateTemp}">2k plate</CheckBox>
             <CheckBox IsChecked="{Binding LoggingViewModel.FourKPlateTemp}">4k plate</CheckBox>
@@ -76,10 +76,6 @@
 
             <Label FontSize="24" FontWeight="Bold">Voltages</Label>
             <CheckBox IsChecked="{Binding LoggingViewModel.BlueforsHeater}">Heater</CheckBox>
-
-            <Label FontSize="24" FontWeight="Bold">Pressures</Label>
-            <CheckBox IsChecked="{Binding LoggingViewModel.Bluefors50KShieldPressure}">50k shield</CheckBox>
-            <CheckBox IsChecked="{Binding LoggingViewModel.Bluefors3KShieldPressure}">3k shield</CheckBox>
         </StackPanel>
 
         <StackPanel Grid.Column="3" Grid.Row="0">

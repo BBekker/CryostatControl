@@ -46,15 +46,13 @@ namespace CryostatControlClient.ViewModels.LoggingPresets
             loggingViewModel.CompressorOilTemp = false;
             loggingViewModel.CompressorWaterInTemp = false;
             loggingViewModel.CompressorWaterOutTemp = false;
-            loggingViewModel.He3ColdHeadTemp = true;
+            loggingViewModel.He3HeadTemp = true;
             loggingViewModel.He4SwitchTemp = true;
-            loggingViewModel.He4ColdHeadTemp = true;
+            loggingViewModel.He4HeadTemp = true;
             loggingViewModel.He3SwitchTemp = true;
-            loggingViewModel.He3WarmHeadTemp = true;
-            loggingViewModel.He4WarmHeadTemp = true;
+            loggingViewModel.He3PumpTemp = true;
+            loggingViewModel.He4PumpTemp = true;
 
-            loggingViewModel.Bluefors3KShieldPressure = false;
-            loggingViewModel.Bluefors50KShieldPressure = false;
             loggingViewModel.CompressorDeltaAveragePressure = false;
             loggingViewModel.CompressorDeltaAveragePressure = false;
             loggingViewModel.CompressorHighPressure = false;

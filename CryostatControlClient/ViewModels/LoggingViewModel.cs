@@ -41,42 +41,36 @@ namespace CryostatControlClient.ViewModels
         #region Properties
 
         /// <summary>
-        /// Gets or sets the he3 cold head temperature.
+        /// Gets or sets a value indicating whether he 3 pump temp.
         /// </summary>
-        /// <value>
-        /// The he3 cold head temperature.
-        /// </value>
-        public bool He3ColdHeadTemp
+        public bool He3PumpTemp
         {
             get
             {
-                return this.loggingModel.He3ColdHeadTemp;
+                return this.loggingModel.He3PumpTemp;
             }
 
             set
             {
-                this.loggingModel.He3ColdHeadTemp = value;
-                this.RaisePropertyChanged("He3ColdHeadTemp");
+                this.loggingModel.He3PumpTemp = value;
+                this.RaisePropertyChanged("He3PumpTemp");
             }
         }
 
         /// <summary>
-        /// Gets or sets the he3 warm head temperature.
+        /// Gets or sets a value indicating whether he 3 head temp.
         /// </summary>
-        /// <value>
-        /// The he3 warm head temperature.
-        /// </value>
-        public bool He3WarmHeadTemp
+        public bool He3HeadTemp
         {
             get
             {
-                return this.loggingModel.He3WarmHeadTemp;
+                return this.loggingModel.He3HeadTemp;
             }
 
             set
             {
-                this.loggingModel.He3WarmHeadTemp = value;
-                this.RaisePropertyChanged("He3WarmHeadTemp");
+                this.loggingModel.He3HeadTemp = value;
+                this.RaisePropertyChanged("He3HeadTemp");
             }
         }
 
@@ -101,42 +95,36 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the he4 cold head temperature.
+        /// Gets or sets a value indicating whether he 4 pump temp.
         /// </summary>
-        /// <value>
-        /// The he4 cold head temperature.
-        /// </value>
-        public bool He4ColdHeadTemp
+        public bool He4PumpTemp
         {
             get
             {
-                return this.loggingModel.He4ColdHeadTemp;
+                return this.loggingModel.He4PumpTemp;
             }
 
             set
             {
-                this.loggingModel.He4ColdHeadTemp = value;
-                this.RaisePropertyChanged("He4ColdHeadTemp");
+                this.loggingModel.He4PumpTemp = value;
+                this.RaisePropertyChanged("He4PumpTemp");
             }
         }
 
         /// <summary>
-        /// Gets or sets the he4 warm head temperature.
+        /// Gets or sets a value indicating whether he 4 head temp.
         /// </summary>
-        /// <value>
-        /// The he4 warm head temperature.
-        /// </value>
-        public bool He4WarmHeadTemp
+        public bool He4HeadTemp
         {
             get
             {
-                return this.loggingModel.He4WarmHeadTemp;
+                return this.loggingModel.He4HeadTemp;
             }
 
             set
             {
-                this.loggingModel.He4WarmHeadTemp = value;
-                this.RaisePropertyChanged("He4WarmHeadTemp");
+                this.loggingModel.He4HeadTemp = value;
+                this.RaisePropertyChanged("He4HeadTemp");
             }
         }
 
@@ -337,46 +325,6 @@ namespace CryostatControlClient.ViewModels
             {
                 this.loggingModel.BlueforsHeater = value;
                 this.RaisePropertyChanged("BlueforsHeater");
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the bluefors50 k shield pressure.
-        /// </summary>
-        /// <value>
-        /// The bluefors50 k shield pressure.
-        /// </value>
-        public bool Bluefors50KShieldPressure
-        {
-            get
-            {
-                return this.loggingModel.Bluefors50KShieldPressure;
-            }
-
-            set
-            {
-                this.loggingModel.Bluefors50KShieldPressure = value;
-                this.RaisePropertyChanged("Bluefors50KShieldPressure");
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the bluefors3 k shield pressure.
-        /// </summary>
-        /// <value>
-        /// The bluefors3 k shield pressure.
-        /// </value>
-        public bool Bluefors3KShieldPressure
-        {
-            get
-            {
-                return this.loggingModel.Bluefors3KShieldPressure;
-            }
-
-            set
-            {
-                this.loggingModel.Bluefors3KShieldPressure = value;
-                this.RaisePropertyChanged("Bluefors3KShieldPressure");
             }
         }
 
@@ -627,6 +575,59 @@ namespace CryostatControlClient.ViewModels
                     this.loggingPreset = new LogBlueforsPreset(this);
                     break;
             }
+        }
+
+        /// <summary>
+        /// Get the logging array.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="double[]"/>.
+        /// </returns>
+        public double[] GetLoggingArray()
+        {
+            double[] loggingArray = new double[42];
+            loggingArray[0] = this.ConvertBoolToDouble(this.Bluefors50KShieldTemp);
+            loggingArray[1] = this.ConvertBoolToDouble(this.Bluefors3KShieldTemp);
+            loggingArray[2] = this.ConvertBoolToDouble(this.CompressorWaterInTemp);
+            loggingArray[3] = this.ConvertBoolToDouble(this.CompressorWaterOutTemp);
+            loggingArray[4] = this.ConvertBoolToDouble(this.CompressorHeliumTemp);
+            loggingArray[5] = this.ConvertBoolToDouble(this.CompressorOilTemp);
+            loggingArray[6] = this.ConvertBoolToDouble(this.CompressorLowPressure);
+            loggingArray[7] = this.ConvertBoolToDouble(this.CompressorLowAveragePressure);
+            loggingArray[8] = this.ConvertBoolToDouble(this.CompressorHighPressure);
+            loggingArray[9] = this.ConvertBoolToDouble(this.CompressorHighAveragePressure);
+            loggingArray[10] = this.ConvertBoolToDouble(this.CompressorDeltaAveragePressure);
+            loggingArray[11] = this.ConvertBoolToDouble(this.He3PumpTemp);
+            loggingArray[12] = this.ConvertBoolToDouble(this.TwoKPlateTemp);
+            loggingArray[13] = this.ConvertBoolToDouble(this.FourKPlateTemp);
+            loggingArray[14] = this.ConvertBoolToDouble(this.He3HeadTemp);
+            loggingArray[15] = this.ConvertBoolToDouble(this.He4PumpTemp);
+            loggingArray[16] = this.ConvertBoolToDouble(this.He4SwitchTemp);
+            loggingArray[17] = this.ConvertBoolToDouble(this.He3SwitchTemp);
+            loggingArray[18] = this.ConvertBoolToDouble(this.He4HeadTemp);
+            loggingArray[19] = this.ConvertBoolToDouble(this.He3PumpVolt);
+            loggingArray[20] = this.ConvertBoolToDouble(this.He4SwitchVolt);
+            loggingArray[21] = this.ConvertBoolToDouble(this.He3SwitchVolt);
+            loggingArray[22] = this.ConvertBoolToDouble(this.He4PumpVolt);
+
+            loggingArray[39] = this.ConvertBoolToDouble(this.BlueforsHeater);
+
+            loggingArray[41] = this.LoggingInterval;
+            return loggingArray;
+        }
+
+        /// <summary>
+        /// Converts the bool to double.
+        /// </summary>
+        /// <param name="boolVal">if set to <c>true</c> [bool value].</param>
+        /// <returns>Converted bool to int</returns>
+        public double ConvertBoolToDouble(bool boolVal)
+        {
+            if (boolVal == true)
+            {
+                return 1;
+            }
+            return 0;
         }
     }
 }

@@ -18,12 +18,12 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The he3 cold head temperature
         /// </summary>
-        private bool he3ColdHeadTemp;
+        private bool he3PumpTemp;
 
         /// <summary>
         /// The he3 warm head temperature
         /// </summary>
-        private bool he3WarmHeadTemp;
+        private bool he3HeadTemp;
 
         /// <summary>
         /// The he3 switch temperature
@@ -33,12 +33,12 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The he4 cold head temperature
         /// </summary>
-        private bool he4ColdHeadTemp;
+        private bool he4PumpTemp;
 
         /// <summary>
         /// The he4 warm head temperature
         /// </summary>
-        private bool he4WarmHeadTemp;
+        private bool he4HeadTemp;
 
         /// <summary>
         /// The he4 switch temperature
@@ -89,16 +89,6 @@ namespace CryostatControlClient.Models
         /// The bluefors heater
         /// </summary>
         private bool blueforsHeater;
-
-        /// <summary>
-        /// The bluefors50 k shield pressure
-        /// </summary>
-        private bool bluefors50KShieldPressure;
-
-        /// <summary>
-        /// The bluefors3 k shield pressure
-        /// </summary>
-        private bool bluefors3KShieldPressure;
 
         /// <summary>
         /// The compressor water in temperature
@@ -161,16 +151,16 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he3 cold head temperature.
         /// </value>
-        public bool He3ColdHeadTemp
+        public bool He3PumpTemp
         {
             get
             {
-                return this.he3ColdHeadTemp;
+                return this.he3PumpTemp;
             }
 
             set
             {
-                this.he3ColdHeadTemp = value;
+                this.he3PumpTemp = value;
             }
         }
 
@@ -180,16 +170,16 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he3 warm head temperature.
         /// </value>
-        public bool He3WarmHeadTemp
+        public bool He3HeadTemp
         {
             get
             {
-                return this. he3WarmHeadTemp;
+                return this. he3HeadTemp;
             }
 
             set
             {
-                this.he3WarmHeadTemp = value;
+                this.he3HeadTemp = value;
             }
         }
 
@@ -218,16 +208,16 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he4 cold head temperature.
         /// </value>
-        public bool He4ColdHeadTemp
+        public bool He4PumpTemp
         {
             get
             {
-                return this.he4ColdHeadTemp;
+                return this.he4PumpTemp;
             }
 
             set
             {
-                this.he4ColdHeadTemp = value;
+                this.he4PumpTemp = value;
             }
         }
 
@@ -237,16 +227,16 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he4 warm head temperature.
         /// </value>
-        public bool He4WarmHeadTemp
+        public bool He4HeadTemp
         {
             get
             {
-                return this.he4WarmHeadTemp;
+                return this.he4HeadTemp;
             }
 
             set
             {
-                this.he4WarmHeadTemp = value;
+                this.he4HeadTemp = value;
             }
         }
 
@@ -437,44 +427,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.blueforsHeater = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the bluefors50 k shield pressure.
-        /// </summary>
-        /// <value>
-        /// The bluefors50 k shield pressure.
-        /// </value>
-        public bool Bluefors50KShieldPressure
-        {
-            get
-            {
-                return this.bluefors50KShieldPressure;
-            }
-
-            set
-            {
-                this.bluefors50KShieldPressure = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the bluefors3 k shield pressure.
-        /// </summary>
-        /// <value>
-        /// The bluefors3 k shield pressure.
-        /// </value>
-        public bool Bluefors3KShieldPressure
-        {
-            get
-            {
-                return this.bluefors3KShieldPressure;
-            }
-
-            set
-            {
-                this.bluefors3KShieldPressure = value;
             }
         }
 
