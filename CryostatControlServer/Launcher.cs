@@ -74,17 +74,10 @@ namespace CryostatControlServer
                 ////todo handle exception
             }
 
-            try
-            {
+            
                 he7Cooler = new He7Cooler.He7Cooler();
                 he7Cooler.Connect(CoolerHost);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("No connection with He7");
-
-                ////todo handle exception
-            }
+            
 
             try
             {

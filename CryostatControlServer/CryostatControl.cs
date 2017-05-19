@@ -222,7 +222,7 @@ namespace CryostatControlServer
             {
                 this.sensors[(int)DataEnumerator.LakePlate50K] =
                     new LakeShore.Sensor(SensorEnum.Sensor1, this.lakeShore);
-                this.sensors[(int)DataEnumerator.LakePlate50K] =
+                this.sensors[(int)DataEnumerator.LakePlate3K] =
                     new LakeShore.Sensor(SensorEnum.Sensor2, this.lakeShore);
             }
             catch (Exception)
@@ -280,9 +280,9 @@ namespace CryostatControlServer
                 this.sensors[(int)DataEnumerator.He3VoltActual] =
                     new He7Cooler.He7Cooler.Sensor(Channels.SensHe3Pump, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
                 this.sensors[(int)DataEnumerator.He4SwitchVoltActual] =
-                    new He7Cooler.He7Cooler.Sensor(Channels.SwitchHe4, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
+                    new He7Cooler.He7Cooler.Sensor(Channels.SensHe3Switch, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
                 this.sensors[(int)DataEnumerator.He3SwitchVoltActual] =
-                    new He7Cooler.He7Cooler.Sensor(Channels.SwitchHe3, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
+                    new He7Cooler.He7Cooler.Sensor(Channels.SensHe4Switch, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
                 this.sensors[(int)DataEnumerator.He4VoltActual] =
                     new He7Cooler.He7Cooler.Sensor(Channels.SensHe4Pump, this.he7Cooler, new He7Cooler.He7Cooler.Sensor.Calibration());
             
