@@ -73,6 +73,8 @@
     <Compile Include="Compressor\Enumerators\TemperatureEnum.cs" />
     <Compile Include="Compressor\Enumerators\WarningsEnum.cs" />
     <Compile Include="Compressor\Sensor.cs" />
+    <Compile Include="Controller.cs" />
+    <Compile Include="ControlState.cs" />
     <Compile Include="CryostatControl.cs" />
     <Compile Include="DataReadOut.cs" />
     <Compile Include="He7Cooler\Agilent34972A.cs" />
