@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CryostatControlServerTests.Lakeshore
 {
@@ -8,8 +7,6 @@ namespace CryostatControlServerTests.Lakeshore
     using CryostatControlServer;
     using CryostatControlServer.LakeShore;
     using CryostatControlServer.Streams;
-
-    using CryostatControlServerTests.He7Cooler;
 
     using Moq;
 

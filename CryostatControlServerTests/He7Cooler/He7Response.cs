@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 namespace CryostatControlServerTests.He7Cooler
 {
-    using Castle.Core.Internal;
-
     /// <summary>
     /// Fakes the Agilent device connected to the He7Cooler
     /// Uses some very ugly code.
@@ -54,8 +52,10 @@ namespace CryostatControlServerTests.He7Cooler
                 case 2: return "1";
                 case 1:
                     string response = "";
-                    this.responsevalues.ForEach(
-                        pair => { response += $"{pair.Value:0.000},{pair.Key},"; });
+                    foreach (var pair in this.responsevalues)
+                    {
+                        response += $"{pair.Value:0.000},{pair.Key},";
+                    }
                     response = response.TrimEnd(',');
                     return response;
             }
