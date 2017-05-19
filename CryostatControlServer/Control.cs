@@ -281,6 +281,23 @@ namespace CryostatControlServer
         }
 
         /// <summary>
+        /// Switch to manual control. Can only be started from Standby.
+        /// </summary>
+        /// <returns>
+        /// true if switched to manual control, false otherwise <see cref="bool"/>.
+        /// </returns>
+        public bool StartManualControl()
+        {
+            if (this.State == Controlstate.Standby)
+            {
+                this.State = Controlstate.Manual;
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Cancels the current command safely.
         /// </summary>
         public void CancelCommand()
@@ -357,8 +374,21 @@ namespace CryostatControlServer
 
         /// <summary>
         /// The state machine that controls the heater.
-        /// Controls the 
+        /// Controls the Cool down, Heat up and Recycle processes, by walking trough a state machine.
+        /// State should not be modified by external classes.
         /// </summary>
+        /// <para>
+        /// State machine design
+        /// The entire state machine is intentionally placed in a single function.
+        /// Use of the State pattern was considered but rejected for clarity and maintainability. 
+        /// The design of the state machine is discussed in github:
+        /// https://github.com/BBekker/CryostatControl/pull/88
+        /// access can be requested by emailing: Bernard@BernardBekker.nl
+        /// </para>
+        /// <para>
+        /// States
+        /// To view all states see <see cref="Controlstate"/>
+        /// </para>
         private void StateMachine()
         {
             this.SafetyCheckHeatSwitch();
