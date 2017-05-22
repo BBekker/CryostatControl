@@ -70,9 +70,9 @@ namespace CryostatControlServer
         private He7Cooler.He7Cooler he7Cooler;
 
         /// <summary>
-        /// Manual control is allowed or not
+        /// The controller.
         /// </summary>
-        private bool manualControl = true;
+        private Controller controller;
 
         #endregion Fields
 
@@ -81,17 +81,28 @@ namespace CryostatControlServer
         /// <summary>
         /// Initializes a new instance of the <see cref="CryostatControl"/> class.
         /// </summary>
-        /// <param name="compressor">The compressor.</param>
-        /// <param name="lakeShore">The lake shore.</param>
-        /// <param name="he7Cooler">The he7 cooler.</param>
+        /// <param name="compressor">
+        /// The compressor.
+        /// </param>
+        /// <param name="lakeShore">
+        /// The lake shore.
+        /// </param>
+        /// <param name="he7Cooler">
+        /// The he7 cooler.
+        /// </param>
+        /// <param name="controller">
+        /// The controller.
+        /// </param>
         public CryostatControl(
             Compressor.Compressor compressor,
             LakeShore.LakeShore lakeShore,
-            He7Cooler.He7Cooler he7Cooler)
+            He7Cooler.He7Cooler he7Cooler,
+            Controller controller)
         {
             this.compressor = compressor;
             this.lakeShore = lakeShore;
             this.he7Cooler = he7Cooler;
+            this.controller = controller;
 
             try
             {
@@ -107,9 +118,74 @@ namespace CryostatControlServer
             this.dataReadOut = new DataReadOut(this.compressor, this.sensors);
         }
 
-        #endregion Constructors
+        /// <summary>
+        /// Gets the state of the controller.
+        /// </summary>
+        /// <returns>The controller state <see cref="Controlstate"/></returns>
+        public Controlstate ControllerState
+        {
+            get
+            {
+                return this.controller.State;
+            }
+        }
 
-        #region Methods
+        /// <summary>
+        /// Gets a value indicating whether Manual control is allowed or not
+        /// </summary>
+        private bool ManualControl
+        {
+            get
+            {
+                return this.ControllerState == Controlstate.Manual;
+            }
+        }
+
+        /// <summary>
+        /// Cancels the current command safely.
+        /// </summary>
+        public void CancelCommand()
+        {
+            this.controller.CancelCommand();
+        }
+
+        /// <summary>
+        /// Starts the cool down id possible.
+        /// </summary>
+        /// <returns>true if cool down is started, false otherwise</returns>
+        public bool StartCooldown()
+        {
+            return this.controller.StartCooldown();
+        }
+
+        /// <summary>
+        /// Starts the heat up.
+        /// </summary>
+        /// <returns>true if heat up is started, false otherwise</returns>
+        public bool StartHeatup()
+        {
+            return this.controller.StartHeatup();
+        }
+
+        /// <summary>
+        /// Switch to manual control. Can only be started from Standby.
+        /// </summary>
+        /// <returns>
+        /// true if switched to manual control, false otherwise <see cref="bool"/>.
+        /// </returns>
+        public bool StartManualControl()
+        {
+            return this.controller.StartManualControl();
+        }
+
+        /// <summary>
+        /// Starts a recycle.
+        /// </summary>
+        /// <returns>true if recycle is started, false otherwise</returns>
+        public bool StartRecycle()
+        {
+            return this.controller.StartRecycle();
+        }
 
         /// <summary>
         /// Reads the data.
@@ -130,7 +206,7 @@ namespace CryostatControlServer
         /// </returns>
         public bool SetCompressorState(bool status)
         {
-            if (!this.manualControl)
+            if (!this.ManualControl)
             {
                 return false;
             }
@@ -160,7 +236,7 @@ namespace CryostatControlServer
         {
             ////todo add safety check
 
-            if (values.Length != (int)HeaterEnumerator.HeaterAmount || !this.manualControl)
+            if (values.Length != (int)HeaterEnumerator.HeaterAmount || !this.ManualControl)
             {
                 return false;
             }

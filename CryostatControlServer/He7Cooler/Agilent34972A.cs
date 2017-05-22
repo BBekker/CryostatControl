@@ -58,7 +58,7 @@ namespace CryostatControlServer.He7Cooler
                 var res = this.connection.ReadString();
                 var values = GetDataFromString(res);
 
-                if (values.Length != 2*channelIds.Length)
+                if (values.Length != 2 * channelIds.Length)
                 {
                     throw new AgilentException("Amount of values returned by the device did not match request.");
                 }
