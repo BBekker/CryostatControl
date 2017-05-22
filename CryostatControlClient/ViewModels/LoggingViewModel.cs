@@ -14,6 +14,8 @@ namespace CryostatControlClient.ViewModels
     using CryostatControlClient.Models;
     using CryostatControlClient.ViewModels.LoggingPresets;
 
+    using CryostatControlServer.HostService.Enumerators;
+
     /// <summary>
     /// The logging view model.
     /// </summary>
@@ -585,35 +587,33 @@ namespace CryostatControlClient.ViewModels
         /// </returns>
         public double[] GetLoggingArray()
         {
-            double[] loggingArray = new double[42];
-            loggingArray[0] = this.ConvertBoolToDouble(this.Bluefors50KShieldTemp);
-            loggingArray[1] = this.ConvertBoolToDouble(this.Bluefors3KShieldTemp);
-            loggingArray[2] = this.ConvertBoolToDouble(this.CompressorWaterInTemp);
-            loggingArray[3] = this.ConvertBoolToDouble(this.CompressorWaterOutTemp);
-            loggingArray[4] = this.ConvertBoolToDouble(this.CompressorHeliumTemp);
-            loggingArray[5] = this.ConvertBoolToDouble(this.CompressorOilTemp);
-            loggingArray[6] = this.ConvertBoolToDouble(this.CompressorLowPressure);
-            loggingArray[7] = this.ConvertBoolToDouble(this.CompressorLowAveragePressure);
-            loggingArray[8] = this.ConvertBoolToDouble(this.CompressorHighPressure);
-            loggingArray[9] = this.ConvertBoolToDouble(this.CompressorHighAveragePressure);
-            loggingArray[10] = this.ConvertBoolToDouble(this.CompressorDeltaAveragePressure);
-            loggingArray[11] = this.ConvertBoolToDouble(this.He3PumpTemp);
-            loggingArray[12] = this.ConvertBoolToDouble(this.TwoKPlateTemp);
-            loggingArray[13] = this.ConvertBoolToDouble(this.FourKPlateTemp);
-            loggingArray[14] = this.ConvertBoolToDouble(this.He3HeadTemp);
-            loggingArray[15] = this.ConvertBoolToDouble(this.He4PumpTemp);
-            loggingArray[16] = this.ConvertBoolToDouble(this.He4SwitchTemp);
-            loggingArray[17] = this.ConvertBoolToDouble(this.He3SwitchTemp);
-            loggingArray[18] = this.ConvertBoolToDouble(this.He4HeadTemp);
-            loggingArray[19] = this.ConvertBoolToDouble(this.He3PumpVolt);
-            loggingArray[20] = this.ConvertBoolToDouble(this.He4SwitchVolt);
-            loggingArray[21] = this.ConvertBoolToDouble(this.He3SwitchVolt);
-            loggingArray[22] = this.ConvertBoolToDouble(this.He4PumpVolt);
+            double[] loggingDataArray = new double[42];
+            loggingDataArray[(int) DataEnumerator.LakePlate50K] = this.ConvertBoolToDouble(this.Bluefors50KShieldTemp);
+            loggingDataArray[(int)DataEnumerator.LakePlate3K] = this.ConvertBoolToDouble(this.Bluefors3KShieldTemp);
+            loggingDataArray[(int)DataEnumerator.ComWaterIn] = this.ConvertBoolToDouble(this.CompressorWaterInTemp);
+            loggingDataArray[(int)DataEnumerator.ComWaterOut] = this.ConvertBoolToDouble(this.CompressorWaterOutTemp);
+            loggingDataArray[(int)DataEnumerator.ComHelium] = this.ConvertBoolToDouble(this.CompressorHeliumTemp);
+            loggingDataArray[(int)DataEnumerator.ComOil] = this.ConvertBoolToDouble(this.CompressorOilTemp);
+            loggingDataArray[(int)DataEnumerator.ComLow] = this.ConvertBoolToDouble(this.CompressorLowPressure);
+            loggingDataArray[(int)DataEnumerator.ComLowAvg] = this.ConvertBoolToDouble(this.CompressorLowAveragePressure);
+            loggingDataArray[(int)DataEnumerator.ComHigh] = this.ConvertBoolToDouble(this.CompressorHighPressure);
+            loggingDataArray[(int)DataEnumerator.ComHighAvg] = this.ConvertBoolToDouble(this.CompressorHighAveragePressure);
+            loggingDataArray[(int)DataEnumerator.ComDeltaAvg] = this.ConvertBoolToDouble(this.CompressorDeltaAveragePressure);
+            loggingDataArray[(int)DataEnumerator.He3Pump] = this.ConvertBoolToDouble(this.He3PumpTemp);
+            loggingDataArray[(int)DataEnumerator.HePlate2K] = this.ConvertBoolToDouble(this.TwoKPlateTemp);
+            loggingDataArray[(int)DataEnumerator.HePlate4K] = this.ConvertBoolToDouble(this.FourKPlateTemp);
+            loggingDataArray[(int)DataEnumerator.He3Head] = this.ConvertBoolToDouble(this.He3HeadTemp);
+            loggingDataArray[(int)DataEnumerator.He4Pump] = this.ConvertBoolToDouble(this.He4PumpTemp);
+            loggingDataArray[(int)DataEnumerator.He4SwitchTemp] = this.ConvertBoolToDouble(this.He4SwitchTemp);
+            loggingDataArray[(int)DataEnumerator.He3SwitchTemp] = this.ConvertBoolToDouble(this.He3SwitchTemp);
+            loggingDataArray[(int)DataEnumerator.He4Head] = this.ConvertBoolToDouble(this.He4HeadTemp);
+            loggingDataArray[(int)DataEnumerator.He3VoltActual] = this.ConvertBoolToDouble(this.He3PumpVolt);
+            loggingDataArray[(int)DataEnumerator.He4SwitchVoltActual] = this.ConvertBoolToDouble(this.He4SwitchVolt);
+            loggingDataArray[(int)DataEnumerator.He3SwitchVoltActual] = this.ConvertBoolToDouble(this.He3SwitchVolt);
+            loggingDataArray[(int)DataEnumerator.He4VoltActual] = this.ConvertBoolToDouble(this.He4PumpVolt);
+            loggingDataArray[(int)DataEnumerator.LakeHeater] = this.ConvertBoolToDouble(this.BlueforsHeater);
 
-            loggingArray[39] = this.ConvertBoolToDouble(this.BlueforsHeater);
-
-            loggingArray[41] = this.LoggingInterval;
-            return loggingArray;
+            return loggingDataArray;
         }
 
         /// <summary>
@@ -623,11 +623,7 @@ namespace CryostatControlClient.ViewModels
         /// <returns>Converted bool to int</returns>
         public double ConvertBoolToDouble(bool boolVal)
         {
-            if (boolVal == true)
-            {
-                return 1;
-            }
-            return 0;
+            return boolVal == true ? 1 : 0;
         }
     }
 }
