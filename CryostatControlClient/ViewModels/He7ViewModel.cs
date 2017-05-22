@@ -50,6 +50,7 @@ namespace CryostatControlClient.ViewModels
             {
                 return this.updateCommand;
             }
+
             set
             {
                 this.updateCommand = value;

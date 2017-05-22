@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TestViewModel.cs" company="SRON">
+// <copyright file="ModusModel.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
@@ -54,6 +54,7 @@ namespace CryostatControlClient.Models
             {
                 return this.selectedComboIndex;
             }
+
             set
             {
                 this.selectedComboIndex = value;
@@ -72,6 +73,7 @@ namespace CryostatControlClient.Models
             {
                 return this.time;
             }
+
             set
             {
                 this.time = value;
