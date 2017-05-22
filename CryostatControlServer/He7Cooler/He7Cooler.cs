@@ -10,7 +10,9 @@
 
 namespace CryostatControlServer.He7Cooler
 {
+    using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
     using System.Threading;
 
@@ -50,7 +52,7 @@ namespace CryostatControlServer.He7Cooler
         /// <summary>
         /// The connected device.
         /// </summary>
-        private readonly Agilent34972A device = new Agilent34972A();
+        private Agilent34972A device = new Agilent34972A();
 
         /// <summary>
         /// The amound in sensor readers per channel.
@@ -191,6 +193,21 @@ namespace CryostatControlServer.He7Cooler
         }
 
         /// <summary>
+        /// Connect using an already initialized Agilent device.
+        /// Used for testing.
+        /// </summary>
+        /// <param name="device">
+        /// The initialized device.
+        /// </param>
+        public void Connect(Agilent34972A device, bool startReading)
+        {
+            this.device = device;
+            this.isStarted = startReading;
+            this.readThread = new Thread(this.MainLoop);
+            this.readThread.Start();
+        }
+
+        /// <summary>
         /// Stop the reading thread and disconnect from the device.
         /// </summary>
         public void Disconnect()
@@ -208,10 +225,17 @@ namespace CryostatControlServer.He7Cooler
                 .Where((pair) => pair.Value > 0)
                 .Select(pair => pair.Key)
                 .ToArray();
-            double[] voltages = this.device.GetVoltages(channels);
-            for (int i = 0; i < channels.Length; i++)
+            try
             {
-                this.values[channels[i]] = voltages[i];
+                double[] voltages = this.device.GetVoltages(channels);
+                for (int i = 0; i < channels.Length; i++)
+                {
+                    this.values[channels[i]] = voltages[i];
+                }
+            }
+            catch (AgilentException ex)
+            {
+                Console.WriteLine("Reading values failed: "+ex.ToString());
             }
         }
 
@@ -253,9 +277,11 @@ namespace CryostatControlServer.He7Cooler
         {
             if (!this.readersPerChannel.ContainsKey(channel))
             {
+                this.values.Add(channel, 0.0);
                 this.readersPerChannel[channel] = 0;
             }
             this.readersPerChannel[channel]++;
+
         }
 
         /// <summary>
@@ -266,6 +292,7 @@ namespace CryostatControlServer.He7Cooler
         /// </param>
         protected void RemoveChannel(Channels channel)
         {
+            if(this.readersPerChannel.ContainsKey(channel))
             if (this.readersPerChannel[channel] > 0)
             {
                 this.readersPerChannel[channel]--;
