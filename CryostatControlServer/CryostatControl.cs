@@ -199,6 +199,7 @@ namespace CryostatControlServer
             }
 
             this.lakeShore.SetHeater(true);
+            return true;
         }
 
         /// <summary>
