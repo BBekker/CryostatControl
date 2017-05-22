@@ -86,8 +86,8 @@ namespace CryostatControlServer
         CooldownControlHe3,
 
         /// <summary>
-        /// "Fridge is cooling nicely." 
-        ///             - Chase Reasearch He7 cooler manual
+        /// "Fridge is cooling nicely."
+        ///  - Chase Research He7 cooler manual
         /// </summary>
         CooldownFinished,
 
@@ -98,7 +98,7 @@ namespace CryostatControlServer
 
         /// <summary>
         /// Heat pumps
-        /// Rest of recycle follows cool down from "CooldownTurnOffHe4"
+        /// Rest of recycle follows cool down from "CoolDownTurnOffHe4"
         /// </summary>
         RecycleHeatPumps,
 
