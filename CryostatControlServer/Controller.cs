@@ -51,6 +51,11 @@ namespace CryostatControlServer
         private Controlstate state = Controlstate.Setup;
 
         /// <summary>
+        /// The start time.
+        /// </summary>
+        private DateTime startTime = DateTime.Now;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Controller"/> class. 
         /// </summary>
         /// <param name="cooler">
@@ -303,10 +308,11 @@ namespace CryostatControlServer
         /// Starts the cool down id possible.
         /// </summary>
         /// <returns>true if cool down is started, false otherwise</returns>
-        public bool StartCooldown()
+        public bool StartCooldown(DateTime startTime)
         {
             if (this.State == Controlstate.Standby)
             {
+                this.startTime = startTime;
                 this.State = Controlstate.CooldownStart;
                 return true;
             }
@@ -511,11 +517,13 @@ namespace CryostatControlServer
                 case Controlstate.Manual: break;
 
                 case Controlstate.CooldownStart:
-                    this.State = Controlstate.CooldownWaitForPressure;
+                    if (DateTime.Now > this.startTime)
+                    {
+                        this.State = Controlstate.CooldownWaitForPressure;
+                    }
                     break;
 
                 case Controlstate.CooldownWaitForPressure:
-                    // TODO: wait for pressure when sensor is connected
                     this.State = Controlstate.CooldownStartCompressor;
                     break;
 

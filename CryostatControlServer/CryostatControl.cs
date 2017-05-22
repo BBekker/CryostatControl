@@ -142,7 +142,21 @@ namespace CryostatControlServer
         /// <returns>true if cool down is started, false otherwise</returns>
         public bool StartCooldown()
         {
-            return this.controller.StartCooldown();
+            return this.controller.StartCooldown(DateTime.Now);
+        }
+
+        /// <summary>
+        /// Starts the cool down id possible.
+        /// </summary>
+        /// <param name="time">
+        /// The time.
+        /// </param>
+        /// <returns>
+        /// true if cool down is started, false otherwise
+        /// </returns>
+        public bool StartCooldown(string time)
+        {
+            return this.controller.StartCooldown(DateTime.Parse(time));
         }
 
         /// <summary>
