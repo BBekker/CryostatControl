@@ -49,6 +49,30 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="Manual">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ManualResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ManualResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetState">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetStateResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="SetCompressorState">
     <xs:complexType>
       <xs:sequence>
@@ -101,17 +125,30 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="WriteSettingValues">
+  <xs:element name="WriteSettingValue">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="values" nillable="true" type="q2:ArrayOfdouble" />
+        <xs:element minOccurs="0" name="setting" type="xs:int" />
+        <xs:element minOccurs="0" name="value" type="xs:double" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="WriteSettingValuesResponse">
+  <xs:element name="WriteSettingValueResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="WriteSettingValuesResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="WriteSettingValueResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReadSettings">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReadSettingsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ReadSettingsResult" nillable="true" type="q2:ArrayOfdouble" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

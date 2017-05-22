@@ -39,6 +39,18 @@ namespace CryostatControlClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Warmup", ReplyAction="http://tempuri.org/ICommandService/WarmupResponse")]
         System.Threading.Tasks.Task<bool> WarmupAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Manual", ReplyAction="http://tempuri.org/ICommandService/ManualResponse")]
+        bool Manual();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Manual", ReplyAction="http://tempuri.org/ICommandService/ManualResponse")]
+        System.Threading.Tasks.Task<bool> ManualAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/GetState", ReplyAction="http://tempuri.org/ICommandService/GetStateResponse")]
+        int GetState();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/GetState", ReplyAction="http://tempuri.org/ICommandService/GetStateResponse")]
+        System.Threading.Tasks.Task<int> GetStateAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/SetCompressorState", ReplyAction="http://tempuri.org/ICommandService/SetCompressorStateResponse")]
         bool SetCompressorState(bool status);
         
@@ -63,11 +75,17 @@ namespace CryostatControlClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadCompressorPressureScale", ReplyAction="http://tempuri.org/ICommandService/ReadCompressorPressureScaleResponse")]
         System.Threading.Tasks.Task<double> ReadCompressorPressureScaleAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteSettingValues", ReplyAction="http://tempuri.org/ICommandService/WriteSettingValuesResponse")]
-        bool WriteSettingValues(double[] values);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteSettingValue", ReplyAction="http://tempuri.org/ICommandService/WriteSettingValueResponse")]
+        bool WriteSettingValue(int setting, double value);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteSettingValues", ReplyAction="http://tempuri.org/ICommandService/WriteSettingValuesResponse")]
-        System.Threading.Tasks.Task<bool> WriteSettingValuesAsync(double[] values);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteSettingValue", ReplyAction="http://tempuri.org/ICommandService/WriteSettingValueResponse")]
+        System.Threading.Tasks.Task<bool> WriteSettingValueAsync(int setting, double value);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadSettings", ReplyAction="http://tempuri.org/ICommandService/ReadSettingsResponse")]
+        double[] ReadSettings();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadSettings", ReplyAction="http://tempuri.org/ICommandService/ReadSettingsResponse")]
+        System.Threading.Tasks.Task<double[]> ReadSettingsAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -129,6 +147,22 @@ namespace CryostatControlClient.ServiceReference1 {
             return base.Channel.WarmupAsync();
         }
         
+        public bool Manual() {
+            return base.Channel.Manual();
+        }
+        
+        public System.Threading.Tasks.Task<bool> ManualAsync() {
+            return base.Channel.ManualAsync();
+        }
+        
+        public int GetState() {
+            return base.Channel.GetState();
+        }
+        
+        public System.Threading.Tasks.Task<int> GetStateAsync() {
+            return base.Channel.GetStateAsync();
+        }
+        
         public bool SetCompressorState(bool status) {
             return base.Channel.SetCompressorState(status);
         }
@@ -161,12 +195,20 @@ namespace CryostatControlClient.ServiceReference1 {
             return base.Channel.ReadCompressorPressureScaleAsync();
         }
         
-        public bool WriteSettingValues(double[] values) {
-            return base.Channel.WriteSettingValues(values);
+        public bool WriteSettingValue(int setting, double value) {
+            return base.Channel.WriteSettingValue(setting, value);
         }
         
-        public System.Threading.Tasks.Task<bool> WriteSettingValuesAsync(double[] values) {
-            return base.Channel.WriteSettingValuesAsync(values);
+        public System.Threading.Tasks.Task<bool> WriteSettingValueAsync(int setting, double value) {
+            return base.Channel.WriteSettingValueAsync(setting, value);
+        }
+        
+        public double[] ReadSettings() {
+            return base.Channel.ReadSettings();
+        }
+        
+        public System.Threading.Tasks.Task<double[]> ReadSettingsAsync() {
+            return base.Channel.ReadSettingsAsync();
         }
     }
     

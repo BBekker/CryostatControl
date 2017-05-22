@@ -57,12 +57,25 @@ namespace CryostatControlServer
             try
             {
                 this.FillDataWithSensor(data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Sensor data could not be filled");
+#if DEBUG
+                Console.WriteLine("thrown exception: {0}", e);
+#endif
+            }
+
+            try
+            {
                 this.FillCompressorData(data);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.WriteLine("Data could not be read out and will be filled with mock data");
-                this.FillWithMockData(data);
+                Console.WriteLine("Compressor data could not be filled");
+#if DEBUG
+                Console.WriteLine("thrown exception: {0}", e);
+#endif
             }
 
             return data;
@@ -86,18 +99,9 @@ namespace CryostatControlServer
         /// <param name="data">The data.</param>
         private void FillCompressorData(double[] data)
         {
-            try
-            {
-                data[(int)DataEnumerator.ComError] = (double)this.compressor.ReadErrorState();
-                data[(int)DataEnumerator.ComWarning] = (double)this.compressor.ReadWarningState();
-                data[(int)DataEnumerator.ComHoursOfOperation] = (double)this.compressor.ReadHoursOfOperation();
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Something went wrong with the compressor");
-
-                ////todo handle exception
-            }
+            data[(int)DataEnumerator.ComError] = (double)this.compressor.ReadErrorState();
+            data[(int)DataEnumerator.ComWarning] = (double)this.compressor.ReadWarningState();
+            data[(int)DataEnumerator.ComHoursOfOperation] = (double)this.compressor.ReadHoursOfOperation();
         }
 
         /// <summary>
