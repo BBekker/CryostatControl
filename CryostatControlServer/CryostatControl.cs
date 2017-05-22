@@ -86,7 +86,6 @@ namespace CryostatControlServer
 
             this.FillHeaters();
             this.FillSensors();
-
             this.dataReadOut = new DataReadOut(this.compressor, this.sensors);
         }
 
@@ -181,6 +180,25 @@ namespace CryostatControlServer
         public double[] ReadData()
         {
             return this.dataReadOut.FillData();
+        }
+
+        /// <summary>
+        /// Turn bluefors heater on or off.
+        /// </summary>
+        /// <param name="status">
+        /// The status.
+        /// </param>
+        /// <returns>
+        /// True if successfully executed <see cref="bool"/>.
+        /// </returns>
+        public bool SetBlueforsHeater(bool status)
+        {
+            if (!this.ManualControl)
+            {
+                return false;
+            }
+
+            this.lakeShore.SetHeater(true);
         }
 
         /// <summary>

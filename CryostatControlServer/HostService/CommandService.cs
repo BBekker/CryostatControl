@@ -128,6 +128,11 @@ namespace CryostatControlServer.HostService
             return this.cryostatControl.ReadCompressorPressureScale();
         }
 
+        public bool SetBlueforsHeater(bool status)
+        {
+            return this.cryostatControl.SetBlueforsHeater(status);
+        }
+
         /// <inheritdoc cref="ICommandService.WriteSettingValues"/>>
         public bool WriteSettingValue(int setting, double value)
         {

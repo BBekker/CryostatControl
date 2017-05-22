@@ -130,6 +130,9 @@ namespace CryostatControlServer.HostService
         [OperationContract]
         double[] ReadSettings();
 
+        [OperationContract]
+        bool SetBlueforsHeater(bool status);
+
         #endregion Methods
     }
 }
