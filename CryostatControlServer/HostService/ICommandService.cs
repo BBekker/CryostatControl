@@ -57,6 +57,7 @@ namespace CryostatControlServer.HostService
         /// Cancel the current operation, such as warm up, cool down, recycle and manual.
         /// </summary>
         /// <returns>true if canceled</returns>
+        [OperationContract]
         bool Cancel();
 
         /// <summary>

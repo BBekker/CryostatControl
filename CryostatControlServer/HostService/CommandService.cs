@@ -195,12 +195,15 @@ namespace CryostatControlServer.HostService
         /// <param name="state">The state.</param>
         private void TimerMethod(object state)
         {
+#if DEBUG
             Console.WriteLine("sending data to client");
+#endif
             IDataGetCallback client = (IDataGetCallback)state;
             double[] data = this.cryostatControl.ReadData();
             try
             {
                 client.SendData(data);
+                client.SendModus(this.GetState());
             }
             catch (TimeoutException)
             {

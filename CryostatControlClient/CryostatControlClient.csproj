@@ -88,6 +88,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Communication\DataReceiver.cs" />
+    <Compile Include="Communication\DataSender.cs" />
+    <Compile Include="Communication\ModusEnumerator.cs" />
     <Compile Include="Models\BlueforsModel.cs" />
     <Compile Include="Connected Services\ServiceReference1\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -96,11 +98,16 @@
     </Compile>
     <Compile Include="DataClientCallback.cs" />
     <Compile Include="Models\He7Model.cs" />
+    <Compile Include="Models\ModusModel.cs" />
     <Compile Include="ViewModels\AbstractViewModel.cs" />
     <Compile Include="ViewModels\BlueforsViewModel.cs" />
     <Compile Include="ViewModels\CompressorViewModel.cs" />
     <Compile Include="ViewModels\ViewModelContainer.cs" />
     <Compile Include="ViewModels\He7ViewModel.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
+    <Compile Include="ViewModels\ModusViewModel.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Views\MainGraphFrame.xaml.cs">
       <DependentUpon>MainGraphFrame.xaml</DependentUpon>
     </Compile>

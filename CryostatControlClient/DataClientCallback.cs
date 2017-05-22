@@ -61,6 +61,18 @@ namespace CryostatControlClient
             }
         }
 
+        public void SendModus(int modus)
+        {
+            if (this.mainWindow == null)
+            {
+                this.mainWindow = this.mainApp.MainWindow as MainWindow;
+            }
+            else
+            {
+                this.mainWindow.SetState(modus);
+            }
+        }
+
         #endregion Methods
     }
 }

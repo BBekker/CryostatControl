@@ -27,10 +27,12 @@
         <RowDefinition Height="*" />
         <RowDefinition Height="4*" />
         <RowDefinition Height="*" />
-        <RowDefinition Height="8*" />
-        <RowDefinition Height="*" />
+        <RowDefinition Height="5*" />
+        <RowDefinition Height="4*" />
     </Grid.RowDefinitions>
 
+    <Button Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="8" Style="{StaticResource SettingsButton}" Command="{Binding He7ViewModel.UpdateButtonCommand}">Update</Button>
+    
     <materialDesign:Card Grid.Column="1" Grid.Row="1" Style="{StaticResource He7Card}">
         <Grid>
             <Grid.ColumnDefinitions>
