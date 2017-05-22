@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="4d6d8afd-b691-479e-8bf8-8c3cae21bd84" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8080/SRON" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="SRON.xsd" MetadataType="Schema" ID="5cca12ef-9992-4f7c-a6e1-552cdcaf15b1" SourceId="1" SourceUrl="http://localhost:8080/SRON?xsd=xsd0" />
+    <MetadataFile FileName="SRON1.xsd" MetadataType="Schema" ID="90f91982-5e6b-465a-a484-9711394ed418" SourceId="1" SourceUrl="http://localhost:8080/SRON?xsd=xsd1" />
+    <MetadataFile FileName="CommandService.wsdl" MetadataType="Wsdl" ID="86a025bb-bacc-44b8-b267-f7c2866599b9" SourceId="1" SourceUrl="http://localhost:8080/SRON?wsdl" />
+    <MetadataFile FileName="SRON2.xsd" MetadataType="Schema" ID="0957ba9e-ab2b-4874-a208-c910acfbfd7d" SourceId="1" SourceUrl="http://localhost:8080/SRON?xsd=xsd2" />
+    <MetadataFile FileName="SRON.disco" MetadataType="Disco" ID="6ae80e65-a5f0-4edc-a081-3eaa3499a590" SourceId="1" SourceUrl="http://localhost:8080/SRON?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

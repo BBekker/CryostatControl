@@ -1,10 +1,13 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CryostatControlServer;
-
-namespace CryostatControlServerTests
+﻿namespace CryostatControlServerTests.He7Cooler
 {
+    using System;
+
     using CryostatControlServer.He7Cooler;
+    using CryostatControlServer.Streams;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using Moq;
 
     /// <summary>
     /// The sensor tests.
@@ -53,5 +56,7 @@ namespace CryostatControlServerTests
             Assert.AreEqual(0.8, testSensor2.ConvertValue(1.8), 0.001);
 
         }
+
+       
     }
 }

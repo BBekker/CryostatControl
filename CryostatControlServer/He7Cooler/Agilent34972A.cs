@@ -26,7 +26,7 @@ namespace CryostatControlServer.He7Cooler
         /// <summary>
         /// The connection.
         /// </summary>
-        private readonly ManagedStream connection = new ManagedStream();
+        private IManagedStream connection;
 
         /// <summary>
         ///     Gets voltages from the device
@@ -57,6 +57,11 @@ namespace CryostatControlServer.He7Cooler
                 this.connection.WriteString(cmdStr);
                 var res = this.connection.ReadString();
                 var values = GetDataFromString(res);
+
+                if (values.Length != 2 * channelIds.Length)
+                {
+                    throw new AgilentException("Amount of values returned by the device did not match request.");
+                }
 
                 // split into voltages and channels
                 for (var k = 0; k < numSensors; k++)
@@ -95,7 +100,23 @@ namespace CryostatControlServer.He7Cooler
         /// <param name="ipAddress">The IP address.</param>
         public void Init(string ipAddress)
         {
-            this.connection.ConnectTCP(ipAddress, TcpPort);
+            this.connection = new ManagedTcpStream(ipAddress, TcpPort);
+            this.connection.Open();
+
+            this.connection.WriteString("FORM:READ:CHAN ON\n");
+            this.CheckState();
+        }
+
+        /// <summary>
+        /// Initializes using a provided managedStream
+        /// </summary>
+        /// <param name="managedStream">
+        /// The managed Stream.
+        /// </param>
+        public void Init(IManagedStream managedStream)
+        {
+            this.connection = managedStream;
+            this.connection.Open();
 
             this.connection.WriteString("FORM:READ:CHAN ON\n");
             this.CheckState();
@@ -208,7 +229,7 @@ namespace CryostatControlServer.He7Cooler
                 var res = int.Parse(this.connection.ReadString());
                 if (res < 1)
                 {
-                    throw new Exception("invalid agilent state");
+                    throw new AgilentException("invalid agilent state");
                 }
             }
             finally

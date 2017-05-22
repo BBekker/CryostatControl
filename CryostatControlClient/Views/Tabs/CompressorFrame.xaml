@@ -1,94 +1,179 @@
 ﻿<Grid
-     x:Class="CryostatControlClient.Views.CompressorFrame"
-     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-     xmlns:gauge="clr-namespace:CircularGauge;assembly=CircularGauge"
+    x:Class="CryostatControlClient.Views.CompressorFrame"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:gauge="clr-namespace:CircularGauge;assembly=CircularGauge"
     Background="{DynamicResource MaterialDesignPaper}">
-    
+
     <Grid.Resources>
-        <ResourceDictionary Source="../Styles.xaml"/>
+        <ResourceDictionary Source="../Styles.xaml" />
     </Grid.Resources>
     <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="1*"></ColumnDefinition>
-        <ColumnDefinition Width="1*"></ColumnDefinition>
-        <ColumnDefinition Width="1*"></ColumnDefinition>
-        <ColumnDefinition Width="1*"></ColumnDefinition>
-        <ColumnDefinition Width="2*"></ColumnDefinition>
+        <ColumnDefinition Width="1*" />
+        <ColumnDefinition Width="1*" />
+        <ColumnDefinition Width="1*" />
+        <ColumnDefinition Width="1*" />
+        <ColumnDefinition Width="3*" />
+        <ColumnDefinition Width="3*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-        <RowDefinition Height="3*"></RowDefinition>
-        <RowDefinition Height="1*"></RowDefinition>
+        <RowDefinition Height="6*" />
+        <RowDefinition Height="1*" />
+        <RowDefinition Height="1*" />
     </Grid.RowDefinitions>
 
     <Grid Grid.Column="0" Grid.Row="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <Label Style="{StaticResource CompressorTitles}" x:Name="waterInTempTitle" Grid.Row="0" >Water In</Label>
+        <Label Style="{StaticResource CompressorTitles}" x:Name="waterInTempTitle" Grid.ColumnSpan="2" Grid.Row="0">Water In</Label>
 
-        <ProgressBar x:Name="waterInTempMeter" Grid.Row="1" Style="{StaticResource tempBar}" Value="30"></ProgressBar>
+        <ProgressBar x:Name="waterInTempMeter" Grid.ColumnSpan="2" Grid.Row="1" Style="{StaticResource tempBar}"
+                     Value="{Binding CompressorViewModel.WaterInTemp}" />
 
-        <Label Style="{StaticResource compressorValues}" x:Name="waterInTemp" Grid.Row="2">30</Label>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+            <Label Style="{StaticResource compressorValues}" x:Name="waterInTemp"
+                   HorizontalAlignment="Center" Content="{Binding CompressorViewModel.WaterInTemp}" />
+            <Label Style="{StaticResource compressorValues}"
+                   Content="{Binding CompressorViewModel.TempScale}" />
+        </StackPanel>
     </Grid>
 
     <Grid Grid.Column="1" Grid.Row="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <Label Style="{StaticResource CompressorTitles}" x:Name="waterOutTempTitle" Grid.Row="0" Grid.Column="1" >Water Out</Label>
+        <Label Style="{StaticResource CompressorTitles}" x:Name="waterOutTempTitle" Grid.Row="0">Water Out</Label>
 
-        <ProgressBar x:Name="waterOutTempMeter" Grid.Row="1" Style="{StaticResource tempBar}" Value="20"></ProgressBar>
+        <ProgressBar x:Name="waterOutTempMeter" Grid.Row="1" Style="{StaticResource tempBar}"
+                     Value="{Binding CompressorViewModel.WaterOutTemp}" />
 
-        <Label Style="{StaticResource compressorValues}" x:Name="waterOutTemp" Grid.Row="2" Grid.Column="1" >20</Label>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+            <Label Style="{StaticResource compressorValues}" x:Name="waterOutTemp"
+                   Content="{Binding CompressorViewModel.WaterOutTemp}" />
+            <Label Style="{StaticResource compressorValues}"
+                   Content="{Binding CompressorViewModel.TempScale}" />
+        </StackPanel>
     </Grid>
 
     <Grid Grid.Column="2" Grid.Row="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <Label Style="{StaticResource CompressorTitles}" x:Name="heliumTempTitle" Grid.Row="0" Grid.Column="2" >Helium</Label>
+        <Label Style="{StaticResource CompressorTitles}" x:Name="heliumTempTitle" Grid.Row="0">Helium</Label>
 
-        <ProgressBar x:Name="heliumTempMeter" Grid.Row="1" Style="{StaticResource tempBar}" Value="40"></ProgressBar>
+        <ProgressBar x:Name="heliumTempMeter" Grid.Row="1" Style="{StaticResource tempBar}"
+                     Value="{Binding CompressorViewModel.HeliumTemp}" />
 
-        <Label Style="{StaticResource compressorValues}" x:Name="heliumTemp" Grid.Row="2" Grid.Column="2" >40</Label>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+            <Label Style="{StaticResource compressorValues}" x:Name="heliumTemp" Grid.Row="2"
+                   Content="{Binding CompressorViewModel.HeliumTemp}" />
+            <Label Style="{StaticResource compressorValues}"
+                   Content="{Binding CompressorViewModel.TempScale}" />
+        </StackPanel>
     </Grid>
 
     <Grid Grid.Column="3" Grid.Row="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <Label Style="{StaticResource CompressorTitles}" x:Name="oilTempTitle" Grid.Row="0" Grid.Column="3" >Oil</Label>
+        <Label Style="{StaticResource CompressorTitles}" x:Name="oilTempTitle" Grid.Row="0">Oil</Label>
 
-        <ProgressBar x:Name="oilTempMeter" Grid.Row="1" Style="{StaticResource tempBar}" Value="10"></ProgressBar>
+        <ProgressBar x:Name="oilTempMeter" Grid.Row="1" Style="{StaticResource tempBar}"
+                     Value="{Binding CompressorViewModel.OilTemp}" />
 
-        <Label Style="{StaticResource compressorValues}" x:Name="oilTemp" Grid.Row="2" Grid.Column="3" >10</Label>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+            <Label Style="{StaticResource compressorValues}" x:Name="oilTemp" Grid.Row="2"
+                   Content="{Binding CompressorViewModel.OilTemp}" />
+            <Label Style="{StaticResource compressorValues}"
+                   Content="{Binding CompressorViewModel.TempScale}" />
+        </StackPanel>
+
     </Grid>
 
     <Grid Grid.Column="4" Grid.Row="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
-        <Label Style="{StaticResource CompressorTitles}" x:Name="pressureTitle" Grid.Row="0">Pressure</Label>
-        <Viewbox Grid.Row="1">
-            <gauge:CircularGaugeControl x:Name="pressureGauge" Style="{StaticResource pressureGauge}"></gauge:CircularGaugeControl>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Label Style="{StaticResource CompressorTitles}" x:Name="pressureTitle" Grid.Row="0" Grid.Column="0"
+               Grid.ColumnSpan="3">
+            Low Pressure
+        </Label>
+        <Viewbox Grid.Row="1" Grid.ColumnSpan="3">
+            <gauge:CircularGaugeControl x:Name="lowPressureGauge" Style="{StaticResource lowPressureGauge}"
+                                        CurrentValue="{Binding CompressorViewModel.LowPressure}" />
         </Viewbox>
-        <StackPanel  Grid.Row="2">
-            <Label Style="{StaticResource pressureValues}" x:Name="avgDelta" >Avg. Delta:</Label>
-            <Label Style="{StaticResource pressureValues}" x:Name="avgLow" >Avg. Low:</Label>
-            <Label Style="{StaticResource pressureValues}" x:Name="avgHigh" >Avg. High:</Label>
+        <StackPanel Grid.Row="2" Grid.Column="0">
+            <Label Style="{StaticResource pressureValues}">Pressure:</Label>
+            <Label Style="{StaticResource pressureValues}">Avg. Pressure:</Label>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.LowPressure}" />
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.LowPressureAverage}" />
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="2">
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScale}" />
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScale}" />
         </StackPanel>
     </Grid>
-    <Grid Grid.Row="1" Grid.ColumnSpan="5">
-        <Label Style="{StaticResource CompressorTitles}" x:Name="compressorState" Grid.Row="0">Ready To Start</Label>
+
+    <Grid Grid.Column="5" Grid.Row="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Label Style="{StaticResource CompressorTitles}" x:Name="highPressureTitle" Grid.Row="0" Grid.Column="0"
+               Grid.ColumnSpan="3">
+            High Pressure
+        </Label>
+        <Viewbox Grid.Row="1" Grid.ColumnSpan="3">
+            <gauge:CircularGaugeControl x:Name="highPressureGauge" Style="{StaticResource highPressureGauge}"
+                                        CurrentValue="{Binding CompressorViewModel.HighPressure}" />
+        </Viewbox>
+        <StackPanel Grid.Row="2" Grid.Column="0">
+            <Label Style="{StaticResource pressureValues}">Pressure:</Label>
+            <Label Style="{StaticResource pressureValues}">Avg. Pressure:</Label>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.HighPressure}" />
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.HighPressureAverage}" />
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="2">
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScale}" />
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScale}" />
+        </StackPanel>
+    </Grid>
+
+    <Grid Grid.Row="1" Grid.ColumnSpan="6">
+        <Label Style="{StaticResource CompressorTitles}" x:Name="CompressorState"
+               Content="{Binding CompressorViewModel.OperatingStateConverted}" />
+    </Grid>
+    <Grid Grid.Row="2" Grid.ColumnSpan="6">
+        <StackPanel Orientation="Horizontal">
+            <Label Style="{StaticResource CompressorTitles}" Content="Hours Of Operation:" />
+            <Label Style="{StaticResource CompressorTitles}" x:Name="CompressorOperatingHours"
+                   Content="{Binding CompressorViewModel.HoursOfOperation}" />
+        </StackPanel>
     </Grid>
 </Grid>

@@ -49,6 +49,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -85,28 +87,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\AbstractModel.cs" />
+    <Compile Include="Communication\DataReceiver.cs" />
+    <Compile Include="Communication\DataSender.cs" />
+    <Compile Include="Communication\ModusEnumerator.cs" />
+    <Compile Include="Models\BlueforsModel.cs" />
+    <Compile Include="Connected Services\ServiceReference1\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="DataClientCallback.cs" />
     <Compile Include="Models\He7Model.cs" />
-    <Compile Include="Views\Tabs\He7\2KPlate.xaml.cs">
-      <DependentUpon>2KPlate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Tabs\He7\He3Pump.xaml.cs">
-      <DependentUpon>He3Pump.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Tabs\He7\He3Stage.xaml.cs">
-      <DependentUpon>He3Stage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Tabs\He7\He3Switch.xaml.cs">
-      <DependentUpon>He3Switch.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Tabs\He7\He4Pump.xaml.cs">
-      <DependentUpon>He4Pump.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Tabs\He7\He4Stage.xaml.cs">
-      <DependentUpon>He4Stage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Tabs\He7\He4Switch.xaml.cs">
-      <DependentUpon>He4Switch.xaml</DependentUpon>
+    <Compile Include="Models\ModusModel.cs" />
+    <Compile Include="ViewModels\AbstractViewModel.cs" />
+    <Compile Include="ViewModels\BlueforsViewModel.cs" />
+    <Compile Include="ViewModels\CompressorViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelContainer.cs" />
+    <Compile Include="ViewModels\He7ViewModel.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
+    <Compile Include="ViewModels\ModusViewModel.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Views\MainGraphFrame.xaml.cs">
       <DependentUpon>MainGraphFrame.xaml</DependentUpon>
@@ -114,38 +114,6 @@
     <Compile Include="Views\SettingsFrame.xaml.cs">
       <DependentUpon>SettingsFrame.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\Tabs\He7\2KPlate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Tabs\He7\4KPlate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Tabs\He7\He3Pump.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Tabs\He7\He3Stage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Tabs\He7\He3Switch.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Tabs\He7\He4Pump.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Tabs\He7\He4Stage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Tabs\He7\He4Switch.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\MainGraphFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -155,8 +123,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Include="Models\CompressorModel.cs" />
-    <Compile Include="Models\OverviewModel.cs" />
-    <Compile Include="Views\Tabs\He7\4KPlate.cs" />
     <Compile Include="Views\Tabs\LoggingFrame.xaml.cs">
       <DependentUpon>LoggingFrame.xaml</DependentUpon>
     </Compile>
@@ -241,6 +207,16 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Connected Services\ServiceReference1\CommandService.wsdl" />
+    <None Include="Connected Services\ServiceReference1\SRON.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceReference1\SRON1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceReference1\SRON2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -248,13 +224,37 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\ServiceReference1\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceReference1\SRON.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceReference1\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceReference1\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceReference1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CryostatControlServer\CryostatControlServer.csproj">
+      <Project>{4724405F-6333-4320-9896-8AAAC233293A}</Project>
+      <Name>CryostatControlServer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
