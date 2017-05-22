@@ -31,6 +31,9 @@ namespace CryostatControlServerTests.Lakeshore
 
             Assert.AreEqual(5.0, lssensor.Value);
 
+            lakeshore.Close();
+            Thread.Sleep(1);
+
         }
     }
 }

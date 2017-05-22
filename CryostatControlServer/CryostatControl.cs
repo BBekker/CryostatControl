@@ -119,6 +119,13 @@ namespace CryostatControlServer
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="CryostatControl"/> class.
+        /// </summary>
+        public CryostatControl()
+        {
+        }
+
+        /// <summary>
         /// Gets the state of the controller.
         /// </summary>
         /// <returns>The controller state <see cref="Controlstate"/></returns>
