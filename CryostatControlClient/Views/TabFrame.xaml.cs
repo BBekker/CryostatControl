@@ -23,6 +23,11 @@ namespace CryostatControlClient.Views
         {
         }
 
+        /// <summary>
+        /// Frames the navigated.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.Windows.Navigation.NavigationEventArgs"/> instance containing the event data.</param>
         private void FrameNavigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
             ((FrameworkElement)e.Content).DataContext = this.DataContext;

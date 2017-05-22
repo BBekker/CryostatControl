@@ -7,6 +7,7 @@ namespace CryostatControlServer.HostService
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
     using System.ServiceModel;
     using System.Threading;
@@ -38,15 +39,12 @@ namespace CryostatControlServer.HostService
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandService"/> class.
         /// </summary>
-        /// <param name="compressor">The compressor.</param>
-        /// <param name="lakeShore">The lake shore.</param>
-        /// <param name="he7Cooler">The he7 cooler.</param>
-        public CommandService(
-            Compressor.Compressor compressor,
-            LakeShore.LakeShore lakeShore,
-            He7Cooler.He7Cooler he7Cooler)
+        /// <param name="cryostatControl">
+        /// The cryostat Control.
+        /// </param>
+        public CommandService(CryostatControl cryostatControl)
         {
-            this.cryostatControl = new CryostatControl(compressor, lakeShore, he7Cooler);
+            this.cryostatControl = cryostatControl;
         }
 
         #endregion Constructors
@@ -62,25 +60,109 @@ namespace CryostatControlServer.HostService
         /// <inheritdoc cref="ICommandService.Cooldown"/>>
         public bool Cooldown()
         {
-            return false;
+            return this.cryostatControl.StartCooldown();
         }
 
         /// <inheritdoc cref="ICommandService.Recycle"/>>
         public bool Recycle()
         {
-            return false;
+            return this.cryostatControl.StartRecycle();
         }
 
         /// <inheritdoc cref="ICommandService.Warmup"/>>
         public bool Warmup()
         {
+            return this.cryostatControl.StartHeatup();
+        }
+
+        /// <inheritdoc cref="ICommandService.Manual"/>
+        public bool Manual()
+        {
+            return this.cryostatControl.StartManualControl();
+        }
+
+        /// <summary>
+        /// Cancel the controller action
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool Cancel()
+        {
+            this.cryostatControl.CancelCommand();
+            return true;
+        }
+
+        /// <summary>
+        /// Get the controller state
+        /// </summary>
+        /// <returns>
+        /// The controller state <see cref="int"/>.
+        /// </returns>
+        public int GetState()
+        {
+            return (int)this.cryostatControl.ControllerState;
+        }
+
+        /// <inheritdoc cref="ICommandService.SetCompressorState"/>
+        public bool SetCompressorState(bool status)
+        {
+            return this.cryostatControl.SetCompressorState(status);
+        }
+
+        /// <inheritdoc cref="ICommandService.WriteHelium7"/>
+        public bool WriteHelium7(double[] data)
+        {
+            return data.Length == (int)HeaterEnumerator.HeaterAmount && this.cryostatControl.WriteHelium7Heaters(data);
+        }
+
+        /// <inheritdoc cref="ICommandService.ReadCompressorTemperatureScale"/>>
+        public double ReadCompressorTemperatureScale()
+        {
+            return this.cryostatControl.ReadCompressorTemperatureScale();
+        }
+
+        /// <inheritdoc cref="ICommandService.ReadCompressorPressureScale"/>>
+        public double ReadCompressorPressureScale()
+        {
+            return this.cryostatControl.ReadCompressorPressureScale();
+        }
+
+        /// <inheritdoc cref="ICommandService.WriteSettingValues"/>>
+        public bool WriteSettingValue(int setting, double value)
+        {
+            SettingEnumerator settingEnum = (SettingEnumerator)setting;
+
+            foreach (SettingsProperty prop in Properties.Settings.Default.Properties)
+            {
+                if (prop.Name == settingEnum.ToString())
+                {
+                    Properties.Settings.Default[prop.Name] = value;
+                    return true;
+                }
+            }
+
             return false;
         }
 
-        /// <inheritdoc cref="ICommandService.ReadSensor"/>>
-        public float ReadSensor(int id)
+        /// <inheritdoc cref="ICommandService.ReadSettings"/>
+        public double[] ReadSettings()
         {
-            return 0;
+            var settings = Enum.GetValues(typeof(SettingEnumerator)).Cast<SettingEnumerator>();
+
+            var values = new double[settings.ToArray().Length];
+            foreach (SettingEnumerator setting in settings)
+            {
+                foreach (SettingsProperty prop in Properties.Settings.Default.Properties)
+                {
+                    if (prop.Name == setting.ToString())
+                    {
+                        values[(int)setting] = (double)Properties.Settings.Default[setting.ToString()];
+                    }
+                }
+            }
+
+            return values;
         }
 
         /// <inheritdoc cref="IDataGet.SubscribeForData"/>>
@@ -113,10 +195,19 @@ namespace CryostatControlServer.HostService
         /// <param name="state">The state.</param>
         private void TimerMethod(object state)
         {
+#if DEBUG
             Console.WriteLine("sending data to client");
+#endif
             IDataGetCallback client = (IDataGetCallback)state;
             double[] data = this.cryostatControl.ReadData();
-            client.SendData(data);
+            try
+            {
+                client.SendData(data);
+            }
+            catch (TimeoutException)
+            {
+                this.callbacksListeners.Remove(client);
+            }
         }
 
         #endregion Methods

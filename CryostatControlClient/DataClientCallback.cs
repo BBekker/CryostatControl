@@ -59,7 +59,6 @@ namespace CryostatControlClient
             {
                 this.mainWindow.UpdateViewModels(data);
             }
-            Console.WriteLine("Received: {0}", data[0]);
         }
 
         #endregion Methods

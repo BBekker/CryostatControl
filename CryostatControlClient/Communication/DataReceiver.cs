@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="He7ViewModel.cs" company="SRON">
+// <copyright file="DataReceiver.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
@@ -53,14 +53,14 @@ namespace CryostatControlClient.Communication
             viewModelContainer.He7ViewModel.He4HeadMax = data[(int)DataEnumerator.He4HeadMax];
             viewModelContainer.He7ViewModel.He4PumpTemp = data[(int)DataEnumerator.He4Pump];
             viewModelContainer.He7ViewModel.He4PumpMax = data[(int)DataEnumerator.He4PumpMax];
-            viewModelContainer.He7ViewModel.He3PumpActualVolt = data[(int)DataEnumerator.He3Volt];
-            viewModelContainer.He7ViewModel.He4PumpActualVolt = data[(int)DataEnumerator.He4Volt];
+            viewModelContainer.He7ViewModel.He3PumpActualVolt = data[(int)DataEnumerator.He3VoltActual];
+            viewModelContainer.He7ViewModel.He4PumpActualVolt = data[(int)DataEnumerator.He4VoltActual];
             viewModelContainer.He7ViewModel.He3SwitchTemp = data[(int)DataEnumerator.He3SwitchTemp];
-            viewModelContainer.He7ViewModel.He3SwitchActualVolt = data[(int)DataEnumerator.He3SwitchVolt];
+            viewModelContainer.He7ViewModel.He3SwitchActualVolt = data[(int)DataEnumerator.He3SwitchVoltActual];
             viewModelContainer.He7ViewModel.He3SwitchMax1 = data[(int)DataEnumerator.He3SwitchMax1];
             viewModelContainer.He7ViewModel.He3SwitchMax2 = data[(int)DataEnumerator.He3SwitchMax2];
             viewModelContainer.He7ViewModel.He4SwitchTemp = data[(int)DataEnumerator.He4SwitchTemp];
-            viewModelContainer.He7ViewModel.He4SwitchActualVolt = data[(int)DataEnumerator.He4SwitchVolt];
+            viewModelContainer.He7ViewModel.He4SwitchActualVolt = data[(int)DataEnumerator.He4SwitchVoltActual];
             viewModelContainer.He7ViewModel.He4SwitchMax1 = data[(int)DataEnumerator.He4SwitchMax1];
             viewModelContainer.He7ViewModel.He4SwitchMax2 = data[(int)DataEnumerator.He4SwitchMax2];
             viewModelContainer.He7ViewModel.TwoKPlateTemp = data[(int)DataEnumerator.HePlate2K];
@@ -104,7 +104,7 @@ namespace CryostatControlClient.Communication
             viewModelContainer.BlueforsViewModel.HeaterPower = data[(int)DataEnumerator.LakeHeater];
         }
 
-        #endregion Methods  
+        #endregion Methods
 
     }
 }

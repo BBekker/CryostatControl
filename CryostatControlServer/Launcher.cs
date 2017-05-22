@@ -6,6 +6,7 @@
 namespace CryostatControlServer
 {
     using System;
+    using System.IO.Ports;
     using System.ServiceModel;
     using CryostatControlServer.HostService;
 
@@ -19,7 +20,12 @@ namespace CryostatControlServer
         /// <summary>
         /// The host address for the compressor
         /// </summary>
-        private const string CompressorHost = "127.0.0.1";
+        private const string CompressorHost = "169.254.16.68";
+
+        /// <summary>
+        /// Host address of the helium 7 cooler
+        /// </summary>
+        private const string CoolerHost = "192.168.1.100";
 
         /// <summary>
         /// The host address
@@ -41,6 +47,16 @@ namespace CryostatControlServer
         /// </summary>
         private static He7Cooler.He7Cooler he7Cooler;
 
+        /// <summary>
+        /// The cryostat control.
+        /// </summary>
+        private static CryostatControl cryostatControl;
+
+        /// <summary>
+        /// The controller.
+        /// </summary>
+        private static Controller controller;
+
         #endregion Fields
 
         #region Methods
@@ -56,31 +72,55 @@ namespace CryostatControlServer
         }
 
         /// <summary>
+        /// Find the lakeshore com port and connect
+        /// </summary>
+        /// <returns>
+        /// The <see cref="LakeShore"/>.
+        /// </returns>
+        private static LakeShore.LakeShore FindLakeshore()
+        {
+            string[] names = SerialPort.GetPortNames();
+            LakeShore.LakeShore newLakeShore = new LakeShore.LakeShore();
+            foreach (string name in names)
+            {
+                try
+                {
+                    newLakeShore.Init(name);
+                    return newLakeShore;
+                }
+                catch (Exception)
+                {
+                    ////ignore this exception and try new port
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Initializes the components.
         /// </summary>
         private static void InitComponents()
         {
-            try
-            {
-                lakeShore = new LakeShore.LakeShore();
-                lakeShore.Init("COM1");
-            }
-            catch (Exception)
+            lakeShore = FindLakeshore();
+
+            if (lakeShore == null)
             {
                 Console.WriteLine("No connection with LakeShore");
-
-                ////todo handle exception
             }
 
             try
             {
                 he7Cooler = new He7Cooler.He7Cooler();
-                he7Cooler.Connect(CompressorHost);
+                he7Cooler.Connect(CoolerHost);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.WriteLine("No connection with He7");
+                Console.WriteLine("No connection with He7 cooler");
 
+#if DEBUG
+                Console.WriteLine("Exception thrown: {0}", e);
+#endif
                 ////todo handle exception
             }
 
@@ -88,12 +128,19 @@ namespace CryostatControlServer
             {
                 compressor = new Compressor.Compressor(CompressorHost);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Console.WriteLine("No connection with Compressor");
 
+#if DEBUG
+                Console.WriteLine("Exception thrown: {0}", e);
+#endif
                 ////todo handle exception
             }
+
+            controller = new Controller(he7Cooler, lakeShore, compressor);
+
+            cryostatControl = new CryostatControl(compressor, lakeShore, he7Cooler, controller);
         }
 
         /// <summary>
@@ -101,7 +148,7 @@ namespace CryostatControlServer
         /// </summary>
         private static void StartHost()
         {
-            CommandService hostService = new CommandService(compressor, lakeShore, he7Cooler);
+            CommandService hostService = new CommandService(cryostatControl);
             Uri baseAddress = new Uri("http://localhost:8080/SRON");
             using (ServiceHost host = new ServiceHost(hostService, baseAddress))
             {

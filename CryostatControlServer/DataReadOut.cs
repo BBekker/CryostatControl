@@ -30,7 +30,7 @@ namespace CryostatControlServer
         #region Methods
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataReadOut"/> class.
+        /// Initializes a new instance of the <see cref="DataReadOut" /> class.
         /// </summary>
         /// <param name="compressor">The compressor.</param>
         /// <param name="sensors">The sensors.</param>
@@ -43,19 +43,41 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// Fills data array with mock values, than it calls the methods which actually fill the array with data.
+        /// Fills data array with mock values, then it calls the methods which actually fill the array with data.
         /// </summary>
         /// <returns>array filled with available data</returns>
         public double[] FillData()
         {
-            double[] data = new double[(int)DataEnumerator.DataLenght];
+            double[] data = new double[(int)DataEnumerator.DataLength];
             for (int i = 0; i < data.Length; i++)
             {
                 data[i] = double.MinValue;
             }
-            ////this.FillDataWithSensor(data);
-            ////this.FillCompressorData(data);
-            this.FillWithMockData(data);
+
+            try
+            {
+                this.FillDataWithSensor(data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Sensor data could not be filled");
+#if DEBUG
+                Console.WriteLine("thrown exception: {0}", e);
+#endif
+            }
+
+            try
+            {
+                this.FillCompressorData(data);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Compressor data could not be filled");
+#if DEBUG
+                Console.WriteLine("thrown exception: {0}", e);
+#endif
+            }
+
             return data;
         }
 
@@ -77,18 +99,9 @@ namespace CryostatControlServer
         /// <param name="data">The data.</param>
         private void FillCompressorData(double[] data)
         {
-            try
-            {
-                data[(int)DataEnumerator.ComError] = (double)this.compressor.ReadErrorState();
-                data[(int)DataEnumerator.ComWarning] = (double)this.compressor.ReadWarningState();
-                data[(int)DataEnumerator.ComHoursOfOperation] = (double)this.compressor.ReadHoursOfOperation();
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Something went wrong with the compressor");
-
-                ////todo handle exception
-            }
+            data[(int)DataEnumerator.ComError] = (double)this.compressor.ReadErrorState();
+            data[(int)DataEnumerator.ComWarning] = (double)this.compressor.ReadWarningState();
+            data[(int)DataEnumerator.ComHoursOfOperation] = (double)this.compressor.ReadHoursOfOperation();
         }
 
         /// <summary>

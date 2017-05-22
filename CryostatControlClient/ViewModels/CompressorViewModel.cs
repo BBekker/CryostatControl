@@ -38,7 +38,6 @@ namespace CryostatControlClient.ViewModels
 
         #endregion Constructor
 
-
         #region Properties
 
         /// <summary>
@@ -409,6 +408,8 @@ namespace CryostatControlClient.ViewModels
 
         #endregion Properties
 
+        #region Methods
+
         /// <summary>
         /// Convert operating state number to string.
         /// </summary>
@@ -506,5 +507,7 @@ namespace CryostatControlClient.ViewModels
                 default: return "No Information";
             }
         }
+
+        #endregion Methods
     }
 }

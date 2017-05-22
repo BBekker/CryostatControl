@@ -10,6 +10,7 @@
 
 namespace CryostatControlServer.He7Cooler
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
@@ -17,30 +18,12 @@ namespace CryostatControlServer.He7Cooler
     using CryostatControlServer.Properties;
 
     /// <summary>
-    /// He7 Cooler class. 
+    /// He7 Cooler class.
     /// Represents the He7 cooler controls. Read and set voltages and digital bits.
     /// </summary>
     public partial class He7Cooler
     {
-        /// <summary>
-        /// The ruox calibration file location.
-        /// </summary>
-        private const string RuoxFile = "..\\..\\RUOX.CAL";
-
-        /// <summary>
-        /// The he 3 column.
-        /// </summary>
-        private const int He3Col = 2;
-
-        /// <summary>
-        /// The he 4 column.
-        /// </summary>
-        private const int He4Col = 3;
-
-        /// <summary>
-        /// The diode calibration file location.
-        /// </summary>
-        private const string DiodeFile = "..\\..\\DIODE.CAL";
+        #region Fields
 
         /// <summary>
         /// The interval between voltage samples
@@ -50,10 +33,10 @@ namespace CryostatControlServer.He7Cooler
         /// <summary>
         /// The connected device.
         /// </summary>
-        private readonly Agilent34972A device = new Agilent34972A();
+        private Agilent34972A device = new Agilent34972A();
 
         /// <summary>
-        /// The amound in sensor readers per channel.
+        /// The amount of sensor readers per channel.
         /// </summary>
         private Dictionary<Channels, int> readersPerChannel = new Dictionary<Channels, int>();
 
@@ -72,29 +55,26 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         private bool isStarted = false;
 
+        #endregion Fields
+
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="He7Cooler"/> class.
         /// </summary>
         public He7Cooler()
         {
-             Sensor.Calibration he3Calibration = new Sensor.Calibration(RuoxFile, He3Col, 0);
-             Sensor.Calibration he4Calibration = new Sensor.Calibration(RuoxFile, He4Col, 0);
-             Sensor.Calibration diodeCalibration = new Sensor.Calibration(DiodeFile, 1, 0);
+            Sensor.Calibration he3Calibration = Sensor.Calibration.He3Calibration;
+            Sensor.Calibration he4Calibration = Sensor.Calibration.He4Calibration;
+            Sensor.Calibration diodeCalibration = Sensor.Calibration.DiodeCalibration;
 
             this.He3PumpT = new Sensor(Channels.SensHe3PumpT, this, diodeCalibration);
-
             this.He4PumpT = new Sensor(Channels.SensHe4PumpT, this, diodeCalibration);
-
             this.He4SwitchT = new Sensor(Channels.SensHe4SwitchT, this, diodeCalibration);
-
             this.He3SwitchT = new Sensor(Channels.SensHe3SwitchT, this, diodeCalibration);
-
             this.Plate4KT = new Sensor(Channels.Sens4KplateT, this, diodeCalibration);
-
             this.Plate2KT = new Sensor(Channels.Sens2KplateT, this, diodeCalibration);
-
             this.He4HeadT = new Sensor(Channels.SensHe4HeadT, this, he4Calibration);
-
             this.He3HeadT = new Sensor(Channels.SensHe3HeadT, this, he3Calibration);
 
             this.He3Pump = new Heater(Channels.PumpHe3, Channels.SensHe3Pump, this);
@@ -107,6 +87,8 @@ namespace CryostatControlServer.He7Cooler
             this.He4Switch.SafeRangeHigh = Settings.Default.He4SwitchMaxVoltage;
             this.He3Switch.SafeRangeHigh = Settings.Default.He3SwitchMaxVoltage;
         }
+
+        #endregion Constructors
 
         #region Sensors
 
@@ -176,6 +158,8 @@ namespace CryostatControlServer.He7Cooler
 
         #endregion Heaters
 
+        #region Methods
+
         /// <summary>
         /// Connect to the Agilent device.
         /// </summary>
@@ -186,6 +170,24 @@ namespace CryostatControlServer.He7Cooler
         {
             this.device.Init(ip);
             this.isStarted = true;
+            this.readThread = new Thread(this.MainLoop);
+            this.readThread.Start();
+        }
+
+        /// <summary>
+        /// Connect using an already initialized Agilent device.
+        /// Used for testing.
+        /// </summary>
+        /// <param name="device">
+        /// The initialized device.
+        /// </param>
+        /// <param name="startReading">
+        /// The start Reading.
+        /// </param>
+        public void Connect(Agilent34972A device, bool startReading)
+        {
+            this.device = device;
+            this.isStarted = startReading;
             this.readThread = new Thread(this.MainLoop);
             this.readThread.Start();
         }
@@ -208,10 +210,17 @@ namespace CryostatControlServer.He7Cooler
                 .Where((pair) => pair.Value > 0)
                 .Select(pair => pair.Key)
                 .ToArray();
-            double[] voltages = this.device.GetVoltages(channels);
-            for (int i = 0; i < channels.Length; i++)
+            try
             {
-                this.values[channels[i]] = voltages[i];
+                double[] voltages = this.device.GetVoltages(channels);
+                for (int i = 0; i < channels.Length; i++)
+                {
+                    this.values[channels[i]] = voltages[i];
+                }
+            }
+            catch (AgilentException ex)
+            {
+                Console.WriteLine("Reading values failed: " + ex.ToString());
             }
         }
 
@@ -253,8 +262,10 @@ namespace CryostatControlServer.He7Cooler
         {
             if (!this.readersPerChannel.ContainsKey(channel))
             {
+                this.values.Add(channel, 0.0);
                 this.readersPerChannel[channel] = 0;
             }
+
             this.readersPerChannel[channel]++;
         }
 
@@ -266,9 +277,12 @@ namespace CryostatControlServer.He7Cooler
         /// </param>
         protected void RemoveChannel(Channels channel)
         {
-            if (this.readersPerChannel[channel] > 0)
+            if (this.readersPerChannel.ContainsKey(channel))
             {
-                this.readersPerChannel[channel]--;
+                if (this.readersPerChannel[channel] > 0)
+                {
+                    this.readersPerChannel[channel]--;
+                }
             }
         }
 
@@ -283,5 +297,7 @@ namespace CryostatControlServer.He7Cooler
                 Thread.Sleep(ReadInterval);
             }
         }
+
+        #endregion Methods
     }
 }

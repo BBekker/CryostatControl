@@ -35,10 +35,10 @@ namespace CryostatControlServer.HostService.Enumerators
         He3SwitchTemp = 17,
         He4Head = 18,
 
-        He3Volt = 19,
-        He4SwitchVolt = 20,
-        He3SwitchVolt = 21,
-        He4Volt = 22,
+        He3VoltActual = 19,
+        He4SwitchVoltActual = 20,
+        He3SwitchVoltActual = 21,
+        He4VoltActual = 22,
 
         SensorAmount = 23,
 
@@ -63,6 +63,6 @@ namespace CryostatControlServer.HostService.Enumerators
 
         LakeHeater = 39,
 
-        DataLenght = 40
+        DataLength = 40
     }
 }

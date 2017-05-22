@@ -12,6 +12,7 @@ namespace CryostatControlServer.He7Cooler
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.IO;
 
     /// <summary>
@@ -19,11 +20,20 @@ namespace CryostatControlServer.He7Cooler
     /// </summary>
     public partial class He7Cooler
     {
+        #region Classes
+
         /// <summary>
         /// Representation of a sensor on the H7 cooler.
         /// </summary>
         public class Sensor : ISensor
         {
+            #region Fields
+
+            /// <summary>
+            /// The sensor calibration.
+            /// </summary>
+            private Calibration calibration;
+
             /// <summary>
             /// The Agilent data channel.
             /// </summary>
@@ -34,10 +44,9 @@ namespace CryostatControlServer.He7Cooler
             /// </summary>
             private He7Cooler device;
 
-            /// <summary>
-            /// The sensor calibration.
-            /// </summary>
-            private Calibration calibration;
+            #endregion Fields
+
+            #region Constructors
 
             /// <summary>
             /// Initializes a new instance of the <see cref="Sensor"/> class.
@@ -57,8 +66,11 @@ namespace CryostatControlServer.He7Cooler
                 this.calibration = calibration;
                 this.device = device;
                 device.AddChannel(channel);
-                device.values.Add(channel, 0.0);
             }
+
+            #endregion Constructors
+
+            #region Destructors
 
             /// <summary>
             /// Finalizes an instance of the <see cref="Sensor"/> class.  Removes it from the list of channels to read.
@@ -68,9 +80,13 @@ namespace CryostatControlServer.He7Cooler
                 this.device.RemoveChannel(this.channel);
             }
 
+            #endregion Destructors
+
+            #region Properties
+
             /// <summary>
             /// Gets or sets the interval.
-            /// This is ignored for now, sensors are always read as fast as possible. 
+            /// This is ignored for now, sensors are always read as fast as possible.
             /// </summary>
             public int Interval { get; set; }
 
@@ -79,18 +95,42 @@ namespace CryostatControlServer.He7Cooler
             /// </summary>
             public double Value => this.calibration.ConvertValue(this.device.values[this.channel]);
 
+            #endregion Properties
+
+            #region Classes
+
             /// <summary>
             /// Sensor calibration representation
             /// </summary>
             public class Calibration
             {
+                #region Fields
+
+                /// <summary>
+                /// The diode file.
+                /// </summary>
+                private const string DIODEFile = "..\\..\\DIODE.CAL";
+
+                /// <summary>
+                /// The ruox file.
+                /// </summary>
+                [SuppressMessage(
+                "StyleCop.CSharp.DocumentationRules",
+                "SA1650:ElementDocumentationMustBeSpelledCorrectly",
+                Justification = "Reviewed. Suppression is OK here.")]
+                private const string RUOXFile = "..\\..\\RUOX.CAL";
+
                 /// <summary>
                 /// The calibration data.
                 /// </summary>
                 private List<Tuple<double, double>> calibrationData = new List<Tuple<double, double>>();
 
+                #endregion Fields
+
+                #region Constructors
+
                 /// <summary>
-                /// Initializes a new instance of the <see cref="Calibration"/> class. 
+                /// Initializes a new instance of the <see cref="Calibration"/> class.
                 /// Initializes an empty instance without calibration.
                 /// </summary>
                 public Calibration()
@@ -114,47 +154,38 @@ namespace CryostatControlServer.He7Cooler
                     this.LoadSensorCalibrationFromFile(filename, voltColumn, tempColumn);
                 }
 
+                #endregion Constructors
+
+                #region Properties
+
+                /// <summary>
+                /// Gets the diode calibration.
+                /// </summary>
+                public static Calibration DiodeCalibration { get; } = new Calibration(DIODEFile, 1, 0);
+
+                /// <summary>
+                /// Gets the empty calibration.
+                /// </summary>
+                public static Calibration EmptyCalibration { get; } = new Calibration();
+
+                /// <summary>
+                /// Gets the he 3 calibration.
+                /// </summary>
+                public static Calibration He3Calibration { get; } = new Calibration(RUOXFile, 2, 0);
+
+                /// <summary>
+                /// Gets the he 4 calibration.
+                /// </summary>
+                public static Calibration He4Calibration { get; } = new Calibration(RUOXFile, 3, 0);
+
                 /// <summary>
                 /// The amount of data points in the calibration
                 /// </summary>
                 public int CalibrationSize => this.calibrationData.Count;
 
-                /// <summary>
-                /// Load sensor calibration from file.
-                /// </summary>
-                /// <param name="filename">
-                /// The filename.
-                /// </param>
-                /// <param name="voltColumn">
-                /// The volt column.
-                /// </param>
-                /// <param name="tempColumn">
-                /// The temp column.
-                /// </param>
-                public void LoadSensorCalibrationFromFile(string filename, int voltColumn, int tempColumn)
-                {
-                    StreamReader reader = new StreamReader(filename);
-                    try
-                    {
-                        // skip first line that contains headers
-                        reader.ReadLine();
-                        string line;
-                        while ((line = reader.ReadLine()) != null)
-                        {
-                            string[] columns = line.Split('\t');
-                            this.calibrationData.Add(
-                                new Tuple<double, double>(
-                                    double.Parse(columns[voltColumn]),
-                                    double.Parse(columns[tempColumn])));
-                        }
+                #endregion Properties
 
-                        this.calibrationData.Sort((first, second) => (first.Item1 - second.Item1) < 0 ? -1 : 1);
-                    }
-                    finally
-                    {
-                        reader.Close();
-                    }
-                }
+                #region Methods
 
                 /// <summary>
                 /// Add a calibration data point.
@@ -217,6 +248,43 @@ namespace CryostatControlServer.He7Cooler
                 }
 
                 /// <summary>
+                /// Load sensor calibration from file.
+                /// </summary>
+                /// <param name="filename">
+                /// The filename.
+                /// </param>
+                /// <param name="voltColumn">
+                /// The volt column.
+                /// </param>
+                /// <param name="tempColumn">
+                /// The temp column.
+                /// </param>
+                public void LoadSensorCalibrationFromFile(string filename, int voltColumn, int tempColumn)
+                {
+                    StreamReader reader = new StreamReader(filename);
+                    try
+                    {
+                        // skip first line that contains headers
+                        reader.ReadLine();
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            string[] columns = line.Split('\t');
+                            this.calibrationData.Add(
+                                new Tuple<double, double>(
+                                    double.Parse(columns[voltColumn]),
+                                    double.Parse(columns[tempColumn])));
+                        }
+
+                        this.calibrationData.Sort((first, second) => (first.Item1 - second.Item1) < 0 ? -1 : 1);
+                    }
+                    finally
+                    {
+                        reader.Close();
+                    }
+                }
+
+                /// <summary>
                 /// Standard linear interpolation of volt to temperature calibration values.
                 /// </summary>
                 /// <param name="voltage">
@@ -239,7 +307,13 @@ namespace CryostatControlServer.He7Cooler
                     return ((voltage - lowValue.Item1) / (highValue.Item1 - lowValue.Item1)
                             * (highValue.Item2 - lowValue.Item2)) + lowValue.Item2;
                 }
+
+                #endregion Methods
             }
+
+            #endregion Classes
         }
+
+        #endregion Classes
     }
 }
