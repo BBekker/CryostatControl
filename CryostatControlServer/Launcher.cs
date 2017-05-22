@@ -21,6 +21,9 @@ namespace CryostatControlServer
         /// </summary>
         private const string CompressorHost = "169.254.16.68";
 
+        /// <summary>
+        /// Host address of the helium 7 cooler
+        /// </summary>
         private const string CoolerHost = "192.168.1.100";
 
         /// <summary>
@@ -67,26 +70,42 @@ namespace CryostatControlServer
                 lakeShore = new LakeShore.LakeShore();
                 lakeShore.Init("COM6");
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Console.WriteLine("No connection with LakeShore");
 
+#if DEBUG
+                Console.WriteLine("Exception thrown: {0}", e);
+#endif
                 ////todo handle exception
             }
 
-            
+            try
+            {
                 he7Cooler = new He7Cooler.He7Cooler();
                 he7Cooler.Connect(CoolerHost);
-            
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("No connection with He7 cooler");
+
+#if DEBUG
+                Console.WriteLine("Exception thrown: {0}", e);
+#endif
+                ////todo handle exception
+            }
 
             try
             {
                 compressor = new Compressor.Compressor(CompressorHost);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Console.WriteLine("No connection with Compressor");
 
+#if DEBUG
+                Console.WriteLine("Exception thrown: {0}", e);
+#endif
                 ////todo handle exception
             }
         }
