@@ -75,6 +75,35 @@ namespace CryostatControlServer.HostService
             return this.cryostatControl.StartHeatup();
         }
 
+        /// <inheritdoc cref="ICommandService.Manual"/>
+        public bool Manual()
+        {
+            return this.cryostatControl.StartManualControl();
+        }
+
+        /// <summary>
+        /// Cancel the controller action
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool Cancel()
+        {
+            this.cryostatControl.CancelCommand();
+            return true;
+        }
+
+        /// <summary>
+        /// Get the controller state
+        /// </summary>
+        /// <returns>
+        /// The controller state <see cref="int"/>.
+        /// </returns>
+        public int GetState()
+        {
+            return (int)this.cryostatControl.ControllerState;
+        }
+
         /// <inheritdoc cref="ICommandService.SetCompressorState"/>
         public bool SetCompressorState(bool status)
         {

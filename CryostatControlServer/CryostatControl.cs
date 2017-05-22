@@ -74,11 +74,6 @@ namespace CryostatControlServer
         /// </summary>
         private Controller controller;
 
-        /// <summary>
-        /// Manual control is allowed or not
-        /// </summary>
-        private bool manualControl = true;
-
         #endregion Fields
 
         #region Constructors
@@ -123,8 +118,28 @@ namespace CryostatControlServer
             this.dataReadOut = new DataReadOut(this.compressor, this.sensors);
         }
 
-        #endregion Constructors
-        #region Methods
+        /// <summary>
+        /// Gets the state of the controller.
+        /// </summary>
+        /// <returns>The controller state <see cref="Controlstate"/></returns>
+        public Controlstate ControllerState
+        {
+            get
+            {
+                return this.controller.State;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether Manual control is allowed or not
+        /// </summary>
+        private bool ManualControl
+        {
+            get
+            {
+                return this.ControllerState == Controlstate.Manual;
+            }
+        }
 
         /// <summary>
         /// Cancels the current command safely.
@@ -191,7 +206,7 @@ namespace CryostatControlServer
         /// </returns>
         public bool SetCompressorState(bool status)
         {
-            if (!this.manualControl)
+            if (!this.ManualControl)
             {
                 return false;
             }
@@ -221,7 +236,7 @@ namespace CryostatControlServer
         {
             ////todo add safety check
 
-            if (values.Length != (int)HeaterEnumerator.HeaterAmount || !this.manualControl)
+            if (values.Length != (int)HeaterEnumerator.HeaterAmount || !this.ManualControl)
             {
                 return false;
             }

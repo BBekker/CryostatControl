@@ -47,6 +47,26 @@ namespace CryostatControlServer.HostService
         bool Warmup();
 
         /// <summary>
+        /// Go to manual mode
+        /// </summary>
+        /// <returns>If the server could go to manual mode</returns>
+        [OperationContract]
+        bool Manual();
+
+        /// <summary>
+        /// Cancel the current operation, such as warm up, cool down, recycle and manual.
+        /// </summary>
+        /// <returns>true if canceled</returns>
+        bool Cancel();
+
+        /// <summary>
+        /// Gets the state.
+        /// </summary>
+        /// <returns>integer representing the controller state <see cref="Controlstate"/></returns>
+        [OperationContract]
+        int GetState();
+
+        /// <summary>
         /// Sets the compressor on or off.
         /// <c>true</c> to turn the compressor on.
         /// <c>false</c> to turn the compressor off.
