@@ -90,6 +90,10 @@ namespace CryostatControlServer
             this.dataReadOut = new DataReadOut(this.compressor, this.sensors);
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         /// <summary>
         /// Gets the state of the controller.
         /// </summary>
@@ -112,6 +116,10 @@ namespace CryostatControlServer
                 return this.ControllerState == Controlstate.Manual;
             }
         }
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Cancels the current command safely.
@@ -270,18 +278,10 @@ namespace CryostatControlServer
         /// </summary>
         private void FillHeaters()
         {
-            this.heaters[(int)HeaterEnumerator.He3Pump] =
-                new He7Cooler.He7Cooler.Heater(Channels.PumpHe3, Channels.SensHe3Pump, this.he7Cooler);
-            this.heaters[(int)HeaterEnumerator.He4Pump] =
-                new He7Cooler.He7Cooler.Heater(Channels.PumpHe4, Channels.SensHe4Pump, this.he7Cooler);
-            this.heaters[(int)HeaterEnumerator.He3Switch] = new He7Cooler.He7Cooler.Heater(
-                Channels.SwitchHe3,
-                Channels.SensHe3Switch,
-                this.he7Cooler);
-            this.heaters[(int)HeaterEnumerator.He4Switch] = new He7Cooler.He7Cooler.Heater(
-                Channels.SwitchHe4,
-                Channels.SensHe4Switch,
-                this.he7Cooler);
+            this.heaters[(int)HeaterEnumerator.He3Pump] = this.he7Cooler.He3Pump;
+            this.heaters[(int)HeaterEnumerator.He4Pump] = this.he7Cooler.He4Pump;
+            this.heaters[(int)HeaterEnumerator.He3Switch] = this.he7Cooler.He3Switch;
+            this.heaters[(int)HeaterEnumerator.He4Switch] = this.he7Cooler.He4Switch;
         }
 
         /// <summary>
@@ -384,7 +384,7 @@ namespace CryostatControlServer
             this.sensors[(int)DataEnumerator.He4VoltActual] =
                 new He7Cooler.He7Cooler.Sensor(Channels.SensHe4Pump, this.he7Cooler, emptyCalibration);
         }
-    }
 
-    #endregion Constructors
+        #endregion Methods
+    }
 }

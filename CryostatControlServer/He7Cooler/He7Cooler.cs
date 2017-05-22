@@ -12,8 +12,6 @@ namespace CryostatControlServer.He7Cooler
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Threading;
 
@@ -26,30 +24,6 @@ namespace CryostatControlServer.He7Cooler
     public partial class He7Cooler
     {
         #region Fields
-
-        /// <summary>
-        /// The ruox calibration file location.
-        /// </summary>
-        [SuppressMessage(
-            "StyleCop.CSharp.DocumentationRules",
-            "SA1650:ElementDocumentationMustBeSpelledCorrectly",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private const string RuoxFile = "..\\..\\RUOX.CAL";
-
-        /// <summary>
-        /// The he 3 column.
-        /// </summary>
-        private const int He3Col = 2;
-
-        /// <summary>
-        /// The he 4 column.
-        /// </summary>
-        private const int He4Col = 3;
-
-        /// <summary>
-        /// The diode calibration file location.
-        /// </summary>
-        private const string DiodeFile = "..\\..\\DIODE.CAL";
 
         /// <summary>
         /// The interval between voltage samples
@@ -90,24 +64,17 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         public He7Cooler()
         {
-            Sensor.Calibration he3Calibration = new Sensor.Calibration(RuoxFile, He3Col, 0);
-            Sensor.Calibration he4Calibration = new Sensor.Calibration(RuoxFile, He4Col, 0);
-            Sensor.Calibration diodeCalibration = new Sensor.Calibration(DiodeFile, 1, 0);
+            Sensor.Calibration he3Calibration = Sensor.Calibration.He3Calibration;
+            Sensor.Calibration he4Calibration = Sensor.Calibration.He4Calibration;
+            Sensor.Calibration diodeCalibration = Sensor.Calibration.DiodeCalibration;
 
             this.He3PumpT = new Sensor(Channels.SensHe3PumpT, this, diodeCalibration);
-
             this.He4PumpT = new Sensor(Channels.SensHe4PumpT, this, diodeCalibration);
-
             this.He4SwitchT = new Sensor(Channels.SensHe4SwitchT, this, diodeCalibration);
-
             this.He3SwitchT = new Sensor(Channels.SensHe3SwitchT, this, diodeCalibration);
-
             this.Plate4KT = new Sensor(Channels.Sens4KplateT, this, diodeCalibration);
-
             this.Plate2KT = new Sensor(Channels.Sens2KplateT, this, diodeCalibration);
-
             this.He4HeadT = new Sensor(Channels.SensHe4HeadT, this, he4Calibration);
-
             this.He3HeadT = new Sensor(Channels.SensHe3HeadT, this, he3Calibration);
 
             this.He3Pump = new Heater(Channels.PumpHe3, Channels.SensHe3Pump, this);
