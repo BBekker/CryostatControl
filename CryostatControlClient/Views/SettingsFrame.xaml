@@ -37,24 +37,25 @@
                     <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="3">xx</Label>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="4">Modus</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="4">xx</Label>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="4" Content="{Binding ModusViewModel.ModusConverted}"/>
                 </Grid>
                 <!--<DatePicker materialDesign:HintAssist.Hint="Pick Date" Style="{StaticResource SettingsDatePicker}" />
                 <materialDesign:TimePicker materialDesign:HintAssist.Hint="Pick Time" Style="{StaticResource SettingsTimePicker}"/>-->
 
-                <ComboBox SelectedIndex="0" Style="{StaticResource SettingsComboBox}">
+                <ComboBox Style="{StaticResource SettingsComboBox}"
+                          SelectedIndex="{Binding ModusViewModel.SelectedComboIndex}">
                     <ComboBoxItem>Cool down</ComboBoxItem>
                     <ComboBoxItem>Recycle</ComboBoxItem>
                     <ComboBoxItem>Warm up</ComboBoxItem>
-                    <!--<ComboBoxItem>Manual control</ComboBoxItem>-->
                 </ComboBox>
-                <Button Style="{StaticResource SettingsButton}">Start</Button>
+                <Button Style="{StaticResource SettingsButton}" Command="{Binding ModusViewModel.StartButtonCommand}">Start</Button>
+                <Button Style="{StaticResource SettingsButton}" Command="{Binding ModusViewModel.CancelButtonCommand}">Cancel</Button>
                 <StackPanel>
-                    <RadioButton Name="startNow" Style="{StaticResource SettingsRadioButtons}" GroupName="startOption"
+                    <RadioButton Command="{Binding ModusViewModel.RadioButtonCommand}" CommandParameter="Now" Name="startNow" Style="{StaticResource SettingsRadioButtons}" GroupName="startOption"
                                  IsChecked="True">
                         Start Now
                     </RadioButton>
-                    <RadioButton Name="startScheduled" Style="{StaticResource SettingsRadioButtons}"
+                    <RadioButton Command="{Binding ModusViewModel.RadioButtonCommand}" CommandParameter="Scheduled" Name="startScheduled" Style="{StaticResource SettingsRadioButtons}"
                                  GroupName="startOption">
                         Scheduled Start
                     </RadioButton>

@@ -61,6 +61,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="Cancel">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CancelResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetState">
     <xs:complexType>
       <xs:sequence />
@@ -168,6 +180,13 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="data" nillable="true" type="q3:ArrayOfdouble" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendModus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="modus" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

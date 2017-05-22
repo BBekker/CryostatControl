@@ -45,6 +45,12 @@ namespace CryostatControlClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Manual", ReplyAction="http://tempuri.org/ICommandService/ManualResponse")]
         System.Threading.Tasks.Task<bool> ManualAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Cancel", ReplyAction="http://tempuri.org/ICommandService/CancelResponse")]
+        bool Cancel();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Cancel", ReplyAction="http://tempuri.org/ICommandService/CancelResponse")]
+        System.Threading.Tasks.Task<bool> CancelAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/GetState", ReplyAction="http://tempuri.org/ICommandService/GetStateResponse")]
         int GetState();
         
@@ -155,6 +161,14 @@ namespace CryostatControlClient.ServiceReference1 {
             return base.Channel.ManualAsync();
         }
         
+        public bool Cancel() {
+            return base.Channel.Cancel();
+        }
+        
+        public System.Threading.Tasks.Task<bool> CancelAsync() {
+            return base.Channel.CancelAsync();
+        }
+        
         public int GetState() {
             return base.Channel.GetState();
         }
@@ -234,6 +248,9 @@ namespace CryostatControlClient.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SendData")]
         void SendData(double[] data);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SendModus")]
+        void SendModus(int modus);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
