@@ -42,7 +42,7 @@ namespace CryostatControlServer.He7Cooler
             private Channels inchannel;
 
             /// <summary>
-            /// The channel where to output the voltage setpoint.
+            /// The channel where to output the voltage set point.
             /// </summary>
             private Channels outchannel;
 

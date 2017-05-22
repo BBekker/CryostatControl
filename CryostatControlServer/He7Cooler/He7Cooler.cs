@@ -12,37 +12,18 @@ namespace CryostatControlServer.He7Cooler
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Threading;
 
     using CryostatControlServer.Properties;
 
     /// <summary>
-    /// He7 Cooler class. 
+    /// He7 Cooler class.
     /// Represents the He7 cooler controls. Read and set voltages and digital bits.
     /// </summary>
     public partial class He7Cooler
     {
-        /// <summary>
-        /// The ruox calibration file location.
-        /// </summary>
-        private const string RuoxFile = "..\\..\\RUOX.CAL";
-
-        /// <summary>
-        /// The he 3 column.
-        /// </summary>
-        private const int He3Col = 2;
-
-        /// <summary>
-        /// The he 4 column.
-        /// </summary>
-        private const int He4Col = 3;
-
-        /// <summary>
-        /// The diode calibration file location.
-        /// </summary>
-        private const string DiodeFile = "..\\..\\DIODE.CAL";
+        #region Fields
 
         /// <summary>
         /// The interval between voltage samples
@@ -55,7 +36,7 @@ namespace CryostatControlServer.He7Cooler
         private Agilent34972A device = new Agilent34972A();
 
         /// <summary>
-        /// The amound in sensor readers per channel.
+        /// The amount of sensor readers per channel.
         /// </summary>
         private Dictionary<Channels, int> readersPerChannel = new Dictionary<Channels, int>();
 
@@ -74,29 +55,26 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         private bool isStarted = false;
 
+        #endregion Fields
+
+        #region Constructors
+
         /// <summary>
         /// Initializes a new instance of the <see cref="He7Cooler"/> class.
         /// </summary>
         public He7Cooler()
         {
-             Sensor.Calibration he3Calibration = new Sensor.Calibration(RuoxFile, He3Col, 0);
-             Sensor.Calibration he4Calibration = new Sensor.Calibration(RuoxFile, He4Col, 0);
-             Sensor.Calibration diodeCalibration = new Sensor.Calibration(DiodeFile, 1, 0);
+            Sensor.Calibration he3Calibration = Sensor.Calibration.He3Calibration;
+            Sensor.Calibration he4Calibration = Sensor.Calibration.He4Calibration;
+            Sensor.Calibration diodeCalibration = Sensor.Calibration.DiodeCalibration;
 
             this.He3PumpT = new Sensor(Channels.SensHe3PumpT, this, diodeCalibration);
-
             this.He4PumpT = new Sensor(Channels.SensHe4PumpT, this, diodeCalibration);
-
             this.He4SwitchT = new Sensor(Channels.SensHe4SwitchT, this, diodeCalibration);
-
             this.He3SwitchT = new Sensor(Channels.SensHe3SwitchT, this, diodeCalibration);
-
             this.Plate4KT = new Sensor(Channels.Sens4KplateT, this, diodeCalibration);
-
             this.Plate2KT = new Sensor(Channels.Sens2KplateT, this, diodeCalibration);
-
             this.He4HeadT = new Sensor(Channels.SensHe4HeadT, this, he4Calibration);
-
             this.He3HeadT = new Sensor(Channels.SensHe3HeadT, this, he3Calibration);
 
             this.He3Pump = new Heater(Channels.PumpHe3, Channels.SensHe3Pump, this);
@@ -109,6 +87,8 @@ namespace CryostatControlServer.He7Cooler
             this.He4Switch.SafeRangeHigh = Settings.Default.He4SwitchMaxVoltage;
             this.He3Switch.SafeRangeHigh = Settings.Default.He3SwitchMaxVoltage;
         }
+
+        #endregion Constructors
 
         #region Sensors
 
@@ -177,6 +157,8 @@ namespace CryostatControlServer.He7Cooler
         public Heater He4Switch { get; private set; }
 
         #endregion Heaters
+
+        #region Methods
 
         /// <summary>
         /// Connect to the Agilent device.
@@ -303,7 +285,7 @@ namespace CryostatControlServer.He7Cooler
                 }
             }
         }
-        
+
         /// <summary>
         /// The main loop of the thread that reads voltages from the He7 cooler.
         /// </summary>
@@ -315,5 +297,7 @@ namespace CryostatControlServer.He7Cooler
                 Thread.Sleep(ReadInterval);
             }
         }
+
+        #endregion Methods
     }
 }
