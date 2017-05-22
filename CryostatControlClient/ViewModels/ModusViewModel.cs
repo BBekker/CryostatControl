@@ -212,31 +212,7 @@ namespace CryostatControlClient.ViewModels
         /// </returns>
         public string ConvertModusNumberToString(double modusNumber)
         {
-            switch ((int)modusNumber)
-            {
-                case (int)Controlstate.Setup: return "Setup";
-                case (int)Controlstate.Standby: return "Standby";
-                case (int)Controlstate.Manual: return "Manual";
-                case (int)Controlstate.CooldownStart: return "CooldownStart";
-                case (int)Controlstate.CooldownWaitForPressure: return "CooldownWaitForPressure";
-                case (int)Controlstate.CooldownStartCompressor: return "CooldownStartCompressor";
-                case (int)Controlstate.CooldownWait70K: return "CooldownWait70K";
-                case (int)Controlstate.CooldownWait4K: return "CooldownWait4K";
-                case (int)Controlstate.CooldownCondenseHe4: return "CooldownCondenseHe4";
-                case (int)Controlstate.CooldownTurnOffHe4: return "CooldownTurnOffHe4";
-                case (int)Controlstate.CooldownControlHe4Switch: return "CooldownControlHe4Switch";
-                case (int)Controlstate.CooldownCondenseHe3: return "CooldownCondenseHe3";
-                case (int)Controlstate.CooldownDisableHe3PumpHeater: return "CooldownDisableHe3PumpHeater";
-                case (int)Controlstate.CooldownControlHe3: return "CooldownControlHe3";
-                case (int)Controlstate.CooldownFinished: return "CooldownFinished";
-                case (int)Controlstate.RecycleStart: return "RecycleStart";
-                case (int)Controlstate.RecycleHeatPumps: return "RecycleHeatPumps";
-                case (int)Controlstate.WarmupStart: return "WarmupStart";
-                case (int)Controlstate.WarmupHeating: return "WarmupHeating";
-                case (int)Controlstate.WarmupFinished: return "WarmupFinished";
-                case (int)Controlstate.CancelAll: return "CancelAll";
-                default: return "No information";
-            }
+            return ((Controlstate)modusNumber).ToString();
         }
 
         /// <summary>
