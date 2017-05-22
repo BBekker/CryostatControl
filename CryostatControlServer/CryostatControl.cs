@@ -20,7 +20,7 @@ namespace CryostatControlServer
         /// <summary>
         /// The data read out
         /// </summary>
-        private readonly DataReadOut dataReader;
+        private readonly DataReader dataReader;
 
         /// <summary>
         /// The compressor
@@ -76,7 +76,7 @@ namespace CryostatControlServer
             this.lakeShore = lakeShore;
             this.he7Cooler = he7Cooler;
             this.controller = controller;
-            this.dataReader = new DataReadOut(this.compressor, this.he7Cooler, this.lakeShore);
+            this.dataReader = new DataReader(this.compressor, this.he7Cooler, this.lakeShore);
             this.FillHeaters();
         }
 
@@ -170,7 +170,7 @@ namespace CryostatControlServer
         /// <returns>data array with sensor values</returns>
         public double[] ReadData()
         {
-            return this.dataReader.FillData();
+            return this.dataReader.GetDataArray();
         }
 
         /// <summary>

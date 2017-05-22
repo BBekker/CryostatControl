@@ -1,4 +1,9 @@
-﻿namespace CryostatControlServer.Data
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="SensorArray.cs" company="SRON">
+//      Copyright (c) SRON. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+namespace CryostatControlServer.Data
 {
     using CryostatControlServer.Compressor;
     using CryostatControlServer.He7Cooler;
