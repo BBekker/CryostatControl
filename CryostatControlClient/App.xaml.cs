@@ -50,7 +50,7 @@ namespace CryostatControlClient
             }
         }
 
-        #endregion Properties
+        #endregion Propertis
 
         #region Methods
 
@@ -95,7 +95,7 @@ namespace CryostatControlClient
                 Console.WriteLine("Server is alive: {0}", this.commandServiceClient.IsAlive());
                 Console.WriteLine("Subscribed for data");
                 dataClient.SubscribeForData(1000);
-                
+
                 ////Execute(this.Unsubscribe, 5000, dataClient);
             }
             catch (System.ServiceModel.EndpointNotFoundException)

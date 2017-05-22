@@ -59,13 +59,17 @@ namespace CryostatControlClient.Communication
                 case (int)ModusEnumerator.Cooldown:
                     this.commandServiceClient.Cooldown();
                     break;
+
                 case (int)ModusEnumerator.Recycle:
                     this.commandServiceClient.Recycle();
                     break;
+
                 case (int)ModusEnumerator.Warmup:
                     this.commandServiceClient.Warmup();
                     break;
+
                 default:
+
                     // todo : some error for unknown modus?
                     break;
             }
@@ -76,8 +80,7 @@ namespace CryostatControlClient.Communication
         /// </summary>
         public void CancelModus()
         {
-            Console.WriteLine("Canceling modus");
-            //this.commandServiceClient.Cancel();
+            this.commandServiceClient.Cancel();
         }
 
         /// <summary>
