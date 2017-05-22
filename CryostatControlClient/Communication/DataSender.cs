@@ -72,6 +72,15 @@ namespace CryostatControlClient.Communication
         }
 
         /// <summary>
+        /// Cancels the modus.
+        /// </summary>
+        public void CancelModus()
+        {
+            Console.WriteLine("Canceling modus");
+            //this.commandServiceClient.Cancel();
+        }
+
+        /// <summary>
         /// Updates the helium.
         /// </summary>
         /// <param name="viewModelContainer">The view model container.</param>

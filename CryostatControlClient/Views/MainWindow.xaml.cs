@@ -87,6 +87,15 @@ namespace CryostatControlClient.Views
         }
 
         /// <summary>
+        /// Sets the state.
+        /// </summary>
+        /// <param name="modus">The modus.</param>
+        public void SetState(int modus)
+        {
+            this.dataReceiver.SetState(modus, this.viewModelContainer);
+        }
+
+        /// <summary>
         /// Handles the Loaded event of the MainWindow control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -113,6 +122,10 @@ namespace CryostatControlClient.Views
             if (action == "StartPressed")
             {
                 this.dataSender.UpdateModus(this.viewModelContainer);
+            }
+            else if (action == "CancelPressed")
+            {
+                this.dataSender.CancelModus();
             }
             else
             {

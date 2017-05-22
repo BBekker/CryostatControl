@@ -201,6 +201,7 @@ namespace CryostatControlServer.HostService
             try
             {
                 client.SendData(data);
+                client.SendModus(this.GetState());
             }
             catch (TimeoutException)
             {

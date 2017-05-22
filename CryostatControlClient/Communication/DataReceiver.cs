@@ -23,6 +23,19 @@ namespace CryostatControlClient.Communication
         #region Methods
 
         /// <summary>
+        /// Sets the state.
+        /// </summary>
+        /// <param name="modus">The modus.</param>
+        /// <param name="dataContext">The data context.</param>
+        public void SetState(int modus, ViewModelContainer dataContext)
+        {
+            if (dataContext != null)
+            {
+                dataContext.ModusViewModel.Modus = modus;
+            }
+        }
+
+        /// <summary>
         /// Updates the compressor viewmodel.
         /// </summary>
         /// <param name="data">The data.</param>

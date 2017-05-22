@@ -22,6 +22,11 @@ namespace CryostatControlClient.Models
         private int selectedComboIndex;
 
         /// <summary>
+        /// The modus
+        /// </summary>
+        private int modus;
+
+        /// <summary>
         /// The command
         /// </summary>
         private string time;
@@ -77,6 +82,25 @@ namespace CryostatControlClient.Models
             set
             {
                 this.time = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the modus.
+        /// </summary>
+        /// <value>
+        /// The modus.
+        /// </value>
+        public int Modus
+        {
+            get
+            {
+                return this.modus;
+            }
+
+            set
+            {
+                this.modus = value;
             }
         }
 
