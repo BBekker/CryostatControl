@@ -9,20 +9,38 @@ namespace CryostatControlServer.Data
     using CryostatControlServer.He7Cooler;
     using CryostatControlServer.LakeShore;
 
+    /// <summary>
+    /// Class which
+    /// </summary>
     public class SensorArray
     {
         #region Fields
 
-        private Compressor compressor;
+        /// <summary>
+        /// The compressor
+        /// </summary>
+        private readonly Compressor compressor;
 
-        private He7Cooler he7Cooler;
+        /// <summary>
+        /// The he7 cooler
+        /// </summary>
+        private readonly He7Cooler he7Cooler;
 
-        private LakeShore lakeShore;
+        /// <summary>
+        /// The lake shore
+        /// </summary>
+        private readonly LakeShore lakeShore;
 
         #endregion Fields
 
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SensorArray"/> class.
+        /// </summary>
+        /// <param name="compressor">The compressor.</param>
+        /// <param name="he7Cooler">The he7 cooler.</param>
+        /// <param name="lakeShore">The lake shore.</param>
         public SensorArray(
             Compressor compressor,
             He7Cooler he7Cooler,
@@ -41,8 +59,10 @@ namespace CryostatControlServer.Data
         /// Fills the sensors initially with empty sensors than fills it for each component.
         /// <seealso cref="DataEnumerator" /> for the position of each sensor
         /// </summary>
-        /// <returns> Array filled with new sensors</returns>
-        public ISensor[] getSensorArray()
+        /// <returns>
+        /// Array filled with new sensors
+        /// </returns>
+        public ISensor[] GetSensorArray()
         {
             ISensor[] sensors = new ISensor[(int)DataEnumerator.DataLength];
 
@@ -61,6 +81,7 @@ namespace CryostatControlServer.Data
         /// <summary>
         /// Fills the lake shore sensors.
         /// </summary>
+        /// <param name="sensors">The sensors array to be filled.</param>
         private void FillLakeShoreSensors(ISensor[] sensors)
         {
             sensors[(int)DataEnumerator.LakePlate50K] =
@@ -72,6 +93,7 @@ namespace CryostatControlServer.Data
         /// <summary>
         /// Fills the compressor sensors.
         /// </summary>
+        /// <param name="sensors">The sensors array to be filled.</param>
         private void FillCompressorSensors(ISensor[] sensors)
         {
             sensors[(int)DataEnumerator.ComWaterIn] =
@@ -97,6 +119,7 @@ namespace CryostatControlServer.Data
         /// <summary>
         /// Fills the he7 sensors.
         /// </summary>
+        /// <param name="sensors">The sensors array to be filled.</param>
         private void FillHe7Sensors(ISensor[] sensors)
         {
             He7Cooler.Sensor.Calibration he3Calibration =

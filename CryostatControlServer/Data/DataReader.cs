@@ -40,7 +40,7 @@ namespace CryostatControlServer.Data
             LakeShore.LakeShore lakeShore)
         {
             this.compressor = compressor;
-            this.sensors = new SensorArray(this.compressor, he7Cooler, lakeShore).getSensorArray();
+            this.sensors = new SensorArray(this.compressor, he7Cooler, lakeShore).GetSensorArray();
         }
 
         /// <summary>
