@@ -199,6 +199,9 @@ namespace CryostatControlServer.He7Cooler
         /// <param name="device">
         /// The initialized device.
         /// </param>
+        /// <param name="startReading">
+        /// The start Reading.
+        /// </param>
         public void Connect(Agilent34972A device, bool startReading)
         {
             this.device = device;
@@ -235,7 +238,7 @@ namespace CryostatControlServer.He7Cooler
             }
             catch (AgilentException ex)
             {
-                Console.WriteLine("Reading values failed: "+ex.ToString());
+                Console.WriteLine("Reading values failed: " + ex.ToString());
             }
         }
 
@@ -280,8 +283,8 @@ namespace CryostatControlServer.He7Cooler
                 this.values.Add(channel, 0.0);
                 this.readersPerChannel[channel] = 0;
             }
-            this.readersPerChannel[channel]++;
 
+            this.readersPerChannel[channel]++;
         }
 
         /// <summary>
@@ -292,13 +295,15 @@ namespace CryostatControlServer.He7Cooler
         /// </param>
         protected void RemoveChannel(Channels channel)
         {
-            if(this.readersPerChannel.ContainsKey(channel))
-            if (this.readersPerChannel[channel] > 0)
+            if (this.readersPerChannel.ContainsKey(channel))
             {
-                this.readersPerChannel[channel]--;
+                if (this.readersPerChannel[channel] > 0)
+                {
+                    this.readersPerChannel[channel]--;
+                }
             }
         }
-
+        
         /// <summary>
         /// The main loop of the thread that reads voltages from the He7 cooler.
         /// </summary>
