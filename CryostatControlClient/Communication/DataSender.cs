@@ -77,27 +77,31 @@ namespace CryostatControlClient.Communication
         /// <param name="viewModelContainer">The view model container.</param>
         public void UpdateHelium(ViewModelContainer viewModelContainer)
         {
-            //double[] writeSettingValues = new double[(int)SomeEnumerator.Amount];
             double[] writeHelium7 = new double[(int)HeaterEnumerator.HeaterAmount];
-
-            //writeSettingValues[(int)SomeEnumerator.Something] = viewModelContainer.He7ViewModel.He4PumpMax;
-            //writeSettingValues[(int)SomeEnumerator.Something] = viewModelContainer.He7ViewModel.He3PumpMax;
-            //writeSettingValues[(int)SomeEnumerator.Something] = viewModelContainer.He7ViewModel.He4SwitchMax1;
-            //writeSettingValues[(int)SomeEnumerator.Something] = viewModelContainer.He7ViewModel.He4SwitchMax2;
-            //writeSettingValues[(int)SomeEnumerator.Something] = viewModelContainer.He7ViewModel.He3SwitchMax1;
-            //writeSettingValues[(int)SomeEnumerator.Something] = viewModelContainer.He7ViewModel.He3SwitchMax2;
-            //writeSettingValues[(int)SomeEnumerator.Something] = viewModelContainer.He7ViewModel.FourKPlateMax1;
-            //writeSettingValues[(int)SomeEnumerator.Something] = viewModelContainer.He7ViewModel.FourKPlateMax2;
-            //writeSettingValues[(int)SomeEnumerator.Something] = viewModelContainer.He7ViewModel.He4HeadMax;
-            //writeSettingValues[(int)SomeEnumerator.Something] = viewModelContainer.He7ViewModel.He3HeadMax;
 
             writeHelium7[(int)HeaterEnumerator.He4Pump] = viewModelContainer.He7ViewModel.He4PumpNewVolt;
             writeHelium7[(int)HeaterEnumerator.He3Pump] = viewModelContainer.He7ViewModel.He3PumpNewVolt;
             writeHelium7[(int)HeaterEnumerator.He3Switch] = viewModelContainer.He7ViewModel.He3SwitchNewVolt;
             writeHelium7[(int)HeaterEnumerator.He4Switch] = viewModelContainer.He7ViewModel.He4SwitchNewVolt;
 
-            //this.commandServiceClient.WriteSettingValues(writeSettingValues);
             this.commandServiceClient.WriteHelium7(writeHelium7);
+
+            // These are the max settings, since it is not yet clear what to do with these they are commented out.
+
+            // Console.WriteLine(viewModelContainer.He7ViewModel.He4PumpMax);
+            // Console.WriteLine(viewModelContainer.He7ViewModel.He4PumpNewVolt);
+            // Console.WriteLine(viewModelContainer.He7ViewModel.He4SwitchMax1);
+            // Console.WriteLine(viewModelContainer.He7ViewModel.He4SwitchMax2);
+            // Console.WriteLine(viewModelContainer.He7ViewModel.He4SwitchNewVolt);
+            // Console.WriteLine(viewModelContainer.He7ViewModel.He3PumpMax);
+            // Console.WriteLine(viewModelContainer.He7ViewModel.He3PumpNewVolt);
+            // Console.WriteLine(viewModelContainer.He7ViewModel.He3SwitchMax1);
+            // Console.WriteLine(viewModelContainer.He7ViewModel.He3SwitchMax2);
+            // Console.WriteLine(viewModelContainer.He7ViewModel.He3SwitchNewVolt);
+            // Console.WriteLine(viewModelContainer.He7ViewModel.FourKPlateMax1);
+            // Console.WriteLine(viewModelContainer.He7ViewModel.FourKPlateMax2);
+            // Console.WriteLine(viewModelContainer.He7ViewModel.He4HeadMax);
+            // Console.WriteLine(viewModelContainer.He7ViewModel.He3HeadMax);
         }
 
         #endregion Methods
