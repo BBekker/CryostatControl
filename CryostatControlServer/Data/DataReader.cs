@@ -3,13 +3,12 @@
 //      Copyright (c) SRON. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace CryostatControlServer
+namespace CryostatControlServer.Data
 {
     using System;
-    using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
-    /// Class which returns the data required for the GUI by the client.
+    /// Class which returns a array filled with data according to <seealso cref="DataEnumerator"/>
     /// </summary>
     public class DataReadOut
     {
@@ -20,10 +19,11 @@ namespace CryostatControlServer
         /// </summary>
         private readonly ISensor[] sensors;
 
-        /// <summary>
-        /// The compressor
-        /// </summary>
         private readonly Compressor.Compressor compressor;
+
+        private readonly He7Cooler.He7Cooler he7Cooler;
+
+        private readonly LakeShore.LakeShore lakeShore;
 
         #endregion Fields
 
@@ -36,10 +36,13 @@ namespace CryostatControlServer
         /// <param name="sensors">The sensors.</param>
         public DataReadOut(
             Compressor.Compressor compressor,
-            ISensor[] sensors)
+            He7Cooler.He7Cooler he7Cooler,
+            LakeShore.LakeShore lakeShore)
         {
             this.compressor = compressor;
-            this.sensors = sensors;
+            this.he7Cooler = he7Cooler;
+            this.lakeShore = lakeShore;
+            this.sensors = new SensorArray(this.compressor, this.he7Cooler, this.lakeShore).getSensorArray();
         }
 
         /// <summary>
