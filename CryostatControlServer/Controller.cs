@@ -530,6 +530,7 @@ namespace CryostatControlServer
                 case Controlstate.Manual: break;
 
                 case Controlstate.CooldownStart:
+                    this.lakeshore.SetHeater(false);
                     this.State = Controlstate.CooldownWaitForPressure;
                     break;
 
@@ -653,8 +654,7 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.WarmupStart:
-
-                    // TODO: start Lakeshore heater?
+                    this.lakeshore.SetHeater(true);
                     this.compressor.TurnOff();
                     break;
 
@@ -710,6 +710,8 @@ namespace CryostatControlServer
                         this.cooler.He4Switch.Voltage = 0.0;
                         this.compressor.TurnOff();
                     }
+
+                    this.lakeshore.SetHeater(false);
 
                     this.State = Controlstate.Standby;
                     break;

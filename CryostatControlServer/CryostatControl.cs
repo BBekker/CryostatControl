@@ -174,6 +174,26 @@ namespace CryostatControlServer
         }
 
         /// <summary>
+        /// Turn bluefors heater on or off.
+        /// </summary>
+        /// <param name="status">
+        /// The status.
+        /// </param>
+        /// <returns>
+        /// True if successfully executed <see cref="bool"/>.
+        /// </returns>
+        public bool SetBlueforsHeater(bool status)
+        {
+            if (!this.ManualControl)
+            {
+                return false;
+            }
+
+            this.lakeShore.SetHeater(true);
+            return true;
+        }
+
+        /// <summary>
         /// Turns the compressor on or off.
         /// </summary>
         /// <param name="status">if set to <c>true</c> [on].</param>
