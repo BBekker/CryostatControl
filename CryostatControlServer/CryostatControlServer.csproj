@@ -92,7 +92,6 @@
     <Compile Include="ControlState.cs" />
     <Compile Include="CryostatControl.cs" />
     <Compile Include="DataReadOut.cs" />
-    <Compile Include="EventLog.cs" />
     <Compile Include="He7Cooler\Agilent34972A.cs" />
     <Compile Include="He7Cooler\AgilentException.cs" />
     <Compile Include="He7Cooler\Channels.cs" />
