@@ -178,6 +178,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="SetBlueforsHeater">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="status" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetBlueforsHeaterResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SetBlueforsHeaterResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="SubscribeForData">
     <xs:complexType>
       <xs:sequence>

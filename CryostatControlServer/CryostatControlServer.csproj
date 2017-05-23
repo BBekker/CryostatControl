@@ -91,7 +91,8 @@
     <Compile Include="Controller.cs" />
     <Compile Include="ControlState.cs" />
     <Compile Include="CryostatControl.cs" />
-    <Compile Include="DataReadOut.cs" />
+    <Compile Include="Data\DataReader.cs" />
+    <Compile Include="Data\SensorArray.cs" />
     <Compile Include="He7Cooler\Agilent34972A.cs" />
     <Compile Include="He7Cooler\AgilentException.cs" />
     <Compile Include="He7Cooler\Channels.cs" />
@@ -101,17 +102,17 @@
     <Compile Include="He7Cooler\Sensor.cs" />
     <Compile Include="HostService\Enumerators\HeaterEnumerator.cs" />
     <Compile Include="HostService\Enumerators\SettingEnumerator.cs" />
-    <Compile Include="ISensor.cs" />
+    <Compile Include="Data\ISensor.cs" />
     <Compile Include="LakeShore\LakeShore.cs" />
     <Compile Include="LakeShore\Sensor.cs" />
     <Compile Include="LakeShore\SensorEnum.cs" />
     <Compile Include="HostService\CommandService.cs" />
-    <Compile Include="HostService\Enumerators\DataEnumerator.cs" />
+    <Compile Include="Data\DataEnumerator.cs" />
     <Compile Include="HostService\IDataGetCallback.cs" />
     <Compile Include="HostService\ICommandService.cs" />
     <Compile Include="HostService\IDataGet.cs" />
     <Compile Include="Launcher.cs" />
-    <Compile Include="EmptySensor.cs" />
+    <Compile Include="Data\EmptySensor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

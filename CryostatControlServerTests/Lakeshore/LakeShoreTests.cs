@@ -4,7 +4,7 @@ namespace CryostatControlServerTests.Lakeshore
 {
     using System.Threading;
 
-    using CryostatControlServer;
+    using CryostatControlServer.Data;
     using CryostatControlServer.LakeShore;
     using CryostatControlServer.Streams;
 
@@ -13,10 +13,13 @@ namespace CryostatControlServerTests.Lakeshore
     [TestClass]
     public class LakeShoreTests
     {
+        #region Methods
+
         [TestMethod]
         public void TestStartAndRead()
         {
             var lakeshore = new LakeShore();
+
             //Set up mock
             var mockLS = new Mock<IManagedStream>();
             mockLS.Setup(stream => stream.Open());
@@ -33,7 +36,8 @@ namespace CryostatControlServerTests.Lakeshore
 
             lakeshore.Close();
             Thread.Sleep(1);
-
         }
+
+        #endregion Methods
     }
 }

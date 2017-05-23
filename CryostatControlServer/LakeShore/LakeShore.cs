@@ -141,6 +141,26 @@ namespace CryostatControlServer.LakeShore
         }
 
         /// <summary>
+        /// The set heater.
+        /// </summary>
+        /// <param name="turnOn">
+        /// The on state.
+        /// </param>
+        public void SetHeater(bool turnOn)
+        {
+            try
+            {
+                Monitor.Enter(this.stream);
+                this.WaitCommandInterval();
+                this.stream.WriteString("RANGE A," + (turnOn ? "3" : "0") + "\n");
+            }
+            finally
+            {
+                Monitor.Exit(this.stream);
+            }
+        }
+
+        /// <summary>
         /// Sends OPC command to device and waits for response.
         /// Used to confirm connection and synchronisation of state of the device.
         /// </summary>
