@@ -83,9 +83,12 @@ namespace CryostatControlServer.LakeShore
                     stream = new ManagedCOMStream(name, BaudRate);
                     stream.Open();
                     stream.WriteString("MODE 1\n");
-                    stream.WriteString("OPC?\n");
-                    stream.ReadString();
-                    return name;
+                    Thread.Sleep(35);
+                    stream.WriteString("*IDN?\n");
+                    if (stream.ReadString().Contains("MODEL335"))
+                    {
+                        return name;
+                    }
                 }
                 catch (Exception)
                 {
