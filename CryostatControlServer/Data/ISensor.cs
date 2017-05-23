@@ -8,13 +8,15 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace CryostatControlServer
+namespace CryostatControlServer.Data
 {
     /// <summary>
     /// The Sensor interface.
     /// </summary>
     public interface ISensor
     {
+        #region Properties
+
         /// <summary>
         /// Gets or sets the interval data is read at.
         /// </summary>
@@ -24,5 +26,7 @@ namespace CryostatControlServer
         /// Gets the value.
         /// </summary>
         double Value { get; }
+
+        #endregion Properties
     }
 }
