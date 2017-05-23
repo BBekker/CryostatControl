@@ -103,6 +103,7 @@ namespace CryostatControlServerTests.He7Cooler
             Assert.AreEqual(33.0, cooler.He3HeadT.Value, 0.01);
 
             cooler.Disconnect();
+            Thread.Sleep(1);
         }
     }
 }

@@ -20,6 +20,38 @@ namespace CryostatControlClient
     /// </summary>
     public partial class App
     {
+        #region Fields
+
+        /// <summary>
+        /// The command client
+        /// </summary>
+        private CommandServiceClient commandServiceClient;
+
+        #endregion Fields
+
+        #region Propertis
+
+        /// <summary>
+        /// Gets or sets the command service client.
+        /// </summary>
+        /// <value>
+        /// The command service client.
+        /// </value>
+        public CommandServiceClient CommandServiceClient
+        {
+            get
+            {
+                return this.commandServiceClient;
+            }
+
+            set
+            {
+                this.commandServiceClient = value;
+            }
+        }
+
+        #endregion Propertis
+
         #region Methods
 
         /// <summary>
@@ -52,7 +84,7 @@ namespace CryostatControlClient
         {
             base.OnStartup(e);
 
-            CommandServiceClient commandClient = new CommandServiceClient();
+            this.commandServiceClient = new CommandServiceClient();
 
             DataClientCallback callback = new DataClientCallback(this);
             InstanceContext instanceContext = new InstanceContext(callback);
@@ -60,9 +92,10 @@ namespace CryostatControlClient
 
             try
             {
-                Console.WriteLine("Server is alive: {0}", commandClient.IsAlive());
+                Console.WriteLine("Server is alive: {0}", this.commandServiceClient.IsAlive());
                 Console.WriteLine("Subscribed for data");
                 dataClient.SubscribeForData(1000);
+
                 ////Execute(this.Unsubscribe, 5000, dataClient);
             }
             catch (System.ServiceModel.EndpointNotFoundException)

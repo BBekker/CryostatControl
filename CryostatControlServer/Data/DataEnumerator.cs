@@ -3,7 +3,7 @@
 //     Copyright (c) SRON. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
-namespace CryostatControlServer.HostService.Enumerators
+namespace CryostatControlServer.Data
 {
     using System.Diagnostics.CodeAnalysis;
 
@@ -46,23 +46,12 @@ namespace CryostatControlServer.HostService.Enumerators
         ComConnectionState = 24,
         LakeConnectionState = 25,
 
-        He3HeadMax = 26,
-        He3PumpMax = 27,
-        He4HeadMax = 28,
-        He4PumpMax = 29,
-        He3SwitchMax1 = 30,
-        He3SwitchMax2 = 31,
-        He4SwitchMax1 = 32,
-        He4SwitchMax2 = 33,
-        HePlate4Kmax1 = 34,
-        HePlate4Kmax2 = 35,
+        ComError = 26,
+        ComWarning = 27,
+        ComHoursOfOperation = 28,
 
-        ComError = 36,
-        ComWarning = 37,
-        ComHoursOfOperation = 38,
+        LakeHeater = 29,
 
-        LakeHeater = 39,
-
-        DataLength = 40
+        DataLength = 30
     }
 }

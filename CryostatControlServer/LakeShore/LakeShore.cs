@@ -12,6 +12,7 @@ namespace CryostatControlServer.LakeShore
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.IO.Ports;
     using System.Threading;
 
     using CryostatControlServer.Streams;
@@ -51,19 +52,55 @@ namespace CryostatControlServer.LakeShore
         private DateTime lastCommand;
 
         /// <summary>
-        /// The connection.
-        /// </summary>
-        private IManagedStream stream;
-
-        /// <summary>
         /// The read thread.
         /// </summary>
         private Thread readthread;
 
         /// <summary>
+        /// The connection.
+        /// </summary>
+        private IManagedStream stream;
+
+        /// <summary>
         /// Gets or sets the latest sensor values;
         /// </summary>
         public double[] SensorValues { get; set; } = new double[2] { 0, 0 };
+
+        /// <summary>
+        /// Find the lakeshore com port and connect
+        /// </summary>
+        /// <returns>
+        /// The <see cref="CryostatControlServer.LakeShore"/>.
+        /// </returns>
+        public static string FindPort()
+        {
+            var names = SerialPort.GetPortNames();
+            foreach (var name in names)
+            {
+                ManagedCOMStream stream = null;
+                try
+                {
+                    stream = new ManagedCOMStream(name, BaudRate);
+                    stream.Open();
+                    stream.WriteString("OPC?\n");
+                    if (stream.ReadString().Contains("1"))
+                    {
+                        stream.Close();
+                        return name;
+                    }
+                }
+                catch (Exception)
+                {
+                    ////ignore this exception and try new port
+                }
+                finally
+                {
+                    stream?.Close();
+                }
+            }
+
+            return null;
+        }
 
         /// <summary>
         /// Closes this instance.
@@ -101,6 +138,26 @@ namespace CryostatControlServer.LakeShore
             this.stream.Open();
 
             this.StartReading();
+        }
+
+        /// <summary>
+        /// The set heater.
+        /// </summary>
+        /// <param name="turnOn">
+        /// The on state.
+        /// </param>
+        public void SetHeater(bool turnOn)
+        {
+            try
+            {
+                Monitor.Enter(this.stream);
+                this.WaitCommandInterval();
+                this.stream.WriteString("RANGE A," + (turnOn ? "3" : "0") + "\n");
+            }
+            finally
+            {
+                Monitor.Exit(this.stream);
+            }
         }
 
         /// <summary>

@@ -9,11 +9,9 @@
 
 namespace CryostatControlClient.Communication
 {
-    using System;
-
     using CryostatControlClient.ViewModels;
 
-    using CryostatControlServer.HostService.Enumerators;
+    using CryostatControlServer.Data;
 
     /// <summary>
     /// Handles the received data
@@ -21,6 +19,19 @@ namespace CryostatControlClient.Communication
     public class DataReceiver
     {
         #region Methods
+
+        /// <summary>
+        /// Sets the state.
+        /// </summary>
+        /// <param name="modus">The modus.</param>
+        /// <param name="dataContext">The data context.</param>
+        public void SetState(int modus, ViewModelContainer dataContext)
+        {
+            if (dataContext != null)
+            {
+                dataContext.ModusViewModel.Modus = modus;
+            }
+        }
 
         /// <summary>
         /// Updates the compressor viewmodel.
@@ -46,27 +57,17 @@ namespace CryostatControlClient.Communication
         {
             viewModelContainer.He7ViewModel.ConnectionState = data[(int)DataEnumerator.HeConnectionState];
             viewModelContainer.He7ViewModel.He3HeadTemp = data[(int)DataEnumerator.He3Head];
-            viewModelContainer.He7ViewModel.He3HeadMax = data[(int)DataEnumerator.He3HeadMax];
             viewModelContainer.He7ViewModel.He3PumpTemp = data[(int)DataEnumerator.He3Pump];
-            viewModelContainer.He7ViewModel.He3PumpMax = data[(int)DataEnumerator.He3PumpMax];
             viewModelContainer.He7ViewModel.He4HeadTemp = data[(int)DataEnumerator.He4Head];
-            viewModelContainer.He7ViewModel.He4HeadMax = data[(int)DataEnumerator.He4HeadMax];
             viewModelContainer.He7ViewModel.He4PumpTemp = data[(int)DataEnumerator.He4Pump];
-            viewModelContainer.He7ViewModel.He4PumpMax = data[(int)DataEnumerator.He4PumpMax];
             viewModelContainer.He7ViewModel.He3PumpActualVolt = data[(int)DataEnumerator.He3VoltActual];
             viewModelContainer.He7ViewModel.He4PumpActualVolt = data[(int)DataEnumerator.He4VoltActual];
             viewModelContainer.He7ViewModel.He3SwitchTemp = data[(int)DataEnumerator.He3SwitchTemp];
             viewModelContainer.He7ViewModel.He3SwitchActualVolt = data[(int)DataEnumerator.He3SwitchVoltActual];
-            viewModelContainer.He7ViewModel.He3SwitchMax1 = data[(int)DataEnumerator.He3SwitchMax1];
-            viewModelContainer.He7ViewModel.He3SwitchMax2 = data[(int)DataEnumerator.He3SwitchMax2];
             viewModelContainer.He7ViewModel.He4SwitchTemp = data[(int)DataEnumerator.He4SwitchTemp];
             viewModelContainer.He7ViewModel.He4SwitchActualVolt = data[(int)DataEnumerator.He4SwitchVoltActual];
-            viewModelContainer.He7ViewModel.He4SwitchMax1 = data[(int)DataEnumerator.He4SwitchMax1];
-            viewModelContainer.He7ViewModel.He4SwitchMax2 = data[(int)DataEnumerator.He4SwitchMax2];
             viewModelContainer.He7ViewModel.TwoKPlateTemp = data[(int)DataEnumerator.HePlate2K];
             viewModelContainer.He7ViewModel.FourKPlateTemp = data[(int)DataEnumerator.HePlate4K];
-            viewModelContainer.He7ViewModel.FourKPlateMax1 = data[(int)DataEnumerator.HePlate4Kmax1];
-            viewModelContainer.He7ViewModel.FourKPlateMax2 = data[(int)DataEnumerator.HePlate4Kmax2];
         }
 
         /// <summary>
@@ -105,6 +106,5 @@ namespace CryostatControlClient.Communication
         }
 
         #endregion Methods
-
     }
 }

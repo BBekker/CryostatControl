@@ -21,6 +21,13 @@ namespace CryostatControlServer.HostService
         [OperationContract(IsOneWay = true)]
         void SendData(double[] data);
 
+        /// <summary>
+        /// Sends the data readout.
+        /// </summary>
+        /// <param name="modus">The modus.</param>
+        [OperationContract(IsOneWay = true)]
+        void SendModus(int modus);
+
         #endregion Methods
     }
 }

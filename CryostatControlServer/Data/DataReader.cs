@@ -1,17 +1,16 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DataReadOut.cs" company="SRON">
+// <copyright file="DataReader.cs" company="SRON">
 //      Copyright (c) SRON. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace CryostatControlServer
+namespace CryostatControlServer.Data
 {
     using System;
-    using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
-    /// Class which returns the data required for the GUI by the client.
+    /// Class which returns a array filled with data according to <seealso cref="DataEnumerator"/>
     /// </summary>
-    public class DataReadOut
+    public class DataReader
     {
         #region Fields
 
@@ -30,23 +29,25 @@ namespace CryostatControlServer
         #region Methods
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataReadOut" /> class.
+        /// Initializes a new instance of the <see cref="DataReader" /> class.
         /// </summary>
         /// <param name="compressor">The compressor.</param>
-        /// <param name="sensors">The sensors.</param>
-        public DataReadOut(
+        /// <param name="he7Cooler">The he7 cooler.</param>
+        /// <param name="lakeShore">The lake shore.</param>
+        public DataReader(
             Compressor.Compressor compressor,
-            ISensor[] sensors)
+            He7Cooler.He7Cooler he7Cooler,
+            LakeShore.LakeShore lakeShore)
         {
             this.compressor = compressor;
-            this.sensors = sensors;
+            this.sensors = new SensorArray(this.compressor, he7Cooler, lakeShore).GetSensorArray();
         }
 
         /// <summary>
         /// Fills data array with mock values, then it calls the methods which actually fill the array with data.
         /// </summary>
         /// <returns>array filled with available data</returns>
-        public double[] FillData()
+        public double[] GetDataArray()
         {
             double[] data = new double[(int)DataEnumerator.DataLength];
             for (int i = 0; i < data.Length; i++)

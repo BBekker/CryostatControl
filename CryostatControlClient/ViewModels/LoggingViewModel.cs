@@ -14,6 +14,7 @@ namespace CryostatControlClient.ViewModels
     using CryostatControlClient.Models;
     using CryostatControlClient.ViewModels.LoggingPresets;
 
+    using CryostatControlServer.Data;
     using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>

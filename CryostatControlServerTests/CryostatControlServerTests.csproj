@@ -59,6 +59,7 @@
     <Compile Include="He7Cooler\He7CoolerSmokeTests.cs" />
     <Compile Include="Lakeshore\LakeShoreTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CryostatControlTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
