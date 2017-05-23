@@ -9,6 +9,7 @@ namespace CryostatControlServer
 
     using CryostatControlServer.Data;
     using CryostatControlServer.HostService.Enumerators;
+    using CryostatControlServer.Logging;
 
     /// <summary>
     /// Class which handles all the request by the client.
@@ -78,6 +79,7 @@ namespace CryostatControlServer
             this.controller = controller;
             this.dataReader = new DataReader(this.compressor, this.he7Cooler, this.lakeShore);
             this.FillHeaters();
+            new LogAllData(this.dataReader);
         }
 
         #endregion Constructors
