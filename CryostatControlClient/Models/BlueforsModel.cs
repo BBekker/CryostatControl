@@ -7,6 +7,10 @@ namespace CryostatControlClient.Models
 {
     using System;
 
+    using LiveCharts;
+    using LiveCharts.Defaults;
+    using LiveCharts.Wpf;
+
     /// <summary>
     /// The Bluefors model
     /// </summary>
@@ -25,6 +29,16 @@ namespace CryostatControlClient.Models
         private double coldPlate50KTemp;
 
         /// <summary>
+        /// The cold plate3 k line series
+        /// </summary>
+        private LineSeries coldPlate3KLineSeries;
+
+        /// <summary>
+        /// The cold plate50 k line series
+        /// </summary>
+        private LineSeries coldPlate50KLineSeries;
+
+        /// <summary>
         /// The connection state.
         /// </summary>
         private double connectionState;
@@ -36,7 +50,49 @@ namespace CryostatControlClient.Models
 
         #endregion Fields
 
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BlueforsModel"/> class.
+        /// </summary>
+        public BlueforsModel()
+        {
+            this.coldPlate3KLineSeries = new LineSeries { Title = "Bluefors - 3K Plate", Values = new ChartValues<DateTimePoint>() };
+            this.coldPlate50KLineSeries = new LineSeries { Title = "Bluefors - 50K Plate", Values = new ChartValues<DateTimePoint>() };
+        }
+
+        #endregion Constructor
+
         #region Properties
+
+
+        /// <summary>
+        /// Gets the cold plate 3 k line series.
+        /// </summary>
+        /// <value>
+        /// The cold plate 3 k line series.
+        /// </value>
+        public LineSeries ColdPlate3KLineSeries
+        {
+            get
+            {
+                return this.coldPlate3KLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the cold plate 50 k line series.
+        /// </summary>
+        /// <value>
+        /// The cold plate 50 k line series.
+        /// </value>
+        public LineSeries ColdPlate50KLineSeries
+        {
+            get
+            {
+                return this.coldPlate50KLineSeries;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the cold plate 3 K temperature.
@@ -54,6 +110,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.coldPlate3KTemp = value;
+                this.coldPlate3KLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
             }
         }
 
@@ -73,6 +130,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.coldPlate50KTemp = value;
+                this.coldPlate50KLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
             }
         }
 

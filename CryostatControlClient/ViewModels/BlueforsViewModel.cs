@@ -11,6 +11,10 @@ namespace CryostatControlClient.ViewModels
 {
     using CryostatControlClient.Models;
 
+    using LiveCharts;
+    using LiveCharts.Defaults;
+    using LiveCharts.Wpf;
+
     /// <summary>
     /// Bluefors ViewModel
     /// </summary>
@@ -38,6 +42,34 @@ namespace CryostatControlClient.ViewModels
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets the cold plate3 k line series.
+        /// </summary>
+        /// <value>
+        /// The cold plate3 k line series.
+        /// </value>
+        public LineSeries ColdPlate3KLineSeries
+        {
+            get
+            {
+                return this.blueforsModel.ColdPlate3KLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the cold plate3 k line series.
+        /// </summary>
+        /// <value>
+        /// The cold plate3 k line series.
+        /// </value>
+        public LineSeries ColdPlate50KLineSeries
+        {
+            get
+            {
+                return this.blueforsModel.ColdPlate50KLineSeries;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the cold plate 3 K temperature.

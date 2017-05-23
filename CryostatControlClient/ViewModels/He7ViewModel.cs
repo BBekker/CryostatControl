@@ -13,11 +13,15 @@ namespace CryostatControlClient.ViewModels
 
     using CryostatControlClient.Models;
 
+    using LiveCharts.Wpf;
+
     /// <summary>
     /// The he 7 view model.
     /// </summary>
     public class He7ViewModel : AbstractViewModel
     {
+        #region Fields 
+
         /// <summary>
         /// The he 7 model.
         /// </summary>
@@ -28,6 +32,10 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private ICommand updateCommand;
 
+        #endregion Fields
+
+        #region Constructor
+
         /// <summary>
         /// Initializes a new instance of the <see cref="He7ViewModel"/> class.
         /// </summary>
@@ -36,6 +44,122 @@ namespace CryostatControlClient.ViewModels
             this.he7Model = new He7Model();
 
             this.UpdateButtonCommand = new RelayCommand(this.OnClickUpdate, param => true);
+        }
+
+        #endregion Constructor
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the he4 switch line series.
+        /// </summary>
+        /// <value>
+        /// The he4 switch line series.
+        /// </value>
+        public LineSeries He4SwitchLineSeries
+        {
+            get
+            {
+                return this.he7Model.He4SwitchLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he4 pump line series.
+        /// </summary>
+        /// <value>
+        /// The he4 pump line series.
+        /// </value>
+        public LineSeries He4PumpLineSeries
+        {
+            get
+            {
+                return this.he7Model.He4PumpLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he4 head line series.
+        /// </summary>
+        /// <value>
+        /// The he4 head line series.
+        /// </value>
+        public LineSeries He4HeadLineSeries
+        {
+            get
+            {
+                return this.he7Model.He4HeadLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he3 switch line series.
+        /// </summary>
+        /// <value>
+        /// The he3 switch line series.
+        /// </value>
+        public LineSeries He3SwitchLineSeries
+        {
+            get
+            {
+                return this.he7Model.He3SwitchLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he3 pump line series.
+        /// </summary>
+        /// <value>
+        /// The he3 pump line series.
+        /// </value>
+        public LineSeries He3PumpLineSeries
+        {
+            get
+            {
+                return this.he7Model.He3PumpLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he3 head line series.
+        /// </summary>
+        /// <value>
+        /// The he3 head line series.
+        /// </value>
+        public LineSeries He3HeadLineSeries
+        {
+            get
+            {
+                return this.he7Model.He3HeadLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the two k plat line series.
+        /// </summary>
+        /// <value>
+        /// The two k plat line series.
+        /// </value>
+        public LineSeries TwoKPlatLineSeries
+        {
+            get
+            {
+                return this.he7Model.TwoKPlateLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the four k plate line series.
+        /// </summary>
+        /// <value>
+        /// The four k plate line series.
+        /// </value>
+        public LineSeries FourKPlateLineSeries
+        {
+            get
+            {
+                return this.he7Model.FourKPlateLineSeries;
+            }
         }
 
         /// <summary>
@@ -523,6 +647,10 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
+        #endregion Properties
+
+        #region Methods
+
         /// <summary>
         /// Gets or sets the connection state.
         /// </summary>
@@ -560,5 +688,7 @@ namespace CryostatControlClient.ViewModels
         {
             this.RaisePropertyChanged("UpdateHe7Pressed");
         }
+
+        #endregion Methods
     }
 }

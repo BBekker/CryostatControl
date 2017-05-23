@@ -9,13 +9,58 @@
 
 namespace CryostatControlClient.Models
 {
+    using System;
+
+    using LiveCharts;
+    using LiveCharts.Defaults;
+    using LiveCharts.Wpf;
+
     /// <summary>
     /// Model for the He7-cooler.
     /// </summary>
-    /// <seealso cref="CryostatControlClient.Models.AbstractModel" />
     public class He7Model
     {
         #region Fields
+
+        /// <summary>
+        /// The two k plate line series
+        /// </summary>
+        private LineSeries twoKPlateLineSeries;
+
+        /// <summary>
+        /// The four k plate line series
+        /// </summary>
+        private LineSeries fourKPlateLineSeries;
+
+        /// <summary>
+        /// The he3 head line series
+        /// </summary>
+        private LineSeries he3HeadLineSeries;
+
+        /// <summary>
+        /// The he3 pump line series
+        /// </summary>
+        private LineSeries he3PumpLineSeries;
+
+        /// <summary>
+        /// The he3 switch line series
+        /// </summary>
+        private LineSeries he3SwitchLineSeries;
+
+        /// <summary>
+        /// The he4 head line series
+        /// </summary>
+        private LineSeries he4HeadLineSeries;
+
+        /// <summary>
+        /// The he4 pump line series
+        /// </summary>
+        private LineSeries he4PumpLineSeries;
+
+        /// <summary>
+        /// The he4 switch line series
+        /// </summary>
+        private LineSeries he4SwitchLineSeries;
 
         /// <summary>
         /// The four k plate temperature
@@ -154,7 +199,140 @@ namespace CryostatControlClient.Models
 
         #endregion Fields
 
+        #region Constructor
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="He7Model"/> class.
+        /// </summary>
+        public He7Model()
+        {
+            this.twoKPlateLineSeries = new LineSeries { Title = "He7 - 2K Plate", Values = new ChartValues<DateTimePoint>() };
+            this.fourKPlateLineSeries = new LineSeries { Title = "He7 - 4K Plate", Values = new ChartValues<DateTimePoint>() };
+
+            this.he3HeadLineSeries = new LineSeries { Title = "He7 - He3 Head", Values = new ChartValues<DateTimePoint>() };
+            this.he3PumpLineSeries = new LineSeries { Title = "He7 - He3 Pump", Values = new ChartValues<DateTimePoint>() };
+            this.he3SwitchLineSeries = new LineSeries { Title = "He7 - He3 Switch", Values = new ChartValues<DateTimePoint>() };
+
+            this.he4HeadLineSeries = new LineSeries { Title = "He7 - He4 Head", Values = new ChartValues<DateTimePoint>() };
+            this.he4PumpLineSeries = new LineSeries { Title = "He7 - He4 Pump", Values = new ChartValues<DateTimePoint>() };
+            this.he4SwitchLineSeries = new LineSeries { Title = "He7 - He4 Switch", Values = new ChartValues<DateTimePoint>() };
+    }
+
+        #endregion Constructor
+
         #region Properties
+
+        /// <summary>
+        /// Gets the he4 switch line series.
+        /// </summary>
+        /// <value>
+        /// The he4 switch line series.
+        /// </value>
+        public LineSeries He4SwitchLineSeries
+        {
+            get
+            {
+                return this.he4SwitchLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he4 pump line series.
+        /// </summary>
+        /// <value>
+        /// The he4 pump line series.
+        /// </value>
+        public LineSeries He4PumpLineSeries
+        {
+            get
+            {
+                return this.he4PumpLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he4 head line series.
+        /// </summary>
+        /// <value>
+        /// The he4 head line series.
+        /// </value>
+        public LineSeries He4HeadLineSeries
+        {
+            get
+            {
+                return this.he4HeadLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he3 switch line series.
+        /// </summary>
+        /// <value>
+        /// The he3 switch line series.
+        /// </value>
+        public LineSeries He3SwitchLineSeries
+        {
+            get
+            {
+                return this.he3SwitchLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he3 pump line series.
+        /// </summary>
+        /// <value>
+        /// The he3 pump line series.
+        /// </value>
+        public LineSeries He3PumpLineSeries
+        {
+            get
+            {
+                return this.he3PumpLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he3 head line series.
+        /// </summary>
+        /// <value>
+        /// The he3 head line series.
+        /// </value>
+        public LineSeries He3HeadLineSeries
+        {
+            get
+            {
+                return this.he3HeadLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the two k plat line series.
+        /// </summary>
+        /// <value>
+        /// The two k plat line series.
+        /// </value>
+        public LineSeries TwoKPlateLineSeries
+        {
+            get
+            {
+                return this.twoKPlateLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the four k plate line series.
+        /// </summary>
+        /// <value>
+        /// The four k plate line series.
+        /// </value>
+        public LineSeries FourKPlateLineSeries
+        {
+            get
+            {
+                return this.fourKPlateLineSeries;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the four k plate temperature.
@@ -172,6 +350,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.fourKPlateTemp = value;
+                this.fourKPlateLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
             }
         }
 
@@ -223,6 +402,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3HeadTemp = value;
+                this.he3HeadLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
             }
         }
 
@@ -258,6 +438,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3PumpTemp = value;
+                this.he3PumpLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
             }
         }
 
@@ -325,6 +506,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3SwitchTemp = value;
+                this.he3SwitchLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
             }
         }
 
@@ -408,6 +590,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4HeadTemp = value;
+                this.he4HeadLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
             }
         }
 
@@ -443,6 +626,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4PumpTemp = value;
+                this.he4PumpLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
             }
         }
 
@@ -510,6 +694,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4SwitchTemp = value;
+                this.he4SwitchLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
             }
         }
 
@@ -593,6 +778,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.twoKPlateTemp = value;
+                this.twoKPlateLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
             }
         }
 

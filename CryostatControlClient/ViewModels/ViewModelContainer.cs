@@ -50,7 +50,7 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// The series collection1
         /// </summary>
-        private SeriesCollection seriesCollection1;
+        private SeriesCollection seriesCollection;
 
         /// <summary>
         /// The x formatter
@@ -72,18 +72,6 @@ namespace CryostatControlClient.ViewModels
             this.modusViewModel = new ModusViewModel();
 
             this.InitSeriesCollection();
-
-            this.SeriesCollection[0].Values.Add(new DateTimePoint(DateTime.Now, 300));
-            this.SeriesCollection[1].Values.Add(new DateTimePoint(DateTime.Now, 5));
-            Thread.Sleep(1000);
-            this.SeriesCollection[0].Values.Add(new DateTimePoint(DateTime.Now, 50));
-            this.SeriesCollection[1].Values.Add(new DateTimePoint(DateTime.Now, 3));
-            Thread.Sleep(1000);
-            this.SeriesCollection[0].Values.Add(new DateTimePoint(DateTime.Now, 3));
-            this.SeriesCollection[1].Values.Add(new DateTimePoint(DateTime.Now, 0.8));
-            Thread.Sleep(1000);
-            this.SeriesCollection[0].Values.Add(new DateTimePoint(DateTime.Now, 1));
-            this.SeriesCollection[1].Values.Add(new DateTimePoint(DateTime.Now, 0.2));
         }
 
         #endregion Constructor
@@ -100,15 +88,8 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                Console.WriteLine("Getting seriescollection");
-                return this.seriesCollection1;
+                return this.seriesCollection;
                 
-            }
-
-            set
-            {
-                this.seriesCollection1 = value;
-                Console.WriteLine("Setting seriescollection");
             }
         }
 
@@ -192,18 +173,18 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private void InitSeriesCollection()
         {
-            this.SeriesCollection = new SeriesCollection
+            this.seriesCollection = new SeriesCollection
                                         {
-                                            new LineSeries
-                                                {
-                                                    Title = "He7 Cooler",
-                                                    Values = new ChartValues<DateTimePoint>()             
-                                                },
-                                            new LineSeries
-                                                {
-                                                    Title = "Bluefors",
-                                                    Values = new ChartValues<DateTimePoint>()
-                                                }
+                                            this.blueforsViewModel.ColdPlate3KLineSeries,
+                                            this.blueforsViewModel.ColdPlate50KLineSeries,
+                                            this.he7ViewModel.FourKPlateLineSeries,
+                                            this.he7ViewModel.TwoKPlatLineSeries,
+                                            this.he7ViewModel.He3HeadLineSeries,
+                                            this.he7ViewModel.He3PumpLineSeries,
+                                            this.he7ViewModel.He3SwitchLineSeries,
+                                            this.he7ViewModel.He4HeadLineSeries,
+                                            this.he7ViewModel.He4PumpLineSeries,
+                                            this.he7ViewModel.He4SwitchLineSeries,
                                         };
 
             this.xFormatter = val => new DateTime((long)val).ToString("HH:mm:ss");
