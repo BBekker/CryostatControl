@@ -15,6 +15,8 @@ namespace CryostatControlServer.He7Cooler
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
 
+    using CryostatControlServer.Data;
+
     /// <summary>
     /// The he 7 cooler.
     /// </summary>
