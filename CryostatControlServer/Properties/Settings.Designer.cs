@@ -133,7 +133,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("35")]
+        [global::System.Configuration.DefaultSettingValueAttribute("45")]
         public double ControllerHeaterTemperatureSetpoint {
             get {
                 return ((double)(this["ControllerHeaterTemperatureSetpoint"]));

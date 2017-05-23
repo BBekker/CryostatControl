@@ -95,6 +95,17 @@ namespace CryostatControlServer.He7Cooler
         }
 
         /// <summary>
+        /// The is connected.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool IsConnected()
+        {
+            return this.connection.IsConnected();
+        }
+
+        /// <summary>
         /// Initializes the specified IP address.
         /// </summary>
         /// <param name="ipAddress">The IP address.</param>

@@ -82,12 +82,10 @@ namespace CryostatControlServer.LakeShore
                 {
                     stream = new ManagedCOMStream(name, BaudRate);
                     stream.Open();
+                    stream.WriteString("MODE 1\n");
                     stream.WriteString("OPC?\n");
-                    if (stream.ReadString().Contains("1"))
-                    {
-                        stream.Close();
-                        return name;
-                    }
+                    stream.ReadString();
+                    return name;
                 }
                 catch (Exception)
                 {
@@ -165,6 +163,48 @@ namespace CryostatControlServer.LakeShore
         }
 
         /// <summary>
+        /// The read values.
+        /// </summary>
+        private void ReadValues()
+        {
+            try
+            {
+                this.SensorValues[0] = this.ReadTemperature("A");
+                this.SensorValues[1] = this.ReadTemperature("B");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error while reading lakeshore: " + e.GetType().ToString());
+            }
+        }
+
+        /// <summary>
+        /// The reading loop running in a different thread.
+        /// </summary>
+        private void ReadingLoop()
+        {
+            while (true)
+            {
+                if (this.stream.IsConnected())
+                {
+                    this.ReadValues();
+                }
+                else
+                {
+                    try
+                    {
+                        this.stream.Open();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Could not reconnect to lakeshore: " + e.GetType().ToString());
+                    }
+                }
+                Thread.Sleep(ReadInterval);
+            }
+        }
+
+        /// <summary>
         /// Reads the sensor temperature in Kelvin.
         /// </summary>
         /// <param name="sensor">The sensor.</param>
@@ -195,16 +235,7 @@ namespace CryostatControlServer.LakeShore
             this.stream.WriteString("MODE 1\n");
             this.OPC();
 
-            this.readthread = new Thread(
-                () =>
-                    {
-                        while (true)
-                        {
-                            this.SensorValues[0] = this.ReadTemperature("A");
-                            this.SensorValues[1] = this.ReadTemperature("B");
-                            Thread.Sleep(ReadInterval);
-                        }
-                    });
+            this.readthread = new Thread(this.ReadingLoop);
             this.readthread.Start();
         }
 

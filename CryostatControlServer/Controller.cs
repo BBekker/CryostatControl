@@ -427,10 +427,10 @@ namespace CryostatControlServer
             Justification = "SI naming, T is uppercase")]
         private void ControlHeater(He7Cooler.He7Cooler.Heater heater, ISensor sensor, double TSet, double voltage)
         {
-            double kP = voltage * 0.2;
+            double kP = 0.5;
             if (sensor.Value < TSet)
             {
-                heater.Voltage = Math.Min(voltage, (TSet - sensor.Value) * kP);
+                heater.Voltage = Math.Max(0, Math.Min(voltage, voltage * (TSet - sensor.Value) * kP));
             }
             else
             {
@@ -642,7 +642,14 @@ namespace CryostatControlServer
 
                 case Controlstate.WarmupStart:
                     // TODO: start Lakeshore heater?
-                    this.compressor.TurnOff();
+                    try
+                    {
+                        this.compressor.TurnOff();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Compressor not connected, make sure it is turned off!");
+                    }
                     break;
 
                 case Controlstate.WarmupHeating:
@@ -689,13 +696,25 @@ namespace CryostatControlServer
                     {
                         this.cooler.He3Switch.Voltage = this.He3SwitchVoltage;
                         this.cooler.He4Switch.Voltage = this.He4SwitchVoltage;
-                        this.compressor.TurnOn();
+                        try
+                        {
+                            this.compressor.TurnOn();
+                        }
+                        catch (Exception e)
+                        {
+                        }
                     }
                     else
                     {
                         this.cooler.He3Switch.Voltage = 0.0;
                         this.cooler.He4Switch.Voltage = 0.0;
-                        this.compressor.TurnOff();
+                        try
+                        {
+                            this.compressor.TurnOff();
+                        }
+                        catch (Exception e)
+                        {
+                        }
                     }
 
                     this.State = Controlstate.Standby;
