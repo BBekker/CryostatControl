@@ -90,12 +90,12 @@
     <Compile Include="Communication\DataReceiver.cs" />
     <Compile Include="Communication\DataSender.cs" />
     <Compile Include="Communication\ModusEnumerator.cs" />
-    <Compile Include="Models\BlueforsModel.cs" />
     <Compile Include="Connected Services\ServiceReference1\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Models\BlueforsModel.cs" />
     <Compile Include="DataClientCallback.cs" />
     <Compile Include="Models\He7Model.cs" />
     <Compile Include="Models\ModusModel.cs" />
@@ -228,12 +228,17 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\ServiceReference1\" />
+  </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\ServiceReference1\" />
+    <ProjectReference Include="..\CryostatControlServer\CryostatControlServer.csproj">
+      <Project>{4724405F-6333-4320-9896-8AAAC233293A}</Project>
+      <Name>CryostatControlServer</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ServiceReference1\SRON.disco" />
@@ -249,12 +254,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CryostatControlServer\CryostatControlServer.csproj">
-      <Project>{4724405F-6333-4320-9896-8AAAC233293A}</Project>
-      <Name>CryostatControlServer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -149,7 +149,7 @@ namespace CryostatControlServer
         private static void StartHost()
         {
             CommandService hostService = new CommandService(cryostatControl);
-            Uri baseAddress = new Uri("http://localhost:8080/SRON");
+            Uri baseAddress = new Uri("http://localhost:18080/SRON");
             using (ServiceHost host = new ServiceHost(hostService, baseAddress))
             {
                 // Enable metadata publishing.

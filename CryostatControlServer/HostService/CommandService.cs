@@ -64,7 +64,7 @@ namespace CryostatControlServer.HostService
         }
 
         /// <inheritdoc cref="ICommandService.Cooldown"/>>
-        public bool Cooldown(string time)
+        public bool CooldownTime(string time)
         {
             return this.cryostatControl.StartCooldown(time);
         }

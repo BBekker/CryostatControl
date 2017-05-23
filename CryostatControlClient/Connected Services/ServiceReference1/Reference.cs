@@ -27,6 +27,12 @@ namespace CryostatControlClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Cooldown", ReplyAction="http://tempuri.org/ICommandService/CooldownResponse")]
         System.Threading.Tasks.Task<bool> CooldownAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/CooldownTime", ReplyAction="http://tempuri.org/ICommandService/CooldownTimeResponse")]
+        bool CooldownTime(string time);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/CooldownTime", ReplyAction="http://tempuri.org/ICommandService/CooldownTimeResponse")]
+        System.Threading.Tasks.Task<bool> CooldownTimeAsync(string time);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Recycle", ReplyAction="http://tempuri.org/ICommandService/RecycleResponse")]
         bool Recycle();
         
@@ -135,6 +141,14 @@ namespace CryostatControlClient.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> CooldownAsync() {
             return base.Channel.CooldownAsync();
+        }
+        
+        public bool CooldownTime(string time) {
+            return base.Channel.CooldownTime(time);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CooldownTimeAsync(string time) {
+            return base.Channel.CooldownTimeAsync(time);
         }
         
         public bool Recycle() {

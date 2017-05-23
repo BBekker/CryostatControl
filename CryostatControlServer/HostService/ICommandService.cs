@@ -42,7 +42,7 @@ namespace CryostatControlServer.HostService
         /// If the cool down process could be started
         /// </returns>
         [OperationContract]
-        bool Cooldown(string time);
+        bool CooldownTime(string time);
 
         /// <summary>
         /// Start recycle process
