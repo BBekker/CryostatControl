@@ -22,6 +22,7 @@ namespace CryostatControlServerTests.He7Cooler
             var mockH7 = new Mock<IManagedStream>();
             mockH7.Setup(stream => stream.Open());
             mockH7.Setup(stream => stream.ReadString()).Returns("1\n");
+            mockH7.Setup(stream => stream.IsConnected()).Returns(true);
 
             var agilent = new Agilent34972A();
             agilent.Init(mockH7.Object);
@@ -37,6 +38,7 @@ namespace CryostatControlServerTests.He7Cooler
             var mockH7 = new Mock<IManagedStream>();
             mockH7.Setup(stream => stream.Open());
             mockH7.Setup(stream => stream.ReadString()).Returns("0\n");
+            mockH7.Setup(stream => stream.IsConnected()).Returns(true);
 
             var agilent = new Agilent34972A();
             agilent.Init(mockH7.Object);
@@ -55,6 +57,7 @@ namespace CryostatControlServerTests.He7Cooler
             mockH7.Setup(stream => stream.WriteString(It.IsAny<string>()))
                 .Callback((string s) => fakeresponser.ListenToAny(s));
             mockH7.Setup(stream => stream.ReadString()).Returns(() => fakeresponser.RespondToRead());
+            mockH7.Setup(stream => stream.IsConnected()).Returns(true);
 
 
             var agilent = new Agilent34972A();
@@ -87,6 +90,7 @@ namespace CryostatControlServerTests.He7Cooler
             mockH7.Setup(stream => stream.WriteString(It.IsAny<string>()))
                 .Callback((string s) => fakeresponser.ListenToAny(s));
             mockH7.Setup(stream => stream.ReadString()).Returns(() => fakeresponser.RespondToRead());
+            mockH7.Setup(stream => stream.IsConnected()).Returns(true);
 
 
             var agilent = new Agilent34972A();
@@ -96,7 +100,7 @@ namespace CryostatControlServerTests.He7Cooler
 
             fakeresponser.responsevalues[(int)Channels.SensHe3HeadT] = 0.2147;
             fakeresponser.responsevalues[(int)Channels.SensHe3Pump] = 5.0;
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
 
             Assert.AreEqual(5.0, cooler.He3Pump.Voltage);
 
