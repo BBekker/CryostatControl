@@ -78,9 +78,7 @@ namespace CryostatControlServer
             InitComponents();
             logger = new LogThreader(new DataReader(compressor, he7Cooler, lakeShore));
             StartHost();
-                        logger.StartGeneralDataLogging();
-            logger.StartSpecificDataLogging(2, new bool[(int)DataEnumerator.DataLength]);
-            Console.Read();
+            logger.StartGeneralDataLogging();
         }
 
         /// <summary>

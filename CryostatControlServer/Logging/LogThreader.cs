@@ -51,6 +51,11 @@ namespace CryostatControlServer.Logging
         /// </summary>
         private Timer generalLoggingThread;
 
+        /// <summary>
+        /// Specific logging in progress boolean.
+        /// </summary>
+        private bool specificLoggingInProgress;
+
         #endregion Fields
 
         #region Constructors
@@ -64,6 +69,7 @@ namespace CryostatControlServer.Logging
         public LogThreader(DataReader dataReader)
         {
             this.dataReader = dataReader;
+            this.specificLoggingInProgress = false;
         }
 
         #endregion Constructors
@@ -81,6 +87,10 @@ namespace CryostatControlServer.Logging
         /// </param>
         public void StartSpecificDataLogging(int interval, bool[] toBeLoggedOrNotToBeLogged)
         {
+            if (this.specificLoggingInProgress)
+            {
+                this.StopSpecificDataLogging();
+            }
             DateTime currentDateTime = DateTime.Now;
             SpecificDataLogger specificDataLogger = new SpecificDataLogger(toBeLoggedOrNotToBeLogged);
 
@@ -91,6 +101,7 @@ namespace CryostatControlServer.Logging
             int startTime = 0;
             interval *= 1000;
             this.specificLoggingThread = new Timer(this.SpecificDataLogging, loggerDataObject, startTime, interval);
+            this.specificLoggingInProgress = true;
         }
 
         /// <summary>
@@ -99,6 +110,7 @@ namespace CryostatControlServer.Logging
         public void StopSpecificDataLogging()
         {
             this.specificLoggingThread.Dispose();
+            this.specificLoggingInProgress = false;
         }
 
         /// <summary>
@@ -150,6 +162,15 @@ namespace CryostatControlServer.Logging
             GeneralDataLogger specificDataLogger = (GeneralDataLogger)((LoggerDataObject)loggerDataObject).GetAbstractLogData();
             string filePath = ((LoggerDataObject)loggerDataObject).GetFilePath();
             specificDataLogger.WriteGeneralData(filePath, this.dataReader.GetDataArray(), DateTime.Now.ToString("hh:mm:ss"));
+        }
+
+        /// <summary>
+        /// Gets the specific logging in progress.
+        /// </summary>
+        /// <returns></returns>
+        public bool GetSpecificLoggingInProgress()
+        {
+            return this.specificLoggingInProgress;
         }
 
         #endregion Methods

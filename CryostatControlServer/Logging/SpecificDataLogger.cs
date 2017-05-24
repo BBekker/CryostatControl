@@ -9,25 +9,25 @@
 
 namespace CryostatControlServer.Logging
 {
-    using System;
-    using System.CodeDom;
     using System.IO;
-
-    using CryostatControlServer.Compressor;
-    using CryostatControlServer.Data;
 
     /// <summary>
     /// Log specific data.
     /// </summary>
     public class SpecificDataLogger : AbstractLogData
     {
-
-        private bool[] toBeLoggedOrNotToBeLogged;
+        /// <summary>
+        /// The to be logged or not to be logged.
+        /// </summary>
+        private readonly bool[] toBeLoggedOrNotToBeLogged;
 
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SpecificDataLogger"/> class.
         /// </summary>
+        /// <param name="toBeLoggedOrNotToBeLogged">
+        /// The to Be Logged Or Not To Be Logged.
+        /// </param>
         public SpecificDataLogger(bool[] toBeLoggedOrNotToBeLogged)
         {  
             this.toBeLoggedOrNotToBeLogged = toBeLoggedOrNotToBeLogged;
@@ -53,11 +53,11 @@ namespace CryostatControlServer.Logging
             {
                 if (this.toBeLoggedOrNotToBeLogged[i])
                 {
-                    dataLine += Delimiter + logData[i];
+                    dataLine += AbstractLogData.Delimiter + logData[i];
                 }
                 else
                 {
-                    dataLine += Delimiter + "-";
+                    dataLine += AbstractLogData.Delimiter + AbstractLogData.NoDataToken;
                 }
                 
             }

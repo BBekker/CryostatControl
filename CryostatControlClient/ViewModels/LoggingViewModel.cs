@@ -9,14 +9,12 @@
 
 namespace CryostatControlClient.ViewModels
 {
-    using System;
     using System.Windows.Input;
 
     using CryostatControlClient.Models;
     using CryostatControlClient.ViewModels.LoggingPresets;
 
     using CryostatControlServer.Data;
-    using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
     /// The logging view model.

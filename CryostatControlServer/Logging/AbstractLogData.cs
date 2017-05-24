@@ -21,19 +21,19 @@ namespace CryostatControlServer.Logging
     {
 
         /// <summary>
-        /// The max trials creating logfile.
-        /// </summary>
-        private const int MaxTrialsCreatingLogfile = 100;
-
-        /// <summary>
-        /// The initial addition number for duplicate files.
-        /// </summary>
-        private const int InitialAdditionNumberForDuplicateFiles = 1;
-
-        /// <summary>
         /// The delimiter for csv files.
         /// </summary>
         protected const string Delimiter = ";";
+
+        /// <summary>
+        /// The no data token.
+        /// </summary>
+        protected const string NoDataToken = "-";
+
+        /// <summary>
+        /// The csv file format.
+        /// </summary>
+        private const string CsvFileFormat = ".csv";
 
         /// <summary>
         /// Create specific folder.
@@ -59,7 +59,7 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
-        /// Create a file.
+        /// Create a file with the current day as name, if it does not exist yet.
         /// </summary>
         /// <param name="currentDateTime">
         /// The current Date Time.
@@ -74,21 +74,8 @@ namespace CryostatControlServer.Logging
         {
             string folderPath = this.CreateFolder(currentDateTime, mainFolderPath);
             string day = currentDateTime.Day.ToString();
-            string fileName = day + ".csv";
+            string fileName = day + CsvFileFormat;
             string actualPathToFile = System.IO.Path.Combine(folderPath, fileName);
-
-            //            int count = InitialAdditionNumberForDuplicateFiles;
-            //            while (System.IO.File.Exists(actualPathToFile))
-            //            {
-            //                fileName = day + "(" + count.ToString() + ")" + ".csv";
-            //                actualPathToFile = System.IO.Path.Combine(folderPath, fileName);
-            //                count++;
-            //                if (count == MaxTrialsCreatingLogfile)
-            //                {
-            //                    Console.WriteLine("Error writing logfile. To many files created.");
-            //                    return null;
-            //                }
-            //            }
 
             if (!System.IO.File.Exists(actualPathToFile))
             {
@@ -97,29 +84,6 @@ namespace CryostatControlServer.Logging
             
 
             return actualPathToFile;
-        }
-
-        /// <summary>
-        /// Write data to a file.
-        /// </summary>
-        /// <param name="pathToFile">
-        /// The path to file.
-        /// </param>
-        /// <param name="logData">
-        /// The log data.
-        /// </param>
-        public void WriteDataToFile(string pathToFile, double[] logData)
-        {
-            string currentTime = DateTime.Now.ToString("hh:mm:ss");
-            string lineToWrite = currentTime;
-            foreach (var deviceData in logData)
-            {
-                lineToWrite += Delimiter + deviceData;
-            }
-            using (StreamWriter sw = File.AppendText(pathToFile))
-            {
-                sw.WriteLine(lineToWrite);
-            }
         }
 
         /// <summary>
@@ -141,23 +105,25 @@ namespace CryostatControlServer.Logging
             string initialLine = "Time";
             for (int i = 0; i < devices.Length; i++)
             {
-                if (devices[i])
-                {
-                    initialLine += Delimiter + this.GetDocumentationInfo(i);
-                }
-                else
-                {
-                    initialLine += Delimiter + "-";
-                }
-                
+                initialLine += Delimiter + this.GetDeviceName(i);
             }
+
             using (StreamWriter sw = File.AppendText(pathToFile))
             {
                 sw.WriteLine(initialLine);
             }
         }
 
-        public string GetDocumentationInfo(int dataNumber)
+        /// <summary>
+        /// The get device name.
+        /// </summary>
+        /// <param name="dataNumber">
+        /// The data number.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string GetDeviceName(int dataNumber)
         {
             string info = string.Empty;
             switch (dataNumber)
@@ -251,6 +217,7 @@ namespace CryostatControlServer.Logging
                     break;
 
             }
+
             return info;
         }
 

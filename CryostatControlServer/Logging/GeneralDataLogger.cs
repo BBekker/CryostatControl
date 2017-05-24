@@ -9,8 +9,6 @@
 
 namespace CryostatControlServer.Logging
 {
-    using System;
-    using System.Data;
     using System.IO;
 
     using CryostatControlServer.Data;
@@ -20,10 +18,6 @@ namespace CryostatControlServer.Logging
     /// </summary>
     public class GeneralDataLogger : AbstractLogData
     {
-
-        public GeneralDataLogger()
-        {
-        }
 
         /// <summary>
         /// Write all data to log.
@@ -42,7 +36,7 @@ namespace CryostatControlServer.Logging
             string dataLine = time;
             for (int i = 0; i < data.Length; i++)
             {
-                    dataLine += Delimiter + data[i];
+                    dataLine += AbstractLogData.Delimiter + data[i];
             }
             using (StreamWriter sw = File.AppendText(pathToFile))
             {
