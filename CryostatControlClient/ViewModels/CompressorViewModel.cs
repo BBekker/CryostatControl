@@ -423,6 +423,7 @@ namespace CryostatControlClient.ViewModels
         {
             switch ((int)operatingStateNumber)
             {
+                case -1: return "Disconnected";
                 case 0: return "Ready to Start";
                 case 2: return "Starting";
                 case 3: return "Running";
