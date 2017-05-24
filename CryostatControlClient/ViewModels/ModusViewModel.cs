@@ -45,7 +45,7 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private ModusModel modusModel;
 
-        #endregion
+        #endregion Fields
 
         #region Constructor
 
@@ -61,7 +61,7 @@ namespace CryostatControlClient.ViewModels
             this.cancelButtonCommand = new RelayCommand(this.OnClickCancel, param => true);
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Properties
 
@@ -176,7 +176,7 @@ namespace CryostatControlClient.ViewModels
 
             set
             {
-                this.startButtonCommand = value;
+                this.cancelButtonCommand = value;
             }
         }
 
@@ -199,7 +199,7 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
-        #endregion
+        #endregion Commands
 
         #region Methods
 

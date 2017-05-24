@@ -55,15 +55,15 @@
 
             <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
             <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He4PumpActualVolt}" />
+                   Content="{Binding He7ViewModel.He4PumpActualVolt}" ContentStringFormat="{}{0:N2}"/>
 
             <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
             <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He4PumpTemp}" />
+                   Content="{Binding He7ViewModel.He4PumpTemp}" ContentStringFormat="{}{0:N2}"/>
 
             <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
             <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource He7TextBox}"
-                     Text="{Binding He7ViewModel.He4PumpNewVolt}" />
+                     Text="{Binding He7ViewModel.He4PumpNewVolt}"/>
 
         </Grid>
     </materialDesign:Card>
@@ -80,7 +80,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0" Style="{StaticResource He7Title}">4K Plate</Label>
-            <Label Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.FourKPlateTemp}" />
+            <Label Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.FourKPlateTemp}" ContentStringFormat="{}{0:N2}"/>
             <Label Grid.Column="2" Style="{StaticResource He7Label}">Max1</Label>
             <TextBox Grid.Column="3" Style="{StaticResource He7TextBox}" Text="{Binding He7ViewModel.FourKPlateMax1}" />
             <Label Grid.Column="4" Style="{StaticResource He7Label}">Max2</Label>
@@ -101,7 +101,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0" Style="{StaticResource He7Title}">2K Plate</Label>
-            <Label Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.TwoKPlateTemp}" />
+            <Label Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.TwoKPlateTemp}" ContentStringFormat="{}{0:N2}"/>
         </Grid>
     </materialDesign:Card>
     <materialDesign:Card Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" Style="{StaticResource He7Card}">
@@ -121,7 +121,7 @@
 
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He4HeadTemp}" />
+                   Content="{Binding He7ViewModel.He4HeadTemp}" ContentStringFormat="{}{0:N3}"/>
 
             <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource He7Label}">Max</Label>
             <TextBox Grid.Row="1" Grid.Column="3" Style="{StaticResource He7TextBox}"
@@ -157,11 +157,11 @@
 
             <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
             <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He4SwitchTemp}" />
+                   Content="{Binding He7ViewModel.He4SwitchTemp}" ContentStringFormat="{}{0:N2}"/>
 
             <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
             <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He4SwitchActualVolt}" />
+                   Content="{Binding He7ViewModel.He4SwitchActualVolt}" ContentStringFormat="{}{0:N2}"/>
 
             <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
             <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource He7TextBox}"
@@ -197,11 +197,11 @@
 
             <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
             <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He3SwitchTemp}" />
+                   Content="{Binding He7ViewModel.He3SwitchTemp}" ContentStringFormat="{}{0:N2}"/>
 
             <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
             <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He3SwitchActualVolt}" />
+                   Content="{Binding He7ViewModel.He3SwitchActualVolt}" ContentStringFormat="{}{0:N2}"/>
 
             <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
             <TextBox Grid.Row="5" Grid.Column="1" Style="{StaticResource He7TextBox}"
@@ -231,11 +231,11 @@
 
             <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
             <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He3PumpActualVolt}" />
+                   Content="{Binding He7ViewModel.He3PumpActualVolt}" ContentStringFormat="{}{0:N2}"/>
 
             <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
             <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He3PumpTemp}" />
+                   Content="{Binding He7ViewModel.He3PumpTemp}" ContentStringFormat="{}{0:N2}"/>
 
             <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
             <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource He7TextBox}"
@@ -259,7 +259,7 @@
 
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He3HeadTemp}" />
+                   Content="{Binding He7ViewModel.He3HeadTemp}" ContentStringFormat="{}{0:N3}"/>
 
             <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource He7Label}">Max</Label>
             <TextBox Grid.Row="1" Grid.Column="3" Style="{StaticResource He7TextBox}"

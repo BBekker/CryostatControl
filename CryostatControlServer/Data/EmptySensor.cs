@@ -3,12 +3,12 @@
 //      Copyright (c) SRON. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace CryostatControlServer
+namespace CryostatControlServer.Data
 {
     /// <summary>
     /// Empty sensor class, as placeholder when a sensor cannot be initialized.
     /// </summary>
-    /// <seealso cref="CryostatControlServer.ISensor" />
+    /// <seealso cref="ISensor" />
     public class EmptySensor : ISensor
     {
         #region Properties
@@ -37,7 +37,7 @@ namespace CryostatControlServer
         {
             get
             {
-                return double.MinValue;
+                return double.NaN;
             }
         }
 

@@ -72,39 +72,17 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// Find the lakeshore com port and connect
-        /// </summary>
-        /// <returns>
-        /// The <see cref="LakeShore"/>.
-        /// </returns>
-        private static LakeShore.LakeShore FindLakeshore()
-        {
-            string[] names = SerialPort.GetPortNames();
-            LakeShore.LakeShore newLakeShore = new LakeShore.LakeShore();
-            foreach (string name in names)
-            {
-                try
-                {
-                    newLakeShore.Init(name);
-                    return newLakeShore;
-                }
-                catch (Exception)
-                {
-                    ////ignore this exception and try new port
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// Initializes the components.
         /// </summary>
         private static void InitComponents()
         {
-            lakeShore = FindLakeshore();
-
-            if (lakeShore == null)
+            var lakeShorePort = LakeShore.LakeShore.FindPort();
+            if (lakeShorePort != null)
+            {
+                lakeShore = new LakeShore.LakeShore();
+                lakeShore.Init(lakeShorePort);
+            }
+            else
             {
                 Console.WriteLine("No connection with LakeShore");
             }
@@ -126,7 +104,8 @@ namespace CryostatControlServer
 
             try
             {
-                compressor = new Compressor.Compressor(CompressorHost);
+                compressor = new Compressor.Compressor();
+                compressor.Connect(CompressorHost);
             }
             catch (Exception e)
             {
@@ -148,22 +127,31 @@ namespace CryostatControlServer
         /// </summary>
         private static void StartHost()
         {
-            CommandService hostService = new CommandService(cryostatControl);
-            Uri baseAddress = new Uri("http://localhost:8080/SRON");
-            using (ServiceHost host = new ServiceHost(hostService, baseAddress))
+            try
             {
-                // Enable metadata publishing.
-                ////ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-                ////smb.HttpGetEnabled = true;
-                ////smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
-                ////host.Description.Behaviors.Add(smb);
-                ((ServiceBehaviorAttribute)host.Description.Behaviors[typeof(ServiceBehaviorAttribute)])
-                    .InstanceContextMode = InstanceContextMode.Single;
-                host.Open();
-                Console.WriteLine("The service is ready at {0}", baseAddress);
-                Console.WriteLine("Press <Enter> to stop the service.");
+                CommandService hostService = new CommandService(cryostatControl);
+                Uri baseAddress = new Uri("http://localhost:18080/SRON");
+                using (ServiceHost host = new ServiceHost(hostService, baseAddress))
+                {
+                    // Enable metadata publishing.
+                    ////ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+                    ////smb.HttpGetEnabled = true;
+                    ////smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
+                    ////host.Description.Behaviors.Add(smb);
+                    ((ServiceBehaviorAttribute)host.Description.Behaviors[typeof(ServiceBehaviorAttribute)])
+                        .InstanceContextMode = InstanceContextMode.Single;
+                    host.Open();
+                    Console.WriteLine("The service is ready at {0}", baseAddress);
+                    Console.WriteLine("Press <Enter> to stop the service.");
+                    Console.ReadLine();
+                    host.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error setting up server, did you run this in administrator mode?");
+                Console.Write(e.Message);
                 Console.ReadLine();
-                host.Close();
             }
         }
     }

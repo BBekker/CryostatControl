@@ -63,6 +63,12 @@ namespace CryostatControlServer.HostService
             return this.cryostatControl.StartCooldown();
         }
 
+        /// <inheritdoc cref="ICommandService.Cooldown"/>>
+        public bool CooldownTime(string time)
+        {
+            return this.cryostatControl.StartCooldown(time);
+        }
+
         /// <inheritdoc cref="ICommandService.Recycle"/>>
         public bool Recycle()
         {
@@ -126,6 +132,12 @@ namespace CryostatControlServer.HostService
         public double ReadCompressorPressureScale()
         {
             return this.cryostatControl.ReadCompressorPressureScale();
+        }
+
+        /// <inheritdoc cref="ICommandService.SetBlueforsHeater"/>>
+        public bool SetBlueforsHeater(bool status)
+        {
+            return this.cryostatControl.SetBlueforsHeater(status);
         }
 
         /// <inheritdoc cref="ICommandService.WriteSettingValues"/>>

@@ -106,12 +106,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Models\BlueforsModel.cs" />
     <Compile Include="DataClientCallback.cs" />
     <Compile Include="Models\He7Model.cs" />
+    <Compile Include="Models\LoggingModel.cs" />
     <Compile Include="Models\ModusModel.cs" />
     <Compile Include="ViewModels\AbstractViewModel.cs" />
     <Compile Include="ViewModels\BlueforsViewModel.cs" />
     <Compile Include="ViewModels\CompressorViewModel.cs" />
+    <Compile Include="ViewModels\LoggingPresets\ILoggingPreset.cs" />
+    <Compile Include="ViewModels\LoggingPresets\LogAllPreset.cs" />
+    <Compile Include="ViewModels\LoggingPresets\LogCompressorPreset.cs" />
+    <Compile Include="ViewModels\LoggingPresets\LogHe7Preset.cs" />
+    <Compile Include="ViewModels\LoggingPresets\LogBlueforsPreset.cs" />
+    <Compile Include="ViewModels\LoggingPresets\LogNothingPreset.cs" />
+    <Compile Include="ViewModels\LoggingViewModel.cs" />
     <Compile Include="ViewModels\ViewModelContainer.cs" />
     <Compile Include="ViewModels\He7ViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
@@ -238,12 +247,17 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\ServiceReference1\" />
+  </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\ServiceReference1\" />
+    <ProjectReference Include="..\CryostatControlServer\CryostatControlServer.csproj">
+      <Project>{4724405F-6333-4320-9896-8AAAC233293A}</Project>
+      <Name>CryostatControlServer</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ServiceReference1\SRON.disco" />
@@ -259,12 +273,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CryostatControlServer\CryostatControlServer.csproj">
-      <Project>{4724405F-6333-4320-9896-8AAAC233293A}</Project>
-      <Name>CryostatControlServer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

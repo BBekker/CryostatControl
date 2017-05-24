@@ -12,6 +12,7 @@ namespace CryostatControlServer.LakeShore
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.IO.Ports;
     using System.Threading;
 
     using CryostatControlServer.Streams;
@@ -21,6 +22,8 @@ namespace CryostatControlServer.LakeShore
     /// </summary>
     public class LakeShore
     {
+        #region Fields
+
         /// <summary>
         /// The 3K cold plate id
         /// </summary>
@@ -51,19 +54,64 @@ namespace CryostatControlServer.LakeShore
         private DateTime lastCommand;
 
         /// <summary>
-        /// The connection.
-        /// </summary>
-        private IManagedStream stream;
-
-        /// <summary>
         /// The read thread.
         /// </summary>
         private Thread readthread;
 
         /// <summary>
+        /// The connection.
+        /// </summary>
+        private IManagedStream stream;
+
+        #endregion Fields
+
+        #region Properties
+
+        /// <summary>
         /// Gets or sets the latest sensor values;
         /// </summary>
         public double[] SensorValues { get; set; } = new double[2] { 0, 0 };
+
+        #endregion Properties
+
+        #region Methods
+
+        /// <summary>
+        /// Find the lakeshore com port and connect
+        /// </summary>
+        /// <returns>
+        /// The <see cref="CryostatControlServer.LakeShore"/>.
+        /// </returns>
+        public static string FindPort()
+        {
+            var names = SerialPort.GetPortNames();
+            foreach (var name in names)
+            {
+                ManagedCOMStream stream = null;
+                try
+                {
+                    stream = new ManagedCOMStream(name, BaudRate);
+                    stream.Open();
+                    stream.WriteString("MODE 1\n");
+                    Thread.Sleep(35);
+                    stream.WriteString("*IDN?\n");
+                    if (stream.ReadString().Contains("MODEL335"))
+                    {
+                        return name;
+                    }
+                }
+                catch (Exception)
+                {
+                    ////ignore this exception and try new port
+                }
+                finally
+                {
+                    stream?.Close();
+                }
+            }
+
+            return null;
+        }
 
         /// <summary>
         /// Closes this instance.
@@ -104,15 +152,36 @@ namespace CryostatControlServer.LakeShore
         }
 
         /// <summary>
+        /// The set heater.
+        /// </summary>
+        /// <param name="turnOn">
+        /// The on state.
+        /// </param>
+        public void SetHeater(bool turnOn)
+        {
+            try
+            {
+                Monitor.Enter(this.stream);
+                this.WaitCommandInterval();
+                this.stream.WriteString("RANGE A," + (turnOn ? "3" : "0") + "\n");
+            }
+            finally
+            {
+                Monitor.Exit(this.stream);
+            }
+        }
+
+        /// <summary>
         /// Sends OPC command to device and waits for response.
         /// Used to confirm connection and synchronisation of state of the device.
         /// </summary>
+        /// <returns><c>true</c> if connect, else <c>false</c></returns>
         // ReSharper disable once InconsistentNaming
         [SuppressMessage(
             "StyleCop.CSharp.DocumentationRules",
             "SA1650:ElementDocumentationMustBeSpelledCorrectly",
             Justification = "Reviewed. Suppression is OK here.")]
-        public void OPC()
+        public bool OPC()
         {
             try
             {
@@ -120,10 +189,57 @@ namespace CryostatControlServer.LakeShore
                 this.WaitCommandInterval();
                 this.stream.WriteString("OPC?\n");
                 this.stream.ReadString();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
             finally
             {
                 Monitor.Exit(this.stream);
+            }
+        }
+
+        /// <summary>
+        /// The read values.
+        /// </summary>
+        private void ReadValues()
+        {
+            try
+            {
+                this.SensorValues[0] = this.ReadTemperature("A");
+                this.SensorValues[1] = this.ReadTemperature("B");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error while reading lakeshore: " + e.GetType().ToString());
+            }
+        }
+
+        /// <summary>
+        /// The reading loop running in a different thread.
+        /// </summary>
+        private void ReadingLoop()
+        {
+            while (true)
+            {
+                if (this.stream.IsConnected())
+                {
+                    this.ReadValues();
+                }
+                else
+                {
+                    try
+                    {
+                        this.stream.Open();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Could not reconnect to lakeshore: " + e.GetType().ToString());
+                    }
+                }
+                Thread.Sleep(ReadInterval);
             }
         }
 
@@ -158,16 +274,7 @@ namespace CryostatControlServer.LakeShore
             this.stream.WriteString("MODE 1\n");
             this.OPC();
 
-            this.readthread = new Thread(
-                () =>
-                    {
-                        while (true)
-                        {
-                            this.SensorValues[0] = this.ReadTemperature("A");
-                            this.SensorValues[1] = this.ReadTemperature("B");
-                            Thread.Sleep(ReadInterval);
-                        }
-                    });
+            this.readthread = new Thread(this.ReadingLoop);
             this.readthread.Start();
         }
 
@@ -188,5 +295,7 @@ namespace CryostatControlServer.LakeShore
 
             this.lastCommand = DateTime.Now;
         }
+
+        #endregion Methods
     }
 }

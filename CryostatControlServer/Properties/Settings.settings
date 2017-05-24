@@ -30,13 +30,13 @@
       <Value Profile="(Default)">70</Value>
     </Setting>
     <Setting Name="ControllerHeaterTemperatureSetpoint" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">35</Value>
+      <Value Profile="(Default)">45</Value>
     </Setting>
     <Setting Name="ControllerHeatSwitchOnTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">15</Value>
     </Setting>
     <Setting Name="ControllerHeatSwitchSafeValue" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">9</Value>
+      <Value Profile="(Default)">15</Value>
     </Setting>
     <Setting Name="ControllerHeatupTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">50</Value>
@@ -49,6 +49,12 @@
     </Setting>
     <Setting Name="ControllerDisableHeaterHeatSwitchTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="ControllerHe3StartMinimalTemperature" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2.5</Value>
+    </Setting>
+    <Setting Name="ControllerHe3StartWaitTimeMinutes" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">30</Value>
     </Setting>
   </Settings>
 </SettingsFile>
