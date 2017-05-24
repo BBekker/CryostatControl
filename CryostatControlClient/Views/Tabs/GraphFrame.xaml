@@ -4,13 +4,12 @@
       xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       Background="{DynamicResource MaterialDesignPaper}">
 
-    <wpf:CartesianChart Series="{Binding SeriesCollection}" >
+    <wpf:CartesianChart Series="{Binding SeriesCollection}" Margin="20" LegendLocation="Left" DisableAnimations="True" Hoverable="False" >
         <wpf:CartesianChart.AxisX>
             <wpf:Axis Title="Time" LabelFormatter="{Binding XFormatter}" />
         </wpf:CartesianChart.AxisX>
-        <wpf:CartesianChart.AxisY>
+        <wpf:CartesianChart.AxisY >
             <wpf:Axis Title="Kelvin" />
         </wpf:CartesianChart.AxisY>
     </wpf:CartesianChart>
-
 </Grid>

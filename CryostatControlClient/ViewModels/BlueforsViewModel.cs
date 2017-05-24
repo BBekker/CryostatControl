@@ -52,6 +52,34 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The cold plate3 k line series.
         /// </value>
+        public GLineSeries ColdPlate3KLineSeriesBottom
+        {
+            get
+            {
+                return this.blueforsModel.ColdPlate3KLineSeriesBottom;
+            }
+        }
+
+        /// <summary>
+        /// Gets the cold plate3 k line series.
+        /// </summary>
+        /// <value>
+        /// The cold plate3 k line series.
+        /// </value>
+        public GLineSeries ColdPlate50KLineSeriesBottom
+        {
+            get
+            {
+                return this.blueforsModel.ColdPlate50KLineSeriesBottom;
+            }
+        }
+
+        /// <summary>
+        /// Gets the cold plate3 k line series.
+        /// </summary>
+        /// <value>
+        /// The cold plate3 k line series.
+        /// </value>
         public GLineSeries ColdPlate3KLineSeries
         {
             get

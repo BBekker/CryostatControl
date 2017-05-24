@@ -40,6 +40,16 @@ namespace CryostatControlClient.Models
         private GLineSeries coldPlate50KLineSeries;
 
         /// <summary>
+        /// The cold plate3 k line series
+        /// </summary>
+        private GLineSeries coldPlate3KLineSeriesBottom;
+
+        /// <summary>
+        /// The cold plate50 k line series
+        /// </summary>
+        private GLineSeries coldPlate50KLineSeriesBottom;
+
+        /// <summary>
         /// The connection state.
         /// </summary>
         private double connectionState;
@@ -60,12 +70,41 @@ namespace CryostatControlClient.Models
         {
             this.coldPlate3KLineSeries = new GLineSeries { Title = "Bluefors - 3K Plate", Values = new GearedValues<DateTimePoint>() };
             this.coldPlate50KLineSeries = new GLineSeries { Title = "Bluefors - 50K Plate", Values = new GearedValues<DateTimePoint>() };
+            this.coldPlate3KLineSeriesBottom = new GLineSeries { Title = "Bluefors - 3K Plate", Values = new GearedValues<DateTimePoint>() };
+            this.coldPlate50KLineSeriesBottom = new GLineSeries { Title = "Bluefors - 50K Plate", Values = new GearedValues<DateTimePoint>() };
         }
 
         #endregion Constructor
 
         #region Properties
 
+        /// <summary>
+        /// Gets the cold plate 3 k line series.
+        /// </summary>
+        /// <value>
+        /// The cold plate 3 k line series.
+        /// </value>
+        public GLineSeries ColdPlate3KLineSeriesBottom
+        {
+            get
+            {
+                return this.coldPlate3KLineSeriesBottom;
+            }
+        }
+
+        /// <summary>
+        /// Gets the cold plate 50 k line series.
+        /// </summary>
+        /// <value>
+        /// The cold plate 50 k line series.
+        /// </value>
+        public GLineSeries ColdPlate50KLineSeriesBottom
+        {
+            get
+            {
+                return this.coldPlate50KLineSeriesBottom;
+            }
+        }
 
         /// <summary>
         /// Gets the cold plate 3 k line series.
@@ -112,7 +151,7 @@ namespace CryostatControlClient.Models
             {
                 this.coldPlate3KTemp = value;
                 this.AddToGraph(this.coldPlate3KLineSeries, value);
-                
+                this.AddToGraph(this.coldPlate3KLineSeriesBottom, value);
             }
         }
 
@@ -133,6 +172,7 @@ namespace CryostatControlClient.Models
             {
                 this.coldPlate50KTemp = value;
                 this.AddToGraph(this.coldPlate50KLineSeries, value);
+                this.AddToGraph(this.coldPlate50KLineSeriesBottom, value);
             }
         }
 

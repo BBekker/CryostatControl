@@ -24,7 +24,7 @@
                 <Frame Source="Tabs/CompressorFrame.xaml" Navigated="FrameNavigated"/>
             </TabItem>
             <TabItem Header="Graph">
-                <Frame Source="Tabs/GraphFrame.xaml" />
+                <Frame Source="Tabs/GraphFrame.xaml" Navigated="FrameNavigated"/>
             </TabItem>
             <TabItem Header="Logging">
                 <Frame Source="Tabs/LoggingFrame.xaml" />
