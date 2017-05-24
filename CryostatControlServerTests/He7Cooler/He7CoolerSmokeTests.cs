@@ -100,7 +100,7 @@ namespace CryostatControlServerTests.He7Cooler
 
             fakeresponser.responsevalues[(int)Channels.SensHe3HeadT] = 0.2147;
             fakeresponser.responsevalues[(int)Channels.SensHe3Pump] = 5.0;
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
 
             Assert.AreEqual(5.0, cooler.He3Pump.Voltage);
 
