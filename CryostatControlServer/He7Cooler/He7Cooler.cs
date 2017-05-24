@@ -187,6 +187,17 @@ namespace CryostatControlServer.He7Cooler
         }
 
         /// <summary>
+        /// Determines whether this instance is connected.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance is connected; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsConnected()
+        {
+            return this.device.IsConnected();
+        }
+
+        /// <summary>
         /// Read the voltages of all registered channels
         /// </summary>
         public void ReadVoltages()

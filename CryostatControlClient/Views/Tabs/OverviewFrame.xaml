@@ -30,9 +30,9 @@
     <Label Grid.Row="3" Grid.Column="1" Content="{Binding BlueforsViewModel.HeaterPower}" ContentStringFormat="{}{0:N2}"/>
 
     <Label Grid.Row="4" Grid.Column="0">He-4 Cooler</Label>
-    <Label Grid.Row="4" Grid.Column="1" Content="{Binding He7ViewModel.He4HeadTemp}" ContentStringFormat="{}{0:N2}"/>
+    <Label Grid.Row="4" Grid.Column="1" Content="{Binding He7ViewModel.He4HeadTemp}" ContentStringFormat="{}{0:N3}"/>
 
     <Label Grid.Row="5" Grid.Column="0">He-3 Cooler</Label>
-    <Label Grid.Row="5" Grid.Column="1" Content="{Binding He7ViewModel.He3HeadTemp}" ContentStringFormat="{}{0:N2}"/>
+    <Label Grid.Row="5" Grid.Column="1" Content="{Binding He7ViewModel.He3HeadTemp}" ContentStringFormat="{}{0:N3}"/>
 
 </Grid>
