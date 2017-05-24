@@ -314,7 +314,7 @@ namespace CryostatControlServer.He7Cooler
 
                     try
                     {
-                        this.device.Init(this.ip);
+                        this.device.Reopen();
                     }
                     catch (Exception e)
                     {
