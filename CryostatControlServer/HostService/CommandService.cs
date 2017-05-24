@@ -139,6 +139,12 @@ namespace CryostatControlServer.HostService
             return this.cryostatControl.SetBlueforsHeater(status);
         }
 
+        /// <inheritdoc cref="ICommandService.ReadSingleSensor"/>>
+        public double ReadSingleSensor(int sensorId)
+        {
+            return this.cryostatControl.ReadSingleSensor(sensorId);
+        }
+
         /// <inheritdoc cref="ICommandService.WriteSettingValues"/>>
         public bool WriteSettingValue(int setting, double value)
         {

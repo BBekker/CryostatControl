@@ -118,6 +118,44 @@ namespace CryostatControlServer.Data
             }
         }
 
+        private double ReadSingleSensor(int id)
+        {
+            if (id < 0 && id >= (int)DataEnumerator.DataLength)
+            {
+                return double.NaN;
+            }
+            if (id < (int)DataEnumerator.SensorAmount)
+            {
+                try
+                {
+                    return this.sensors[id].Value;
+                }
+                catch
+                {
+                    return double.NaN;
+                }
+            }
+
+            switch (id)
+            {
+                case (int)DataEnumerator.HeConnectionState: return 0;
+
+                case (int)DataEnumerator.ComConnectionState: return 0;
+
+                case (int)DataEnumerator.LakeConnectionState: return 0;
+
+                case (int)DataEnumerator.ComError: return 0;
+
+                case (int)DataEnumerator.ComWarning: return 0;
+
+                case (int)DataEnumerator.ComHoursOfOperation: return 0;
+
+                case (int)DataEnumerator.LakeHeater: return 0;
+
+                default: return double.NaN;
+            }
+        }
+
         #endregion Methods
     }
 }
