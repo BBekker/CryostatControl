@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LogThreader.cs" company="SRON">
-// k  
+// k
 // </copyright>
 // <summary>
 //   Defines the LogThreader type.
@@ -16,13 +16,22 @@ namespace CryostatControlServer.Logging
 
     public class LogThreader
     {
+        #region Fields
 
         private DataReader dataReader;
+
+        #endregion Fields
+
+        #region Constructors
 
         public LogThreader(DataReader dataReader)
         {
             this.dataReader = dataReader;
         }
+
+        #endregion Constructors
+
+        #region Methods
 
         public void StartSpecificDataLogging(int interval, bool[] toBeLoggedOrNotToBeLogged)
         {
@@ -34,9 +43,19 @@ namespace CryostatControlServer.Logging
             Timer loggingThread = new Timer(this.SpecificDataLogging, specificDataLogger, filePath, interval);
         }
 
+        public void StopSpecificDataLogging()
+        {
+        }
+
+        public void StartGeneralDataLogging()
+        {
+        }
+
         private void SpecificDataLogging(object state)
         {
             logSpecificData.WriteDataToFile(filePath, this.dataReader.GetDataArray());
         }
+
+        #endregion Methods
     }
 }

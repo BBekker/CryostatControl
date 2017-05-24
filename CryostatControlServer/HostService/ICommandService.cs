@@ -8,6 +8,7 @@ namespace CryostatControlServer.HostService
     using System.ServiceModel;
 
     using CryostatControlServer.Compressor;
+    using CryostatControlServer.Data;
     using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
@@ -144,6 +145,21 @@ namespace CryostatControlServer.HostService
 
         [OperationContract]
         bool SetBlueforsHeater(bool status);
+
+        /// <summary>
+        /// Starts the logging.
+        /// </summary>
+        /// <param name="logData">Array which tells which data be logged
+        /// <seealso cref="DataEnumerator"/> for the places of the sensors</param>
+        /// <param name="interval">The interval in milliseconds.</param>
+        [OperationContract]
+        void StartLogging(int interval, bool[] logData);
+
+        /// <summary>
+        /// Stops the logging.
+        /// </summary>
+        [OperationContract]
+        void StopLogging();
 
         #endregion Methods
     }
