@@ -9,11 +9,15 @@
 
 namespace CryostatControlServer.LakeShore
 {
+    using CryostatControlServer.Data;
+
     /// <summary>
     /// The sensor.
     /// </summary>
     public class Sensor : ISensor
     {
+        #region Fields
+
         /// <summary>
         /// The sensor id.
         /// </summary>
@@ -23,6 +27,10 @@ namespace CryostatControlServer.LakeShore
         /// The device.
         /// </summary>
         private LakeShore device;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Sensor"/> class.
@@ -38,6 +46,10 @@ namespace CryostatControlServer.LakeShore
             this.sensorId = sensorId;
             this.device = device;
         }
+
+        #endregion Constructors
+
+        #region Properties
 
         /// <summary>
         /// Gets or sets the interval.
@@ -55,5 +67,7 @@ namespace CryostatControlServer.LakeShore
                 return this.device.SensorValues[(int)this.sensorId];
             }
         }
+
+        #endregion Properties
     }
 }
