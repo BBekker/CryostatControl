@@ -646,7 +646,7 @@ namespace CryostatControlServer
 
                 case Controlstate.RecycleStart:
                     this.cooler.He3Switch.Voltage = 0.0;
-                    this.cooler.He3Switch.Voltage = 0.0;
+                    this.cooler.He4Switch.Voltage = 0.0;
 
                     this.State = Controlstate.RecycleHeatPumps;
                     break;
@@ -663,8 +663,15 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.WarmupStart:
-                    this.lakeshore.SetHeater(true);
-                    // TODO: start Lakeshore heater?
+
+                    try
+                    {
+                        this.lakeshore.SetHeater(true);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("lakeshore did not respond");
+                    }
                     try
                     {
                         this.compressor.TurnOff();
