@@ -53,6 +53,11 @@ namespace CryostatControlServer
         /// </summary>
         private Controlstate state = Controlstate.Setup;
 
+        /// <summary>
+        /// The time when the current state was entered
+        /// </summary>
+        private DateTime stateEnteredTime = DateTime.Now;
+
         #endregion Fields
 
         #region Constructors
@@ -275,6 +280,7 @@ namespace CryostatControlServer
             private set
             {
                 Console.WriteLine("[Control] Switched from state {0} to {1}", this.state, value);
+                this.stateEnteredTime = DateTime.Now;
                 this.state = value;
             }
         }
@@ -308,6 +314,38 @@ namespace CryostatControlServer
             set
             {
                 Settings.Default.ControllerHe3StartTemperature = value;
+            }
+        }    
+        
+        /// <summary>
+        /// Gets or sets the he 3 start temperature.
+        /// </summary>
+        private double He3StartMinimalTemperature
+        {
+            get
+            {
+                return Settings.Default.ControllerHe3StartMinimalTemperature;
+            }
+
+            set
+            {
+                Settings.Default.ControllerHe3StartMinimalTemperature = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he 3 start temperature.
+        /// </summary>
+        private double He3StartWaitTimeMinutes
+        {
+            get
+            {
+                return Settings.Default.ControllerHe3StartWaitTimeMinutes;
+            }
+
+            set
+            {
+                Settings.Default.ControllerHe3StartWaitTimeMinutes = value;
             }
         }
 
@@ -608,23 +646,33 @@ namespace CryostatControlServer
 
                     if (this.cooler.He4SwitchT.Value > this.HeatSwitchOnTemperature)
                     {
-                        this.State = Controlstate.CooldownCondenseHe3;
+                        this.State = Controlstate.CooldownWaitHe3Heater;
                     }
 
                     break;
 
-                case Controlstate.CooldownCondenseHe3:
+                case Controlstate.CooldownWaitHe3Heater:
                     this.ControlHe3PumpHeater();
-                    if (this.cooler.He3HeadT.Value < this.He3StartTemperature)
+                    if (this.cooler.He3PumpT.Value > this.HeaterTemperatureSetpoint - 1.0)
                     {
-                        this.State = Controlstate.CooldownDisableHe3PumpHeater;
+                        this.state = Controlstate.CooldownDisableHe3PumpHeater;
                     }
-
                     break;
 
                 case Controlstate.CooldownDisableHe3PumpHeater:
                     this.cooler.He3Pump.Voltage = 0.0;
-                    this.State = Controlstate.CooldownControlHe3;
+                    this.State = Controlstate.CooldownCondenseHe3;
+                    break;
+
+                case Controlstate.CooldownCondenseHe3:
+                    if (this.cooler.He3HeadT.Value < this.He3StartTemperature
+                        || (this.cooler.He3HeadT.Value < this.He3StartMinimalTemperature
+                            && (DateTime.Now - this.stateEnteredTime)
+                            < new TimeSpan(0, (int)this.He3StartWaitTimeMinutes, 0))) 
+                    {
+                        this.State = Controlstate.CooldownControlHe3;
+                    }
+
                     break;
 
                 case Controlstate.CooldownControlHe3:

@@ -50,5 +50,11 @@
     <Setting Name="ControllerDisableHeaterHeatSwitchTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">20</Value>
     </Setting>
+    <Setting Name="ControllerHe3StartMinimalTemperature" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2.5</Value>
+    </Setting>
+    <Setting Name="ControllerHe3StartWaitTimeMinutes" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

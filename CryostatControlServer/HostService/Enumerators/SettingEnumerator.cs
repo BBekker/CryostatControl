@@ -35,5 +35,7 @@ namespace CryostatControlServer.HostService.Enumerators
         ControllerHe4StartTemperature,
         ControllerHe3StartTemperature,
         ControllerDisableHeaterHeatSwitchTemperature,
+        ControllerHe3StartMinimalTemperature,
+        ControllerHe3StartWaitTimeMinutes,
     }
 }
