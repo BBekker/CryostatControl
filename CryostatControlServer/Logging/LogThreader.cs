@@ -27,15 +27,15 @@ namespace CryostatControlServer.Logging
         public void StartSpecificDataLogging(int interval, double[] toBeLoggedOrNotToBeLogged)
         {
             DateTime currentDateTime = DateTime.Now;
-            LogSpecificData logSpecificData = new LogSpecificData(this.dataReader, toBeLoggedOrNotToBeLogged);
-            string filePath = logSpecificData.CreateFile(currentDateTime);
-            logSpecificData.WriteInitialLine(filePath, toBeLoggedOrNotToBeLogged);
-//            Timer loggingThread = new Timer(this.SpecificDataLogging, logSpecificData, filePath, interval);
+            SpecificDataLogger specificDataLogger = new SpecificDataLogger(this.dataReader, toBeLoggedOrNotToBeLogged);
+            string filePath = specificDataLogger.CreateFile(currentDateTime);
+            specificDataLogger.WriteInitialLine(filePath, toBeLoggedOrNotToBeLogged);
+            Timer loggingThread = new Timer(this.SpecificDataLogging, specificDataLogger, filePath, interval);
         }
 
-//        private void SpecificDataLogging(object state)
-//        {
-//            logSpecificData.WriteDataToFile(filePath, this.dataReader.GetDataArray());
-//        }
+        private void SpecificDataLogging(object state)
+        {
+            logSpecificData.WriteDataToFile(filePath, this.dataReader.GetDataArray());
+        }
     }
 }

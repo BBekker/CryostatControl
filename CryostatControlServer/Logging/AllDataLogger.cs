@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LogAllData.cs" company="SRON">
+// <copyright file="AllDataLogger.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
-//   Defines the LogAllData type.
+//   Defines the AllDataLogger type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -17,11 +17,11 @@ namespace CryostatControlServer.Logging
     /// <summary>
     /// The log all data.
     /// </summary>
-    public class LogAllData : AbstractLogData
+    public class AllDataLogger : AbstractLogData
     {
         private DataReader dataReader;
 
-        public LogAllData(DataReader dataReader)
+        public AllDataLogger(DataReader dataReader)
         {
             this.dataReader = dataReader;
 
@@ -47,8 +47,11 @@ namespace CryostatControlServer.Logging
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public new string CreateFolder(string year, string month)
+        public new string CreateFolder(DateTime currentDateTime)
         {
+
+            string year = currentDateTime.Year.ToString();
+            string month = currentDateTime.Month.ToString();
             string mainFolderPath = @"c:/Logging/General";
             string newFolderName = year + "/" + month + "/";
             string pathToNewFolder = System.IO.Path.Combine(mainFolderPath, newFolderName);

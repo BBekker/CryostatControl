@@ -79,7 +79,7 @@ namespace CryostatControlServer
             this.controller = controller;
             this.dataReader = new DataReader(this.compressor, this.he7Cooler, this.lakeShore);
             this.FillHeaters();
-            new LogAllData(this.dataReader);
+            new AllDataLogger(this.dataReader);
         }
 
         #endregion Constructors

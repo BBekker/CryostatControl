@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LogSpecificData.cs" company="SRON">
+// <copyright file="SpecificDataLogger.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
-//   Defines the LogSpecificData type.
+//   Defines the SpecificDataLogger type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -19,16 +19,16 @@ namespace CryostatControlServer.Logging
     /// <summary>
     /// Log specific data.
     /// </summary>
-    public class LogSpecificData : AbstractLogData
+    public class SpecificDataLogger : AbstractLogData
     {
 
         private double[] toBeLoggedOrNotToBeLogged;
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LogSpecificData"/> class.
+        /// Initializes a new instance of the <see cref="SpecificDataLogger"/> class.
         /// </summary>
-        public LogSpecificData(DataReader dataReader, double[] toBeLoggedOrNotToBeLogged)
+        public SpecificDataLogger(DataReader dataReader, double[] toBeLoggedOrNotToBeLogged)
         {
             DateTime localDate = DateTime.Now;
             string year = localDate.Year.ToString();
