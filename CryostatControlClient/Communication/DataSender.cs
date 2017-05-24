@@ -116,6 +116,21 @@ namespace CryostatControlClient.Communication
             // Console.WriteLine(viewModelContainer.He7ViewModel.He3HeadMax);
         }
 
+        public void SendDataToBeLogged(ViewModelContainer viewModelContainer)
+        {
+            bool[] dataToBeLogged = viewModelContainer.LoggingViewModel.GetLoggingArray();
+            int interval = (int)viewModelContainer.LoggingViewModel.LoggingInterval;
+
+            this.commandServiceClient.StartLogging(interval, dataToBeLogged);
+        }
+
+        public void CancelLogging()
+        {
+            this.commandServiceClient.StopLogging();
+        }
+
         #endregion Methods
+
+
     }
 }

@@ -75,9 +75,9 @@ namespace CryostatControlServer
         /// <param name="args">The arguments.</param>
         public static void Main(string[] args)
         {
-//            InitComponents();
+            InitComponents();
             logger = new LogThreader(new DataReader(compressor, he7Cooler, lakeShore));
-//            StartHost();
+            StartHost();
                         logger.StartGeneralDataLogging();
             logger.StartSpecificDataLogging(2, new bool[(int)DataEnumerator.DataLength]);
             Console.Read();

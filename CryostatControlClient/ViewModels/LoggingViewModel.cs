@@ -10,6 +10,7 @@
 namespace CryostatControlClient.ViewModels
 {
     using System;
+    using System.Windows.Input;
 
     using CryostatControlClient.Models;
     using CryostatControlClient.ViewModels.LoggingPresets;
@@ -33,12 +34,24 @@ namespace CryostatControlClient.ViewModels
         private ILoggingPreset loggingPreset;
 
         /// <summary>
+        /// The start button command
+        /// </summary>
+        private ICommand startButtonCommand;
+
+        /// <summary>
+        /// The stop button command
+        /// </summary>
+        private ICommand stopButtonCommand;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="LoggingViewModel"/> class.
         /// </summary>
         public LoggingViewModel()
         {
             //this.loggingPreset = new LogAllPreset(this);
             this.loggingModel = new LoggingModel();
+            this.StartButtonCommand = new RelayCommand(this.OnClickStart, param => true);
+            this.StopButtonCommand = new RelayCommand(this.OnClickStart, param => true);
         }
 
         #region Properties
@@ -555,6 +568,44 @@ namespace CryostatControlClient.ViewModels
         #endregion
 
         /// <summary>
+        /// Gets or sets the start button command.
+        /// </summary>
+        /// <value>
+        /// The start button command.
+        /// </value>
+        public ICommand StartButtonCommand
+        {
+            get
+            {
+                return this.startButtonCommand;
+            }
+
+            set
+            {
+                this.startButtonCommand = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the stop button command.
+        /// </summary>
+        /// <value>
+        /// The stop button command.
+        /// </value>
+        public ICommand StopButtonCommand
+        {
+            get
+            {
+                return this.stopButtonCommand;
+            }
+
+            set
+            {
+                this.stopButtonCommand = value;
+            }
+        }
+
+        /// <summary>
         /// Converts the int to preset.
         /// </summary>
         /// <param name="presetNumber">The preset number.</param>
@@ -615,6 +666,28 @@ namespace CryostatControlClient.ViewModels
             loggingDataArray[(int)DataEnumerator.LakeHeater] = this.BlueforsHeater;
 
             return loggingDataArray;
+        }
+
+        /// <summary>
+        /// The on click start.
+        /// </summary>
+        /// <param name="obj">
+        /// The obj.
+        /// </param>
+        public void OnClickStart(object obj)
+        {
+            this.RaisePropertyChanged("StartPressed");
+        }
+
+        /// <summary>
+        /// The on click cancel.
+        /// </summary>
+        /// <param name="obj">
+        /// The obj.
+        /// </param>
+        public void OnClickStop(object obj)
+        {
+            this.RaisePropertyChanged("StopPressed");
         }
     }
 }

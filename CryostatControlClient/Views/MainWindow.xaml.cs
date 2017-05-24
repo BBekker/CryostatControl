@@ -53,6 +53,11 @@ namespace CryostatControlClient.Views
         /// </summary>
         private PropertyChangedEventHandler heHandler;
 
+        /// <summary>
+        /// The logger handler.
+        /// </summary>
+        private PropertyChangedEventHandler loggerHandler;
+
         #endregion Fields
 
         #region Constructor
@@ -71,6 +76,7 @@ namespace CryostatControlClient.Views
 
             this.modusHandler = this.HandleModus;
             this.heHandler = this.HandleHe;
+            this.loggerHandler = this.HandleLogger;
         }
 
         #endregion Constructor
@@ -108,6 +114,7 @@ namespace CryostatControlClient.Views
 
             this.viewModelContainer.ModusViewModel.PropertyChanged += this.modusHandler;
             this.viewModelContainer.He7ViewModel.PropertyChanged += this.heHandler;
+            this.viewModelContainer.LoggingViewModel.PropertyChanged += this.loggerHandler;
         }
 
         /// <summary>
@@ -148,6 +155,23 @@ namespace CryostatControlClient.Views
             }
         }
 
+        private void HandleLogger(object sender, PropertyChangedEventArgs e)
+        {
+            string action = e.PropertyName;
+
+            if (action == "StartPressed")
+            {
+                this.dataSender.SendDataToBeLogged(this.viewModelContainer);
+            }
+            else if (action == "CancelPressed")
+            {
+                this.dataSender.CancelLogging();
+            }
+            else
+            {
+                // todo: unknow action, throw exception or something?
+            }
+        }
         #endregion Methods
     }
 }
