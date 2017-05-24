@@ -8,6 +8,7 @@ namespace CryostatControlServer.HostService
     using System.ServiceModel;
 
     using CryostatControlServer.Compressor;
+    using CryostatControlServer.HostService.DataContracts;
     using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
@@ -94,15 +95,24 @@ namespace CryostatControlServer.HostService
 
         /// <summary>
         /// Writes values to the helium7 heaters.
-        /// <seealso cref="HeaterEnumerator"/> for position for each heater.
+        /// <seealso cref="HeaterEnumerator"/>
+        /// for position for each heater.
         /// </summary>
-        /// <param name="values">The values.</param>
+        /// <param name="heater">
+        /// The heater.
+        /// <seealso cref="HeaterEnumerator"/>
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
         /// <returns>
         /// <c>true</c> values could be set.
         /// <c>false</c> values could not be set, either there is no connection,
-        /// input values are incorrect or manual control isn't allowed</returns>
+        /// input values are incorrect or manual control isn't allowed
+        /// </returns>
         [OperationContract]
-        bool WriteHelium7(double[] values);
+        [FaultContract(typeof(CouldNotPerformActionFault))]
+        bool WriteHelium7(int heater, double value);
 
         /// <summary>
         /// Reads the compressor temperature scale.
