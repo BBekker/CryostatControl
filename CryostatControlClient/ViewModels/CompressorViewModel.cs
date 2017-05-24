@@ -421,8 +421,10 @@ namespace CryostatControlClient.ViewModels
         /// </returns>
         public string ConvertOperatingStateNumberToString(double operatingStateNumber)
         {
-            switch ((int)operatingStateNumber)
+            Console.WriteLine("state = {0}", operatingStateNumber);
+            switch (operatingStateNumber)
             {
+                case -1: return "Disconnected";
                 case 0: return "Ready to Start";
                 case 2: return "Starting";
                 case 3: return "Running";
