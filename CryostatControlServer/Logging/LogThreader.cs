@@ -22,9 +22,9 @@ namespace CryostatControlServer.Logging
         #region Fields
 
         /// <summary>
-        /// The general log interval.
+        /// The general log interval in seconds.
         /// </summary>
-        private const int GeneralLogInterval = 10000;
+        private const int GeneralLogInterval = 10;
 
         /// <summary>
         /// The general main folder.
@@ -99,8 +99,7 @@ namespace CryostatControlServer.Logging
             specificDataLogger.WriteInitialLine(filePath, toBeLoggedOrNotToBeLogged);
             LoggerDataObject loggerDataObject = new LoggerDataObject(specificDataLogger, filePath);
             int startTime = 0;
-            interval *= 1000;
-            this.specificLoggingThread = new Timer(this.SpecificDataLogging, loggerDataObject, startTime, interval);
+            this.specificLoggingThread = new Timer(this.SpecificDataLogging, loggerDataObject, startTime, this.ConvertSecondsToMs(interval));
             this.specificLoggingInProgress = true;
         }
 
@@ -118,6 +117,7 @@ namespace CryostatControlServer.Logging
         /// </summary>
         public void StartGeneralDataLogging()
         {
+            Console.WriteLine("starting!");
             DateTime currentDateTime = DateTime.Now;
             GeneralDataLogger generalDataLogger = new GeneralDataLogger();
 
@@ -126,7 +126,7 @@ namespace CryostatControlServer.Logging
             generalDataLogger.WriteInitialLine(filePath, generalDataLogger.CreateArrayWithOnlyTrue());
             LoggerDataObject loggerDataObject = new LoggerDataObject(generalDataLogger, filePath);
             int startTime = 0;
-            this.generalLoggingThread = new Timer(this.GeneralDataLogging, loggerDataObject, startTime, GeneralLogInterval);
+            this.generalLoggingThread = new Timer(this.GeneralDataLogging, loggerDataObject, startTime, this.ConvertSecondsToMs(GeneralLogInterval));
 
         }
 
@@ -139,16 +139,26 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
-        /// The specific data logging.
+        /// Gets the specific logging in progress.
         /// </summary>
-        /// <param name="loggerDataObject">
-        /// The logger data object.
-        /// </param>
-        private void SpecificDataLogging(object loggerDataObject)
+        /// <returns>True if it is in progress</returns>
+        public bool GetSpecificLoggingInProgress()
         {
-            SpecificDataLogger specificDataLogger = (SpecificDataLogger)((LoggerDataObject)loggerDataObject).GetAbstractLogData();
-            string filePath = ((LoggerDataObject)loggerDataObject).GetFilePath();
-            specificDataLogger.WriteSpecificData(filePath, this.dataReader.GetDataArray(), DateTime.Now.ToString("hh:mm:ss"));
+            return this.specificLoggingInProgress;
+        }
+
+        /// <summary>
+        /// Convert seconds to mili seconds.
+        /// </summary>
+        /// <param name="seconds">
+        /// The seconds.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public int ConvertSecondsToMs(int seconds)
+        {
+            return seconds * 1000;
         }
 
         /// <summary>
@@ -165,12 +175,16 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
-        /// Gets the specific logging in progress.
+        /// The specific data logging.
         /// </summary>
-        /// <returns></returns>
-        public bool GetSpecificLoggingInProgress()
+        /// <param name="loggerDataObject">
+        /// The logger data object.
+        /// </param>
+        private void SpecificDataLogging(object loggerDataObject)
         {
-            return this.specificLoggingInProgress;
+            SpecificDataLogger specificDataLogger = (SpecificDataLogger)((LoggerDataObject)loggerDataObject).GetAbstractLogData();
+            string filePath = ((LoggerDataObject)loggerDataObject).GetFilePath();
+            specificDataLogger.WriteSpecificData(filePath, this.dataReader.GetDataArray(), DateTime.Now.ToString("hh:mm:ss"));
         }
 
         #endregion Methods

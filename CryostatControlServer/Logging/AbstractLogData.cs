@@ -76,7 +76,7 @@ namespace CryostatControlServer.Logging
             string day = currentDateTime.Day.ToString();
             string fileName = day + CsvFileFormat;
             string actualPathToFile = System.IO.Path.Combine(folderPath, fileName);
-
+            Console.WriteLine(actualPathToFile);
             if (!System.IO.File.Exists(actualPathToFile))
             {
                 System.IO.File.Create(actualPathToFile).Close();

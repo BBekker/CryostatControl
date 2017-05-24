@@ -9,6 +9,7 @@
 
 namespace CryostatControlServer.Logging
 {
+    using System;
     using System.IO;
 
     /// <summary>
@@ -61,9 +62,20 @@ namespace CryostatControlServer.Logging
                 }
                 
             }
-            using (StreamWriter sw = File.AppendText(pathToFile))
+            try
             {
-                sw.WriteLine(dataLine);
+                using (FileStream fileStream =
+                    new FileStream(pathToFile, FileMode.Append, FileAccess.Write, FileShare.None))
+                {
+                    using (StreamWriter sw = new StreamWriter(fileStream))
+                    {
+                        sw.WriteLine(dataLine);
+                    }
+                }
+            }
+            catch (IOException e)
+            {
+               Console.WriteLine("The log file is opened by another process. Please close this first.");
             }
         }
     }
