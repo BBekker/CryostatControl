@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AllDataLogger.cs" company="SRON">
+// <copyright file="GeneralDataLogger.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
-//   Defines the AllDataLogger type.
+//   Defines the GeneralDataLogger type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -11,33 +11,43 @@ namespace CryostatControlServer.Logging
 {
     using System;
     using System.Data;
+    using System.IO;
 
     using CryostatControlServer.Data;
 
     /// <summary>
     /// The log all data.
     /// </summary>
-    public class AllDataLogger : AbstractLogData
+    public class GeneralDataLogger : AbstractLogData
     {
-        private DataReader dataReader;
 
-        public AllDataLogger(DataReader dataReader)
+        public GeneralDataLogger()
         {
-            this.dataReader = dataReader;
         }
 
         /// <summary>
         /// Write all data to log.
         /// </summary>
-        /// <param name="path">
-        /// The path.
+        /// <param name="pathToFile">
+        /// The path To File.
         /// </param>
-        public void WriteAllData(string path)
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <param name="time">
+        /// The time.
+        /// </param>
+        public void WriteGeneralData(string pathToFile, double[] data, string time)
         {
-            double[] data = this.dataReader.GetDataArray();
-            bool[] toBeLoggedOrNotToBeLogged = this.CreateArrayWithOnlyTrue();
-            this.WriteInitialLine(path, toBeLoggedOrNotToBeLogged);
-            this.WriteDataToFile(path, data);
+            string dataLine = time;
+            for (int i = 0; i < data.Length; i++)
+            {
+                    dataLine += Delimiter + data[i];
+            }
+            using (StreamWriter sw = File.AppendText(pathToFile))
+            {
+                sw.WriteLine(dataLine);
+            }
         }
 
         /// <summary>

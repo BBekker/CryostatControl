@@ -114,7 +114,8 @@
     <Compile Include="Launcher.cs" />
     <Compile Include="Data\EmptySensor.cs" />
     <Compile Include="Logging\AbstractLogData.cs" />
-    <Compile Include="Logging\AllDataLogger.cs" />
+    <Compile Include="Logging\GeneralDataLogger.cs" />
+    <Compile Include="Logging\LoggerDataObject.cs" />
     <Compile Include="Logging\SpecificDataLogger.cs" />
     <Compile Include="Logging\LogThreader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

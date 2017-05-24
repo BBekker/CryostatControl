@@ -28,7 +28,7 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// Initializes a new instance of the <see cref="SpecificDataLogger"/> class.
         /// </summary>
-        public SpecificDataLogger(DataReader dataReader, bool[] toBeLoggedOrNotToBeLogged)
+        public SpecificDataLogger(bool[] toBeLoggedOrNotToBeLogged)
         {  
             this.toBeLoggedOrNotToBeLogged = toBeLoggedOrNotToBeLogged;
 
@@ -37,19 +37,34 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// Write specific data.
         /// </summary>
-        /// <param name="path">
-        /// The path.
+        /// <param name="pathToFile">
+        /// The path To File.
         /// </param>
-        /// <param name="obj">
-        /// The obj.
+        /// <param name="logData">
+        /// The log Data.
         /// </param>
-        /// <param name="toBeLoggedOrNotToBeLogged">
-        /// The to be logged or not to be logged.
+        /// <param name="time">
+        /// The time.
         /// </param>
-        public void WriteSpecificData(string path, double[] obj)
+        public void WriteSpecificData(string pathToFile, double[] logData, string time)
         {
-            this.WriteInitialLine(path, toBeLoggedOrNotToBeLogged);
-            this.WriteDataToFile(path, obj);
+            string dataLine = time;
+            for (int i = 0; i < this.toBeLoggedOrNotToBeLogged.Length; i++)
+            {
+                if (this.toBeLoggedOrNotToBeLogged[i])
+                {
+                    dataLine += Delimiter + logData[i];
+                }
+                else
+                {
+                    dataLine += Delimiter + "-";
+                }
+                
+            }
+            using (StreamWriter sw = File.AppendText(pathToFile))
+            {
+                sw.WriteLine(dataLine);
+            }
         }
     }
 }

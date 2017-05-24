@@ -33,7 +33,7 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// The delimiter for csv files.
         /// </summary>
-        private const string Delimiter = ";";
+        protected const string Delimiter = ";";
 
         /// <summary>
         /// Create specific folder.
@@ -77,20 +77,24 @@ namespace CryostatControlServer.Logging
             string fileName = day + ".csv";
             string actualPathToFile = System.IO.Path.Combine(folderPath, fileName);
 
-            int count = InitialAdditionNumberForDuplicateFiles;
-            while (System.IO.File.Exists(actualPathToFile))
-            {
-                fileName = day + "(" + count.ToString() + ")" + ".csv";
-                actualPathToFile = System.IO.Path.Combine(folderPath, fileName);
-                count++;
-                if (count == MaxTrialsCreatingLogfile)
-                {
-                    Console.WriteLine("Error writing logfile. To many files created.");
-                    return null;
-                }
-            }
+            //            int count = InitialAdditionNumberForDuplicateFiles;
+            //            while (System.IO.File.Exists(actualPathToFile))
+            //            {
+            //                fileName = day + "(" + count.ToString() + ")" + ".csv";
+            //                actualPathToFile = System.IO.Path.Combine(folderPath, fileName);
+            //                count++;
+            //                if (count == MaxTrialsCreatingLogfile)
+            //                {
+            //                    Console.WriteLine("Error writing logfile. To many files created.");
+            //                    return null;
+            //                }
+            //            }
 
-            System.IO.File.Create(actualPathToFile).Close();
+            if (!System.IO.File.Exists(actualPathToFile))
+            {
+                System.IO.File.Create(actualPathToFile).Close();
+            }
+            
 
             return actualPathToFile;
         }
@@ -108,7 +112,6 @@ namespace CryostatControlServer.Logging
         {
             string currentTime = DateTime.Now.ToString("hh:mm:ss");
             string lineToWrite = currentTime;
-
             foreach (var deviceData in logData)
             {
                 lineToWrite += Delimiter + deviceData;
@@ -130,12 +133,21 @@ namespace CryostatControlServer.Logging
         /// </param>
         public void WriteInitialLine(string pathToFile, bool[] devices)
         {
+            FileInfo fileInfo = new FileInfo(pathToFile);
+            if (fileInfo.Length > 0)
+            {
+                return;
+            }
             string initialLine = "Time";
             for (int i = 0; i < devices.Length; i++)
             {
                 if (devices[i])
                 {
                     initialLine += Delimiter + this.GetDocumentationInfo(i);
+                }
+                else
+                {
+                    initialLine += Delimiter + "-";
                 }
                 
             }
@@ -241,5 +253,6 @@ namespace CryostatControlServer.Logging
             }
             return info;
         }
+
     }
 }

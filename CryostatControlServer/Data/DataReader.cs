@@ -40,7 +40,7 @@ namespace CryostatControlServer.Data
             LakeShore.LakeShore lakeShore)
         {
             this.compressor = compressor;
-            this.sensors = new SensorArray(this.compressor, he7Cooler, lakeShore).GetSensorArray();
+//            this.sensors = new SensorArray(this.compressor, he7Cooler, lakeShore).GetSensorArray();
         }
 
         /// <summary>
@@ -54,30 +54,30 @@ namespace CryostatControlServer.Data
             {
                 data[i] = double.MinValue;
             }
+             this.FillWithMockData(data);
+//            try
+//            {
+//                this.FillDataWithSensor(data);
+//            }
+//            catch (Exception e)
+//            {
+//                Console.WriteLine("Sensor data could not be filled");
+//#if DEBUG
+//                Console.WriteLine("thrown exception: {0}", e);
+//#endif
+//            }
 
-            try
-            {
-                this.FillDataWithSensor(data);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Sensor data could not be filled");
-#if DEBUG
-                Console.WriteLine("thrown exception: {0}", e);
-#endif
-            }
-
-            try
-            {
-                this.FillCompressorData(data);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Compressor data could not be filled");
-#if DEBUG
-                Console.WriteLine("thrown exception: {0}", e);
-#endif
-            }
+//            try
+//            {
+//                this.FillCompressorData(data);
+//            }
+//            catch (Exception e)
+//            {
+//                Console.WriteLine("Compressor data could not be filled");
+//#if DEBUG
+//                Console.WriteLine("thrown exception: {0}", e);
+//#endif
+//            }
 
             return data;
         }
