@@ -41,14 +41,16 @@ namespace CryostatControlServer.Logging
         /// <param name="currentDateTime">
         /// The current Date Time.
         /// </param>
+        /// <param name="mainFolderPath">
+        /// The main Folder Path.
+        /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string CreateFolder(DateTime currentDateTime)
+        public string CreateFolder(DateTime currentDateTime, string mainFolderPath)
         {
             string year = currentDateTime.Year.ToString();
             string month = currentDateTime.Month.ToString();
-            string mainFolderPath = @"c:/Logging/Specific";
             string newFolderName = year + "/" + month + "/";
             string pathToNewFolder = System.IO.Path.Combine(mainFolderPath, newFolderName);
 
@@ -59,18 +61,18 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// Create a file.
         /// </summary>
-        /// <param name="folderPath">
-        /// The folder path.
-        /// </param>
         /// <param name="currentDateTime">
         /// The current Date Time.
+        /// </param>
+        /// <param name="mainFolderPath">
+        /// The main Folder Path.
         /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string CreateFile(DateTime currentDateTime)
+        public string CreateFile(DateTime currentDateTime, string mainFolderPath)
         {
-            string folderPath = this.CreateFolder(currentDateTime);
+            string folderPath = this.CreateFolder(currentDateTime, mainFolderPath);
             string day = currentDateTime.Day.ToString();
             string fileName = day + ".csv";
             string actualPathToFile = System.IO.Path.Combine(folderPath, fileName);
@@ -126,12 +128,12 @@ namespace CryostatControlServer.Logging
         /// <param name="devices">
         /// The devices.
         /// </param>
-        public void WriteInitialLine(string pathToFile, double[] devices)
+        public void WriteInitialLine(string pathToFile, bool[] devices)
         {
             string initialLine = "Time";
             for (int i = 0; i < devices.Length; i++)
             {
-                if ((int)devices[i] == 1)
+                if (devices[i])
                 {
                     initialLine += Delimiter + this.GetDocumentationInfo(i);
                 }

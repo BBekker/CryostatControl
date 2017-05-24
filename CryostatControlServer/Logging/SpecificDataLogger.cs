@@ -22,45 +22,16 @@ namespace CryostatControlServer.Logging
     public class SpecificDataLogger : AbstractLogData
     {
 
-        private double[] toBeLoggedOrNotToBeLogged;
+        private bool[] toBeLoggedOrNotToBeLogged;
 
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SpecificDataLogger"/> class.
         /// </summary>
-        public SpecificDataLogger(DataReader dataReader, double[] toBeLoggedOrNotToBeLogged)
-        {
-            DateTime localDate = DateTime.Now;
-            string year = localDate.Year.ToString();
-            string month = localDate.Month.ToString();
-            string day = localDate.Day.ToString();
-
-            string folderPath = this.CreateFolder(year, month);
-            string filePath = this.CreateFile(folderPath, day);
+        public SpecificDataLogger(DataReader dataReader, bool[] toBeLoggedOrNotToBeLogged)
+        {  
             this.toBeLoggedOrNotToBeLogged = toBeLoggedOrNotToBeLogged;
 
-        }
-
-        /// <summary>
-        /// The create folder.
-        /// </summary>
-        /// <param name="year">
-        /// The year.
-        /// </param>
-        /// <param name="month">
-        /// The month.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public new string CreateFolder(string year, string month)
-        {
-            string mainFolderPath = @"c:/Logging/Specific";
-            string newFolderName = year + "/" + month + "/";
-            string pathToNewFolder = System.IO.Path.Combine(mainFolderPath, newFolderName);
-
-            System.IO.Directory.CreateDirectory(pathToNewFolder);
-            return pathToNewFolder;
         }
 
         /// <summary>

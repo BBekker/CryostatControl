@@ -24,40 +24,6 @@ namespace CryostatControlServer.Logging
         public AllDataLogger(DataReader dataReader)
         {
             this.dataReader = dataReader;
-
-            DateTime localDate = DateTime.Now;
-            string year = localDate.Year.ToString();
-            string month = localDate.Month.ToString();
-            string day = localDate.Day.ToString();
-
-            string folderPath = this.CreateFolder(year, month);
-            string filePath = this.CreateFile(folderPath, day);
-            this.WriteAllData(filePath);
-        }
-
-        /// <summary>
-        /// Create general folder.
-        /// </summary>
-        /// <param name="year">
-        /// The year.
-        /// </param>
-        /// <param name="month">
-        /// The month.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public new string CreateFolder(DateTime currentDateTime)
-        {
-
-            string year = currentDateTime.Year.ToString();
-            string month = currentDateTime.Month.ToString();
-            string mainFolderPath = @"c:/Logging/General";
-            string newFolderName = year + "/" + month + "/";
-            string pathToNewFolder = System.IO.Path.Combine(mainFolderPath, newFolderName);
-
-            System.IO.Directory.CreateDirectory(pathToNewFolder);
-            return pathToNewFolder;
         }
 
         /// <summary>
@@ -69,13 +35,25 @@ namespace CryostatControlServer.Logging
         public void WriteAllData(string path)
         {
             double[] data = this.dataReader.GetDataArray();
-            double[] devices = new double[(int)DataEnumerator.DataLength];
+            bool[] toBeLoggedOrNotToBeLogged = this.CreateArrayWithOnlyTrue();
+            this.WriteInitialLine(path, toBeLoggedOrNotToBeLogged);
+            this.WriteDataToFile(path, data);
+        }
+
+        /// <summary>
+        /// The create array with only true.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool[]"/>.
+        /// </returns>
+        public bool[] CreateArrayWithOnlyTrue()
+        {
+            bool[] devices = new bool[(int)DataEnumerator.DataLength];
             for (int i = 0; i < devices.Length; i++)
             {
-                devices[i] = 1;
+                devices[i] = true;
             }
-            this.WriteInitialLine(path, devices);
-            this.WriteDataToFile(path, data);
+            return devices;
         }
     }
 }
