@@ -52,6 +52,8 @@ namespace CryostatControlServer.Data
 
         LakeHeater = 29,
 
-        DataLength = 30
+        ComOperationState = 30,
+
+        DataLength = 31
     }
 }

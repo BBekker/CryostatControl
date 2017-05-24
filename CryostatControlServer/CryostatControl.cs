@@ -6,7 +6,9 @@
 namespace CryostatControlServer
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
+    using CryostatControlServer.Compressor;
     using CryostatControlServer.Data;
     using CryostatControlServer.HostService.Enumerators;
 
@@ -196,6 +198,10 @@ namespace CryostatControlServer
         /// <returns>
         /// True if successfully executed <see cref="bool"/>.
         /// </returns>
+        [SuppressMessage(
+            "StyleCop.CSharp.DocumentationRules",
+            "SA1650:ElementDocumentationMustBeSpelledCorrectly",
+            Justification = "Reviewed. Suppression is OK here.")]
         public bool SetBlueforsHeater(bool status)
         {
             if (!this.ManualControl)
