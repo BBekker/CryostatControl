@@ -76,6 +76,11 @@ namespace CryostatControlServer
         CooldownCondenseHe3,
 
         /// <summary>
+        /// Wait for He3 heater to reach the set point. Should always immediately skip.
+        /// </summary>
+        CooldownWaitHe3Heater,
+
+        /// <summary>
         /// disable he3 pump heater
         /// </summary>
         CooldownDisableHe3PumpHeater,
@@ -121,5 +126,6 @@ namespace CryostatControlServer
         /// Cancel the current action and go back to standby.
         /// </summary>
         CancelAll,
+
     }
 }

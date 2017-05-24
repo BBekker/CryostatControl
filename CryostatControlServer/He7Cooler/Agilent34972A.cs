@@ -95,6 +95,17 @@ namespace CryostatControlServer.He7Cooler
         }
 
         /// <summary>
+        /// The is connected.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool IsConnected()
+        {
+            return this.connection.IsConnected();
+        }
+
+        /// <summary>
         /// Initializes the specified IP address.
         /// </summary>
         /// <param name="ipAddress">The IP address.</param>
@@ -128,6 +139,17 @@ namespace CryostatControlServer.He7Cooler
         public void Disconnect()
         {
             this.connection.Close();
+        }
+
+        /// <summary>
+        /// Try to reopen a disconnected connection.
+        /// Throws all sorts of exceptions
+        /// </summary>
+        public void Reopen()
+        {
+            this.connection.Open();
+            this.connection.WriteString("FORM:READ:CHAN ON\n");
+            this.CheckState();
         }
 
         /// <summary>

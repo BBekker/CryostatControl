@@ -23,17 +23,22 @@ namespace CryostatControlServer.He7Cooler
     /// </summary>
     public partial class He7Cooler
     {
-        #region Fields
-
         /// <summary>
         /// The interval between voltage samples
         /// </summary>
-        private const int ReadInterval = 100;
+        private const int ReadInterval = 1000;
 
         /// <summary>
         /// The connected device.
         /// </summary>
         private Agilent34972A device = new Agilent34972A();
+
+        private string ip = string.Empty;
+
+        /// <summary>
+        /// Is the sampling of voltages started.
+        /// </summary>
+        private bool isStarted = false;
 
         /// <summary>
         /// The amount of sensor readers per channel.
@@ -41,23 +46,14 @@ namespace CryostatControlServer.He7Cooler
         private Dictionary<Channels, int> readersPerChannel = new Dictionary<Channels, int>();
 
         /// <summary>
-        /// The current voltage of each channel.
-        /// </summary>
-        private Dictionary<Channels, double> values = new Dictionary<Channels, double>();
-
-        /// <summary>
         /// The thread reading voltages.
         /// </summary>
         private Thread readThread;
 
         /// <summary>
-        /// Is the sampling of voltages started.
+        /// The current voltage of each channel.
         /// </summary>
-        private bool isStarted = false;
-
-        #endregion Fields
-
-        #region Constructors
+        private Dictionary<Channels, double> values = new Dictionary<Channels, double>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="He7Cooler"/> class.
@@ -88,53 +84,10 @@ namespace CryostatControlServer.He7Cooler
             this.He3Switch.SafeRangeHigh = Settings.Default.He3SwitchMaxVoltage;
         }
 
-        #endregion Constructors
-
-        #region Sensors
-
-        /// <summary>
-        /// Gets the he 3 pump temperature sensor.
-        /// </summary>
-        public Sensor He3PumpT { get; private set; }
-
-        /// <summary>
-        /// Gets the he 4 pump temperature sensor.
-        /// </summary>
-        public Sensor He4PumpT { get; private set; }
-
-        /// <summary>
-        /// Gets the he 4 switch temperature sensor.
-        /// </summary>
-        public Sensor He4SwitchT { get; private set; }
-
-        /// <summary>
-        /// Gets the he 3 switch temperature sensor.
-        /// </summary>
-        public Sensor He3SwitchT { get; private set; }
-
-        /// <summary>
-        /// Gets the plate 4k temperature sensor.
-        /// </summary>
-        public Sensor Plate4KT { get; private set; }
-
-        /// <summary>
-        /// Gets the plate 2k temperature sensor.
-        /// </summary>
-        public Sensor Plate2KT { get; private set; }
-
-        /// <summary>
-        /// Gets the he 4 head temperature sensor.
-        /// </summary>
-        public Sensor He4HeadT { get; private set; }
-
         /// <summary>
         /// Gets the he 3 head temperature sensor.
         /// </summary>
         public Sensor He3HeadT { get; private set; }
-
-        #endregion Sensors
-
-        #region Heaters
 
         /// <summary>
         /// Gets the he 3 pump.
@@ -142,9 +95,9 @@ namespace CryostatControlServer.He7Cooler
         public Heater He3Pump { get; private set; }
 
         /// <summary>
-        /// Gets the he 4 pump.
+        /// Gets the he 3 pump temperature sensor.
         /// </summary>
-        public Heater He4Pump { get; private set; }
+        public Sensor He3PumpT { get; private set; }
 
         /// <summary>
         /// Gets the he 3 switch.
@@ -152,13 +105,44 @@ namespace CryostatControlServer.He7Cooler
         public Heater He3Switch { get; private set; }
 
         /// <summary>
+        /// Gets the he 3 switch temperature sensor.
+        /// </summary>
+        public Sensor He3SwitchT { get; private set; }
+
+        /// <summary>
+        /// Gets the he 4 head temperature sensor.
+        /// </summary>
+        public Sensor He4HeadT { get; private set; }
+
+        /// <summary>
+        /// Gets the he 4 pump.
+        /// </summary>
+        public Heater He4Pump { get; private set; }
+
+        /// <summary>
+        /// Gets the he 4 pump temperature sensor.
+        /// </summary>
+        public Sensor He4PumpT { get; private set; }
+
+        /// <summary>
         /// Gets the he 4 switch.
         /// </summary>
         public Heater He4Switch { get; private set; }
 
-        #endregion Heaters
+        /// <summary>
+        /// Gets the he 4 switch temperature sensor.
+        /// </summary>
+        public Sensor He4SwitchT { get; private set; }
 
-        #region Methods
+        /// <summary>
+        /// Gets the plate 2k temperature sensor.
+        /// </summary>
+        public Sensor Plate2KT { get; private set; }
+
+        /// <summary>
+        /// Gets the plate 4k temperature sensor.
+        /// </summary>
+        public Sensor Plate4KT { get; private set; }
 
         /// <summary>
         /// Connect to the Agilent device.
@@ -168,6 +152,7 @@ namespace CryostatControlServer.He7Cooler
         /// </param>
         public void Connect(string ip)
         {
+            this.ip = ip;
             this.device.Init(ip);
             this.isStarted = true;
             this.readThread = new Thread(this.MainLoop);
@@ -206,10 +191,17 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         public void ReadVoltages()
         {
-            Channels[] channels = this.readersPerChannel
-                .Where((pair) => pair.Value > 0)
-                .Select(pair => pair.Key)
-                .ToArray();
+            Channels[] channels;
+            Monitor.Enter(this.readersPerChannel);
+            try
+            {
+                channels = this.readersPerChannel.Where((pair) => pair.Value > 0).Select(pair => pair.Key).ToArray();
+            }
+            finally
+            {
+                Monitor.Exit(this.readersPerChannel);
+            }
+
             try
             {
                 double[] voltages = this.device.GetVoltages(channels);
@@ -239,6 +231,56 @@ namespace CryostatControlServer.He7Cooler
         }
 
         /// <summary>
+        /// The add channel.
+        /// </summary>
+        /// <param name="channel">
+        /// The channel.
+        /// </param>
+        protected void AddChannel(Channels channel)
+        {
+            Monitor.Enter(this.readersPerChannel);
+            try
+            {
+                if (!this.readersPerChannel.ContainsKey(channel))
+                {
+                    this.values.Add(channel, 0.0);
+                    this.readersPerChannel[channel] = 0;
+                }
+
+                this.readersPerChannel[channel]++;
+            }
+            finally
+            {
+                Monitor.Exit(this.readersPerChannel);
+            }
+        }
+
+        /// <summary>
+        /// The remove channel.
+        /// </summary>
+        /// <param name="channel">
+        /// The channel.
+        /// </param>
+        protected void RemoveChannel(Channels channel)
+        {
+            Monitor.Enter(this.readersPerChannel);
+            try
+            {
+                if (this.readersPerChannel.ContainsKey(channel))
+                {
+                    if (this.readersPerChannel[channel] > 0)
+                    {
+                        this.readersPerChannel[channel]--;
+                    }
+                }
+            }
+            finally
+            {
+                Monitor.Exit(this.readersPerChannel);
+            }
+        }
+
+        /// <summary>
         /// Set the voltage of a channel
         /// </summary>
         /// <param name="channel">
@@ -253,51 +295,39 @@ namespace CryostatControlServer.He7Cooler
         }
 
         /// <summary>
-        /// The add channel.
-        /// </summary>
-        /// <param name="channel">
-        /// The channel.
-        /// </param>
-        protected void AddChannel(Channels channel)
-        {
-            if (!this.readersPerChannel.ContainsKey(channel))
-            {
-                this.values.Add(channel, 0.0);
-                this.readersPerChannel[channel] = 0;
-            }
-
-            this.readersPerChannel[channel]++;
-        }
-
-        /// <summary>
-        /// The remove channel.
-        /// </summary>
-        /// <param name="channel">
-        /// The channel.
-        /// </param>
-        protected void RemoveChannel(Channels channel)
-        {
-            if (this.readersPerChannel.ContainsKey(channel))
-            {
-                if (this.readersPerChannel[channel] > 0)
-                {
-                    this.readersPerChannel[channel]--;
-                }
-            }
-        }
-
-        /// <summary>
         /// The main loop of the thread that reads voltages from the He7 cooler.
         /// </summary>
         private void MainLoop()
         {
             while (this.isStarted)
             {
-                this.ReadVoltages();
+                if (!this.device.IsConnected())
+                {
+                    Console.WriteLine("H7 cooler disconnected, trying to reconnect...");
+                    try
+                    {
+                        this.device.Disconnect();
+                    }
+                    catch (Exception e)
+                    {
+                    }
+
+                    try
+                    {
+                        this.device.Reopen();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Reconnecting failed");
+                    }
+                }
+                else
+                {
+                    this.ReadVoltages();
+                }
+
                 Thread.Sleep(ReadInterval);
             }
         }
-
-        #endregion Methods
     }
 }
