@@ -115,10 +115,14 @@ namespace CryostatControlServer.Data
                 data[(int)DataEnumerator.ComError] = (double)this.compressor.ReadErrorState();
                 data[(int)DataEnumerator.ComWarning] = (double)this.compressor.ReadWarningState();
                 data[(int)DataEnumerator.ComHoursOfOperation] = (double)this.compressor.ReadHoursOfOperation();
+                data[(int)DataEnumerator.ComOperationState] = (double)this.compressor.ReadOperatingState();
             }
             catch (Exception)
             {
+                data[(int)DataEnumerator.ComError] = float.NaN;
+                data[(int)DataEnumerator.ComWarning] = float.NaN;
                 data[(int)DataEnumerator.ComHoursOfOperation] = float.NaN;
+                data[(int)DataEnumerator.ComOperationState] = float.NaN;
             }
         }
 
@@ -141,15 +145,7 @@ namespace CryostatControlServer.Data
         /// <param name="data">The data.</param>
         private void FillConnectionData(double[] data)
         {
-            if (this.compressor.IsConnected())
-            {
-                data[(int)DataEnumerator.ComConnectionState] = (double)this.compressor.ReadOperatingState();
-            }
-            else
-            {
-                data[(int)DataEnumerator.ComConnectionState] = 2;
-            }
-
+            data[(int)DataEnumerator.ComConnectionState] = Convert.ToDouble(this.compressor.IsConnected());
             data[(int)DataEnumerator.HeConnectionState] = Convert.ToDouble(this.he7Cooler.IsConnected());
             if (this.lakeShore != null)
             {
