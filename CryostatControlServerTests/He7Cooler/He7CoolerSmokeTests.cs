@@ -16,6 +16,8 @@ namespace CryostatControlServerTests.He7Cooler
     [TestClass]
     public class He7CoolerSmokeTests
     {
+        #region Methods
+
         [TestMethod]
         public void SmokeTestInitialisation()
         {
@@ -59,7 +61,6 @@ namespace CryostatControlServerTests.He7Cooler
             mockH7.Setup(stream => stream.ReadString()).Returns(() => fakeresponser.RespondToRead());
             mockH7.Setup(stream => stream.IsConnected()).Returns(true);
 
-
             var agilent = new Agilent34972A();
             agilent.Init(mockH7.Object);
             var cooler = new CryostatControlServer.He7Cooler.He7Cooler();
@@ -79,7 +80,6 @@ namespace CryostatControlServerTests.He7Cooler
             cooler.Disconnect();
         }
 
-
         [TestMethod]
         public void SmokeTestReadValuesThreaded()
         {
@@ -92,7 +92,6 @@ namespace CryostatControlServerTests.He7Cooler
             mockH7.Setup(stream => stream.ReadString()).Returns(() => fakeresponser.RespondToRead());
             mockH7.Setup(stream => stream.IsConnected()).Returns(true);
 
-
             var agilent = new Agilent34972A();
             agilent.Init(mockH7.Object);
             var cooler = new CryostatControlServer.He7Cooler.He7Cooler();
@@ -100,7 +99,7 @@ namespace CryostatControlServerTests.He7Cooler
 
             fakeresponser.responsevalues[(int)Channels.SensHe3HeadT] = 0.2147;
             fakeresponser.responsevalues[(int)Channels.SensHe3Pump] = 5.0;
-            Thread.Sleep(1000);
+            Thread.Sleep(5000);
 
             Assert.AreEqual(5.0, cooler.He3Pump.Voltage);
 
@@ -109,5 +108,7 @@ namespace CryostatControlServerTests.He7Cooler
             cooler.Disconnect();
             Thread.Sleep(1);
         }
+
+        #endregion Methods
     }
 }
