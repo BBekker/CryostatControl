@@ -79,7 +79,7 @@ namespace CryostatControlClient.ViewModels
         #region Properties
 
         /// <summary>
-        /// Gets or sets the series collection.
+        /// Gets the series collection.
         /// </summary>
         /// <value>
         /// The series collection.
@@ -187,7 +187,7 @@ namespace CryostatControlClient.ViewModels
                                             this.he7ViewModel.He4SwitchLineSeries,
                                         };
 
-            this.xFormatter = val => new DateTime((long)val).ToString("HH:mm:ss");
+            this.xFormatter = val => new DateTime((long)val).ToString("HH:mm");
         }
 
         #endregion Properties

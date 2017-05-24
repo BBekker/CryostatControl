@@ -9,6 +9,8 @@
 
 namespace CryostatControlClient.ViewModels
 {
+    using System;
+
     using CryostatControlClient.Models;
 
     using LiveCharts;
@@ -44,7 +46,7 @@ namespace CryostatControlClient.ViewModels
         #region Properties
 
         /// <summary>
-        /// Gets the cold plate3 k line series.
+        /// Gets or sets the cold plate3 k line series.
         /// </summary>
         /// <value>
         /// The cold plate3 k line series.

@@ -18,7 +18,7 @@ namespace CryostatControlClient.Models
     /// <summary>
     /// Model for the He7-cooler.
     /// </summary>
-    public class He7Model
+    public class He7Model : AbstractModel
     {
         #region Fields
 
@@ -350,7 +350,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.fourKPlateTemp = value;
-                this.fourKPlateLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
+                this.AddToGraph(this.fourKPlateLineSeries, value);
             }
         }
 
@@ -402,7 +402,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3HeadTemp = value;
-                this.he3HeadLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
+                this.AddToGraph(this.he3HeadLineSeries, value);
             }
         }
 
@@ -438,7 +438,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3PumpTemp = value;
-                this.he3PumpLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
+                this.AddToGraph(this.he3PumpLineSeries, value);
             }
         }
 
@@ -506,7 +506,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3SwitchTemp = value;
-                this.he3SwitchLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
+                this.AddToGraph(this.he3SwitchLineSeries, value);
             }
         }
 
@@ -590,7 +590,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4HeadTemp = value;
-                this.he4HeadLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
+                this.AddToGraph(this.he4HeadLineSeries, value);
             }
         }
 
@@ -626,7 +626,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4PumpTemp = value;
-                this.he4PumpLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
+                this.AddToGraph(this.he4PumpLineSeries, value);
             }
         }
 
@@ -694,7 +694,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4SwitchTemp = value;
-                this.he4SwitchLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
+                this.AddToGraph(this.he4SwitchLineSeries, value);
             }
         }
 
@@ -778,7 +778,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.twoKPlateTemp = value;
-                this.twoKPlateLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
+                this.AddToGraph(this.twoKPlateLineSeries, value);
             }
         }
 

@@ -14,7 +14,7 @@ namespace CryostatControlClient.Models
     /// <summary>
     /// The Bluefors model
     /// </summary>
-    public class BlueforsModel
+    public class BlueforsModel : AbstractModel
     {
         #region Fields
 
@@ -110,7 +110,8 @@ namespace CryostatControlClient.Models
             set
             {
                 this.coldPlate3KTemp = value;
-                this.coldPlate3KLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
+                this.AddToGraph(this.coldPlate3KLineSeries, value);
+                
             }
         }
 
@@ -130,7 +131,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.coldPlate50KTemp = value;
-                this.coldPlate50KLineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
+                this.AddToGraph(this.coldPlate50KLineSeries, value);
             }
         }
 
