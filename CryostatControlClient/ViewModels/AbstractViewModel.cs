@@ -16,10 +16,16 @@ namespace CryostatControlClient.ViewModels
     /// </summary>
     public abstract class AbstractViewModel : INotifyPropertyChanged
     {
+        #region Events
+
         /// <summary>
         /// The property changed.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion Events
+
+        #region Methods
 
         /// <summary>
         /// Convert connection state number to string.
@@ -50,5 +56,7 @@ namespace CryostatControlClient.ViewModels
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #endregion Methods
     }
 }
