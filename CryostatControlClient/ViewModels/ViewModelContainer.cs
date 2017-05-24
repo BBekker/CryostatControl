@@ -9,16 +9,8 @@
 namespace CryostatControlClient.ViewModels
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Linq;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
 
     using LiveCharts;
-    using LiveCharts.Defaults;
-    using LiveCharts.Wpf;
 
     /// <summary>
     /// The data context.

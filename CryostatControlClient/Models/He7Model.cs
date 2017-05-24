@@ -13,6 +13,7 @@ namespace CryostatControlClient.Models
 
     using LiveCharts;
     using LiveCharts.Defaults;
+    using LiveCharts.Geared;
     using LiveCharts.Wpf;
 
     /// <summary>
@@ -25,42 +26,42 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The two k plate line series
         /// </summary>
-        private LineSeries twoKPlateLineSeries;
+        private GLineSeries twoKPlateLineSeries;
 
         /// <summary>
         /// The four k plate line series
         /// </summary>
-        private LineSeries fourKPlateLineSeries;
+        private GLineSeries fourKPlateLineSeries;
 
         /// <summary>
         /// The he3 head line series
         /// </summary>
-        private LineSeries he3HeadLineSeries;
+        private GLineSeries he3HeadLineSeries;
 
         /// <summary>
         /// The he3 pump line series
         /// </summary>
-        private LineSeries he3PumpLineSeries;
+        private GLineSeries he3PumpLineSeries;
 
         /// <summary>
         /// The he3 switch line series
         /// </summary>
-        private LineSeries he3SwitchLineSeries;
+        private GLineSeries he3SwitchLineSeries;
 
         /// <summary>
         /// The he4 head line series
         /// </summary>
-        private LineSeries he4HeadLineSeries;
+        private GLineSeries he4HeadLineSeries;
 
         /// <summary>
         /// The he4 pump line series
         /// </summary>
-        private LineSeries he4PumpLineSeries;
+        private GLineSeries he4PumpLineSeries;
 
         /// <summary>
         /// The he4 switch line series
         /// </summary>
-        private LineSeries he4SwitchLineSeries;
+        private GLineSeries he4SwitchLineSeries;
 
         /// <summary>
         /// The four k plate temperature
@@ -206,16 +207,16 @@ namespace CryostatControlClient.Models
         /// </summary>
         public He7Model()
         {
-            this.twoKPlateLineSeries = new LineSeries { Title = "He7 - 2K Plate", Values = new ChartValues<DateTimePoint>() };
-            this.fourKPlateLineSeries = new LineSeries { Title = "He7 - 4K Plate", Values = new ChartValues<DateTimePoint>() };
+            this.twoKPlateLineSeries = new GLineSeries { Title = "He7 - 2K Plate", Values = new GearedValues<DateTimePoint>() };
+            this.fourKPlateLineSeries = new GLineSeries { Title = "He7 - 4K Plate", Values = new GearedValues<DateTimePoint>() };
 
-            this.he3HeadLineSeries = new LineSeries { Title = "He7 - He3 Head", Values = new ChartValues<DateTimePoint>() };
-            this.he3PumpLineSeries = new LineSeries { Title = "He7 - He3 Pump", Values = new ChartValues<DateTimePoint>() };
-            this.he3SwitchLineSeries = new LineSeries { Title = "He7 - He3 Switch", Values = new ChartValues<DateTimePoint>() };
+            this.he3HeadLineSeries = new GLineSeries { Title = "He7 - He3 Head", Values = new GearedValues<DateTimePoint>() };
+            this.he3PumpLineSeries = new GLineSeries { Title = "He7 - He3 Pump", Values = new GearedValues<DateTimePoint>() };
+            this.he3SwitchLineSeries = new GLineSeries { Title = "He7 - He3 Switch", Values = new GearedValues<DateTimePoint>() };
 
-            this.he4HeadLineSeries = new LineSeries { Title = "He7 - He4 Head", Values = new ChartValues<DateTimePoint>() };
-            this.he4PumpLineSeries = new LineSeries { Title = "He7 - He4 Pump", Values = new ChartValues<DateTimePoint>() };
-            this.he4SwitchLineSeries = new LineSeries { Title = "He7 - He4 Switch", Values = new ChartValues<DateTimePoint>() };
+            this.he4HeadLineSeries = new GLineSeries { Title = "He7 - He4 Head", Values = new GearedValues<DateTimePoint>() };
+            this.he4PumpLineSeries = new GLineSeries { Title = "He7 - He4 Pump", Values = new GearedValues<DateTimePoint>() };
+            this.he4SwitchLineSeries = new GLineSeries { Title = "He7 - He4 Switch", Values = new GearedValues<DateTimePoint>() };
     }
 
         #endregion Constructor
@@ -228,7 +229,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he4 switch line series.
         /// </value>
-        public LineSeries He4SwitchLineSeries
+        public GLineSeries He4SwitchLineSeries
         {
             get
             {
@@ -242,7 +243,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he4 pump line series.
         /// </value>
-        public LineSeries He4PumpLineSeries
+        public GLineSeries He4PumpLineSeries
         {
             get
             {
@@ -256,7 +257,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he4 head line series.
         /// </value>
-        public LineSeries He4HeadLineSeries
+        public GLineSeries He4HeadLineSeries
         {
             get
             {
@@ -270,7 +271,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he3 switch line series.
         /// </value>
-        public LineSeries He3SwitchLineSeries
+        public GLineSeries He3SwitchLineSeries
         {
             get
             {
@@ -284,7 +285,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he3 pump line series.
         /// </value>
-        public LineSeries He3PumpLineSeries
+        public GLineSeries He3PumpLineSeries
         {
             get
             {
@@ -298,7 +299,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he3 head line series.
         /// </value>
-        public LineSeries He3HeadLineSeries
+        public GLineSeries He3HeadLineSeries
         {
             get
             {
@@ -312,7 +313,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The two k plat line series.
         /// </value>
-        public LineSeries TwoKPlateLineSeries
+        public GLineSeries TwoKPlateLineSeries
         {
             get
             {
@@ -326,7 +327,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The four k plate line series.
         /// </value>
-        public LineSeries FourKPlateLineSeries
+        public GLineSeries FourKPlateLineSeries
         {
             get
             {

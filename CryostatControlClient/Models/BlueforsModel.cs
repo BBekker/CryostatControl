@@ -9,6 +9,7 @@ namespace CryostatControlClient.Models
 
     using LiveCharts;
     using LiveCharts.Defaults;
+    using LiveCharts.Geared;
     using LiveCharts.Wpf;
 
     /// <summary>
@@ -31,12 +32,12 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The cold plate3 k line series
         /// </summary>
-        private LineSeries coldPlate3KLineSeries;
+        private GLineSeries coldPlate3KLineSeries;
 
         /// <summary>
         /// The cold plate50 k line series
         /// </summary>
-        private LineSeries coldPlate50KLineSeries;
+        private GLineSeries coldPlate50KLineSeries;
 
         /// <summary>
         /// The connection state.
@@ -57,8 +58,8 @@ namespace CryostatControlClient.Models
         /// </summary>
         public BlueforsModel()
         {
-            this.coldPlate3KLineSeries = new LineSeries { Title = "Bluefors - 3K Plate", Values = new ChartValues<DateTimePoint>() };
-            this.coldPlate50KLineSeries = new LineSeries { Title = "Bluefors - 50K Plate", Values = new ChartValues<DateTimePoint>() };
+            this.coldPlate3KLineSeries = new GLineSeries { Title = "Bluefors - 3K Plate", Values = new GearedValues<DateTimePoint>() };
+            this.coldPlate50KLineSeries = new GLineSeries { Title = "Bluefors - 50K Plate", Values = new GearedValues<DateTimePoint>() };
         }
 
         #endregion Constructor
@@ -72,7 +73,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The cold plate 3 k line series.
         /// </value>
-        public LineSeries ColdPlate3KLineSeries
+        public GLineSeries ColdPlate3KLineSeries
         {
             get
             {
@@ -86,7 +87,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The cold plate 50 k line series.
         /// </value>
-        public LineSeries ColdPlate50KLineSeries
+        public GLineSeries ColdPlate50KLineSeries
         {
             get
             {

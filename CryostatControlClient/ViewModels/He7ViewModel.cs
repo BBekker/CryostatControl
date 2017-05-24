@@ -13,6 +13,7 @@ namespace CryostatControlClient.ViewModels
 
     using CryostatControlClient.Models;
 
+    using LiveCharts.Geared;
     using LiveCharts.Wpf;
 
     /// <summary>
@@ -56,7 +57,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The he4 switch line series.
         /// </value>
-        public LineSeries He4SwitchLineSeries
+        public GLineSeries He4SwitchLineSeries
         {
             get
             {
@@ -70,7 +71,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The he4 pump line series.
         /// </value>
-        public LineSeries He4PumpLineSeries
+        public GLineSeries He4PumpLineSeries
         {
             get
             {
@@ -84,7 +85,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The he4 head line series.
         /// </value>
-        public LineSeries He4HeadLineSeries
+        public GLineSeries He4HeadLineSeries
         {
             get
             {
@@ -98,7 +99,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The he3 switch line series.
         /// </value>
-        public LineSeries He3SwitchLineSeries
+        public GLineSeries He3SwitchLineSeries
         {
             get
             {
@@ -112,7 +113,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The he3 pump line series.
         /// </value>
-        public LineSeries He3PumpLineSeries
+        public GLineSeries He3PumpLineSeries
         {
             get
             {
@@ -126,7 +127,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The he3 head line series.
         /// </value>
-        public LineSeries He3HeadLineSeries
+        public GLineSeries He3HeadLineSeries
         {
             get
             {
@@ -140,7 +141,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The two k plat line series.
         /// </value>
-        public LineSeries TwoKPlatLineSeries
+        public GLineSeries TwoKPlatLineSeries
         {
             get
             {
@@ -154,7 +155,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The four k plate line series.
         /// </value>
-        public LineSeries FourKPlateLineSeries
+        public GLineSeries FourKPlateLineSeries
         {
             get
             {
