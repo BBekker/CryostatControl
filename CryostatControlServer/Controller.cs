@@ -58,7 +58,12 @@ namespace CryostatControlServer
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Controller"/> class.
+        /// The start time.
+        /// </summary>
+        private DateTime startTime = DateTime.Now;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Controller"/> class. 
         /// </summary>
         /// <param name="cooler">
         /// The cooler.
@@ -322,10 +327,11 @@ namespace CryostatControlServer
         /// Starts the cool down id possible.
         /// </summary>
         /// <returns>true if cool down is started, false otherwise</returns>
-        public bool StartCooldown()
+        public bool StartCooldown(DateTime startTime)
         {
             if (this.State == Controlstate.Standby)
             {
+                this.startTime = startTime;
                 this.State = Controlstate.CooldownStart;
                 return true;
             }
@@ -530,7 +536,11 @@ namespace CryostatControlServer
                 case Controlstate.Manual: break;
 
                 case Controlstate.CooldownStart:
-                    this.State = Controlstate.CooldownWaitForPressure;
+                    this.lakeshore.SetHeater(false);
+                    if (DateTime.Now > this.startTime)
+                    {
+                        this.State = Controlstate.CooldownWaitForPressure;
+                    }
                     break;
 
                 case Controlstate.CooldownWaitForPressure:
@@ -653,8 +663,7 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.WarmupStart:
-
-                    // TODO: start Lakeshore heater?
+                    this.lakeshore.SetHeater(true);
                     this.compressor.TurnOff();
                     break;
 
@@ -710,6 +719,8 @@ namespace CryostatControlServer
                         this.cooler.He4Switch.Voltage = 0.0;
                         this.compressor.TurnOff();
                     }
+
+                    this.lakeshore.SetHeater(false);
 
                     this.State = Controlstate.Standby;
                     break;

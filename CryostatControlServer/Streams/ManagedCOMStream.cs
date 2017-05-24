@@ -84,7 +84,7 @@ namespace CryostatControlServer.Streams
                     };
             this.serialPort.Open();
             this.ContainedStream = this.serialPort.BaseStream;
-
+            this.ContainedStream.ReadTimeout = 2000;
             this.Init();
         }
     }

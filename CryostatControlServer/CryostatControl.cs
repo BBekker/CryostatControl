@@ -134,7 +134,21 @@ namespace CryostatControlServer
         /// <returns>true if cool down is started, false otherwise</returns>
         public bool StartCooldown()
         {
-            return this.controller.StartCooldown();
+            return this.controller.StartCooldown(DateTime.Now);
+        }
+
+        /// <summary>
+        /// Starts the cool down id possible.
+        /// </summary>
+        /// <param name="time">
+        /// The time.
+        /// </param>
+        /// <returns>
+        /// true if cool down is started, false otherwise
+        /// </returns>
+        public bool StartCooldown(string time)
+        {
+            return this.controller.StartCooldown(DateTime.Parse(time));
         }
 
         /// <summary>
@@ -173,6 +187,26 @@ namespace CryostatControlServer
         public double[] ReadData()
         {
             return this.dataReader.GetDataArray();
+        }
+
+        /// <summary>
+        /// Turn bluefors heater on or off.
+        /// </summary>
+        /// <param name="status">
+        /// The status.
+        /// </param>
+        /// <returns>
+        /// True if successfully executed <see cref="bool"/>.
+        /// </returns>
+        public bool SetBlueforsHeater(bool status)
+        {
+            if (!this.ManualControl)
+            {
+                return false;
+            }
+
+            this.lakeShore.SetHeater(true);
+            return true;
         }
 
         /// <summary>
