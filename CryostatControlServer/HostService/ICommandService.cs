@@ -142,6 +142,11 @@ namespace CryostatControlServer.HostService
         [OperationContract]
         double[] ReadSettings();
 
+        /// <summary>
+        /// Sets the bluefors heater.
+        /// </summary>
+        /// <param name="status">if set to <c>true</c> [status].</param>
+        /// <returns>if the value could be set</returns>
         [OperationContract]
         bool SetBlueforsHeater(bool status);
 

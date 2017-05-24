@@ -24,6 +24,16 @@ namespace CryostatControlServer.Data
         /// </summary>
         private readonly Compressor.Compressor compressor;
 
+        /// <summary>
+        /// The he7 cooler
+        /// </summary>
+        private readonly He7Cooler.He7Cooler he7Cooler;
+
+        /// <summary>
+        /// The lake shore
+        /// </summary>
+        private readonly LakeShore.LakeShore lakeShore;
+
         #endregion Fields
 
         #region Methods
@@ -40,6 +50,8 @@ namespace CryostatControlServer.Data
             LakeShore.LakeShore lakeShore)
         {
             this.compressor = compressor;
+            this.he7Cooler = he7Cooler;
+            this.lakeShore = lakeShore;
             this.sensors = new SensorArray(this.compressor, he7Cooler, lakeShore).GetSensorArray();
         }
 
@@ -55,28 +67,16 @@ namespace CryostatControlServer.Data
                 data[i] = double.MinValue;
             }
 
-            try
-            {
-                this.FillDataWithSensor(data);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Sensor data could not be filled");
-#if DEBUG
-                Console.WriteLine("thrown exception: {0}", e);
-#endif
-            }
+            this.FillConnectionData(data);
+            this.FillDataWithSensor(data);
+            this.FillCompressorData(data);
 
-            try
+            if (!this.he7Cooler.IsConnected())
             {
-                this.FillCompressorData(data);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Compressor data could not be filled");
-#if DEBUG
-                Console.WriteLine("thrown exception: {0}", e);
-#endif
+                for (int i = 10; i < (int)DataEnumerator.SensorAmount; i++)
+                {
+                    data[i] = float.NaN;
+                }
             }
 
             return data;
@@ -90,7 +90,17 @@ namespace CryostatControlServer.Data
         {
             for (int i = 0; i < (int)DataEnumerator.SensorAmount; i++)
             {
-                data[i] = this.sensors[i].Value;
+                try
+                {
+                    data[i] = this.sensors[i].Value;
+                }
+                catch (Exception)
+                {
+                    data[i] = float.NaN;
+#if DEBUG
+                    Console.WriteLine("Could not read sensor {0}", i);
+#endif
+                }
             }
         }
 
@@ -100,9 +110,20 @@ namespace CryostatControlServer.Data
         /// <param name="data">The data.</param>
         private void FillCompressorData(double[] data)
         {
-            data[(int)DataEnumerator.ComError] = (double)this.compressor.ReadErrorState();
-            data[(int)DataEnumerator.ComWarning] = (double)this.compressor.ReadWarningState();
-            data[(int)DataEnumerator.ComHoursOfOperation] = (double)this.compressor.ReadHoursOfOperation();
+            try
+            {
+                data[(int)DataEnumerator.ComError] = (double)this.compressor.ReadErrorState();
+                data[(int)DataEnumerator.ComWarning] = (double)this.compressor.ReadWarningState();
+                data[(int)DataEnumerator.ComHoursOfOperation] = (double)this.compressor.ReadHoursOfOperation();
+                data[(int)DataEnumerator.ComOperationState] = (double)this.compressor.ReadOperatingState();
+            }
+            catch (Exception)
+            {
+                data[(int)DataEnumerator.ComError] = float.NaN;
+                data[(int)DataEnumerator.ComWarning] = float.NaN;
+                data[(int)DataEnumerator.ComHoursOfOperation] = float.NaN;
+                data[(int)DataEnumerator.ComOperationState] = float.NaN;
+            }
         }
 
         /// <summary>
@@ -115,6 +136,24 @@ namespace CryostatControlServer.Data
             for (int i = 0; i < data.Length; i++)
             {
                 data[i] = random.NextDouble();
+            }
+        }
+
+        /// <summary>
+        /// Fills the connection data.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        private void FillConnectionData(double[] data)
+        {
+            data[(int)DataEnumerator.ComConnectionState] = Convert.ToDouble(this.compressor.IsConnected());
+            data[(int)DataEnumerator.HeConnectionState] = Convert.ToDouble(this.he7Cooler.IsConnected());
+            if (this.lakeShore != null)
+            {
+                data[(int)DataEnumerator.LakeConnectionState] = Convert.ToDouble(this.lakeShore.OPC());
+            }
+            else
+            {
+                data[(int)DataEnumerator.LakeConnectionState] = 0;
             }
         }
 

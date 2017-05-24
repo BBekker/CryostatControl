@@ -90,6 +90,7 @@ namespace CryostatControlClient.Communication
             viewModelContainer.CompressorViewModel.ErrorState = data[(int)DataEnumerator.ComError];
             viewModelContainer.CompressorViewModel.WarningState = data[(int)DataEnumerator.ComWarning];
             viewModelContainer.CompressorViewModel.HoursOfOperation = data[(int)DataEnumerator.ComHoursOfOperation];
+            viewModelContainer.CompressorViewModel.OperatingState = data[(int)DataEnumerator.ComOperationState];
         }
 
         /// <summary>
