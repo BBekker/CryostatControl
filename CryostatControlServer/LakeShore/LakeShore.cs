@@ -153,12 +153,34 @@ namespace CryostatControlServer.LakeShore
             {
                 Monitor.Enter(this.stream);
                 this.WaitCommandInterval();
-                this.stream.WriteString("RANGE A," + (turnOn ? "3" : "0") + "\n");
+                this.stream.WriteString("RANGE 1," + (turnOn ? "3" : "0") + "\n");
             }
             finally
             {
                 Monitor.Exit(this.stream);
             }
+        }
+
+        /// <summary>
+        /// The set heater.
+        /// </summary>
+        /// <returns>
+        /// The power percentage from 0 to 100 <see cref="double"/>.
+        /// </returns>
+        public double GetHeaterPower()
+        {
+            try
+            {
+                Monitor.Enter(this.stream);
+                this.WaitCommandInterval();
+                this.stream.WriteString("HTR? 1\n");
+                return double.Parse(this.stream.ReadString());
+            }
+            finally
+            {
+                Monitor.Exit(this.stream);
+            }
+            return -1;
         }
 
         /// <summary>
