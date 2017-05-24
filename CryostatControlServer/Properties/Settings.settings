@@ -36,7 +36,7 @@
       <Value Profile="(Default)">15</Value>
     </Setting>
     <Setting Name="ControllerHeatSwitchSafeValue" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">9</Value>
+      <Value Profile="(Default)">15</Value>
     </Setting>
     <Setting Name="ControllerHeatupTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">50</Value>

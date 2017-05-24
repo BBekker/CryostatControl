@@ -157,7 +157,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("9")]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
         public double ControllerHeatSwitchSafeValue {
             get {
                 return ((double)(this["ControllerHeatSwitchSafeValue"]));
