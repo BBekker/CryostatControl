@@ -3,7 +3,7 @@
 //      Copyright (c) SRON. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
-namespace CryostatControlServer
+namespace CryostatControlServer.Data
 {
     /// <summary>
     /// Empty sensor class, as placeholder when a sensor cannot be initialized.

@@ -1,193 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8080/SRON?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-  <xs:element name="IsAlive">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="IsAliveResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="IsAliveResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="Cooldown">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="CooldownResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="CooldownResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="Recycle">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RecycleResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="RecycleResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="Warmup">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="WarmupResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="WarmupResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="Manual">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ManualResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ManualResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="Cancel">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="CancelResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="CancelResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetState">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetStateResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="GetStateResult" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SetCompressorState">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="status" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SetCompressorStateResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="SetCompressorStateResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="WriteHelium7">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="values" nillable="true" type="q1:ArrayOfdouble" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="WriteHelium7Response">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="WriteHelium7Result" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ReadCompressorTemperatureScale">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ReadCompressorTemperatureScaleResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ReadCompressorTemperatureScaleResult" type="xs:double" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ReadCompressorPressureScale">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ReadCompressorPressureScaleResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ReadCompressorPressureScaleResult" type="xs:double" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="WriteSettingValue">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="setting" type="xs:int" />
-        <xs:element minOccurs="0" name="value" type="xs:double" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="WriteSettingValueResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="WriteSettingValueResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ReadSettings">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ReadSettingsResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ReadSettingsResult" nillable="true" type="q2:ArrayOfdouble" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SubscribeForData">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="interval" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="UnsubscribeForData">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SendData">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="data" nillable="true" type="q3:ArrayOfdouble" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SendModus">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="modus" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+<xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="anyType" nillable="true" type="xs:anyType" />
+  <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+  <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+  <xs:element name="boolean" nillable="true" type="xs:boolean" />
+  <xs:element name="byte" nillable="true" type="xs:byte" />
+  <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+  <xs:element name="decimal" nillable="true" type="xs:decimal" />
+  <xs:element name="double" nillable="true" type="xs:double" />
+  <xs:element name="float" nillable="true" type="xs:float" />
+  <xs:element name="int" nillable="true" type="xs:int" />
+  <xs:element name="long" nillable="true" type="xs:long" />
+  <xs:element name="QName" nillable="true" type="xs:QName" />
+  <xs:element name="short" nillable="true" type="xs:short" />
+  <xs:element name="string" nillable="true" type="xs:string" />
+  <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+  <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+  <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+  <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+  <xs:element name="char" nillable="true" type="tns:char" />
+  <xs:simpleType name="char">
+    <xs:restriction base="xs:int" />
+  </xs:simpleType>
+  <xs:element name="duration" nillable="true" type="tns:duration" />
+  <xs:simpleType name="duration">
+    <xs:restriction base="xs:duration">
+      <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+      <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+      <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="guid" nillable="true" type="tns:guid" />
+  <xs:simpleType name="guid">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:attribute name="FactoryType" type="xs:QName" />
+  <xs:attribute name="Id" type="xs:ID" />
+  <xs:attribute name="Ref" type="xs:IDREF" />
 </xs:schema>

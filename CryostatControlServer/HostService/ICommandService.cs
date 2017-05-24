@@ -33,6 +33,18 @@ namespace CryostatControlServer.HostService
         bool Cooldown();
 
         /// <summary>
+        /// Start cool down process timed
+        /// </summary>
+        /// <param name="time">
+        /// The time.
+        /// </param>
+        /// <returns>
+        /// If the cool down process could be started
+        /// </returns>
+        [OperationContract]
+        bool CooldownTime(string time);
+
+        /// <summary>
         /// Start recycle process
         /// </summary>
         /// <returns>If the recycle process could be started</returns>
@@ -129,6 +141,9 @@ namespace CryostatControlServer.HostService
         /// </returns>
         [OperationContract]
         double[] ReadSettings();
+
+        [OperationContract]
+        bool SetBlueforsHeater(bool status);
 
         #endregion Methods
     }

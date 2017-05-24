@@ -13,6 +13,7 @@ namespace CryostatControlServer
     using System.Diagnostics.CodeAnalysis;
     using System.Threading;
 
+    using CryostatControlServer.Data;
     using CryostatControlServer.Properties;
 
     /// <summary>
@@ -20,6 +21,8 @@ namespace CryostatControlServer
     /// </summary>
     public class Controller
     {
+        #region Fields
+
         /// <summary>
         /// The timer period.
         /// </summary>
@@ -50,6 +53,15 @@ namespace CryostatControlServer
         /// </summary>
         private Controlstate state = Controlstate.Setup;
 
+        #endregion Fields
+
+        #region Constructors
+
+        /// <summary>
+        /// The start time.
+        /// </summary>
+        private DateTime startTime = DateTime.Now;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Controller"/> class. 
         /// </summary>
@@ -71,13 +83,21 @@ namespace CryostatControlServer
             this.StartStateMachine();
         }
 
+        #endregion Constructors
+
+        #region Destructors
+
         /// <summary>
-        /// Finalizes an instance of the <see cref="Controller"/> class. 
+        /// Finalizes an instance of the <see cref="Controller"/> class.
         /// </summary>
         ~Controller()
         {
             this.StopStateMachine();
         }
+
+        #endregion Destructors
+
+        #region Properties
 
         /// <summary>
         /// Gets or sets the he 3 heater voltage.
@@ -291,6 +311,10 @@ namespace CryostatControlServer
             }
         }
 
+        #endregion Properties
+
+        #region Methods
+
         /// <summary>
         /// Cancels the current command safely.
         /// </summary>
@@ -303,10 +327,11 @@ namespace CryostatControlServer
         /// Starts the cool down id possible.
         /// </summary>
         /// <returns>true if cool down is started, false otherwise</returns>
-        public bool StartCooldown()
+        public bool StartCooldown(DateTime startTime)
         {
             if (this.State == Controlstate.Standby)
             {
+                this.startTime = startTime;
                 this.State = Controlstate.CooldownStart;
                 return true;
             }
@@ -482,7 +507,7 @@ namespace CryostatControlServer
         /// <para>
         /// State machine design
         /// The entire state machine is intentionally placed in a single function.
-        /// Use of the State pattern was considered but rejected for clarity and maintainability. 
+        /// Use of the State pattern was considered but rejected for clarity and maintainability.
         /// The design of the state machine is discussed in github:
         /// https://github.com/BBekker/CryostatControl/pull/88
         /// access can be requested by emailing: Bernard@BernardBekker.nl
@@ -511,10 +536,15 @@ namespace CryostatControlServer
                 case Controlstate.Manual: break;
 
                 case Controlstate.CooldownStart:
-                    this.State = Controlstate.CooldownWaitForPressure;
+                    this.lakeshore.SetHeater(false);
+                    if (DateTime.Now > this.startTime)
+                    {
+                        this.State = Controlstate.CooldownWaitForPressure;
+                    }
                     break;
 
                 case Controlstate.CooldownWaitForPressure:
+
                     // TODO: wait for pressure when sensor is connected
                     this.State = Controlstate.CooldownStartCompressor;
                     break;
@@ -633,7 +663,7 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.WarmupStart:
-                    // TODO: start Lakeshore heater?
+                    this.lakeshore.SetHeater(true);
                     this.compressor.TurnOff();
                     break;
 
@@ -690,6 +720,8 @@ namespace CryostatControlServer
                         this.compressor.TurnOff();
                     }
 
+                    this.lakeshore.SetHeater(false);
+
                     this.State = Controlstate.Standby;
                     break;
             }
@@ -702,5 +734,7 @@ namespace CryostatControlServer
         {
             this.controlTimer.Dispose();
         }
+
+        #endregion Methods
     }
 }
