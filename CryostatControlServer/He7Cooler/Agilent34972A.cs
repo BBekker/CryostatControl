@@ -148,6 +148,17 @@ namespace CryostatControlServer.He7Cooler
         }
 
         /// <summary>
+        /// Try to reopen a disconnected connection.
+        /// Throws all sorts of exceptions
+        /// </summary>
+        public void Reopen()
+        {
+            this.connection.Open();
+            this.connection.WriteString("FORM:READ:CHAN ON\n");
+            this.CheckState();
+        }
+
+        /// <summary>
         /// Set digital output.
         /// </summary>
         /// <param name="bit">

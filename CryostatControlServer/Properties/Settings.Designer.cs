@@ -133,7 +133,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("35")]
+        [global::System.Configuration.DefaultSettingValueAttribute("45")]
         public double ControllerHeaterTemperatureSetpoint {
             get {
                 return ((double)(this["ControllerHeaterTemperatureSetpoint"]));
@@ -157,7 +157,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("9")]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
         public double ControllerHeatSwitchSafeValue {
             get {
                 return ((double)(this["ControllerHeatSwitchSafeValue"]));
@@ -212,6 +212,30 @@ namespace CryostatControlServer.Properties {
             }
             set {
                 this["ControllerDisableHeaterHeatSwitchTemperature"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2.5")]
+        public double ControllerHe3StartMinimalTemperature {
+            get {
+                return ((double)(this["ControllerHe3StartMinimalTemperature"]));
+            }
+            set {
+                this["ControllerHe3StartMinimalTemperature"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public double ControllerHe3StartWaitTimeMinutes {
+            get {
+                return ((double)(this["ControllerHe3StartWaitTimeMinutes"]));
+            }
+            set {
+                this["ControllerHe3StartWaitTimeMinutes"] = value;
             }
         }
     }
