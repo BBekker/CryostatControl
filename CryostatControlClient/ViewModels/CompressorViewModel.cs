@@ -340,7 +340,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The pressure scale.
         /// </value>
-        public string PressureScale
+        public double PressureScale
         {
             get
             {
@@ -351,6 +351,15 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.PressureScale = value;
                 this.RaisePropertyChanged("PressureScale");
+                this.RaisePropertyChanged("PressureScaleConverted");
+            }
+        }
+
+        public string PressureScaleConverted
+        {
+            get
+            {
+                return this.ConvertPressureScaleToString((int)this.compressorModel.PressureScale);
             }
         }
 
@@ -360,7 +369,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The temperature scale.
         /// </value>
-        public string TempScale
+        public double TempScale
         {
             get
             {
@@ -371,6 +380,15 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.TempScale = value;
                 this.RaisePropertyChanged("TempScale");
+                this.RaisePropertyChanged("TempScaleConverted");
+            }
+        }
+
+        public string TempScaleConverted
+        {
+            get
+            {
+                return this.ConvertTempScaleToString((int)this.compressorModel.TempScale);
             }
         }
 
@@ -507,6 +525,28 @@ namespace CryostatControlClient.ViewModels
                 case -262144: return "Static Pressure Low";
                 default: return "No Information";
             }
+        }
+
+        private string ConvertTempScaleToString(int scale)
+        {
+            switch (scale)
+            {
+                case 0: return "F";
+                case 1: return "C";
+                case 2: return "K";
+            }
+            return "";
+        }
+
+        private string ConvertPressureScaleToString(int scale)
+        {
+            switch (scale)
+            {
+                case 0: return "PSI";
+                case 1: return "Bar";
+                case 2: return "KPA";
+            }
+            return "";
         }
 
         #endregion Methods

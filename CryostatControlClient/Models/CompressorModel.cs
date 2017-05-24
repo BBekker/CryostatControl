@@ -84,12 +84,12 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The pressure scale
         /// </summary>
-        private string pressureScale;
+        private double pressureScale;
 
         /// <summary>
         /// The temperature scale
         /// </summary>
-        private string tempScale;
+        private double tempScale;
 
         /// <summary>
         /// The connection state
@@ -353,7 +353,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The pressure scale.
         /// </value>
-        public string PressureScale
+        public double PressureScale
         {
             get
             {
@@ -372,7 +372,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The temperature scale.
         /// </value>
-        public string TempScale
+        public double TempScale
         {
             get
             {

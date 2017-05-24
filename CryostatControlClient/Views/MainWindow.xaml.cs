@@ -108,6 +108,7 @@ namespace CryostatControlClient.Views
 
             this.viewModelContainer.ModusViewModel.PropertyChanged += this.modusHandler;
             this.viewModelContainer.He7ViewModel.PropertyChanged += this.heHandler;
+            this.dataSender.SetCompressorScales(this.viewModelContainer);
         }
 
         /// <summary>

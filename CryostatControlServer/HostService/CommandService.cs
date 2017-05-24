@@ -125,13 +125,16 @@ namespace CryostatControlServer.HostService
         /// <inheritdoc cref="ICommandService.ReadCompressorTemperatureScale"/>>
         public double ReadCompressorTemperatureScale()
         {
-            return this.cryostatControl.ReadCompressorTemperatureScale();
+            return 2;
+
+            //return this.cryostatControl.ReadCompressorTemperatureScale();
         }
 
         /// <inheritdoc cref="ICommandService.ReadCompressorPressureScale"/>>
         public double ReadCompressorPressureScale()
         {
-            return this.cryostatControl.ReadCompressorPressureScale();
+            //return this.cryostatControl.ReadCompressorPressureScale();
+            return 1;
         }
 
         /// <inheritdoc cref="ICommandService.SetBlueforsHeater"/>>
