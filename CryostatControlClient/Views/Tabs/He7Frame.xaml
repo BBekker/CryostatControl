@@ -71,38 +71,31 @@
     <materialDesign:Card Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="7" Style="{StaticResource He7Card}">
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
                 <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="24*" />
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0" Style="{StaticResource He7Title}">4K Plate</Label>
-            <Label Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.FourKPlateTemp}" ContentStringFormat="{}{0:N2}" />
-            <Label Grid.Column="2" Style="{StaticResource He7Label}">Max1</Label>
-            <TextBox Grid.Column="3" Style="{StaticResource He7TextBox}" Text="{Binding He7ViewModel.FourKPlateMax1}" />
-            <Label Grid.Column="4" Style="{StaticResource He7Label}">Max2</Label>
-            <TextBox Grid.Column="5" Style="{StaticResource He7TextBox}" Text="{Binding He7ViewModel.FourKPlateMax2}" />
+            <Label Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.FourKPlateTemp}" ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right"/>
+            <Label Grid.Column="2" Style="{StaticResource He7Label}" Content="K" />
+
         </Grid>
     </materialDesign:Card>
     <materialDesign:Card Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="7" Style="{StaticResource He7Card}">
         <Grid>
 
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
                 <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="6*" />
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="24*" />
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0" Style="{StaticResource He7Title}">2K Plate</Label>
-            <Label Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.TwoKPlateTemp}" ContentStringFormat="{}{0:N2}" />
+            <Label Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.TwoKPlateTemp}" ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right" />
+            <Label Grid.Column="2" Style="{StaticResource He7Label}" Content="K" />
         </Grid>
     </materialDesign:Card>
     <materialDesign:Card Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" Style="{StaticResource He7Card}">
@@ -111,7 +104,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -122,11 +115,9 @@
 
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He4HeadTemp}" ContentStringFormat="{}{0:N2}" />
-
-            <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource He7Label}">Max</Label>
-            <TextBox Grid.Row="1" Grid.Column="3" Style="{StaticResource He7TextBox}"
-                     Text="{Binding He7ViewModel.He4HeadMax}" />
+                   Content="{Binding He7ViewModel.He4HeadTemp}" ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right" />
+            <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource He7Label}"
+                   Content="K" />
         </Grid>
     </materialDesign:Card>
 
@@ -243,7 +234,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -254,11 +245,8 @@
 
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He3HeadTemp}" ContentStringFormat="{}{0:N2}" />
-
-            <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource He7Label}">Max</Label>
-            <TextBox Grid.Row="1" Grid.Column="3" Style="{StaticResource He7TextBox}"
-                     Text="{Binding He7ViewModel.He3HeadMax}" />
+                   Content="{Binding He7ViewModel.He3HeadTemp}" ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right"/>
+            <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource He7Label}">K</Label>
         </Grid>
     </materialDesign:Card>
 </Grid>

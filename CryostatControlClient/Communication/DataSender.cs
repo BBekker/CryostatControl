@@ -77,10 +77,16 @@ namespace CryostatControlClient.Communication
 
         public void SetCompressorScales(ViewModelContainer viewModelContainer)
         {
-            viewModelContainer.CompressorViewModel.TempScale =
-                this.commandServiceClient.ReadCompressorTemperatureScale();
-            viewModelContainer.CompressorViewModel.PressureScale =
-                this.commandServiceClient.ReadCompressorPressureScale();
+            try
+            {
+                viewModelContainer.CompressorViewModel.TempScale =
+                    this.commandServiceClient.ReadCompressorTemperatureScale();
+                viewModelContainer.CompressorViewModel.PressureScale =
+                    this.commandServiceClient.ReadCompressorPressureScale();
+            } catch
+            {
+
+            }
         }
 
         /// <summary>
