@@ -65,7 +65,7 @@ namespace CryostatControlServer.Compressor
         {
             get
             {
-                return this.device.ReadAnalogRegister(this.register);
+                return this.device.ReadDoubleAnalogRegister(this.register);
             }
         }
 

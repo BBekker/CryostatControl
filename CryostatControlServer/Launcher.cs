@@ -114,7 +114,8 @@ namespace CryostatControlServer
 
             try
             {
-                compressor = new Compressor.Compressor(CompressorHost);
+                compressor = new Compressor.Compressor();
+                compressor.Connect(CompressorHost);
             }
             catch (Exception e)
             {
