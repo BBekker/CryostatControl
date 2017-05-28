@@ -27,12 +27,10 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private BlueforsViewModel blueforsViewModel;
 
-
         /// <summary>
         /// The compressor view model
         /// </summary>
         private CompressorViewModel compressorViewModel;
-
 
         /// <summary>
         /// The he7 view model

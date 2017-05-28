@@ -67,8 +67,8 @@ namespace CryostatControlServer.Logging
                 {
                     dataLine += AbstractDataLogger.Delimiter + AbstractDataLogger.NoDataToken;
                 }
-                
             }
+
             try
             {
                 using (FileStream fileStream =
@@ -80,7 +80,7 @@ namespace CryostatControlServer.Logging
                     }
                 }
             }
-            catch (IOException e)
+            catch (IOException)
             {
                Console.WriteLine("The log file is opened by another process. Please close this first.");
             }

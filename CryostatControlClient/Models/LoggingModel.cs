@@ -14,7 +14,6 @@ namespace CryostatControlClient.Models
     /// </summary>
     public class LoggingModel
     {
-
         /// <summary>
         /// The he3 cold head temperature
         /// </summary>
@@ -151,10 +150,10 @@ namespace CryostatControlClient.Models
         private bool loggingInProgress;
 
         /// <summary>
-        /// Gets or sets the he3 cold head temperature.
+        /// Gets or sets a value indicating whether [he3 pump temporary].
         /// </summary>
         /// <value>
-        /// The he3 cold head temperature.
+        ///   <c>true</c> if [he3 pump temporary]; otherwise, <c>false</c>.
         /// </value>
         public bool He3PumpTemp
         {
@@ -170,16 +169,16 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he3 warm head temperature.
+        /// Gets or sets a value indicating whether [he3 head temporary].
         /// </summary>
         /// <value>
-        /// The he3 warm head temperature.
+        ///   <c>true</c> if [he3 head temporary]; otherwise, <c>false</c>.
         /// </value>
         public bool He3HeadTemp
         {
             get
             {
-                return this. he3HeadTemp;
+                return this.he3HeadTemp;
             }
 
             set

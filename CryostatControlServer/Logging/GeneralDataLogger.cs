@@ -19,7 +19,6 @@ namespace CryostatControlServer.Logging
     /// </summary>
     public class GeneralDataLogger : AbstractDataLogger
     {
-
         /// <summary>
         /// Write general data to log.
         /// </summary>
@@ -39,6 +38,7 @@ namespace CryostatControlServer.Logging
             {
                     dataLine += AbstractDataLogger.Delimiter + data[i];
             }
+
             try
             {
                 using (FileStream fileStream =
@@ -50,7 +50,7 @@ namespace CryostatControlServer.Logging
                     }
                 }
             }
-            catch (IOException e)
+            catch (IOException)
             {
                 Console.WriteLine("The log file is opened by another process. Please close this first.");
             }
@@ -69,6 +69,7 @@ namespace CryostatControlServer.Logging
             {
                 devices[i] = true;
             }
+
             return devices;
         }
     }

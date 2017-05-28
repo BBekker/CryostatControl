@@ -19,7 +19,6 @@ namespace CryostatControlServer.Logging
     /// </summary>
     public abstract class AbstractDataLogger
     {
-
         /// <summary>
         /// The delimiter for csv files.
         /// </summary>
@@ -58,10 +57,11 @@ namespace CryostatControlServer.Logging
             {
                 System.IO.Directory.CreateDirectory(pathToNewFolder);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Creating log folder failed");
-            }     
+            }
+            
             return pathToNewFolder;
         }
 
@@ -91,11 +91,10 @@ namespace CryostatControlServer.Logging
                     System.IO.File.Create(actualPathToFile).Close();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Creating log file failed");
             }
-
 
             return actualPathToFile;
         }
@@ -116,6 +115,7 @@ namespace CryostatControlServer.Logging
             {
                 return;
             }
+
             string initialLine = "Time";
             for (int i = 0; i < devices.Length; i++)
             {
@@ -229,11 +229,9 @@ namespace CryostatControlServer.Logging
                 case (int)DataEnumerator.LakeHeater:
                     info = "LakeShore Heater";
                     break;
-
             }
 
             return info;
         }
-
     }
 }

@@ -98,6 +98,7 @@ namespace CryostatControlServer.Logging
             {
                 this.StopSpecificDataLogging();
             }
+
             SpecificDataLogger specificDataLogger = new SpecificDataLogger(toBeLoggedOrNotToBeLogged, interval);
             LoggerDataObject loggerDataObject = this.CreateNewSpecificLoggingFile(specificDataLogger);
             
@@ -124,7 +125,6 @@ namespace CryostatControlServer.Logging
             GeneralDataLogger generalDataLogger = new GeneralDataLogger();
             LoggerDataObject loggerDataObject = this.CreateNewGeneralLoggingFile(generalDataLogger);
             this.generalLoggingThread = new Timer(this.GeneralDataLogging, loggerDataObject, StartTime, this.ConvertSecondsToMs(GeneralLogInterval));
-
         }
 
         /// <summary>
@@ -175,6 +175,7 @@ namespace CryostatControlServer.Logging
                 this.StartGeneralDataLogging();
                 return;
             }
+
             specificDataLogger.WriteGeneralData(filePath, this.dataReader.GetDataArray(), DateTime.Now.ToString("HH:mm:ss"));
         }
 
@@ -255,6 +256,7 @@ namespace CryostatControlServer.Logging
             {
                 return true;
             }
+
             return false;
         }
 
