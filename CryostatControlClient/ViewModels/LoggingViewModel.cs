@@ -37,19 +37,18 @@ namespace CryostatControlClient.ViewModels
         private ICommand startButtonCommand;
 
         /// <summary>
-        /// The stop button command
+        /// The cancel button command
         /// </summary>
-        private ICommand stopButtonCommand;
+        private ICommand cancelButtonCommand;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LoggingViewModel"/> class.
         /// </summary>
         public LoggingViewModel()
         {
-            //this.loggingPreset = new LogAllPreset(this);
             this.loggingModel = new LoggingModel();
             this.StartButtonCommand = new RelayCommand(this.OnClickStart, param => true);
-            this.StopButtonCommand = new RelayCommand(this.OnClickStart, param => true);
+            this.CancelButtonCommand = new RelayCommand(this.OnClickCancel, param => true);
         }
 
         #region Properties
@@ -585,21 +584,21 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the stop button command.
+        /// Gets or sets the cancel button command.
         /// </summary>
         /// <value>
-        /// The stop button command.
+        /// The cancel button command.
         /// </value>
-        public ICommand StopButtonCommand
+        public ICommand CancelButtonCommand
         {
             get
             {
-                return this.stopButtonCommand;
+                return this.cancelButtonCommand;
             }
 
             set
             {
-                this.stopButtonCommand = value;
+                this.cancelButtonCommand = value;
             }
         }
 
@@ -683,9 +682,9 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">
         /// The obj.
         /// </param>
-        public void OnClickStop(object obj)
+        public void OnClickCancel(object obj)
         {
-            this.RaisePropertyChanged("StopPressed");
+            this.RaisePropertyChanged("CancelPressed");
         }
     }
 }

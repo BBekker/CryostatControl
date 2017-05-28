@@ -155,6 +155,11 @@ namespace CryostatControlClient.Views
             }
         }
 
+        /// <summary>
+        /// Handles the logger.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
         private void HandleLogger(object sender, PropertyChangedEventArgs e)
         {
             string action = e.PropertyName;

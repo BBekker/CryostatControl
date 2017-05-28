@@ -116,6 +116,10 @@ namespace CryostatControlClient.Communication
             // Console.WriteLine(viewModelContainer.He7ViewModel.He3HeadMax);
         }
 
+        /// <summary>
+        /// Sends the data to be logged.
+        /// </summary>
+        /// <param name="viewModelContainer">The view model container.</param>
         public void SendDataToBeLogged(ViewModelContainer viewModelContainer)
         {
             bool[] dataToBeLogged = viewModelContainer.LoggingViewModel.GetLoggingArray();
@@ -124,6 +128,9 @@ namespace CryostatControlClient.Communication
             this.commandServiceClient.StartLogging(interval, dataToBeLogged);
         }
 
+        /// <summary>
+        /// Cancels the logging.
+        /// </summary>
         public void CancelLogging()
         {
             this.commandServiceClient.StopLogging();
