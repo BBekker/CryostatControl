@@ -9,7 +9,9 @@
 
 namespace CryostatControlClient.ViewModels
 {
+    using System.Drawing;
     using System.Windows.Input;
+    using System.Windows.Media.Animation;
 
     using CryostatControlClient.Models;
     using CryostatControlClient.ViewModels.LoggingPresets;
@@ -538,6 +540,55 @@ namespace CryostatControlClient.ViewModels
             {
                 this.loggingModel.LoggingInterval = value;
                 this.RaisePropertyChanged("LoggingInterval");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [logging in progress].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [logging in progress]; otherwise, <c>false</c>.
+        /// </value>
+        public bool LoggingInProgress
+        {
+            get
+            {
+                return this.loggingModel.LoggingInProgress;
+            }
+
+            set
+            {
+                this.loggingModel.LoggingInProgress = value;
+                this.RaisePropertyChanged("LoggingInProgress");
+                this.RaisePropertyChanged("LoggingInProgressConverted");
+            }
+        }
+
+        /// <summary>
+        /// Gets the logging in progress converted.
+        /// </summary>
+        /// <value>
+        /// The logging in progress converted.
+        /// </value>
+        public string LoggingInProgressConverted
+        {
+            get
+            {
+                return this.loggingModel.LoggingInProgress ? "Currently logging" : "Currently not logging";
+            }
+        }
+
+        /// <summary>
+        /// Gets the color of the logging in progress.
+        /// </summary>
+        /// <value>
+        /// The color of the logging in progress.
+        /// </value>
+        public Color LoggingInProgressColor
+        {
+            get
+            {
+                return this.loggingModel.LoggingInProgress ? Color.FromName("Green") : Color.FromName("Red");
             }
         }
 

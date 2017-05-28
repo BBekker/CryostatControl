@@ -146,6 +146,11 @@ namespace CryostatControlClient.Models
         private int presetComboBox;
 
         /// <summary>
+        /// The logging in progress
+        /// </summary>
+        private bool loggingInProgress;
+
+        /// <summary>
         /// Gets or sets the he3 cold head temperature.
         /// </summary>
         /// <value>
@@ -636,6 +641,25 @@ namespace CryostatControlClient.Models
             set
             {
                 this.presetComboBox = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [logging in progress].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [logging in progress]; otherwise, <c>false</c>.
+        /// </value>
+        public bool LoggingInProgress
+        {
+            get
+            {
+                return this.loggingInProgress;
+            }
+
+            set
+            {
+                this.loggingInProgress = value;
             }
         }
     }
