@@ -69,7 +69,7 @@
                     <Button Style="{StaticResource SettingsButton}"  Grid.Column="0" Grid.Row="0" IsEnabled="{Binding ModusViewModel.StartMode}" Command="{Binding ModusViewModel.StartButtonCommand}" Margin="5">Start</Button>
                     <Button Style="{StaticResource SettingsButton}"  Grid.Column="1" Grid.Row="0" IsEnabled="{Binding ModusViewModel.CancelMode}" Command="{Binding ModusViewModel.CancelButtonCommand}" Margin="5">Stop</Button>
                 </Grid>
-                <Button Style="{StaticResource SettingsButton}" IsEnabled="{Binding ModusViewModel.StartMode}" Command="{Binding ModusViewModel.ManualButtonCommand}" Command="{Binding ModusViewModel.ManualButtonCommand}" Margin="5">Manual</Button>
+                <Button Style="{StaticResource SettingsButton}" IsEnabled="{Binding ModusViewModel.StartMode}" Command="{Binding ModusViewModel.ManualButtonCommand}" Margin="5">Manual</Button>
 
             </StackPanel>
         </Grid>

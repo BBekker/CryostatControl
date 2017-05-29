@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c8feba6d-43cb-405f-8b55-0bb31a428afb" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+=======
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c49b32bd-2eda-4eb4-95b8-f1d815d78e14" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+>>>>>>> dev
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,11 +26,19 @@
     <MetadataSource Address="http://localhost:18080/SRON" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+<<<<<<< HEAD
     <MetadataFile FileName="SRON.xsd" MetadataType="Schema" ID="439bee6a-0230-4966-a50f-54f3cd708814" SourceId="1" SourceUrl="http://localhost:18080/SRON?xsd=xsd1" />
     <MetadataFile FileName="CommandService.wsdl" MetadataType="Wsdl" ID="8e789e8a-1b5b-4e6f-830a-6b0e49478526" SourceId="1" SourceUrl="http://localhost:18080/SRON?wsdl" />
     <MetadataFile FileName="SRON1.xsd" MetadataType="Schema" ID="067ce776-d70d-47a7-90ee-51b3fbef1eaa" SourceId="1" SourceUrl="http://localhost:18080/SRON?xsd=xsd0" />
     <MetadataFile FileName="SRON.disco" MetadataType="Disco" ID="9911a031-cc0e-4764-b89f-f9f3aab8a714" SourceId="1" SourceUrl="http://localhost:18080/SRON?disco" />
     <MetadataFile FileName="SRON2.xsd" MetadataType="Schema" ID="908fa61d-037e-4c16-a467-2390efaab564" SourceId="1" SourceUrl="http://localhost:18080/SRON?xsd=xsd2" />
+=======
+    <MetadataFile FileName="SRON.xsd" MetadataType="Schema" ID="6293aff6-acff-4063-a362-90625a15a178" SourceId="1" SourceUrl="http://localhost:18080/SRON?xsd=xsd1" />
+    <MetadataFile FileName="CommandService.wsdl" MetadataType="Wsdl" ID="727eecde-6b73-492d-b041-8b009b0c5997" SourceId="1" SourceUrl="http://localhost:18080/SRON?wsdl" />
+    <MetadataFile FileName="SRON1.xsd" MetadataType="Schema" ID="d9ed85b3-2c2b-484e-b27b-41f7e9719cdc" SourceId="1" SourceUrl="http://localhost:18080/SRON?xsd=xsd0" />
+    <MetadataFile FileName="SRON.disco" MetadataType="Disco" ID="4636c2ad-09ac-4325-aea2-5c6c5cb552fe" SourceId="1" SourceUrl="http://localhost:18080/SRON?disco" />
+    <MetadataFile FileName="SRON2.xsd" MetadataType="Schema" ID="f146060f-5908-40c0-800c-981583cb4b6a" SourceId="1" SourceUrl="http://localhost:18080/SRON?xsd=xsd2" />
+>>>>>>> dev
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
