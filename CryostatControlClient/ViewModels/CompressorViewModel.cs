@@ -603,23 +603,31 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Checks the turn on.
         /// </summary>
-        /// <returns> Whether the compressor can be turned on.</returns>
+        /// <returns> 
+        /// True if the compressor is ready to start, false otherwise.
+        /// </returns>
         private bool CheckTurnOn()
         {
-            // todo : check if the compressor is turned on
-            return true;
+            switch ((int)this.OperatingState)
+            {
+                case 0: return true;
+                default: return false;
+            }
         }
 
         /// <summary>
         /// Checks the turn off.
         /// </summary>
         /// <returns>
-        /// Whether the compressor can be turned off.
+        /// True if the compressor is running, false otherwise.
         /// </returns>
         private bool CheckTurnOff()
         {
-            // todo : check if the compressor is turned on
-            return true;
+            switch ((int)this.OperatingState)
+            {
+                case 3: return true;
+                default: return false;
+            }
         }
 
         #endregion Methods
