@@ -61,6 +61,10 @@ namespace CryostatControlClient
             }
         }
 
+        /// <summary>
+        /// Sends the modus.
+        /// </summary>
+        /// <param name="modus">The modus.</param>
         public void SendModus(int modus)
         {
             if (this.mainWindow == null)

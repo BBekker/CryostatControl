@@ -355,6 +355,12 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the pressure scale converted.
+        /// </summary>
+        /// <value>
+        /// The pressure scale converted.
+        /// </value>
         public string PressureScaleConverted
         {
             get
@@ -384,6 +390,12 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the temperature scale converted.
+        /// </summary>
+        /// <value>
+        /// The temporary scale converted.
+        /// </value>
         public string TempScaleConverted
         {
             get
@@ -527,28 +539,38 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Converts the temperature scale to string.
+        /// </summary>
+        /// <param name="scale">The scale.</param>
+        /// <returns>Converted scale</returns>
         private string ConvertTempScaleToString(int scale)
         {
             switch (scale)
             {
-                case -1: return "";
                 case 0: return "F";
                 case 1: return "C";
                 case 2: return "K";
             }
-            return "";
+
+            return string.Empty;
         }
 
+        /// <summary>
+        /// Converts the pressure scale to string.
+        /// </summary>
+        /// <param name="scale">The scale.</param>
+        /// <returns>Converted string</returns>
         private string ConvertPressureScaleToString(int scale)
         {
             switch (scale)
             {
-                case -1: return "";
                 case 0: return "PSI";
                 case 1: return "Bar";
                 case 2: return "KPA";
             }
-            return "";
+
+            return string.Empty;
         }
 
         #endregion Methods

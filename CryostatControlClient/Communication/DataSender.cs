@@ -75,6 +75,10 @@ namespace CryostatControlClient.Communication
             }
         }
 
+        /// <summary>
+        /// Sets the compressor scales.
+        /// </summary>
+        /// <param name="viewModelContainer">The view model container.</param>
         public void SetCompressorScales(ViewModelContainer viewModelContainer)
         {
             try
