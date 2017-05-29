@@ -76,6 +76,25 @@ namespace CryostatControlClient.Communication
         }
 
         /// <summary>
+        /// Sets the compressor scales.
+        /// </summary>
+        /// <param name="viewModelContainer">The view model container.</param>
+        public void SetCompressorScales(ViewModelContainer viewModelContainer)
+        {
+            try
+            {
+                viewModelContainer.CompressorViewModel.TempScale =
+                    this.commandServiceClient.ReadCompressorTemperatureScale();
+                viewModelContainer.CompressorViewModel.PressureScale =
+                    this.commandServiceClient.ReadCompressorPressureScale();
+            }
+            catch
+            {
+                Console.WriteLine("Something went wrong with the server");
+            }
+        }
+
+        /// <summary>
         /// Cancels the modus.
         /// </summary>
         public void CancelModus()

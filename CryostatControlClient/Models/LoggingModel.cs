@@ -9,9 +9,12 @@
 
 namespace CryostatControlClient.Models
 {
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// The logging model.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1623:PropertySummaryDocumentationMustMatchAccessors", Justification = "Reviewed, is ok here")]
     public class LoggingModel
     {
         /// <summary>

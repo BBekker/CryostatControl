@@ -87,6 +87,12 @@ namespace CryostatControlClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadCompressorPressureScale", ReplyAction="http://tempuri.org/ICommandService/ReadCompressorPressureScaleResponse")]
         System.Threading.Tasks.Task<double> ReadCompressorPressureScaleAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadBlueforsHeaterPower", ReplyAction="http://tempuri.org/ICommandService/ReadBlueforsHeaterPowerResponse")]
+        double ReadBlueforsHeaterPower();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadBlueforsHeaterPower", ReplyAction="http://tempuri.org/ICommandService/ReadBlueforsHeaterPowerResponse")]
+        System.Threading.Tasks.Task<double> ReadBlueforsHeaterPowerAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteSettingValue", ReplyAction="http://tempuri.org/ICommandService/WriteSettingValueResponse")]
         bool WriteSettingValue(int setting, double value);
         
@@ -239,6 +245,14 @@ namespace CryostatControlClient.ServiceReference1 {
         
         public System.Threading.Tasks.Task<double> ReadCompressorPressureScaleAsync() {
             return base.Channel.ReadCompressorPressureScaleAsync();
+        }
+        
+        public double ReadBlueforsHeaterPower() {
+            return base.Channel.ReadBlueforsHeaterPower();
+        }
+        
+        public System.Threading.Tasks.Task<double> ReadBlueforsHeaterPowerAsync() {
+            return base.Channel.ReadBlueforsHeaterPowerAsync();
         }
         
         public bool WriteSettingValue(int setting, double value) {
