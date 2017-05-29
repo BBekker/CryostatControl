@@ -14,7 +14,6 @@ namespace CryostatControlClient.ViewModels.LoggingPresets
     /// </summary>
     public class LogCompressorPreset : ILoggingPreset
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LogCompressorPreset"/> class.
         /// </summary>
@@ -25,7 +24,6 @@ namespace CryostatControlClient.ViewModels.LoggingPresets
         }
 
         #region Implementation of ILoggingPreset
-
 
         /// <summary>
         /// Sets the logging values.
