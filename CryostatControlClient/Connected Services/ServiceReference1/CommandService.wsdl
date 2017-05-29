@@ -552,6 +552,44 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_ReadBlueforsHeaterPower_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_ReadBlueforsHeaterPower_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_WriteSettingValue_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -1016,6 +1054,12 @@
   <wsdl:message name="ICommandService_ReadCompressorPressureScale_OutputMessage">
     <wsdl:part name="parameters" element="tns:ReadCompressorPressureScaleResponse" />
   </wsdl:message>
+  <wsdl:message name="ICommandService_ReadBlueforsHeaterPower_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReadBlueforsHeaterPower" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_ReadBlueforsHeaterPower_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReadBlueforsHeaterPowerResponse" />
+  </wsdl:message>
   <wsdl:message name="ICommandService_WriteSettingValue_InputMessage">
     <wsdl:part name="parameters" element="tns:WriteSettingValue" />
   </wsdl:message>
@@ -1106,6 +1150,10 @@
     <wsdl:operation name="ReadCompressorPressureScale">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/ReadCompressorPressureScale" message="tns:ICommandService_ReadCompressorPressureScale_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/ReadCompressorPressureScaleResponse" message="tns:ICommandService_ReadCompressorPressureScale_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadBlueforsHeaterPower">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/ReadBlueforsHeaterPower" message="tns:ICommandService_ReadBlueforsHeaterPower_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/ReadBlueforsHeaterPowerResponse" message="tns:ICommandService_ReadBlueforsHeaterPower_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="WriteSettingValue">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/WriteSettingValue" message="tns:ICommandService_WriteSettingValue_InputMessage" />
@@ -1274,6 +1322,17 @@
       </wsdl:input>
       <wsdl:output>
         <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_ReadCompressorPressureScale_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadBlueforsHeaterPower">
+      <soap12:operation soapAction="http://tempuri.org/ICommandService/ReadBlueforsHeaterPower" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_ReadBlueforsHeaterPower_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_ReadBlueforsHeaterPower_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
