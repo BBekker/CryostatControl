@@ -206,9 +206,7 @@ namespace CryostatControlServer.Logging
         /// <returns>General Logger Data Object</returns>
         private LoggerDataObject CreateNewGeneralLoggingFile(GeneralDataLogger generalDataLogger)
         {
-            DateTime currentDateTime = DateTime.Now;
-
-            string filePath = generalDataLogger.CreateFile(currentDateTime, GeneralMainFolder);
+            string filePath = generalDataLogger.CreateFile(GeneralMainFolder);
 
             generalDataLogger.WriteInitialLine(filePath, generalDataLogger.CreateArrayWithOnlyTrue());
             return new LoggerDataObject(generalDataLogger, filePath);
@@ -221,9 +219,7 @@ namespace CryostatControlServer.Logging
         /// <returns>Specific logger Data Object</returns>
         private LoggerDataObject CreateNewSpecificLoggingFile(SpecificDataLogger specificDataLogger)
         {
-            DateTime currentDateTime = DateTime.Now;
-
-            string filePath = specificDataLogger.CreateFile(currentDateTime, SpecificMainFolder);
+            string filePath = specificDataLogger.CreateFile(SpecificMainFolder);
 
             specificDataLogger.WriteInitialLine(filePath, specificDataLogger.GetToBeLoggedOrNotToBeLogged());
             return new LoggerDataObject(specificDataLogger, filePath);
@@ -251,7 +247,6 @@ namespace CryostatControlServer.Logging
 
             logDay = logDay.Replace(".csv", string.Empty);
             string currentDay = DateTime.Now.Day.ToString();
-            Console.WriteLine("current: " + currentDay);
             if (!logDay.Equals(currentDay))
             {
                 return true;

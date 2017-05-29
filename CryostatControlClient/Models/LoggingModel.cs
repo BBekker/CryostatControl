@@ -150,10 +150,10 @@ namespace CryostatControlClient.Models
         private bool loggingInProgress;
 
         /// <summary>
-        /// Gets or sets a value indicating whether [he3 pump temporary].
+        /// Gets or sets the he3 pump temperature.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [he3 pump temporary]; otherwise, <c>false</c>.
+        /// The he3 pump temperature.
         /// </value>
         public bool He3PumpTemp
         {
@@ -169,10 +169,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [he3 head temporary].
+        /// Gets or sets the he3 head temperature.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [he3 head temporary]; otherwise, <c>false</c>.
+        /// The he3 head temperature.
         /// </value>
         public bool He3HeadTemp
         {
@@ -207,10 +207,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he4 cold head temperature.
+        /// Gets or sets the he4 pump temperature.
         /// </summary>
         /// <value>
-        /// The he4 cold head temperature.
+        /// The he4 pump temperature.
         /// </value>
         public bool He4PumpTemp
         {
@@ -226,10 +226,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he4 warm head temperature.
+        /// Gets or sets the he4 head temperature.
         /// </summary>
         /// <value>
-        /// The he4 warm head temperature.
+        /// The he4 head temperature.
         /// </value>
         public bool He4HeadTemp
         {
@@ -644,10 +644,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [logging in progress].
+        /// Gets or sets a value indicating whether [logging is in progress].
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [logging in progress]; otherwise, <c>false</c>.
+        ///   <c>true</c> if [logging is in progress]; otherwise, <c>false</c>.
         /// </value>
         public bool LoggingInProgress
         {

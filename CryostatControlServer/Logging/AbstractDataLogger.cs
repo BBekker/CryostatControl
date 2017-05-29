@@ -68,17 +68,15 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// Create a file with the current day as name, if it does not exist yet.
         /// </summary>
-        /// <param name="currentDateTime">
-        /// The current Date Time.
-        /// </param>
         /// <param name="mainFolderPath">
         /// The main Folder Path.
         /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string CreateFile(DateTime currentDateTime, string mainFolderPath)
+        public string CreateFile(string mainFolderPath)
         {
+            DateTime currentDateTime = DateTime.Now;
             string folderPath = this.CreateFolder(currentDateTime, mainFolderPath);
             string day = currentDateTime.Day.ToString();
             string fileName = day + CsvFileFormat;

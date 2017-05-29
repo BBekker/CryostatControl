@@ -55,9 +55,13 @@ namespace CryostatControlClient.ViewModels
 
         #region Properties
 
+
         /// <summary>
-        /// Gets or sets a value indicating whether he 3 pump temp.
+        /// Gets or sets the he3 pump temperature.
         /// </summary>
+        /// <value>
+        /// The he3 pump temperature.
+        /// </value>
         public bool He3PumpTemp
         {
             get
@@ -72,9 +76,13 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
+
         /// <summary>
-        /// Gets or sets a value indicating whether he 3 head temp.
+        /// Gets or sets the he3 head temperature.
         /// </summary>
+        /// <value>
+        /// The he3 head temperature.
+        /// </value>
         public bool He3HeadTemp
         {
             get
@@ -110,8 +118,11 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether he 4 pump temp.
+        /// Gets or sets the he4 pump temperature.
         /// </summary>
+        /// <value>
+        /// The he4 pump temperature.
+        /// </value>
         public bool He4PumpTemp
         {
             get
@@ -127,8 +138,11 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether he 4 head temp.
+        /// Gets or sets the he4 head temperature.
         /// </summary>
+        /// <value>
+        /// The he4 head temperature.
+        /// </value>
         public bool He4HeadTemp
         {
             get
