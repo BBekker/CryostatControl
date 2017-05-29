@@ -39,7 +39,10 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Label Content="{Binding BlueforsViewModel.ColdPlate50KTemp}" ContentStringFormat="{}{0:N2}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="{Binding BlueforsViewModel.ColdPlate50KTemp}" ContentStringFormat="{}{0:N2}"/>
+                        <Label Content="K"/>
+                    </StackPanel>
                 </Grid>
 
 
@@ -76,7 +79,10 @@
                         </Border>
 
                         <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Label Content="{Binding BlueforsViewModel.ColdPlate3KTemp}" ContentStringFormat="{}{0:N2}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{Binding BlueforsViewModel.ColdPlate3KTemp}" ContentStringFormat="{}{0:N2}"/>
+                                <Label Content="K"/>
+                            </StackPanel>
                         </Grid>
                     </Grid>
                 </Border>

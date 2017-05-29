@@ -294,8 +294,15 @@ namespace CryostatControlServer.Compressor
         /// <returns>Pressure scale.</returns>
         public PressureEnum ReadPressureScale()
         {
-            ushort[] status = this.master.ReadInputRegisters((ushort)AnalogRegistersEnum.PressureScale, SingleRegister);
-            return (PressureEnum)status[0];
+            try
+            {
+                ushort[] status = this.master.ReadInputRegisters((ushort)AnalogRegistersEnum.PressureScale, SingleRegister);
+                return (PressureEnum)status[0];
+            }
+            catch
+            {
+                return (PressureEnum)(-1);
+            }
         }
 
         /// <summary>
@@ -304,8 +311,15 @@ namespace CryostatControlServer.Compressor
         /// <returns>Temperature scale.</returns>
         public TemperatureEnum ReadTemperatureScale()
         {
-            ushort[] status = this.master.ReadInputRegisters((ushort)AnalogRegistersEnum.TempScale, SingleRegister);
-            return (TemperatureEnum)status[0];
+            try
+            {
+                ushort[] status = this.master.ReadInputRegisters((ushort)AnalogRegistersEnum.TempScale, SingleRegister);
+                return (TemperatureEnum)status[0];
+            }
+            catch
+            {
+                return (TemperatureEnum)(-1);
+            }
         }
 
         /// <summary>

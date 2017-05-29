@@ -51,7 +51,7 @@ namespace CryostatControlClient.Views
         /// <summary>
         /// The handler
         /// </summary>
-        private PropertyChangedEventHandler heHandler;
+        private PropertyChangedEventHandler heliumHandler;
 
         /// <summary>
         /// The logger handler.
@@ -75,8 +75,10 @@ namespace CryostatControlClient.Views
             this.dataSender = new DataSender(commandServiceClient);
 
             this.modusHandler = this.HandleModus;
-            this.heHandler = this.HandleHe;
+
             this.loggerHandler = this.HandleLogger;
+
+            this.heliumHandler = this.HandleHe;
         }
 
         #endregion Constructor
@@ -113,8 +115,11 @@ namespace CryostatControlClient.Views
             this.DataContext = this.viewModelContainer;
 
             this.viewModelContainer.ModusViewModel.PropertyChanged += this.modusHandler;
-            this.viewModelContainer.He7ViewModel.PropertyChanged += this.heHandler;
+
             this.viewModelContainer.LoggingViewModel.PropertyChanged += this.loggerHandler;
+
+            this.viewModelContainer.He7ViewModel.PropertyChanged += this.heliumHandler;
+            this.dataSender.SetCompressorScales(this.viewModelContainer);
         }
 
         /// <summary>
