@@ -10,6 +10,8 @@
 namespace CryostatControlClient.ViewModels
 {
     using System;
+    using System.Windows.Input;
+
     using CryostatControlClient.Models;
 
     /// <summary>
@@ -24,6 +26,16 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private CompressorModel compressorModel;
 
+        /// <summary>
+        /// The switch command
+        /// </summary>
+        private ICommand turnOnCommand;
+
+        /// <summary>
+        /// The switch command
+        /// </summary>
+        private ICommand turnOffCommand;
+
         #endregion Fields
 
         #region Constructor
@@ -34,11 +46,42 @@ namespace CryostatControlClient.ViewModels
         public CompressorViewModel()
         {
             this.compressorModel = new CompressorModel();
+
+            this.turnOnCommand = new RelayCommand(this.TurnOn, param => true);
+            this.turnOffCommand = new RelayCommand(this.TurnOff, param => true);
         }
 
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets the switch command.
+        /// </summary>
+        /// <value>
+        /// The switch command.
+        /// </value>
+        public ICommand TurnOnCommand
+        {
+            get
+            {
+                return this.turnOnCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets the turn off command.
+        /// </summary>
+        /// <value>
+        /// The turn off command.
+        /// </value>
+        public ICommand TurnOffCommand
+        {
+            get
+            {
+                return this.turnOffCommand;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the state of the operating.
@@ -58,6 +101,8 @@ namespace CryostatControlClient.ViewModels
                 this.compressorModel.OperatingState = value;
                 this.RaisePropertyChanged("OperatingState");
                 this.RaisePropertyChanged("OperatingStateConverted");
+                this.RaisePropertyChanged("CanTurnOn");
+                this.RaisePropertyChanged("CanTurnOff");
             }
         }
 
@@ -406,6 +451,34 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance can turn on.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance can turn on; otherwise, <c>false</c>.
+        /// </value>
+        public bool CanTurnOn
+        {
+            get
+            {
+                return this.CheckTurnOn();
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance can turn off.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance can turn off; otherwise, <c>false</c>.
+        /// </value>
+        public bool CanTurnOff
+        {
+            get
+            {
+                return this.CheckTurnOff();
+            }
+        }
+
         #endregion Properties
 
         #region Methods
@@ -507,6 +580,46 @@ namespace CryostatControlClient.ViewModels
                 case -262144: return "Static Pressure Low";
                 default: return "No Information";
             }
+        }
+
+        /// <summary>
+        /// Shows the message.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        public void TurnOn(object obj)
+        {
+            this.RaisePropertyChanged("TurnOn");
+        }
+
+        /// <summary>
+        /// Turns the off.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        public void TurnOff(object obj)
+        {
+            this.RaisePropertyChanged("TurnOff");
+        }
+
+        /// <summary>
+        /// Checks the turn on.
+        /// </summary>
+        /// <returns> Whether the compressor can be turned on.</returns>
+        private bool CheckTurnOn()
+        {
+            // todo : check if the compressor is turned on
+            return true;
+        }
+
+        /// <summary>
+        /// Checks the turn off.
+        /// </summary>
+        /// <returns>
+        /// Whether the compressor can be turned off.
+        /// </returns>
+        private bool CheckTurnOff()
+        {
+            // todo : check if the compressor is turned on
+            return true;
         }
 
         #endregion Methods

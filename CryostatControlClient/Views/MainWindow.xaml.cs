@@ -53,6 +53,11 @@ namespace CryostatControlClient.Views
         /// </summary>
         private PropertyChangedEventHandler heHandler;
 
+        /// <summary>
+        /// The comp handler
+        /// </summary>
+        private PropertyChangedEventHandler compHandler;
+
         #endregion Fields
 
         #region Constructor
@@ -71,6 +76,7 @@ namespace CryostatControlClient.Views
 
             this.modusHandler = this.HandleModus;
             this.heHandler = this.HandleHe;
+            this.compHandler = this.HandleComp;
         }
 
         #endregion Constructor
@@ -108,6 +114,7 @@ namespace CryostatControlClient.Views
 
             this.viewModelContainer.ModusViewModel.PropertyChanged += this.modusHandler;
             this.viewModelContainer.He7ViewModel.PropertyChanged += this.heHandler;
+            this.viewModelContainer.CompressorViewModel.PropertyChanged += this.compHandler;
         }
 
         /// <summary>
@@ -130,6 +137,25 @@ namespace CryostatControlClient.Views
             else
             {
                 // todo: unknow action, throw exception or something?
+            }
+        }
+
+        /// <summary>
+        /// Handles the comp.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void HandleComp(object sender, PropertyChangedEventArgs e)
+        {
+            string action = e.PropertyName;
+
+            if (action == "TurnOn")
+            {
+                this.dataSender.SwitchCompressor(true);
+            }
+            else if (action == "TurnOff")
+            {
+                this.dataSender.SwitchCompressor(false);
             }
         }
 
