@@ -51,6 +51,17 @@ namespace CryostatControlServer.HostService
 
         #region Methods
 
+        /// <summary>
+        /// The read heater power.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="double"/>.
+        /// </returns>
+        public double ReadBlueforsHeaterPower()
+        {
+            return this.cryostatControl.ReadBlueforsHeaterPower();
+        }
+
         /// <inheritdoc cref="ICommandService.IsAlive"/>
         public bool IsAlive()
         {
@@ -125,18 +136,13 @@ namespace CryostatControlServer.HostService
         /// <inheritdoc cref="ICommandService.ReadCompressorTemperatureScale"/>>
         public double ReadCompressorTemperatureScale()
         {
-            Console.WriteLine("temp sending 2");
-            return 2;
-
-            //return this.cryostatControl.ReadCompressorTemperatureScale();
+            return this.cryostatControl.ReadCompressorTemperatureScale();
         }
 
         /// <inheritdoc cref="ICommandService.ReadCompressorPressureScale"/>>
         public double ReadCompressorPressureScale()
         {
-            Console.WriteLine("press sending 1");
-            //return this.cryostatControl.ReadCompressorPressureScale();
-            return 1;
+            return this.cryostatControl.ReadCompressorPressureScale();
         }
 
         /// <inheritdoc cref="ICommandService.SetBlueforsHeater"/>>

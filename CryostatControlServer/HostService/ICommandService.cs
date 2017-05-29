@@ -119,6 +119,15 @@ namespace CryostatControlServer.HostService
         double ReadCompressorPressureScale();
 
         /// <summary>
+        /// Read the lakeshore/Bluefors heater power.
+        /// </summary>
+        /// <returns>
+        /// The power in percentage of max power<see cref="double"/>.
+        /// </returns>
+        [OperationContract]
+        double ReadBlueforsHeaterPower();
+
+        /// <summary>
         /// Writes the allowed settings to server.
         /// </summary>
         /// <param name="setting">

@@ -115,15 +115,15 @@
         </Label>
         <Viewbox Grid.Row="1" Grid.ColumnSpan="3">
             <gauge:CircularGaugeControl x:Name="lowPressureGauge" Style="{StaticResource lowPressureGauge}"
-                                        CurrentValue="{Binding CompressorViewModel.LowPressure}" />
+                                        CurrentValue="{Binding CompressorViewModel.LowPressure}" ContentStringFormat="{}{0:N0}"/>
         </Viewbox>
         <StackPanel Grid.Row="2" Grid.Column="0">
             <Label Style="{StaticResource pressureValues}">Pressure:</Label>
             <Label Style="{StaticResource pressureValues}">Avg. Pressure:</Label>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.LowPressure}" ContentStringFormat="{}{0:N2}" />
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.LowPressureAverage}" ContentStringFormat="{}{0:N2}" />
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.LowPressure}" ContentStringFormat="{}{0:N0}"/>
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.LowPressureAverage}" ContentStringFormat="{}{0:N0}"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="2">
             <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScaleConverted}" />
@@ -148,15 +148,15 @@
         </Label>
         <Viewbox Grid.Row="1" Grid.ColumnSpan="3">
             <gauge:CircularGaugeControl x:Name="highPressureGauge" Style="{StaticResource highPressureGauge}"
-                                        CurrentValue="{Binding CompressorViewModel.HighPressure}" ContentStringFormat="{}{0:N2}" />
+                                        CurrentValue="{Binding CompressorViewModel.HighPressure}" ContentStringFormat="{}{0:N0}"/>
         </Viewbox>
         <StackPanel Grid.Row="2" Grid.Column="0">
             <Label Style="{StaticResource pressureValues}">Pressure:</Label>
             <Label Style="{StaticResource pressureValues}">Avg. Pressure:</Label>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.HighPressure}" ContentStringFormat="{}{0:N2}" />
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.HighPressureAverage}" ContentStringFormat="{}{0:N2}" />
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.HighPressure}" ContentStringFormat="{}{0:N0}"/>
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.HighPressureAverage}" ContentStringFormat="{}{0:N0}"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="2">
             <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScaleConverted}" />
