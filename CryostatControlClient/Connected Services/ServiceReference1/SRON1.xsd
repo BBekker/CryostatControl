@@ -216,6 +216,16 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="SubscribeForUpdates">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UnsubscribeForUpdates">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="SendData">
     <xs:complexType>
       <xs:sequence>

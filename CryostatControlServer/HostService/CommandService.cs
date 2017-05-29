@@ -30,7 +30,9 @@ namespace CryostatControlServer.HostService
         /// <summary>
         /// The callback list
         /// </summary>
-        private readonly Dictionary<IDataGetCallback, Timer> callbacksListeners = new Dictionary<IDataGetCallback, Timer>();
+        private readonly Dictionary<IDataGetCallback, Timer> dataListeners = new Dictionary<IDataGetCallback, Timer>();
+
+        private readonly HashSet<IDataGetCallback> updateListeners = new HashSet<IDataGetCallback>();
 
         #endregion Fields
 
@@ -193,9 +195,9 @@ namespace CryostatControlServer.HostService
         {
             IDataGetCallback client =
                 OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            if (!this.callbacksListeners.ContainsKey(client))
+            if (!this.dataListeners.ContainsKey(client))
             {
-                this.callbacksListeners.Add(client, new Timer(this.TimerMethod, client, 0, interval));
+                this.dataListeners.Add(client, new Timer(this.TimerMethod, client, 0, interval));
             }
         }
 
@@ -204,11 +206,11 @@ namespace CryostatControlServer.HostService
         {
             IDataGetCallback client =
                 OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            if (this.callbacksListeners.ContainsKey(client))
+            if (this.dataListeners.ContainsKey(client))
             {
-                Timer timer = this.callbacksListeners[client];
+                Timer timer = this.dataListeners[client];
                 timer.Dispose();
-                this.callbacksListeners.Remove(client);
+                this.dataListeners.Remove(client);
             }
         }
 
@@ -230,8 +232,24 @@ namespace CryostatControlServer.HostService
             }
             catch (TimeoutException)
             {
-                this.callbacksListeners.Remove(client);
+                this.dataListeners.Remove(client);
             }
+        }
+
+        /// <inheritdoc cref="IDataGet.SubscribeForUpdates"/>>
+        public void SubscribeForUpdates()
+        {
+            IDataGetCallback client =
+                OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
+            updateListeners.Add(client);
+        }
+
+        /// <inheritdoc cref="IDataGet.UnsubscribeForUpdates"/>>
+        public void UnsubscribeForUpdates()
+        {
+            IDataGetCallback client =
+                OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
+            updateListeners.Remove(client);
         }
 
         #endregion Methods

@@ -283,6 +283,18 @@ namespace CryostatControlClient.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UnsubscribeForData")]
         System.Threading.Tasks.Task UnsubscribeForDataAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SubscribeForUpdates")]
+        void SubscribeForUpdates();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SubscribeForUpdates")]
+        System.Threading.Tasks.Task SubscribeForUpdatesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UnsubscribeForUpdates")]
+        void UnsubscribeForUpdates();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UnsubscribeForUpdates")]
+        System.Threading.Tasks.Task UnsubscribeForUpdatesAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -337,6 +349,22 @@ namespace CryostatControlClient.ServiceReference1 {
         
         public System.Threading.Tasks.Task UnsubscribeForDataAsync() {
             return base.Channel.UnsubscribeForDataAsync();
+        }
+        
+        public void SubscribeForUpdates() {
+            base.Channel.SubscribeForUpdates();
+        }
+        
+        public System.Threading.Tasks.Task SubscribeForUpdatesAsync() {
+            return base.Channel.SubscribeForUpdatesAsync();
+        }
+        
+        public void UnsubscribeForUpdates() {
+            base.Channel.UnsubscribeForUpdates();
+        }
+        
+        public System.Threading.Tasks.Task UnsubscribeForUpdatesAsync() {
+            return base.Channel.UnsubscribeForUpdatesAsync();
         }
     }
 }
