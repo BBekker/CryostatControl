@@ -734,7 +734,8 @@ namespace CryostatControlServer
                     {
                         Console.WriteLine("Compressor not connected, make sure it is turned off!");
                     }
-
+                
+                    this.State = Controlstate.WarmupHeating;
                     break;
 
                 case Controlstate.WarmupHeating:
@@ -752,12 +753,12 @@ namespace CryostatControlServer
                         this.cooler.He3Switch,
                         this.cooler.He3SwitchT,
                         this.HeatupTemperature,
-                        this.He4HeaterVoltage);
+                        this.He3SwitchVoltage);
                     this.ControlHeater(
                         this.cooler.He4Switch,
                         this.cooler.He4SwitchT,
                         this.HeatupTemperature,
-                        this.He4HeaterVoltage);
+                        this.He4SwitchVoltage);
                     if (this.cooler.He4PumpT.Value > this.HeatupTemperature - 1.0
                         && this.cooler.He3PumpT.Value > this.HeatupTemperature - 1.0
                         && this.cooler.He4SwitchT.Value > this.HeatupTemperature - 1.0
