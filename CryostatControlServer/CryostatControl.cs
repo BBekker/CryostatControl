@@ -121,6 +121,17 @@ namespace CryostatControlServer
         #region Methods
 
         /// <summary>
+        /// The read heater power.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="double"/>.
+        /// </returns>
+        public double ReadBlueforsHeaterPower()
+        {
+            return this.lakeShore.GetHeaterPower();
+        }
+
+        /// <summary>
         /// Cancels the current command safely.
         /// </summary>
         public void CancelCommand()
