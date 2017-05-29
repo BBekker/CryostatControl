@@ -127,6 +127,10 @@ namespace CryostatControlClient.Views
             {
                 this.dataSender.CancelModus();
             }
+            else if (action == "ManualPressed")
+            {
+                this.dataSender.ManualModus();
+            }
             else
             {
                 // todo: unknow action, throw exception or something?

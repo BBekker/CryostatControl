@@ -67,6 +67,9 @@ namespace CryostatControlClient.Communication
                 case (int)ModusEnumerator.Warmup:
                     this.commandServiceClient.Warmup();
                     break;
+                case (int)ModusEnumerator.Manual:
+                    this.commandServiceClient.Manual();
+                    break;
 
                 default:
 

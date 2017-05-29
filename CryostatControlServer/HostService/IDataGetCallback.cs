@@ -28,6 +28,20 @@ namespace CryostatControlServer.HostService
         [OperationContract(IsOneWay = true)]
         void SendModus(int modus);
 
+        /// <summary>
+        /// Sets the state of the logging.
+        /// </summary>
+        /// <param name="status">if set to <c>true</c> logging is active.</param>
+        [OperationContract(IsOneWay = true)]
+        void SetLoggingState(bool status);
+
+        /// <summary>
+        /// Sets the state of the control.
+        /// </summary>
+        /// <param name="status">if set to <c>true</c> the server is activily controlling the cryostat and manual control is not allowed.</param>
+        [OperationContract(IsOneWay = true)]
+        void SetCompressorState(bool status);
+
         #endregion Methods
     }
 }
