@@ -48,27 +48,27 @@
     <Border Grid.Row="9" Grid.Column="9" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="3" Margin="5"></Border>
 
     <StackPanel Grid.Row="3" Grid.Column="7" Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center">
-        <Label Content="{Binding BlueforsViewModel.ColdPlate50KTemp}"/>
+        <Label Content="{Binding BlueforsViewModel.ColdPlate50KTemp}" ContentStringFormat="{}{0:N2}" />
         <Label>K</Label>
     </StackPanel>
     <StackPanel Grid.Row="5" Grid.Column="7" Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center">
-        <Label Content="{Binding BlueforsViewModel.ColdPlate3KTemp}"/>
+        <Label Content="{Binding BlueforsViewModel.ColdPlate3KTemp}" ContentStringFormat="{}{0:N2}" />
         <Label>K</Label>
     </StackPanel>
     <StackPanel Grid.Row="7" Grid.Column="7" Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center">
-        <Label Content="{Binding He7ViewModel.He4PumpTemp}" />
+        <Label Content="{Binding He7ViewModel.He4PumpTemp}" ContentStringFormat="{}{0:N3}" />
         <Label>K</Label>
     </StackPanel>
     <StackPanel Grid.Row="9" Grid.Column="7" Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center">
-        <Label Content="{Binding He7ViewModel.He4HeadTemp}"/>
+        <Label Content="{Binding He7ViewModel.He4HeadTemp}" ContentStringFormat="{}{0:N3}" />
         <Label>K</Label>
     </StackPanel>
     <StackPanel Grid.Row="7" Grid.Column="3" Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center">
-        <Label Content="{Binding He7ViewModel.He3PumpTemp}"/>
+        <Label Content="{Binding He7ViewModel.He3PumpTemp}" ContentStringFormat="{}{0:N3}" />
         <Label>K</Label>
     </StackPanel>
     <StackPanel Grid.Row="9" Grid.Column="3" Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center">
-        <Label Content="{Binding He7ViewModel.He3HeadTemp}"/>
+        <Label Content="{Binding He7ViewModel.He3HeadTemp}" ContentStringFormat="{}{0:N3}" />
         <Label>K</Label>
     </StackPanel>
     
