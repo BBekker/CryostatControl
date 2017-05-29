@@ -469,7 +469,7 @@ namespace CryostatControlServer
             double kP = 0.5;
             if (sensor.Value < TSet)
             {
-                this.SetHeaterVoltage(heater, Math.Max(0, Math.Min(voltage, voltage * (TSet - sensor.Value) * kP))));
+                this.SetHeaterVoltage(heater, Math.Max(0, Math.Min(voltage, voltage * (TSet - sensor.Value) * kP)));
             }
             else
             {
