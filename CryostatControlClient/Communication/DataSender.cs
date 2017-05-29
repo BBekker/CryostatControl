@@ -83,9 +83,10 @@ namespace CryostatControlClient.Communication
                     this.commandServiceClient.ReadCompressorTemperatureScale();
                 viewModelContainer.CompressorViewModel.PressureScale =
                     this.commandServiceClient.ReadCompressorPressureScale();
-            } catch
+            }
+            catch
             {
-
+                Console.WriteLine("Something went wrong with the server");
             }
         }
 

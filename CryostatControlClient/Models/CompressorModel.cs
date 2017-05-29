@@ -19,7 +19,7 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The operating state
         /// </summary>
-        private double operatingState;
+        private double operatingState = -1;
 
         /// <summary>
         /// The warning state
@@ -84,12 +84,12 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The pressure scale
         /// </summary>
-        private double pressureScale;
+        private double pressureScale = -1;
 
         /// <summary>
         /// The temperature scale
         /// </summary>
-        private double tempScale;
+        private double tempScale = -1;
 
         /// <summary>
         /// The connection state

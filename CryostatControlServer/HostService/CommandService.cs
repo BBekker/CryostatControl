@@ -125,6 +125,7 @@ namespace CryostatControlServer.HostService
         /// <inheritdoc cref="ICommandService.ReadCompressorTemperatureScale"/>>
         public double ReadCompressorTemperatureScale()
         {
+            Console.WriteLine("temp sending 2");
             return 2;
 
             //return this.cryostatControl.ReadCompressorTemperatureScale();
@@ -133,6 +134,7 @@ namespace CryostatControlServer.HostService
         /// <inheritdoc cref="ICommandService.ReadCompressorPressureScale"/>>
         public double ReadCompressorPressureScale()
         {
+            Console.WriteLine("press sending 1");
             //return this.cryostatControl.ReadCompressorPressureScale();
             return 1;
         }

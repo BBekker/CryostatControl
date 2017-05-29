@@ -531,6 +531,7 @@ namespace CryostatControlClient.ViewModels
         {
             switch (scale)
             {
+                case -1: return "";
                 case 0: return "F";
                 case 1: return "C";
                 case 2: return "K";
@@ -542,6 +543,7 @@ namespace CryostatControlClient.ViewModels
         {
             switch (scale)
             {
+                case -1: return "";
                 case 0: return "PSI";
                 case 1: return "Bar";
                 case 2: return "KPA";
