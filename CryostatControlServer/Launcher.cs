@@ -75,10 +75,10 @@ namespace CryostatControlServer
         /// <param name="args">The arguments.</param>
         public static void Main(string[] args)
         {
-            InitComponents();
+            InitComponents();         
             logger = new LogThreader(new DataReader(compressor, he7Cooler, lakeShore));
-            StartHost();
             logger.StartGeneralDataLogging();
+            StartHost();
         }
 
         /// <summary>
