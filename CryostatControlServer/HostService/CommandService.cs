@@ -54,6 +54,17 @@ namespace CryostatControlServer.HostService
 
         #region Methods
 
+        /// <summary>
+        /// The read heater power.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="double"/>.
+        /// </returns>
+        public double ReadBlueforsHeaterPower()
+        {
+            return this.cryostatControl.ReadBlueforsHeaterPower();
+        }
+
         /// <inheritdoc cref="ICommandService.IsAlive"/>
         public bool IsAlive()
         {
