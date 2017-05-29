@@ -52,6 +52,5 @@
             <Label Content="{Binding BlueforsViewModel.HeaterPower}" ContentStringFormat="{}{0:N2}" />
             <Label>V</Label>
         </StackPanel>
-
     </Grid>
 </Page>
