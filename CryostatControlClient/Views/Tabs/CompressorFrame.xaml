@@ -37,7 +37,7 @@
             <Label Style="{StaticResource compressorValues}" x:Name="waterInTemp"
                    HorizontalAlignment="Center" Content="{Binding CompressorViewModel.WaterInTemp}" ContentStringFormat="{}{0:N2}" />
             <Label Style="{StaticResource compressorValues}"
-                   Content="{Binding CompressorViewModel.TempScale}" />
+                   Content="{Binding CompressorViewModel.TempScaleConverted}" />
         </StackPanel>
     </Grid>
 
@@ -54,9 +54,9 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
             <Label Style="{StaticResource compressorValues}" x:Name="waterOutTemp"
-                   Content="{Binding CompressorViewModel.WaterOutTemp}" ContentStringFormat="{}{0:N2}"/>
+                   Content="{Binding CompressorViewModel.WaterOutTemp}" ContentStringFormat="{}{0:N2}" />
             <Label Style="{StaticResource compressorValues}"
-                   Content="{Binding CompressorViewModel.TempScale}" />
+                   Content="{Binding CompressorViewModel.TempScaleConverted}" />
         </StackPanel>
     </Grid>
 
@@ -73,9 +73,9 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
             <Label Style="{StaticResource compressorValues}" x:Name="heliumTemp" Grid.Row="2"
-                   Content="{Binding CompressorViewModel.HeliumTemp}" ContentStringFormat="{}{0:N2}"/>
+                   Content="{Binding CompressorViewModel.HeliumTemp}" ContentStringFormat="{}{0:N2}" />
             <Label Style="{StaticResource compressorValues}"
-                   Content="{Binding CompressorViewModel.TempScale}" />
+                   Content="{Binding CompressorViewModel.TempScaleConverted}" />
         </StackPanel>
     </Grid>
 
@@ -92,11 +92,10 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
             <Label Style="{StaticResource compressorValues}" x:Name="oilTemp" Grid.Row="2"
-                   Content="{Binding CompressorViewModel.OilTemp}" ContentStringFormat="{}{0:N2}"/>
+                   Content="{Binding CompressorViewModel.OilTemp}" ContentStringFormat="{}{0:N2}" />
             <Label Style="{StaticResource compressorValues}"
-                   Content="{Binding CompressorViewModel.TempScale}" />
+                   Content="{Binding CompressorViewModel.TempScaleConverted}" />
         </StackPanel>
-
     </Grid>
 
     <Grid Grid.Column="4" Grid.Row="0">
@@ -127,8 +126,8 @@
             <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.LowPressureAverage}" ContentStringFormat="{}{0:N0}"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="2">
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScale}" />
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScale}" />
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScaleConverted}" />
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScaleConverted}" />
         </StackPanel>
     </Grid>
 
@@ -160,8 +159,8 @@
             <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.HighPressureAverage}" ContentStringFormat="{}{0:N0}"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="2">
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScale}" />
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScale}" />
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScaleConverted}" />
+            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScaleConverted}" />
         </StackPanel>
     </Grid>
 
@@ -173,7 +172,7 @@
         <StackPanel Orientation="Horizontal">
             <Label Style="{StaticResource CompressorTitles}" Content="Hours Of Operation:" />
             <Label Style="{StaticResource CompressorTitles}" x:Name="CompressorOperatingHours"
-                   Content="{Binding CompressorViewModel.HoursOfOperation}" ContentStringFormat="{}{0:N0}"/>
+                   Content="{Binding CompressorViewModel.HoursOfOperation}" ContentStringFormat="{}{0:N0}" />
         </StackPanel>
     </Grid>
 </Grid>

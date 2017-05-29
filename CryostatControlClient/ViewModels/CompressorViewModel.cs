@@ -340,7 +340,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The pressure scale.
         /// </value>
-        public string PressureScale
+        public double PressureScale
         {
             get
             {
@@ -351,6 +351,21 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.PressureScale = value;
                 this.RaisePropertyChanged("PressureScale");
+                this.RaisePropertyChanged("PressureScaleConverted");
+            }
+        }
+
+        /// <summary>
+        /// Gets the pressure scale converted.
+        /// </summary>
+        /// <value>
+        /// The pressure scale converted.
+        /// </value>
+        public string PressureScaleConverted
+        {
+            get
+            {
+                return this.ConvertPressureScaleToString((int)this.compressorModel.PressureScale);
             }
         }
 
@@ -360,7 +375,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The temperature scale.
         /// </value>
-        public string TempScale
+        public double TempScale
         {
             get
             {
@@ -371,6 +386,21 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.TempScale = value;
                 this.RaisePropertyChanged("TempScale");
+                this.RaisePropertyChanged("TempScaleConverted");
+            }
+        }
+
+        /// <summary>
+        /// Gets the temperature scale converted.
+        /// </summary>
+        /// <value>
+        /// The temporary scale converted.
+        /// </value>
+        public string TempScaleConverted
+        {
+            get
+            {
+                return this.ConvertTempScaleToString((int)this.compressorModel.TempScale);
             }
         }
 
@@ -507,6 +537,40 @@ namespace CryostatControlClient.ViewModels
                 case -262144: return "Static Pressure Low";
                 default: return "No Information";
             }
+        }
+
+        /// <summary>
+        /// Converts the temperature scale to string.
+        /// </summary>
+        /// <param name="scale">The scale.</param>
+        /// <returns>Converted scale</returns>
+        private string ConvertTempScaleToString(int scale)
+        {
+            switch (scale)
+            {
+                case 0: return "F";
+                case 1: return "C";
+                case 2: return "K";
+            }
+
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Converts the pressure scale to string.
+        /// </summary>
+        /// <param name="scale">The scale.</param>
+        /// <returns>Converted string</returns>
+        private string ConvertPressureScaleToString(int scale)
+        {
+            switch (scale)
+            {
+                case 0: return "PSI";
+                case 1: return "Bar";
+                case 2: return "KPA";
+            }
+
+            return string.Empty;
         }
 
         #endregion Methods
