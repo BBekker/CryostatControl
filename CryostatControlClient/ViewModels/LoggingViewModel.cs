@@ -9,6 +9,7 @@
 
 namespace CryostatControlClient.ViewModels
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Windows.Input;
     using System.Windows.Media;
 
@@ -20,6 +21,7 @@ namespace CryostatControlClient.ViewModels
     /// <summary>
     /// The logging view model.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1623:PropertySummaryDocumentationMustMatchAccessors", Justification = "Reviewed, is ok here")]
     public class LoggingViewModel : AbstractViewModel
     {
         /// <summary>
@@ -54,7 +56,6 @@ namespace CryostatControlClient.ViewModels
 
         #region Properties
 
-
         /// <summary>
         /// Gets or sets the he3 pump temperature.
         /// </summary>
@@ -74,7 +75,6 @@ namespace CryostatControlClient.ViewModels
                 this.RaisePropertyChanged("He3PumpTemp");
             }
         }
-
 
         /// <summary>
         /// Gets or sets the he3 head temperature.
@@ -701,7 +701,7 @@ namespace CryostatControlClient.ViewModels
         public bool[] GetLoggingArray()
         {
             bool[] loggingDataArray = new bool[(int)DataEnumerator.DataLength];
-            loggingDataArray[(int) DataEnumerator.LakePlate50K] = this.Bluefors50KShieldTemp;
+            loggingDataArray[(int)DataEnumerator.LakePlate50K] = this.Bluefors50KShieldTemp;
             loggingDataArray[(int)DataEnumerator.LakePlate3K] = this.Bluefors3KShieldTemp;
             loggingDataArray[(int)DataEnumerator.ComWaterIn] = this.CompressorWaterInTemp;
             loggingDataArray[(int)DataEnumerator.ComWaterOut] = this.CompressorWaterOutTemp;
