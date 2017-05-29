@@ -5,7 +5,15 @@
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
         <ColumnDefinition Width="*" />
-        <ColumnDefinition Width="10*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
         <RowDefinition Height="*" />
@@ -14,25 +22,56 @@
         <RowDefinition Height="*" />
         <RowDefinition Height="*" />
         <RowDefinition Height="*" />
-        <RowDefinition Height="9*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-    <Label Grid.Row="0" Grid.Column="0">Compressor</Label>
-    <Label Grid.Row="0" Grid.Column="1">On</Label>
+    <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="9" Grid.RowSpan="8" BorderBrush="Black" BorderThickness="3 3 3 0" />
+    <Border Grid.Row="2" Grid.Column="5" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center"/>
+    <Border Grid.Row="4" Grid.Column="5" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center"/>
+    <Border Grid.Row="8" Grid.Column="4" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center"/>
+    <Border Grid.Row="8" Grid.Column="6" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center"/>
+    
+    <Border Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="3" />
+    <Border Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="3" />
+    <Border Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="3" />
 
-    <Label Grid.Row="1" Grid.Column="0">50K Plate</Label>
-    <Label Grid.Row="1" Grid.Column="1" Content="{Binding BlueforsViewModel.ColdPlate50KTemp}" ContentStringFormat="{}{0:N2}"/>
+    <Border Grid.Row="7" Grid.Column="4" BorderBrush="Black" BorderThickness="3" />
+    <Border Grid.Row="9" Grid.Column="4" BorderBrush="Black" BorderThickness="3" />
+    <Border Grid.Row="7" Grid.Column="6" BorderBrush="Black" BorderThickness="3" />
+    <Border Grid.Row="9" Grid.Column="6" BorderBrush="Black" BorderThickness="3" />
 
-    <Label Grid.Row="2" Grid.Column="0">3K Plate</Label>
-    <Label Grid.Row="2" Grid.Column="1" Content="{Binding BlueforsViewModel.ColdPlate3KTemp}" ContentStringFormat="{}{0:N2}"/>
+    <Border Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="3" Margin="5"></Border>
+    <Border Grid.Row="9" Grid.Column="9" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="3" Margin="5"></Border>
 
-    <Label Grid.Row="3" Grid.Column="0">Heater</Label>
-    <Label Grid.Row="3" Grid.Column="1" Content="{Binding BlueforsViewModel.HeaterPower}" ContentStringFormat="{}{0:N2}"/>
-
-    <Label Grid.Row="4" Grid.Column="0">He-4 Cooler</Label>
-    <Label Grid.Row="4" Grid.Column="1" Content="{Binding He7ViewModel.He4HeadTemp}" ContentStringFormat="{}{0:N3}"/>
-
-    <Label Grid.Row="5" Grid.Column="0">He-3 Cooler</Label>
-    <Label Grid.Row="5" Grid.Column="1" Content="{Binding He7ViewModel.He3HeadTemp}" ContentStringFormat="{}{0:N3}"/>
-
+    <StackPanel Grid.Row="3" Grid.Column="7" Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center">
+        <Label Content="{Binding BlueforsViewModel.ColdPlate50KTemp}"/>
+        <Label>K</Label>
+    </StackPanel>
+    <StackPanel Grid.Row="5" Grid.Column="7" Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center">
+        <Label Content="{Binding BlueforsViewModel.ColdPlate3KTemp}"/>
+        <Label>K</Label>
+    </StackPanel>
+    <StackPanel Grid.Row="7" Grid.Column="7" Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center">
+        <Label Content="{Binding He7ViewModel.He4PumpTemp}" />
+        <Label>K</Label>
+    </StackPanel>
+    <StackPanel Grid.Row="9" Grid.Column="7" Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center">
+        <Label Content="{Binding He7ViewModel.He4HeadTemp}"/>
+        <Label>K</Label>
+    </StackPanel>
+    <StackPanel Grid.Row="7" Grid.Column="3" Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center">
+        <Label Content="{Binding He7ViewModel.He3PumpTemp}"/>
+        <Label>K</Label>
+    </StackPanel>
+    <StackPanel Grid.Row="9" Grid.Column="3" Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center">
+        <Label Content="{Binding He7ViewModel.He3HeadTemp}"/>
+        <Label>K</Label>
+    </StackPanel>
+    
+    <Label Grid.Row="6" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center">He3</Label>
+    <Label Grid.Row="6" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center">He4</Label>
 </Grid>
