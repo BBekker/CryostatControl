@@ -163,9 +163,9 @@ namespace CryostatControlServer.HostService
         /// <summary>
         /// Starts the logging.
         /// </summary>
+        /// <param name="interval">The interval in milliseconds.</param>
         /// <param name="logData">Array which tells which data be logged
         /// <seealso cref="DataEnumerator"/> for the places of the sensors</param>
-        /// <param name="interval">The interval in milliseconds.</param>
         [OperationContract]
         void StartLogging(int interval, bool[] logData);
 

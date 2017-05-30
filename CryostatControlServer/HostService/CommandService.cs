@@ -28,6 +28,9 @@ namespace CryostatControlServer.HostService
         /// </summary>
         private readonly CryostatControl cryostatControl;
 
+        /// <summary>
+        /// The logger
+        /// </summary>
         private readonly LogThreader logger;
 
         /// <summary>
@@ -210,32 +213,6 @@ namespace CryostatControlServer.HostService
             this.SetLoggingState(false);
         }
 
-        /// <summary>
-        /// Sets the state of the logging to all clients.
-        /// </summary>
-        /// <param name="status">if set to <c>true</c> [status].</param>
-        private void SetLoggingState(bool status)
-        {
-            foreach (IDataGetCallback callback in this.updateListeners.Reverse<IDataGetCallback>())
-            {
-                Thread thread = new Thread(() => SendLoggingState(callback, status));
-                thread.Start();
-            }
-        }
-
-        private void SendLoggingState(IDataGetCallback callback, bool status)
-        {
-            try
-            {
-                callback.SetLoggingState(status);
-            }
-            catch
-            {
-                this.updateListeners.Remove(callback);
-            }
-
-        }
-
         /// <inheritdoc cref="IDataGet.SubscribeForData"/>>
         public void SubscribeForData(int interval)
         {
@@ -256,28 +233,6 @@ namespace CryostatControlServer.HostService
             {
                 Timer timer = this.dataListeners[client];
                 timer.Dispose();
-                this.dataListeners.Remove(client);
-            }
-        }
-
-        /// <summary>
-        /// Timer method to send mock data
-        /// </summary>
-        /// <param name="state">The state.</param>
-        private void TimerMethod(object state)
-        {
-#if DEBUG
-            Console.WriteLine("sending data to client");
-#endif
-            IDataGetCallback client = (IDataGetCallback)state;
-            double[] data = this.cryostatControl.ReadData();
-            try
-            {
-                client.SendData(data);
-                client.SendModus(this.GetState());
-            }
-            catch
-            {
                 this.dataListeners.Remove(client);
             }
         }
@@ -305,6 +260,58 @@ namespace CryostatControlServer.HostService
         public bool IsLogging()
         {
             return this.logger.GetSpecificLoggingInProgress();
+        }
+
+        /// <summary>
+        /// Sets the state of the logging to all clients.
+        /// </summary>
+        /// <param name="status">if set to <c>true</c> [status].</param>
+        private void SetLoggingState(bool status)
+        {
+            foreach (IDataGetCallback callback in this.updateListeners.Reverse<IDataGetCallback>())
+            {
+                Thread thread = new Thread(() => this.SendLoggingState(callback, status));
+                thread.Start();
+            }
+        }
+
+        /// <summary>
+        /// Sends the state of the logging.
+        /// </summary>
+        /// <param name="callback">The callback.</param>
+        /// <param name="status">if set to <c>true</c> [status].</param>
+        private void SendLoggingState(IDataGetCallback callback, bool status)
+        {
+            try
+            {
+                callback.SetLoggingState(status);
+            }
+            catch
+            {
+                this.updateListeners.Remove(callback);
+            }
+        }
+
+        /// <summary>
+        /// Timer method to send mock data
+        /// </summary>
+        /// <param name="state">The state.</param>
+        private void TimerMethod(object state)
+        {
+#if DEBUG
+            Console.WriteLine("sending data to client");
+#endif
+            IDataGetCallback client = (IDataGetCallback)state;
+            double[] data = this.cryostatControl.ReadData();
+            try
+            {
+                client.SendData(data);
+                client.SendModus(this.GetState());
+            }
+            catch
+            {
+                this.dataListeners.Remove(client);
+            }
         }
 
         #endregion Methods

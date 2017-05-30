@@ -9,10 +9,11 @@
 
 namespace CryostatControlClient.Communication
 {
+    using System;
+
     using CryostatControlClient.ViewModels;
 
     using CryostatControlServer.Data;
-    using System;
 
     /// <summary>
     /// Handles the received data
