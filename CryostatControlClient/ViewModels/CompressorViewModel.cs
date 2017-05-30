@@ -616,7 +616,7 @@ namespace CryostatControlClient.ViewModels
         /// Shows the message.
         /// </summary>
         /// <param name="obj">The object.</param>
-        public void TurnOn(object obj)
+        private void TurnOn(object obj)
         {
             this.RaisePropertyChanged("TurnOn");
         }
@@ -625,7 +625,7 @@ namespace CryostatControlClient.ViewModels
         /// Turns the off.
         /// </summary>
         /// <param name="obj">The object.</param>
-        public void TurnOff(object obj)
+        private void TurnOff(object obj)
         {
             this.RaisePropertyChanged("TurnOff");
         }

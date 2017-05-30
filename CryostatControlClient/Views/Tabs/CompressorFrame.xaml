@@ -145,7 +145,7 @@
                Grid.ColumnSpan="3">
             High Pressure
         </Label>
-        <Viewbox Grid.Row="1" Grid.ColumnSpan="3">
+        <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
             <gauge:CircularGaugeControl x:Name="highPressureGauge" Style="{StaticResource highPressureGauge}"
                                         CurrentValue="{Binding CompressorViewModel.HighPressure}" ContentStringFormat="{}{0:N0}"/>
         </Viewbox>
@@ -173,17 +173,4 @@
             <Button IsEnabled="{Binding CompressorViewModel.CanTurnOff}" Margin="20 0 0 0" Command="{Binding CompressorViewModel.TurnOffCommand}">Off</Button>
         </StackPanel>
     </Grid>
-    <!--<Grid Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" VerticalAlignment="Center">
-        <StackPanel Orientation="Horizontal">
-<<<<<<< HEAD
-            <Label Content="Hours Of Operation:" />
-            <Label x:Name="CompressorOperatingHours"
-                   Content="{Binding CompressorViewModel.HoursOfOperation}" ContentStringFormat="{}{0:N0}"/>
-=======
-            <Label Style="{StaticResource CompressorTitles}" Content="Hours Of Operation:" />
-            <Label Style="{StaticResource CompressorTitles}" x:Name="CompressorOperatingHours"
-                   Content="{Binding CompressorViewModel.HoursOfOperation}" ContentStringFormat="{}{0:N0}" />
->>>>>>> dev
-        </StackPanel>
-    </Grid>-->
 </Grid>

@@ -62,23 +62,22 @@ namespace CryostatControlServer.Data
         public double[] GetDataArray()
         {
             double[] data = new double[(int)DataEnumerator.DataLength];
-            //for (int i = 0; i < data.Length; i++)
-            //{
-            //    data[i] = double.MinValue;
-            //}
+            for (int i = 0; i < data.Length; i++)
+            {
+                data[i] = double.MinValue;
+            }
 
-            //this.FillConnectionData(data);
-            //this.FillDataWithSensor(data);
-            //this.FillCompressorData(data);
+            this.FillConnectionData(data);
+            this.FillDataWithSensor(data);
+            this.FillCompressorData(data);
 
-            //if (!this.he7Cooler.IsConnected())
-            //{
-            //    for (int i = 10; i < (int)DataEnumerator.SensorAmount; i++)
-            //    {
-            //        data[i] = float.NaN;
-            //    }
-            //}
-            this.FillWithMockData(data);
+            if (!this.he7Cooler.IsConnected())
+            {
+                for (int i = 10; i < (int)DataEnumerator.SensorAmount; i++)
+                {
+                    data[i] = float.NaN;
+                }
+            }
 
             return data;
         }
