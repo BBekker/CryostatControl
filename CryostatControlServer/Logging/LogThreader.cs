@@ -30,12 +30,12 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// The general main folder.
         /// </summary>
-        private const string GeneralMainFolder = @"c:\Logging\General";
+        private const string GeneralMainFolder = @"c:\CryostatLogging\General";
 
         /// <summary>
         /// The specific main folder.
         /// </summary>
-        private const string SpecificMainFolder = @"c:\Logging\Specific";
+        private const string SpecificMainFolder = @"c:\CryostatLogging\Specific";
 
         /// <summary>
         /// The start time.
