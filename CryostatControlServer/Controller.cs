@@ -364,7 +364,10 @@ namespace CryostatControlServer
         /// <summary>
         /// Starts the cool down id possible.
         /// </summary>
-        /// <returns>true if cool down is started, false otherwise</returns>
+        /// <param name="startTime">The start time.</param>
+        /// <returns>
+        /// true if cool down is started, false otherwise
+        /// </returns>
         public bool StartCooldown(DateTime startTime)
         {
             if (this.State == Controlstate.Standby)

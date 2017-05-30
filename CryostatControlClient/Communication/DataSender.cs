@@ -52,26 +52,46 @@ namespace CryostatControlClient.Communication
         public void UpdateModus(ViewModelContainer viewModelContainer)
         {
             int radio = viewModelContainer.ModusViewModel.SelectedComboIndex;
-            string time = viewModelContainer.ModusViewModel.Time;
+            string postpone = viewModelContainer.ModusViewModel.Time;
+            DateTime startTime = DateTime.Now;
 
-            switch (radio)
+            if (postpone == "Scheduled")
             {
-                case (int)ModusEnumerator.Cooldown:
-                    this.commandServiceClient.Cooldown();
-                    break;
+                startTime = viewModelContainer.ModusViewModel.SelectedDate;
+                TimeSpan time = viewModelContainer.ModusViewModel.SelectedTime.TimeOfDay;
+                startTime = startTime.Add(time);
 
-                case (int)ModusEnumerator.Recycle:
-                    this.commandServiceClient.Recycle();
-                    break;
+                switch (radio)
+                {
+                    case (int)ModusEnumerator.Cooldown:
+                        this.commandServiceClient.CooldownTime(startTime);
+                        break;
 
-                case (int)ModusEnumerator.Warmup:
-                    this.commandServiceClient.Warmup();
-                    break;
+                    case (int)ModusEnumerator.Recycle:
+                        this.commandServiceClient.RecycleTime(startTime);
+                        break;
 
-                default:
+                    case (int)ModusEnumerator.Warmup:
+                        this.commandServiceClient.WarmupTime(startTime);
+                        break;
+                }
+            }
+            else
+            {
+                switch (radio)
+                {
+                    case (int)ModusEnumerator.Cooldown:
+                        this.commandServiceClient.Cooldown();
+                        break;
 
-                    // todo : some error for unknown modus?
-                    break;
+                    case (int)ModusEnumerator.Recycle:
+                        this.commandServiceClient.Recycle();
+                        break;
+
+                    case (int)ModusEnumerator.Warmup:
+                        this.commandServiceClient.Warmup();
+                        break;
+                }
             }
         }
 

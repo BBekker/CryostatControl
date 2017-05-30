@@ -78,7 +78,7 @@ namespace CryostatControlServer.HostService
         }
 
         /// <inheritdoc cref="ICommandService.Cooldown"/>>
-        public bool CooldownTime(string time)
+        public bool CooldownTime(DateTime time)
         {
             return this.cryostatControl.StartCooldown(time);
         }
@@ -89,9 +89,23 @@ namespace CryostatControlServer.HostService
             return this.cryostatControl.StartRecycle();
         }
 
+        /// <inheritdoc cref="ICommandService.Recycle"/>>
+        public bool RecycleTime(DateTime time)
+        {
+            // todo : add timed
+            return this.cryostatControl.StartRecycle();
+        }
+
         /// <inheritdoc cref="ICommandService.Warmup"/>>
         public bool Warmup()
         {
+            return this.cryostatControl.StartHeatup();
+        }
+
+        /// <inheritdoc cref="ICommandService.Warmup"/>>
+        public bool WarmupTime(DateTime time)
+        {
+            // todo : add timed
             return this.cryostatControl.StartHeatup();
         }
 
