@@ -17,11 +17,11 @@
         <ColumnDefinition Width="1*" />
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-        <RowDefinition Height="1*" />
         <RowDefinition Height="6*" />
+        <RowDefinition Height="1*" />
     </Grid.RowDefinitions>
 
-    <Grid Grid.Column="2" Grid.Row="1">
+    <Grid Grid.Column="2" Grid.Row="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="5*" />
@@ -40,7 +40,7 @@
         </StackPanel>
     </Grid>
 
-    <Grid Grid.Column="3" Grid.Row="1">
+    <Grid Grid.Column="3" Grid.Row="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="5*" />
@@ -59,7 +59,7 @@
         </StackPanel>
     </Grid>
 
-    <Grid Grid.Column="4" Grid.Row="1">
+    <Grid Grid.Column="4" Grid.Row="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="5*" />
@@ -78,7 +78,7 @@
         </StackPanel>
     </Grid>
 
-    <Grid Grid.Column="5" Grid.Row="1">
+    <Grid Grid.Column="5" Grid.Row="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="5*" />
@@ -97,7 +97,7 @@
         </StackPanel>
     </Grid>
 
-    <Grid Grid.Column="0" Grid.Row="1">
+    <Grid Grid.Column="0" Grid.Row="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="4*" />
@@ -130,7 +130,7 @@
         </StackPanel>
     </Grid>
 
-    <Grid Grid.Column="1" Grid.Row="1">
+    <Grid Grid.Column="1" Grid.Row="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="4*" />
@@ -163,14 +163,22 @@
         </StackPanel>
     </Grid>
 
-    <Grid Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
+    <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
         <Label x:Name="CompressorState"
                Content="{Binding CompressorViewModel.OperatingStateConverted}" />
     </Grid>
-    <Grid Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Orientation="Horizontal">
             <Button IsEnabled="{Binding CompressorViewModel.CanTurnOn}" Margin="20 0 0 0" Command="{Binding CompressorViewModel.TurnOnCommand}">On</Button>
             <Button IsEnabled="{Binding CompressorViewModel.CanTurnOff}" Margin="20 0 0 0" Command="{Binding CompressorViewModel.TurnOffCommand}">Off</Button>
         </StackPanel>
+    </Grid>
+
+    <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal">
+            <Label>Hours of operation:</Label>
+            <Label Content="{Binding CompressorViewModel.HoursOfOperation}" />    
+        </StackPanel>
+        
     </Grid>
 </Grid>
