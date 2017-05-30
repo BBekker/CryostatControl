@@ -116,18 +116,34 @@
             <gauge:CircularGaugeControl x:Name="lowPressureGauge" Style="{StaticResource lowPressureGauge}"
                                         CurrentValue="{Binding CompressorViewModel.LowPressure}" ContentStringFormat="{}{0:N0}"/>
         </Viewbox>
-        <StackPanel Grid.Row="2" Grid.Column="0">
-            <Label Style="{StaticResource pressureValues}">Pressure:</Label>
-            <Label Style="{StaticResource pressureValues}">Avg. Pressure:</Label>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.LowPressure}" ContentStringFormat="{}{0:N0}"/>
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.LowPressureAverage}" ContentStringFormat="{}{0:N0}"/>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="2">
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScaleConverted}" />
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScaleConverted}" />
-        </StackPanel>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="0 10 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0">Pressure:</Label>
+            <Label Grid.Column="0" Grid.Row="1">Avg. Pressure:</Label>
+            <Label Grid.Column="0" Grid.Row="2">Avg. Delta Pressure:</Label>
+
+            <StackPanel Grid.Column="1" Grid.Row="0">
+                <Label Content="{Binding CompressorViewModel.LowPressure}" ContentStringFormat="{}{0:N0}"/>
+                <Label Content="{Binding CompressorViewModel.PressureScaleConverted}" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <Label Content="{Binding CompressorViewModel.LowPressureAverage}" ContentStringFormat="{}{0:N0}"/>
+                <Label Content="{Binding CompressorViewModel.PressureScaleConverted}" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="2">
+                <Label Content="{Binding CompressorViewModel.DeltaPressureAverage}" ContentStringFormat="{}{0:N0}"/>
+                <Label Content="{Binding CompressorViewModel.PressureScaleConverted}" />
+            </StackPanel>
+        </Grid>
     </Grid>
 
     <Grid Grid.Column="1" Grid.Row="0">
@@ -149,18 +165,29 @@
             <gauge:CircularGaugeControl x:Name="highPressureGauge" Style="{StaticResource highPressureGauge}"
                                         CurrentValue="{Binding CompressorViewModel.HighPressure}" ContentStringFormat="{}{0:N0}"/>
         </Viewbox>
-        <StackPanel Grid.Row="2" Grid.Column="0">
-            <Label Style="{StaticResource pressureValues}">Pressure:</Label>
-            <Label Style="{StaticResource pressureValues}">Avg. Pressure:</Label>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right">
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.HighPressure}" ContentStringFormat="{}{0:N0}"/>
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.HighPressureAverage}" ContentStringFormat="{}{0:N0}"/>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="2">
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScaleConverted}" />
-            <Label Style="{StaticResource pressureValues}" Content="{Binding CompressorViewModel.PressureScaleConverted}" />
-        </StackPanel>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="0 10 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0">Pressure:</Label>
+            <Label Grid.Column="0" Grid.Row="1">Avg. Pressure:</Label>
+
+            <StackPanel Grid.Column="1" Grid.Row="0">
+                <Label Content="{Binding CompressorViewModel.HighPressure}" ContentStringFormat="{}{0:N0}"/>
+                <Label Content="{Binding CompressorViewModel.PressureScaleConverted}" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <Label Content="{Binding CompressorViewModel.HighPressureAverage}" ContentStringFormat="{}{0:N0}"/>
+                <Label Content="{Binding CompressorViewModel.PressureScaleConverted}" />
+            </StackPanel>
+        </Grid>
     </Grid>
 
     <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
