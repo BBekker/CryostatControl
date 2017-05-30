@@ -76,6 +76,25 @@ namespace CryostatControlClient.Communication
         }
 
         /// <summary>
+        /// Sets the compressor scales.
+        /// </summary>
+        /// <param name="viewModelContainer">The view model container.</param>
+        public void SetCompressorScales(ViewModelContainer viewModelContainer)
+        {
+            try
+            {
+                viewModelContainer.CompressorViewModel.TempScale =
+                    this.commandServiceClient.ReadCompressorTemperatureScale();
+                viewModelContainer.CompressorViewModel.PressureScale =
+                    this.commandServiceClient.ReadCompressorPressureScale();
+            }
+            catch
+            {
+                Console.WriteLine("Something went wrong with the server");
+            }
+        }
+
+        /// <summary>
         /// Cancels the modus.
         /// </summary>
         public void CancelModus()
@@ -114,6 +133,26 @@ namespace CryostatControlClient.Communication
             // Console.WriteLine(viewModelContainer.He7ViewModel.FourKPlateMax2);
             // Console.WriteLine(viewModelContainer.He7ViewModel.He4HeadMax);
             // Console.WriteLine(viewModelContainer.He7ViewModel.He3HeadMax);
+        }
+
+        /// <summary>
+        /// Sends the data to be logged.
+        /// </summary>
+        /// <param name="viewModelContainer">The view model container.</param>
+        public void SendDataToBeLogged(ViewModelContainer viewModelContainer)
+        {
+            bool[] dataToBeLogged = viewModelContainer.LoggingViewModel.GetLoggingArray();
+            int interval = (int)viewModelContainer.LoggingViewModel.LoggingInterval;
+
+            this.commandServiceClient.StartLogging(interval, dataToBeLogged);
+        }
+
+        /// <summary>
+        /// Cancels the logging.
+        /// </summary>
+        public void CancelLogging()
+        {
+            this.commandServiceClient.StopLogging();
         }
 
         #endregion Methods

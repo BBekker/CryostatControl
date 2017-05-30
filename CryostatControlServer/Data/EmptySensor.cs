@@ -8,7 +8,7 @@ namespace CryostatControlServer.Data
     /// <summary>
     /// Empty sensor class, as placeholder when a sensor cannot be initialized.
     /// </summary>
-    /// <seealso cref="CryostatControlServer.ISensor" />
+    /// <seealso cref="ISensor" />
     public class EmptySensor : ISensor
     {
         #region Properties
@@ -37,7 +37,7 @@ namespace CryostatControlServer.Data
         {
             get
             {
-                return double.MinValue;
+                return double.NaN;
             }
         }
 

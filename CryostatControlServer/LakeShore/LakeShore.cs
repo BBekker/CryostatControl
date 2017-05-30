@@ -22,6 +22,8 @@ namespace CryostatControlServer.LakeShore
     /// </summary>
     public class LakeShore
     {
+        #region Fields
+
         /// <summary>
         /// The 3K cold plate id
         /// </summary>
@@ -61,10 +63,18 @@ namespace CryostatControlServer.LakeShore
         /// </summary>
         private IManagedStream stream;
 
+        #endregion Fields
+
+        #region Properties
+
         /// <summary>
         /// Gets or sets the latest sensor values;
         /// </summary>
         public double[] SensorValues { get; set; } = new double[2] { 0, 0 };
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Find the lakeshore com port and connect
@@ -153,7 +163,7 @@ namespace CryostatControlServer.LakeShore
             {
                 Monitor.Enter(this.stream);
                 this.WaitCommandInterval();
-                this.stream.WriteString("RANGE A," + (turnOn ? "3" : "0") + "\n");
+                this.stream.WriteString("RANGE 1," + (turnOn ? "3" : "0") + "\n");
             }
             finally
             {
@@ -162,15 +172,38 @@ namespace CryostatControlServer.LakeShore
         }
 
         /// <summary>
+        /// The set heater.
+        /// </summary>
+        /// <returns>
+        /// The power percentage from 0 to 100 <see cref="double"/>.
+        /// </returns>
+        public double GetHeaterPower()
+        {
+            try
+            {
+                Monitor.Enter(this.stream);
+                this.WaitCommandInterval();
+                this.stream.WriteString("HTR? 1\n");
+                return double.Parse(this.stream.ReadString());
+            }
+            finally
+            {
+                Monitor.Exit(this.stream);
+            }
+            return -1;
+        }
+
+        /// <summary>
         /// Sends OPC command to device and waits for response.
         /// Used to confirm connection and synchronisation of state of the device.
         /// </summary>
+        /// <returns><c>true</c> if connect, else <c>false</c></returns>
         // ReSharper disable once InconsistentNaming
         [SuppressMessage(
             "StyleCop.CSharp.DocumentationRules",
             "SA1650:ElementDocumentationMustBeSpelledCorrectly",
             Justification = "Reviewed. Suppression is OK here.")]
-        public void OPC()
+        public bool OPC()
         {
             try
             {
@@ -178,6 +211,11 @@ namespace CryostatControlServer.LakeShore
                 this.WaitCommandInterval();
                 this.stream.WriteString("OPC?\n");
                 this.stream.ReadString();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
             finally
             {
@@ -279,5 +317,7 @@ namespace CryostatControlServer.LakeShore
 
             this.lastCommand = DateTime.Now;
         }
+
+        #endregion Methods
     }
 }

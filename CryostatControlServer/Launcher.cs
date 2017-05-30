@@ -10,7 +10,10 @@ namespace CryostatControlServer
     using System.ServiceModel;
     using System.ServiceModel.Description;
 
+
+    using CryostatControlServer.Data;
     using CryostatControlServer.HostService;
+    using CryostatControlServer.Logging;
 
     /// <summary>
     /// Launcher for the server application
@@ -59,6 +62,11 @@ namespace CryostatControlServer
         /// </summary>
         private static Controller controller;
 
+        /// <summary>
+        /// The logger
+        /// </summary>
+        private static LogThreader logger;
+
         #endregion Fields
 
         #region Methods
@@ -69,7 +77,9 @@ namespace CryostatControlServer
         /// <param name="args">The arguments.</param>
         public static void Main(string[] args)
         {
-            InitComponents();
+            InitComponents();         
+            logger = new LogThreader(new DataReader(compressor, he7Cooler, lakeShore));
+            logger.StartGeneralDataLogging();
             StartHost();
         }
 
@@ -106,7 +116,8 @@ namespace CryostatControlServer
 
             try
             {
-                compressor = new Compressor.Compressor(CompressorHost);
+                compressor = new Compressor.Compressor();
+                compressor.Connect(CompressorHost);
             }
             catch (Exception e)
             {

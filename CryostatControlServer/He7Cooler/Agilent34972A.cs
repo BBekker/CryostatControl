@@ -18,6 +18,8 @@ namespace CryostatControlServer.He7Cooler
     /// </summary>
     public class Agilent34972A
     {
+        #region Fields
+
         /// <summary>
         /// The TCP port.
         /// </summary>
@@ -27,6 +29,10 @@ namespace CryostatControlServer.He7Cooler
         /// The connection.
         /// </summary>
         private IManagedStream connection;
+
+        #endregion Fields
+
+        #region Methods
 
         /// <summary>
         ///     Gets voltages from the device
@@ -41,7 +47,7 @@ namespace CryostatControlServer.He7Cooler
                 var numSensors = channelIds.Length;
                 var returnedChannels = new int[numSensors];
                 var returnedVolts = new double[numSensors];
-               
+
                 var readVolt = new double[numSensors];
 
                 // construct a command to read all specified voltages
@@ -177,7 +183,7 @@ namespace CryostatControlServer.He7Cooler
                 {
                     b_set = !b_set;
                 }
-                        
+
                 // set or clear the bit in the old values
                 var setByte = 0;
                 if (b_set)
@@ -188,7 +194,7 @@ namespace CryostatControlServer.He7Cooler
                 {
                     setByte = getByte - (getByte & bitVal);
                 }
-                
+
                 this.connection.WriteString($"SOUR:DIG:DATA:BYTE {setByte}, (@{(int)Channels.CtrlDigOut})\n");
             }
             finally
@@ -259,5 +265,7 @@ namespace CryostatControlServer.He7Cooler
                 Monitor.Exit(this.connection);
             }
         }
+
+        #endregion Methods
     }
 }

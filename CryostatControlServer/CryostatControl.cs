@@ -6,9 +6,12 @@
 namespace CryostatControlServer
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
+    using CryostatControlServer.Compressor;
     using CryostatControlServer.Data;
     using CryostatControlServer.HostService.Enumerators;
+    using CryostatControlServer.Logging;
 
     /// <summary>
     /// Class which handles all the request by the client.
@@ -119,6 +122,17 @@ namespace CryostatControlServer
         #region Methods
 
         /// <summary>
+        /// The read heater power.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="double"/>.
+        /// </returns>
+        public double ReadBlueforsHeaterPower()
+        {
+            return this.lakeShore.GetHeaterPower();
+        }
+
+        /// <summary>
         /// Cancels the current command safely.
         /// </summary>
         public void CancelCommand()
@@ -196,6 +210,10 @@ namespace CryostatControlServer
         /// <returns>
         /// True if successfully executed <see cref="bool"/>.
         /// </returns>
+        [SuppressMessage(
+            "StyleCop.CSharp.DocumentationRules",
+            "SA1650:ElementDocumentationMustBeSpelledCorrectly",
+            Justification = "Reviewed. Suppression is OK here.")]
         public bool SetBlueforsHeater(bool status)
         {
             if (!this.ManualControl)
