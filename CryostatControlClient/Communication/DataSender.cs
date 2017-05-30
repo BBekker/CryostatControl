@@ -76,6 +76,15 @@ namespace CryostatControlClient.Communication
         }
 
         /// <summary>
+        /// Switches the compressor.
+        /// </summary>
+        /// <param name="state">if set to <c>true</c> [state].</param>
+        public void SwitchCompressor(bool state)
+        {
+            this.commandServiceClient.SetCompressorState(state);
+        }
+
+        /// <summary>
         /// Sets the compressor scales.
         /// </summary>
         /// <param name="viewModelContainer">The view model container.</param>
