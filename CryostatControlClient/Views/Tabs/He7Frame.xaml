@@ -220,10 +220,9 @@
     <Border Grid.Row="7" Grid.Column="1" Grid.RowSpan="2" BorderBrush="Black" Background="White" BorderThickness="3" CornerRadius="2">
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -243,10 +242,9 @@
     <Border Grid.Row="7" Grid.Column="7" Grid.RowSpan="2" BorderBrush="Black" Background="White" BorderThickness="3" CornerRadius="2">
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
