@@ -12,6 +12,7 @@ namespace CryostatControlServer.HostService
     using System.ServiceModel;
     using System.Threading;
 
+    using CryostatControlServer.Data;
     using CryostatControlServer.HostService.Enumerators;
     using CryostatControlServer.Logging;
 
@@ -122,6 +123,12 @@ namespace CryostatControlServer.HostService
         public int GetState()
         {
             return (int)this.cryostatControl.ControllerState;
+        }
+
+        /// <inheritdoc cref="ICommandService.GetValue"/>
+        public double GetValue(int sensor)
+        {
+            return this.cryostatControl.ReadData()[sensor];
         }
 
         /// <inheritdoc cref="ICommandService.SetCompressorState"/>

@@ -118,6 +118,20 @@ namespace CryostatControlServer.HostService
         bool WriteHelium7(double[] values);
 
         /// <summary>
+        /// Get a sensor value
+        /// </summary>
+        /// <param name="sensor">
+        /// The sensor.
+        /// <see cref="DataEnumerator"/> for all sensor numbers
+        /// </param>
+        /// <returns>
+        /// The <see cref="double"/>.
+        /// </returns>
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "value/{sensor}/")]
+        double GetValue(int sensor);
+
+        /// <summary>
         /// Reads the compressor temperature scale.
         /// </summary>
         /// <returns>Temperature scale in double <seealso cref="TemperatureEnum"/></returns>
