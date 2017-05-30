@@ -11,6 +11,7 @@ namespace CryostatControlServer
     using CryostatControlServer.Compressor;
     using CryostatControlServer.Data;
     using CryostatControlServer.HostService.Enumerators;
+    using CryostatControlServer.Logging;
 
     /// <summary>
     /// Class which handles all the request by the client.

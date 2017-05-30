@@ -9,12 +9,14 @@
 
 namespace CryostatControlClient.Models
 {
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     /// The logging model.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1623:PropertySummaryDocumentationMustMatchAccessors", Justification = "Reviewed, is ok here")]
     public class LoggingModel
     {
-
         /// <summary>
         /// The he3 cold head temperature
         /// </summary>
@@ -146,10 +148,15 @@ namespace CryostatControlClient.Models
         private int presetComboBox;
 
         /// <summary>
-        /// Gets or sets the he3 cold head temperature.
+        /// The logging in progress
+        /// </summary>
+        private bool loggingInProgress;
+
+        /// <summary>
+        /// Gets or sets the he3 pump temperature.
         /// </summary>
         /// <value>
-        /// The he3 cold head temperature.
+        /// The he3 pump temperature.
         /// </value>
         public bool He3PumpTemp
         {
@@ -165,16 +172,16 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he3 warm head temperature.
+        /// Gets or sets the he3 head temperature.
         /// </summary>
         /// <value>
-        /// The he3 warm head temperature.
+        /// The he3 head temperature.
         /// </value>
         public bool He3HeadTemp
         {
             get
             {
-                return this. he3HeadTemp;
+                return this.he3HeadTemp;
             }
 
             set
@@ -203,10 +210,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he4 cold head temperature.
+        /// Gets or sets the he4 pump temperature.
         /// </summary>
         /// <value>
-        /// The he4 cold head temperature.
+        /// The he4 pump temperature.
         /// </value>
         public bool He4PumpTemp
         {
@@ -222,10 +229,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he4 warm head temperature.
+        /// Gets or sets the he4 head temperature.
         /// </summary>
         /// <value>
-        /// The he4 warm head temperature.
+        /// The he4 head temperature.
         /// </value>
         public bool He4HeadTemp
         {
@@ -636,6 +643,25 @@ namespace CryostatControlClient.Models
             set
             {
                 this.presetComboBox = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [logging is in progress].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [logging is in progress]; otherwise, <c>false</c>.
+        /// </value>
+        public bool LoggingInProgress
+        {
+            get
+            {
+                return this.loggingInProgress;
+            }
+
+            set
+            {
+                this.loggingInProgress = value;
             }
         }
     }
