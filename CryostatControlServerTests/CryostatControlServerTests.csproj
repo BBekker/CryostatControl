@@ -58,6 +58,9 @@
     <Compile Include="He7Cooler\SensorTests.cs" />
     <Compile Include="He7Cooler\He7CoolerSmokeTests.cs" />
     <Compile Include="Lakeshore\LakeShoreTests.cs" />
+    <Compile Include="Logging\GeneralDataLoggerTest.cs" />
+    <Compile Include="Logging\SpecificDataLoggingTest.cs" />
+    <Compile Include="Logging\AbstractDataLoggingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CryostatControlTests.cs" />
   </ItemGroup>

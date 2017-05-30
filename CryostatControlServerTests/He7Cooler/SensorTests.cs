@@ -1,6 +1,7 @@
 ﻿namespace CryostatControlServerTests.He7Cooler
 {
     using System;
+    using System.Globalization;
 
     using CryostatControlServer.He7Cooler;
     using CryostatControlServer.Streams;
@@ -42,6 +43,8 @@
         [TestMethod]
         public void TestReadingCalibration()
         {
+            IFormatProvider myFormatProvider = new CultureInfo("en-GB").NumberFormat;
+
             He7Cooler.Sensor.Calibration testSensor = new He7Cooler.Sensor.Calibration("..\\..\\RUOX.CAL", 3, 0);
             Assert.AreEqual(149, testSensor.CalibrationSize);
             Assert.AreEqual(35.0, testSensor.ConvertValue(0.2133), 0.01);

@@ -2,6 +2,8 @@
 
 namespace CryostatControlServerTests.Lakeshore
 {
+    using System;
+    using System.Globalization;
     using System.Threading;
 
     using CryostatControlServer.Data;
@@ -19,12 +21,13 @@ namespace CryostatControlServerTests.Lakeshore
         public void TestStartAndRead()
         {
             var lakeshore = new LakeShore();
+            IFormatProvider myFormatProvider = new CultureInfo("en-GB").NumberFormat;
 
             //Set up mock
             var mockLS = new Mock<IManagedStream>();
             mockLS.Setup(stream => stream.Open());
             mockLS.Setup(stream => stream.WriteString(It.IsAny<string>()));
-            mockLS.Setup(stream => stream.ReadString()).Returns(() => "5.0");
+            mockLS.Setup(stream => stream.ReadString()).Returns(() => 5.0.ToString(myFormatProvider));
             mockLS.Setup(stream => stream.IsConnected()).Returns(true);
             lakeshore.Init(mockLS.Object);
 
@@ -32,7 +35,7 @@ namespace CryostatControlServerTests.Lakeshore
             Thread.Sleep(500);
 
             ISensor lssensor = new Sensor(SensorEnum.Sensor1, lakeshore);
-
+          
             Assert.AreEqual(5.0, lssensor.Value);
 
             lakeshore.Close();
