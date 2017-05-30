@@ -92,8 +92,7 @@ namespace CryostatControlServer.HostService
         /// <inheritdoc cref="ICommandService.Recycle"/>>
         public bool RecycleTime(DateTime time)
         {
-            // todo : add timed
-            return this.cryostatControl.StartRecycle();
+            return this.cryostatControl.StartRecycle(time);
         }
 
         /// <inheritdoc cref="ICommandService.Warmup"/>>
@@ -105,8 +104,7 @@ namespace CryostatControlServer.HostService
         /// <inheritdoc cref="ICommandService.Warmup"/>>
         public bool WarmupTime(DateTime time)
         {
-            // todo : add timed
-            return this.cryostatControl.StartHeatup();
+            return this.cryostatControl.StartHeatup(time);
         }
 
         /// <inheritdoc cref="ICommandService.Manual"/>

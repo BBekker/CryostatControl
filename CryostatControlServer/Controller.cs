@@ -364,15 +364,15 @@ namespace CryostatControlServer
         /// <summary>
         /// Starts the cool down id possible.
         /// </summary>
-        /// <param name="startTime">The start time.</param>
+        /// <param name="time">The time.</param>
         /// <returns>
         /// true if cool down is started, false otherwise
         /// </returns>
-        public bool StartCooldown(DateTime startTime)
+        public bool StartCooldown(DateTime time)
         {
             if (this.State == Controlstate.Standby)
             {
-                this.startTime = startTime;
+                this.startTime = time;
                 this.State = Controlstate.CooldownStart;
                 return true;
             }
@@ -383,11 +383,15 @@ namespace CryostatControlServer
         /// <summary>
         /// Starts the heat up.
         /// </summary>
-        /// <returns>true if heat up is started, false otherwise</returns>
-        public bool StartHeatup()
+        /// <param name="time">The time.</param>
+        /// <returns>
+        /// true if heat up is started, false otherwise
+        /// </returns>
+        public bool StartHeatup(DateTime time)
         {
             if (this.State == Controlstate.Standby)
             {
+                this.startTime = time;
                 this.State = Controlstate.WarmupStart;
                 return true;
             }
@@ -415,11 +419,15 @@ namespace CryostatControlServer
         /// <summary>
         /// Starts a recycle.
         /// </summary>
-        /// <returns>true if recycle is started, false otherwise</returns>
-        public bool StartRecycle()
+        /// <param name="time">The time.</param>
+        /// <returns>
+        /// true if recycle is started, false otherwise
+        /// </returns>
+        public bool StartRecycle(DateTime time)
         {
             if (this.State == Controlstate.Standby)
             {
+                this.startTime = time;
                 this.State = Controlstate.RecycleStart;
                 return true;
             }
@@ -696,10 +704,14 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.RecycleStart:
-                    this.cooler.He3Switch.Voltage = 0.0;
-                    this.cooler.He4Switch.Voltage = 0.0;
+                    if (DateTime.Now > this.startTime)
+                    {
+                        this.cooler.He3Switch.Voltage = 0.0;
+                        this.cooler.He4Switch.Voltage = 0.0;
 
-                    this.State = Controlstate.RecycleHeatPumps;
+                        this.State = Controlstate.RecycleHeatPumps;
+                    }
+
                     break;
 
                 case Controlstate.RecycleHeatPumps:
@@ -714,25 +726,27 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.WarmupStart:
+                    if (DateTime.Now > this.startTime)
+                    {
+                        try
+                        {
+                            this.lakeshore.SetHeater(true);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("lakeshore did not respond");
+                        }
+                        try
+                        {
+                            this.compressor.TurnOff();
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Compressor not connected, make sure it is turned off!");
+                        }
+                        this.State = Controlstate.WarmupHeating;
+                    }
 
-                    try
-                    {
-                        this.lakeshore.SetHeater(true);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("lakeshore did not respond");
-                    }
-                    try
-                    {
-                        this.compressor.TurnOff();
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("Compressor not connected, make sure it is turned off!");
-                    }
-                    this.State = Controlstate.WarmupHeating;
-                    
                     break;
 
                 case Controlstate.WarmupHeating:
