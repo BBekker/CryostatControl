@@ -8,6 +8,8 @@ namespace CryostatControlServer
     using System;
     using System.IO.Ports;
     using System.ServiceModel;
+    using System.ServiceModel.Description;
+
     using CryostatControlServer.HostService;
 
     /// <summary>
@@ -126,32 +128,18 @@ namespace CryostatControlServer
         /// </summary>
         private static void StartHost()
         {
-            try
+            CommandService hostService = new CommandService(cryostatControl);
+            using (ServiceHost host = new ServiceHost(hostService))
             {
-                CommandService hostService = new CommandService(cryostatControl);
-                Uri baseAddress = new Uri("http://localhost:18080/SRON");
-                using (ServiceHost host = new ServiceHost(hostService, baseAddress))
-                {
-                    // Enable metadata publishing.
-                    ////ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-                    ////smb.HttpGetEnabled = true;
-                    ////smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
-                    ////host.Description.Behaviors.Add(smb);
                     ((ServiceBehaviorAttribute)host.Description.Behaviors[typeof(ServiceBehaviorAttribute)])
                         .InstanceContextMode = InstanceContextMode.Single;
                     host.Open();
-                    Console.WriteLine("The service is ready at {0}", baseAddress);
+                    Console.WriteLine("The service is ready");
                     Console.WriteLine("Press <Enter> to stop the service.");
                     Console.ReadLine();
                     host.Close();
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error setting up server, did you run this in administrator mode?");
-                Console.Write(e.Message);
-                Console.ReadLine();
-            }
+            
         }
     }
 

@@ -6,9 +6,11 @@
 namespace CryostatControlServer.HostService
 {
     using System.ServiceModel;
+    using System.ServiceModel.Web;
 
     using CryostatControlServer.Compressor;
     using CryostatControlServer.HostService.Enumerators;
+    
 
     /// <summary>
     /// Interface for the available commands
@@ -22,6 +24,7 @@ namespace CryostatControlServer.HostService
         /// Method to check if the host is running
         /// </summary>
         /// <returns>The service state</returns>
+        [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "IsAlive")]
         [OperationContract]
         bool IsAlive();
 
@@ -30,6 +33,7 @@ namespace CryostatControlServer.HostService
         /// </summary>
         /// <returns>If the cool down process could be started</returns>
         [OperationContract]
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json)]
         bool Cooldown();
 
         /// <summary>
@@ -42,6 +46,7 @@ namespace CryostatControlServer.HostService
         /// If the cool down process could be started
         /// </returns>
         [OperationContract]
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json)]
         bool CooldownTime(string time);
 
         /// <summary>
@@ -49,6 +54,7 @@ namespace CryostatControlServer.HostService
         /// </summary>
         /// <returns>If the recycle process could be started</returns>
         [OperationContract]
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json)]
         bool Recycle();
 
         /// <summary>
@@ -56,6 +62,7 @@ namespace CryostatControlServer.HostService
         /// </summary>
         /// <returns>If the warm up process could be started</returns>
         [OperationContract]
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json)]
         bool Warmup();
 
         /// <summary>
@@ -63,6 +70,7 @@ namespace CryostatControlServer.HostService
         /// </summary>
         /// <returns>If the server could go to manual mode</returns>
         [OperationContract]
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json)]
         bool Manual();
 
         /// <summary>
@@ -70,6 +78,7 @@ namespace CryostatControlServer.HostService
         /// </summary>
         /// <returns>true if canceled</returns>
         [OperationContract]
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json)]
         bool Cancel();
 
         /// <summary>
@@ -77,6 +86,7 @@ namespace CryostatControlServer.HostService
         /// </summary>
         /// <returns>integer representing the controller state <see cref="Controlstate"/></returns>
         [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
         int GetState();
 
         /// <summary>
@@ -90,6 +100,7 @@ namespace CryostatControlServer.HostService
         /// <c>false</c> status could not been set either there is no connection or the compressor is controlled by an automatic process.
         /// </returns>
         [OperationContract]
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json)]
         bool SetCompressorState(bool status);
 
         /// <summary>
@@ -102,6 +113,7 @@ namespace CryostatControlServer.HostService
         /// <c>false</c> values could not be set, either there is no connection,
         /// input values are incorrect or manual control isn't allowed</returns>
         [OperationContract]
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json)]
         bool WriteHelium7(double[] values);
 
         /// <summary>
@@ -109,6 +121,7 @@ namespace CryostatControlServer.HostService
         /// </summary>
         /// <returns>Temperature scale in double <seealso cref="TemperatureEnum"/></returns>
         [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
         double ReadCompressorTemperatureScale();
 
         /// <summary>
@@ -116,6 +129,7 @@ namespace CryostatControlServer.HostService
         /// </summary>
         /// <returns>Pressure scale in double <seealso cref="PressureEnum"/></returns>
         [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
         double ReadCompressorPressureScale();
 
         /// <summary>
@@ -131,6 +145,7 @@ namespace CryostatControlServer.HostService
         /// If the values have been written
         /// </returns>
         [OperationContract]
+        [WebInvoke(BodyStyle = WebMessageBodyStyle.Wrapped, ResponseFormat = WebMessageFormat.Json)]
         bool WriteSettingValue(int setting, double value);
 
         /// <summary>
@@ -140,9 +155,11 @@ namespace CryostatControlServer.HostService
         /// The settings ordered by SettingEnumerator <see cref="double[]"/>.
         /// </returns>
         [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
         double[] ReadSettings();
 
         [OperationContract]
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json)]
         bool SetBlueforsHeater(bool status);
 
         #endregion Methods
