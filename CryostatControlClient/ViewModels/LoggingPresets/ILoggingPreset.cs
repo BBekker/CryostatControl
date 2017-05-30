@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="GeneralLoggingPreset.cs" company="SRON">
+// <copyright file="ILoggingPreset.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
@@ -14,11 +14,10 @@ namespace CryostatControlClient.ViewModels.LoggingPresets
     /// </summary>
     public interface ILoggingPreset
     {
-
         /// <summary>
         /// Sets the logging values.
         /// </summary>
         /// <param name="loggingViewModel">The logging view model.</param>
-        new void SetLoggingValues(LoggingViewModel loggingViewModel);
+        void SetLoggingValues(LoggingViewModel loggingViewModel);
     }
 }

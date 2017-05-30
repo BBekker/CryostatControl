@@ -25,6 +25,7 @@ namespace CryostatControlServerTests.Lakeshore
             mockLS.Setup(stream => stream.Open());
             mockLS.Setup(stream => stream.WriteString(It.IsAny<string>()));
             mockLS.Setup(stream => stream.ReadString()).Returns(() => "5.0");
+            mockLS.Setup(stream => stream.IsConnected()).Returns(true);
             lakeshore.Init(mockLS.Object);
 
             //wait for the thread to run

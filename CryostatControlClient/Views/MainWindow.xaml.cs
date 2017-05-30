@@ -51,7 +51,12 @@ namespace CryostatControlClient.Views
         /// <summary>
         /// The handler
         /// </summary>
-        private PropertyChangedEventHandler heHandler;
+        private PropertyChangedEventHandler heliumHandler;
+
+        /// <summary>
+        /// The logger handler.
+        /// </summary>
+        private PropertyChangedEventHandler loggerHandler;
 
         #endregion Fields
 
@@ -70,7 +75,10 @@ namespace CryostatControlClient.Views
             this.dataSender = new DataSender(commandServiceClient);
 
             this.modusHandler = this.HandleModus;
-            this.heHandler = this.HandleHe;
+
+            this.loggerHandler = this.HandleLogger;
+
+            this.heliumHandler = this.HandleHe;
         }
 
         #endregion Constructor
@@ -107,7 +115,11 @@ namespace CryostatControlClient.Views
             this.DataContext = this.viewModelContainer;
 
             this.viewModelContainer.ModusViewModel.PropertyChanged += this.modusHandler;
-            this.viewModelContainer.He7ViewModel.PropertyChanged += this.heHandler;
+
+            this.viewModelContainer.LoggingViewModel.PropertyChanged += this.loggerHandler;
+
+            this.viewModelContainer.He7ViewModel.PropertyChanged += this.heliumHandler;
+            this.dataSender.SetCompressorScales(this.viewModelContainer);
         }
 
         /// <summary>
@@ -148,6 +160,28 @@ namespace CryostatControlClient.Views
             }
         }
 
+        /// <summary>
+        /// Handles the logger.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void HandleLogger(object sender, PropertyChangedEventArgs e)
+        {
+            string action = e.PropertyName;
+
+            if (action == "StartPressed")
+            {
+                this.dataSender.SendDataToBeLogged(this.viewModelContainer);
+            }
+            else if (action == "CancelPressed")
+            {
+                this.dataSender.CancelLogging();
+            }
+            else
+            {
+                // todo: unknow action, throw exception or something?
+            }
+        }
         #endregion Methods
     }
 }

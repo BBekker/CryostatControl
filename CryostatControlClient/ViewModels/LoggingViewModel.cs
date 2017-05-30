@@ -9,17 +9,19 @@
 
 namespace CryostatControlClient.ViewModels
 {
-    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Windows.Input;
+    using System.Windows.Media;
 
     using CryostatControlClient.Models;
     using CryostatControlClient.ViewModels.LoggingPresets;
 
     using CryostatControlServer.Data;
-    using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
     /// The logging view model.
     /// </summary>
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1623:PropertySummaryDocumentationMustMatchAccessors", Justification = "Reviewed, is ok here")]
     public class LoggingViewModel : AbstractViewModel
     {
         /// <summary>
@@ -33,19 +35,33 @@ namespace CryostatControlClient.ViewModels
         private ILoggingPreset loggingPreset;
 
         /// <summary>
+        /// The start button command
+        /// </summary>
+        private ICommand startButtonCommand;
+
+        /// <summary>
+        /// The cancel button command
+        /// </summary>
+        private ICommand cancelButtonCommand;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="LoggingViewModel"/> class.
         /// </summary>
         public LoggingViewModel()
         {
-            //this.loggingPreset = new LogAllPreset(this);
             this.loggingModel = new LoggingModel();
+            this.StartButtonCommand = new RelayCommand(this.OnClickStart, param => true);
+            this.CancelButtonCommand = new RelayCommand(this.OnClickCancel, param => true);
         }
 
         #region Properties
 
         /// <summary>
-        /// Gets or sets a value indicating whether he 3 pump temp.
+        /// Gets or sets the he3 pump temperature.
         /// </summary>
+        /// <value>
+        /// The he3 pump temperature.
+        /// </value>
         public bool He3PumpTemp
         {
             get
@@ -61,8 +77,11 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether he 3 head temp.
+        /// Gets or sets the he3 head temperature.
         /// </summary>
+        /// <value>
+        /// The he3 head temperature.
+        /// </value>
         public bool He3HeadTemp
         {
             get
@@ -98,8 +117,11 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether he 4 pump temp.
+        /// Gets or sets the he4 pump temperature.
         /// </summary>
+        /// <value>
+        /// The he4 pump temperature.
+        /// </value>
         public bool He4PumpTemp
         {
             get
@@ -115,8 +137,11 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether he 4 head temp.
+        /// Gets or sets the he4 head temperature.
         /// </summary>
+        /// <value>
+        /// The he4 head temperature.
+        /// </value>
         public bool He4HeadTemp
         {
             get
@@ -532,6 +557,55 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether [logging in progress].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [logging in progress]; otherwise, <c>false</c>.
+        /// </value>
+        public bool LoggingInProgress
+        {
+            get
+            {
+                return this.loggingModel.LoggingInProgress;
+            }
+
+            set
+            {
+                this.loggingModel.LoggingInProgress = value;
+                this.RaisePropertyChanged("LoggingInProgress");
+                this.RaisePropertyChanged("LoggingInProgressConverted");
+            }
+        }
+
+        /// <summary>
+        /// Gets the logging in progress converted.
+        /// </summary>
+        /// <value>
+        /// The logging in progress converted.
+        /// </value>
+        public string LoggingInProgressConverted
+        {
+            get
+            {
+                return this.loggingModel.LoggingInProgress ? "Currently logging" : "Currently not logging";
+            }
+        }
+
+        /// <summary>
+        /// Gets the color of the logging in progress.
+        /// </summary>
+        /// <value>
+        /// The color of the logging in progress.
+        /// </value>
+        public SolidColorBrush LoggingInProgressColor
+        {
+            get
+            {
+                return this.loggingModel.LoggingInProgress ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Red);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the preset ComboBox.
         /// </summary>
         /// <value>
@@ -553,6 +627,44 @@ namespace CryostatControlClient.ViewModels
         }
 
         #endregion
+
+        /// <summary>
+        /// Gets or sets the start button command.
+        /// </summary>
+        /// <value>
+        /// The start button command.
+        /// </value>
+        public ICommand StartButtonCommand
+        {
+            get
+            {
+                return this.startButtonCommand;
+            }
+
+            set
+            {
+                this.startButtonCommand = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the cancel button command.
+        /// </summary>
+        /// <value>
+        /// The cancel button command.
+        /// </value>
+        public ICommand CancelButtonCommand
+        {
+            get
+            {
+                return this.cancelButtonCommand;
+            }
+
+            set
+            {
+                this.cancelButtonCommand = value;
+            }
+        }
 
         /// <summary>
         /// Converts the int to preset.
@@ -586,45 +698,57 @@ namespace CryostatControlClient.ViewModels
         /// <returns>
         /// The <see cref="double[]"/>.
         /// </returns>
-        public double[] GetLoggingArray()
+        public bool[] GetLoggingArray()
         {
-            double[] loggingDataArray = new double[42];
-            loggingDataArray[(int) DataEnumerator.LakePlate50K] = this.ConvertBoolToDouble(this.Bluefors50KShieldTemp);
-            loggingDataArray[(int)DataEnumerator.LakePlate3K] = this.ConvertBoolToDouble(this.Bluefors3KShieldTemp);
-            loggingDataArray[(int)DataEnumerator.ComWaterIn] = this.ConvertBoolToDouble(this.CompressorWaterInTemp);
-            loggingDataArray[(int)DataEnumerator.ComWaterOut] = this.ConvertBoolToDouble(this.CompressorWaterOutTemp);
-            loggingDataArray[(int)DataEnumerator.ComHelium] = this.ConvertBoolToDouble(this.CompressorHeliumTemp);
-            loggingDataArray[(int)DataEnumerator.ComOil] = this.ConvertBoolToDouble(this.CompressorOilTemp);
-            loggingDataArray[(int)DataEnumerator.ComLow] = this.ConvertBoolToDouble(this.CompressorLowPressure);
-            loggingDataArray[(int)DataEnumerator.ComLowAvg] = this.ConvertBoolToDouble(this.CompressorLowAveragePressure);
-            loggingDataArray[(int)DataEnumerator.ComHigh] = this.ConvertBoolToDouble(this.CompressorHighPressure);
-            loggingDataArray[(int)DataEnumerator.ComHighAvg] = this.ConvertBoolToDouble(this.CompressorHighAveragePressure);
-            loggingDataArray[(int)DataEnumerator.ComDeltaAvg] = this.ConvertBoolToDouble(this.CompressorDeltaAveragePressure);
-            loggingDataArray[(int)DataEnumerator.He3Pump] = this.ConvertBoolToDouble(this.He3PumpTemp);
-            loggingDataArray[(int)DataEnumerator.HePlate2K] = this.ConvertBoolToDouble(this.TwoKPlateTemp);
-            loggingDataArray[(int)DataEnumerator.HePlate4K] = this.ConvertBoolToDouble(this.FourKPlateTemp);
-            loggingDataArray[(int)DataEnumerator.He3Head] = this.ConvertBoolToDouble(this.He3HeadTemp);
-            loggingDataArray[(int)DataEnumerator.He4Pump] = this.ConvertBoolToDouble(this.He4PumpTemp);
-            loggingDataArray[(int)DataEnumerator.He4SwitchTemp] = this.ConvertBoolToDouble(this.He4SwitchTemp);
-            loggingDataArray[(int)DataEnumerator.He3SwitchTemp] = this.ConvertBoolToDouble(this.He3SwitchTemp);
-            loggingDataArray[(int)DataEnumerator.He4Head] = this.ConvertBoolToDouble(this.He4HeadTemp);
-            loggingDataArray[(int)DataEnumerator.He3VoltActual] = this.ConvertBoolToDouble(this.He3PumpVolt);
-            loggingDataArray[(int)DataEnumerator.He4SwitchVoltActual] = this.ConvertBoolToDouble(this.He4SwitchVolt);
-            loggingDataArray[(int)DataEnumerator.He3SwitchVoltActual] = this.ConvertBoolToDouble(this.He3SwitchVolt);
-            loggingDataArray[(int)DataEnumerator.He4VoltActual] = this.ConvertBoolToDouble(this.He4PumpVolt);
-            loggingDataArray[(int)DataEnumerator.LakeHeater] = this.ConvertBoolToDouble(this.BlueforsHeater);
+            bool[] loggingDataArray = new bool[(int)DataEnumerator.DataLength];
+            loggingDataArray[(int)DataEnumerator.LakePlate50K] = this.Bluefors50KShieldTemp;
+            loggingDataArray[(int)DataEnumerator.LakePlate3K] = this.Bluefors3KShieldTemp;
+            loggingDataArray[(int)DataEnumerator.ComWaterIn] = this.CompressorWaterInTemp;
+            loggingDataArray[(int)DataEnumerator.ComWaterOut] = this.CompressorWaterOutTemp;
+            loggingDataArray[(int)DataEnumerator.ComHelium] = this.CompressorHeliumTemp;
+            loggingDataArray[(int)DataEnumerator.ComOil] = this.CompressorOilTemp;
+            loggingDataArray[(int)DataEnumerator.ComLow] = this.CompressorLowPressure;
+            loggingDataArray[(int)DataEnumerator.ComLowAvg] = this.CompressorLowAveragePressure;
+            loggingDataArray[(int)DataEnumerator.ComHigh] = this.CompressorHighPressure;
+            loggingDataArray[(int)DataEnumerator.ComHighAvg] = this.CompressorHighAveragePressure;
+            loggingDataArray[(int)DataEnumerator.ComDeltaAvg] = this.CompressorDeltaAveragePressure;
+            loggingDataArray[(int)DataEnumerator.He3Pump] = this.He3PumpTemp;
+            loggingDataArray[(int)DataEnumerator.HePlate2K] = this.TwoKPlateTemp;
+            loggingDataArray[(int)DataEnumerator.HePlate4K] = this.FourKPlateTemp;
+            loggingDataArray[(int)DataEnumerator.He3Head] = this.He3HeadTemp;
+            loggingDataArray[(int)DataEnumerator.He4Pump] = this.He4PumpTemp;
+            loggingDataArray[(int)DataEnumerator.He4SwitchTemp] = this.He4SwitchTemp;
+            loggingDataArray[(int)DataEnumerator.He3SwitchTemp] = this.He3SwitchTemp;
+            loggingDataArray[(int)DataEnumerator.He4Head] = this.He4HeadTemp;
+            loggingDataArray[(int)DataEnumerator.He3VoltActual] = this.He3PumpVolt;
+            loggingDataArray[(int)DataEnumerator.He4SwitchVoltActual] = this.He4SwitchVolt;
+            loggingDataArray[(int)DataEnumerator.He3SwitchVoltActual] = this.He3SwitchVolt;
+            loggingDataArray[(int)DataEnumerator.He4VoltActual] = this.He4PumpVolt;
+            loggingDataArray[(int)DataEnumerator.LakeHeater] = this.BlueforsHeater;
 
             return loggingDataArray;
         }
 
         /// <summary>
-        /// Converts the bool to double.
+        /// The on click start.
         /// </summary>
-        /// <param name="boolVal">if set to <c>true</c> [bool value].</param>
-        /// <returns>Converted bool to int</returns>
-        public double ConvertBoolToDouble(bool boolVal)
+        /// <param name="obj">
+        /// The obj.
+        /// </param>
+        public void OnClickStart(object obj)
         {
-            return boolVal == true ? 1 : 0;
+            this.RaisePropertyChanged("StartPressed");
+        }
+
+        /// <summary>
+        /// The on click cancel.
+        /// </summary>
+        /// <param name="obj">
+        /// The obj.
+        /// </param>
+        public void OnClickCancel(object obj)
+        {
+            this.RaisePropertyChanged("CancelPressed");
         }
     }
 }
