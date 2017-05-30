@@ -1,9 +1,16 @@
-﻿
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DebugLogger.cs" company="SRON">
+//   k
+// </copyright>
+// <summary>
+//   Defines the DebugLogger type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace CryostatControlServer.Logging
 {
     using System;
     using System.IO;
-    using System.ServiceModel;
     using System.Text;
 
     /// <summary>
@@ -24,67 +31,12 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// The general main folder.
         /// </summary>
-        private const string GeneralMainFolder = @"c:\Logging\General";
+        private const string GeneralMainFolder = @"c:\CryostatLogging\General";
 
         /// <summary>
         /// The file path
         /// </summary>
         private static string filePath;
-
-        /// <summary>
-        /// The create folder.
-        /// </summary>
-        /// <param name="mainFolderPath">
-        /// The main folder path.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public static string CreateFolder(string mainFolderPath)
-        {
-            DateTime currentDateTime = DateTime.Now;
-            string year = currentDateTime.Year.ToString();
-            string month = currentDateTime.Month.ToString();
-            string newFolderName = year + @"\" + month + @"\";
-            string pathToNewFolder = System.IO.Path.Combine(mainFolderPath, newFolderName);
-
-            try
-            {
-                System.IO.Directory.CreateDirectory(pathToNewFolder);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Creating log folder failed");
-            }
-
-            return pathToNewFolder;
-        }
-
-        /// <summary>
-        /// The create file.
-        /// </summary>
-        public static void CreateFile()
-        {
-            DateTime currentDateTime = DateTime.Now;
-            string folderPath = CreateFolder(GeneralMainFolder);
-            string day = currentDateTime.Day.ToString();
-            string fileName = day + "_" + DebugInfo + TxtFileFormat;
-            string actualPathToFile = System.IO.Path.Combine(folderPath, fileName);
-            Console.WriteLine(actualPathToFile);
-            try
-            {
-                if (!System.IO.File.Exists(actualPathToFile))
-                {
-                    System.IO.File.Create(actualPathToFile).Close();
-                }
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Creating debug log file failed");
-            }
-
-            filePath = actualPathToFile;
-        }
 
         /// <summary>
         /// The error.
@@ -156,6 +108,61 @@ namespace CryostatControlServer.Logging
             {
                 Console.WriteLine("The debug log file is opened by another process. Please close this first.");
             }
+        }
+
+        /// <summary>
+        /// The create folder.
+        /// </summary>
+        /// <param name="mainFolderPath">
+        /// The main folder path.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        private static string CreateFolder(string mainFolderPath)
+        {
+            DateTime currentDateTime = DateTime.Now;
+            string year = currentDateTime.Year.ToString();
+            string month = currentDateTime.Month.ToString();
+            string newFolderName = year + @"\" + month + @"\";
+            string pathToNewFolder = System.IO.Path.Combine(mainFolderPath, newFolderName);
+
+            try
+            {
+                System.IO.Directory.CreateDirectory(pathToNewFolder);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Creating log folder failed");
+            }
+
+            return pathToNewFolder;
+        }
+
+        /// <summary>
+        /// The create file.
+        /// </summary>
+        private static void CreateFile()
+        {
+            DateTime currentDateTime = DateTime.Now;
+            string folderPath = CreateFolder(GeneralMainFolder);
+            string day = currentDateTime.Day.ToString();
+            string fileName = day + "_" + DebugInfo + TxtFileFormat;
+            string actualPathToFile = System.IO.Path.Combine(folderPath, fileName);
+            Console.WriteLine(actualPathToFile);
+            try
+            {
+                if (!System.IO.File.Exists(actualPathToFile))
+                {
+                    System.IO.File.Create(actualPathToFile).Close();
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Creating debug log file failed");
+            }
+
+            filePath = actualPathToFile;
         }
     }
 }
