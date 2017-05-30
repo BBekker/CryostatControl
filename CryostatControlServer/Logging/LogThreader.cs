@@ -93,7 +93,6 @@ namespace CryostatControlServer.Logging
         /// </param>
         public void StartSpecificDataLogging(int interval, bool[] toBeLoggedOrNotToBeLogged)
         {
-            Console.WriteLine("Starting specific log");
             if (this.specificLoggingInProgress)
             {
                 this.StopSpecificDataLogging();
@@ -111,8 +110,10 @@ namespace CryostatControlServer.Logging
         /// </summary>
         public void StopSpecificDataLogging()
         {
-            Console.WriteLine("Stop specific log");
-            this.specificLoggingThread.Dispose();
+            if (this.specificLoggingThread != null)
+            {
+                this.specificLoggingThread.Dispose();
+            }
             this.specificLoggingInProgress = false;
         }
 
@@ -121,7 +122,6 @@ namespace CryostatControlServer.Logging
         /// </summary>
         public void StartGeneralDataLogging()
         {
-            Console.WriteLine("Starting general log");
             GeneralDataLogger generalDataLogger = new GeneralDataLogger();
             LoggerDataObject loggerDataObject = this.CreateNewGeneralLoggingFile(generalDataLogger);
             this.generalLoggingThread = new Timer(this.GeneralDataLogging, loggerDataObject, StartTime, this.ConvertSecondsToMs(GeneralLogInterval));
@@ -132,7 +132,6 @@ namespace CryostatControlServer.Logging
         /// </summary>
         public void StopGeneralDataLogging()
         {
-            Console.WriteLine("Stop general log");
             this.generalLoggingThread.Dispose();
         }
 

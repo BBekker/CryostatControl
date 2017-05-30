@@ -217,14 +217,26 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="StopLogging">
+  <xs:element name="CancelLogging">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="StopLoggingResponse">
+  <xs:element name="CancelLoggingResponse">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IsLogging">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="IsLoggingResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="IsLoggingResult" type="xs:boolean" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SubscribeForData">
@@ -260,6 +272,13 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="modus" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetLoggingState">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="status" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -101,6 +101,22 @@ namespace CryostatControlClient.Communication
         }
 
         /// <summary>
+        /// Sets the state of the logger.
+        /// </summary>
+        /// <param name="viewModelContainer">The view model container.</param>
+        public void SetLoggerState(ViewModelContainer viewModelContainer)
+        {
+            try
+            {
+                viewModelContainer.LoggingViewModel.LoggingInProgress = this.commandServiceClient.IsLogging();
+            }
+            catch
+            {
+                Console.WriteLine("Something went wrong with the server");
+            }
+        }
+
+        /// <summary>
         /// Cancels the modus.
         /// </summary>
         public void CancelModus()
@@ -158,7 +174,7 @@ namespace CryostatControlClient.Communication
         /// </summary>
         public void CancelLogging()
         {
-            this.commandServiceClient.StopLogging();
+            this.commandServiceClient.CancelLogging();
         }
 
         #endregion Methods

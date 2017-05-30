@@ -173,7 +173,16 @@ namespace CryostatControlServer.HostService
         /// Stops the logging.
         /// </summary>
         [OperationContract]
-        void StopLogging();
+        void CancelLogging();
+
+        /// <summary>
+        /// Determines whether this instance is logging.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance is logging; otherwise, <c>false</c>.
+        /// </returns>
+        [OperationContract]
+        bool IsLogging();
 
         #endregion Methods
     }

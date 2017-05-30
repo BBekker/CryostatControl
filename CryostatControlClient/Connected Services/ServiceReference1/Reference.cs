@@ -117,11 +117,17 @@ namespace CryostatControlClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/StartLogging", ReplyAction="http://tempuri.org/ICommandService/StartLoggingResponse")]
         System.Threading.Tasks.Task StartLoggingAsync(int interval, bool[] logData);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/StopLogging", ReplyAction="http://tempuri.org/ICommandService/StopLoggingResponse")]
-        void StopLogging();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/CancelLogging", ReplyAction="http://tempuri.org/ICommandService/CancelLoggingResponse")]
+        void CancelLogging();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/StopLogging", ReplyAction="http://tempuri.org/ICommandService/StopLoggingResponse")]
-        System.Threading.Tasks.Task StopLoggingAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/CancelLogging", ReplyAction="http://tempuri.org/ICommandService/CancelLoggingResponse")]
+        System.Threading.Tasks.Task CancelLoggingAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsLogging", ReplyAction="http://tempuri.org/ICommandService/IsLoggingResponse")]
+        bool IsLogging();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsLogging", ReplyAction="http://tempuri.org/ICommandService/IsLoggingResponse")]
+        System.Threading.Tasks.Task<bool> IsLoggingAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -287,12 +293,20 @@ namespace CryostatControlClient.ServiceReference1 {
             return base.Channel.StartLoggingAsync(interval, logData);
         }
         
-        public void StopLogging() {
-            base.Channel.StopLogging();
+        public void CancelLogging() {
+            base.Channel.CancelLogging();
         }
         
-        public System.Threading.Tasks.Task StopLoggingAsync() {
-            return base.Channel.StopLoggingAsync();
+        public System.Threading.Tasks.Task CancelLoggingAsync() {
+            return base.Channel.CancelLoggingAsync();
+        }
+        
+        public bool IsLogging() {
+            return base.Channel.IsLogging();
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsLoggingAsync() {
+            return base.Channel.IsLoggingAsync();
         }
     }
     
@@ -333,6 +347,9 @@ namespace CryostatControlClient.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SendModus")]
         void SendModus(int modus);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SetLoggingState")]
+        void SetLoggingState(bool status);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
