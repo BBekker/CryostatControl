@@ -204,6 +204,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ReadSingleSensor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sensorId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReadSingleSensorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ReadSingleSensorResult" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="StartLogging">
     <xs:complexType>
       <xs:sequence>
