@@ -96,7 +96,7 @@ namespace CryostatControlServer.Data
 
             if (id < (int)DataEnumerator.SensorAmount)
             {
-                this.ReadSensor(id);
+                return this.ReadSensor(id);
             }
 
             return ReadFromSwitch(id);
