@@ -17,7 +17,7 @@
             <TabItem Header="He-7 Cooler">
                 <Frame Source="Tabs/He7Frame.xaml" Navigated="FrameNavigated"/>
             </TabItem>
-            <TabItem Header="BlueFors cryostat">
+            <TabItem Header="BlueFors Cryostat">
                 <Frame Source="Tabs/BlueforsFrame.xaml" Navigated="FrameNavigated"/>
             </TabItem>
             <TabItem Header="Compressor">
