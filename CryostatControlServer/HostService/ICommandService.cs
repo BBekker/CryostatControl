@@ -150,6 +150,7 @@ namespace CryostatControlServer.HostService
         /// </summary>
         /// <param name="sensorId">The sensor identifier.</param>
         /// <returns>The value of the sensor or NaN if no value could be read</returns>
+        [OperationContract]
         double ReadSingleSensor(int sensorId);
 
         #endregion Methods

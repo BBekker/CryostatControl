@@ -310,7 +310,7 @@ namespace CryostatControlServer
         /// <returns>Data of the sensor or NaN if sensor could not be read, or out of sensor range</returns>
         public double ReadSingleSensor(int id)
         {
-            return this.dataReader.read(id);
+            return this.dataReader.ReadSingleSensor(id);
         }
 
         /// <summary>

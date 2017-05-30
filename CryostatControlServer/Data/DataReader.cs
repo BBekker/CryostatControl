@@ -83,6 +83,43 @@ namespace CryostatControlServer.Data
         }
 
         /// <summary>
+        /// Reads the single sensor.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Value of the sensor, if something went wrong NaN</returns>
+        public double ReadSingleSensor(int id)
+        {
+            if (id < 0 && id >= (int)DataEnumerator.DataLength)
+            {
+                return double.NaN;
+            }
+
+            if (id < (int)DataEnumerator.SensorAmount)
+            {
+                this.ReadSensor(id);
+            }
+
+            switch (id)
+            {
+                case (int)DataEnumerator.HeConnectionState: return 0;
+
+                case (int)DataEnumerator.ComConnectionState: return 0;
+
+                case (int)DataEnumerator.LakeConnectionState: return 0;
+
+                case (int)DataEnumerator.ComError: return 0;
+
+                case (int)DataEnumerator.ComWarning: return 0;
+
+                case (int)DataEnumerator.ComHoursOfOperation: return 0;
+
+                case (int)DataEnumerator.LakeHeater: return 0;
+
+                default: return double.NaN;
+            }
+        }
+
+        /// <summary>
         /// Fills the data array with sensor data.
         /// </summary>
         /// <param name="data">The data.</param>
@@ -118,41 +155,20 @@ namespace CryostatControlServer.Data
             }
         }
 
-        private double ReadSingleSensor(int id)
+        /// <summary>
+        /// Reads the sensor.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Value of the sensor, if something went wrong NaN is returned</returns>
+        private double ReadSensor(int id)
         {
-            if (id < 0 && id >= (int)DataEnumerator.DataLength)
+            try
+            {
+                return this.sensors[id].Value;
+            }
+            catch
             {
                 return double.NaN;
-            }
-            if (id < (int)DataEnumerator.SensorAmount)
-            {
-                try
-                {
-                    return this.sensors[id].Value;
-                }
-                catch
-                {
-                    return double.NaN;
-                }
-            }
-
-            switch (id)
-            {
-                case (int)DataEnumerator.HeConnectionState: return 0;
-
-                case (int)DataEnumerator.ComConnectionState: return 0;
-
-                case (int)DataEnumerator.LakeConnectionState: return 0;
-
-                case (int)DataEnumerator.ComError: return 0;
-
-                case (int)DataEnumerator.ComWarning: return 0;
-
-                case (int)DataEnumerator.ComHoursOfOperation: return 0;
-
-                case (int)DataEnumerator.LakeHeater: return 0;
-
-                default: return double.NaN;
             }
         }
 
