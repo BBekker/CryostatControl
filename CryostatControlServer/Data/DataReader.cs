@@ -99,23 +99,44 @@ namespace CryostatControlServer.Data
                 this.ReadSensor(id);
             }
 
-            switch (id)
+            return ReadFromSwitch(id);
+        }
+
+        /// <summary>
+        /// Reads from switch.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Value of the sensor, if something went wrong NaN</returns>
+        private double ReadFromSwitch(int id)
+        {
+            try
             {
-                case (int)DataEnumerator.HeConnectionState: return 0;
+                switch (id)
+                {
+                    case (int)DataEnumerator.HeConnectionState: return Convert.ToDouble(this.he7Cooler.IsConnected());
+                    case (int)DataEnumerator.ComConnectionState: return Convert.ToDouble(this.compressor.IsConnected());
+                    case (int)DataEnumerator.LakeConnectionState:
+                        {
+                            if (this.lakeShore != null)
+                            {
+                                return Convert.ToDouble(this.lakeShore.OPC());
+                            }
 
-                case (int)DataEnumerator.ComConnectionState: return 0;
+                            return 0;
+                        }
 
-                case (int)DataEnumerator.LakeConnectionState: return 0;
+                    case (int)DataEnumerator.ComError: return (double)this.compressor.ReadErrorState();
+                    case (int)DataEnumerator.ComWarning: return (double)this.compressor.ReadWarningState();
+                    case (int)DataEnumerator.ComHoursOfOperation: return (double)this.compressor.ReadHoursOfOperation();
+                    case (int)DataEnumerator.ComOperationState: return (double)this.compressor.ReadOperatingState();
+                    case (int)DataEnumerator.LakeHeater: return 0;
 
-                case (int)DataEnumerator.ComError: return 0;
-
-                case (int)DataEnumerator.ComWarning: return 0;
-
-                case (int)DataEnumerator.ComHoursOfOperation: return 0;
-
-                case (int)DataEnumerator.LakeHeater: return 0;
-
-                default: return double.NaN;
+                    default: return double.NaN;
+                }
+            }
+            catch
+            {
+                return double.NaN;
             }
         }
 
@@ -193,6 +214,7 @@ namespace CryostatControlServer.Data
             }
         }
 
+        /// <summary>
         /// Fills the connection data.
         /// </summary>
         /// <param name="data">The data.</param>
