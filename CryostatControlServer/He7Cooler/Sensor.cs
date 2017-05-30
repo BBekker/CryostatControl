@@ -13,6 +13,7 @@ namespace CryostatControlServer.He7Cooler
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.IO;
 
     using CryostatControlServer.Data;
@@ -22,6 +23,7 @@ namespace CryostatControlServer.He7Cooler
     /// </summary>
     public partial class He7Cooler
     {
+
         #region Classes
 
         /// <summary>
@@ -274,8 +276,8 @@ namespace CryostatControlServer.He7Cooler
                             string[] columns = line.Split('\t');
                             this.calibrationData.Add(
                                 new Tuple<double, double>(
-                                    double.Parse(columns[voltColumn]),
-                                    double.Parse(columns[tempColumn])));
+                                    double.Parse(columns[voltColumn], new CultureInfo("en-GB")),
+                                    double.Parse(columns[tempColumn], new CultureInfo("en-GB"))));
                         }
 
                         this.calibrationData.Sort((first, second) => (first.Item1 - second.Item1) < 0 ? -1 : 1);

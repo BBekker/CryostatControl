@@ -12,6 +12,7 @@ namespace CryostatControlServer.LakeShore
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.IO.Ports;
     using System.Threading;
 
@@ -184,7 +185,7 @@ namespace CryostatControlServer.LakeShore
                 Monitor.Enter(this.stream);
                 this.WaitCommandInterval();
                 this.stream.WriteString("HTR? 1\n");
-                return double.Parse(this.stream.ReadString());
+                return double.Parse(this.stream.ReadString(), new CultureInfo("en-GB"));
             }
             finally
             {
@@ -278,7 +279,7 @@ namespace CryostatControlServer.LakeShore
                 this.WaitCommandInterval();
                 this.stream.WriteString($"KRDG? {sensor}\n");
                 string response = this.stream.ReadString();
-                return double.Parse(response);
+                return double.Parse(response, new CultureInfo("en-GB"));
             }
             finally
             {

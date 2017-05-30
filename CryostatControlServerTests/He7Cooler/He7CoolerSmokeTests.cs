@@ -53,8 +53,6 @@ namespace CryostatControlServerTests.He7Cooler
         [TestMethod]
         public void SmokeTestReadValues()
         {
-            IFormatProvider myFormatProvider = new CultureInfo("en-GB").NumberFormat;
-
             //Set up mock
             var mockH7 = new Mock<IManagedStream>();
             var fakeresponser = new He7ResponseGenerator();

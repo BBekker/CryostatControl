@@ -9,6 +9,7 @@ namespace CryostatControlServer.He7Cooler
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.Threading;
 
     using CryostatControlServer.Streams;
@@ -236,7 +237,7 @@ namespace CryostatControlServer.He7Cooler
             var results = new double[split.Length];
             for (var i = 0; i < split.Length; i++)
             {
-                results[i] = double.Parse(split[i]);
+                results[i] = double.Parse(split[i], new CultureInfo("en-GB"));
             }
 
             return results;

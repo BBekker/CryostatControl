@@ -234,7 +234,7 @@ namespace CryostatControlServer.Logging
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        private bool NewFileIsNeeded(string filepath)
+        public bool NewFileIsNeeded(string filepath)
         {
             string logDay = Path.GetFileName(filepath);
             if (logDay == null)
