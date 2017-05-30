@@ -190,7 +190,6 @@ namespace CryostatControlServer.LakeShore
             {
                 Monitor.Exit(this.stream);
             }
-            return -1;
         }
 
         /// <summary>
@@ -261,6 +260,7 @@ namespace CryostatControlServer.LakeShore
                         Console.WriteLine("Could not reconnect to lakeshore: " + e.GetType().ToString());
                     }
                 }
+
                 Thread.Sleep(ReadInterval);
             }
         }

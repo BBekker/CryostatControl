@@ -6,10 +6,7 @@
 namespace CryostatControlServer
 {
     using System;
-    using System.IO.Ports;
     using System.ServiceModel;
-    using System.ServiceModel.Description;
-
 
     using CryostatControlServer.Data;
     using CryostatControlServer.HostService;
@@ -139,18 +136,18 @@ namespace CryostatControlServer
         /// </summary>
         private static void StartHost()
         {
-            CommandService hostService = new CommandService(cryostatControl);
+            CommandService hostService = new CommandService(cryostatControl, logger);
             using (ServiceHost host = new ServiceHost(hostService))
             {
-                    ((ServiceBehaviorAttribute)host.Description.Behaviors[typeof(ServiceBehaviorAttribute)])
-                        .InstanceContextMode = InstanceContextMode.Single;
-                    host.Open();
-                    Console.WriteLine("The service is ready");
-                    Console.WriteLine("Press <Enter> to stop the service.");
-                    Console.ReadLine();
-                    host.Close();
-                }
-            
+                ((ServiceBehaviorAttribute)host.Description.Behaviors[typeof(ServiceBehaviorAttribute)])
+                    .InstanceContextMode = InstanceContextMode.Single;
+                host.Open();
+                Console.WriteLine("The service is ready");
+                Console.WriteLine("Press <Enter> to stop the service.");
+                Console.ReadLine();
+                host.Close();
+            }
+
         }
     }
 

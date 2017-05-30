@@ -145,7 +145,7 @@ namespace CryostatControlServer.Data
         /// <param name="data">The data.</param>
         private void FillConnectionData(double[] data)
         {
-            data[(int)DataEnumerator.ComConnectionState] = Convert.ToDouble(this.compressor.IsConnected());
+                data[(int)DataEnumerator.ComConnectionState] = Convert.ToDouble(this.compressor.IsConnected());
             data[(int)DataEnumerator.HeConnectionState] = Convert.ToDouble(this.he7Cooler.IsConnected());
             if (this.lakeShore != null)
             {

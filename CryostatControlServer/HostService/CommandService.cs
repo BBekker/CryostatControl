@@ -126,9 +126,17 @@ namespace CryostatControlServer.HostService
         }
 
         /// <inheritdoc cref="ICommandService.GetValue"/>
-        public double GetValue(int sensor)
+        public double GetValue(string sensor)
         {
-            return this.cryostatControl.ReadData()[sensor];
+            try
+            {
+                int sensorId = int.Parse(sensor);
+                return this.cryostatControl.ReadData()[sensorId];
+            }
+            catch (Exception e)
+            {
+                throw new FaultException(e.GetType().ToString());
+            }
         }
 
         /// <inheritdoc cref="ICommandService.SetCompressorState"/>
