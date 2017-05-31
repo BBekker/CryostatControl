@@ -23,6 +23,11 @@ namespace CryostatControlServer.Logging
         #region Fields
 
         /// <summary>
+        /// The tag
+        /// </summary>
+        private const string TAG = "LOGTHREADER";
+
+        /// <summary>
         /// The general log interval in seconds.
         /// </summary>
         private const int GeneralLogInterval = 10;
@@ -237,12 +242,10 @@ namespace CryostatControlServer.Logging
         public bool NewFileIsNeeded(string filepath)
         {
             string logDay = Path.GetFileName(filepath);
-            if (logDay == null)
+            if (logDay == null || !logDay.Contains(".csv"))
             {
-                Console.WriteLine("Can't find logfile name.");
+                DebugLogger.Error(TAG, "Can't find logfile name for checking if a new file is needed.");
                 return false;
-
-                // TODO handle this
             }
 
             logDay = logDay.Replace(".csv", string.Empty);

@@ -9,6 +9,8 @@ namespace CryostatControlServerTests.Logging
     using CryostatControlServer.Data;
     using CryostatControlServer.Logging;
 
+    using Moq;
+
     [TestClass]
     public class GeneralDataLoggerTest
     {

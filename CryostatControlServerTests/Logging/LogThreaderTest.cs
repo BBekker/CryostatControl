@@ -37,5 +37,23 @@ namespace CryostatControlServerTests.Logging
                               + tomorrow.Day + ".csv";
             Assert.IsTrue(logThreader.NewFileIsNeeded(filePath));
         }
+
+        [TestMethod]
+        public void NewFileIsNeededNoExtensionTest()
+        {
+            LogThreader logThreader = new LogThreader(null);
+            DateTime tomorrow = DateTime.Now.AddDays(1);
+            string filePath = @"c\CryostatLogging\General\" + tomorrow.Year + @"\" + tomorrow.Month + @"\"
+                              + tomorrow.Day;
+            Assert.IsFalse(logThreader.NewFileIsNeeded(filePath));
+        }
+
+        [TestMethod]
+        public void NewFileIsNeededNullFileTest()
+        {
+            LogThreader logThreader = new LogThreader(null);
+            string filePath = null;
+            Assert.IsFalse(logThreader.NewFileIsNeeded(filePath));
+        }
     }
 }
