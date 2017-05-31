@@ -159,6 +159,34 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
+        /// The check if new file is needed.
+        /// </summary>
+        /// <param name="filepath">
+        /// The filepath.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool NewFileIsNeeded(string filepath)
+        {
+            string logDay = Path.GetFileName(filepath);
+            if (logDay == null || !logDay.Contains(".csv"))
+            {
+                DebugLogger.Error(this.GetType().Name, "Can't find logfile name for checking if a new file is needed.");
+                return false;
+            }
+
+            logDay = logDay.Replace(".csv", string.Empty);
+            string currentDay = DateTime.Now.Day.ToString();
+            if (!logDay.Equals(currentDay))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// The general data logging.
         /// </summary>
         /// <param name="loggerDataObject">
@@ -222,36 +250,6 @@ namespace CryostatControlServer.Logging
 
             specificDataLogger.WriteInitialLine(filePath, specificDataLogger.GetToBeLoggedOrNotToBeLogged());
             return new LoggerDataObject(specificDataLogger, filePath);
-        }
-
-        /// <summary>
-        /// The check if new file is needed.
-        /// </summary>
-        /// <param name="filepath">
-        /// The filepath.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        private bool NewFileIsNeeded(string filepath)
-        {
-            string logDay = Path.GetFileName(filepath);
-            if (logDay == null)
-            {
-                Console.WriteLine("Can't find logfile name.");
-                return false;
-
-                // TODO handle this
-            }
-
-            logDay = logDay.Replace(".csv", string.Empty);
-            string currentDay = DateTime.Now.Day.ToString();
-            if (!logDay.Equals(currentDay))
-            {
-                return true;
-            }
-
-            return false;
         }
 
         #endregion Methods
