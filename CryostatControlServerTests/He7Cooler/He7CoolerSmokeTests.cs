@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CryostatControlServerTests.He7Cooler
 {
+    using System.Globalization;
     using System.Threading;
 
     using CryostatControlServer.He7Cooler;

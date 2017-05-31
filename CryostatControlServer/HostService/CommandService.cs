@@ -12,6 +12,7 @@ namespace CryostatControlServer.HostService
     using System.ServiceModel;
     using System.Threading;
 
+    using CryostatControlServer.HostService.DataContracts;
     using CryostatControlServer.HostService.Enumerators;
     using CryostatControlServer.Logging;
 
@@ -36,7 +37,12 @@ namespace CryostatControlServer.HostService
         /// <summary>
         /// The callback list
         /// </summary>
-        private readonly Dictionary<IDataGetCallback, Timer> callbacksListeners = new Dictionary<IDataGetCallback, Timer>();
+        private readonly Dictionary<IDataGetCallback, Timer> dataListeners = new Dictionary<IDataGetCallback, Timer>();
+
+        /// <summary>
+        /// The update listeners
+        /// </summary>
+        private readonly List<IDataGetCallback> updateListeners = new List<IDataGetCallback>();
 
         #endregion Fields
 
@@ -81,7 +87,7 @@ namespace CryostatControlServer.HostService
         }
 
         /// <inheritdoc cref="ICommandService.Cooldown"/>>
-        public bool CooldownTime(string time)
+        public bool CooldownTime(DateTime time)
         {
             return this.cryostatControl.StartCooldown(time);
         }
@@ -92,10 +98,22 @@ namespace CryostatControlServer.HostService
             return this.cryostatControl.StartRecycle();
         }
 
+        /// <inheritdoc cref="ICommandService.Recycle"/>>
+        public bool RecycleTime(DateTime time)
+        {
+            return this.cryostatControl.StartRecycle(time);
+        }
+
         /// <inheritdoc cref="ICommandService.Warmup"/>>
         public bool Warmup()
         {
             return this.cryostatControl.StartHeatup();
+        }
+
+        /// <inheritdoc cref="ICommandService.Warmup"/>>
+        public bool WarmupTime(DateTime time)
+        {
+            return this.cryostatControl.StartHeatup(time);
         }
 
         /// <inheritdoc cref="ICommandService.Manual"/>
@@ -134,9 +152,31 @@ namespace CryostatControlServer.HostService
         }
 
         /// <inheritdoc cref="ICommandService.WriteHelium7"/>
-        public bool WriteHelium7(double[] data)
+        public bool WriteHelium7(int heater, double value)
         {
-            return data.Length == (int)HeaterEnumerator.HeaterAmount && this.cryostatControl.WriteHelium7Heaters(data);
+            try
+            {
+                if (this.cryostatControl.WriteHelium7Heater((HeaterEnumerator)heater, value))
+                {
+                    return true;
+                }
+                else
+                {
+                    throw new FaultException<CouldNotPerformActionFault>(
+                        new CouldNotPerformActionFault(ActionFaultReason.NotInManualMode, "Not in manual mode"));
+                }
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                throw new FaultException<CouldNotPerformActionFault>(
+                    new CouldNotPerformActionFault(ActionFaultReason.InvalidValue, ex.Message));
+            }
+            catch (Exception e)
+            {
+                throw new FaultException<CouldNotPerformActionFault>(
+                    new CouldNotPerformActionFault(ActionFaultReason.Unknown, e.GetType().ToString()));
+            }
+            
         }
 
         /// <inheritdoc cref="ICommandService.ReadCompressorTemperatureScale"/>>
@@ -198,12 +238,14 @@ namespace CryostatControlServer.HostService
         public void StartLogging(int interval, bool[] logData)
         {
             this.logger.StartSpecificDataLogging(interval, logData);
+            this.SetLoggingState(true);
         }
 
-        /// <inheritdoc cref="ICommandService.StopLogging"/>
-        public void StopLogging()
+        /// <inheritdoc cref="ICommandService.CancelLogging"/>
+        public void CancelLogging()
         {
             this.logger.StopSpecificDataLogging();
+            this.SetLoggingState(false);
         }
 
         /// <inheritdoc cref="IDataGet.SubscribeForData"/>>
@@ -211,9 +253,9 @@ namespace CryostatControlServer.HostService
         {
             IDataGetCallback client =
                 OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            if (!this.callbacksListeners.ContainsKey(client))
+            if (!this.dataListeners.ContainsKey(client))
             {
-                this.callbacksListeners.Add(client, new Timer(this.TimerMethod, client, 0, interval));
+                this.dataListeners.Add(client, new Timer(this.TimerMethod, client, 0, interval));
             }
         }
 
@@ -222,11 +264,66 @@ namespace CryostatControlServer.HostService
         {
             IDataGetCallback client =
                 OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            if (this.callbacksListeners.ContainsKey(client))
+            if (this.dataListeners.ContainsKey(client))
             {
-                Timer timer = this.callbacksListeners[client];
+                Timer timer = this.dataListeners[client];
                 timer.Dispose();
-                this.callbacksListeners.Remove(client);
+                this.dataListeners.Remove(client);
+            }
+        }
+
+        /// <inheritdoc cref="IDataGet.SubscribeForUpdates"/>>
+        public void SubscribeForUpdates()
+        {
+            IDataGetCallback client =
+                OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
+            if (!this.updateListeners.Contains(client))
+            {
+                this.updateListeners.Add(client);
+            }
+        }
+
+        /// <inheritdoc cref="IDataGet.UnsubscribeForUpdates"/>>
+        public void UnsubscribeForUpdates()
+        {
+            IDataGetCallback client =
+                OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
+            this.updateListeners.Remove(client);
+        }
+
+        /// <inheritdoc cref="ICommandService.IsLogging"/>>
+        public bool IsLogging()
+        {
+            return this.logger.GetSpecificLoggingInProgress();
+        }
+
+        /// <summary>
+        /// Sets the state of the logging to all clients.
+        /// </summary>
+        /// <param name="status">if set to <c>true</c> [status].</param>
+        private void SetLoggingState(bool status)
+        {
+            foreach (IDataGetCallback callback in this.updateListeners.Reverse<IDataGetCallback>())
+            {
+                Thread thread = new Thread(() => this.SendLoggingState(callback, status));
+                thread.Start();
+            }
+        }
+
+        /// <summary>
+        /// Sends the state of the logging.
+        /// </summary>
+        /// <param name="callback">The callback.</param>
+        /// <param name="status">if set to <c>true</c> [status].</param>
+        private void SendLoggingState(IDataGetCallback callback, bool status)
+        {
+            try
+            {
+                callback.SetLoggingState(status);
+            }
+            catch
+            {
+                this.updateListeners.Remove(callback);
             }
         }
 
@@ -246,9 +343,9 @@ namespace CryostatControlServer.HostService
                 client.SendData(data);
                 client.SendModus(this.GetState());
             }
-            catch (TimeoutException)
+            catch
             {
-                this.callbacksListeners.Remove(client);
+                this.dataListeners.Remove(client);
             }
         }
 

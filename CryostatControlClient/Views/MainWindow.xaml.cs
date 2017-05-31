@@ -116,6 +116,15 @@ namespace CryostatControlClient.Views
         }
 
         /// <summary>
+        /// Sets the is logging.
+        /// </summary>
+        /// <param name="state">if set to <c>true</c> [state].</param>
+        public void SetIsLogging(bool state)
+        {
+            this.dataReceiver.SetIsLogging(state, this.viewModelContainer);
+        }
+
+        /// <summary>
         /// Handles the Loaded event of the MainWindow control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -132,6 +141,7 @@ namespace CryostatControlClient.Views
             this.viewModelContainer.He7ViewModel.PropertyChanged += this.heliumHandler;
 
             this.dataSender.SetCompressorScales(this.viewModelContainer);
+            this.dataSender.SetLoggerState(this.viewModelContainer);
         }
 
         /// <summary>
@@ -150,6 +160,10 @@ namespace CryostatControlClient.Views
             else if (action == "CancelPressed")
             {
                 this.dataSender.CancelModus();
+            }
+            else if (action == "ManualPressed")
+            {
+                this.dataSender.ManualModus();
             }
             else
             {

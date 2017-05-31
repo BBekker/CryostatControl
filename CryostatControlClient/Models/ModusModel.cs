@@ -9,6 +9,8 @@
 
 namespace CryostatControlClient.Models
 {
+    using System;
+
     /// <summary>
     /// The model for the modi
     /// </summary>
@@ -36,6 +38,21 @@ namespace CryostatControlClient.Models
         /// </summary>
         private bool server;
 
+        /// <summary>
+        /// The show date time
+        /// </summary>
+        private string showDateTime;
+
+        /// <summary>
+        /// The selected date
+        /// </summary>
+        private DateTime selectedDate;
+
+        /// <summary>
+        /// The selected time
+        /// </summary>
+        private DateTime selectedTime;
+
         #endregion Fields
 
         #region Constructor
@@ -46,11 +63,69 @@ namespace CryostatControlClient.Models
         public ModusModel()
         {
             this.time = "Now";
+            this.selectedDate = DateTime.Now;
         }
 
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the show date time.
+        /// </summary>
+        /// <value>
+        /// The show date time.
+        /// </value>
+        public string ShowDateTime
+        {
+            get
+            {
+                return this.showDateTime;
+            }
+
+            set
+            {
+                this.showDateTime = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected time.
+        /// </summary>
+        /// <value>
+        /// The selected date.
+        /// </value>
+        public DateTime SelectedTime
+        {
+            get
+            {
+                return this.selectedTime;
+            }
+
+            set
+            {
+                this.selectedTime = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected date.
+        /// </summary>
+        /// <value>
+        /// The selected date.
+        /// </value>
+        public DateTime SelectedDate
+        {
+            get
+            {
+                return this.selectedDate;
+            }
+
+            set
+            {
+                this.selectedDate = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the index of the selected combo.

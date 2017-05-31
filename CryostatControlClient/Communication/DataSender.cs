@@ -10,9 +10,11 @@
 namespace CryostatControlClient.Communication
 {
     using System;
+    using System.ServiceModel;
 
     using CryostatControlClient.ViewModels;
 
+    using CryostatControlServer.HostService.DataContracts;
     using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
@@ -51,26 +53,46 @@ namespace CryostatControlClient.Communication
         public void UpdateModus(ViewModelContainer viewModelContainer)
         {
             int radio = viewModelContainer.ModusViewModel.SelectedComboIndex;
-            string time = viewModelContainer.ModusViewModel.Time;
-            
-            switch (radio)
+            string postpone = viewModelContainer.ModusViewModel.Time;
+            DateTime startTime = DateTime.Now;
+
+            if (postpone == "Scheduled")
             {
-                case (int)ModusEnumerator.Cooldown:
-                    this.server.CommandClient.Cooldown();
-                    break;
+                startTime = viewModelContainer.ModusViewModel.SelectedDate;
+                TimeSpan time = viewModelContainer.ModusViewModel.SelectedTime.TimeOfDay;
+                startTime = startTime.Add(time);
 
-                case (int)ModusEnumerator.Recycle:
-                    this.server.CommandClient.Recycle();
-                    break;
+                switch (radio)
+                {
+                    case (int)ModusEnumerator.Cooldown:
+                        this.server.CommandClient.CooldownTime(startTime);
+                        break;
 
-                case (int)ModusEnumerator.Warmup:
-                    this.server.CommandClient.Warmup();
-                    break;
+                    case (int)ModusEnumerator.Recycle:
+                        this.server.CommandClient.RecycleTime(startTime);
+                        break;
 
-                default:
+                    case (int)ModusEnumerator.Warmup:
+                        this.server.CommandClient.WarmupTime(startTime);
+                        break;
+                }
+            }
+            else
+            {
+                switch (radio)
+                {
+                    case (int)ModusEnumerator.Cooldown:
+                        this.server.CommandClient.Cooldown();
+                        break;
 
-                    // todo : some error for unknown modus?
-                    break;
+                    case (int)ModusEnumerator.Recycle:
+                        this.server.CommandClient.Recycle();
+                        break;
+
+                    case (int)ModusEnumerator.Warmup:
+                        this.server.CommandClient.Warmup();
+                        break;
+                }
             }
         }
 
@@ -81,6 +103,14 @@ namespace CryostatControlClient.Communication
         public void SwitchCompressor(bool state)
         {
             this.server.CommandClient.SetCompressorState(state);
+        }
+
+        /// <summary>
+        /// Activate Manual mode.
+        /// </summary>
+        public void ManualModus()
+        {
+            this.server.CommandClient.Manual();
         }
 
         /// <summary>
@@ -104,6 +134,22 @@ namespace CryostatControlClient.Communication
         }
 
         /// <summary>
+        /// Sets the state of the logger.
+        /// </summary>
+        /// <param name="viewModelContainer">The view model container.</param>
+        public void SetLoggerState(ViewModelContainer viewModelContainer)
+        {
+            try
+            {
+                viewModelContainer.LoggingViewModel.LoggingInProgress = this.server.CommandClient.IsLogging();
+            }
+            catch
+            {
+                Console.WriteLine("Something went wrong with the server");
+            }
+        }
+
+        /// <summary>
         /// Cancels the modus.
         /// </summary>
         public void CancelModus()
@@ -117,14 +163,48 @@ namespace CryostatControlClient.Communication
         /// <param name="viewModelContainer">The view model container.</param>
         public void UpdateHelium(ViewModelContainer viewModelContainer)
         {
-            double[] writeHelium7 = new double[(int)HeaterEnumerator.HeaterAmount];
+            try
+            {
+                this.server.CommandClient.WriteHelium7(
+                    (int)HeaterEnumerator.He4Pump,
+                    viewModelContainer.He7ViewModel.He4PumpNewVolt);
+            }
+            catch (FaultException<CouldNotPerformActionFault> e)
+            {
+                Console.WriteLine("Could not set He4 Pump voltage because " + e.Detail.Message);
+            }
 
-            writeHelium7[(int)HeaterEnumerator.He4Pump] = viewModelContainer.He7ViewModel.He4PumpNewVolt;
-            writeHelium7[(int)HeaterEnumerator.He3Pump] = viewModelContainer.He7ViewModel.He3PumpNewVolt;
-            writeHelium7[(int)HeaterEnumerator.He3Switch] = viewModelContainer.He7ViewModel.He3SwitchNewVolt;
-            writeHelium7[(int)HeaterEnumerator.He4Switch] = viewModelContainer.He7ViewModel.He4SwitchNewVolt;
+            try
+            {
+                this.server.CommandClient.WriteHelium7(
+                    (int)HeaterEnumerator.He3Pump,
+                    viewModelContainer.He7ViewModel.He3PumpNewVolt);
+            }
+            catch (FaultException<CouldNotPerformActionFault> e)
+            {
+                Console.WriteLine("Could not set He3 Pump voltage because " + e.Detail.Message);
+            }
 
-            this.server.CommandClient.WriteHelium7(writeHelium7);
+            try
+            {
+                this.server.CommandClient.WriteHelium7(
+                    (int)HeaterEnumerator.He3Switch,
+                    viewModelContainer.He7ViewModel.He3SwitchNewVolt);
+            }
+            catch (FaultException<CouldNotPerformActionFault> e)
+            {
+                Console.WriteLine("Could not set He3 Switch voltage because " + e.Detail.Message);
+            }
+            try
+            {
+                this.server.CommandClient.WriteHelium7(
+                    (int)HeaterEnumerator.He4Switch,
+                    viewModelContainer.He7ViewModel.He4SwitchNewVolt);
+            }
+            catch (FaultException<CouldNotPerformActionFault> e)
+            {
+                Console.WriteLine("Could not set He4 Switch voltage because " + e.Detail.Message);
+            }
 
             // These are the max settings, since it is not yet clear what to do with these they are commented out.
 
@@ -161,7 +241,7 @@ namespace CryostatControlClient.Communication
         /// </summary>
         public void CancelLogging()
         {
-            this.server.CommandClient.StopLogging();
+            this.server.CommandClient.CancelLogging();
         }
 
         #endregion Methods
