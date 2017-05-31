@@ -242,7 +242,7 @@ namespace CryostatControlClient.ViewModels
                                             this.he7ViewModel.He4SwitchLineSeries,
                                      };
 
-            this.xFormatter = val => new DateTime((long)val).ToString("HH:mm");
+            this.xFormatter = val => this.GetDateTime(val);
         }
 
         /// <summary>
@@ -257,8 +257,23 @@ namespace CryostatControlClient.ViewModels
                                              this.he7ViewModel.He3HeadLineSeriesBottom,
                                              this.he7ViewModel.He4HeadLineSeriesBottom,
                                          };
+        }
 
-            this.xFormatter = val => new DateTime((long)val).ToString("HH:mm");
+        /// <summary>
+        /// Gets the date time.
+        /// </summary>
+        /// <param name="val">The value.</param>
+        /// <returns>Time in hours and minutes.</returns>
+        private string GetDateTime(double val)
+        {
+            try
+            {
+                return new DateTime((long)val).ToString("HH:mm");
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                return string.Empty;
+            }
         }
 
         #endregion Methods
