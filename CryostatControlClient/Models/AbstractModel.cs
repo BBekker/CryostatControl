@@ -21,7 +21,7 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The size of the temporary lists. If these lists are full a new point is added to the graph. The bigger this number the less frequent a point gets added to the graph.
         /// </summary>
-        private int updateInterval;
+        private int temporaryListSize;
 
         #endregion Fields
 
@@ -32,7 +32,7 @@ namespace CryostatControlClient.Models
         /// </summary>
         protected AbstractModel()
         {
-            this.updateInterval = 31;
+            this.temporaryListSize = 31;
         }
 
         #endregion Constructor
@@ -45,11 +45,11 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The update interval.
         /// </value>
-        protected int UpdateInterval
+        protected int TemporaryListSize
         {
             get
             {
-                return this.updateInterval;
+                return this.temporaryListSize;
             }
         }
 
@@ -68,16 +68,16 @@ namespace CryostatControlClient.Models
         /// </returns>
         public double[] AddToGraph(double[] temporaryList, LineSeries lineSeries, double value)
         {
-            temporaryList[(int)temporaryList[this.updateInterval - 1]] = value;
+            temporaryList[(int)temporaryList[this.temporaryListSize - 1]] = value;
 
-            temporaryList[this.updateInterval - 1]++;
+            temporaryList[this.temporaryListSize - 1]++;
 
             if (lineSeries.Values.Count < 1)
             {
                 lineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
             }
 
-            if (temporaryList[this.updateInterval - 1] >= this.updateInterval - 2)
+            if (temporaryList[this.temporaryListSize - 1] >= this.temporaryListSize - 2)
             {
                 lineSeries.Values.Add(new DateTimePoint(DateTime.Now, temporaryList.Average() - 1));
                 if (lineSeries.Values.Count > 100)
@@ -85,9 +85,9 @@ namespace CryostatControlClient.Models
                     lineSeries.Values.RemoveAt(0);
                 }
 
-                temporaryList = new double[this.updateInterval];
+                temporaryList = new double[this.temporaryListSize];
 
-                temporaryList[this.updateInterval - 1] = 0;
+                temporaryList[this.temporaryListSize - 1] = 0;
             }
 
             return temporaryList;
