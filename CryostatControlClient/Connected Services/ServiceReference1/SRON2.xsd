@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="ArrayOfdouble">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CryostatControlServer.HostService.DataContracts" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CryostatControlServer.HostService.DataContracts" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="CouldNotPerformActionFault">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="double" type="xs:double" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Operation" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Reason" type="tns:ActionFaultReason" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfdouble" nillable="true" type="tns:ArrayOfdouble" />
-  <xs:complexType name="ArrayOfboolean">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="boolean" type="xs:boolean" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfboolean" nillable="true" type="tns:ArrayOfboolean" />
+  <xs:element name="CouldNotPerformActionFault" nillable="true" type="tns:CouldNotPerformActionFault" />
+  <xs:simpleType name="ActionFaultReason">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NotConnected" />
+      <xs:enumeration value="NotReady" />
+      <xs:enumeration value="NotInManualMode" />
+      <xs:enumeration value="InvalidValue" />
+      <xs:enumeration value="Unknown" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ActionFaultReason" nillable="true" type="tns:ActionFaultReason" />
 </xs:schema>
