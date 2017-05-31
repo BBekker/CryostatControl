@@ -102,7 +102,6 @@ namespace CryostatControlClient.Communication
             catch (Exception)
             {
                 Console.WriteLine("Something went wrong with the server");
-                throw;
             }
         }
 

@@ -25,7 +25,7 @@ namespace CryostatControlClient.Communication
 
         private CommandServiceClient commandClient;
 
-        private DataClientCallback callbackClient;
+        private DataGetClient callbackClient;
 
         private DataSender sender;
 
@@ -39,14 +39,14 @@ namespace CryostatControlClient.Communication
             }
         }
 
-        public ServerCheck(App app, CommandServiceClient commandClient, DataClientCallback callbackClient)
+        public ServerCheck(App app, CommandServiceClient commandClient, DataGetClient callbackClient)
         {
             this.mainApp = app;
             this.mainWindow = this.mainApp.MainWindow as MainWindow;
             this.commandClient = commandClient;
             this.callbackClient = callbackClient;
             this.sender = new DataSender(this);
-            this.timer = new Timer(this.CheckStatus, null, 10000, 1000);
+            this.timer = new Timer(this.CheckStatus, null, 10000, 2000);
         }
 
         private void CheckStatus(object state)
@@ -61,7 +61,8 @@ namespace CryostatControlClient.Communication
                         {
                             this.sender.SetCompressorScales((this.mainApp.MainWindow as MainWindow).Container);
                         });                      
-                        this.firstTimeConnected = false;
+                        this.firstTimeConnected = false;                   
+                        callbackClient.SubscribeForData(1000);
                     }
                 }
             }
@@ -71,6 +72,9 @@ namespace CryostatControlClient.Communication
                 firstTimeConnected = true;
                 commandClient = new CommandServiceClient();
                 this.mainApp.CommandServiceClient = commandClient;
+                DataClientCallback callback = new DataClientCallback(this.mainApp);
+                InstanceContext instanceContext = new InstanceContext(callback);
+                this.callbackClient = new DataGetClient(instanceContext);
             }
         }
     }

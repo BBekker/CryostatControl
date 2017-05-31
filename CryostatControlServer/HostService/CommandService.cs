@@ -214,6 +214,7 @@ namespace CryostatControlServer.HostService
             {
                 this.callbacksListeners.Add(client, new Timer(this.TimerMethod, client, 0, interval));
             }
+            Console.WriteLine(this.callbacksListeners.Count + " zoveel");
         }
 
         /// <inheritdoc cref="IDataGet.UnsubscribeForData"/>>

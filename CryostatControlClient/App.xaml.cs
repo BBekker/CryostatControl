@@ -100,7 +100,7 @@ namespace CryostatControlClient
             DataClientCallback callback = new DataClientCallback(this);
             InstanceContext instanceContext = new InstanceContext(callback);
             DataGetClient dataClient = new DataGetClient(instanceContext);
-            this.serverCheck = new ServerCheck(this, commandServiceClient, callback);
+            this.serverCheck = new ServerCheck(this, commandServiceClient, dataClient);
 
             try
             {

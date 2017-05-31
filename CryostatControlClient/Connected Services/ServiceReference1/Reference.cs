@@ -122,6 +122,24 @@ namespace CryostatControlClient.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/StopLogging", ReplyAction="http://tempuri.org/ICommandService/StopLoggingResponse")]
         System.Threading.Tasks.Task StopLoggingAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsAliveCallback", ReplyAction="http://tempuri.org/ICommandService/IsAliveCallbackResponse")]
+        bool IsAliveCallback();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsAliveCallback", ReplyAction="http://tempuri.org/ICommandService/IsAliveCallbackResponse")]
+        System.Threading.Tasks.Task<bool> IsAliveCallbackAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/RegisteredForData", ReplyAction="http://tempuri.org/ICommandService/RegisteredForDataResponse")]
+        bool RegisteredForData();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/RegisteredForData", ReplyAction="http://tempuri.org/ICommandService/RegisteredForDataResponse")]
+        System.Threading.Tasks.Task<bool> RegisteredForDataAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/RegisteredForUpdates", ReplyAction="http://tempuri.org/ICommandService/RegisteredForUpdatesResponse")]
+        bool RegisteredForUpdates();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/RegisteredForUpdates", ReplyAction="http://tempuri.org/ICommandService/RegisteredForUpdatesResponse")]
+        System.Threading.Tasks.Task<bool> RegisteredForUpdatesAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -293,6 +311,30 @@ namespace CryostatControlClient.ServiceReference1 {
         
         public System.Threading.Tasks.Task StopLoggingAsync() {
             return base.Channel.StopLoggingAsync();
+        }
+        
+        public bool IsAliveCallback() {
+            return base.Channel.IsAliveCallback();
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsAliveCallbackAsync() {
+            return base.Channel.IsAliveCallbackAsync();
+        }
+        
+        public bool RegisteredForData() {
+            return base.Channel.RegisteredForData();
+        }
+        
+        public System.Threading.Tasks.Task<bool> RegisteredForDataAsync() {
+            return base.Channel.RegisteredForDataAsync();
+        }
+        
+        public bool RegisteredForUpdates() {
+            return base.Channel.RegisteredForUpdates();
+        }
+        
+        public System.Threading.Tasks.Task<bool> RegisteredForUpdatesAsync() {
+            return base.Channel.RegisteredForUpdatesAsync();
         }
     }
     
