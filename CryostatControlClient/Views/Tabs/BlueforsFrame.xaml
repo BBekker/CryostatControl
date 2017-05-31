@@ -5,83 +5,67 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="6*" />
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="1" Grid.Row="1" CornerRadius="0 0 40 40" BorderBrush="Black" BorderThickness="1 5 1 1">
-            <Border.Background>
-                <RadialGradientBrush
-                    GradientOrigin="0.5,0.5"
-                    Center="0.5,0.5">
-                    <RadialGradientBrush.GradientStops>
-                        <GradientStop Color="#ffca28" Offset="0.5" />
-                        <GradientStop Color="#81d4fa" Offset="1.0" />
-                    </RadialGradientBrush.GradientStops>
-                </RadialGradientBrush>
-            </Border.Background>
-
+        <Border Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="3" CornerRadius="2" Background="White" />
+        <Border Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="3" CornerRadius="2" Background="White" >
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label>50K Plate</Label>
+                <Label Content="{Binding BlueforsViewModel.ColdPlate50KTemp}" ContentStringFormat="{}{0:N2}" />
+                <Label>K</Label>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="3" CornerRadius="2" Background="White" >
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="5*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-
-                <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Label Content="{Binding BlueforsViewModel.ColdPlate50KTemp}" ContentStringFormat="{}{0:N2}"/>
-                </Grid>
-
-
-                <Border Grid.Column="1" Grid.Row="0" CornerRadius="0 00 25 25" BorderBrush="Black"
-                        BorderThickness="1 0 1 1">
-                    <Border.Background>
-                        <RadialGradientBrush
-                            GradientOrigin="0.5,0.5"
-                            Center="0.5,0.5">
-                            <RadialGradientBrush.GradientStops>
-                                <GradientStop Color="#ffca28" Offset="0.5" />
-                                <GradientStop Color="#81d4fa" Offset="1.0" />
-                            </RadialGradientBrush.GradientStops>
-                        </RadialGradientBrush>
-                    </Border.Background>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="5*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="10*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Border Grid.Column="1" Grid.Row="0" Background="Transparent" CornerRadius="0 0 15 15"
-                                BorderBrush="Black" BorderThickness="1 0 1 1" Padding="10 50 10 50">
-                            <Border CornerRadius="5" Background="RosyBrown">
-                                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Height="50">
-                                    <Label Content="He7 cooler" />
-                                </Grid>
-                            </Border>
-                        </Border>
-
-                        <Grid Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Label Content="{Binding BlueforsViewModel.ColdPlate3KTemp}" ContentStringFormat="{}{0:N2}"/>
-                        </Grid>
-                    </Grid>
+                <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label>3K Plate</Label>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="{Binding BlueforsViewModel.ColdPlate3KTemp}" ContentStringFormat="{}{0:N2}" />
+                        <Label>K</Label>
+                    </StackPanel>
+                </StackPanel>
+                <Border Grid.Column="0" Margin="5" BorderBrush="Black" BorderThickness="3" CornerRadius="2">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Label>Heater output</Label>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label Content="{Binding BlueforsViewModel.ColdPlate3KTemp}" ContentStringFormat="{}{0:N2}" />
+                            <Label>K</Label>
+                        </StackPanel>
+                    </StackPanel>
                 </Border>
             </Grid>
+            
         </Border>
 
+        <Border Grid.Row="2" Grid.Column="5" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center"/>
+        <Border Grid.Row="4" Grid.Column="5" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center"/>
     </Grid>
 </Page>

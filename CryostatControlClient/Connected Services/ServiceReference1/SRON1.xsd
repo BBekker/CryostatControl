@@ -205,6 +205,29 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="StartLogging">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="interval" type="xs:int" />
+        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="logData" nillable="true" type="q2:ArrayOfboolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StartLoggingResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StopLogging">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StopLoggingResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="SubscribeForData">
     <xs:complexType>
       <xs:sequence>
@@ -220,7 +243,7 @@
   <xs:element name="SendData">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="data" nillable="true" type="q2:ArrayOfdouble" />
+        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="data" nillable="true" type="q3:ArrayOfdouble" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

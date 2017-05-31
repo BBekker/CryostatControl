@@ -14,6 +14,7 @@ namespace CryostatControlServer.HostService
 
     using CryostatControlServer.HostService.DataContracts;
     using CryostatControlServer.HostService.Enumerators;
+    using CryostatControlServer.Logging;
 
     /// <summary>
     /// Service class which handles the incoming methods calls.
@@ -28,6 +29,8 @@ namespace CryostatControlServer.HostService
         /// </summary>
         private readonly CryostatControl cryostatControl;
 
+        private readonly LogThreader logger;
+
         /// <summary>
         /// The callback list
         /// </summary>
@@ -38,14 +41,14 @@ namespace CryostatControlServer.HostService
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CommandService"/> class.
+        /// Initializes a new instance of the <see cref="CommandService" /> class.
         /// </summary>
-        /// <param name="cryostatControl">
-        /// The cryostat Control.
-        /// </param>
-        public CommandService(CryostatControl cryostatControl)
+        /// <param name="cryostatControl">The cryostat Control.</param>
+        /// <param name="logger">The logger.</param>
+        public CommandService(CryostatControl cryostatControl, LogThreader logger)
         {
             this.cryostatControl = cryostatControl;
+            this.logger = logger;
         }
 
         #endregion Constructors
@@ -209,6 +212,18 @@ namespace CryostatControlServer.HostService
             }
 
             return values;
+        }
+
+        /// <inheritdoc cref="ICommandService.StartLogging"/>
+        public void StartLogging(int interval, bool[] logData)
+        {
+            this.logger.StartSpecificDataLogging(interval, logData);
+        }
+
+        /// <inheritdoc cref="ICommandService.StopLogging"/>
+        public void StopLogging()
+        {
+            this.logger.StopSpecificDataLogging();
         }
 
         /// <inheritdoc cref="IDataGet.SubscribeForData"/>>

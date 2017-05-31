@@ -15,7 +15,7 @@ namespace CryostatControlServerTests
         [TestMethod]
         public void TestReadingSettings()
         {
-            CommandService cs = new CommandService(new Mock<CryostatControl>().Object);
+            CommandService cs = new CommandService(new Mock<CryostatControl>().Object, null);
 
             var result = cs.ReadSettings();
             Assert.AreEqual(Enum.GetNames(typeof(SettingEnumerator)).Length, result.Length);         
@@ -26,7 +26,7 @@ namespace CryostatControlServerTests
         [TestMethod]
         public void TestWritingSettings()
         {
-            CommandService cs = new CommandService(new Mock<CryostatControl>().Object);
+            CommandService cs = new CommandService(new Mock<CryostatControl>().Object, null);
             cs.WriteSettingValue((int)SettingEnumerator.ControllerHeatupTemperature, 20);
             var readvals = cs.ReadSettings();
             Assert.AreEqual(readvals[(int)SettingEnumerator.ControllerHeatupTemperature], 20);
