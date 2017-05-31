@@ -100,6 +100,32 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
+        public bool Server
+        {
+            get
+            {
+                return this.modusModel.Server;
+            }
+            set
+            {
+                this.modusModel.Server = value;
+                this.RaisePropertyChanged("Server");
+                this.RaisePropertyChanged("ServerConverted");
+            }
+        }
+
+        public string ServerConverted
+        {
+            get
+            {
+                if(this.Server)
+                {
+                    return "Connected";
+                }
+                return "Disconnected";
+            }
+        }
+
         /// <summary>
         /// Gets or sets the time.
         /// </summary>

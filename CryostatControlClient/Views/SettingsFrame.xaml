@@ -34,7 +34,7 @@
                     <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="2" Content="{Binding CompressorViewModel.ConnectionStateConverted}"/>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="3">Server</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="3">xx</Label>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="3" Content="{Binding ModusViewModel.ServerConverted}"/>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="4">Modus</Label>
                     <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="4" Content="{Binding ModusViewModel.ModusConverted}"/>

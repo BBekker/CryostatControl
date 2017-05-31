@@ -57,6 +57,7 @@ namespace CryostatControlClient.Communication
                 {
                     if (firstTimeConnected)
                     {
+                        this.SetConnected(true);
                         this.mainApp.Dispatcher.Invoke(() =>
                         {
                             this.sender.SetCompressorScales((this.mainApp.MainWindow as MainWindow).Container);
@@ -65,9 +66,14 @@ namespace CryostatControlClient.Communication
                         callbackClient.SubscribeForData(1000);
                     }
                 }
+                else
+                {
+                    this.SetConnected(false);
+                }
             }
             catch (CommunicationException e)
             {
+                this.SetConnected(false);
                 commandClient.Abort();
                 firstTimeConnected = true;
                 commandClient = new CommandServiceClient();
@@ -76,6 +82,14 @@ namespace CryostatControlClient.Communication
                 InstanceContext instanceContext = new InstanceContext(callback);
                 this.callbackClient = new DataGetClient(instanceContext);
             }
+        }
+
+        private void SetConnected(bool state)
+        {
+            this.mainApp.Dispatcher.Invoke(() =>
+            {
+                (this.mainApp.MainWindow as MainWindow).Container.ModusViewModel.Server = state;
+            });
         }
     }
 }

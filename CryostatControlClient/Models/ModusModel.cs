@@ -31,6 +31,11 @@ namespace CryostatControlClient.Models
         /// </summary>
         private string time;
 
+        /// <summary>
+        /// The server
+        /// </summary>
+        private bool server;
+
         #endregion Fields
 
         #region Constructor
@@ -63,6 +68,24 @@ namespace CryostatControlClient.Models
             set
             {
                 this.selectedComboIndex = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the server is connected.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if server connected; otherwise, <c>false</c>.
+        /// </value>
+        public bool Server
+        {
+            get
+            {
+                return this.server;
+            }
+            set
+            {
+                this.server = value;
             }
         }
 
