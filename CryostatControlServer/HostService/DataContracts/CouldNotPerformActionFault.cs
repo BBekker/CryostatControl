@@ -1,4 +1,13 @@
-﻿namespace CryostatControlServer.HostService.DataContracts
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CouldNotPerformActionFault.cs" company="SRON">
+//   bla
+// </copyright>
+// <summary>
+//   The could not perform action fault.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace CryostatControlServer.HostService.DataContracts
 {
     using System;
     using System.Runtime.Serialization;

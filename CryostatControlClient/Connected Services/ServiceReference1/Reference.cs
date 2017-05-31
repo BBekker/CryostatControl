@@ -70,10 +70,12 @@ namespace CryostatControlClient.ServiceReference1 {
         System.Threading.Tasks.Task<bool> SetCompressorStateAsync(bool status);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteHelium7", ReplyAction="http://tempuri.org/ICommandService/WriteHelium7Response")]
-        bool WriteHelium7(double[] values);
+        [System.ServiceModel.FaultContractAttribute(typeof(CryostatControlServer.HostService.DataContracts.CouldNotPerformActionFault), Action="http://tempuri.org/ICommandService/WriteHelium7CouldNotPerformActionFaultFault", Name="CouldNotPerformActionFault", Namespace="http://schemas.datacontract.org/2004/07/CryostatControlServer.HostService.DataCon" +
+            "tracts")]
+        bool WriteHelium7(int heater, double value);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteHelium7", ReplyAction="http://tempuri.org/ICommandService/WriteHelium7Response")]
-        System.Threading.Tasks.Task<bool> WriteHelium7Async(double[] values);
+        System.Threading.Tasks.Task<bool> WriteHelium7Async(int heater, double value);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadCompressorTemperatureScale", ReplyAction="http://tempuri.org/ICommandService/ReadCompressorTemperatureScaleResponse")]
         double ReadCompressorTemperatureScale();
@@ -211,12 +213,12 @@ namespace CryostatControlClient.ServiceReference1 {
             return base.Channel.SetCompressorStateAsync(status);
         }
         
-        public bool WriteHelium7(double[] values) {
-            return base.Channel.WriteHelium7(values);
+        public bool WriteHelium7(int heater, double value) {
+            return base.Channel.WriteHelium7(heater, value);
         }
         
-        public System.Threading.Tasks.Task<bool> WriteHelium7Async(double[] values) {
-            return base.Channel.WriteHelium7Async(values);
+        public System.Threading.Tasks.Task<bool> WriteHelium7Async(int heater, double value) {
+            return base.Channel.WriteHelium7Async(heater, value);
         }
         
         public double ReadCompressorTemperatureScale() {

@@ -1,8 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ActionFaultReason.cs" company="SRON">
+//   bla
+// </copyright>
+// <summary>
+//   The fault reason.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.HostService.DataContracts
 {
