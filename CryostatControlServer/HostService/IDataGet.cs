@@ -30,6 +30,18 @@ namespace CryostatControlServer.HostService
         [OperationContract(IsOneWay = true)]
         void UnsubscribeForData();
 
+        /// <summary>
+        /// Subscribes for data callback for receiving update message.
+        /// </summary>
+        [OperationContract(IsOneWay = true)]
+        void SubscribeForUpdates();
+
+        /// <summary>
+        /// Unsubscribes for data callback for receiving update message.
+        /// </summary>
+        [OperationContract(IsOneWay = true)]
+        void UnsubscribeForUpdates();
+
         #endregion Methods
     }
 }

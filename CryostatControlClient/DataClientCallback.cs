@@ -55,10 +55,8 @@ namespace CryostatControlClient
             {
                 this.mainWindow = this.mainApp.MainWindow as MainWindow;
             }
-            else
-            {
-                this.mainWindow.UpdateViewModels(data);
-            }
+
+            this.mainWindow.UpdateViewModels(data);
         }
 
         /// <summary>
@@ -71,10 +69,22 @@ namespace CryostatControlClient
             {
                 this.mainWindow = this.mainApp.MainWindow as MainWindow;
             }
-            else
+
+            this.mainWindow.SetState(modus);
+        }
+
+        /// <summary>
+        /// Sets the state of the logging.
+        /// </summary>
+        /// <param name="status">if set to <c>true</c> [status].</param>
+        public void SetLoggingState(bool status)
+        {
+            if (this.mainWindow == null)
             {
-                this.mainWindow.SetState(modus);
+                this.mainWindow = this.mainApp.MainWindow as MainWindow;
             }
+
+            this.mainWindow.SetIsLogging(status);
         }
 
         #endregion Methods

@@ -837,7 +837,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_StopLogging_Input_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_CancelLogging_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -856,7 +856,45 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_StopLogging_output_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_CancelLogging_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_IsLogging_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_IsLogging_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -1024,6 +1062,52 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IDataGet_SubscribeForUpdates_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IDataGet_UnsubscribeForUpdates_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_IDataGet_SendData_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -1048,6 +1132,29 @@
     </wsp:ExactlyOne>
   </wsp:Policy>
   <wsp:Policy wsu:Id="WSDualHttpBinding_IDataGet_SendModus_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IDataGet_SetLoggingState_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -1195,11 +1302,17 @@
   <wsdl:message name="ICommandService_StartLogging_OutputMessage">
     <wsdl:part name="parameters" element="tns:StartLoggingResponse" />
   </wsdl:message>
-  <wsdl:message name="ICommandService_StopLogging_InputMessage">
-    <wsdl:part name="parameters" element="tns:StopLogging" />
+  <wsdl:message name="ICommandService_CancelLogging_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelLogging" />
   </wsdl:message>
-  <wsdl:message name="ICommandService_StopLogging_OutputMessage">
-    <wsdl:part name="parameters" element="tns:StopLoggingResponse" />
+  <wsdl:message name="ICommandService_CancelLogging_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelLoggingResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_IsLogging_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsLogging" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_IsLogging_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsLoggingResponse" />
   </wsdl:message>
   <wsdl:message name="IDataGet_SubscribeForData_InputMessage">
     <wsdl:part name="parameters" element="tns:SubscribeForData" />
@@ -1207,11 +1320,20 @@
   <wsdl:message name="IDataGet_UnsubscribeForData_InputMessage">
     <wsdl:part name="parameters" element="tns:UnsubscribeForData" />
   </wsdl:message>
+  <wsdl:message name="IDataGet_SubscribeForUpdates_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeForUpdates" />
+  </wsdl:message>
+  <wsdl:message name="IDataGet_UnsubscribeForUpdates_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnsubscribeForUpdates" />
+  </wsdl:message>
   <wsdl:message name="IDataGet_SendData_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:SendData" />
   </wsdl:message>
   <wsdl:message name="IDataGet_SendModus_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:SendModus" />
+  </wsdl:message>
+  <wsdl:message name="IDataGet_SetLoggingState_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:SetLoggingState" />
   </wsdl:message>
   <wsdl:portType name="ICommandService">
     <wsdl:operation name="IsAlive">
@@ -1291,9 +1413,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/StartLogging" message="tns:ICommandService_StartLogging_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/StartLoggingResponse" message="tns:ICommandService_StartLogging_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="StopLogging">
-      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/StopLogging" message="tns:ICommandService_StopLogging_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/StopLoggingResponse" message="tns:ICommandService_StopLogging_OutputMessage" />
+    <wsdl:operation name="CancelLogging">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/CancelLogging" message="tns:ICommandService_CancelLogging_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/CancelLoggingResponse" message="tns:ICommandService_CancelLogging_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsLogging">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/IsLogging" message="tns:ICommandService_IsLogging_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/IsLoggingResponse" message="tns:ICommandService_IsLogging_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType msc:usingSession="true" name="IDataGet">
@@ -1303,11 +1429,20 @@
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UnsubscribeForData">
       <wsdl:input wsaw:Action="http://tempuri.org/IDataGet/UnsubscribeForData" message="tns:IDataGet_UnsubscribeForData_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SubscribeForUpdates">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataGet/SubscribeForUpdates" message="tns:IDataGet_SubscribeForUpdates_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UnsubscribeForUpdates">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDataGet/UnsubscribeForUpdates" message="tns:IDataGet_UnsubscribeForUpdates_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SendData">
       <wsdl:output wsaw:Action="http://tempuri.org/IDataGet/SendData" message="tns:IDataGet_SendData_OutputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SendModus">
       <wsdl:output wsaw:Action="http://tempuri.org/IDataGet/SendModus" message="tns:IDataGet_SendModus_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SetLoggingState">
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataGet/SetLoggingState" message="tns:IDataGet_SetLoggingState_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSHttpBinding_ICommandService" type="tns:ICommandService">
@@ -1526,14 +1661,25 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="StopLogging">
-      <soap12:operation soapAction="http://tempuri.org/ICommandService/StopLogging" style="document" />
+    <wsdl:operation name="CancelLogging">
+      <soap12:operation soapAction="http://tempuri.org/ICommandService/CancelLogging" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_StopLogging_Input_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_CancelLogging_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_StopLogging_output_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_CancelLogging_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsLogging">
+      <soap12:operation soapAction="http://tempuri.org/ICommandService/IsLogging" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_IsLogging_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_IsLogging_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -1555,6 +1701,20 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="SubscribeForUpdates">
+      <soap12:operation soapAction="http://tempuri.org/IDataGet/SubscribeForUpdates" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IDataGet_SubscribeForUpdates_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="UnsubscribeForUpdates">
+      <soap12:operation soapAction="http://tempuri.org/IDataGet/UnsubscribeForUpdates" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IDataGet_UnsubscribeForUpdates_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="SendData">
       <soap12:operation soapAction="http://tempuri.org/IDataGet/SendData" style="document" />
       <wsdl:output>
@@ -1569,6 +1729,13 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SetLoggingState">
+      <soap12:operation soapAction="http://tempuri.org/IDataGet/SetLoggingState" style="document" />
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IDataGet_SetLoggingState_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="CommandService">
     <wsdl:port name="WSHttpBinding_ICommandService" binding="tns:WSHttpBinding_ICommandService">
@@ -1576,7 +1743,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:18000/SRON</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>bernard-laptop\Bernard</Upn>
+          <Upn>LAPTOP-696EJUAD\Maiko</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1585,7 +1752,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:18001/SRON</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>bernard-laptop\Bernard</Upn>
+          <Upn>LAPTOP-696EJUAD\Maiko</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
