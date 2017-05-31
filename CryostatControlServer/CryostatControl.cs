@@ -158,9 +158,9 @@ namespace CryostatControlServer
         /// <returns>
         /// true if cool down is started, false otherwise
         /// </returns>
-        public bool StartCooldown(string time)
+        public bool StartCooldown(DateTime time)
         {
-            return this.controller.StartCooldown(DateTime.Parse(time));
+            return this.controller.StartCooldown(time);
         }
 
         /// <summary>
@@ -169,7 +169,19 @@ namespace CryostatControlServer
         /// <returns>true if heat up is started, false otherwise</returns>
         public bool StartHeatup()
         {
-            return this.controller.StartHeatup();
+            return this.controller.StartHeatup(DateTime.Now);
+        }
+
+        /// <summary>
+        /// Starts the heat up.
+        /// </summary>
+        /// <param name="time">The time.</param>
+        /// <returns>
+        /// true if heat up is started, false otherwise
+        /// </returns>
+        public bool StartHeatup(DateTime time)
+        {
+            return this.controller.StartHeatup(time);
         }
 
         /// <summary>
@@ -189,7 +201,19 @@ namespace CryostatControlServer
         /// <returns>true if recycle is started, false otherwise</returns>
         public bool StartRecycle()
         {
-            return this.controller.StartRecycle();
+            return this.controller.StartRecycle(DateTime.Now);
+        }
+
+        /// <summary>
+        /// Starts a recycle.
+        /// </summary>
+        /// <param name="time">The time.</param>
+        /// <returns>
+        /// true if recycle is started, false otherwise
+        /// </returns>
+        public bool StartRecycle(DateTime time)
+        {
+            return this.controller.StartRecycle(time);
         }
 
         /// <summary>

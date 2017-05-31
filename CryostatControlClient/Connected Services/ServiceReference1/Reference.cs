@@ -28,10 +28,10 @@ namespace CryostatControlClient.ServiceReference1 {
         System.Threading.Tasks.Task<bool> CooldownAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/CooldownTime", ReplyAction="http://tempuri.org/ICommandService/CooldownTimeResponse")]
-        bool CooldownTime(string time);
+        bool CooldownTime(System.DateTime time);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/CooldownTime", ReplyAction="http://tempuri.org/ICommandService/CooldownTimeResponse")]
-        System.Threading.Tasks.Task<bool> CooldownTimeAsync(string time);
+        System.Threading.Tasks.Task<bool> CooldownTimeAsync(System.DateTime time);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Recycle", ReplyAction="http://tempuri.org/ICommandService/RecycleResponse")]
         bool Recycle();
@@ -39,11 +39,23 @@ namespace CryostatControlClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Recycle", ReplyAction="http://tempuri.org/ICommandService/RecycleResponse")]
         System.Threading.Tasks.Task<bool> RecycleAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/RecycleTime", ReplyAction="http://tempuri.org/ICommandService/RecycleTimeResponse")]
+        bool RecycleTime(System.DateTime time);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/RecycleTime", ReplyAction="http://tempuri.org/ICommandService/RecycleTimeResponse")]
+        System.Threading.Tasks.Task<bool> RecycleTimeAsync(System.DateTime time);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Warmup", ReplyAction="http://tempuri.org/ICommandService/WarmupResponse")]
         bool Warmup();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Warmup", ReplyAction="http://tempuri.org/ICommandService/WarmupResponse")]
         System.Threading.Tasks.Task<bool> WarmupAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WarmupTime", ReplyAction="http://tempuri.org/ICommandService/WarmupTimeResponse")]
+        bool WarmupTime(System.DateTime time);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WarmupTime", ReplyAction="http://tempuri.org/ICommandService/WarmupTimeResponse")]
+        System.Threading.Tasks.Task<bool> WarmupTimeAsync(System.DateTime time);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Manual", ReplyAction="http://tempuri.org/ICommandService/ManualResponse")]
         bool Manual();
@@ -167,11 +179,11 @@ namespace CryostatControlClient.ServiceReference1 {
             return base.Channel.CooldownAsync();
         }
         
-        public bool CooldownTime(string time) {
+        public bool CooldownTime(System.DateTime time) {
             return base.Channel.CooldownTime(time);
         }
         
-        public System.Threading.Tasks.Task<bool> CooldownTimeAsync(string time) {
+        public System.Threading.Tasks.Task<bool> CooldownTimeAsync(System.DateTime time) {
             return base.Channel.CooldownTimeAsync(time);
         }
         
@@ -183,12 +195,28 @@ namespace CryostatControlClient.ServiceReference1 {
             return base.Channel.RecycleAsync();
         }
         
+        public bool RecycleTime(System.DateTime time) {
+            return base.Channel.RecycleTime(time);
+        }
+        
+        public System.Threading.Tasks.Task<bool> RecycleTimeAsync(System.DateTime time) {
+            return base.Channel.RecycleTimeAsync(time);
+        }
+        
         public bool Warmup() {
             return base.Channel.Warmup();
         }
         
         public System.Threading.Tasks.Task<bool> WarmupAsync() {
             return base.Channel.WarmupAsync();
+        }
+        
+        public bool WarmupTime(System.DateTime time) {
+            return base.Channel.WarmupTime(time);
+        }
+        
+        public System.Threading.Tasks.Task<bool> WarmupTimeAsync(System.DateTime time) {
+            return base.Channel.WarmupTimeAsync(time);
         }
         
         public bool Manual() {

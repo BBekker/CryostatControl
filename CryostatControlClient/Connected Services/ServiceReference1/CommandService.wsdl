@@ -248,6 +248,44 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_RecycleTime_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_RecycleTime_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_Warmup_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -268,6 +306,44 @@
     </wsp:ExactlyOne>
   </wsp:Policy>
   <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_Warmup_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_WarmupTime_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_WarmupTime_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -1006,11 +1082,23 @@
   <wsdl:message name="ICommandService_Recycle_OutputMessage">
     <wsdl:part name="parameters" element="tns:RecycleResponse" />
   </wsdl:message>
+  <wsdl:message name="ICommandService_RecycleTime_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecycleTime" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_RecycleTime_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecycleTimeResponse" />
+  </wsdl:message>
   <wsdl:message name="ICommandService_Warmup_InputMessage">
     <wsdl:part name="parameters" element="tns:Warmup" />
   </wsdl:message>
   <wsdl:message name="ICommandService_Warmup_OutputMessage">
     <wsdl:part name="parameters" element="tns:WarmupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_WarmupTime_InputMessage">
+    <wsdl:part name="parameters" element="tns:WarmupTime" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_WarmupTime_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WarmupTimeResponse" />
   </wsdl:message>
   <wsdl:message name="ICommandService_Manual_InputMessage">
     <wsdl:part name="parameters" element="tns:Manual" />
@@ -1119,9 +1207,17 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/Recycle" message="tns:ICommandService_Recycle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/RecycleResponse" message="tns:ICommandService_Recycle_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="RecycleTime">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/RecycleTime" message="tns:ICommandService_RecycleTime_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/RecycleTimeResponse" message="tns:ICommandService_RecycleTime_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="Warmup">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/Warmup" message="tns:ICommandService_Warmup_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/WarmupResponse" message="tns:ICommandService_Warmup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="WarmupTime">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/WarmupTime" message="tns:ICommandService_WarmupTime_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/WarmupTimeResponse" message="tns:ICommandService_WarmupTime_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Manual">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/Manual" message="tns:ICommandService_Manual_InputMessage" />
@@ -1237,6 +1333,17 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="RecycleTime">
+      <soap12:operation soapAction="http://tempuri.org/ICommandService/RecycleTime" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_RecycleTime_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_RecycleTime_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Warmup">
       <soap12:operation soapAction="http://tempuri.org/ICommandService/Warmup" style="document" />
       <wsdl:input>
@@ -1245,6 +1352,17 @@
       </wsdl:input>
       <wsdl:output>
         <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_Warmup_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WarmupTime">
+      <soap12:operation soapAction="http://tempuri.org/ICommandService/WarmupTime" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_WarmupTime_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_WarmupTime_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -1430,7 +1548,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:18000/SRON</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>Meeuwissen-PC\Ruben</Upn>
+          <Upn>LAPTOP-LOUIS\louis</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1439,7 +1557,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:18001/SRON</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>Meeuwissen-PC\Ruben</Upn>
+          <Upn>LAPTOP-LOUIS\louis</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
