@@ -11,10 +11,11 @@ namespace CryostatControlClient.Communication
 {
     using System;
 
-    using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.ViewModels;
 
     using CryostatControlServer.HostService.Enumerators;
+    using Communication;
+    using System.Windows;
 
     /// <summary>
     /// Sends data to the server
@@ -26,7 +27,7 @@ namespace CryostatControlClient.Communication
         /// <summary>
         /// The command service client
         /// </summary>
-        private CommandServiceClient commandServiceClient;
+        private ServerCheck server;
 
         #endregion Fields
 
@@ -36,9 +37,9 @@ namespace CryostatControlClient.Communication
         /// Initializes a new instance of the <see cref="DataSender"/> class.
         /// </summary>
         /// <param name="csc">The command service client.</param>
-        public DataSender(CommandServiceClient csc)
+        public DataSender(ServerCheck server)
         {
-            this.commandServiceClient = csc;
+            this.server = server;
         }
 
         #endregion Constructor
@@ -53,19 +54,19 @@ namespace CryostatControlClient.Communication
         {
             int radio = viewModelContainer.ModusViewModel.SelectedComboIndex;
             string time = viewModelContainer.ModusViewModel.Time;
-
+            
             switch (radio)
             {
                 case (int)ModusEnumerator.Cooldown:
-                    this.commandServiceClient.Cooldown();
+                    this.server.CommandClient.Cooldown();
                     break;
 
                 case (int)ModusEnumerator.Recycle:
-                    this.commandServiceClient.Recycle();
+                    this.server.CommandClient.Recycle();
                     break;
 
                 case (int)ModusEnumerator.Warmup:
-                    this.commandServiceClient.Warmup();
+                    this.server.CommandClient.Warmup();
                     break;
 
                 default:
@@ -81,7 +82,7 @@ namespace CryostatControlClient.Communication
         /// <param name="state">if set to <c>true</c> [state].</param>
         public void SwitchCompressor(bool state)
         {
-            this.commandServiceClient.SetCompressorState(state);
+            this.server.CommandClient.SetCompressorState(state);
         }
 
         /// <summary>
@@ -93,13 +94,15 @@ namespace CryostatControlClient.Communication
             try
             {
                 viewModelContainer.CompressorViewModel.TempScale =
-                    this.commandServiceClient.ReadCompressorTemperatureScale();
+                    this.server.CommandClient.ReadCompressorTemperatureScale();
                 viewModelContainer.CompressorViewModel.PressureScale =
-                    this.commandServiceClient.ReadCompressorPressureScale();
+                    this.server.CommandClient.ReadCompressorPressureScale();
+                Console.WriteLine("Dingen");
             }
-            catch
+            catch (Exception)
             {
                 Console.WriteLine("Something went wrong with the server");
+                throw;
             }
         }
 
@@ -108,7 +111,7 @@ namespace CryostatControlClient.Communication
         /// </summary>
         public void CancelModus()
         {
-            this.commandServiceClient.Cancel();
+            this.server.CommandClient.Cancel();
         }
 
         /// <summary>
@@ -124,7 +127,7 @@ namespace CryostatControlClient.Communication
             writeHelium7[(int)HeaterEnumerator.He3Switch] = viewModelContainer.He7ViewModel.He3SwitchNewVolt;
             writeHelium7[(int)HeaterEnumerator.He4Switch] = viewModelContainer.He7ViewModel.He4SwitchNewVolt;
 
-            this.commandServiceClient.WriteHelium7(writeHelium7);
+            this.server.CommandClient.WriteHelium7(writeHelium7);
 
             // These are the max settings, since it is not yet clear what to do with these they are commented out.
 
@@ -153,7 +156,7 @@ namespace CryostatControlClient.Communication
             bool[] dataToBeLogged = viewModelContainer.LoggingViewModel.GetLoggingArray();
             int interval = (int)viewModelContainer.LoggingViewModel.LoggingInterval;
 
-            this.commandServiceClient.StartLogging(interval, dataToBeLogged);
+            this.server.CommandClient.StartLogging(interval, dataToBeLogged);
         }
 
         /// <summary>
@@ -161,7 +164,7 @@ namespace CryostatControlClient.Communication
         /// </summary>
         public void CancelLogging()
         {
-            this.commandServiceClient.StopLogging();
+            this.server.CommandClient.StopLogging();
         }
 
         #endregion Methods

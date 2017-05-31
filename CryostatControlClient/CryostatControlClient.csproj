@@ -100,7 +100,7 @@
     <Compile Include="Models\He7Model.cs" />
     <Compile Include="Models\LoggingModel.cs" />
     <Compile Include="Models\ModusModel.cs" />
-    <Compile Include="ServerCheck.cs" />
+    <Compile Include="Communication\ServerCheck.cs" />
     <Compile Include="ViewModels\AbstractViewModel.cs" />
     <Compile Include="ViewModels\BlueforsViewModel.cs" />
     <Compile Include="ViewModels\CompressorViewModel.cs" />
