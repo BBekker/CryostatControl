@@ -573,7 +573,23 @@ namespace CryostatControlClient.ViewModels
             {
                 this.loggingModel.LoggingInProgress = value;
                 this.RaisePropertyChanged("LoggingInProgress");
+                this.RaisePropertyChanged("LoggingInProgressColor");
+                this.RaisePropertyChanged("LoggingInProgressReversed");
                 this.RaisePropertyChanged("LoggingInProgressConverted");
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [logging in progress reversed].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [logging in progress reversed]; otherwise, <c>false</c>.
+        /// </value>
+        public bool LoggingInProgressReversed
+        {
+            get
+            {
+                return !this.LoggingInProgress;
             }
         }
 

@@ -87,11 +87,11 @@ namespace CryostatControlClient.Models
         /// </summary>
         public BlueforsModel()
         {
-            this.coldPlate3KTemporaryList = new double[this.UpdateInterval];
-            this.coldPlate50KTemporaryList = new double[this.UpdateInterval];
+            this.coldPlate3KTemporaryList = new double[this.TemporaryListSize];
+            this.coldPlate50KTemporaryList = new double[this.TemporaryListSize];
 
-            this.coldPlate3KTemporaryListBottom = new double[this.UpdateInterval];
-            this.coldPlate50KTemporaryListBottom = new double[this.UpdateInterval];
+            this.coldPlate3KTemporaryListBottom = new double[this.TemporaryListSize];
+            this.coldPlate50KTemporaryListBottom = new double[this.TemporaryListSize];
 
             this.coldPlate3KLineSeries = new LineSeries { Title = "Bluefors - 3K Plate", Values = new ChartValues<DateTimePoint>() };
             this.coldPlate50KLineSeries = new LineSeries { Title = "Bluefors - 50K Plate", Values = new ChartValues<DateTimePoint>() };

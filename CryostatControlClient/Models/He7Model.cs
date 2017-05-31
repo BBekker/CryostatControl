@@ -266,18 +266,18 @@ namespace CryostatControlClient.Models
         /// </summary>
         public He7Model()
         {
-            this.twoKPlateTemporaryList = new double[this.UpdateInterval];
-            this.fourKPlateTemporaryList = new double[this.UpdateInterval];
+            this.twoKPlateTemporaryList = new double[this.TemporaryListSize];
+            this.fourKPlateTemporaryList = new double[this.TemporaryListSize];
 
-            this.he3HeadTemporaryList = new double[this.UpdateInterval];
-            this.he3HeadTemporaryListBottom = new double[this.UpdateInterval];
-            this.he3SwitchTemporaryList = new double[this.UpdateInterval];
-            this.he3PumpTemporaryList = new double[this.UpdateInterval];
+            this.he3HeadTemporaryList = new double[this.TemporaryListSize];
+            this.he3HeadTemporaryListBottom = new double[this.TemporaryListSize];
+            this.he3SwitchTemporaryList = new double[this.TemporaryListSize];
+            this.he3PumpTemporaryList = new double[this.TemporaryListSize];
 
-            this.he4HeadTemporaryList = new double[this.UpdateInterval];
-            this.he4HeadTemporaryListBottom = new double[this.UpdateInterval];
-            this.he4SwitchTemporaryList = new double[this.UpdateInterval];
-            this.he4PumpTemporaryList = new double[this.UpdateInterval];
+            this.he4HeadTemporaryList = new double[this.TemporaryListSize];
+            this.he4HeadTemporaryListBottom = new double[this.TemporaryListSize];
+            this.he4SwitchTemporaryList = new double[this.TemporaryListSize];
+            this.he4PumpTemporaryList = new double[this.TemporaryListSize];
 
             this.twoKPlateLineSeries = new LineSeries { Title = "He7 - 2K Plate", Values = new ChartValues<DateTimePoint>() };
             this.fourKPlateLineSeries = new LineSeries { Title = "He7 - 4K Plate", Values = new ChartValues<DateTimePoint>() };
