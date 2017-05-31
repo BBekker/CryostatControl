@@ -10,11 +10,11 @@
     </Grid.Resources>
 
     <TextBlock>Toggle zoming mode, current is: 
-        <TextBlock Text="{Binding BlueforsViewModel.ZoomingMode, Converter={StaticResource ZoomingModeCoverter}}"/>
+        <TextBlock Text="{Binding ZoomingViewModel.ZoomingMode, Converter={StaticResource ZoomingModeCoverter}}"/>
     </TextBlock>
-    <Button Command="{Binding BlueforsViewModel.ZoomCommand}">Toggle Zoom</Button>
+    <Button Command="{Binding ZoomingViewModel.ZoomCommand}">Toggle Zoom</Button>
 
-    <wpf:CartesianChart Series="{Binding SeriesCollection}" Margin="20" LegendLocation="Left" DisableAnimations="True" Hoverable="False" Zoom="{Binding BlueforsViewModel.ZoomingMode}">
+    <wpf:CartesianChart Series="{Binding SeriesCollection}" Margin="20" LegendLocation="Left" DisableAnimations="True" Hoverable="False" Zoom="{Binding ZoomingViewModel.ZoomingMode}">
         <wpf:CartesianChart.AxisX>
             <wpf:Axis Title="Time" LabelFormatter="{Binding XFormatter}" />
         </wpf:CartesianChart.AxisX>

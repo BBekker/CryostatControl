@@ -124,6 +124,7 @@
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="ViewModels\ZoomingModeConverter.cs" />
+    <Compile Include="ViewModels\ZoomingViewModel.cs" />
     <Compile Include="Views\MainGraphFrame.xaml.cs">
       <DependentUpon>MainGraphFrame.xaml</DependentUpon>
     </Compile>

@@ -45,6 +45,11 @@ namespace CryostatControlClient.ViewModels
         private ModusViewModel modusViewModel;
 
         /// <summary>
+        /// The zooming view model
+        /// </summary>
+        private ZoomingViewModel zoomingViewModel;
+
+        /// <summary>
         /// The series collection1
         /// </summary>
         private SeriesCollection seriesCollection;
@@ -73,6 +78,7 @@ namespace CryostatControlClient.ViewModels
             this.he7ViewModel = new He7ViewModel();
             this.loggingViewModel = new LoggingViewModel();
             this.modusViewModel = new ModusViewModel();
+            this.zoomingViewModel = new ZoomingViewModel();
 
             this.InitSeriesCollection();
             this.InitSeriesCollection2();
@@ -198,6 +204,20 @@ namespace CryostatControlClient.ViewModels
             get
             {
                 return this.modusViewModel;
+            }
+        }
+
+        /// <summary>
+        /// Gets the zooming view model.
+        /// </summary>
+        /// <value>
+        /// The zooming view model.
+        /// </value>
+        public ZoomingViewModel ZoomingViewModel
+        {
+            get
+            {
+                return this.zoomingViewModel;
             }
         }
 
