@@ -8,7 +8,6 @@ namespace CryostatControlClient.Models
     using System;
 
     using LiveCharts.Defaults;
-    using LiveCharts.Geared;
     using LiveCharts.Wpf;
 
     /// <summary>
@@ -17,16 +16,10 @@ namespace CryostatControlClient.Models
     public abstract class AbstractModel
     {
         /// <summary>
-        /// The last update
-        /// </summary>
-        private DateTime lastUpdate;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="AbstractModel"/> class.
         /// </summary>
-        public AbstractModel()
+        protected AbstractModel()
         {
-            this.lastUpdate = DateTime.Now;
         }
 
         /// <summary>
@@ -34,7 +27,7 @@ namespace CryostatControlClient.Models
         /// </summary>
         /// <param name="lineSeries">The line series.</param>
         /// <param name="value">The value.</param>
-        public void AddToGraph(GLineSeries lineSeries, double value)
+        public void AddToGraph(LineSeries lineSeries, double value)
         {
             lineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
             if (lineSeries.Values.Count > 500)
