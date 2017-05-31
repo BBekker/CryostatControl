@@ -79,6 +79,7 @@ namespace CryostatControlServer
             logger = new LogThreader(new DataReader(compressor, he7Cooler, lakeShore));
             logger.StartGeneralDataLogging();
             StartHost();
+            NotificationSender.Info("Check out");
         }
 
         /// <summary>
@@ -140,6 +141,7 @@ namespace CryostatControlServer
             try
             {
                 CommandService hostService = new CommandService(cryostatControl, logger);
+                NotificationSender.Init(hostService);
                 Uri baseAddress = new Uri("http://localhost:18080/SRON");
                 using (ServiceHost host = new ServiceHost(hostService, baseAddress))
                 {

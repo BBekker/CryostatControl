@@ -263,6 +263,19 @@ namespace CryostatControlServer.HostService
         }
 
         /// <summary>
+        /// The send log notification.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <exception cref="NotImplementedException">
+        /// </exception>
+        public void SendLogNotification(string[] message)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// Timer method to send mock data
         /// </summary>
         /// <param name="state">The state.</param>

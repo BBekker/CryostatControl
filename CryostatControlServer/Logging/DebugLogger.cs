@@ -26,7 +26,7 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// The debug information
         /// </summary>
-        private const string DebugInfo = "DebugInfo";
+        private const string DebugInfo = "SystemLog";
 
         /// <summary>
         /// The general main folder.
