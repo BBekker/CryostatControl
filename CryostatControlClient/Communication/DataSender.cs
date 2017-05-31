@@ -195,6 +195,7 @@ namespace CryostatControlClient.Communication
             {
                 Console.WriteLine("Could not set He3 Switch voltage because " + e.Detail.Message);
             }
+
             try
             {
                 this.server.CommandClient.WriteHelium7(

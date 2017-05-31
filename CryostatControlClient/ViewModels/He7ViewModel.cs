@@ -542,6 +542,25 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
+        /// Gets a value indicating whether [update enable].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [update enable]; otherwise, <c>false</c>.
+        /// </value>
+        public bool UpdateEnable
+        {
+            get
+            {
+                if (this.ConnectionState == 1)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Gets the connection state converted.
         /// </summary>
         public string ConnectionStateConverted

@@ -140,7 +140,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the show date time.
+        /// Gets or sets the show date time.
         /// </summary>
         /// <value>
         /// The show date time.
