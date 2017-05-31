@@ -46,7 +46,7 @@ namespace CryostatControlClient.Communication
             this.commandClient = commandClient;
             this.callbackClient = callbackClient;
             this.sender = new DataSender(this);
-            this.timer = new Timer(this.CheckStatus, null, 10000, 2000);
+            this.timer = new Timer(this.CheckStatus, null, 5000, 2000);
         }
 
         private void CheckStatus(object state)
@@ -55,9 +55,9 @@ namespace CryostatControlClient.Communication
             {
                 if (commandClient.IsAlive())
                 {
+                    this.SetConnected(true);
                     if (firstTimeConnected)
-                    {
-                        this.SetConnected(true);
+                    {                        
                         this.mainApp.Dispatcher.Invoke(() =>
                         {
                             this.sender.SetCompressorScales((this.mainApp.MainWindow as MainWindow).Container);
