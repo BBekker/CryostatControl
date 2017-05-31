@@ -237,7 +237,7 @@ namespace CryostatControlServer.He7Cooler
             var results = new double[split.Length];
             for (var i = 0; i < split.Length; i++)
             {
-                results[i] = double.Parse(split[i], new CultureInfo("en-GB"));
+                results[i] = double.Parse(split[i]);
             }
 
             return results;

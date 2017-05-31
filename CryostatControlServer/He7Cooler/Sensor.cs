@@ -276,8 +276,8 @@ namespace CryostatControlServer.He7Cooler
                             string[] columns = line.Split('\t');
                             this.calibrationData.Add(
                                 new Tuple<double, double>(
-                                    double.Parse(columns[voltColumn], new CultureInfo("en-GB")),
-                                    double.Parse(columns[tempColumn], new CultureInfo("en-GB"))));
+                                    double.Parse(columns[voltColumn]),
+                                    double.Parse(columns[tempColumn])));
                         }
 
                         this.calibrationData.Sort((first, second) => (first.Item1 - second.Item1) < 0 ? -1 : 1);

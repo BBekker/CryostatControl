@@ -185,7 +185,7 @@ namespace CryostatControlServer.LakeShore
                 Monitor.Enter(this.stream);
                 this.WaitCommandInterval();
                 this.stream.WriteString("HTR? 1\n");
-                return double.Parse(this.stream.ReadString(), new CultureInfo("en-GB"));
+                return double.Parse(this.stream.ReadString());
             }
             finally
             {
@@ -279,7 +279,7 @@ namespace CryostatControlServer.LakeShore
                 this.WaitCommandInterval();
                 this.stream.WriteString($"KRDG? {sensor}\n");
                 string response = this.stream.ReadString();
-                return double.Parse(response, new CultureInfo("en-GB"));
+                return double.Parse(response);
             }
             finally
             {
