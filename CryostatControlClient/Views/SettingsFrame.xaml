@@ -39,8 +39,8 @@
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="4">Modus</Label>
                     <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="4" Content="{Binding ModusViewModel.ModusConverted}"/>
                 </Grid>
-                <!--<DatePicker materialDesign:HintAssist.Hint="Pick Date" Style="{StaticResource SettingsDatePicker}" />
-                <materialDesign:TimePicker materialDesign:HintAssist.Hint="Pick Time" Style="{StaticResource SettingsTimePicker}"/>-->
+                <DatePicker SelectedDate="{Binding ModusViewModel.SelectedDate}" Style="{StaticResource SettingsDatePicker}" Visibility="{Binding ModusViewModel.ShowDateTime}" />
+                <materialDesign:TimePicker SelectedTime="{Binding ModusViewModel.SelectedTime}" Style="{StaticResource SettingsTimePicker}" Visibility="{Binding ModusViewModel.ShowDateTime}" />
 
                 <ComboBox Style="{StaticResource SettingsComboBox}"
                           SelectedIndex="{Binding ModusViewModel.SelectedComboIndex}">

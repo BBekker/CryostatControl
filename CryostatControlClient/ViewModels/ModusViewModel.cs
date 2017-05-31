@@ -59,11 +59,73 @@ namespace CryostatControlClient.ViewModels
             this.StartButtonCommand = new RelayCommand(this.OnClickStart, param => true);
             this.RadioButtonCommand = new RelayCommand(this.OnChangeRadio, param => true);
             this.cancelButtonCommand = new RelayCommand(this.OnClickCancel, param => true);
+
+            this.ToggleTime();
         }
 
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the selected time.
+        /// </summary>
+        /// <value>
+        /// The selected date.
+        /// </value>
+        public DateTime SelectedTime
+        {
+            get
+            {
+                return this.modusModel.SelectedTime;
+            }
+
+            set
+            {
+                this.modusModel.SelectedTime = value;
+                this.RaisePropertyChanged("SelectedTime");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected date.
+        /// </summary>
+        /// <value>
+        /// The selected date.
+        /// </value>
+        public DateTime SelectedDate
+        {
+            get
+            {
+                return this.modusModel.SelectedDate;
+            }
+
+            set
+            {
+                this.modusModel.SelectedDate = value;
+                this.RaisePropertyChanged("SelectedDate");
+            }
+        }
+
+        /// <summary>
+        /// Gets the show date time.
+        /// </summary>
+        /// <value>
+        /// The show date time.
+        /// </value>
+        public string ShowDateTime
+        {
+            get
+            {
+                return this.modusModel.ShowDateTime;
+            }
+
+            set
+            {
+                this.modusModel.ShowDateTime = value;
+                this.RaisePropertyChanged("ShowDateTime");
+            }
+        }
 
         /// <summary>
         /// Gets or sets the modus.
@@ -222,6 +284,7 @@ namespace CryostatControlClient.ViewModels
         public void OnChangeRadio(object obj)
         {
             this.Time = obj.ToString();
+            this.ToggleTime();
         }
 
         /// <summary>
@@ -240,6 +303,21 @@ namespace CryostatControlClient.ViewModels
         public void OnClickCancel(object obj)
         {
             this.RaisePropertyChanged("CancelPressed");
+        }
+
+        /// <summary>
+        /// Toggles the time.
+        /// </summary>
+        private void ToggleTime()
+        {
+            if (this.Time == "Now")
+            {
+                this.ShowDateTime = "Hidden";
+            }
+            else
+            {
+                this.ShowDateTime = "Visible";
+            }
         }
 
         #endregion Methods
