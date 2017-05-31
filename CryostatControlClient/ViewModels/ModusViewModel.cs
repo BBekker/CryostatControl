@@ -10,7 +10,6 @@
 namespace CryostatControlClient.ViewModels
 {
     using System;
-    using System.Collections.ObjectModel;
     using System.Windows.Input;
 
     using CryostatControlClient.Models;
@@ -31,9 +30,14 @@ namespace CryostatControlClient.ViewModels
         private ICommand startButtonCommand;
 
         /// <summary>
-        /// The start button command
+        /// The cancel button command
         /// </summary>
         private ICommand cancelButtonCommand;
+
+        /// <summary>
+        /// The manual button command
+        /// </summary>
+        private ICommand manualButtonCommand;
 
         /// <summary>
         /// The radio button command
@@ -59,13 +63,41 @@ namespace CryostatControlClient.ViewModels
             this.StartButtonCommand = new RelayCommand(this.OnClickStart, param => true);
             this.RadioButtonCommand = new RelayCommand(this.OnChangeRadio, param => true);
             this.cancelButtonCommand = new RelayCommand(this.OnClickCancel, param => true);
-
+            this.manualButtonCommand = new RelayCommand(this.OnClickManual, param => true);
             this.ToggleTime();
         }
 
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets a value indicating whether [start mode].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [start mode]; otherwise, <c>false</c>.
+        /// </value>
+        public bool StartMode
+        {
+            get
+            {
+                return this.Modus == (int)Controlstate.Standby;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [cancel mode].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [cancel mode]; otherwise, <c>false</c>.
+        /// </value>
+        public bool CancelMode
+        {
+            get
+            {
+                return this.Modus != (int)Controlstate.Standby && this.Modus != (int)Controlstate.Setup;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the selected time.
@@ -144,6 +176,8 @@ namespace CryostatControlClient.ViewModels
             {
                 this.modusModel.Modus = value;
                 this.RaisePropertyChanged("Modus");
+                this.RaisePropertyChanged("StartMode");
+                this.RaisePropertyChanged("StopMode");
                 this.RaisePropertyChanged("ModusConverted");
             }
         }
@@ -243,6 +277,25 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the manual button command.
+        /// </summary>
+        /// <value>
+        /// The cancel button command.
+        /// </value>
+        public ICommand ManualButtonCommand
+        {
+            get
+            {
+                return this.manualButtonCommand;
+            }
+
+            set
+            {
+                this.manualButtonCommand = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the radio button command.
         /// </summary>
         /// <value>
@@ -303,6 +356,15 @@ namespace CryostatControlClient.ViewModels
         public void OnClickCancel(object obj)
         {
             this.RaisePropertyChanged("CancelPressed");
+        }
+
+        /// <summary>
+        /// Called when [click manual].
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        public void OnClickManual(object obj)
+        {
+            this.RaisePropertyChanged("ManualPressed");
         }
 
         /// <summary>

@@ -23,6 +23,11 @@ namespace CryostatControlClient.Communication
         /// <summary>
         /// The warm up
         /// </summary>
-        Warmup = 2
+        Warmup = 2,
+
+        /// <summary>
+        /// The manual
+        /// </summary>
+        Manual = 3
     }
 }

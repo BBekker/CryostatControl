@@ -194,9 +194,9 @@ namespace CryostatControlServer.HostService
         /// <summary>
         /// Starts the logging.
         /// </summary>
+        /// <param name="interval">The interval in milliseconds.</param>
         /// <param name="logData">Array which tells which data be logged
         /// <seealso cref="DataEnumerator"/> for the places of the sensors</param>
-        /// <param name="interval">The interval in milliseconds.</param>
         [OperationContract]
         void StartLogging(int interval, bool[] logData);
 
@@ -204,7 +204,16 @@ namespace CryostatControlServer.HostService
         /// Stops the logging.
         /// </summary>
         [OperationContract]
-        void StopLogging();
+        void CancelLogging();
+
+        /// <summary>
+        /// Determines whether this instance is logging.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance is logging; otherwise, <c>false</c>.
+        /// </returns>
+        [OperationContract]
+        bool IsLogging();
 
         #endregion Methods
     }
