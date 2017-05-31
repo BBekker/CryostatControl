@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 namespace CryostatControlServer.HostService
 {
+    using System;
     using System.ServiceModel;
 
     using CryostatControlServer.Compressor;
@@ -44,7 +45,7 @@ namespace CryostatControlServer.HostService
         /// If the cool down process could be started
         /// </returns>
         [OperationContract]
-        bool CooldownTime(string time);
+        bool CooldownTime(DateTime time);
 
         /// <summary>
         /// Start recycle process
@@ -54,11 +55,31 @@ namespace CryostatControlServer.HostService
         bool Recycle();
 
         /// <summary>
+        /// Start recycle process
+        /// </summary>
+        /// <param name="time">The time.</param>
+        /// <returns>
+        /// If the recycle process could be started
+        /// </returns>
+        [OperationContract]
+        bool RecycleTime(DateTime time);
+
+        /// <summary>
         /// Start warm up process
         /// </summary>
         /// <returns>If the warm up process could be started</returns>
         [OperationContract]
         bool Warmup();
+
+        /// <summary>
+        /// Start warm up process
+        /// </summary>
+        /// <param name="time">The time.</param>
+        /// <returns>
+        /// If the warm up process could be started
+        /// </returns>
+        [OperationContract]
+        bool WarmupTime(DateTime time);
 
         /// <summary>
         /// Go to manual mode
