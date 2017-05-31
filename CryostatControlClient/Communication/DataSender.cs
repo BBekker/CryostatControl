@@ -10,10 +10,12 @@
 namespace CryostatControlClient.Communication
 {
     using System;
+    using System.ServiceModel;
 
     using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.ViewModels;
 
+    using CryostatControlServer.HostService.DataContracts;
     using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
@@ -52,25 +54,56 @@ namespace CryostatControlClient.Communication
         public void UpdateModus(ViewModelContainer viewModelContainer)
         {
             int radio = viewModelContainer.ModusViewModel.SelectedComboIndex;
-            string time = viewModelContainer.ModusViewModel.Time;
+            string postpone = viewModelContainer.ModusViewModel.Time;
+            DateTime startTime = DateTime.Now;
 
-            switch (radio)
+            if (postpone == "Scheduled")
             {
-                case (int)ModusEnumerator.Cooldown:
-                    this.commandServiceClient.Cooldown();
-                    break;
+                startTime = viewModelContainer.ModusViewModel.SelectedDate;
+                TimeSpan time = viewModelContainer.ModusViewModel.SelectedTime.TimeOfDay;
+                startTime = startTime.Add(time);
 
-                case (int)ModusEnumerator.Recycle:
-                    this.commandServiceClient.Recycle();
-                    break;
+                switch (radio)
+                {
+                    case (int)ModusEnumerator.Cooldown:
+                        this.commandServiceClient.CooldownTime(startTime);
+                        break;
 
-                case (int)ModusEnumerator.Warmup:
-                    this.commandServiceClient.Warmup();
-                    break;
-                default:
-                    // todo : some error for unknown modus?
-                    break;
+                    case (int)ModusEnumerator.Recycle:
+                        this.commandServiceClient.RecycleTime(startTime);
+                        break;
+
+                    case (int)ModusEnumerator.Warmup:
+                        this.commandServiceClient.WarmupTime(startTime);
+                        break;
+                }
             }
+            else
+            {
+                switch (radio)
+                {
+                    case (int)ModusEnumerator.Cooldown:
+                        this.commandServiceClient.Cooldown();
+                        break;
+
+                    case (int)ModusEnumerator.Recycle:
+                        this.commandServiceClient.Recycle();
+                        break;
+
+                    case (int)ModusEnumerator.Warmup:
+                        this.commandServiceClient.Warmup();
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Switches the compressor.
+        /// </summary>
+        /// <param name="state">if set to <c>true</c> [state].</param>
+        public void SwitchCompressor(bool state)
+        {
+            this.commandServiceClient.SetCompressorState(state);
         }
 
         /// <summary>
@@ -130,14 +163,49 @@ namespace CryostatControlClient.Communication
         /// <param name="viewModelContainer">The view model container.</param>
         public void UpdateHelium(ViewModelContainer viewModelContainer)
         {
-            double[] writeHelium7 = new double[(int)HeaterEnumerator.HeaterAmount];
+            try
+            {
+                this.commandServiceClient.WriteHelium7(
+                    (int)HeaterEnumerator.He4Pump,
+                    viewModelContainer.He7ViewModel.He4PumpNewVolt);
+            }
+            catch (FaultException<CouldNotPerformActionFault> e)
+            {
+                Console.WriteLine("Could not set He4 Pump voltage because " + e.Detail.Message);
+            }
 
-            writeHelium7[(int)HeaterEnumerator.He4Pump] = viewModelContainer.He7ViewModel.He4PumpNewVolt;
-            writeHelium7[(int)HeaterEnumerator.He3Pump] = viewModelContainer.He7ViewModel.He3PumpNewVolt;
-            writeHelium7[(int)HeaterEnumerator.He3Switch] = viewModelContainer.He7ViewModel.He3SwitchNewVolt;
-            writeHelium7[(int)HeaterEnumerator.He4Switch] = viewModelContainer.He7ViewModel.He4SwitchNewVolt;
+            try
+            {
+                this.commandServiceClient.WriteHelium7(
+                    (int)HeaterEnumerator.He3Pump,
+                    viewModelContainer.He7ViewModel.He3PumpNewVolt);
+            }
+            catch (FaultException<CouldNotPerformActionFault> e)
+            {
+                Console.WriteLine("Could not set He3 Pump voltage because " + e.Detail.Message);
+            }
 
-            this.commandServiceClient.WriteHelium7(writeHelium7);
+            try
+            {
+                this.commandServiceClient.WriteHelium7(
+                    (int)HeaterEnumerator.He3Switch,
+                    viewModelContainer.He7ViewModel.He3SwitchNewVolt);
+            }
+            catch (FaultException<CouldNotPerformActionFault> e)
+            {
+                Console.WriteLine("Could not set He3 Switch voltage because " + e.Detail.Message);
+            }
+
+            try
+            {
+                this.commandServiceClient.WriteHelium7(
+                    (int)HeaterEnumerator.He4Switch,
+                    viewModelContainer.He7ViewModel.He4SwitchNewVolt);
+            }
+            catch (FaultException<CouldNotPerformActionFault> e)
+            {
+                Console.WriteLine("Could not set He4 Switch voltage because " + e.Detail.Message);
+            }
 
             // These are the max settings, since it is not yet clear what to do with these they are commented out.
 

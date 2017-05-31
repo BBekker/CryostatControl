@@ -12,6 +12,7 @@ namespace CryostatControlServer.HostService
     using System.ServiceModel;
     using System.Threading;
 
+    using CryostatControlServer.HostService.DataContracts;
     using CryostatControlServer.HostService.Enumerators;
     using CryostatControlServer.Logging;
 
@@ -86,7 +87,7 @@ namespace CryostatControlServer.HostService
         }
 
         /// <inheritdoc cref="ICommandService.Cooldown"/>>
-        public bool CooldownTime(string time)
+        public bool CooldownTime(DateTime time)
         {
             return this.cryostatControl.StartCooldown(time);
         }
@@ -97,10 +98,22 @@ namespace CryostatControlServer.HostService
             return this.cryostatControl.StartRecycle();
         }
 
+        /// <inheritdoc cref="ICommandService.Recycle"/>>
+        public bool RecycleTime(DateTime time)
+        {
+            return this.cryostatControl.StartRecycle(time);
+        }
+
         /// <inheritdoc cref="ICommandService.Warmup"/>>
         public bool Warmup()
         {
             return this.cryostatControl.StartHeatup();
+        }
+
+        /// <inheritdoc cref="ICommandService.Warmup"/>>
+        public bool WarmupTime(DateTime time)
+        {
+            return this.cryostatControl.StartHeatup(time);
         }
 
         /// <inheritdoc cref="ICommandService.Manual"/>
@@ -139,9 +152,31 @@ namespace CryostatControlServer.HostService
         }
 
         /// <inheritdoc cref="ICommandService.WriteHelium7"/>
-        public bool WriteHelium7(double[] data)
+        public bool WriteHelium7(int heater, double value)
         {
-            return data.Length == (int)HeaterEnumerator.HeaterAmount && this.cryostatControl.WriteHelium7Heaters(data);
+            try
+            {
+                if (this.cryostatControl.WriteHelium7Heater((HeaterEnumerator)heater, value))
+                {
+                    return true;
+                }
+                else
+                {
+                    throw new FaultException<CouldNotPerformActionFault>(
+                        new CouldNotPerformActionFault(ActionFaultReason.NotInManualMode, "Not in manual mode"));
+                }
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                throw new FaultException<CouldNotPerformActionFault>(
+                    new CouldNotPerformActionFault(ActionFaultReason.InvalidValue, ex.Message));
+            }
+            catch (Exception e)
+            {
+                throw new FaultException<CouldNotPerformActionFault>(
+                    new CouldNotPerformActionFault(ActionFaultReason.Unknown, e.GetType().ToString()));
+            }
+            
         }
 
         /// <inheritdoc cref="ICommandService.ReadCompressorTemperatureScale"/>>
