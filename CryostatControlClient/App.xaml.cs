@@ -103,7 +103,6 @@ namespace CryostatControlClient
             }
 
             ////Execute(this.Unsubscribe, 5000, dataClient);
-
         }
 
         #endregion Methods

@@ -4,17 +4,25 @@
       xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:viewModels="clr-namespace:CryostatControlClient.ViewModels"
       Background="{DynamicResource MaterialDesignPaper}">
-
     <Grid.Resources>
-        <viewModels:ZoomingModeCoverter x:Key="ZoomingModeCoverter"></viewModels:ZoomingModeCoverter>
+        <viewModels:ZoomingModeConverter x:Key="ZoomingModeConverter"></viewModels:ZoomingModeConverter>
     </Grid.Resources>
+    
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="8*"/>
+    </Grid.RowDefinitions>
 
-    <TextBlock>Toggle zoming mode, current is: 
-        <TextBlock Text="{Binding ZoomingViewModel.ZoomingMode, Converter={StaticResource ZoomingModeCoverter}}"/>
-    </TextBlock>
-    <Button Command="{Binding ZoomingViewModel.ZoomCommand}">Toggle Zoom</Button>
+    <StackPanel Grid.Row="0" Orientation="Horizontal">
+        <Button Margin="20 0 0 0" Command="{Binding ZoomingViewModel.ZoomCommand}">Toggle Zoom Axis</Button>
+        <TextBlock VerticalAlignment="Center" Margin="20 0 0 0">Currently zooming 
+            <TextBlock Text="{Binding ZoomingViewModel.ZoomingMode, Converter={StaticResource ZoomingModeConverter}}"/>
+        </TextBlock>
+        
+    </StackPanel>
+    
 
-    <wpf:CartesianChart Series="{Binding SeriesCollection}" Margin="20" LegendLocation="Left" DisableAnimations="True" Hoverable="False" Zoom="{Binding ZoomingViewModel.ZoomingMode}">
+    <wpf:CartesianChart Grid.Row="1" Series="{Binding SeriesCollection}" Margin="20" LegendLocation="Left" DisableAnimations="True" Hoverable="False" Zoom="{Binding ZoomingViewModel.ZoomingMode}">
         <wpf:CartesianChart.AxisX>
             <wpf:Axis Title="Time" LabelFormatter="{Binding XFormatter}" />
         </wpf:CartesianChart.AxisX>

@@ -20,7 +20,6 @@ namespace CryostatControlClient.ViewModels
     /// <seealso cref="CryostatControlClient.ViewModels.AbstractViewModel" />
     public class ZoomingViewModel : AbstractViewModel
     {
-
         #region Fields
 
         /// <summary>

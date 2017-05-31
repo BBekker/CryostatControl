@@ -99,7 +99,6 @@ namespace CryostatControlClient.ViewModels
             get
             {
                 return this.seriesCollection;
-                
             }
         }
 
@@ -114,7 +113,6 @@ namespace CryostatControlClient.ViewModels
             get
             {
                 return this.seriesCollection2;
-
             }
         }
 
@@ -244,7 +242,6 @@ namespace CryostatControlClient.ViewModels
                                             this.he7ViewModel.He4SwitchLineSeries,
                                      };
 
-
             this.xFormatter = val => new DateTime((long)val).ToString("HH:mm");
         }
 
@@ -260,7 +257,6 @@ namespace CryostatControlClient.ViewModels
                                              this.he7ViewModel.He3HeadLineSeriesBottom,
                                              this.he7ViewModel.He4HeadLineSeriesBottom,
                                          };
-            
 
             this.xFormatter = val => new DateTime((long)val).ToString("HH:mm");
         }

@@ -16,18 +16,46 @@ namespace CryostatControlClient.Models
     /// </summary>
     public abstract class AbstractModel
     {
+        #region Fields
+
         /// <summary>
         /// The size of the temporary lists. If these lists are full a new point is added to the graph. The bigger this number the less frequent a point gets added to the graph.
         /// </summary>
-        protected int UpdateInterval;
+        private int updateInterval;
+
+        #endregion Fields
+
+        #region Constructor
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractModel"/> class.
         /// </summary>
         protected AbstractModel()
         {
-            this.UpdateInterval = 31;
+            this.updateInterval = 31;
         }
+
+        #endregion Constructor
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the update interval.
+        /// </summary>
+        /// <value>
+        /// The update interval.
+        /// </value>
+        protected int UpdateInterval
+        {
+            get
+            {
+                return this.updateInterval;
+            }
+        }
+
+        #endregion Properties
+
+        #region Methods
 
         /// <summary>
         /// Adds to graph.
@@ -40,16 +68,16 @@ namespace CryostatControlClient.Models
         /// </returns>
         public double[] AddToGraph(double[] temporaryList, LineSeries lineSeries, double value)
         {
-            temporaryList[(int)temporaryList[this.UpdateInterval - 1]] = value;
+            temporaryList[(int)temporaryList[this.updateInterval - 1]] = value;
 
-            temporaryList[this.UpdateInterval - 1]++;
+            temporaryList[this.updateInterval - 1]++;
 
             if (lineSeries.Values.Count < 1)
             {
                 lineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
             }
 
-            if (temporaryList[this.UpdateInterval - 1] >= this.UpdateInterval - 2)
+            if (temporaryList[this.updateInterval - 1] >= this.updateInterval - 2)
             {
                 lineSeries.Values.Add(new DateTimePoint(DateTime.Now, temporaryList.Average() - 1));
                 if (lineSeries.Values.Count > 100)
@@ -57,12 +85,14 @@ namespace CryostatControlClient.Models
                     lineSeries.Values.RemoveAt(0);
                 }
 
-                temporaryList = new double[this.UpdateInterval];
+                temporaryList = new double[this.updateInterval];
 
-                temporaryList[this.UpdateInterval - 1] = 0;
+                temporaryList[this.updateInterval - 1] = 0;
             }
 
             return temporaryList;
         }
+
+        #endregion Methods
     }
 }

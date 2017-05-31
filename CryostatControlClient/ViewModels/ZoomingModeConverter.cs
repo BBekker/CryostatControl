@@ -19,7 +19,7 @@ namespace CryostatControlClient.ViewModels
     /// Converter for the zooming mode
     /// </summary>
     /// <seealso cref="System.Windows.Data.IValueConverter" />
-    public class ZoomingModeCoverter : IValueConverter
+    public class ZoomingModeConverter : IValueConverter
     {
         /// <summary>
         /// Converts a value.
@@ -36,15 +36,15 @@ namespace CryostatControlClient.ViewModels
             switch ((ZoomingOptions)value)
             {
                 case ZoomingOptions.None:
-                    return "None";
+                    return "is off";
                 case ZoomingOptions.X:
-                    return "X";
+                    return "the X-axis";
                 case ZoomingOptions.Y:
-                    return "Y";
+                    return "the Y-axis";
                 case ZoomingOptions.Xy:
-                    return "XY";
+                    return "the X- and Y-axis";
                 default:
-                    return "None";
+                    return "is off";
             }
         }
 

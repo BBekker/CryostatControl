@@ -312,7 +312,6 @@ namespace CryostatControlClient.Models
             }
         }
 
-
         /// <summary>
         /// Gets the he3 head line series.
         /// </summary>
