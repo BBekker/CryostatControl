@@ -15,13 +15,17 @@ namespace CryostatControlServer.Logging
     /// <summary>
     /// Log specific data.
     /// </summary>
-    public class SpecificDataLogger : AbstractLogData
+    public class SpecificDataLogger : AbstractDataLogger
     {
         /// <summary>
         /// The to be logged or not to be logged.
         /// </summary>
         private readonly bool[] toBeLoggedOrNotToBeLogged;
 
+        /// <summary>
+        /// The interval
+        /// </summary>
+        private readonly int interval;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SpecificDataLogger"/> class.
@@ -29,10 +33,13 @@ namespace CryostatControlServer.Logging
         /// <param name="toBeLoggedOrNotToBeLogged">
         /// The to Be Logged Or Not To Be Logged.
         /// </param>
-        public SpecificDataLogger(bool[] toBeLoggedOrNotToBeLogged)
+        /// <param name="interval">
+        /// The interval.
+        /// </param>
+        public SpecificDataLogger(bool[] toBeLoggedOrNotToBeLogged, int interval)
         {  
             this.toBeLoggedOrNotToBeLogged = toBeLoggedOrNotToBeLogged;
-
+            this.interval = interval;
         }
 
         /// <summary>
@@ -54,11 +61,11 @@ namespace CryostatControlServer.Logging
             {
                 if (this.toBeLoggedOrNotToBeLogged[i])
                 {
-                    dataLine += AbstractLogData.Delimiter + logData[i];
+                    dataLine += AbstractDataLogger.Delimiter + logData[i];
                 }
                 else
                 {
-                    dataLine += AbstractLogData.Delimiter + AbstractLogData.NoDataToken;
+                    dataLine += AbstractDataLogger.Delimiter + AbstractDataLogger.NoDataToken;
                 }
                 
             }
@@ -77,6 +84,28 @@ namespace CryostatControlServer.Logging
             {
                Console.WriteLine("The log file is opened by another process. Please close this first.");
             }
+        }
+
+        /// <summary>
+        /// The get to be logged or not to be logged.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool[]"/>.
+        /// </returns>
+        public bool[] GetToBeLoggedOrNotToBeLogged()
+        {
+            return this.toBeLoggedOrNotToBeLogged;
+        }
+
+        /// <summary>
+        /// The get interval.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
+        public int GetInterval()
+        {
+            return this.interval;
         }
     }
 }

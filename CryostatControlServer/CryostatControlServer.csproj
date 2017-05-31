@@ -113,7 +113,7 @@
     <Compile Include="HostService\IDataGet.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="Data\EmptySensor.cs" />
-    <Compile Include="Logging\AbstractLogData.cs" />
+    <Compile Include="Logging\AbstractDataLogger.cs" />
     <Compile Include="Logging\GeneralDataLogger.cs" />
     <Compile Include="Logging\LoggerDataObject.cs" />
     <Compile Include="Logging\SpecificDataLogger.cs" />

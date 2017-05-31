@@ -17,7 +17,7 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// The abstract log data.
         /// </summary>
-        private AbstractLogData abstractLogData;
+        private AbstractDataLogger abstractDataLogger;
 
         /// <summary>
         /// The file path.
@@ -27,15 +27,15 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// Initializes a new instance of the <see cref="LoggerDataObject"/> class.
         /// </summary>
-        /// <param name="abstractLogData">
+        /// <param name="abstractDataLogger">
         /// The abstract log data.
         /// </param>
         /// <param name="filePath">
         /// The file path.
         /// </param>
-        public LoggerDataObject(AbstractLogData abstractLogData, string filePath)
+        public LoggerDataObject(AbstractDataLogger abstractDataLogger, string filePath)
         {
-            this.abstractLogData = abstractLogData;
+            this.abstractDataLogger = abstractDataLogger;
             this.filePath = filePath;
         }
 
@@ -43,11 +43,11 @@ namespace CryostatControlServer.Logging
         /// The get abstract log data.
         /// </summary>
         /// <returns>
-        /// The <see cref="AbstractLogData"/>.
+        /// The <see cref="AbstractDataLogger"/>.
         /// </returns>
-        public AbstractLogData GetAbstractLogData()
+        public AbstractDataLogger GetAbstractLogData()
         {
-            return this.abstractLogData;
+            return this.abstractDataLogger;
         }
 
         /// <summary>

@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AbstractLogData.cs" company="SRON">
+// <copyright file="AbstractDataLogger.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
-//   Defines the AbstractLogData type.
+//   Defines the AbstractDataLogger type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -17,7 +17,7 @@ namespace CryostatControlServer.Logging
     /// <summary>
     /// The abstract log data.
     /// </summary>
-    public abstract class AbstractLogData
+    public abstract class AbstractDataLogger
     {
 
         /// <summary>
@@ -51,10 +51,17 @@ namespace CryostatControlServer.Logging
         {
             string year = currentDateTime.Year.ToString();
             string month = currentDateTime.Month.ToString();
-            string newFolderName = year + "/" + month + "/";
+            string newFolderName = year + @"\" + month + @"\";
             string pathToNewFolder = System.IO.Path.Combine(mainFolderPath, newFolderName);
 
-            System.IO.Directory.CreateDirectory(pathToNewFolder);
+            try
+            {
+                System.IO.Directory.CreateDirectory(pathToNewFolder);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Creating log folder failed");
+            }     
             return pathToNewFolder;
         }
 
@@ -77,11 +84,18 @@ namespace CryostatControlServer.Logging
             string fileName = day + CsvFileFormat;
             string actualPathToFile = System.IO.Path.Combine(folderPath, fileName);
             Console.WriteLine(actualPathToFile);
-            if (!System.IO.File.Exists(actualPathToFile))
+            try
             {
-                System.IO.File.Create(actualPathToFile).Close();
+                if (!System.IO.File.Exists(actualPathToFile))
+                {
+                    System.IO.File.Create(actualPathToFile).Close();
+                }
             }
-            
+            catch (Exception e)
+            {
+                Console.WriteLine("Creating log file failed");
+            }
+
 
             return actualPathToFile;
         }

@@ -17,11 +17,11 @@ namespace CryostatControlServer.Logging
     /// <summary>
     /// The log all data.
     /// </summary>
-    public class GeneralDataLogger : AbstractLogData
+    public class GeneralDataLogger : AbstractDataLogger
     {
 
         /// <summary>
-        /// Write all data to log.
+        /// Write general data to log.
         /// </summary>
         /// <param name="pathToFile">
         /// The path To File.
@@ -37,7 +37,7 @@ namespace CryostatControlServer.Logging
             string dataLine = time;
             for (int i = 0; i < data.Length; i++)
             {
-                    dataLine += AbstractLogData.Delimiter + data[i];
+                    dataLine += AbstractDataLogger.Delimiter + data[i];
             }
             try
             {

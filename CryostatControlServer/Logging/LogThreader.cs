@@ -10,6 +10,7 @@
 namespace CryostatControlServer.Logging
 {
     using System;
+    using System.IO;
     using System.Threading;
 
     using CryostatControlServer.Data;
@@ -29,12 +30,17 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// The general main folder.
         /// </summary>
-        private const string GeneralMainFolder = @"c:/Logging/General";
+        private const string GeneralMainFolder = @"c:\Logging\General";
 
         /// <summary>
         /// The specific main folder.
         /// </summary>
-        private const string SpecificMainFolder = @"c:/Logging/Specific";
+        private const string SpecificMainFolder = @"c:\Logging\Specific";
+
+        /// <summary>
+        /// The start time.
+        /// </summary>
+        private const int StartTime = 0;
 
         /// <summary>
         /// The data reader.
@@ -87,19 +93,15 @@ namespace CryostatControlServer.Logging
         /// </param>
         public void StartSpecificDataLogging(int interval, bool[] toBeLoggedOrNotToBeLogged)
         {
+            Console.WriteLine("Starting specific log");
             if (this.specificLoggingInProgress)
             {
                 this.StopSpecificDataLogging();
             }
-            DateTime currentDateTime = DateTime.Now;
-            SpecificDataLogger specificDataLogger = new SpecificDataLogger(toBeLoggedOrNotToBeLogged);
-
-            string filePath = specificDataLogger.CreateFile(currentDateTime, SpecificMainFolder);
-
-            specificDataLogger.WriteInitialLine(filePath, toBeLoggedOrNotToBeLogged);
-            LoggerDataObject loggerDataObject = new LoggerDataObject(specificDataLogger, filePath);
-            int startTime = 0;
-            this.specificLoggingThread = new Timer(this.SpecificDataLogging, loggerDataObject, startTime, this.ConvertSecondsToMs(interval));
+            SpecificDataLogger specificDataLogger = new SpecificDataLogger(toBeLoggedOrNotToBeLogged, interval);
+            LoggerDataObject loggerDataObject = this.CreateNewSpecificLoggingFile(specificDataLogger);
+            
+            this.specificLoggingThread = new Timer(this.SpecificDataLogging, loggerDataObject, StartTime, this.ConvertSecondsToMs(interval));
             this.specificLoggingInProgress = true;
         }
 
@@ -108,6 +110,7 @@ namespace CryostatControlServer.Logging
         /// </summary>
         public void StopSpecificDataLogging()
         {
+            Console.WriteLine("Stop specific log");
             this.specificLoggingThread.Dispose();
             this.specificLoggingInProgress = false;
         }
@@ -117,16 +120,10 @@ namespace CryostatControlServer.Logging
         /// </summary>
         public void StartGeneralDataLogging()
         {
-            Console.WriteLine("starting!");
-            DateTime currentDateTime = DateTime.Now;
+            Console.WriteLine("Starting general log");
             GeneralDataLogger generalDataLogger = new GeneralDataLogger();
-
-            string filePath = generalDataLogger.CreateFile(currentDateTime, GeneralMainFolder);
-
-            generalDataLogger.WriteInitialLine(filePath, generalDataLogger.CreateArrayWithOnlyTrue());
-            LoggerDataObject loggerDataObject = new LoggerDataObject(generalDataLogger, filePath);
-            int startTime = 0;
-            this.generalLoggingThread = new Timer(this.GeneralDataLogging, loggerDataObject, startTime, this.ConvertSecondsToMs(GeneralLogInterval));
+            LoggerDataObject loggerDataObject = this.CreateNewGeneralLoggingFile(generalDataLogger);
+            this.generalLoggingThread = new Timer(this.GeneralDataLogging, loggerDataObject, StartTime, this.ConvertSecondsToMs(GeneralLogInterval));
 
         }
 
@@ -135,6 +132,7 @@ namespace CryostatControlServer.Logging
         /// </summary>
         public void StopGeneralDataLogging()
         {
+            Console.WriteLine("Stop general log");
             this.generalLoggingThread.Dispose();
         }
 
@@ -171,7 +169,13 @@ namespace CryostatControlServer.Logging
         {
             GeneralDataLogger specificDataLogger = (GeneralDataLogger)((LoggerDataObject)loggerDataObject).GetAbstractLogData();
             string filePath = ((LoggerDataObject)loggerDataObject).GetFilePath();
-            specificDataLogger.WriteGeneralData(filePath, this.dataReader.GetDataArray(), DateTime.Now.ToString("hh:mm:ss"));
+            if (this.NewFileIsNeeded(filePath))
+            {
+                this.StopGeneralDataLogging();
+                this.StartGeneralDataLogging();
+                return;
+            }
+            specificDataLogger.WriteGeneralData(filePath, this.dataReader.GetDataArray(), DateTime.Now.ToString("HH:mm:ss"));
         }
 
         /// <summary>
@@ -184,7 +188,74 @@ namespace CryostatControlServer.Logging
         {
             SpecificDataLogger specificDataLogger = (SpecificDataLogger)((LoggerDataObject)loggerDataObject).GetAbstractLogData();
             string filePath = ((LoggerDataObject)loggerDataObject).GetFilePath();
-            specificDataLogger.WriteSpecificData(filePath, this.dataReader.GetDataArray(), DateTime.Now.ToString("hh:mm:ss"));
+            if (this.NewFileIsNeeded(filePath))
+            {
+                this.StopSpecificDataLogging();
+                this.StartSpecificDataLogging(specificDataLogger.GetInterval(), specificDataLogger.GetToBeLoggedOrNotToBeLogged());
+                return;
+            }
+
+            specificDataLogger.WriteSpecificData(filePath, this.dataReader.GetDataArray(), DateTime.Now.ToString("HH:mm:ss"));
+        }
+
+        /// <summary>
+        /// Creates the new general logging file.
+        /// </summary>
+        /// <param name="generalDataLogger">The general data logger.</param>
+        /// <returns>General Logger Data Object</returns>
+        private LoggerDataObject CreateNewGeneralLoggingFile(GeneralDataLogger generalDataLogger)
+        {
+            DateTime currentDateTime = DateTime.Now;
+
+            string filePath = generalDataLogger.CreateFile(currentDateTime, GeneralMainFolder);
+
+            generalDataLogger.WriteInitialLine(filePath, generalDataLogger.CreateArrayWithOnlyTrue());
+            return new LoggerDataObject(generalDataLogger, filePath);
+        }
+
+        /// <summary>
+        /// Creates the new specific logging file.
+        /// </summary>
+        /// <param name="specificDataLogger">The specific data logger.</param>
+        /// <returns>Specific logger Data Object</returns>
+        private LoggerDataObject CreateNewSpecificLoggingFile(SpecificDataLogger specificDataLogger)
+        {
+            DateTime currentDateTime = DateTime.Now;
+
+            string filePath = specificDataLogger.CreateFile(currentDateTime, SpecificMainFolder);
+
+            specificDataLogger.WriteInitialLine(filePath, specificDataLogger.GetToBeLoggedOrNotToBeLogged());
+            return new LoggerDataObject(specificDataLogger, filePath);
+        }
+
+        /// <summary>
+        /// The check if new file is needed.
+        /// </summary>
+        /// <param name="filepath">
+        /// The filepath.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        private bool NewFileIsNeeded(string filepath)
+        {
+            string logDay = Path.GetFileName(filepath);
+            if (logDay == null)
+            {
+                Console.WriteLine("Can't find logfile name.");
+                return false;
+
+                // TODO handle this
+            }
+
+            logDay = logDay.Replace(".csv", string.Empty);
+            string currentDay = DateTime.Now.Day.ToString();
+            Console.WriteLine("current: " + currentDay);
+            if (!logDay.Equals(currentDay))
+            {
+                return true;
+            }
+            return false;
         }
 
         #endregion Methods

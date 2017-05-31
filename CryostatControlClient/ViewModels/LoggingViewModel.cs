@@ -9,8 +9,8 @@
 
 namespace CryostatControlClient.ViewModels
 {
-    using System.Drawing;
     using System.Windows.Input;
+    using System.Windows.Media;
     using System.Windows.Media.Animation;
 
     using CryostatControlClient.Models;
@@ -584,11 +584,11 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The color of the logging in progress.
         /// </value>
-        public Color LoggingInProgressColor
+        public SolidColorBrush LoggingInProgressColor
         {
             get
             {
-                return this.loggingModel.LoggingInProgress ? Color.FromName("Green") : Color.FromName("Red");
+                return this.loggingModel.LoggingInProgress ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Red);
             }
         }
 
