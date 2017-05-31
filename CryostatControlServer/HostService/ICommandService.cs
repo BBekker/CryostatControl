@@ -8,6 +8,7 @@ namespace CryostatControlServer.HostService
     using System.ServiceModel;
 
     using CryostatControlServer.Compressor;
+    using CryostatControlServer.Data;
     using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
@@ -119,6 +120,15 @@ namespace CryostatControlServer.HostService
         double ReadCompressorPressureScale();
 
         /// <summary>
+        /// Read the lakeshore/Bluefors heater power.
+        /// </summary>
+        /// <returns>
+        /// The power in percentage of max power<see cref="double"/>.
+        /// </returns>
+        [OperationContract]
+        double ReadBlueforsHeaterPower();
+
+        /// <summary>
         /// Writes the allowed settings to server.
         /// </summary>
         /// <param name="setting">
@@ -149,6 +159,21 @@ namespace CryostatControlServer.HostService
         /// <returns>if the value could be set</returns>
         [OperationContract]
         bool SetBlueforsHeater(bool status);
+
+        /// <summary>
+        /// Starts the logging.
+        /// </summary>
+        /// <param name="logData">Array which tells which data be logged
+        /// <seealso cref="DataEnumerator"/> for the places of the sensors</param>
+        /// <param name="interval">The interval in milliseconds.</param>
+        [OperationContract]
+        void StartLogging(int interval, bool[] logData);
+
+        /// <summary>
+        /// Stops the logging.
+        /// </summary>
+        [OperationContract]
+        void StopLogging();
 
         #endregion Methods
     }

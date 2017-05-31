@@ -87,6 +87,12 @@ namespace CryostatControlClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadCompressorPressureScale", ReplyAction="http://tempuri.org/ICommandService/ReadCompressorPressureScaleResponse")]
         System.Threading.Tasks.Task<double> ReadCompressorPressureScaleAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadBlueforsHeaterPower", ReplyAction="http://tempuri.org/ICommandService/ReadBlueforsHeaterPowerResponse")]
+        double ReadBlueforsHeaterPower();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadBlueforsHeaterPower", ReplyAction="http://tempuri.org/ICommandService/ReadBlueforsHeaterPowerResponse")]
+        System.Threading.Tasks.Task<double> ReadBlueforsHeaterPowerAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteSettingValue", ReplyAction="http://tempuri.org/ICommandService/WriteSettingValueResponse")]
         bool WriteSettingValue(int setting, double value);
         
@@ -104,6 +110,18 @@ namespace CryostatControlClient.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/SetBlueforsHeater", ReplyAction="http://tempuri.org/ICommandService/SetBlueforsHeaterResponse")]
         System.Threading.Tasks.Task<bool> SetBlueforsHeaterAsync(bool status);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/StartLogging", ReplyAction="http://tempuri.org/ICommandService/StartLoggingResponse")]
+        void StartLogging(int interval, bool[] logData);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/StartLogging", ReplyAction="http://tempuri.org/ICommandService/StartLoggingResponse")]
+        System.Threading.Tasks.Task StartLoggingAsync(int interval, bool[] logData);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/StopLogging", ReplyAction="http://tempuri.org/ICommandService/StopLoggingResponse")]
+        void StopLogging();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/StopLogging", ReplyAction="http://tempuri.org/ICommandService/StopLoggingResponse")]
+        System.Threading.Tasks.Task StopLoggingAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -229,6 +247,14 @@ namespace CryostatControlClient.ServiceReference1 {
             return base.Channel.ReadCompressorPressureScaleAsync();
         }
         
+        public double ReadBlueforsHeaterPower() {
+            return base.Channel.ReadBlueforsHeaterPower();
+        }
+        
+        public System.Threading.Tasks.Task<double> ReadBlueforsHeaterPowerAsync() {
+            return base.Channel.ReadBlueforsHeaterPowerAsync();
+        }
+        
         public bool WriteSettingValue(int setting, double value) {
             return base.Channel.WriteSettingValue(setting, value);
         }
@@ -251,6 +277,22 @@ namespace CryostatControlClient.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> SetBlueforsHeaterAsync(bool status) {
             return base.Channel.SetBlueforsHeaterAsync(status);
+        }
+        
+        public void StartLogging(int interval, bool[] logData) {
+            base.Channel.StartLogging(interval, logData);
+        }
+        
+        public System.Threading.Tasks.Task StartLoggingAsync(int interval, bool[] logData) {
+            return base.Channel.StartLoggingAsync(interval, logData);
+        }
+        
+        public void StopLogging() {
+            base.Channel.StopLogging();
+        }
+        
+        public System.Threading.Tasks.Task StopLoggingAsync() {
+            return base.Channel.StopLoggingAsync();
         }
     }
     

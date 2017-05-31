@@ -24,12 +24,10 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private BlueforsViewModel blueforsViewModel;
 
-
         /// <summary>
         /// The compressor view model
         /// </summary>
         private CompressorViewModel compressorViewModel;
-
 
         /// <summary>
         /// The he7 view model
@@ -41,7 +39,8 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private LoggingViewModel loggingViewModel;
 
-        /// The test view model
+        /// <summary>
+        /// The modus view model
         /// </summary>
         private ModusViewModel modusViewModel;
 
@@ -188,10 +187,11 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
-        /// Gets the TestViewModel.
+        /// <summary>
+        /// Gets the modus view model.
         /// </summary>
         /// <value>
-        /// The TestViewModel.
+        /// The modus view model.
         /// </value>
         public ModusViewModel ModusViewModel
         {

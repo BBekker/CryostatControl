@@ -11,6 +11,7 @@ namespace CryostatControlServer
     using CryostatControlServer.Compressor;
     using CryostatControlServer.Data;
     using CryostatControlServer.HostService.Enumerators;
+    using CryostatControlServer.Logging;
 
     /// <summary>
     /// Class which handles all the request by the client.
@@ -119,6 +120,17 @@ namespace CryostatControlServer
         #endregion Properties
 
         #region Methods
+
+        /// <summary>
+        /// The read heater power.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="double"/>.
+        /// </returns>
+        public double ReadBlueforsHeaterPower()
+        {
+            return this.lakeShore.GetHeaterPower();
+        }
 
         /// <summary>
         /// Cancels the current command safely.
