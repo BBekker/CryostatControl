@@ -51,34 +51,6 @@ namespace CryostatControlClient.ViewModels
         #region Properties
 
         /// <summary>
-        /// Gets the he4 switch line series.
-        /// </summary>
-        /// <value>
-        /// The he4 switch line series.
-        /// </value>
-        public LineSeries He4SwitchLineSeriesBottom
-        {
-            get
-            {
-                return this.he7Model.He4SwitchLineSeriesBottom;
-            }
-        }
-
-        /// <summary>
-        /// Gets the he4 pump line series.
-        /// </summary>
-        /// <value>
-        /// The he4 pump line series.
-        /// </value>
-        public LineSeries He4PumpLineSeriesBottom
-        {
-            get
-            {
-                return this.he7Model.He4PumpLineSeriesBottom;
-            }
-        }
-
-        /// <summary>
         /// Gets the he4 head line series.
         /// </summary>
         /// <value>
@@ -93,34 +65,6 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the he3 switch line series.
-        /// </summary>
-        /// <value>
-        /// The he3 switch line series.
-        /// </value>
-        public LineSeries He3SwitchLineSeriesBottom
-        {
-            get
-            {
-                return this.he7Model.He3SwitchLineSeriesBottom;
-            }
-        }
-
-        /// <summary>
-        /// Gets the he3 pump line series.
-        /// </summary>
-        /// <value>
-        /// The he3 pump line series.
-        /// </value>
-        public LineSeries He3PumpLineSeriesBottom
-        {
-            get
-            {
-                return this.he7Model.He3PumpLineSeriesBottom;
-            }
-        }
-
-        /// <summary>
         /// Gets the he3 head line series.
         /// </summary>
         /// <value>
@@ -131,34 +75,6 @@ namespace CryostatControlClient.ViewModels
             get
             {
                 return this.he7Model.He3HeadLineSeriesBottom;
-            }
-        }
-
-        /// <summary>
-        /// Gets the two k plat line series.
-        /// </summary>
-        /// <value>
-        /// The two k plat line series.
-        /// </value>
-        public LineSeries TwoKPlatLineSeriesBottom
-        {
-            get
-            {
-                return this.he7Model.TwoKPlateLineSeriesBottom;
-            }
-        }
-
-        /// <summary>
-        /// Gets the four k plate line series.
-        /// </summary>
-        /// <value>
-        /// The four k plate line series.
-        /// </value>
-        public LineSeries FourKPlateLineSeriesBottom
-        {
-            get
-            {
-                return this.he7Model.FourKPlateLineSeriesBottom;
             }
         }
 

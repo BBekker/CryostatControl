@@ -201,6 +201,10 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
+        #endregion Properties
+
+        #region Methods
+
         /// <summary>
         /// Initializes the series collection.
         /// </summary>
@@ -208,16 +212,16 @@ namespace CryostatControlClient.ViewModels
         {
             this.seriesCollection = new SeriesCollection
                                     {
-                                            this.blueforsViewModel.ColdPlate3KLineSeriesBottom,
-                                            this.blueforsViewModel.ColdPlate50KLineSeriesBottom,
-                                            this.he7ViewModel.FourKPlateLineSeriesBottom,
-                                            this.he7ViewModel.TwoKPlatLineSeriesBottom,
-                                            this.he7ViewModel.He3HeadLineSeriesBottom,
-                                            this.he7ViewModel.He3PumpLineSeriesBottom,
-                                            this.he7ViewModel.He3SwitchLineSeriesBottom,
-                                            this.he7ViewModel.He4HeadLineSeriesBottom,
-                                            this.he7ViewModel.He4PumpLineSeriesBottom,
-                                            this.he7ViewModel.He4SwitchLineSeriesBottom,
+                                            this.blueforsViewModel.ColdPlate3KLineSeries,
+                                            this.blueforsViewModel.ColdPlate50KLineSeries,
+                                            this.he7ViewModel.FourKPlateLineSeries,
+                                            this.he7ViewModel.TwoKPlatLineSeries,
+                                            this.he7ViewModel.He3HeadLineSeries,
+                                            this.he7ViewModel.He3PumpLineSeries,
+                                            this.he7ViewModel.He3SwitchLineSeries,
+                                            this.he7ViewModel.He4HeadLineSeries,
+                                            this.he7ViewModel.He4PumpLineSeries,
+                                            this.he7ViewModel.He4SwitchLineSeries,
                                      };
 
 
@@ -231,22 +235,16 @@ namespace CryostatControlClient.ViewModels
         {
             this.seriesCollection2 = new SeriesCollection
                                          {
-                                             this.blueforsViewModel.ColdPlate3KLineSeries,
-                                             this.blueforsViewModel.ColdPlate50KLineSeries,
-                                             //this.he7ViewModel.FourKPlateLineSeries,
-                                             //this.he7ViewModel.TwoKPlatLineSeries,
-                                             this.he7ViewModel.He3HeadLineSeries,
-                                             //this.he7ViewModel.He3PumpLineSeries,
-                                             //this.he7ViewModel.He3SwitchLineSeries,
-                                             this.he7ViewModel.He4HeadLineSeries,
-                                             //this.he7ViewModel.He4PumpLineSeries,
-                                             //this.he7ViewModel.He4SwitchLineSeries,
+                                             this.blueforsViewModel.ColdPlate3KLineSeriesBottom,
+                                             this.blueforsViewModel.ColdPlate50KLineSeriesBottom,
+                                             this.he7ViewModel.He3HeadLineSeriesBottom,
+                                             this.he7ViewModel.He4HeadLineSeriesBottom,
                                          };
             
 
             this.xFormatter = val => new DateTime((long)val).ToString("HH:mm");
         }
 
-        #endregion Properties
+        #endregion Methods
     }
 }

@@ -39,6 +39,26 @@ namespace CryostatControlClient.Models
         private LineSeries coldPlate50KLineSeries;
 
         /// <summary>
+        /// The cold plate3 k temporary list
+        /// </summary>
+        private double[] coldPlate3KTemporaryList;
+
+        /// <summary>
+        /// The cold plate50 k temporary list
+        /// </summary>
+        private double[] coldPlate50KTemporaryList;
+
+        /// <summary>
+        /// The cold plate3 k temporary list
+        /// </summary>
+        private double[] coldPlate3KTemporaryListBottom;
+
+        /// <summary>
+        /// The cold plate50 k temporary list
+        /// </summary>
+        private double[] coldPlate50KTemporaryListBottom;
+
+        /// <summary>
         /// The cold plate3 k line series
         /// </summary>
         private LineSeries coldPlate3KLineSeriesBottom;
@@ -67,6 +87,12 @@ namespace CryostatControlClient.Models
         /// </summary>
         public BlueforsModel()
         {
+            this.coldPlate3KTemporaryList = new double[this.UpdateInterval];
+            this.coldPlate50KTemporaryList = new double[this.UpdateInterval];
+
+            this.coldPlate3KTemporaryListBottom = new double[this.UpdateInterval];
+            this.coldPlate50KTemporaryListBottom = new double[this.UpdateInterval];
+
             this.coldPlate3KLineSeries = new LineSeries { Title = "Bluefors - 3K Plate", Values = new ChartValues<DateTimePoint>() };
             this.coldPlate50KLineSeries = new LineSeries { Title = "Bluefors - 50K Plate", Values = new ChartValues<DateTimePoint>() };
             this.coldPlate3KLineSeriesBottom = new LineSeries { Title = "Bluefors - 3K Plate", Values = new ChartValues<DateTimePoint>() };
@@ -149,8 +175,8 @@ namespace CryostatControlClient.Models
             set
             {
                 this.coldPlate3KTemp = value;
-                this.AddToGraph(this.coldPlate3KLineSeries, value);
-                this.AddToGraph(this.coldPlate3KLineSeriesBottom, value);
+                this.coldPlate3KTemporaryList = this.AddToGraph(this.coldPlate3KTemporaryList, this.coldPlate3KLineSeries, value);
+                this.coldPlate3KTemporaryListBottom = this.AddToGraph(this.coldPlate3KTemporaryListBottom, this.coldPlate3KLineSeriesBottom, value);
             }
         }
 
@@ -170,8 +196,8 @@ namespace CryostatControlClient.Models
             set
             {
                 this.coldPlate50KTemp = value;
-                this.AddToGraph(this.coldPlate50KLineSeries, value);
-                this.AddToGraph(this.coldPlate50KLineSeriesBottom, value);
+                this.coldPlate50KTemporaryList = this.AddToGraph(this.coldPlate50KTemporaryList, this.coldPlate50KLineSeries, value);
+                this.coldPlate50KTemporaryListBottom = this.AddToGraph(this.coldPlate50KTemporaryListBottom, this.coldPlate50KLineSeriesBottom, value);
             }
         }
 

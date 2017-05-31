@@ -23,44 +23,14 @@ namespace CryostatControlClient.Models
         #region Fields
 
         /// <summary>
-        /// The two k plate line series
-        /// </summary>
-        private LineSeries twoKPlateLineSeriesBottom;
-
-        /// <summary>
-        /// The four k plate line series
-        /// </summary>
-        private LineSeries fourKPlateLineSeriesBottom;
-
-        /// <summary>
         /// The he3 head line series
         /// </summary>
         private LineSeries he3HeadLineSeriesBottom;
 
         /// <summary>
-        /// The he3 pump line series
-        /// </summary>
-        private LineSeries he3PumpLineSeriesBottom;
-
-        /// <summary>
-        /// The he3 switch line series
-        /// </summary>
-        private LineSeries he3SwitchLineSeriesBottom;
-
-        /// <summary>
         /// The he4 head line series
         /// </summary>
         private LineSeries he4HeadLineSeriesBottom;
-
-        /// <summary>
-        /// The he4 pump line series
-        /// </summary>
-        private LineSeries he4PumpLineSeriesBottom;
-
-        /// <summary>
-        /// The he4 switch line series
-        /// </summary>
-        private LineSeries he4SwitchLineSeriesBottom;
 
         /// <summary>
         /// The two k plate line series
@@ -101,6 +71,56 @@ namespace CryostatControlClient.Models
         /// The he4 switch line series
         /// </summary>
         private LineSeries he4SwitchLineSeries;
+
+        /// <summary>
+        /// The he3 head temporary list
+        /// </summary>
+        private double[] he3HeadTemporaryList;
+
+        /// <summary>
+        /// The he3 head temporary list
+        /// </summary>
+        private double[] he3HeadTemporaryListBottom;
+
+        /// <summary>
+        /// The he3 pump temporary list
+        /// </summary>
+        private double[] he3PumpTemporaryList;
+
+        /// <summary>
+        /// The he3 switch temporary list
+        /// </summary>
+        private double[] he3SwitchTemporaryList;
+
+        /// <summary>
+        /// The he4 head temporary list
+        /// </summary>
+        private double[] he4HeadTemporaryList;
+
+        /// <summary>
+        /// The he4 head temporary list
+        /// </summary>
+        private double[] he4HeadTemporaryListBottom;
+
+        /// <summary>
+        /// The he4 pump temporary list
+        /// </summary>
+        private double[] he4PumpTemporaryList;
+
+        /// <summary>
+        /// The he4 switch temporary list
+        /// </summary>
+        private double[] he4SwitchTemporaryList;
+
+        /// <summary>
+        /// The two k plate temporary list
+        /// </summary>
+        private double[] twoKPlateTemporaryList;
+
+        /// <summary>
+        /// The four k plate temporary list
+        /// </summary>
+        private double[] fourKPlateTemporaryList;
 
         /// <summary>
         /// The four k plate temperature
@@ -246,6 +266,19 @@ namespace CryostatControlClient.Models
         /// </summary>
         public He7Model()
         {
+            this.twoKPlateTemporaryList = new double[this.UpdateInterval];
+            this.fourKPlateTemporaryList = new double[this.UpdateInterval];
+
+            this.he3HeadTemporaryList = new double[this.UpdateInterval];
+            this.he3HeadTemporaryListBottom = new double[this.UpdateInterval];
+            this.he3SwitchTemporaryList = new double[this.UpdateInterval];
+            this.he3PumpTemporaryList = new double[this.UpdateInterval];
+
+            this.he4HeadTemporaryList = new double[this.UpdateInterval];
+            this.he4HeadTemporaryListBottom = new double[this.UpdateInterval];
+            this.he4SwitchTemporaryList = new double[this.UpdateInterval];
+            this.he4PumpTemporaryList = new double[this.UpdateInterval];
+
             this.twoKPlateLineSeries = new LineSeries { Title = "He7 - 2K Plate", Values = new ChartValues<DateTimePoint>() };
             this.fourKPlateLineSeries = new LineSeries { Title = "He7 - 4K Plate", Values = new ChartValues<DateTimePoint>() };
 
@@ -257,49 +290,13 @@ namespace CryostatControlClient.Models
             this.he4PumpLineSeries = new LineSeries { Title = "He7 - He4 Pump", Values = new ChartValues<DateTimePoint>() };
             this.he4SwitchLineSeries = new LineSeries { Title = "He7 - He4 Switch", Values = new ChartValues<DateTimePoint>() };
 
-            this.twoKPlateLineSeriesBottom = new LineSeries { Title = "He7 - 2K Plate", Values = new ChartValues<DateTimePoint>() };
-            this.fourKPlateLineSeriesBottom = new LineSeries { Title = "He7 - 4K Plate", Values = new ChartValues<DateTimePoint>() };
-
             this.he3HeadLineSeriesBottom = new LineSeries { Title = "He7 - He3 Head", Values = new ChartValues<DateTimePoint>() };
-            this.he3PumpLineSeriesBottom = new LineSeries { Title = "He7 - He3 Pump", Values = new ChartValues<DateTimePoint>() };
-            this.he3SwitchLineSeriesBottom = new LineSeries { Title = "He7 - He3 Switch", Values = new ChartValues<DateTimePoint>() };
-
             this.he4HeadLineSeriesBottom = new LineSeries { Title = "He7 - He4 Head", Values = new ChartValues<DateTimePoint>() };
-            this.he4PumpLineSeriesBottom = new LineSeries { Title = "He7 - He4 Pump", Values = new ChartValues<DateTimePoint>() };
-            this.he4SwitchLineSeriesBottom = new LineSeries { Title = "He7 - He4 Switch", Values = new ChartValues<DateTimePoint>() };
         }
 
         #endregion Constructor
 
         #region Properties
-
-        /// <summary>
-        /// Gets the he4 switch line series.
-        /// </summary>
-        /// <value>
-        /// The he4 switch line series.
-        /// </value>
-        public LineSeries He4SwitchLineSeriesBottom
-        {
-            get
-            {
-                return this.he4SwitchLineSeriesBottom;
-            }
-        }
-
-        /// <summary>
-        /// Gets the he4 pump line series.
-        /// </summary>
-        /// <value>
-        /// The he4 pump line series.
-        /// </value>
-        public LineSeries He4PumpLineSeriesBottom
-        {
-            get
-            {
-                return this.he4PumpLineSeriesBottom;
-            }
-        }
 
         /// <summary>
         /// Gets the he4 head line series.
@@ -315,33 +312,6 @@ namespace CryostatControlClient.Models
             }
         }
 
-        /// <summary>
-        /// Gets the he3 switch line series.
-        /// </summary>
-        /// <value>
-        /// The he3 switch line series.
-        /// </value>
-        public LineSeries He3SwitchLineSeriesBottom
-        {
-            get
-            {
-                return this.he3SwitchLineSeriesBottom;
-            }
-        }
-
-        /// <summary>
-        /// Gets the he3 pump line series.
-        /// </summary>
-        /// <value>
-        /// The he3 pump line series.
-        /// </value>
-        public LineSeries He3PumpLineSeriesBottom
-        {
-            get
-            {
-                return this.he3PumpLineSeriesBottom;
-            }
-        }
 
         /// <summary>
         /// Gets the he3 head line series.
@@ -354,34 +324,6 @@ namespace CryostatControlClient.Models
             get
             {
                 return this.he3HeadLineSeriesBottom;
-            }
-        }
-
-        /// <summary>
-        /// Gets the two k plat line series.
-        /// </summary>
-        /// <value>
-        /// The two k plat line series.
-        /// </value>
-        public LineSeries TwoKPlateLineSeriesBottom
-        {
-            get
-            {
-                return this.twoKPlateLineSeriesBottom;
-            }
-        }
-
-        /// <summary>
-        /// Gets the four k plate line series.
-        /// </summary>
-        /// <value>
-        /// The four k plate line series.
-        /// </value>
-        public LineSeries FourKPlateLineSeriesBottom
-        {
-            get
-            {
-                return this.fourKPlateLineSeriesBottom;
             }
         }
 
@@ -513,8 +455,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.fourKPlateTemp = value;
-                this.AddToGraph(this.fourKPlateLineSeries, value);
-                this.AddToGraph(this.fourKPlateLineSeriesBottom, value);
+                this.fourKPlateTemporaryList = this.AddToGraph(this.fourKPlateTemporaryList, this.fourKPlateLineSeries, value);
             }
         }
 
@@ -566,8 +507,8 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3HeadTemp = value;
-                this.AddToGraph(this.he3HeadLineSeries, value);
-                this.AddToGraph(this.he3HeadLineSeriesBottom, value);
+                this.he3HeadTemporaryList = this.AddToGraph(this.he3HeadTemporaryList, this.he3HeadLineSeries, value);
+                this.he3HeadTemporaryListBottom = this.AddToGraph(this.he3HeadTemporaryListBottom, this.he3HeadLineSeriesBottom, value);
             }
         }
 
@@ -603,8 +544,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3PumpTemp = value;
-                this.AddToGraph(this.he3PumpLineSeries, value);
-                this.AddToGraph(this.he3PumpLineSeriesBottom, value);
+                this.he3PumpTemporaryList = this.AddToGraph(this.he3PumpTemporaryList, this.he3PumpLineSeries, value);
             }
         }
 
@@ -672,8 +612,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3SwitchTemp = value;
-                this.AddToGraph(this.he3SwitchLineSeries, value);
-                this.AddToGraph(this.he3SwitchLineSeriesBottom, value);
+                this.he3SwitchTemporaryList = this.AddToGraph(this.he3SwitchTemporaryList, this.he3SwitchLineSeries, value);
             }
         }
 
@@ -757,8 +696,8 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4HeadTemp = value;
-                this.AddToGraph(this.he4HeadLineSeries, value);
-                this.AddToGraph(this.he4HeadLineSeriesBottom, value);
+                this.he4HeadTemporaryList = this.AddToGraph(this.he4HeadTemporaryList, this.he4HeadLineSeries, value);
+                this.he4HeadTemporaryListBottom = this.AddToGraph(this.he4HeadTemporaryListBottom, this.he4HeadLineSeriesBottom, value);
             }
         }
 
@@ -794,8 +733,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4PumpTemp = value;
-                this.AddToGraph(this.he4PumpLineSeries, value);
-                this.AddToGraph(this.he4PumpLineSeriesBottom, value);
+                this.he4PumpTemporaryList = this.AddToGraph(this.he4PumpTemporaryList, this.he4PumpLineSeries, value);
             }
         }
 
@@ -863,8 +801,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4SwitchTemp = value;
-                this.AddToGraph(this.he4SwitchLineSeries, value);
-                this.AddToGraph(this.he4SwitchLineSeriesBottom, value);
+                this.he4SwitchTemporaryList = this.AddToGraph(this.he4SwitchTemporaryList, this.he4SwitchLineSeries, value);
             }
         }
 
@@ -948,8 +885,7 @@ namespace CryostatControlClient.Models
             set
             {
                 this.twoKPlateTemp = value;
-                this.AddToGraph(this.twoKPlateLineSeries, value);
-                this.AddToGraph(this.twoKPlateLineSeriesBottom, value);
+                this.twoKPlateTemporaryList = this.AddToGraph(this.twoKPlateTemporaryList, this.twoKPlateLineSeries, value);
             }
         }
 

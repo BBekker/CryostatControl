@@ -78,6 +78,7 @@ namespace CryostatControlServer.Data
                     data[i] = float.NaN;
                 }
             }
+            this.FillWithMockData(data);
 
             return data;
         }
