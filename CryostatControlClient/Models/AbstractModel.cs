@@ -44,7 +44,12 @@ namespace CryostatControlClient.Models
 
             temporaryList[this.UpdateInterval - 1]++;
 
-            if (temporaryList[this.UpdateInterval - 1] >= (this.UpdateInterval - 2))
+            if (lineSeries.Values.Count < 1)
+            {
+                lineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
+            }
+
+            if (temporaryList[this.UpdateInterval - 1] >= this.UpdateInterval - 2)
             {
                 lineSeries.Values.Add(new DateTimePoint(DateTime.Now, temporaryList.Average() - 1));
                 if (lineSeries.Values.Count > 100)
