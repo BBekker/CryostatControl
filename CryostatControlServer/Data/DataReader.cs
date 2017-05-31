@@ -99,7 +99,7 @@ namespace CryostatControlServer.Data
                 {
                     data[i] = float.NaN;
 #if DEBUG
-                    //Console.WriteLine("Could not read sensor {0}", i);
+                    ////Console.WriteLine("Could not read sensor {0}", i);
 #endif
                 }
             }

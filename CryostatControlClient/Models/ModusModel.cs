@@ -83,6 +83,7 @@ namespace CryostatControlClient.Models
             {
                 return this.server;
             }
+
             set
             {
                 this.server = value;

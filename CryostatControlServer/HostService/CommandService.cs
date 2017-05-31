@@ -28,6 +28,9 @@ namespace CryostatControlServer.HostService
         /// </summary>
         private readonly CryostatControl cryostatControl;
 
+        /// <summary>
+        /// The logger
+        /// </summary>
         private readonly LogThreader logger;
 
         /// <summary>
@@ -139,14 +142,12 @@ namespace CryostatControlServer.HostService
         /// <inheritdoc cref="ICommandService.ReadCompressorTemperatureScale"/>>
         public double ReadCompressorTemperatureScale()
         {
-            return 1;
             return this.cryostatControl.ReadCompressorTemperatureScale();
         }
 
         /// <inheritdoc cref="ICommandService.ReadCompressorPressureScale"/>>
         public double ReadCompressorPressureScale()
         {
-            return 2;
             return this.cryostatControl.ReadCompressorPressureScale();
         }
 

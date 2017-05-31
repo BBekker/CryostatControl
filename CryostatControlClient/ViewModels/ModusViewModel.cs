@@ -100,12 +100,19 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the server is connected.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if server connected; otherwise, <c>false</c>.
+        /// </value>
         public bool Server
         {
             get
             {
                 return this.modusModel.Server;
             }
+
             set
             {
                 this.modusModel.Server = value;
@@ -114,14 +121,21 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the server converted.
+        /// </summary>
+        /// <value>
+        /// The server converted.
+        /// </value>
         public string ServerConverted
         {
             get
             {
-                if(this.Server)
+                if (this.Server)
                 {
                     return "Connected";
                 }
+
                 return "Disconnected";
             }
         }

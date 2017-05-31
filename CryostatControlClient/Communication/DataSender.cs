@@ -14,8 +14,6 @@ namespace CryostatControlClient.Communication
     using CryostatControlClient.ViewModels;
 
     using CryostatControlServer.HostService.Enumerators;
-    using Communication;
-    using System.Windows;
 
     /// <summary>
     /// Sends data to the server
@@ -34,9 +32,9 @@ namespace CryostatControlClient.Communication
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataSender"/> class.
+        /// Initializes a new instance of the <see cref="DataSender" /> class.
         /// </summary>
-        /// <param name="csc">The command service client.</param>
+        /// <param name="server">The server.</param>
         public DataSender(ServerCheck server)
         {
             this.server = server;

@@ -59,14 +59,6 @@ namespace CryostatControlClient.Views
 
         #endregion Fields
 
-        public ViewModelContainer Container
-        {
-            get
-            {
-                return this.viewModelContainer;
-            }
-        }
-
         #region Constructor
 
         /// <summary>
@@ -88,6 +80,20 @@ namespace CryostatControlClient.Views
         }
 
         #endregion Constructor
+
+        /// <summary>
+        /// Gets the view model container.
+        /// </summary>
+        /// <value>
+        /// The view model container.
+        /// </value>
+        public ViewModelContainer Container
+        {
+            get
+            {
+                return this.viewModelContainer;
+            }
+        }
 
         #region Methods
 
