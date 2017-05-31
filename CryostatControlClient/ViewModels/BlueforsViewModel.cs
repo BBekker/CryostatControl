@@ -10,6 +10,8 @@
 namespace CryostatControlClient.ViewModels
 {
     using System;
+    using System.Windows;
+    using System.Windows.Input;
 
     using CryostatControlClient.Models;
 
@@ -29,6 +31,16 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private BlueforsModel blueforsModel;
 
+        /// <summary>
+        /// The zooming mode
+        /// </summary>
+        private ZoomingOptions zoomingMode;
+
+        /// <summary>
+        /// The switch command
+        /// </summary>
+        private ICommand zoomCommand;
+
         #endregion Fields
 
         #region Constructor
@@ -39,11 +51,43 @@ namespace CryostatControlClient.ViewModels
         public BlueforsViewModel()
         {
             this.blueforsModel = new BlueforsModel();
+
+            this.ZoomingMode = ZoomingOptions.X;
+
+            this.zoomCommand = new RelayCommand(this.ToogleZoomingMode, param => true);
         }
 
         #endregion Constructor
 
         #region Properties
+
+        public ICommand ZoomCommand
+        {
+            get
+            {
+                return this.zoomCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the zooming mode.
+        /// </summary>
+        /// <value>
+        /// The zooming mode.
+        /// </value>
+        public ZoomingOptions ZoomingMode
+        {
+            get
+            {
+                return this.zoomingMode;
+            }
+
+            set
+            {
+                this.zoomingMode = value;
+                this.RaisePropertyChanged("ZoomingMode");
+            }
+        }
 
         /// <summary>
         /// Gets the cold plate3 k line series.
@@ -188,5 +232,43 @@ namespace CryostatControlClient.ViewModels
         }
 
         #endregion Properties
+
+        private void ToogleZoomingMode(object sender)
+        {
+            switch (ZoomingMode)
+            {
+                case ZoomingOptions.None:
+                    ZoomingMode = ZoomingOptions.X;
+                    break;
+                case ZoomingOptions.X:
+                    ZoomingMode = ZoomingOptions.Y;
+                    break;
+                case ZoomingOptions.Y:
+                    ZoomingMode = ZoomingOptions.Xy;
+                    break;
+                case ZoomingOptions.Xy:
+                    ZoomingMode = ZoomingOptions.None;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            Console.WriteLine("Toggled zooming mode");
+        }
+
+        private ChartValues<DateTimePoint> GetData()
+        {
+            var r = new Random();
+            var trend = 100;
+            var values = new ChartValues<DateTimePoint>();
+
+            for (var i = 0; i < 100; i++)
+            {
+                var seed = r.NextDouble();
+                if (seed > .8) trend += seed > .9 ? 50 : -50;
+                values.Add(new DateTimePoint(DateTime.Now.AddDays(i), trend + r.Next(0, 10)));
+            }
+
+            return values;
+        }
     }
 }
