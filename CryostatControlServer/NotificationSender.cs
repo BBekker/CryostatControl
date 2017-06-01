@@ -19,20 +19,15 @@ namespace CryostatControlServer
     public class NotificationSender
     {
         /// <summary>
-        /// The instance.
-        /// </summary>
-        private static NotificationSender instance;
-
-        /// <summary>
         /// The command service.
         /// </summary>
         private static CommandService commandService;
 
         /// <summary>
-        /// Gets the instance.
+        /// The initialisation of the Notification Sender.
         /// </summary>
         /// <param name="newCommandService">
-        /// The new Command Service.
+        /// The new command service.
         /// </param>
         public static void Init(CommandService newCommandService)
         {

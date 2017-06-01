@@ -62,6 +62,7 @@ namespace CryostatControlClient
             {
                 return this.time;
             }
+
             set
             {
                 this.time = value;
@@ -77,6 +78,7 @@ namespace CryostatControlClient
             {
                 return this.level;
             }
+
             set
             {
                 this.level = value;
@@ -92,6 +94,7 @@ namespace CryostatControlClient
             {
                 return this.data;
             }
+
             set
             {
                 this.data = value;

@@ -26,6 +26,9 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private MessageBoxModel messageBoxModel;
 
+        /// <summary>
+        /// The notifications.
+        /// </summary>
         private ObservableCollection<Notification> notifications;
 
         /// <summary>
@@ -51,9 +54,8 @@ namespace CryostatControlClient.ViewModels
             {
                 this.messageBoxModel.Message = value;
                 this.notifications.Insert(0, this.CreateNotification(value));
-                this.MessageAmount = this.notifications.Count;
                 this.RaisePropertyChanged("Message");
-                this.RaisePropertyChanged("MessageAttributesCount");
+                this.RaisePropertyChanged("MessageAttributes");
             } 
         }
 
@@ -69,22 +71,6 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the message amount.
-        /// </summary>
-        public int MessageAmount
-        {
-            get
-            {
-                return this.messageBoxModel.MessageAmount;
-            }
-            set
-            {
-                this.messageBoxModel.MessageAmount = value - 1;
-                this.RaisePropertyChanged("MessageAmount");
-            }
-        }
-
-        /// <summary>
         /// The create notification.
         /// </summary>
         /// <param name="data">
@@ -96,12 +82,7 @@ namespace CryostatControlClient.ViewModels
         public Notification CreateNotification(string[] data)
         {
             Notification notification = new Notification(data[0], data[1], data[2]);
-            Console.WriteLine(notification.Time);
-            Console.WriteLine(notification.Level);
-            Console.WriteLine(notification.Data);
             return notification;
         }
-
-
     }
 }
