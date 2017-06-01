@@ -177,7 +177,7 @@ namespace CryostatControlClient.ViewModels
                 this.modusModel.Modus = value;
                 this.RaisePropertyChanged("Modus");
                 this.RaisePropertyChanged("StartMode");
-                this.RaisePropertyChanged("StopMode");
+                this.RaisePropertyChanged("CancelMode");
                 this.RaisePropertyChanged("ModusConverted");
             }
         }

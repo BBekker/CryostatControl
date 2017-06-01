@@ -6,6 +6,7 @@
 //   Has the hearthbeat to check the server connection
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace CryostatControlClient.Communication
 {
     using System.ServiceModel;
@@ -20,6 +21,21 @@ namespace CryostatControlClient.Communication
     public class ServerCheck
     {
         /// <summary>
+        /// The callback client
+        /// </summary>
+        private DataGetClient callbackClient;
+
+        /// <summary>
+        /// The command client
+        /// </summary>
+        private CommandServiceClient commandClient;
+
+        /// <summary>
+        /// The first time connected
+        /// </summary>
+        private bool firstTimeConnected = false;
+
+        /// <summary>
         /// The main application
         /// </summary>
         private App mainApp;
@@ -30,29 +46,14 @@ namespace CryostatControlClient.Communication
         private MainWindow mainWindow;
 
         /// <summary>
-        /// The timer
-        /// </summary>
-        private Timer timer;
-
-        /// <summary>
-        /// The command client
-        /// </summary>
-        private CommandServiceClient commandClient;
-
-        /// <summary>
-        /// The callback client
-        /// </summary>
-        private DataGetClient callbackClient;
-
-        /// <summary>
         /// The sender
         /// </summary>
         private DataSender sender;
 
         /// <summary>
-        /// The first time connected
+        /// The timer
         /// </summary>
-        private bool firstTimeConnected = false;
+        private Timer timer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServerCheck" /> class.
@@ -96,12 +97,13 @@ namespace CryostatControlClient.Communication
                 {
                     this.SetConnected(true);
                     if (this.firstTimeConnected)
-                    {                        
-                        this.mainApp.Dispatcher.Invoke(() =>
-                        {
-                            this.sender.SetCompressorScales((this.mainApp.MainWindow as MainWindow).Container);
-                        });                      
-                        this.firstTimeConnected = false;                   
+                    {
+                        this.mainApp.Dispatcher.Invoke(
+                            () =>
+                                {
+                                    this.sender.SetCompressorScales((this.mainApp.MainWindow as MainWindow).Container);
+                                });
+                        this.firstTimeConnected = false;
                         this.callbackClient.SubscribeForData(1000);
                     }
                 }
@@ -129,10 +131,8 @@ namespace CryostatControlClient.Communication
         /// <param name="state">if set to <c>true</c> [state].</param>
         private void SetConnected(bool state)
         {
-            this.mainApp.Dispatcher.Invoke(() =>
-            {
-                (this.mainApp.MainWindow as MainWindow).Container.ModusViewModel.ServerConnection = state;
-            });
+            this.mainApp.Dispatcher.Invoke(
+                () => { ((MainWindow)this.mainApp?.MainWindow).Container.ModusViewModel.ServerConnection = state; });
         }
     }
 }

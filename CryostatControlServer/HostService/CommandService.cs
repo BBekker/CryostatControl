@@ -385,7 +385,7 @@ namespace CryostatControlServer.HostService
         private void TimerMethod(object state)
         {
 #if DEBUG
-            Console.WriteLine("sending data to client");
+//            Console.WriteLine("sending data to client");
 #endif
             IDataGetCallback client = (IDataGetCallback)state;
             double[] data = this.cryostatControl.ReadData();
