@@ -7,6 +7,9 @@ namespace CryostatControlServer.Compressor
 {
     using System;
     using System.Net.Sockets;
+
+    using CryostatControlServer.Logging;
+
     using Modbus.Device;
 
     /// <summary>
@@ -70,7 +73,7 @@ namespace CryostatControlServer.Compressor
         {
             const ushort On = 0x001;
             this.master.WriteSingleRegister(Slave, (ushort)HoldingRegistersEnum.Control, On);
-            Console.WriteLine("Compressor turned on");
+            DebugLogger.Info(this.GetType().Name, "Compressor turned on");
         }
 
         /// <summary>
@@ -104,7 +107,7 @@ namespace CryostatControlServer.Compressor
         {
             const ushort Off = 0x00FF;
             this.master.WriteSingleRegister(Slave, (ushort)HoldingRegistersEnum.Control, Off);
-            Console.WriteLine("Compressor turned off");
+            DebugLogger.Info(this.GetType().Name, "Compressor turned off");
         }
 
         /// <summary>

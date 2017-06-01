@@ -12,6 +12,8 @@ namespace CryostatControlServer.HostService.DataContracts
     using System;
     using System.Runtime.Serialization;
 
+    using CryostatControlServer.Logging;
+
     /// <summary>
     /// The could not perform action fault.
     /// </summary>
@@ -33,6 +35,7 @@ namespace CryostatControlServer.HostService.DataContracts
             this.Message = message;
             this.Operation = "not set";
             this.Reason = reason;
+            DebugLogger.Error(this.GetType().Name, reason + " => " + message);
         }
 
         /// <summary>
@@ -52,6 +55,7 @@ namespace CryostatControlServer.HostService.DataContracts
             this.Message = message;
             this.Operation = operation;
             this.Reason = reason;
+            DebugLogger.Error(this.GetType().Name, reason + " => " + message);
         }
 
         /// <summary>

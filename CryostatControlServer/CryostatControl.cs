@@ -277,7 +277,7 @@ namespace CryostatControlServer
             }
             catch (Exception e)
             {
-                Console.WriteLine("Something went wrong setting compressor state");
+                DebugLogger.Error(this.GetType().Name, "Something went wrong setting compressor state");
 
 #if DEBUG
                 Console.WriteLine("Exception thrown: {0}", e);
