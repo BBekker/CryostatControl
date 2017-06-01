@@ -9,16 +9,21 @@
 
 namespace CryostatControlClient.ViewModels
 {
+    using System.Windows;
     using System.Windows.Input;
     using System.Windows.Media;
 
     using CryostatControlClient.Models;
+
+    using LiveCharts.Wpf;
 
     /// <summary>
     /// The he 7 view model.
     /// </summary>
     public class He7ViewModel : AbstractViewModel
     {
+        #region Fields 
+
         /// <summary>
         /// The he 7 model.
         /// </summary>
@@ -30,13 +35,474 @@ namespace CryostatControlClient.ViewModels
         private ICommand updateCommand;
 
         /// <summary>
+        /// The two k plate visibility command
+        /// </summary>
+        private ICommand twoKPlateVisibilityCommand;
+
+        /// <summary>
+        /// The four k plate visibility command
+        /// </summary>
+        private ICommand fourKPlateVisibilityCommand;
+
+        /// <summary>
+        /// The he3 head visibility command
+        /// </summary>
+        private ICommand he3HeadVisibilityCommand;
+
+        /// <summary>
+        /// The he3 switch visibility command
+        /// </summary>
+        private ICommand he3SwitchVisibilityCommand;
+
+        /// <summary>
+        /// The he3 pump visibility command
+        /// </summary>
+        private ICommand he3PumpVisibilityCommand;
+
+        /// <summary>
+        /// The he4 head visibility command
+        /// </summary>
+        private ICommand he4HeadVisibilityCommand;
+
+        /// <summary>
+        /// The he4 switch visibility command
+        /// </summary>
+        private ICommand he4SwitchVisibilityCommand;
+
+        /// <summary>
+        /// The he4 pump visibility command
+        /// </summary>
+        private ICommand he4PumpVisibilityCommand;
+
+        #endregion Fields
+
+        #region Constructor
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="He7ViewModel"/> class.
         /// </summary>
         public He7ViewModel()
         {
             this.he7Model = new He7Model();
 
-            this.UpdateButtonCommand = new RelayCommand(this.OnClickUpdate, param => true);
+            this.updateCommand = new RelayCommand(this.OnClickUpdate, param => true);
+
+            this.twoKPlateVisibilityCommand = new RelayCommand(this.OnTwoKPlateVisibility, param => true);
+            this.fourKPlateVisibilityCommand = new RelayCommand(this.OnFourKPlateVisibility, param => true);
+            this.he3HeadVisibilityCommand = new RelayCommand(this.OnHe3HeadVisibility, param => true);
+            this.he3SwitchVisibilityCommand = new RelayCommand(this.OnHe3PumpVisibility, param => true);
+            this.he3PumpVisibilityCommand = new RelayCommand(this.OnHe3SwitchVisibility, param => true);
+            this.he4HeadVisibilityCommand = new RelayCommand(this.OnHe4HeadVisibility, param => true);
+            this.he4SwitchVisibilityCommand = new RelayCommand(this.OnHe4PumpVisibility, param => true);
+            this.he4PumpVisibilityCommand = new RelayCommand(this.OnHe4SwitchVisibility, param => true);
+        }
+
+        #endregion Constructor
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the two k plate visibility command.
+        /// </summary>
+        /// <value>
+        /// The two k plate visibility command.
+        /// </value>
+        public ICommand TwoKPlateVisibilityCommand
+        {
+            get
+            {
+                return this.twoKPlateVisibilityCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets the four k plate visibility command.
+        /// </summary>
+        /// <value>
+        /// The four k plate visibility command.
+        /// </value>
+        public ICommand FourKPlateVisibilityCommand
+        {
+            get
+            {
+                return this.fourKPlateVisibilityCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he3 head visibility command.
+        /// </summary>
+        /// <value>
+        /// The he3 head visibility command.
+        /// </value>
+        public ICommand He3HeadVisibilityCommand
+        {
+            get
+            {
+                return this.he3HeadVisibilityCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he3 pump visibility command.
+        /// </summary>
+        /// <value>
+        /// The he3 pump visibility command.
+        /// </value>
+        public ICommand He3PumpVisibilityCommand
+        {
+            get
+            {
+                return this.he3PumpVisibilityCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he3 switch visibility command.
+        /// </summary>
+        /// <value>
+        /// The he3 switch visibility command.
+        /// </value>
+        public ICommand He3SwitchVisibilityCommand
+        {
+            get
+            {
+                return this.he3SwitchVisibilityCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he4 head visibility command.
+        /// </summary>
+        /// <value>
+        /// The he4 head visibility command.
+        /// </value>
+        public ICommand He4HeadVisibilityCommand
+        {
+            get
+            {
+                return this.he4HeadVisibilityCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he4 switch visibility command.
+        /// </summary>
+        /// <value>
+        /// The he4 switch visibility command.
+        /// </value>
+        public ICommand He4SwitchVisibilityCommand
+        {
+            get
+            {
+                return this.he4SwitchVisibilityCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he4 pump visibility command.
+        /// </summary>
+        /// <value>
+        /// The he4 pump visibility command.
+        /// </value>
+        public ICommand He4PumpVisibilityCommand
+        {
+            get
+            {
+                return this.he4PumpVisibilityCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the two k plate visibility.
+        /// </summary>
+        /// <value>
+        /// The two k plate visibility.
+        /// </value>
+        public Visibility TwoKPlateVisibility
+        {
+            get
+            {
+                return this.he7Model.TwoKPlateVisibility;
+            }
+
+            set
+            {
+                this.he7Model.TwoKPlateVisibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the four k plate visibility.
+        /// </summary>
+        /// <value>
+        /// The four k plate visibility.
+        /// </value>
+        public Visibility FourKPlateVisibility
+        {
+            get
+            {
+                return this.he7Model.FourKPlateVisibility;
+            }
+
+            set
+            {
+                this.he7Model.FourKPlateVisibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he3 head visibility.
+        /// </summary>
+        /// <value>
+        /// The he3 head visibility.
+        /// </value>
+        public Visibility He3HeadVisibility
+        {
+            get
+            {
+                return this.he7Model.He3HeadVisibility;
+            }
+
+            set
+            {
+                this.he7Model.He3HeadVisibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he3 switch visibility.
+        /// </summary>
+        /// <value>
+        /// The he3 switch visibility.
+        /// </value>
+        public Visibility He3SwitchVisibility
+        {
+            get
+            {
+                return this.he7Model.He3SwitchVisibility;
+            }
+
+            set
+            {
+                this.he7Model.He3SwitchVisibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he3 pump visibility.
+        /// </summary>
+        /// <value>
+        /// The he3 pump visibility.
+        /// </value>
+        public Visibility He3PumpVisibility
+        {
+            get
+            {
+                return this.he7Model.He3PumpVisibility;
+            }
+
+            set
+            {
+                this.he7Model.He3PumpVisibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he4 head visibility.
+        /// </summary>
+        /// <value>
+        /// The he4 head visibility.
+        /// </value>
+        public Visibility He4HeadVisibility
+        {
+            get
+            {
+                return this.he7Model.He4HeadVisibility;
+            }
+
+            set
+            {
+                this.he7Model.He4HeadVisibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he4 switch visibility.
+        /// </summary>
+        /// <value>
+        /// The he4 switch visibility.
+        /// </value>
+        public Visibility He4SwitchVisibility
+        {
+            get
+            {
+                return this.he7Model.He4SwitchVisibility;
+            }
+
+            set
+            {
+                this.he7Model.He4SwitchVisibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he4 pump visibility.
+        /// </summary>
+        /// <value>
+        /// The he4 pump visibility.
+        /// </value>
+        public Visibility He4PumpVisibility
+        {
+            get
+            {
+                return this.he7Model.He4PumpVisibility;
+            }
+
+            set
+            {
+                this.he7Model.He4PumpVisibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he4 head line series.
+        /// </summary>
+        /// <value>
+        /// The he4 head line series.
+        /// </value>
+        public LineSeries He4HeadLineSeriesBottom
+        {
+            get
+            {
+                return this.he7Model.He4HeadLineSeriesBottom;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he3 head line series.
+        /// </summary>
+        /// <value>
+        /// The he3 head line series.
+        /// </value>
+        public LineSeries He3HeadLineSeriesBottom
+        {
+            get
+            {
+                return this.he7Model.He3HeadLineSeriesBottom;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he4 switch line series.
+        /// </summary>
+        /// <value>
+        /// The he4 switch line series.
+        /// </value>
+        public LineSeries He4SwitchLineSeries
+        {
+            get
+            {
+                return this.he7Model.He4SwitchLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he4 pump line series.
+        /// </summary>
+        /// <value>
+        /// The he4 pump line series.
+        /// </value>
+        public LineSeries He4PumpLineSeries
+        {
+            get
+            {
+                return this.he7Model.He4PumpLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he4 head line series.
+        /// </summary>
+        /// <value>
+        /// The he4 head line series.
+        /// </value>
+        public LineSeries He4HeadLineSeries
+        {
+            get
+            {
+                return this.he7Model.He4HeadLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he3 switch line series.
+        /// </summary>
+        /// <value>
+        /// The he3 switch line series.
+        /// </value>
+        public LineSeries He3SwitchLineSeries
+        {
+            get
+            {
+                return this.he7Model.He3SwitchLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he3 pump line series.
+        /// </summary>
+        /// <value>
+        /// The he3 pump line series.
+        /// </value>
+        public LineSeries He3PumpLineSeries
+        {
+            get
+            {
+                return this.he7Model.He3PumpLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the he3 head line series.
+        /// </summary>
+        /// <value>
+        /// The he3 head line series.
+        /// </value>
+        public LineSeries He3HeadLineSeries
+        {
+            get
+            {
+                return this.he7Model.He3HeadLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the two k plat line series.
+        /// </summary>
+        /// <value>
+        /// The two k plat line series.
+        /// </value>
+        public LineSeries TwoKPlatLineSeries
+        {
+            get
+            {
+                return this.he7Model.TwoKPlateLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the four k plate line series.
+        /// </summary>
+        /// <value>
+        /// The four k plate line series.
+        /// </value>
+        public LineSeries FourKPlateLineSeries
+        {
+            get
+            {
+                return this.he7Model.FourKPlateLineSeries;
+            }
         }
 
         /// <summary>
@@ -567,13 +1033,147 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
+        #endregion Properties
+
+        #region Methods
+
+        /// <summary>
+        /// Called when [two k plate visibility].
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        private void OnTwoKPlateVisibility(object obj)
+        {
+            if (this.TwoKPlateVisibility == Visibility.Hidden)
+            {
+                this.TwoKPlateVisibility = Visibility.Visible;
+            }
+            else
+            {
+                this.TwoKPlateVisibility = Visibility.Hidden;
+            }
+        }
+
+        /// <summary>
+        /// Called when [four k plate visibility].
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        private void OnFourKPlateVisibility(object obj)
+        {
+            if (this.FourKPlateVisibility == Visibility.Hidden)
+            {
+                this.FourKPlateVisibility = Visibility.Visible;
+            }
+            else
+            {
+                this.FourKPlateVisibility = Visibility.Hidden;
+            }
+        }
+
+        /// <summary>
+        /// Called when [he3 head visibility].
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        private void OnHe3HeadVisibility(object obj)
+        {
+            if (this.He3HeadVisibility == Visibility.Hidden)
+            {
+                this.He3HeadVisibility = Visibility.Visible;
+            }
+            else
+            {
+                this.He3HeadVisibility = Visibility.Hidden;
+            }
+        }
+
+        /// <summary>
+        /// Called when [he3 switch visibility].
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        private void OnHe3SwitchVisibility(object obj)
+        {
+            if (this.He3SwitchVisibility == Visibility.Hidden)
+            {
+                this.He3SwitchVisibility = Visibility.Visible;
+            }
+            else
+            {
+                this.He3SwitchVisibility = Visibility.Hidden;
+            }
+        }
+
+        /// <summary>
+        /// Called when [he3 pump visibility].
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        private void OnHe3PumpVisibility(object obj)
+        {
+            if (this.He3PumpVisibility == Visibility.Hidden)
+            {
+                this.He3PumpVisibility = Visibility.Visible;
+            }
+            else
+            {
+                this.He3PumpVisibility = Visibility.Hidden;
+            }
+        }
+
+        /// <summary>
+        /// Called when [he4 head visibility].
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        private void OnHe4HeadVisibility(object obj)
+        {
+            if (this.He4HeadVisibility == Visibility.Hidden)
+            {
+                this.He4HeadVisibility = Visibility.Visible;
+            }
+            else
+            {
+                this.He4HeadVisibility = Visibility.Hidden;
+            }
+        }
+
+        /// <summary>
+        /// Called when [he4 switch visibility].
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        private void OnHe4SwitchVisibility(object obj)
+        {
+            if (this.He4SwitchVisibility == Visibility.Hidden)
+            {
+                this.He4SwitchVisibility = Visibility.Visible;
+            }
+            else
+            {
+                this.He4SwitchVisibility = Visibility.Hidden;
+            }
+        }
+
+        /// <summary>
+        /// Called when [he4 pump visibility].
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        private void OnHe4PumpVisibility(object obj)
+        {
+            if (this.He4PumpVisibility == Visibility.Hidden)
+            {
+                this.He4PumpVisibility = Visibility.Visible;
+            }
+            else
+            {
+                this.He4PumpVisibility = Visibility.Hidden;
+            }
+        }
+
         /// <summary>
         /// Shows the message.
         /// </summary>
         /// <param name="obj">The object.</param>
-        public void OnClickUpdate(object obj)
+        private void OnClickUpdate(object obj)
         {
             this.RaisePropertyChanged("UpdateHe7Pressed");
         }
+
+        #endregion Methods
     }
 }

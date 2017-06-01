@@ -10,8 +10,15 @@
 namespace CryostatControlClient.ViewModels
 {
     using System.Windows.Media;
+    using System;
+    using System.Windows;
+    using System.Windows.Input;
 
     using CryostatControlClient.Models;
+
+    using LiveCharts;
+    using LiveCharts.Defaults;
+    using LiveCharts.Wpf;
 
     /// <summary>
     /// Bluefors ViewModel
@@ -25,6 +32,16 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private BlueforsModel blueforsModel;
 
+        /// <summary>
+        /// The cold plate3 k visibility command
+        /// </summary>
+        private ICommand coldPlate3KVisibilityCommand;
+
+        /// <summary>
+        /// The cold plate50 k visibility command
+        /// </summary>
+        private ICommand coldPlate50KVisibilityCommand;
+
         #endregion Fields
 
         #region Constructor
@@ -35,6 +52,9 @@ namespace CryostatControlClient.ViewModels
         public BlueforsViewModel()
         {
             this.blueforsModel = new BlueforsModel();
+
+            this.coldPlate3KVisibilityCommand = new RelayCommand(this.OnColdPlate3KVisibility, param => true);
+            this.coldPlate50KVisibilityCommand = new RelayCommand(this.OnColdPlate50KVisibility, param => true);
         }
 
         #endregion Constructor
@@ -52,6 +72,128 @@ namespace CryostatControlClient.ViewModels
             get
             {
                 return this.ConnectionColor((int)this.ConnectionState);
+            }
+        }
+
+        /// <summary>
+        /// Gets the cold plate3 k visibility command.
+        /// </summary>
+        /// <value>
+        /// The cold plate3 k visibility command.
+        /// </value>
+        public ICommand ColdPlate3KVisibilityCommand
+        {
+            get
+            {
+                return this.coldPlate3KVisibilityCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets the cold plate50 k visibility command.
+        /// </summary>
+        /// <value>
+        /// The cold plate50 k visibility command.
+        /// </value>
+        public ICommand ColdPlate50KVisibilityCommand
+        {
+            get
+            {
+                return this.coldPlate50KVisibilityCommand;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the cold plate3 k visibility.
+        /// </summary>
+        /// <value>
+        /// The cold plate3 k visibility.
+        /// </value>
+        public Visibility ColdPlate3KVisibility
+        {
+            get
+            {
+                return this.blueforsModel.ColdPlate3KVisibility;
+            }
+
+            set
+            {
+                this.blueforsModel.ColdPlate3KVisibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the cold plate50 k visibility.
+        /// </summary>
+        /// <value>
+        /// The cold plate50 k visibility.
+        /// </value>
+        public Visibility ColdPlate50KVisibility
+        {
+            get
+            {
+                return this.blueforsModel.ColdPlate50KVisibility;
+            }
+
+            set
+            {
+                this.blueforsModel.ColdPlate50KVisibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the cold plate3 k line series.
+        /// </summary>
+        /// <value>
+        /// The cold plate3 k line series.
+        /// </value>
+        public LineSeries ColdPlate3KLineSeriesBottom
+        {
+            get
+            {
+                return this.blueforsModel.ColdPlate3KLineSeriesBottom;
+            }
+        }
+
+        /// <summary>
+        /// Gets the cold plate3 k line series.
+        /// </summary>
+        /// <value>
+        /// The cold plate3 k line series.
+        /// </value>
+        public LineSeries ColdPlate50KLineSeriesBottom
+        {
+            get
+            {
+                return this.blueforsModel.ColdPlate50KLineSeriesBottom;
+            }
+        }
+
+        /// <summary>
+        /// Gets the cold plate3 k line series.
+        /// </summary>
+        /// <value>
+        /// The cold plate3 k line series.
+        /// </value>
+        public LineSeries ColdPlate3KLineSeries
+        {
+            get
+            {
+                return this.blueforsModel.ColdPlate3KLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the cold plate3 k line series.
+        /// </summary>
+        /// <value>
+        /// The cold plate3 k line series.
+        /// </value>
+        public LineSeries ColdPlate50KLineSeries
+        {
+            get
+            {
+                return this.blueforsModel.ColdPlate50KLineSeries;
             }
         }
 
@@ -142,5 +284,41 @@ namespace CryostatControlClient.ViewModels
         }
 
         #endregion Properties
+
+        #region Methods
+
+        /// <summary>
+        /// Called when [cold plate50 k visibility].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        private void OnColdPlate50KVisibility(object sender)
+        {
+            if (this.ColdPlate50KVisibility == Visibility.Hidden)
+            {
+                this.ColdPlate50KVisibility = Visibility.Visible;
+            }
+            else
+            {
+                this.ColdPlate50KVisibility = Visibility.Hidden;
+            }
+        }
+
+        /// <summary>
+        /// Called when [cold plate3 k visibility].
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        private void OnColdPlate3KVisibility(object sender)
+        {
+            if (this.ColdPlate3KVisibility == Visibility.Hidden)
+            {
+                this.ColdPlate3KVisibility = Visibility.Visible;
+            }
+            else
+            {
+                this.ColdPlate3KVisibility = Visibility.Hidden;
+            }
+        }
+
+        #endregion Methods
     }
 }
