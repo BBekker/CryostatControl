@@ -69,6 +69,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Selectors" />
+    <Reference Include="System.IdentityModel.Services" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
@@ -106,6 +109,7 @@
     <Compile Include="HostService\Enumerators\HeaterEnumerator.cs" />
     <Compile Include="HostService\Enumerators\SettingEnumerator.cs" />
     <Compile Include="Data\ISensor.cs" />
+    <Compile Include="HostService\PasswordValidator.cs" />
     <Compile Include="LakeShore\LakeShore.cs" />
     <Compile Include="LakeShore\Sensor.cs" />
     <Compile Include="LakeShore\SensorEnum.cs" />

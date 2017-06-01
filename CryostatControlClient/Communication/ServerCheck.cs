@@ -65,6 +65,8 @@ namespace CryostatControlClient.Communication
             this.mainApp = app;
             this.mainWindow = this.mainApp.MainWindow as MainWindow;
             this.commandClient = commandClient;
+            //this.commandClient.ClientCredentials.UserName.UserName = "test";
+            //this.CommandClient.ClientCredentials.UserName.Password = "test123";
             this.callbackClient = callbackClient;
             this.sender = new DataSender(this);
             this.timer = new Timer(this.CheckStatus, null, 5000, 2000);

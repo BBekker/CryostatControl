@@ -96,6 +96,9 @@ namespace CryostatControlClient
             base.OnStartup(e);
 
             this.commandServiceClient = new CommandServiceClient();
+            //this.commandServiceClient.ClientCredentials.UserName.UserName = "test";
+            //this.CommandServiceClient.ClientCredentials.UserName.Password = "test123";
+
 
             DataClientCallback callback = new DataClientCallback(this);
             InstanceContext instanceContext = new InstanceContext(callback);
