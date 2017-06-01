@@ -49,9 +49,9 @@ namespace CryostatControlClient.ViewModels
             set
             {
                 this.messageBoxModel.Message = value;
-                this.notifications.Add(this.CreateNotification(value));
+                this.notifications.Insert(0, this.CreateNotification(value));
+                this.MessageAmount = this.notifications.Count;
                 this.RaisePropertyChanged("Message");
-                this.RaisePropertyChanged("MessageAttributes");
                 this.RaisePropertyChanged("MessageAttributesCount");
             } 
         }
@@ -68,13 +68,18 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the message attributes count.
+        /// Gets or sets the message amount.
         /// </summary>
-        public int MessageAttributesCount
+        public int MessageAmount
         {
             get
             {
-                return this.notifications.Count - 1;
+                return this.messageBoxModel.MessageAmount;
+            }
+            set
+            {
+                this.messageBoxModel.MessageAmount = value - 1;
+                this.RaisePropertyChanged("MessageAmount");
             }
         }
 
