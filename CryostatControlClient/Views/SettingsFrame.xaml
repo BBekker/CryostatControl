@@ -24,7 +24,7 @@
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
 
-                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="0">He-7</Label>
+                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="0">He-7 Cooler</Label>
                     <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="0" 
                            Content="{Binding He7ViewModel.ConnectionStateConverted}" Foreground="{Binding He7ViewModel.ConnectionStateColor}"/>
 
@@ -40,7 +40,7 @@
                     <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="3">xx</Label>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="4">Modus</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="4" Content="{Binding ModusViewModel.ModusConverted}"/>
+                    <TextBlock TextWrapping="Wrap" Margin="10 5 10 5" Grid.Column="1" Grid.Row="4" Text="{Binding ModusViewModel.ModusConverted}"/>
                 </Grid>
 
                 <ComboBox Margin="10 5 10 5" Style="{StaticResource SettingsComboBox}"
