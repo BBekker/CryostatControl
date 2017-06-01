@@ -126,6 +126,5 @@ namespace CryostatControlServer
         /// Cancel the current action and go back to standby.
         /// </summary>
         CancelAll,
-
     }
 }
