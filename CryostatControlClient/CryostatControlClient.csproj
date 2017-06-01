@@ -135,6 +135,7 @@
     </Compile>
     <Compile Include="Views\CommandPanel.xaml.cs">
       <DependentUpon>CommandPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MessageBox.xaml.cs">
       <DependentUpon>MessageBox.xaml</DependentUpon>
     </Compile>
