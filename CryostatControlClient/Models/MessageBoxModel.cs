@@ -19,6 +19,8 @@ namespace CryostatControlClient.Models
         /// </summary>
         private string[] message;
 
+        private int messageAmount;
+
         /// <summary>
         /// Gets or sets the message.
         /// </summary>
@@ -34,6 +36,21 @@ namespace CryostatControlClient.Models
             set
             {
                 this.message = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the message amount.
+        /// </summary>
+        public int MessageAmount
+        {
+            get
+            {
+                return this.messageAmount;
+            }
+            set
+            {
+                this.messageAmount = value;
             }
         }
     }

@@ -119,6 +119,19 @@
         <Setter Property="FontSize" Value="15" />
     </Style>
 
+    <Style x:Key="NotificationItemLabel" TargetType="Label">
+        <Setter Property="Margin" Value="0, -8, 0, 0" />
+        <Setter Property="Padding" Value="0, 0, 6, 0" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="FontSize" Value="10" />
+    </Style>
+
+    <Style x:Key="NotificationItem" TargetType="StackPanel">
+        <Setter Property="Margin" Value="0, 0, 0, 0" />
+        <Setter Property="Height" Value="10" />
+    </Style>
+
     <!--CompressorFrame Styles-->
     <Style x:Key="CompressorTitles" TargetType="Label">
         <Setter Property="Margin" Value="0, 10, 0, 0" />
