@@ -26,9 +26,9 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>  
                     <StackPanel Orientation="Horizontal">
-                            <Label Foreground="{Binding Color}" Content="{Binding Time}" ToolTip="{Binding Data}"/>
-                            <Label Foreground="{Binding Color}" Content="{Binding Level}" ToolTip="{Binding Data}"/>
-                            <Label Foreground="{Binding Color}" Content="{Binding Data}" ToolTip="{Binding Data}"/>
+                            <Label Style="{StaticResource NotificationItemLabel}" Foreground="{Binding Color}" Content="{Binding Time}" ToolTip="{Binding Data}"/>
+                            <Label Style="{StaticResource NotificationItemLabel}" Foreground="{Binding Color}" Content="{Binding Level}" ToolTip="{Binding Data}"/>
+                            <Label Style="{StaticResource NotificationItemLabel}" Foreground="{Binding Color}" Content="{Binding Data}" ToolTip="{Binding Data}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
