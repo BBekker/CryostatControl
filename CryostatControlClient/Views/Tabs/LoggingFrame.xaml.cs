@@ -14,9 +14,5 @@ namespace CryostatControlClient.Views.Tabs
     /// </summary>
     public partial class LoggingFrame
     {
-        private void slValue_ValueChanged()
-        {
-
-        }
     }
 }
