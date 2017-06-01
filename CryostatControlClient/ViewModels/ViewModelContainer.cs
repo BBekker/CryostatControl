@@ -102,6 +102,16 @@ namespace CryostatControlClient.ViewModels
         public ModusViewModel ModusViewModel { get; }
 
         /// <summary>
+        /// Gets the message box view model.
+        /// </summary>
+        public MessageBoxViewModel MessageBoxViewModel
+        {
+            get
+            {
+                return this.messageBoxViewModel;
+            }
+        }
+
         /// Gets the settings view model.
         /// </summary>
         public SettingsViewModel SettingsViewModel { get; private set; }

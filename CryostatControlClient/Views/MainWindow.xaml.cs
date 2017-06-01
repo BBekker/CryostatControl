@@ -117,6 +117,17 @@ namespace CryostatControlClient.Views
         }
 
         /// <summary>
+        /// The update notification.
+        /// </summary>
+        /// <param name="notification">
+        /// The notification.
+        /// </param>
+        public void UpdateNotification(string[] notification)
+        {
+            this.dataReceiver.UpdateNotification(notification, this.viewModelContainer);
+        }
+
+        /// <summary>
         /// Handles the Loaded event of the MainWindow control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>

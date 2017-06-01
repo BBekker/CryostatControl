@@ -106,8 +106,10 @@
     <Compile Include="DataClientCallback.cs" />
     <Compile Include="Models\He7Model.cs" />
     <Compile Include="Models\LoggingModel.cs" />
+    <Compile Include="Models\MessageBoxModel.cs" />
     <Compile Include="Models\ModusModel.cs" />
     <Compile Include="Models\SettingModel.cs" />
+    <Compile Include="Notification.cs" />
     <Compile Include="ViewModels\AbstractViewModel.cs" />
     <Compile Include="ViewModels\BlueforsViewModel.cs" />
     <Compile Include="ViewModels\CompressorViewModel.cs" />
@@ -118,6 +120,7 @@
     <Compile Include="ViewModels\LoggingPresets\LogBlueforsPreset.cs" />
     <Compile Include="ViewModels\LoggingPresets\LogNothingPreset.cs" />
     <Compile Include="ViewModels\LoggingViewModel.cs" />
+    <Compile Include="ViewModels\MessageBoxViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelContainer.cs" />
     <Compile Include="ViewModels\He7ViewModel.cs" />
@@ -132,8 +135,17 @@
     </Compile>
     <Compile Include="Views\CommandPanel.xaml.cs">
       <DependentUpon>CommandPanel.xaml</DependentUpon>
+    <Compile Include="Views\MessageBox.xaml.cs">
+      <DependentUpon>MessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsFrame.xaml.cs">
+      <DependentUpon>SettingsFrame.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\MainGraphFrame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MessageBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

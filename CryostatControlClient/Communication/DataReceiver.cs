@@ -49,6 +49,23 @@ namespace CryostatControlClient.Communication
         }
 
         /// <summary>
+        /// The update notification.
+        /// </summary>
+        /// <param name="notification">
+        /// The notification.
+        /// </param>
+        /// <param name="dataContext">
+        /// The data context.
+        /// </param>
+        public void UpdateNotification(string[] notification, ViewModelContainer dataContext)
+        {
+            if (dataContext != null)
+            {
+                dataContext.MessageBoxViewModel.Message = notification;
+            }
+        }
+
+        /// <summary>
         /// Updates the compressor viewmodel.
         /// </summary>
         /// <param name="data">The data.</param>
