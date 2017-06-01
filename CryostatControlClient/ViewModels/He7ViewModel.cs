@@ -102,6 +102,20 @@ namespace CryostatControlClient.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets a value indicating whether [He7 is connected].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [update modus]; otherwise, <c>false</c>.
+        /// </value>
+        public bool UpdateModus
+        {
+            get
+            {
+                return (int)this.ConnectionState == 1;
+            }
+        }
+
+        /// <summary>
         /// Gets the two k plate visibility command.
         /// </summary>
         /// <value>
