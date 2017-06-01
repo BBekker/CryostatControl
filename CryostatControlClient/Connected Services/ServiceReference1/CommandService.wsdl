@@ -571,6 +571,44 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_GetValue_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_GetValue_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_ReadCompressorTemperatureScale_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -1202,10 +1240,10 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:18080/SRON?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:18080/SRON?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:18080/SRON?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CryostatControlServer.HostService.DataContracts" />
-      <xsd:import schemaLocation="http://localhost:18080/SRON?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="https://localhost:18081/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="https://localhost:18081/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="https://localhost:18081/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CryostatControlServer.HostService.DataContracts" />
+      <xsd:import schemaLocation="https://localhost:18081/?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ICommandService_IsAlive_InputMessage">
@@ -1282,6 +1320,12 @@
   </wsdl:message>
   <wsdl:message name="ICommandService_WriteHelium7_CouldNotPerformActionFaultFault_FaultMessage">
     <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/CryostatControlServer.HostService.DataContracts" name="detail" element="q1:CouldNotPerformActionFault" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_GetValue_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetValue" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_GetValue_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetValueResponse" />
   </wsdl:message>
   <wsdl:message name="ICommandService_ReadCompressorTemperatureScale_InputMessage">
     <wsdl:part name="parameters" element="tns:ReadCompressorTemperatureScale" />
@@ -1410,6 +1454,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/WriteHelium7" message="tns:ICommandService_WriteHelium7_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/WriteHelium7Response" message="tns:ICommandService_WriteHelium7_OutputMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/ICommandService/WriteHelium7CouldNotPerformActionFaultFault" name="CouldNotPerformActionFaultFault" message="tns:ICommandService_WriteHelium7_CouldNotPerformActionFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetValue">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/GetValue" message="tns:ICommandService_GetValue_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/GetValueResponse" message="tns:ICommandService_GetValue_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ReadCompressorTemperatureScale">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/ReadCompressorTemperatureScale" message="tns:ICommandService_ReadCompressorTemperatureScale_InputMessage" />
@@ -1613,6 +1661,17 @@
         <soap12:fault use="literal" name="CouldNotPerformActionFaultFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
+    <wsdl:operation name="GetValue">
+      <soap12:operation soapAction="http://tempuri.org/ICommandService/GetValue" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_GetValue_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_GetValue_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ReadCompressorTemperatureScale">
       <soap12:operation soapAction="http://tempuri.org/ICommandService/ReadCompressorTemperatureScale" style="document" />
       <wsdl:input>
@@ -1775,20 +1834,20 @@
   </wsdl:binding>
   <wsdl:service name="CommandService">
     <wsdl:port name="WSHttpBinding_ICommandService" binding="tns:WSHttpBinding_ICommandService">
-      <soap12:address location="http://localhost:18000/SRON" />
+      <soap12:address location="http://localhost:18080/Command" />
       <wsa10:EndpointReference>
-        <wsa10:Address>http://localhost:18000/SRON</wsa10:Address>
+        <wsa10:Address>http://localhost:18080/Command</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>Meeuwissen-PC\Ruben</Upn>
+          <Dns>localhost</Dns>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="WSDualHttpBinding_IDataGet" binding="tns:WSDualHttpBinding_IDataGet">
-      <soap12:address location="http://localhost:18001/SRON" />
+      <soap12:address location="http://localhost:18080/Data" />
       <wsa10:EndpointReference>
-        <wsa10:Address>http://localhost:18001/SRON</wsa10:Address>
+        <wsa10:Address>http://localhost:18080/Data</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>Meeuwissen-PC\Ruben</Upn>
+          <Dns>localhost</Dns>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

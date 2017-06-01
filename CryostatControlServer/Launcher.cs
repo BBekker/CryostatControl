@@ -6,7 +6,6 @@
 namespace CryostatControlServer
 {
     using System;
-    using System.IO.Ports;
     using System.ServiceModel;
 
     using CryostatControlServer.Data;
@@ -29,11 +28,6 @@ namespace CryostatControlServer
         /// Host address of the helium 7 cooler
         /// </summary>
         private const string CoolerHost = "192.168.1.100";
-
-        /// <summary>
-        /// The host address
-        /// </summary>
-        private const string HostAddress = "http://localhost:8080/SRON";
 
         /// <summary>
         /// The compressor
@@ -137,12 +131,9 @@ namespace CryostatControlServer
         /// </summary>
         private static void StartHost()
         {
-            try
-            {
                 CommandService hostService = new CommandService(cryostatControl, logger);
                 NotificationSender.Init(hostService);
-                Uri baseAddress = new Uri("http://localhost:18080/SRON");
-                using (ServiceHost host = new ServiceHost(hostService, baseAddress))
+                using (ServiceHost host = new ServiceHost(hostService))
                 {
                     // Enable metadata publishing.
                     ////ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
@@ -152,18 +143,11 @@ namespace CryostatControlServer
                     ((ServiceBehaviorAttribute)host.Description.Behaviors[typeof(ServiceBehaviorAttribute)])
                         .InstanceContextMode = InstanceContextMode.Single;
                     host.Open();
-                    Console.WriteLine("The service is ready at {0}", baseAddress);
+                    Console.WriteLine("The service is ready");
                     Console.WriteLine("Press <Enter> to stop the service.");
                     Console.ReadLine();
                     host.Close();
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error setting up server, did you run this in administrator mode?");
-                Console.Write(e.Message);
-                Console.ReadLine();
-            }
         }
     }
 

@@ -226,16 +226,16 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Connected Services\ServiceReference1\CommandService.wsdl" />
-    <None Include="Connected Services\ServiceReference1\SRON.xsd">
+    <None Include="Connected Services\ServiceReference1\item.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServiceReference1\SRON1.xsd">
+    <None Include="Connected Services\ServiceReference1\item1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServiceReference1\SRON2.xsd">
+    <None Include="Connected Services\ServiceReference1\item2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServiceReference1\SRON3.xsd">
+    <None Include="Connected Services\ServiceReference1\item3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -262,7 +262,7 @@
     <WCFMetadataStorage Include="Connected Services\ServiceReference1\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\ServiceReference1\SRON.disco" />
+    <None Include="Connected Services\ServiceReference1\item.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ServiceReference1\configuration91.svcinfo" />
