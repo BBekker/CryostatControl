@@ -216,7 +216,7 @@
     <Style x:Key="He7Label" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Background" Value="Transparent" />
     </Style>
 
     <Style x:Key="He7TextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">

@@ -107,6 +107,14 @@ namespace CryostatControlClient.Communication
         }
 
         /// <summary>
+        /// Activate Manual mode.
+        /// </summary>
+        public void ManualModus()
+        {
+            this.commandServiceClient.Manual();
+        }
+
+        /// <summary>
         /// Sets the compressor scales.
         /// </summary>
         /// <param name="viewModelContainer">The view model container.</param>
@@ -118,6 +126,22 @@ namespace CryostatControlClient.Communication
                     this.commandServiceClient.ReadCompressorTemperatureScale();
                 viewModelContainer.CompressorViewModel.PressureScale =
                     this.commandServiceClient.ReadCompressorPressureScale();
+            }
+            catch
+            {
+                Console.WriteLine("Something went wrong with the server");
+            }
+        }
+
+        /// <summary>
+        /// Sets the state of the logger.
+        /// </summary>
+        /// <param name="viewModelContainer">The view model container.</param>
+        public void SetLoggerState(ViewModelContainer viewModelContainer)
+        {
+            try
+            {
+                viewModelContainer.LoggingViewModel.LoggingInProgress = this.commandServiceClient.IsLogging();
             }
             catch
             {
@@ -218,7 +242,7 @@ namespace CryostatControlClient.Communication
         /// </summary>
         public void CancelLogging()
         {
-            this.commandServiceClient.StopLogging();
+            this.commandServiceClient.CancelLogging();
         }
 
         #endregion Methods

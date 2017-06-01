@@ -1,6 +1,8 @@
 ﻿namespace CryostatControlServerTests.He7Cooler
 {
     using System;
+    using System.Globalization;
+    using System.Threading;
 
     using CryostatControlServer.He7Cooler;
     using CryostatControlServer.Streams;
@@ -45,8 +47,8 @@
             He7Cooler.Sensor.Calibration testSensor = new He7Cooler.Sensor.Calibration("..\\..\\RUOX.CAL", 3, 0);
             Assert.AreEqual(149, testSensor.CalibrationSize);
             Assert.AreEqual(35.0, testSensor.ConvertValue(0.2133), 0.01);
-            Assert.AreEqual(0.1, testSensor.ConvertValue(3.9229),0.01);
-            Assert.AreEqual(0.099, testSensor.ConvertValue(3.99),0.001);
+            Assert.AreEqual(0.1, testSensor.ConvertValue(3.9229), 0.01);
+            Assert.AreEqual(0.099, testSensor.ConvertValue(3.99), 0.001);
 
             He7Cooler.Sensor.Calibration testSensor2 = new He7Cooler.Sensor.Calibration();
             testSensor2.LoadSensorCalibrationFromFile("..\\..\\DIODE.CAL", 1, 0);

@@ -35,6 +35,13 @@ namespace CryostatControlServer.Logging
         private const string CsvFileFormat = ".csv";
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="AbstractDataLogger"/> class.
+        /// </summary>
+        public AbstractDataLogger()
+        {
+        }
+
+        /// <summary>
         /// Create specific folder.
         /// </summary>
         /// <param name="currentDateTime">
