@@ -96,12 +96,12 @@
     <Compile Include="Communication\DataReceiver.cs" />
     <Compile Include="Communication\DataSender.cs" />
     <Compile Include="Communication\ModusEnumerator.cs" />
-    <Compile Include="Models\AbstractModel.cs" />
     <Compile Include="Connected Services\ServiceReference1\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Models\AbstractModel.cs" />
     <Compile Include="Models\BlueforsModel.cs" />
     <Compile Include="DataClientCallback.cs" />
     <Compile Include="Models\He7Model.cs" />
