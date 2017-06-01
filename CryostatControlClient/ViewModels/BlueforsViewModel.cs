@@ -9,6 +9,8 @@
 
 namespace CryostatControlClient.ViewModels
 {
+    using System.Windows.Media;
+
     using CryostatControlClient.Models;
 
     /// <summary>
@@ -38,6 +40,20 @@ namespace CryostatControlClient.ViewModels
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets the color of the connection state.
+        /// </summary>
+        /// <value>
+        /// The color of the connection state.
+        /// </value>
+        public SolidColorBrush ConnectionStateColor
+        {
+            get
+            {
+                return this.ConnectionColor((int)this.ConnectionState);
+            }
+        }
 
         /// <summary>
         /// Gets or sets the cold plate 3 K temperature.

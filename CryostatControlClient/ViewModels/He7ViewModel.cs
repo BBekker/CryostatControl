@@ -10,6 +10,7 @@
 namespace CryostatControlClient.ViewModels
 {
     using System.Windows.Input;
+    using System.Windows.Media;
 
     using CryostatControlClient.Models;
 
@@ -36,6 +37,20 @@ namespace CryostatControlClient.ViewModels
             this.he7Model = new He7Model();
 
             this.UpdateButtonCommand = new RelayCommand(this.OnClickUpdate, param => true);
+        }
+
+        /// <summary>
+        /// Gets the color of the connection state.
+        /// </summary>
+        /// <value>
+        /// The color of the connection state.
+        /// </value>
+        public SolidColorBrush ConnectionStateColor
+        {
+            get
+            {
+                return this.ConnectionColor((int)this.ConnectionState);
+            }
         }
 
         /// <summary>

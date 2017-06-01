@@ -25,13 +25,16 @@
                     </Grid.RowDefinitions>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="0">He-7</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="0" Content="{Binding He7ViewModel.ConnectionStateConverted}"/>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="0" 
+                           Content="{Binding He7ViewModel.ConnectionStateConverted}" Foreground="{Binding He7ViewModel.ConnectionStateColor}"/>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="1">BlueFors</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="1" Content="{Binding BlueforsViewModel.ConnectionStateConverted}"/>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="1" 
+                           Content="{Binding BlueforsViewModel.ConnectionStateConverted}" Foreground="{Binding BlueforsViewModel.ConnectionStateColor}"/>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="2">Compressor</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="2" Content="{Binding CompressorViewModel.ConnectionStateConverted}"/>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="2" 
+                           Content="{Binding CompressorViewModel.ConnectionStateConverted}" Foreground="{Binding CompressorViewModel.ConnectionStateColor}"/>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="3">Server</Label>
                     <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="3">xx</Label>

@@ -48,7 +48,6 @@
 
     <Style x:Key="SettingsLabelRight" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
         <Setter Property="Margin" Value="5, 2, 0, 0" />
-        <Setter Property="Foreground" Value="#53d100" />
         <Setter Property="FontSize" Value="12" />
     </Style>
 
