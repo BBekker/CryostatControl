@@ -58,6 +58,11 @@ namespace CryostatControlClient.Views
         /// </summary>
         private PropertyChangedEventHandler loggerHandler;
 
+        /// <summary>
+        /// The comp handler
+        /// </summary>
+        private PropertyChangedEventHandler compHandler;
+
         #endregion Fields
 
         #region Constructor
@@ -75,9 +80,8 @@ namespace CryostatControlClient.Views
             this.dataSender = new DataSender(commandServiceClient);
 
             this.modusHandler = this.HandleModus;
-
+            this.compHandler = this.HandleComp;
             this.loggerHandler = this.HandleLogger;
-
             this.heliumHandler = this.HandleHe;
         }
 
@@ -104,6 +108,15 @@ namespace CryostatControlClient.Views
         }
 
         /// <summary>
+        /// Sets the is logging.
+        /// </summary>
+        /// <param name="state">if set to <c>true</c> [state].</param>
+        public void SetIsLogging(bool state)
+        {
+            this.dataReceiver.SetIsLogging(state, this.viewModelContainer);
+        }
+
+        /// <summary>
         /// Handles the Loaded event of the MainWindow control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -115,11 +128,12 @@ namespace CryostatControlClient.Views
             this.DataContext = this.viewModelContainer;
 
             this.viewModelContainer.ModusViewModel.PropertyChanged += this.modusHandler;
-
+            this.viewModelContainer.CompressorViewModel.PropertyChanged += this.compHandler;
             this.viewModelContainer.LoggingViewModel.PropertyChanged += this.loggerHandler;
-
             this.viewModelContainer.He7ViewModel.PropertyChanged += this.heliumHandler;
+
             this.dataSender.SetCompressorScales(this.viewModelContainer);
+            this.dataSender.SetLoggerState(this.viewModelContainer);
         }
 
         /// <summary>
@@ -139,9 +153,32 @@ namespace CryostatControlClient.Views
             {
                 this.dataSender.CancelModus();
             }
+            else if (action == "ManualPressed")
+            {
+                this.dataSender.ManualModus();
+            }
             else
             {
                 // todo: unknow action, throw exception or something?
+            }
+        }
+
+        /// <summary>
+        /// Handles the comp.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void HandleComp(object sender, PropertyChangedEventArgs e)
+        {
+            string action = e.PropertyName;
+
+            if (action == "TurnOn")
+            {
+                this.dataSender.SwitchCompressor(true);
+            }
+            else if (action == "TurnOff")
+            {
+                this.dataSender.SwitchCompressor(false);
             }
         }
 

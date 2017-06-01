@@ -9,6 +9,7 @@ namespace CryostatControlServer.He7Cooler
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.Threading;
 
     using CryostatControlServer.Streams;

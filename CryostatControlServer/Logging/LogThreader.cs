@@ -93,7 +93,6 @@ namespace CryostatControlServer.Logging
         /// </param>
         public void StartSpecificDataLogging(int interval, bool[] toBeLoggedOrNotToBeLogged)
         {
-            Console.WriteLine("Starting specific log");
             if (this.specificLoggingInProgress)
             {
                 this.StopSpecificDataLogging();
@@ -111,8 +110,10 @@ namespace CryostatControlServer.Logging
         /// </summary>
         public void StopSpecificDataLogging()
         {
-            Console.WriteLine("Stop specific log");
-            this.specificLoggingThread.Dispose();
+            if (this.specificLoggingThread != null)
+            {
+                this.specificLoggingThread.Dispose();
+            }
             this.specificLoggingInProgress = false;
         }
 
@@ -121,7 +122,6 @@ namespace CryostatControlServer.Logging
         /// </summary>
         public void StartGeneralDataLogging()
         {
-            Console.WriteLine("Starting general log");
             GeneralDataLogger generalDataLogger = new GeneralDataLogger();
             LoggerDataObject loggerDataObject = this.CreateNewGeneralLoggingFile(generalDataLogger);
             this.generalLoggingThread = new Timer(this.GeneralDataLogging, loggerDataObject, StartTime, this.ConvertSecondsToMs(GeneralLogInterval));
@@ -132,7 +132,6 @@ namespace CryostatControlServer.Logging
         /// </summary>
         public void StopGeneralDataLogging()
         {
-            Console.WriteLine("Stop general log");
             this.generalLoggingThread.Dispose();
         }
 
@@ -157,6 +156,34 @@ namespace CryostatControlServer.Logging
         public int ConvertSecondsToMs(int seconds)
         {
             return seconds * 1000;
+        }
+
+        /// <summary>
+        /// The check if new file is needed.
+        /// </summary>
+        /// <param name="filepath">
+        /// The filepath.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool NewFileIsNeeded(string filepath)
+        {
+            string logDay = Path.GetFileName(filepath);
+            if (logDay == null || !logDay.Contains(".csv"))
+            {
+                DebugLogger.Error(this.GetType().Name, "Can't find logfile name for checking if a new file is needed.");
+                return false;
+            }
+
+            logDay = logDay.Replace(".csv", string.Empty);
+            string currentDay = DateTime.Now.Day.ToString();
+            if (!logDay.Equals(currentDay))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -223,36 +250,6 @@ namespace CryostatControlServer.Logging
 
             specificDataLogger.WriteInitialLine(filePath, specificDataLogger.GetToBeLoggedOrNotToBeLogged());
             return new LoggerDataObject(specificDataLogger, filePath);
-        }
-
-        /// <summary>
-        /// The check if new file is needed.
-        /// </summary>
-        /// <param name="filepath">
-        /// The filepath.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        private bool NewFileIsNeeded(string filepath)
-        {
-            string logDay = Path.GetFileName(filepath);
-            if (logDay == null)
-            {
-                Console.WriteLine("Can't find logfile name.");
-                return false;
-
-                // TODO handle this
-            }
-
-            logDay = logDay.Replace(".csv", string.Empty);
-            string currentDay = DateTime.Now.Day.ToString();
-            if (!logDay.Equals(currentDay))
-            {
-                return true;
-            }
-
-            return false;
         }
 
         #endregion Methods
