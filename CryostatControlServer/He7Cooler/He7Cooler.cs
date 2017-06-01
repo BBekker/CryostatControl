@@ -15,6 +15,7 @@ namespace CryostatControlServer.He7Cooler
     using System.Linq;
     using System.Threading;
 
+    using CryostatControlServer.Logging;
     using CryostatControlServer.Properties;
 
     /// <summary>
@@ -223,7 +224,7 @@ namespace CryostatControlServer.He7Cooler
             }
             catch (AgilentException ex)
             {
-                Console.WriteLine("Reading values failed: " + ex.ToString());
+                DebugLogger.Error(this.GetType().Name, "Reading values failed: " + ex.ToString());
             }
         }
 
@@ -314,7 +315,7 @@ namespace CryostatControlServer.He7Cooler
             {
                 if (!this.device.IsConnected())
                 {
-                    Console.WriteLine("H7 cooler disconnected, trying to reconnect...");
+                    DebugLogger.Info(this.GetType().Name, "H7 cooler disconnected, trying to reconnect...");
                     try
                     {
                         this.device.Disconnect();
@@ -329,7 +330,7 @@ namespace CryostatControlServer.He7Cooler
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("Reconnecting failed");
+                        DebugLogger.Error(this.GetType().Name, "Reconnecting failed");
                     }
                 }
                 else

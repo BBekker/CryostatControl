@@ -7,6 +7,8 @@ namespace CryostatControlServer.Data
 {
     using System;
 
+    using CryostatControlServer.Logging;
+
     /// <summary>
     /// Class which returns a array filled with data according to <seealso cref="DataEnumerator"/>
     /// </summary>
@@ -97,9 +99,7 @@ namespace CryostatControlServer.Data
                 catch (Exception)
                 {
                     data[i] = float.NaN;
-#if DEBUG
-                    ////Console.WriteLine("Could not read sensor {0}", i);
-#endif
+                    DebugLogger.Warning(this.GetType().Name, "Could not read sensor" + i);
                 }
             }
         }
