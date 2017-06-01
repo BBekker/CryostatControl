@@ -8,64 +8,23 @@
 
 namespace CryostatControlClient.ViewModels
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
     /// <summary>
     /// The data context.
     /// </summary>
-    public class ViewModelContainer 
+    public class ViewModelContainer
     {
-        #region Fields
-
-        /// <summary>
-        /// The bluefors view model
-        /// </summary>
-        private BlueforsViewModel blueforsViewModel;
-
-        /// <summary>
-        /// The compressor view model
-        /// </summary>
-        private CompressorViewModel compressorViewModel;
-
-        /// <summary>
-        /// The he7 view model
-        /// </summary>
-        private He7ViewModel he7ViewModel;
-
-        /// <summary>
-        /// The logging view model
-        /// </summary>
-        private LoggingViewModel loggingViewModel;
-
-        /// <summary>
-        /// The modus view model
-        /// </summary>
-        private ModusViewModel modusViewModel;
-
-        #endregion Fields
-
-        #region Constructor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelContainer" /> class.
         /// </summary>
         public ViewModelContainer()
         {
-            this.blueforsViewModel = new BlueforsViewModel();
-            this.compressorViewModel = new CompressorViewModel();
-            this.he7ViewModel = new He7ViewModel();
-            this.loggingViewModel = new LoggingViewModel();
-            this.modusViewModel = new ModusViewModel();
+            this.BlueforsViewModel = new BlueforsViewModel();
+            this.CompressorViewModel = new CompressorViewModel();
+            this.He7ViewModel = new He7ViewModel();
+            this.LoggingViewModel = new LoggingViewModel();
+            this.ModusViewModel = new ModusViewModel();
+            this.SettingsViewModel = new SettingsViewModel();
         }
-
-        #endregion Constructor
-
-        #region Properties
 
         /// <summary>
         /// Gets the BlueforsViewModel.
@@ -73,13 +32,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The BlueforsViewModel.
         /// </value>
-        public BlueforsViewModel BlueforsViewModel
-        {
-            get
-            {
-                return this.blueforsViewModel;
-            }
-        }
+        public BlueforsViewModel BlueforsViewModel { get; }
 
         /// <summary>
         /// Gets the CompressorViewModel.
@@ -87,13 +40,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The CompressorViewModel.
         /// </value>
-        public CompressorViewModel CompressorViewModel
-        {
-            get
-            {
-                return this.compressorViewModel;
-            }
-        }
+        public CompressorViewModel CompressorViewModel { get; }
 
         /// <summary>
         /// Gets the He7ViewModel.
@@ -101,13 +48,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The He7ViewModel.
         /// </value>
-        public He7ViewModel He7ViewModel
-        {
-            get
-            {
-                return this.he7ViewModel;
-            }
-        }
+        public He7ViewModel He7ViewModel { get; }
 
         /// <summary>
         /// Gets the logging view model.
@@ -115,13 +56,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The logging view model.
         /// </value>
-        public LoggingViewModel LoggingViewModel
-        {
-            get
-            {
-                return this.loggingViewModel;
-            }
-        }
+        public LoggingViewModel LoggingViewModel { get; }
 
         /// <summary>
         /// Gets the modus view model.
@@ -129,14 +64,11 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The modus view model.
         /// </value>
-        public ModusViewModel ModusViewModel
-        {
-            get
-            {
-                return this.modusViewModel;
-            }
-        }
+        public ModusViewModel ModusViewModel { get; }
 
-        #endregion Properties
+        /// <summary>
+        /// Gets the settings view model.
+        /// </summary>
+        public SettingsViewModel SettingsViewModel { get; private set; }
     }
 }

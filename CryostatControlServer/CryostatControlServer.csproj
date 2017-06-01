@@ -106,6 +106,7 @@
     <Compile Include="HostService\Enumerators\HeaterEnumerator.cs" />
     <Compile Include="HostService\Enumerators\SettingEnumerator.cs" />
     <Compile Include="Data\ISensor.cs" />
+    <Compile Include="HostService\Enumerators\SettingEnumeratorDescription.cs" />
     <Compile Include="LakeShore\LakeShore.cs" />
     <Compile Include="LakeShore\Sensor.cs" />
     <Compile Include="LakeShore\SensorEnum.cs" />

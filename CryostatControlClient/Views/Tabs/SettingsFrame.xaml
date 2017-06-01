@@ -1,0 +1,28 @@
+﻿<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="1*"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition/>
+    </Grid.ColumnDefinitions>
+    <ItemsControl 
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        ItemsSource="{Binding SettingsViewModel.Settings}">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="{Binding Title}" Width="212" HorizontalAlignment="Left" Grid.Row="9" VerticalAlignment="Top" Grid.Column="1" />
+                    <xctk:DoubleUpDown MaxWidth="100" MinWidth="100" Value="{Binding Value}"  HorizontalAlignment="Left" Height="23" Margin="10,2,0,0" Text="TextBox" VerticalAlignment="Top" Width="80" Grid.Column="2" Grid.Row="9" />
+                    <Label Width="20" Content="{Binding Unit}" HorizontalAlignment="Left" Grid.Row="9" VerticalAlignment="Top" Grid.Column="3" />
+                </StackPanel>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <WrapPanel Orientation="Vertical" Height="Auto" Grid.Column="0" Grid.Row="0"/>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+    </ItemsControl>
+    <Button Content="Confirm" MaxWidth="300" Height="32" Width="83" Grid.Column="0" Grid.Row="1" Margin="5,5,5,5" Command="{Binding SettingsViewModel.ConfirmSettingsClick}"/>
+</Grid>
