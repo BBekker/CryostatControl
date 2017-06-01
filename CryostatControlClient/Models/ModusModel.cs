@@ -152,7 +152,7 @@ namespace CryostatControlClient.Models
         /// <value>
         ///   <c>true</c> if server connected; otherwise, <c>false</c>.
         /// </value>
-        public bool Server
+        public bool ServerConnection
         {
             get
             {

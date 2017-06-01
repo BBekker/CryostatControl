@@ -206,12 +206,12 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.modusModel.Server;
+                return this.modusModel.ServerConnection;
             }
 
             set
             {
-                this.modusModel.Server = value;
+                this.modusModel.ServerConnection = value;
                 this.RaisePropertyChanged("Server");
                 this.RaisePropertyChanged("ServerConverted");
             }
