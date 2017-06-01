@@ -29,11 +29,11 @@
                           <wsp:Policy>
                             <sp:ProtectionToken>
                               <wsp:Policy>
-                                <sp:SpnegoContextToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                                <mssp:SslContextToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient" xmlns:mssp="http://schemas.microsoft.com/ws/2005/07/securitypolicy">
                                   <wsp:Policy>
                                     <sp:RequireDerivedKeys />
                                   </wsp:Policy>
-                                </sp:SpnegoContextToken>
+                                </mssp:SslContextToken>
                               </wsp:Policy>
                             </sp:ProtectionToken>
                             <sp:AlgorithmSuite>
@@ -51,6 +51,15 @@
                             <sp:OnlySignEntireHeadersAndBody />
                           </wsp:Policy>
                         </sp:SymmetricBinding>
+                        <sp:SignedSupportingTokens>
+                          <wsp:Policy>
+                            <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                              <wsp:Policy>
+                                <sp:WssUsernameToken10 />
+                              </wsp:Policy>
+                            </sp:UsernameToken>
+                          </wsp:Policy>
+                        </sp:SignedSupportingTokens>
                         <sp:Wss11>
                           <wsp:Policy />
                         </sp:Wss11>
@@ -947,11 +956,11 @@
                           <wsp:Policy>
                             <sp:ProtectionToken>
                               <wsp:Policy>
-                                <sp:SpnegoContextToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                                <mssp:SslContextToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient" xmlns:mssp="http://schemas.microsoft.com/ws/2005/07/securitypolicy">
                                   <wsp:Policy>
                                     <sp:RequireDerivedKeys />
                                   </wsp:Policy>
-                                </sp:SpnegoContextToken>
+                                </mssp:SslContextToken>
                               </wsp:Policy>
                             </sp:ProtectionToken>
                             <sp:AlgorithmSuite>
@@ -969,6 +978,15 @@
                             <sp:OnlySignEntireHeadersAndBody />
                           </wsp:Policy>
                         </sp:SymmetricBinding>
+                        <sp:SignedSupportingTokens>
+                          <wsp:Policy>
+                            <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                              <wsp:Policy>
+                                <sp:WssUsernameToken10 />
+                              </wsp:Policy>
+                            </sp:UsernameToken>
+                          </wsp:Policy>
+                        </sp:SignedSupportingTokens>
                         <sp:Wss11>
                           <wsp:Policy />
                         </sp:Wss11>
@@ -1743,7 +1761,11 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:18000/SRON</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-696EJUAD\Maiko</Upn>
+          <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <X509Data>
+              <X509Certificate>MIIEsjCCApqgAwIBAgIQcI0YZjqiSaxDSTTUROYqKjANBgkqhkiG9w0BAQUFADAVMRMwEQYDVQQDEwpDbGllbnRDZXJ0MB4XDTE3MDUyNDIyMDAwMFoXDTI3MDUzMTIyMDAwMFowFTETMBEGA1UEAxMKQ2xpZW50Q2VydDCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALDSom5t+/BEKGsROMjKJLmsPCCtwigssxkChNf1ZFIk2xckfGYA+wren6/HU+lpeQarFnjiuK+fgk5JWONFV2r2yvgVPigNqkBVD7Sf975hW9qNTc5uJtjvwgI1Fd+oQIx3MQgROlZ8mr9ZEcgekXDUPT0eqPzVX2d+1RC4rpIrWbw++Njw5+X1S1X8WXQcdKoBBV4rBtf7zFXMIaX+c+U7DkBIVz3KHZ13mx9OwUYbkzsnKl+pmjhn4R0tPJOS2MzJoZERgHsrUuf5TfnaT24IS1Wme/cawaqpNHMm3Pkso/l8b1S9ptVJlFv1v0T6pAiN5DdZ/uWrvv7GmBp3XyiNPwRfosXHeuNwkfdx03rXcz+ACaA6ZRHKGMpMR58oeCWGGQafbF2MlYPdIDOS2TUx0YGgss6LE0ImK6TxFHRSzAmID02etGJzSsUizsAXH+UYX+sf712Yj/ElxsUyatm5OS1YS9RcEdF8kCqyQEVTJENcMmjLQnWh9pIxtuAUcsJsIswk6cJg3Jt9DCcECvuYIzK7SNh07gxNpRPDLkf1omEvnp+iaeTwV+KXMPh6anT98iBLyvyfHr0wTqmm25DzXTcwwYFCanJukYQpyPV8w/lcyaxcln7lLM9oGk4PLTT+iOu8ZLx7Zo0IA2UTSe0aELDUtHoN2vao69f+Leo7AgMBAAEwDQYJKoZIhvcNAQEFBQADggIBAETb9YsmupEXdjRa4uFrZxJHqO634lKZUxJ4rpMTLipuD7b6uF52trW2N23n6rz9zoKFPJ/JmzRF/B/vY3fhlymkjxd6pI7qPom4mU07W3vMfoOSPS4bv07N178zzEzoYUVj+839BbXkXgDRhruOUWqTU+B8LGhmFJGPq6GM24DAa/zf6xiRxKjyV+HlRd8vMhVk0h3UFgv0Rv3ALBrbOVYGmxu76hQZyuQhU1HzgMbyyNI7kd7yb6yA1Hx0ywyjbOr+XuwV+8toKpsaHosdoFJsfFgFnGPi9eTLH3+2DYnDTFajQKppFYA2KSdVOFOcFGmhiVq2ojAPmGMeoDiuUzcx+otDGDP96CRDU3lCiANWUnc7Trxmd7Q+gm8GdT5/awqFyhe2iKLkkE3bZ3d0fdL6foMyMzDxmiHtr9lPVWelpnQEOFgnwnlMVaUBOXY0OIdRmOV5B2KR937NM0+D+j+qjPufk16zV3JHWXsrTavaxaFmm5gCrPDtRGKB4cGTFkmvtAkWNDoRh1GkSxeZzoud1QVr5zbtjMK4c6qsZiVsnvPUoYAjSdWy+i8KyNftgZPfQqyNtOKxOxpJBHnTbYv7RXggYd0lddWJo1MeYCTjBzsehLvIIYk40pyAeBrAuz6ywZDLShFIs9XdpECLlDpmtY7LX2U8d1pkb5nqv7jR</X509Certificate>
+            </X509Data>
+          </KeyInfo>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1752,7 +1774,11 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:18001/SRON</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-696EJUAD\Maiko</Upn>
+          <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <X509Data>
+              <X509Certificate>MIIEsjCCApqgAwIBAgIQcI0YZjqiSaxDSTTUROYqKjANBgkqhkiG9w0BAQUFADAVMRMwEQYDVQQDEwpDbGllbnRDZXJ0MB4XDTE3MDUyNDIyMDAwMFoXDTI3MDUzMTIyMDAwMFowFTETMBEGA1UEAxMKQ2xpZW50Q2VydDCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALDSom5t+/BEKGsROMjKJLmsPCCtwigssxkChNf1ZFIk2xckfGYA+wren6/HU+lpeQarFnjiuK+fgk5JWONFV2r2yvgVPigNqkBVD7Sf975hW9qNTc5uJtjvwgI1Fd+oQIx3MQgROlZ8mr9ZEcgekXDUPT0eqPzVX2d+1RC4rpIrWbw++Njw5+X1S1X8WXQcdKoBBV4rBtf7zFXMIaX+c+U7DkBIVz3KHZ13mx9OwUYbkzsnKl+pmjhn4R0tPJOS2MzJoZERgHsrUuf5TfnaT24IS1Wme/cawaqpNHMm3Pkso/l8b1S9ptVJlFv1v0T6pAiN5DdZ/uWrvv7GmBp3XyiNPwRfosXHeuNwkfdx03rXcz+ACaA6ZRHKGMpMR58oeCWGGQafbF2MlYPdIDOS2TUx0YGgss6LE0ImK6TxFHRSzAmID02etGJzSsUizsAXH+UYX+sf712Yj/ElxsUyatm5OS1YS9RcEdF8kCqyQEVTJENcMmjLQnWh9pIxtuAUcsJsIswk6cJg3Jt9DCcECvuYIzK7SNh07gxNpRPDLkf1omEvnp+iaeTwV+KXMPh6anT98iBLyvyfHr0wTqmm25DzXTcwwYFCanJukYQpyPV8w/lcyaxcln7lLM9oGk4PLTT+iOu8ZLx7Zo0IA2UTSe0aELDUtHoN2vao69f+Leo7AgMBAAEwDQYJKoZIhvcNAQEFBQADggIBAETb9YsmupEXdjRa4uFrZxJHqO634lKZUxJ4rpMTLipuD7b6uF52trW2N23n6rz9zoKFPJ/JmzRF/B/vY3fhlymkjxd6pI7qPom4mU07W3vMfoOSPS4bv07N178zzEzoYUVj+839BbXkXgDRhruOUWqTU+B8LGhmFJGPq6GM24DAa/zf6xiRxKjyV+HlRd8vMhVk0h3UFgv0Rv3ALBrbOVYGmxu76hQZyuQhU1HzgMbyyNI7kd7yb6yA1Hx0ywyjbOr+XuwV+8toKpsaHosdoFJsfFgFnGPi9eTLH3+2DYnDTFajQKppFYA2KSdVOFOcFGmhiVq2ojAPmGMeoDiuUzcx+otDGDP96CRDU3lCiANWUnc7Trxmd7Q+gm8GdT5/awqFyhe2iKLkkE3bZ3d0fdL6foMyMzDxmiHtr9lPVWelpnQEOFgnwnlMVaUBOXY0OIdRmOV5B2KR937NM0+D+j+qjPufk16zV3JHWXsrTavaxaFmm5gCrPDtRGKB4cGTFkmvtAkWNDoRh1GkSxeZzoud1QVr5zbtjMK4c6qsZiVsnvPUoYAjSdWy+i8KyNftgZPfQqyNtOKxOxpJBHnTbYv7RXggYd0lddWJo1MeYCTjBzsehLvIIYk40pyAeBrAuz6ywZDLShFIs9XdpECLlDpmtY7LX2U8d1pkb5nqv7jR</X509Certificate>
+            </X509Data>
+          </KeyInfo>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

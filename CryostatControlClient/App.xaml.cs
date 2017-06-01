@@ -15,6 +15,7 @@ namespace CryostatControlClient
 
     using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.Communication;
+    using System.ServiceModel.Security;
 
     /// <summary>
     /// Interaction logic for <see cref="App.xaml"/>
@@ -98,11 +99,17 @@ namespace CryostatControlClient
             this.commandServiceClient = new CommandServiceClient();
             this.commandServiceClient.ClientCredentials.UserName.UserName = "test";
             this.CommandServiceClient.ClientCredentials.UserName.Password = "test123";
+            //this.commandServiceClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
+            //            X509CertificateValidationMode.None;
 
 
             DataClientCallback callback = new DataClientCallback(this);
             InstanceContext instanceContext = new InstanceContext(callback);
             DataGetClient dataClient = new DataGetClient(instanceContext);
+            dataClient.ClientCredentials.UserName.UserName = "test";
+            dataClient.ClientCredentials.UserName.Password = "test123";
+            //dataClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
+            //X509CertificateValidationMode.None;
             this.serverCheck = new ServerCheck(this, commandServiceClient, dataClient);
 
             try
@@ -112,9 +119,10 @@ namespace CryostatControlClient
                 dataClient.SubscribeForData(1000);
                 dataClient.SubscribeForUpdates();
             }
-            catch
+            catch (Exception ex)
             {
                 Console.WriteLine("No connection with server");
+                throw ex;                
             }
 
             ////Execute(this.Unsubscribe, 5000, dataClient);
