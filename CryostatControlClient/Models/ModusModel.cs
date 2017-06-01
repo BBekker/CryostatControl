@@ -34,6 +34,11 @@ namespace CryostatControlClient.Models
         private string time;
 
         /// <summary>
+        /// The server
+        /// </summary>
+        private bool serverConnection;
+
+        /// <summary>
         /// The show date time
         /// </summary>
         private string showDateTime;
@@ -138,6 +143,25 @@ namespace CryostatControlClient.Models
             set
             {
                 this.selectedComboIndex = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the server is connected.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if server connected; otherwise, <c>false</c>.
+        /// </value>
+        public bool ServerConnection
+        {
+            get
+            {
+                return this.serverConnection;
+            }
+
+            set
+            {
+                this.serverConnection = value;
             }
         }
 
