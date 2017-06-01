@@ -11,6 +11,7 @@ namespace CryostatControlClient.ViewModels
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Windows.Documents;
 
     using CryostatControlClient.Models;
@@ -18,14 +19,14 @@ namespace CryostatControlClient.ViewModels
     /// <summary>
     /// The message box view model.
     /// </summary>
-    public class MessageBoxViewModel : AbstractViewModel
+    public class MessageBoxViewModel : AbstractViewModel 
     {
         /// <summary>
         /// The message box model.
         /// </summary>
         private MessageBoxModel messageBoxModel;
 
-        private List<Notification> notifications;
+        private ObservableCollection<Notification> notifications;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageBoxViewModel"/> class.
@@ -33,7 +34,7 @@ namespace CryostatControlClient.ViewModels
         public MessageBoxViewModel()
         {
             this.messageBoxModel = new MessageBoxModel();
-            this.notifications = new List<Notification>();
+            this.notifications = new ObservableCollection<Notification>();
         }
 
         /// <summary>
@@ -59,7 +60,7 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets the message attributes.
         /// </summary>
-        public List<Notification> MessageAttributes
+        public ObservableCollection<Notification> MessageAttributes
         {
             get
             {
@@ -90,6 +91,9 @@ namespace CryostatControlClient.ViewModels
         public Notification CreateNotification(string[] data)
         {
             Notification notification = new Notification(data[0], data[1], data[2]);
+            Console.WriteLine(notification.Time);
+            Console.WriteLine(notification.Level);
+            Console.WriteLine(notification.Data);
             return notification;
         }
 

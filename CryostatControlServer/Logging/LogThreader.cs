@@ -93,6 +93,7 @@ namespace CryostatControlServer.Logging
         /// </param>
         public void StartSpecificDataLogging(int interval, bool[] toBeLoggedOrNotToBeLogged)
         {
+            NotificationSender.Info("Specific Data logging has started");
             if (this.specificLoggingInProgress)
             {
                 this.StopSpecificDataLogging();
@@ -110,6 +111,7 @@ namespace CryostatControlServer.Logging
         /// </summary>
         public void StopSpecificDataLogging()
         {
+            NotificationSender.Info("Specific Data logging has stopped");
             if (this.specificLoggingThread != null)
             {
                 this.specificLoggingThread.Dispose();

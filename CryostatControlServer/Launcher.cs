@@ -79,7 +79,6 @@ namespace CryostatControlServer
             logger = new LogThreader(new DataReader(compressor, he7Cooler, lakeShore));
             logger.StartGeneralDataLogging();
             StartHost();
-            NotificationSender.Info("Check out");
         }
 
         /// <summary>

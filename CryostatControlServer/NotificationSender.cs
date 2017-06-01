@@ -89,7 +89,7 @@ namespace CryostatControlServer
         /// </param>
         private static void SendData(string[] message)
         {
-            commandService.SendLogNotification(message);
+            commandService.UpdateNotification(message);
         }
     }
 }

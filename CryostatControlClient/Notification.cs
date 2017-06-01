@@ -9,6 +9,7 @@
 
 namespace CryostatControlClient
 {
+    using System.Collections.Specialized;
     using System.Windows.Media;
 
     using Color = System.Drawing.Color;
