@@ -13,6 +13,7 @@ namespace CryostatControlClient
     using System.Threading.Tasks;
     using System.Windows;
 
+    using CryostatControlClient.Communication;
     using CryostatControlClient.ServiceReference1;
 
     /// <summary>
@@ -26,6 +27,11 @@ namespace CryostatControlClient
         /// The command client
         /// </summary>
         private CommandServiceClient commandServiceClient;
+
+        /// <summary>
+        /// The server check
+        /// </summary>
+        private ServerCheck serverCheck;
 
         #endregion Fields
 
@@ -47,6 +53,20 @@ namespace CryostatControlClient
             set
             {
                 this.commandServiceClient = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the server check.
+        /// </summary>
+        /// <value>
+        /// The server check.
+        /// </value>
+        public ServerCheck ServerCheck
+        {
+            get
+            {
+                return this.serverCheck;
             }
         }
 
@@ -89,6 +109,7 @@ namespace CryostatControlClient
             DataClientCallback callback = new DataClientCallback(this);
             InstanceContext instanceContext = new InstanceContext(callback);
             DataGetClient dataClient = new DataGetClient(instanceContext);
+            this.serverCheck = new ServerCheck(this, this.commandServiceClient, dataClient);
 
             try
             {

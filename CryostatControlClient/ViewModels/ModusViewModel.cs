@@ -197,6 +197,46 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the server is connected.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if server connected; otherwise, <c>false</c>.
+        /// </value>
+        public bool ServerConnection
+        {
+            get
+            {
+                return this.modusModel.ServerConnection;
+            }
+
+            set
+            {
+                this.modusModel.ServerConnection = value;
+                this.RaisePropertyChanged("Server");
+                this.RaisePropertyChanged("ServerConverted");
+            }
+        }
+
+        /// <summary>
+        /// Gets the server converted.
+        /// </summary>
+        /// <value>
+        /// The server converted.
+        /// </value>
+        public string ServerConverted
+        {
+            get
+            {
+                if (this.ServerConnection)
+                {
+                    return "Connected";
+                }
+
+                return "Disconnected";
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the time.
         /// </summary>
         /// <value>
