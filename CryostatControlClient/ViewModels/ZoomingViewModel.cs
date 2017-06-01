@@ -9,10 +9,14 @@
 
 namespace CryostatControlClient.ViewModels
 {
+    using System;
     using System.Windows.Input;
+
+    using CryostatControlClient.Views.Tabs;
 
     using LiveCharts;
     using LiveCharts.Defaults;
+    using LiveCharts.Wpf;
 
     /// <summary>
     /// The zooming view model.
@@ -32,6 +36,31 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private ICommand zoomCommand;
 
+        /// <summary>
+        /// The reset command
+        /// </summary>
+        private ICommand resetCommand;
+
+        /// <summary>
+        /// The x axes collection
+        /// </summary>
+        private AxesCollection xAxesCollection;
+
+        /// <summary>
+        /// The y axes collection
+        /// </summary>
+        private AxesCollection yAxesCollection;
+
+        /// <summary>
+        /// The x axis
+        /// </summary>
+        private Axis xAxis;
+
+        /// <summary>
+        /// The y axis
+        /// </summary>
+        private Axis yAxis;
+
         #endregion Fields
 
         #region Constructor
@@ -44,11 +73,66 @@ namespace CryostatControlClient.ViewModels
             this.ZoomingMode = ZoomingOptions.X;
 
             this.zoomCommand = new RelayCommand(this.ToggleZoomingMode, param => true);
+            this.resetCommand = new RelayCommand(this.ResetZooming, param => true);
+
+            this.xAxis = new Axis();
+            this.xAxis.Title = "Time";
+            this.xAxesCollection = new AxesCollection();
+            this.xAxesCollection.Add(this.xAxis);
+
+            this.yAxis = new Axis();
+            this.yAxis.Title = "Kelvin";
+            this.yAxesCollection = new AxesCollection();
+            this.yAxesCollection.Add(this.yAxis);
+
+            this.xAxis.LabelFormatter = val => this.GetDateTime(val);
         }
 
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets the x axis collection.
+        /// </summary>
+        /// <value>
+        /// The x axis collection.
+        /// </value>
+        public AxesCollection XAxisCollection
+        {
+            get
+            {
+                return this.xAxesCollection;
+            }
+        }
+
+        /// <summary>
+        /// Gets the y axis collection.
+        /// </summary>
+        /// <value>
+        /// The y axis collection.
+        /// </value>
+        public AxesCollection YAxisCollection
+        {
+            get
+            {
+                return this.yAxesCollection;
+            }
+        }
+
+        /// <summary>
+        /// Gets the reset command.
+        /// </summary>
+        /// <value>
+        /// The reset command.
+        /// </value>
+        public ICommand ResetCommand
+        {
+            get
+            {
+                return this.resetCommand;
+            }
+        }
 
         /// <summary>
         /// Gets the zoom command.
@@ -111,6 +195,39 @@ namespace CryostatControlClient.ViewModels
                 default:
                     this.ZoomingMode = ZoomingOptions.None;
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Resets the zooming.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        private void ResetZooming(object sender)
+        {
+            this.xAxis.MinValue = double.NaN;
+            this.xAxis.MaxValue = double.NaN;
+            this.yAxis.MaxValue = double.NaN;
+            this.yAxis.MinValue = 0;
+
+            this.RaisePropertyChanged("XAxisCollection");
+            this.RaisePropertyChanged("YAxisCollection");
+        }
+
+        /// <summary>
+        /// Gets the date time.
+        /// </summary>
+        /// <param name="val">The value.</param>
+        /// <returns>Time in hours and minutes.</returns>
+        private string GetDateTime(double val)
+        {
+            try
+            {
+                return new DateTime((long)val).ToString("HH:mm");
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine(e.ToString());
+                return string.Empty;
             }
         }
 
