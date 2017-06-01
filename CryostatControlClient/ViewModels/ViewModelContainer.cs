@@ -45,6 +45,10 @@ namespace CryostatControlClient.ViewModels
         private ModusViewModel modusViewModel;
 
         /// <summary>
+        /// The message box view model.
+        /// </summary>
+        private MessageBoxViewModel messageBoxViewModel;
+
         /// The zooming view model
         /// </summary>
         private ZoomingViewModel zoomingViewModel;
@@ -78,6 +82,7 @@ namespace CryostatControlClient.ViewModels
             this.he7ViewModel = new He7ViewModel();
             this.loggingViewModel = new LoggingViewModel();
             this.modusViewModel = new ModusViewModel();
+            this.messageBoxViewModel = new MessageBoxViewModel();
             this.zoomingViewModel = new ZoomingViewModel();
 
             this.InitSeriesCollection();
@@ -206,6 +211,16 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
+        /// Gets the message box view model.
+        /// </summary>
+        public MessageBoxViewModel MessageBoxViewModel
+        {
+            get
+            {
+                return this.messageBoxViewModel;
+            }
+        }
+
         /// Gets the zooming view model.
         /// </summary>
         /// <value>

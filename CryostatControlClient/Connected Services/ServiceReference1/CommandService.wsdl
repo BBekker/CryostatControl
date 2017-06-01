@@ -1215,6 +1215,29 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IDataGet_UpdateNotification_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="https://localhost:18081/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -1379,6 +1402,9 @@
   <wsdl:message name="IDataGet_SetLoggingState_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:SetLoggingState" />
   </wsdl:message>
+  <wsdl:message name="IDataGet_UpdateNotification_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:UpdateNotification" />
+  </wsdl:message>
   <wsdl:portType name="ICommandService">
     <wsdl:operation name="IsAlive">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/IsAlive" message="tns:ICommandService_IsAlive_InputMessage" />
@@ -1491,6 +1517,9 @@
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SetLoggingState">
       <wsdl:output wsaw:Action="http://tempuri.org/IDataGet/SetLoggingState" message="tns:IDataGet_SetLoggingState_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UpdateNotification">
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataGet/UpdateNotification" message="tns:IDataGet_UpdateNotification_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSHttpBinding_ICommandService" type="tns:ICommandService">
@@ -1792,6 +1821,13 @@
       <soap12:operation soapAction="http://tempuri.org/IDataGet/SetLoggingState" style="document" />
       <wsdl:output>
         <wsp:PolicyReference URI="#WSDualHttpBinding_IDataGet_SetLoggingState_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateNotification">
+      <soap12:operation soapAction="http://tempuri.org/IDataGet/UpdateNotification" style="document" />
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IDataGet_UpdateNotification_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

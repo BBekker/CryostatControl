@@ -313,6 +313,21 @@ namespace CryostatControlServer.HostService
         }
 
         /// <summary>
+        /// The send log notification.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public void UpdateNotification(string[] message)
+        {
+            foreach (IDataGetCallback callback in this.updateListeners.Reverse<IDataGetCallback>())
+            {
+                Thread thread = new Thread(() => this.UpdateNotification(callback, message));
+                thread.Start();
+            }
+        }
+
+        /// <summary>
         /// Sets the state of the logging to all clients.
         /// </summary>
         /// <param name="status">if set to <c>true</c> [status].</param>
@@ -335,6 +350,27 @@ namespace CryostatControlServer.HostService
             try
             {
                 callback.SetLoggingState(status);
+            }
+            catch
+            {
+                this.updateListeners.Remove(callback);
+            }
+        }
+
+        /// <summary>
+        /// The send log notification.
+        /// </summary>
+        /// <param name="callback">
+        /// The callback.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        private void UpdateNotification(IDataGetCallback callback, string[] message)
+        {
+            try
+            {
+                callback.UpdateNotification(message);
             }
             catch
             {
