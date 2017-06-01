@@ -683,7 +683,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Converts the int to preset.
+        /// Converts the integer to preset.
         /// </summary>
         /// <param name="presetNumber">The preset number.</param>
         public void ConvertIntToPreset(int presetNumber)
@@ -749,7 +749,7 @@ namespace CryostatControlClient.ViewModels
         /// The on click start.
         /// </summary>
         /// <param name="obj">
-        /// The obj.
+        /// The object.
         /// </param>
         public void OnClickStart(object obj)
         {
@@ -760,7 +760,7 @@ namespace CryostatControlClient.ViewModels
         /// The on click cancel.
         /// </summary>
         /// <param name="obj">
-        /// The obj.
+        /// The object.
         /// </param>
         public void OnClickCancel(object obj)
         {

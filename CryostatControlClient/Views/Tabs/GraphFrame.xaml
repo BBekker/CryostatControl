@@ -1,8 +1,66 @@
 ﻿<Grid x:Class="CryostatControlClient.Views.Tabs.GraphFrame"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      xmlns:viewModels="clr-namespace:CryostatControlClient.ViewModels"
       Background="{DynamicResource MaterialDesignPaper}">
+    <Grid.Resources>
+        <viewModels:ZoomingModeConverter x:Key="ZoomingModeConverter"></viewModels:ZoomingModeConverter>
+    </Grid.Resources>
 
-    <TextBlock Text="GraphFrame" />
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
 
+    <Grid Grid.Column="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" VerticalAlignment="Center">
+            <Label HorizontalAlignment="Center" >Currently zooming</Label>
+            <Label HorizontalAlignment="Center" Content="{Binding ZoomingViewModel.ZoomingMode, Converter={StaticResource ZoomingModeConverter}}"/>
+            <Button Margin="5" Command="{Binding ZoomingViewModel.ZoomCommand}">Toggle Zoom Axis</Button>
+            <Button Margin="5" Command="{Binding ZoomingViewModel.ResetCommand}">Reset zooming</Button>
+
+            <StackPanel Margin="10 10 0 0" VerticalAlignment="Center">
+                <CheckBox Command="{Binding BlueforsViewModel.ColdPlate3KVisibilityCommand}" IsChecked="True" Background="DodgerBlue">
+                    Bluefors - 3K Plate
+                </CheckBox>
+                <CheckBox Command="{Binding BlueforsViewModel.ColdPlate50KVisibilityCommand}" IsChecked="True" Background="Red">
+                    Bluefors - 50K Plate
+                </CheckBox>
+                <CheckBox Command="{Binding He7ViewModel.TwoKPlateVisibilityCommand}" IsChecked="True" Background="CadetBlue">
+                    He7 - 2K Plate
+                </CheckBox>
+                <CheckBox Command="{Binding He7ViewModel.FourKPlateVisibilityCommand}" IsChecked="True" Background="Orange">
+                    He7 - 4K Plate
+                </CheckBox>
+                <CheckBox Command="{Binding He7ViewModel.He3HeadVisibilityCommand}" IsChecked="True" Background="DeepSkyBlue">
+                    He7 - He3 Head
+                </CheckBox>
+                <CheckBox Command="{Binding He7ViewModel.He3SwitchVisibilityCommand}" IsChecked="True" Background="DeepPink">
+                    He7 - He3 Switch
+                </CheckBox>
+                <CheckBox Command="{Binding He7ViewModel.He3PumpVisibilityCommand}" IsChecked="True" Background="OrangeRed">
+                    He7 - He3 Pump
+                </CheckBox>
+                <CheckBox Command="{Binding He7ViewModel.He4HeadVisibilityCommand}" IsChecked="True" Background="BlueViolet">
+                    He7 - He4 Head
+                </CheckBox>
+                <CheckBox Command="{Binding He7ViewModel.He4SwitchVisibilityCommand}" IsChecked="True" Background="GreenYellow">
+                    He7 - He4 Switch
+                </CheckBox>
+                <CheckBox Command="{Binding He7ViewModel.He4PumpVisibilityCommand}" IsChecked="True" Background="LightSeaGreen">
+                    He7 - He4 Pump
+                </CheckBox>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+
+
+    <wpf:CartesianChart Name="CartesianChart1" Grid.Column="1" Series="{Binding SeriesCollection}" Margin="0 5 5 5" DisableAnimations="True" Hoverable="False" Zoom="{Binding ZoomingViewModel.ZoomingMode}" 
+                        AxisY="{Binding ZoomingViewModel.YAxisCollection}" AxisX="{Binding ZoomingViewModel.XAxisCollection}">
+    </wpf:CartesianChart>
 </Grid>
