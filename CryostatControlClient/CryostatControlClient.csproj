@@ -139,9 +139,6 @@
     <Compile Include="Views\MessageBox.xaml.cs">
       <DependentUpon>MessageBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingsFrame.xaml.cs">
-      <DependentUpon>SettingsFrame.xaml</DependentUpon>
-    </Compile>
     <Page Include="Views\MainGraphFrame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

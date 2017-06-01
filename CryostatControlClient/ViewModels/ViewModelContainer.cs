@@ -11,6 +11,7 @@ namespace CryostatControlClient.ViewModels
     using System;
     using CryostatControlClient.ViewModels;
     using LiveCharts;
+
     /// <summary>
     /// The data context.
     /// </summary>
@@ -37,7 +38,7 @@ namespace CryostatControlClient.ViewModels
         #region Properties
 
         /// <summary>
-        /// Gets the series collection.
+        /// Gets or sets the series collection.
         /// </summary>
         /// <value>
         /// The series collection.
@@ -45,7 +46,7 @@ namespace CryostatControlClient.ViewModels
         public SeriesCollection SeriesCollection { get; set; }
 
         /// <summary>
-        /// Gets the series collection.
+        /// Gets or sets the series collection.
         /// </summary>
         /// <value>
         /// The series collection.
@@ -102,20 +103,16 @@ namespace CryostatControlClient.ViewModels
         public ModusViewModel ModusViewModel { get; }
 
         /// <summary>
-        /// Gets the message box view model.
+        /// Gets or sets the message box view model.
         /// </summary>
-        public MessageBoxViewModel MessageBoxViewModel
-        {
-            get
-            {
-                return this.messageBoxViewModel;
-            }
-        }
-
+        public MessageBoxViewModel MessageBoxViewModel { get; set; }
+        
+        /// <summary>
         /// Gets the settings view model.
         /// </summary>
         public SettingsViewModel SettingsViewModel { get; private set; }
 
+        /// <summary>
         /// Gets the zooming view model.
         /// </summary>
         /// <value>
