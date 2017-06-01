@@ -23,5 +23,10 @@ namespace CryostatControlServer.LakeShore
         /// The sensor 2.
         /// </summary>
         Sensor2,
+
+        /// <summary>
+        /// The heater power.
+        /// </summary>
+        HeaterPower,
     }
 }
