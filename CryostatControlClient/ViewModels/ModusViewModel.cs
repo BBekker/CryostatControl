@@ -202,7 +202,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         ///   <c>true</c> if server connected; otherwise, <c>false</c>.
         /// </value>
-        public bool Server
+        public bool ServerConnection
         {
             get
             {
@@ -227,7 +227,7 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                if (this.Server)
+                if (this.ServerConnection)
                 {
                     return "Connected";
                 }

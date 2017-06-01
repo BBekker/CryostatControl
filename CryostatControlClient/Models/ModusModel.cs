@@ -36,7 +36,7 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The server
         /// </summary>
-        private bool server;
+        private bool serverConnection;
 
         /// <summary>
         /// The show date time
@@ -156,12 +156,12 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.server;
+                return this.serverConnection;
             }
 
             set
             {
-                this.server = value;
+                this.serverConnection = value;
             }
         }
 

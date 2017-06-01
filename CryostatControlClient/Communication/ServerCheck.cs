@@ -131,7 +131,7 @@ namespace CryostatControlClient.Communication
         {
             this.mainApp.Dispatcher.Invoke(() =>
             {
-                (this.mainApp.MainWindow as MainWindow).Container.ModusViewModel.Server = state;
+                (this.mainApp.MainWindow as MainWindow).Container.ModusViewModel.ServerConnection = state;
             });
         }
     }

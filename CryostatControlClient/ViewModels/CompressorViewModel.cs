@@ -394,7 +394,6 @@ namespace CryostatControlClient.ViewModels
 
             set
             {
-                Console.WriteLine("Dingen3 " + value);
                 this.compressorModel.PressureScale = value;
                 this.RaisePropertyChanged("PressureScale");
                 this.RaisePropertyChanged("PressureScaleConverted");
@@ -411,7 +410,6 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                Console.WriteLine("Dingen2 " + this.ConvertPressureScaleToString((int)this.compressorModel.PressureScale));
                 return this.ConvertPressureScaleToString((int)this.compressorModel.PressureScale);
             }
         }

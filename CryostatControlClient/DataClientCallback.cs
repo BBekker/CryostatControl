@@ -56,10 +56,7 @@ namespace CryostatControlClient
                 {
                     this.mainWindow = this.mainApp.MainWindow as MainWindow;
                 }
-                else
-                {
-                    this.mainWindow.UpdateViewModels(data);
-                }
+                this.mainWindow.UpdateViewModels(data);
             });
         }
 
@@ -75,10 +72,7 @@ namespace CryostatControlClient
                 {
                     this.mainWindow = this.mainApp.MainWindow as MainWindow;
                 }
-                else
-                {
-                    this.mainWindow.SetState(modus);
-                }
+                this.mainWindow.SetState(modus);
             });
         }
 
@@ -94,10 +88,7 @@ namespace CryostatControlClient
                 {
                     this.mainWindow = this.mainApp.MainWindow as MainWindow;
                 }
-                else
-                {
-                    this.mainWindow.SetIsLogging(status);
-                }
+                this.mainWindow.SetIsLogging(status);
             });
         }
 
