@@ -588,6 +588,7 @@ namespace CryostatControlServer
                 case Controlstate.Manual: break;
 
                 case Controlstate.CooldownStart:
+
                     this.lakeshore.SetHeater(false);
                     if (DateTime.Now > this.startTime)
                     {
@@ -802,7 +803,7 @@ namespace CryostatControlServer
                         {
                             this.compressor.TurnOn();
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
                         }
                     }
@@ -814,7 +815,7 @@ namespace CryostatControlServer
                         {
                             this.compressor.TurnOff();
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
                         }
                     }

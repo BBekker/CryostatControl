@@ -94,6 +94,7 @@ namespace CryostatControlClient
             {
                 Console.WriteLine("Server is alive: {0}", this.commandServiceClient.IsAlive());
                 Console.WriteLine("Subscribed for data");
+
                 dataClient.SubscribeForData(1000);
                 dataClient.SubscribeForUpdates();
             }
@@ -103,7 +104,6 @@ namespace CryostatControlClient
             }
 
             ////Execute(this.Unsubscribe, 5000, dataClient);
-
         }
 
         #endregion Methods
