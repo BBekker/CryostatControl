@@ -10,6 +10,7 @@
 namespace CryostatControlClient.Models
 {
     using System;
+    using System.Windows;
 
     using LiveCharts;
     using LiveCharts.Defaults;
@@ -297,6 +298,158 @@ namespace CryostatControlClient.Models
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the two k plate visibility.
+        /// </summary>
+        /// <value>
+        /// The two k plate visibility.
+        /// </value>
+        public Visibility TwoKPlateVisibility
+        {
+            get
+            {
+                return this.twoKPlateLineSeries.Visibility;
+            }
+
+            set
+            {
+                this.twoKPlateLineSeries.Visibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the four k plate visibility.
+        /// </summary>
+        /// <value>
+        /// The four k plate visibility.
+        /// </value>
+        public Visibility FourKPlateVisibility
+        {
+            get
+            {
+                return this.fourKPlateLineSeries.Visibility;
+            }
+
+            set
+            {
+                this.fourKPlateLineSeries.Visibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he3 head plate visibility.
+        /// </summary>
+        /// <value>
+        /// The he3 head plate visibility.
+        /// </value>
+        public Visibility He3HeadVisibility
+        {
+            get
+            {
+                return this.he3HeadLineSeries.Visibility;
+            }
+
+            set
+            {
+                this.he3HeadLineSeries.Visibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he3 switch visibility.
+        /// </summary>
+        /// <value>
+        /// The he3 switch visibility.
+        /// </value>
+        public Visibility He3SwitchVisibility
+        {
+            get
+            {
+                return this.he3SwitchLineSeries.Visibility;
+            }
+
+            set
+            {
+                this.he3SwitchLineSeries.Visibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he3 pump visibility.
+        /// </summary>
+        /// <value>
+        /// The he3 pump visibility.
+        /// </value>
+        public Visibility He3PumpVisibility
+        {
+            get
+            {
+                return this.he3PumpLineSeries.Visibility;
+            }
+
+            set
+            {
+                this.he3PumpLineSeries.Visibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he4 head visibility.
+        /// </summary>
+        /// <value>
+        /// The he4 head visibility.
+        /// </value>
+        public Visibility He4HeadVisibility
+        {
+            get
+            {
+                return this.he4HeadLineSeries.Visibility;
+            }
+
+            set
+            {
+                this.he4HeadLineSeries.Visibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he4 switch visibility.
+        /// </summary>
+        /// <value>
+        /// The he4 switch visibility.
+        /// </value>
+        public Visibility He4SwitchVisibility
+        {
+            get
+            {
+                return this.he4SwitchLineSeries.Visibility;
+            }
+
+            set
+            {
+                this.he4SwitchLineSeries.Visibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he4 pump visibility.
+        /// </summary>
+        /// <value>
+        /// The he4 pump visibility.
+        /// </value>
+        public Visibility He4PumpVisibility
+        {
+            get
+            {
+                return this.he4PumpLineSeries.Visibility;
+            }
+
+            set
+            {
+                this.he4PumpLineSeries.Visibility = value;
+            }
+        }
 
         /// <summary>
         /// Gets the he4 head line series.

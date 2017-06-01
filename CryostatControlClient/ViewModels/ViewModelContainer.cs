@@ -272,6 +272,7 @@ namespace CryostatControlClient.ViewModels
             }
             catch (ArgumentOutOfRangeException e)
             {
+                Console.WriteLine(e.ToString());
                 return string.Empty;
             }
         }

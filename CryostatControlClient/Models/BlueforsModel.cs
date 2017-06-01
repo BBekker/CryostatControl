@@ -6,6 +6,9 @@
 namespace CryostatControlClient.Models
 {
     using System;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Media;
 
     using LiveCharts;
     using LiveCharts.Defaults;
@@ -102,6 +105,44 @@ namespace CryostatControlClient.Models
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the cold plate3 k visibility.
+        /// </summary>
+        /// <value>
+        /// The cold plate3 k visibility.
+        /// </value>
+        public Visibility ColdPlate3KVisibility
+        {
+            get
+            {
+                return this.coldPlate3KLineSeries.Visibility;
+            }
+
+            set
+            {
+                this.coldPlate3KLineSeries.Visibility = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the cold plate50 k visibility.
+        /// </summary>
+        /// <value>
+        /// The cold plate50 k visibility.
+        /// </value>
+        public Visibility ColdPlate50KVisibility
+        {
+            get
+            {
+                return this.coldPlate50KLineSeries.Visibility;
+            }
+
+            set
+            {
+                this.coldPlate50KLineSeries.Visibility = value;
+            }
+        }
 
         /// <summary>
         /// Gets the cold plate 3 k line series.

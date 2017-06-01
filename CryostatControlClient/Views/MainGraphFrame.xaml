@@ -13,7 +13,7 @@
                     <wpf:Axis Title="Time" LabelFormatter="{Binding XFormatter}" />
                 </wpf:CartesianChart.AxisX>
                 <wpf:CartesianChart.AxisY >
-                    <wpf:Axis Title="Kelvin" />
+                    <wpf:Axis Title="Kelvin" MinValue="0" />
                 </wpf:CartesianChart.AxisY>
             </wpf:CartesianChart>
         </Grid>
