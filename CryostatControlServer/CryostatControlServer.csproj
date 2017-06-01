@@ -115,6 +115,7 @@
     <Compile Include="HostService\Enumerators\HeaterEnumerator.cs" />
     <Compile Include="HostService\Enumerators\SettingEnumerator.cs" />
     <Compile Include="Data\ISensor.cs" />
+    <Compile Include="HostService\Enumerators\SettingEnumeratorDescription.cs" />
     <Compile Include="HostService\PasswordValidator.cs" />
     <Compile Include="LakeShore\LakeShore.cs" />
     <Compile Include="LakeShore\Sensor.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Logging\LoggerDataObject.cs" />
     <Compile Include="Logging\SpecificDataLogger.cs" />
     <Compile Include="Logging\LogThreader.cs" />
+    <Compile Include="NotificationSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

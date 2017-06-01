@@ -260,7 +260,7 @@
         </Grid>
     </Border>
 
-    <Button Grid.Row="7" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="3" IsEnabled="{Binding He7ViewModel.UpdateModus}" MaxWidth="300" MaxHeight="50" Command="{Binding He7ViewModel.UpdateButtonCommand}">Set Voltages</Button>
+    <Button Grid.Row="7" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="3" MaxWidth="300" MaxHeight="50" BorderBrush="Black" Command="{Binding He7ViewModel.UpdateButtonCommand}" IsEnabled="{Binding He7ViewModel.UpdateEnable}">Set Voltages</Button>
 
     <Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="0 3 0 0" VerticalAlignment="Center"/>
     <Border Grid.Row="1" Grid.Column="6" BorderBrush="Black" BorderThickness="0 3 0 0" VerticalAlignment="Center"/>

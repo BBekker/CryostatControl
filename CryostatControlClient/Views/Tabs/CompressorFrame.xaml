@@ -123,23 +123,23 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="0" Grid.Row="0">Pressure:</Label>
-            <Label Grid.Column="0" Grid.Row="1">Avg. Pressure:</Label>
+            <Label Grid.Column="0" Grid.Row="0">Low Pressure:</Label>
+            <Label Grid.Column="0" Grid.Row="1">Avg. Low Pressure:</Label>
             <Label Grid.Column="0" Grid.Row="2">Avg. Delta Pressure:</Label>
 
-            <StackPanel Grid.Column="1" Grid.Row="0">
+            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
                 <Label Content="{Binding CompressorViewModel.LowPressure}" ContentStringFormat="{}{0:N0}"/>
                 <Label Content="{Binding CompressorViewModel.PressureScaleConverted}" />
             </StackPanel>
-            <StackPanel Grid.Column="1" Grid.Row="1">
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
                 <Label Content="{Binding CompressorViewModel.LowPressureAverage}" ContentStringFormat="{}{0:N0}"/>
                 <Label Content="{Binding CompressorViewModel.PressureScaleConverted}" />
             </StackPanel>
-            <StackPanel Grid.Column="1" Grid.Row="2">
+            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
                 <Label Content="{Binding CompressorViewModel.DeltaPressureAverage}" ContentStringFormat="{}{0:N0}"/>
                 <Label Content="{Binding CompressorViewModel.PressureScaleConverted}" />
             </StackPanel>
@@ -172,18 +172,18 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="0" Grid.Row="0">Pressure:</Label>
-            <Label Grid.Column="0" Grid.Row="1">Avg. Pressure:</Label>
+            <Label Grid.Column="0" Grid.Row="0">High Pressure:</Label>
+            <Label Grid.Column="0" Grid.Row="1">Avg. High Pressure:</Label>
 
-            <StackPanel Grid.Column="1" Grid.Row="0">
+            <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
                 <Label Content="{Binding CompressorViewModel.HighPressure}" ContentStringFormat="{}{0:N0}"/>
                 <Label Content="{Binding CompressorViewModel.PressureScaleConverted}" />
             </StackPanel>
-            <StackPanel Grid.Column="1" Grid.Row="1">
+            <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
                 <Label Content="{Binding CompressorViewModel.HighPressureAverage}" ContentStringFormat="{}{0:N0}"/>
                 <Label Content="{Binding CompressorViewModel.PressureScaleConverted}" />
             </StackPanel>
@@ -204,7 +204,7 @@
     <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center">
         <StackPanel Orientation="Horizontal">
             <Label>Hours of operation:</Label>
-            <Label Content="{Binding CompressorViewModel.HoursOfOperation}" />    
+            <Label Content="{Binding CompressorViewModel.HoursOfOperation}" ContentStringFormat="{}{0:N0}"/>    
         </StackPanel>
         
     </Grid>

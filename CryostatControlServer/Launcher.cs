@@ -30,11 +30,6 @@ namespace CryostatControlServer
         private const string CoolerHost = "192.168.1.100";
 
         /// <summary>
-        /// The host address
-        /// </summary>
-        private const string HostAddress = "http://localhost:8080/SRON";
-
-        /// <summary>
         /// The compressor
         /// </summary>
         private static Compressor.Compressor compressor;
@@ -136,18 +131,23 @@ namespace CryostatControlServer
         /// </summary>
         private static void StartHost()
         {
-            CommandService hostService = new CommandService(cryostatControl, logger);
-            using (ServiceHost host = new ServiceHost(hostService))
-            {
-                ((ServiceBehaviorAttribute)host.Description.Behaviors[typeof(ServiceBehaviorAttribute)])
-                    .InstanceContextMode = InstanceContextMode.Single;
-                host.Open();
-                Console.WriteLine("The service is ready");
-                Console.WriteLine("Press <Enter> to stop the service.");
-                Console.ReadLine();
-                host.Close();
-            }
-
+                CommandService hostService = new CommandService(cryostatControl, logger);
+                NotificationSender.Init(hostService);
+                using (ServiceHost host = new ServiceHost(hostService))
+                {
+                    // Enable metadata publishing.
+                    ////ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+                    ////smb.HttpGetEnabled = true;
+                    ////smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
+                    ////host.Description.Behaviors.Add(smb);
+                    ((ServiceBehaviorAttribute)host.Description.Behaviors[typeof(ServiceBehaviorAttribute)])
+                        .InstanceContextMode = InstanceContextMode.Single;
+                    host.Open();
+                    Console.WriteLine("The service is ready");
+                    Console.WriteLine("Press <Enter> to stop the service.");
+                    Console.ReadLine();
+                    host.Close();
+                }
         }
     }
 

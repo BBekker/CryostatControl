@@ -12,7 +12,6 @@ namespace CryostatControlClient.Communication
     using System;
     using System.ServiceModel;
 
-    using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.ViewModels;
 
     using CryostatControlServer.HostService.DataContracts;
@@ -28,19 +27,19 @@ namespace CryostatControlClient.Communication
         /// <summary>
         /// The command service client
         /// </summary>
-        private CommandServiceClient commandServiceClient;
+        private ServerCheck server;
 
         #endregion Fields
 
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataSender"/> class.
+        /// Initializes a new instance of the <see cref="DataSender" /> class.
         /// </summary>
-        /// <param name="csc">The command service client.</param>
-        public DataSender(CommandServiceClient csc)
+        /// <param name="server">The server.</param>
+        public DataSender(ServerCheck server)
         {
-            this.commandServiceClient = csc;
+            this.server = server;
         }
 
         #endregion Constructor
@@ -66,15 +65,15 @@ namespace CryostatControlClient.Communication
                 switch (radio)
                 {
                     case (int)ModusEnumerator.Cooldown:
-                        this.commandServiceClient.CooldownTime(startTime);
+                        this.server.CommandClient.CooldownTime(startTime);
                         break;
 
                     case (int)ModusEnumerator.Recycle:
-                        this.commandServiceClient.RecycleTime(startTime);
+                        this.server.CommandClient.RecycleTime(startTime);
                         break;
 
                     case (int)ModusEnumerator.Warmup:
-                        this.commandServiceClient.WarmupTime(startTime);
+                        this.server.CommandClient.WarmupTime(startTime);
                         break;
                 }
             }
@@ -83,15 +82,15 @@ namespace CryostatControlClient.Communication
                 switch (radio)
                 {
                     case (int)ModusEnumerator.Cooldown:
-                        this.commandServiceClient.Cooldown();
+                        this.server.CommandClient.Cooldown();
                         break;
 
                     case (int)ModusEnumerator.Recycle:
-                        this.commandServiceClient.Recycle();
+                        this.server.CommandClient.Recycle();
                         break;
 
                     case (int)ModusEnumerator.Warmup:
-                        this.commandServiceClient.Warmup();
+                        this.server.CommandClient.Warmup();
                         break;
                 }
             }
@@ -103,7 +102,7 @@ namespace CryostatControlClient.Communication
         /// <param name="state">if set to <c>true</c> [state].</param>
         public void SwitchCompressor(bool state)
         {
-            this.commandServiceClient.SetCompressorState(state);
+            this.server.CommandClient.SetCompressorState(state);
         }
 
         /// <summary>
@@ -111,7 +110,7 @@ namespace CryostatControlClient.Communication
         /// </summary>
         public void ManualModus()
         {
-            this.commandServiceClient.Manual();
+            this.server.CommandClient.Manual();
         }
 
         /// <summary>
@@ -123,11 +122,12 @@ namespace CryostatControlClient.Communication
             try
             {
                 viewModelContainer.CompressorViewModel.TempScale =
-                    this.commandServiceClient.ReadCompressorTemperatureScale();
+                    this.server.CommandClient.ReadCompressorTemperatureScale();
                 viewModelContainer.CompressorViewModel.PressureScale =
-                    this.commandServiceClient.ReadCompressorPressureScale();
+                    this.server.CommandClient.ReadCompressorPressureScale();
+                Console.WriteLine("Dingen");
             }
-            catch
+            catch (Exception)
             {
                 Console.WriteLine("Something went wrong with the server");
             }
@@ -141,7 +141,7 @@ namespace CryostatControlClient.Communication
         {
             try
             {
-                viewModelContainer.LoggingViewModel.LoggingInProgress = this.commandServiceClient.IsLogging();
+                viewModelContainer.LoggingViewModel.LoggingInProgress = this.server.CommandClient.IsLogging();
             }
             catch
             {
@@ -154,7 +154,7 @@ namespace CryostatControlClient.Communication
         /// </summary>
         public void CancelModus()
         {
-            this.commandServiceClient.Cancel();
+            this.server.CommandClient.Cancel();
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace CryostatControlClient.Communication
         {
             try
             {
-                this.commandServiceClient.WriteHelium7(
+                this.server.CommandClient.WriteHelium7(
                     (int)HeaterEnumerator.He4Pump,
                     viewModelContainer.He7ViewModel.He4PumpNewVolt);
             }
@@ -176,7 +176,7 @@ namespace CryostatControlClient.Communication
 
             try
             {
-                this.commandServiceClient.WriteHelium7(
+                this.server.CommandClient.WriteHelium7(
                     (int)HeaterEnumerator.He3Pump,
                     viewModelContainer.He7ViewModel.He3PumpNewVolt);
             }
@@ -187,7 +187,7 @@ namespace CryostatControlClient.Communication
 
             try
             {
-                this.commandServiceClient.WriteHelium7(
+                this.server.CommandClient.WriteHelium7(
                     (int)HeaterEnumerator.He3Switch,
                     viewModelContainer.He7ViewModel.He3SwitchNewVolt);
             }
@@ -198,7 +198,7 @@ namespace CryostatControlClient.Communication
 
             try
             {
-                this.commandServiceClient.WriteHelium7(
+                this.server.CommandClient.WriteHelium7(
                     (int)HeaterEnumerator.He4Switch,
                     viewModelContainer.He7ViewModel.He4SwitchNewVolt);
             }
@@ -234,7 +234,7 @@ namespace CryostatControlClient.Communication
             bool[] dataToBeLogged = viewModelContainer.LoggingViewModel.GetLoggingArray();
             int interval = (int)viewModelContainer.LoggingViewModel.LoggingInterval;
 
-            this.commandServiceClient.StartLogging(interval, dataToBeLogged);
+            this.server.CommandClient.StartLogging(interval, dataToBeLogged);
         }
 
         /// <summary>
@@ -242,7 +242,7 @@ namespace CryostatControlClient.Communication
         /// </summary>
         public void CancelLogging()
         {
-            this.commandServiceClient.CancelLogging();
+            this.server.CommandClient.CancelLogging();
         }
 
         #endregion Methods
