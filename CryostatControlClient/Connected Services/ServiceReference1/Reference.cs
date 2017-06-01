@@ -89,6 +89,12 @@ namespace CryostatControlClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteHelium7", ReplyAction="http://tempuri.org/ICommandService/WriteHelium7Response")]
         System.Threading.Tasks.Task<bool> WriteHelium7Async(int heater, double value);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/GetValue", ReplyAction="http://tempuri.org/ICommandService/GetValueResponse")]
+        double GetValue(string sensor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/GetValue", ReplyAction="http://tempuri.org/ICommandService/GetValueResponse")]
+        System.Threading.Tasks.Task<double> GetValueAsync(string sensor);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadCompressorTemperatureScale", ReplyAction="http://tempuri.org/ICommandService/ReadCompressorTemperatureScaleResponse")]
         double ReadCompressorTemperatureScale();
         
@@ -267,6 +273,14 @@ namespace CryostatControlClient.ServiceReference1 {
             return base.Channel.WriteHelium7Async(heater, value);
         }
         
+        public double GetValue(string sensor) {
+            return base.Channel.GetValue(sensor);
+        }
+        
+        public System.Threading.Tasks.Task<double> GetValueAsync(string sensor) {
+            return base.Channel.GetValueAsync(sensor);
+        }
+        
         public double ReadCompressorTemperatureScale() {
             return base.Channel.ReadCompressorTemperatureScale();
         }
@@ -380,6 +394,9 @@ namespace CryostatControlClient.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SetLoggingState")]
         void SetLoggingState(bool status);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UpdateNotification")]
+        void UpdateNotification(string[] notification);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

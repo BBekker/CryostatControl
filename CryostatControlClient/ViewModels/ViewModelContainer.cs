@@ -9,11 +9,8 @@
 namespace CryostatControlClient.ViewModels
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+
+    using LiveCharts;
 
     /// <summary>
     /// The data context.
@@ -47,6 +44,30 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private ModusViewModel modusViewModel;
 
+        /// <summary>
+        /// The message box view model.
+        /// </summary>
+        private MessageBoxViewModel messageBoxViewModel;
+
+        /// The zooming view model
+        /// </summary>
+        private ZoomingViewModel zoomingViewModel;
+
+        /// <summary>
+        /// The series collection1
+        /// </summary>
+        private SeriesCollection seriesCollection;
+
+        /// <summary>
+        /// The series collection1
+        /// </summary>
+        private SeriesCollection seriesCollection2;
+
+        /// <summary>
+        /// The x formatter
+        /// </summary>
+        private Func<double, string> xFormatter;
+
         #endregion Fields
 
         #region Constructor
@@ -61,11 +82,63 @@ namespace CryostatControlClient.ViewModels
             this.he7ViewModel = new He7ViewModel();
             this.loggingViewModel = new LoggingViewModel();
             this.modusViewModel = new ModusViewModel();
+            this.messageBoxViewModel = new MessageBoxViewModel();
+            this.zoomingViewModel = new ZoomingViewModel();
+
+            this.InitSeriesCollection();
+            this.InitSeriesCollection2();
         }
 
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets the series collection.
+        /// </summary>
+        /// <value>
+        /// The series collection.
+        /// </value>
+        public SeriesCollection SeriesCollection
+        {
+            get
+            {
+                return this.seriesCollection;
+            }
+        }
+
+        /// <summary>
+        /// Gets the series collection.
+        /// </summary>
+        /// <value>
+        /// The series collection.
+        /// </value>
+        public SeriesCollection SeriesCollection2
+        {
+            get
+            {
+                return this.seriesCollection2;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the x formatter.
+        /// </summary>
+        /// <value>
+        /// The x formatter.
+        /// </value>
+        public Func<double, string> XFormatter
+        {
+            get
+            {
+                return this.xFormatter;
+            }
+
+            set
+            {
+                this.xFormatter = value;
+            }
+        }
 
         /// <summary>
         /// Gets the BlueforsViewModel.
@@ -137,6 +210,88 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the message box view model.
+        /// </summary>
+        public MessageBoxViewModel MessageBoxViewModel
+        {
+            get
+            {
+                return this.messageBoxViewModel;
+            }
+        }
+
+        /// Gets the zooming view model.
+        /// </summary>
+        /// <value>
+        /// The zooming view model.
+        /// </value>
+        public ZoomingViewModel ZoomingViewModel
+        {
+            get
+            {
+                return this.zoomingViewModel;
+            }
+        }
+
         #endregion Properties
+
+        #region Methods
+
+        /// <summary>
+        /// Initializes the series collection.
+        /// </summary>
+        private void InitSeriesCollection()
+        {
+            this.seriesCollection = new SeriesCollection
+                                    {
+                                            this.blueforsViewModel.ColdPlate3KLineSeries,
+                                            this.blueforsViewModel.ColdPlate50KLineSeries,
+                                            this.he7ViewModel.FourKPlateLineSeries,
+                                            this.he7ViewModel.TwoKPlatLineSeries,
+                                            this.he7ViewModel.He3HeadLineSeries,
+                                            this.he7ViewModel.He3PumpLineSeries,
+                                            this.he7ViewModel.He3SwitchLineSeries,
+                                            this.he7ViewModel.He4HeadLineSeries,
+                                            this.he7ViewModel.He4PumpLineSeries,
+                                            this.he7ViewModel.He4SwitchLineSeries,
+                                     };
+
+            this.xFormatter = val => this.GetDateTime(val);
+        }
+
+        /// <summary>
+        /// Initializes the series collection.
+        /// </summary>
+        private void InitSeriesCollection2()
+        {
+            this.seriesCollection2 = new SeriesCollection
+                                         {
+                                             this.blueforsViewModel.ColdPlate3KLineSeriesBottom,
+                                             this.blueforsViewModel.ColdPlate50KLineSeriesBottom,
+                                             this.he7ViewModel.He3HeadLineSeriesBottom,
+                                             this.he7ViewModel.He4HeadLineSeriesBottom,
+                                         };
+        }
+
+        /// <summary>
+        /// Gets the date time.
+        /// </summary>
+        /// <param name="val">The value.</param>
+        /// <returns>Time in hours and minutes.</returns>
+        private string GetDateTime(double val)
+        {
+            try
+            {
+                return new DateTime((long)val).ToString("HH:mm");
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine(e.ToString());
+                return string.Empty;
+            }
+        }
+
+        #endregion Methods
     }
 }

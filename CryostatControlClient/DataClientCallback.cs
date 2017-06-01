@@ -92,6 +92,22 @@ namespace CryostatControlClient
             });
         }
 
+        /// <summary>
+        /// The update notification.
+        /// </summary>
+        /// <param name="notification">
+        /// The notification.
+        /// </param>
+        public void UpdateNotification(string[] notification)
+        {
+            if (this.mainWindow == null)
+            {
+                this.mainWindow = this.mainApp.MainWindow as MainWindow;
+            }
+
+            this.mainWindow.UpdateNotification(notification);
+        }
+
         #endregion Methods
     }
 }

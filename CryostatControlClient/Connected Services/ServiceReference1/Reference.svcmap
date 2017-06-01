@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="17d0fc65-c9a0-4bf3-bb15-7dd074548465" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+=======
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b4b80654-1c1a-44d8-868a-f91b408daa94" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+>>>>>>> dev
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,15 +23,24 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:18080/SRON" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:18080" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+<<<<<<< HEAD
     <MetadataFile FileName="SRON.xsd" MetadataType="Schema" ID="a313c7f9-7275-47fa-8586-7bc54dbae789" SourceId="1" SourceUrl="http://localhost:18080/SRON?xsd=xsd1" />
     <MetadataFile FileName="CommandService.wsdl" MetadataType="Wsdl" ID="3fbfcd04-0bf1-4ee2-9a7b-bbe0eef7e6e3" SourceId="1" SourceUrl="http://localhost:18080/SRON?wsdl" />
     <MetadataFile FileName="SRON.disco" MetadataType="Disco" ID="36ff40f6-e572-4f55-a351-59a6ce3eeb30" SourceId="1" SourceUrl="http://localhost:18080/SRON?disco" />
     <MetadataFile FileName="SRON1.xsd" MetadataType="Schema" ID="a77c9732-8298-4b5d-bb85-83214056448a" SourceId="1" SourceUrl="http://localhost:18080/SRON?xsd=xsd0" />
     <MetadataFile FileName="SRON2.xsd" MetadataType="Schema" ID="e299d247-288a-4017-9f31-b36d1ee0649e" SourceId="1" SourceUrl="http://localhost:18080/SRON?xsd=xsd2" />
     <MetadataFile FileName="SRON3.xsd" MetadataType="Schema" ID="f7eb1cf2-22ce-4fc8-9cdf-10b35f52bf45" SourceId="1" SourceUrl="http://localhost:18080/SRON?xsd=xsd3" />
+=======
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="f8e629ae-c797-4805-a354-d72a4e7c0fa2" SourceId="1" SourceUrl="https://localhost:18081/?xsd=xsd3" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="dda3a285-8a31-42c6-9fe5-0fc0c4cc0298" SourceId="1" SourceUrl="https://localhost:18081/?xsd=xsd0" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="3e744ae9-34cc-49a6-a627-714066117b78" SourceId="1" SourceUrl="https://localhost:18081/?xsd=xsd1" />
+    <MetadataFile FileName="CommandService.wsdl" MetadataType="Wsdl" ID="f334eb36-1047-48fa-ae96-1e5c8b27b6c6" SourceId="1" SourceUrl="https://localhost:18081/?wsdl" />
+    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="759cee0a-33f1-4deb-a62c-b12115051d80" SourceId="1" SourceUrl="https://localhost:18081/?xsd=xsd2" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="8afb49b4-463e-461c-ba78-1523ef7076bd" SourceId="1" SourceUrl="https://localhost:18081/?disco" />
+>>>>>>> dev
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
