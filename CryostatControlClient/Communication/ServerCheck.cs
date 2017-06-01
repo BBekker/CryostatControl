@@ -67,7 +67,7 @@ namespace CryostatControlClient.Communication
             this.commandClient = commandClient;
             this.callbackClient = callbackClient;
             this.sender = new DataSender(this);
-            this.timer = new Timer(this.CheckStatus, null, 5000, 2000);
+            this.timer = new Timer(this.CheckStatus, null, 10000, 2000);
         }
 
         /// <summary>

@@ -99,7 +99,7 @@ namespace CryostatControlServer.Data
                 catch (Exception)
                 {
                     data[i] = float.NaN;
-                    DebugLogger.Warning(this.GetType().Name, "Could not read sensor" + i);
+                   Console.WriteLine("Could not read sensor" + i);
                 }
             }
         }
