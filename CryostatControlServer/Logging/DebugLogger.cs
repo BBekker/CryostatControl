@@ -70,6 +70,36 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
+        /// The error.
+        /// </summary>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <param name="sendAsNotification">
+        /// The send as notification.
+        /// </param>
+        public static void Error(string tag, string data, bool sendAsNotification)
+        {
+            string error = "ERROR";
+            string time = DateTime.Now.ToString("HH:mm:ss");
+            if (sendAsNotification)
+            {
+                try
+                {
+                    NotificationSender.Error(time, data);
+                }
+                catch (NullReferenceException)
+                {
+                }
+            }
+
+            WriteToFile(time, error, tag, data);
+        }
+
+        /// <summary>
         /// Warnings the specified tag.
         /// </summary>
         /// <param name="tag">The tag.</param>
@@ -90,6 +120,36 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
+        /// The warning.
+        /// </summary>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <param name="sendAsNotification">
+        /// The send as notification.
+        /// </param>
+        public static void Warning(string tag, string data, bool sendAsNotification)
+        {
+            string warning = "Warning";
+            string time = DateTime.Now.ToString("HH:mm:ss");
+            if (sendAsNotification)
+            {
+                try
+                {
+                    NotificationSender.Warning(time, data);
+                }
+                catch (NullReferenceException)
+                {
+                }
+            }
+
+            WriteToFile(time, warning, tag, data);
+        }
+
+        /// <summary>
         /// Informations the specified tag.
         /// </summary>
         /// <param name="tag">The tag.</param>
@@ -104,6 +164,36 @@ namespace CryostatControlServer.Logging
             }
             catch (NullReferenceException)
             {  
+            }
+
+            WriteToFile(time, info, tag, data);
+        }
+
+        /// <summary>
+        /// The info.
+        /// </summary>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <param name="sendAsNotification">
+        /// The send as notification.
+        /// </param>
+        public static void Info(string tag, string data, bool sendAsNotification)
+        {
+            string info = "Info";
+            string time = DateTime.Now.ToString("HH:mm:ss");
+            if (sendAsNotification)
+            {
+                try
+                {
+                    NotificationSender.Info(time, data);
+                }
+                catch (NullReferenceException)
+                {
+                }
             }
 
             WriteToFile(time, info, tag, data);
