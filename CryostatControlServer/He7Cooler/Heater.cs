@@ -142,6 +142,7 @@ namespace CryostatControlServer.He7Cooler
                     throw new ArgumentOutOfRangeException(
                         $"Voltage setpoint of {volts} is out of the safe range from {this.SafeRangeLow} to {this.SafeRangeHigh}");
                 }
+
                 this.device.SetVoltage(this.outchannel, volts);
             }
 

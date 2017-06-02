@@ -24,7 +24,6 @@ namespace CryostatControlServer.He7Cooler
     /// </summary>
     public partial class He7Cooler
     {
-
         #region Classes
 
         /// <summary>

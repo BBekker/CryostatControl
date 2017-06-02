@@ -128,6 +128,7 @@ namespace CryostatControlServer.Logging
             {
                 this.specificLoggingThread.Dispose();
             }
+
             this.specificLoggingInProgress = false;
         }
 
@@ -159,7 +160,7 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
-        /// Convert seconds to mili seconds.
+        /// Convert seconds to milliseconds.
         /// </summary>
         /// <param name="seconds">
         /// The seconds.
@@ -176,7 +177,7 @@ namespace CryostatControlServer.Logging
         /// The check if new file is needed.
         /// </summary>
         /// <param name="filepath">
-        /// The filepath.
+        /// The file path.
         /// </param>
         /// <returns>
         /// The <see cref="bool"/>.

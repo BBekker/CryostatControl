@@ -152,7 +152,7 @@ namespace CryostatControlServer.HostService
             try
             {
                 int sensorId = int.Parse(sensor);
-                return this.cryostatControl.ReadData()[sensorId];
+                return this.cryostatControl.ReadSingleSensor(sensorId);
             }
             catch (Exception e)
             {
@@ -190,8 +190,7 @@ namespace CryostatControlServer.HostService
             {
                 throw new FaultException<CouldNotPerformActionFault>(
                     new CouldNotPerformActionFault(ActionFaultReason.Unknown, e.GetType().ToString()));
-            }
-            
+            }  
         }
 
         /// <inheritdoc cref="ICommandService.ReadCompressorTemperatureScale"/>>
@@ -210,6 +209,12 @@ namespace CryostatControlServer.HostService
         public bool SetBlueforsHeater(bool status)
         {
             return this.cryostatControl.SetBlueforsHeater(status);
+        }
+
+        /// <inheritdoc cref="ICommandService.ReadSingleSensor"/>>
+        public double ReadSingleSensor(int sensorId)
+        {
+            return this.cryostatControl.ReadSingleSensor(sensorId);
         }
 
         /// <inheritdoc cref="ICommandService.WriteSettingValues"/>>
@@ -384,9 +389,6 @@ namespace CryostatControlServer.HostService
         /// <param name="state">The state.</param>
         private void TimerMethod(object state)
         {
-#if DEBUG
-//            Console.WriteLine("sending data to client");
-#endif
             IDataGetCallback client = (IDataGetCallback)state;
             double[] data = this.cryostatControl.ReadData();
             try

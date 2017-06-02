@@ -17,7 +17,6 @@ namespace CryostatControlClient.ViewModels
     /// </summary>
     public class ViewModelContainer
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewModelContainer" /> class.
         /// </summary>
@@ -62,7 +61,6 @@ namespace CryostatControlClient.ViewModels
         /// </value>
         public Func<double, string> XFormatter { get; set; }
         
-
         /// <summary>
         /// Gets the BlueforsViewModel.
         /// </summary>

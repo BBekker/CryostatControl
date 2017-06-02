@@ -131,6 +131,12 @@ namespace CryostatControlClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/SetBlueforsHeater", ReplyAction="http://tempuri.org/ICommandService/SetBlueforsHeaterResponse")]
         System.Threading.Tasks.Task<bool> SetBlueforsHeaterAsync(bool status);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadSingleSensor", ReplyAction="http://tempuri.org/ICommandService/ReadSingleSensorResponse")]
+        double ReadSingleSensor(int sensorId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadSingleSensor", ReplyAction="http://tempuri.org/ICommandService/ReadSingleSensorResponse")]
+        System.Threading.Tasks.Task<double> ReadSingleSensorAsync(int sensorId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/StartLogging", ReplyAction="http://tempuri.org/ICommandService/StartLoggingResponse")]
         void StartLogging(int interval, bool[] logData);
         
@@ -327,6 +333,14 @@ namespace CryostatControlClient.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> SetBlueforsHeaterAsync(bool status) {
             return base.Channel.SetBlueforsHeaterAsync(status);
+        }
+        
+        public double ReadSingleSensor(int sensorId) {
+            return base.Channel.ReadSingleSensor(sensorId);
+        }
+        
+        public System.Threading.Tasks.Task<double> ReadSingleSensorAsync(int sensorId) {
+            return base.Channel.ReadSingleSensorAsync(sensorId);
         }
         
         public void StartLogging(int interval, bool[] logData) {

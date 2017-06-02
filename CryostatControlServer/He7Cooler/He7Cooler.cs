@@ -34,6 +34,9 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         private Agilent34972A device = new Agilent34972A();
 
+        /// <summary>
+        /// The internet protocol
+        /// </summary>
         private string ip = string.Empty;
 
         /// <summary>
@@ -226,7 +229,7 @@ namespace CryostatControlServer.He7Cooler
             {
                 DebugLogger.Error(this.GetType().Name, "Reading values failed: " + ex.ToString());
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 DebugLogger.Error(this.GetType().Name, "He7 cooler connection error.");
             }
@@ -324,7 +327,7 @@ namespace CryostatControlServer.He7Cooler
                     {
                         this.device.Disconnect();
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         DebugLogger.Error(this.GetType().Name, "Can not dissconnect He7Cooler: " + e.GetType() + e.Message);
                     }

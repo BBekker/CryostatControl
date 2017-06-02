@@ -740,18 +740,20 @@ namespace CryostatControlServer
                         {
                             this.lakeshore.SetHeater(true);
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
                             DebugLogger.Warning(this.GetType().Name, "lakeshore did not respond");
                         }
+
                         try
                         {
                             this.compressor.TurnOff();
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
                             DebugLogger.Warning(this.GetType().Name, "Compressor not connected, make sure it is turned off!");
                         }
+
                         this.State = Controlstate.WarmupHeating;
                     }
 
