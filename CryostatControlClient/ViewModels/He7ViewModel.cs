@@ -11,6 +11,7 @@ namespace CryostatControlClient.ViewModels
 {
     using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Media;
 
     using CryostatControlClient.Models;
 
@@ -501,6 +502,20 @@ namespace CryostatControlClient.ViewModels
             get
             {
                 return this.he7Model.FourKPlateLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the color of the connection state.
+        /// </summary>
+        /// <value>
+        /// The color of the connection state.
+        /// </value>
+        public SolidColorBrush ConnectionStateColor
+        {
+            get
+            {
+                return this.ConnectionColor((int)this.ConnectionState);
             }
         }
 
@@ -1004,6 +1019,7 @@ namespace CryostatControlClient.ViewModels
                 this.he7Model.ConnectionState = value;
                 this.RaisePropertyChanged("ConnectionState");
                 this.RaisePropertyChanged("ConnectionStateConverted");
+                this.RaisePropertyChanged("ConnectionStateColor");
             }
         }
 

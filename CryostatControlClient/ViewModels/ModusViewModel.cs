@@ -11,6 +11,7 @@ namespace CryostatControlClient.ViewModels
 {
     using System;
     using System.Windows.Input;
+    using System.Windows.Media;
 
     using CryostatControlClient.Models;
 
@@ -70,6 +71,20 @@ namespace CryostatControlClient.ViewModels
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets the color of the connection state.
+        /// </summary>
+        /// <value>
+        /// The color of the connection state.
+        /// </value>
+        public SolidColorBrush ConnectionStateColor
+        {
+            get
+            {
+                return this.ConnectionColor(Convert.ToInt32(this.ServerConnection));
+            }
+        }
 
         /// <summary>
         /// Gets a value indicating whether [start mode].
@@ -214,6 +229,7 @@ namespace CryostatControlClient.ViewModels
                 this.modusModel.ServerConnection = value;
                 this.RaisePropertyChanged("Server");
                 this.RaisePropertyChanged("ServerConverted");
+                this.RaisePropertyChanged("ConnectionStateColor");
             }
         }
 

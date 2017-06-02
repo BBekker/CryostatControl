@@ -6,7 +6,6 @@
         <ResourceDictionary Source="Styles.xaml" />
     </Page.Resources>
 
-    <!--<Border materialDesign:ShadowAssist.ShadowDepth="Depth5">-->
     <materialDesign:Card Style="{StaticResource settingCard}">
         <Grid Style="{StaticResource SettingFrame}">
 
@@ -21,43 +20,51 @@
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="2*" />
                     </Grid.RowDefinitions>
 
-                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="0">He-7</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="0" Content="{Binding He7ViewModel.ConnectionStateConverted}"/>
+                    <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="0">He-7 Cooler</Label>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="0" 
+                           Content="{Binding He7ViewModel.ConnectionStateConverted}" Foreground="{Binding He7ViewModel.ConnectionStateColor}"/>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="1">BlueFors</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="1" Content="{Binding BlueforsViewModel.ConnectionStateConverted}"/>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="1" 
+                           Content="{Binding BlueforsViewModel.ConnectionStateConverted}" Foreground="{Binding BlueforsViewModel.ConnectionStateColor}"/>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="2">Compressor</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="2" Content="{Binding CompressorViewModel.ConnectionStateConverted}"/>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="2" 
+                           Content="{Binding CompressorViewModel.ConnectionStateConverted}" Foreground="{Binding CompressorViewModel.ConnectionStateColor}"/>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="3">Server</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="3" Content="{Binding ModusViewModel.ServerConverted}"/>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="3" 
+                           Content="{Binding ModusViewModel.ServerConverted}" Foreground="{Binding ModusViewModel.ConnectionStateColor}"/>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="4">Modus</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="4" Content="{Binding ModusViewModel.ModusConverted}"/>
+                    <TextBlock TextWrapping="Wrap" Margin="15 10 10 5" Grid.Column="1" Grid.Row="4" Text="{Binding ModusViewModel.ModusConverted}"/>
                 </Grid>
 
-                <ComboBox Style="{StaticResource SettingsComboBox}"
+                <ComboBox Margin="20 5 20 5" Style="{StaticResource SettingsComboBox}"
                           SelectedIndex="{Binding ModusViewModel.SelectedComboIndex}">
                     <ComboBoxItem>Cool down</ComboBoxItem>
                     <ComboBoxItem>Recycle</ComboBoxItem>
                     <ComboBoxItem>Warm up</ComboBoxItem>
                 </ComboBox>
-                <StackPanel Orientation="Horizontal">
-                    <RadioButton Command="{Binding ModusViewModel.RadioButtonCommand}" CommandParameter="Now" Name="startNow" Style="{StaticResource SettingsRadioButtons}" GroupName="startOption"
+                <Grid Margin="10 5 10 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <RadioButton Grid.Column="0" Command="{Binding ModusViewModel.RadioButtonCommand}" CommandParameter="Now" Name="startNow" Style="{StaticResource SettingsRadioButtons}" GroupName="startOption"
                                  IsChecked="True">
                         Start Now
                     </RadioButton>
-                    <RadioButton Command="{Binding ModusViewModel.RadioButtonCommand}" CommandParameter="Scheduled" Name="startScheduled" Style="{StaticResource SettingsRadioButtons}"
+                    <RadioButton Grid.Column="1" Command="{Binding ModusViewModel.RadioButtonCommand}" CommandParameter="Scheduled" Name="startScheduled" Style="{StaticResource SettingsRadioButtons}"
                                  GroupName="startOption">
                         Scheduled Start
                     </RadioButton>
-                </StackPanel>
-                <DatePicker SelectedDate="{Binding ModusViewModel.SelectedDate}" Style="{StaticResource SettingsDatePicker}" Visibility="{Binding ModusViewModel.ShowDateTime}" />
-                <materialDesign:TimePicker SelectedTime="{Binding ModusViewModel.SelectedTime}" Style="{StaticResource SettingsTimePicker}" Visibility="{Binding ModusViewModel.ShowDateTime}" />
+                </Grid>
+                <DatePicker Margin="10 5 10 5" SelectedDate="{Binding ModusViewModel.SelectedDate}" Style="{StaticResource SettingsDatePicker}" Visibility="{Binding ModusViewModel.ShowDateTime}" />
+                <materialDesign:TimePicker Margin="10 5 10 5" SelectedTime="{Binding ModusViewModel.SelectedTime}" Style="{StaticResource SettingsTimePicker}" Visibility="{Binding ModusViewModel.ShowDateTime}" />
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
@@ -66,10 +73,10 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
-                    <Button Style="{StaticResource SettingsButton}"  Grid.Column="0" Grid.Row="0" IsEnabled="{Binding ModusViewModel.StartMode}" Command="{Binding ModusViewModel.StartButtonCommand}" Margin="5">Start</Button>
-                    <Button Style="{StaticResource SettingsButton}"  Grid.Column="1" Grid.Row="0" IsEnabled="{Binding ModusViewModel.CancelMode}" Command="{Binding ModusViewModel.CancelButtonCommand}" Margin="5">Stop</Button>
+                    <Button Style="{StaticResource SettingsButton}"  Grid.Column="0" Grid.Row="0" IsEnabled="{Binding ModusViewModel.StartMode}" Command="{Binding ModusViewModel.StartButtonCommand}" Margin="10 5 10 5">Start</Button>
+                    <Button Style="{StaticResource SettingsButton}"  Grid.Column="1" Grid.Row="0" IsEnabled="{Binding ModusViewModel.CancelMode}" Command="{Binding ModusViewModel.CancelButtonCommand}" Margin="10 5 10 5">Stop</Button>
                 </Grid>
-                <Button Style="{StaticResource SettingsButton}" IsEnabled="{Binding ModusViewModel.StartMode}" Command="{Binding ModusViewModel.ManualButtonCommand}" Margin="5">Manual</Button>
+                <Button Style="{StaticResource SettingsButton}" IsEnabled="{Binding ModusViewModel.StartMode}" Command="{Binding ModusViewModel.ManualButtonCommand}" Margin="10 5 10 5">Manual</Button>
 
             </StackPanel>
         </Grid>
