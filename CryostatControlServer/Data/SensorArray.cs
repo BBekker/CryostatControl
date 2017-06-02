@@ -85,9 +85,9 @@ namespace CryostatControlServer.Data
         private void FillLakeShoreSensors(ISensor[] sensors)
         {
             sensors[(int)DataEnumerator.LakePlate50K] =
-                new CryostatControlServer.LakeShore.Sensor(SensorEnum.Sensor1, this.lakeShore);
+                new CryostatControlServer.LakeShore.Sensor(SensorEnum.Plate50K, this.lakeShore);
             sensors[(int)DataEnumerator.LakePlate3K] =
-                new CryostatControlServer.LakeShore.Sensor(SensorEnum.Sensor2, this.lakeShore);
+                new CryostatControlServer.LakeShore.Sensor(SensorEnum.Plate3K, this.lakeShore);
         }
 
         /// <summary>
