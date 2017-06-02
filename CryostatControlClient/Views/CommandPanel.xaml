@@ -6,7 +6,6 @@
         <ResourceDictionary Source="Styles.xaml" />
     </Page.Resources>
 
-    <!--<Border materialDesign:ShadowAssist.ShadowDepth="Depth5">-->
     <materialDesign:Card Style="{StaticResource settingCard}">
         <Grid Style="{StaticResource SettingFrame}">
 
@@ -37,7 +36,8 @@
                            Content="{Binding CompressorViewModel.ConnectionStateConverted}" Foreground="{Binding CompressorViewModel.ConnectionStateColor}"/>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="3">Server</Label>
-                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="3" Content="{Binding ModusViewModel.ServerConverted}"/>
+                    <Label Style="{StaticResource SettingsLabelRight}" Grid.Column="1" Grid.Row="3" 
+                           Content="{Binding ModusViewModel.ServerConverted}" Foreground="{Binding ModusViewModel.ConnectionStateColor}"/>
 
                     <Label Style="{StaticResource SettingsLabelLeft}" Grid.Column="0" Grid.Row="4">Modus</Label>
                     <TextBlock TextWrapping="Wrap" Margin="15 10 10 5" Grid.Column="1" Grid.Row="4" Text="{Binding ModusViewModel.ModusConverted}"/>

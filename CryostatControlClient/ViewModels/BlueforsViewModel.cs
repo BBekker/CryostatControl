@@ -252,6 +252,7 @@ namespace CryostatControlClient.ViewModels
                 this.blueforsModel.ConnectionState = value;
                 this.RaisePropertyChanged("ConnectionState");
                 this.RaisePropertyChanged("ConnectionStateConverted");
+                this.RaisePropertyChanged("ConnectionStateColor");
             }
         }
 

@@ -1019,6 +1019,7 @@ namespace CryostatControlClient.ViewModels
                 this.he7Model.ConnectionState = value;
                 this.RaisePropertyChanged("ConnectionState");
                 this.RaisePropertyChanged("ConnectionStateConverted");
+                this.RaisePropertyChanged("ConnectionStateColor");
             }
         }
 

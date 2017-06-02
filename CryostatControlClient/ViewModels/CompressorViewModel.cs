@@ -482,6 +482,7 @@ namespace CryostatControlClient.ViewModels
                 this.compressorModel.ConnectionState = value;
                 this.RaisePropertyChanged("ConnectionState");
                 this.RaisePropertyChanged("ConnectionStateConverted");
+                this.RaisePropertyChanged("ConnectionStateColor");
             }
         }
 
