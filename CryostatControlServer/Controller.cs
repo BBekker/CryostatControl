@@ -356,6 +356,7 @@ namespace CryostatControlServer
             {
                 this.startTime = time;
                 this.State = Controlstate.CooldownStart;
+                Console.WriteLine($"Starting cooldown at: {time}");
                 return true;
             }
 
