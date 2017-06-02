@@ -14,6 +14,7 @@ namespace CryostatControlServer.Logging
     using System.Threading;
 
     using CryostatControlServer.Data;
+    using CryostatControlServer.Properties;
 
     /// <summary>
     /// The log threader.
@@ -26,16 +27,6 @@ namespace CryostatControlServer.Logging
         /// The general log interval in seconds.
         /// </summary>
         private const int GeneralLogInterval = 10;
-
-        /// <summary>
-        /// The general main folder.
-        /// </summary>
-        private const string GeneralMainFolder = @"c:\CryostatLogging\General";
-
-        /// <summary>
-        /// The specific main folder.
-        /// </summary>
-        private const string SpecificMainFolder = @"c:\CryostatLogging\Specific";
 
         /// <summary>
         /// The start time.
@@ -80,6 +71,28 @@ namespace CryostatControlServer.Logging
 
         #endregion Constructors
 
+        /// <summary>
+        /// Gets the general main folder.
+        /// </summary>
+        private string GeneralMainFolder
+        {
+            get
+            {
+                return Settings.Default.LoggingAddress + @"\General";
+            }
+        }
+
+        /// <summary>
+        /// Gets the specific main folder.
+        /// </summary>
+        private string SpecificMainFolder
+        {
+            get
+            {
+                return Settings.Default.LoggingAddress + @"\Specific";
+            }
+        }
+
         #region Methods
 
         /// <summary>
@@ -93,7 +106,6 @@ namespace CryostatControlServer.Logging
         /// </param>
         public void StartSpecificDataLogging(int interval, bool[] toBeLoggedOrNotToBeLogged)
         {
-            DebugLogger.Info(this.GetType().Name, "Specific Data logging has started");
             if (this.specificLoggingInProgress)
             {
                 this.StopSpecificDataLogging();
@@ -103,7 +115,7 @@ namespace CryostatControlServer.Logging
             LoggerDataObject loggerDataObject = this.CreateNewSpecificLoggingFile(specificDataLogger);
             
             this.specificLoggingThread = new Timer(this.SpecificDataLogging, loggerDataObject, StartTime, this.ConvertSecondsToMs(interval));
-            this.specificLoggingInProgress = true;
+            this.specificLoggingInProgress = true;  
         }
 
         /// <summary>
@@ -111,7 +123,7 @@ namespace CryostatControlServer.Logging
         /// </summary>
         public void StopSpecificDataLogging()
         {
-            DebugLogger.Info(this.GetType().Name, "Specific Data logging has stopped");
+            this.SendInfoToLogAndClient("Specific Data logging has stopped");
             if (this.specificLoggingThread != null)
             {
                 this.specificLoggingThread.Dispose();
@@ -239,6 +251,7 @@ namespace CryostatControlServer.Logging
             string filePath = generalDataLogger.CreateFile(GeneralMainFolder);
 
             generalDataLogger.WriteInitialLine(filePath, generalDataLogger.CreateArrayWithOnlyTrue());
+            DebugLogger.Info(this.GetType().Name, "General Data logging has started in file: " + filePath);
             return new LoggerDataObject(generalDataLogger, filePath);
         }
 
@@ -252,7 +265,22 @@ namespace CryostatControlServer.Logging
             string filePath = specificDataLogger.CreateFile(SpecificMainFolder);
 
             specificDataLogger.WriteInitialLine(filePath, specificDataLogger.GetToBeLoggedOrNotToBeLogged());
+
+            this.SendInfoToLogAndClient("Specific Data logging has started in file: " + filePath);
+
             return new LoggerDataObject(specificDataLogger, filePath);
+        }
+
+        /// <summary>
+        /// The send info to log and client.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        private void SendInfoToLogAndClient(string message)
+        {
+            DebugLogger.Info(this.GetType().Name, message);
+            NotificationSender.Info(message);
         }
 
         #endregion Methods
