@@ -123,7 +123,7 @@ namespace CryostatControlServer.Logging
         /// </summary>
         public void StopSpecificDataLogging()
         {
-            this.SendInfoToLogAndClient("Specific Data logging has stopped");
+            DebugLogger.Info(this.GetType().Name, "Specific Data logging has stopped");
             if (this.specificLoggingThread != null)
             {
                 this.specificLoggingThread.Dispose();
@@ -186,6 +186,7 @@ namespace CryostatControlServer.Logging
             string logDay = Path.GetFileName(filepath);
             if (logDay == null || !logDay.Contains(".csv"))
             {
+                DebugLogger.Warning(this.GetType().Name, logDay);
                 DebugLogger.Error(this.GetType().Name, "Can't find logfile name for checking if a new file is needed.");
                 return false;
             }
@@ -266,20 +267,9 @@ namespace CryostatControlServer.Logging
 
             specificDataLogger.WriteInitialLine(filePath, specificDataLogger.GetToBeLoggedOrNotToBeLogged());
 
-            this.SendInfoToLogAndClient("Specific Data logging has started in file: " + filePath);
+            DebugLogger.Info(this.GetType().Name, "Specific Data logging has started in file: " + filePath);
 
             return new LoggerDataObject(specificDataLogger, filePath);
-        }
-
-        /// <summary>
-        /// The send info to log and client.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        private void SendInfoToLogAndClient(string message)
-        {
-            DebugLogger.Info(this.GetType().Name, message);
         }
 
         #endregion Methods

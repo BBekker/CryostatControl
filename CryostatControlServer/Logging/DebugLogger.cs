@@ -149,6 +149,14 @@ namespace CryostatControlServer.Logging
             }
             catch (IOException)
             {
+                try
+                {
+                    NotificationSender.Warning(time, "The debug log file is opened by another process. Please close this first.");
+                }
+                catch (NullReferenceException)
+                {
+                }
+
                 Console.WriteLine("The debug log file is opened by another process. Please close this first.");
             }
         }
