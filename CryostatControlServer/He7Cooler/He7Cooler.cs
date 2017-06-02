@@ -327,7 +327,7 @@ namespace CryostatControlServer.He7Cooler
                     {
                         this.device.Disconnect();
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
                         DebugLogger.Error(this.GetType().Name, "Can not dissconnect He7Cooler: " + e.GetType() + e.Message);
                     }

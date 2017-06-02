@@ -250,7 +250,7 @@ namespace CryostatControlServer.Logging
         /// <returns>General Logger Data Object</returns>
         private LoggerDataObject CreateNewGeneralLoggingFile(GeneralDataLogger generalDataLogger)
         {
-            string filePath = generalDataLogger.CreateFile(GeneralMainFolder);
+            string filePath = generalDataLogger.CreateFile(this.GeneralMainFolder);
 
             generalDataLogger.WriteInitialLine(filePath, generalDataLogger.CreateArrayWithOnlyTrue());
             DebugLogger.Info(this.GetType().Name, "General Data logging has started in file: " + filePath);
@@ -264,7 +264,7 @@ namespace CryostatControlServer.Logging
         /// <returns>Specific logger Data Object</returns>
         private LoggerDataObject CreateNewSpecificLoggingFile(SpecificDataLogger specificDataLogger)
         {
-            string filePath = specificDataLogger.CreateFile(SpecificMainFolder);
+            string filePath = specificDataLogger.CreateFile(this.SpecificMainFolder);
 
             specificDataLogger.WriteInitialLine(filePath, specificDataLogger.GetToBeLoggedOrNotToBeLogged());
 
