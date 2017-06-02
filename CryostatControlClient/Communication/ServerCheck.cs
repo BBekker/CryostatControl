@@ -16,7 +16,7 @@ namespace CryostatControlClient.Communication
     using CryostatControlClient.Views;
 
     /// <summary>
-    /// Class which checks continiously the connection with the server
+    /// Class which checks continuously the connection with the server
     /// </summary>
     public class ServerCheck
     {

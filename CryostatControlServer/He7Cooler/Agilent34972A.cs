@@ -31,6 +31,9 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         private IManagedStream connection;
 
+        /// <summary>
+        /// The internet protocol address
+        /// </summary>
         private string ipAddress;
 
         #endregion Fields

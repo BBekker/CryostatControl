@@ -1,16 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CryostatControlClient.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//-----------------------------------------------------------------------
+// <copyright file="CompressorViewModelTests.cs" company="SRON">
+//     Copyright (c) SRON. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels.Tests
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    /// <summary>
+    /// Tests for compressor view model
+    /// </summary>
     [TestClass]
     public class CompressorViewModelTests
     {
+        /// <summary>
+        /// Converts the warning state number to string test.
+        /// </summary>
         [TestMethod]
         public void ConvertWarningStateNumberToStringTest()
         {
@@ -21,6 +27,9 @@ namespace CryostatControlClient.ViewModels.Tests
             Assert.AreEqual(expected, actual);
         }
 
+        /// <summary>
+        /// Converts the operating state number to string test.
+        /// </summary>
         [TestMethod]
         public void ConvertOperatingStateNumberToStringTest()
         {

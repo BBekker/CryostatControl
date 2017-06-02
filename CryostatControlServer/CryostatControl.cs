@@ -290,15 +290,12 @@ namespace CryostatControlServer
 
         /// <summary>
         /// Writes values to the helium7 heaters.
-        /// <seealso cref="HeaterEnumerator"/>
+        /// <seealso cref="HeaterEnumerator" />
         /// for position for each heater.
         /// </summary>
-        /// <param name="heater">
-        /// The heater.
-        /// </param>
-        /// <param name="value">
-        /// The value.
-        /// </param>
+        /// <param name="heater">The heater.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>True if succeeded false otherwise</returns>
         public bool WriteHelium7Heater(HeaterEnumerator heater, double value)
         {
             if (this.ManualControl)
