@@ -266,7 +266,9 @@ namespace CryostatControlServer
 
             private set
             {
-                Console.WriteLine("[Control] Switched from state {0} to {1}", this.state, value);
+                string message = "[Control] Switched from state " + this.state + " to " + value;
+                DebugLogger.Info(this.GetType().Name, message);
+                NotificationSender.Info(message);
                 this.stateEnteredTime = DateTime.Now;
                 this.state = value;
             }
@@ -574,11 +576,9 @@ namespace CryostatControlServer
         {
             this.SafetyCheckHeatSwitch();
             this.SafetyCheckPumps();
-
             switch (this.State)
             {
-                case Controlstate.Setup:
-                    DebugLogger.Info(this.GetType().Name, "Setting up");
+                case Controlstate.Setup:    
                     if (this.cooler != null && this.lakeshore != null && this.compressor != null)
                     {
                         this.State = Controlstate.Standby;
@@ -587,16 +587,12 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.Standby:
-                    DebugLogger.Info(this.GetType().Name, "Standy");
                     break;
 
                 case Controlstate.Manual:
-                    DebugLogger.Info(this.GetType().Name, "Manual mode");
                     break;
 
                 case Controlstate.CooldownStart:
-                    DebugLogger.Info(this.GetType().Name, "Cooldown is starting");
-                    NotificationSender.Info("Cooldown is starting");
                     this.lakeshore.SetHeater(false);
                     if (DateTime.Now > this.startTime)
                     {
@@ -606,15 +602,11 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.CooldownWaitForPressure:
-                    DebugLogger.Info(this.GetType().Name, "Cooldown waiting for pressure");
-                    NotificationSender.Info("Cooldown waiting for pressure");
                     // TODO: wait for pressure when sensor is connected
                     this.State = Controlstate.CooldownStartCompressor;
                     break;
 
                 case Controlstate.CooldownStartCompressor:
-                    DebugLogger.Info(this.GetType().Name, "Cooldown starting compressor");
-                    NotificationSender.Info("Cooldown starting compressor");
                     try
                     {
                         this.compressor.TurnOn();
@@ -629,8 +621,6 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.CooldownWait70K:
-                    DebugLogger.Info(this.GetType().Name, "Cooldown wait for 70K");
-                    NotificationSender.Info("Cooldown wait for 70K");
                     if (this.cooler.He3PumpT.Value < this.He7StartTemperature
                         || this.cooler.He4PumpT.Value < this.He7StartTemperature)
                     {
@@ -640,8 +630,6 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.CooldownWait4K:
-                    DebugLogger.Info(this.GetType().Name, "Cooldown wait for 4K");
-                    NotificationSender.Info("Cooldown wait for 4K");
                     this.ControlHe3PumpHeater();
                     this.ControlHe4PumpHeater();
                     if (this.cooler.He3HeadT.Value < this.He4StartTemperature
@@ -653,8 +641,6 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.CooldownCondenseHe4:
-                    DebugLogger.Info(this.GetType().Name, "Cooldown condense He4");
-                    NotificationSender.Info("Cooldown condense He4");
                     this.ControlHe3PumpHeater();
                     this.ControlHe4PumpHeater();
                     if (this.cooler.He4HeadT.Value < this.He4StartTemperature)
@@ -665,16 +651,12 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.CooldownTurnOffHe4:
-                    DebugLogger.Info(this.GetType().Name, "Cooldown turn off He4");
-                    NotificationSender.Info("Cooldown turn off He4");
                     this.ControlHe3PumpHeater();
                     this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
                     this.State = Controlstate.CooldownControlHe4Switch;
                     break;
 
                 case Controlstate.CooldownControlHe4Switch:
-                    DebugLogger.Info(this.GetType().Name, "Cooldown Control He4 Switch");
-                    NotificationSender.Info("Cooldown Control He4 Switch");
                     this.ControlHe3PumpHeater();
 
                     if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue)
@@ -690,8 +672,6 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.CooldownWaitHe3Heater:
-                    DebugLogger.Info(this.GetType().Name, "Cooldown waiting for He3 Heater");
-                    NotificationSender.Info("Cooldown waiting for He3 Heater");
                     this.ControlHe3PumpHeater();
                     if (this.cooler.He3PumpT.Value > this.HeaterTemperatureSetpoint - 1.0)
                     {
@@ -701,15 +681,11 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.CooldownDisableHe3PumpHeater:
-                    DebugLogger.Info(this.GetType().Name, "Cooldown Disable He3 Pump");
-                    NotificationSender.Info("Cooldown Disable He3 Pump");
                     this.SetHeaterVoltage(this.cooler.He3Pump, 0.0);
                     this.State = Controlstate.CooldownCondenseHe3;
                     break;
 
                 case Controlstate.CooldownCondenseHe3:
-                    DebugLogger.Info(this.GetType().Name, "coolown Condense He3");
-                    NotificationSender.Info("coolown Condense He3");
                     if (this.cooler.He3HeadT.Value < this.He3StartTemperature
                         || (this.cooler.He3HeadT.Value < this.He3StartMinimalTemperature
                             && (DateTime.Now - this.stateEnteredTime)
@@ -721,8 +697,6 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.CooldownControlHe3:
-                    DebugLogger.Info(this.GetType().Name, "Cooldown Control He3");
-                    NotificationSender.Info("Cooldown Control He3");
                     if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue)
                     {
                         this.cooler.He3Switch.Voltage = this.He3SwitchVoltage;
@@ -736,14 +710,10 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.CooldownFinished:
-                    DebugLogger.Info(this.GetType().Name, "Cooldown Finished");
-                    NotificationSender.Info("Cooldown Finished");
                     this.State = Controlstate.Standby;
                     break;
 
                 case Controlstate.RecycleStart:
-                    DebugLogger.Info(this.GetType().Name, "Recycle started");
-                    NotificationSender.Info("Recycle started");
                     if (DateTime.Now > this.startTime)
                     {
                         this.SetHeaterVoltage(this.cooler.He3Switch, 0.0);
@@ -755,8 +725,6 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.RecycleHeatPumps:
-                    DebugLogger.Info(this.GetType().Name, "Recycle heat pumps");
-                    NotificationSender.Info("Recycle heat pumps");
                     this.ControlHe3PumpHeater();
                     this.ControlHe4PumpHeater();
                     if (this.cooler.He3PumpT.Value > this.HeaterTemperatureSetpoint - 1.0
@@ -768,8 +736,6 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.WarmupStart:
-                    DebugLogger.Info(this.GetType().Name, "Warmup start");
-                    NotificationSender.Info("Warmup start");
                     if (DateTime.Now > this.startTime)
                     {
                         try
@@ -796,8 +762,6 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.WarmupHeating:
-                    DebugLogger.Info(this.GetType().Name, "Warmup heating");
-                    NotificationSender.Info("Warmup heating");
                     this.ControlHeater(
                         this.cooler.He3Pump,
                         this.cooler.He3PumpT,
@@ -829,14 +793,10 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.WarmupFinished:
-                    DebugLogger.Info(this.GetType().Name, "Warmup finished");
-                    NotificationSender.Info("Warmup finished");
                     this.State = Controlstate.Standby;
                     break;
 
                 case Controlstate.CancelAll:
-                    DebugLogger.Warning(this.GetType().Name, "Cancel all");
-                    NotificationSender.Info("Cancel all");
                     this.SetHeaterVoltage(this.cooler.He3Pump, 0.0);
                     this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
 
