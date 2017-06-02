@@ -33,6 +33,9 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         private Agilent34972A device = new Agilent34972A();
 
+        /// <summary>
+        /// The internet protocol
+        /// </summary>
         private string ip = string.Empty;
 
         /// <summary>
@@ -225,7 +228,7 @@ namespace CryostatControlServer.He7Cooler
             {
                 Console.WriteLine("Reading values failed: " + ex.ToString());
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.WriteLine("He7 cooler connection error.");
             }
@@ -323,7 +326,7 @@ namespace CryostatControlServer.He7Cooler
                     {
                         this.device.Disconnect();
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                     }
 

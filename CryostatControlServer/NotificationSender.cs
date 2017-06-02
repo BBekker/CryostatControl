@@ -24,7 +24,7 @@ namespace CryostatControlServer
         private static CommandService commandService;
 
         /// <summary>
-        /// The initialisation of the Notification Sender.
+        /// The initialization of the Notification Sender.
         /// </summary>
         /// <param name="newCommandService">
         /// The new command service.
@@ -63,7 +63,7 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// Informations the specified tag.
+        /// Information the specified tag.
         /// </summary>
         /// <param name="data">
         /// The data.

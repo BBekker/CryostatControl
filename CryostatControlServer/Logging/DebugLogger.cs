@@ -65,7 +65,7 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
-        /// Informations the specified tag.
+        /// Information the specified tag.
         /// </summary>
         /// <param name="tag">The tag.</param>
         /// <param name="data">The data.</param>
@@ -87,6 +87,7 @@ namespace CryostatControlServer.Logging
             {
                CreateFile(); 
             }
+
             StringBuilder sb = new StringBuilder();
             string dataLine = DateTime.Now.ToString("HH:mm:ss") + "," + tag + "," + level + ": " + data;
 

@@ -99,7 +99,7 @@ namespace CryostatControlServer.Data
                 return this.ReadSensor(id);
             }
 
-            return ReadFromSwitch(id);
+            return this.ReadFromSwitch(id);
         }
 
         /// <summary>

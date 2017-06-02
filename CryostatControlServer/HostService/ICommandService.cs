@@ -6,9 +6,14 @@
 namespace CryostatControlServer.HostService
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.ServiceModel;
     using System.ServiceModel.Web;
+
+    using CryostatControlServer.Compressor;
+    using CryostatControlServer.Data;
     using CryostatControlServer.HostService.DataContracts;
+    using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
     /// Interface for the available commands
@@ -46,7 +51,6 @@ namespace CryostatControlServer.HostService
         [OperationContract]
         [WebInvoke(Method = "POST", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
         bool CooldownTime(DateTime time);
-
 
         /// <summary>
         /// Start recycle process
@@ -177,13 +181,14 @@ namespace CryostatControlServer.HostService
         double ReadCompressorPressureScale();
 
         /// <summary>
-        /// Read the lakeshore/Bluefors heater power.
+        /// Read the lakeshore/bluefors heater power.
         /// </summary>
         /// <returns>
         /// The power in percentage of max power<see cref="double"/>.
         /// </returns>
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         double ReadBlueforsHeaterPower();
 
         /// <summary>
@@ -219,6 +224,7 @@ namespace CryostatControlServer.HostService
         /// <returns>if the value could be set</returns>
         [OperationContract]
         [WebInvoke(ResponseFormat = WebMessageFormat.Json)]
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         bool SetBlueforsHeater(bool status);
 
         /// <summary>
@@ -229,6 +235,7 @@ namespace CryostatControlServer.HostService
         [OperationContract]
         double ReadSingleSensor(int sensorId);
 
+        /// <summary>
         /// Starts the logging.
         /// </summary>
         /// <param name="interval">
