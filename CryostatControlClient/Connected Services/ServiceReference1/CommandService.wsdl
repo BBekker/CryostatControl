@@ -837,6 +837,44 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_ReadSingleSensor_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_ReadSingleSensor_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_StartLogging_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -1363,6 +1401,12 @@
   <wsdl:message name="ICommandService_SetBlueforsHeater_OutputMessage">
     <wsdl:part name="parameters" element="tns:SetBlueforsHeaterResponse" />
   </wsdl:message>
+  <wsdl:message name="ICommandService_ReadSingleSensor_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReadSingleSensor" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_ReadSingleSensor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReadSingleSensorResponse" />
+  </wsdl:message>
   <wsdl:message name="ICommandService_StartLogging_InputMessage">
     <wsdl:part name="parameters" element="tns:StartLogging" />
   </wsdl:message>
@@ -1482,6 +1526,10 @@
     <wsdl:operation name="SetBlueforsHeater">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/SetBlueforsHeater" message="tns:ICommandService_SetBlueforsHeater_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/SetBlueforsHeaterResponse" message="tns:ICommandService_SetBlueforsHeater_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReadSingleSensor">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/ReadSingleSensor" message="tns:ICommandService_ReadSingleSensor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/ReadSingleSensorResponse" message="tns:ICommandService_ReadSingleSensor_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="StartLogging">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/StartLogging" message="tns:ICommandService_StartLogging_InputMessage" />
@@ -1735,6 +1783,17 @@
       </wsdl:input>
       <wsdl:output>
         <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_SetBlueforsHeater_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReadSingleSensor">
+      <soap12:operation soapAction="http://tempuri.org/ICommandService/ReadSingleSensor" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_ReadSingleSensor_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_ReadSingleSensor_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>

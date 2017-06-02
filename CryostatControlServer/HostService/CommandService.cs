@@ -152,7 +152,7 @@ namespace CryostatControlServer.HostService
             try
             {
                 int sensorId = int.Parse(sensor);
-                return this.cryostatControl.ReadData()[sensorId];
+                return this.cryostatControl.ReadSingleSensor(sensorId);
             }
             catch (Exception e)
             {
@@ -210,6 +210,12 @@ namespace CryostatControlServer.HostService
         public bool SetBlueforsHeater(bool status)
         {
             return this.cryostatControl.SetBlueforsHeater(status);
+        }
+
+        /// <inheritdoc cref="ICommandService.ReadSingleSensor"/>>
+        public double ReadSingleSensor(int sensorId)
+        {
+            return this.cryostatControl.ReadSingleSensor(sensorId);
         }
 
         /// <inheritdoc cref="ICommandService.WriteSettingValues"/>>

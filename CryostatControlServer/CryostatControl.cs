@@ -331,6 +331,16 @@ namespace CryostatControlServer
         }
 
         /// <summary>
+        /// Reads the single sensor.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Data of the sensor or NaN if sensor could not be read, or out of sensor range</returns>
+        public double ReadSingleSensor(int id)
+        {
+            return this.dataReader.ReadSingleSensor(id);
+        }
+
+        /// <summary>
         /// Fills the heaters.
         /// <seealso cref="HeaterEnumerator"/> for the position of each heater
         /// </summary>
