@@ -9,6 +9,8 @@
 
 namespace CryostatControlClient.Communication
 {
+    using System;
+
     using CryostatControlClient.ViewModels;
 
     using CryostatControlServer.Data;
@@ -30,6 +32,36 @@ namespace CryostatControlClient.Communication
             if (dataContext != null)
             {
                 dataContext.ModusViewModel.Modus = modus;
+            }
+        }
+
+        /// <summary>
+        /// Sets the is logging.
+        /// </summary>
+        /// <param name="state">if set to <c>true</c> [state].</param>
+        /// <param name="dataContext">The data context.</param>
+        public void SetIsLogging(bool state, ViewModelContainer dataContext)
+        {
+            if (dataContext != null)
+            {
+                dataContext.LoggingViewModel.LoggingInProgress = state;
+            }
+        }
+
+        /// <summary>
+        /// The update notification.
+        /// </summary>
+        /// <param name="notification">
+        /// The notification.
+        /// </param>
+        /// <param name="dataContext">
+        /// The data context.
+        /// </param>
+        public void UpdateNotification(string[] notification, ViewModelContainer dataContext)
+        {
+            if (dataContext != null)
+            {
+                dataContext.MessageBoxViewModel.Message = notification;
             }
         }
 

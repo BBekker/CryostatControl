@@ -3,14 +3,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    >
 
     <Page.Resources>
         <ResourceDictionary Source="Styles.xaml" />
     </Page.Resources>
 
     <materialDesign:Card Style="{StaticResource tabFrameCard}">
-        <dragablz:TabablzControl Style="{StaticResource TabFrame}" >
+        <dragablz:TabablzControl Style="{StaticResource TabFrame}">
             <TabItem Header="Overview" >
                 <Frame Source="Tabs/OverviewFrame.xaml" />
             </TabItem>
@@ -24,10 +27,13 @@
                 <Frame Source="Tabs/CompressorFrame.xaml" Navigated="FrameNavigated"/>
             </TabItem>
             <TabItem Header="Graph">
-                <Frame Source="Tabs/GraphFrame.xaml" />
+                <Frame Source="Tabs/GraphFrame.xaml" Navigated="FrameNavigated"/>
             </TabItem>
             <TabItem Header="Logging">
                 <Frame Source="Tabs/LoggingFrame.xaml" Navigated="FrameNavigated"/>
+            </TabItem>
+            <TabItem Header="Settings" IsSelected="{Binding SettingsViewModel.IsSelected, Mode=OneWayToSource}">
+                <Frame Source="Tabs/SettingsFrame.xaml" Navigated="FrameNavigated"></Frame>
             </TabItem>
 
         </dragablz:TabablzControl>

@@ -156,7 +156,7 @@ namespace CryostatControlServer.Data
                 {
                     data[i] = float.NaN;
 #if DEBUG
-                    Console.WriteLine("Could not read sensor {0}", i);
+                    ////Console.WriteLine("Could not read sensor {0}", i);
 #endif
                 }
             }
@@ -220,7 +220,7 @@ namespace CryostatControlServer.Data
         /// <param name="data">The data.</param>
         private void FillConnectionData(double[] data)
         {
-            data[(int)DataEnumerator.ComConnectionState] = Convert.ToDouble(this.compressor.IsConnected());
+                data[(int)DataEnumerator.ComConnectionState] = Convert.ToDouble(this.compressor.IsConnected());
             data[(int)DataEnumerator.HeConnectionState] = Convert.ToDouble(this.he7Cooler.IsConnected());
             if (this.lakeShore != null)
             {

@@ -14,7 +14,7 @@
 
     <Style x:Key="graphCard" TargetType="materialDesign:Card">
         <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1" />
-        <Setter Property="MinWidth" Value="1000" />
+        <Setter Property="MinWidth" Value="850" />
         <Setter Property="MinHeight" Value="200" />
         <Setter Property="Margin" Value="5,5,5,5" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
@@ -32,6 +32,14 @@
         <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1" />
         <Setter Property="MinWidth" Value="850" />
         <Setter Property="MinHeight" Value="440" />
+        <Setter Property="Margin" Value="5,5,5,5" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+    </Style>
+
+    <Style x:Key="messageBoxCard" TargetType="materialDesign:Card">
+        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1" />
+        <Setter Property="MinWidth" Value="240" />
+        <Setter Property="MinHeight" Value="200" />
         <Setter Property="Margin" Value="5,5,5,5" />
         <Setter Property="VerticalAlignment" Value="Stretch" />
     </Style>
@@ -101,6 +109,27 @@
     <Style x:Key="mdTabHeader" TargetType="{x:Type TabItem}"
            BasedOn="{StaticResource MaterialDesignDragableTabItemStyle}">
         <Setter Property="Foreground" Value="Black" />
+    </Style>
+
+    <!--MessageBox Styles-->
+    <Style x:Key="NotificationTitle" TargetType="Label">
+        <Setter Property="Margin" Value="0, 0, 0, 0" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontSize" Value="15" />
+    </Style>
+
+    <Style x:Key="NotificationItemLabel" TargetType="Label">
+        <Setter Property="Margin" Value="0, -8, 0, 0" />
+        <Setter Property="Padding" Value="0, 0, 6, 0" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="FontSize" Value="10" />
+    </Style>
+
+    <Style x:Key="NotificationItem" TargetType="StackPanel">
+        <Setter Property="Margin" Value="0, 0, 0, 0" />
+        <Setter Property="Height" Value="10" />
     </Style>
 
     <!--CompressorFrame Styles-->
@@ -216,7 +245,7 @@
     <Style x:Key="He7Label" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Left" />
-        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Background" Value="Transparent" />
     </Style>
 
     <Style x:Key="He7TextBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignTextBox}">

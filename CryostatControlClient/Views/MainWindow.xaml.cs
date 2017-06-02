@@ -9,17 +9,11 @@
 
 namespace CryostatControlClient.Views
 {
-    using System;
     using System.ComponentModel;
     using System.Windows;
-    using System.Windows.Controls;
 
     using CryostatControlClient.Communication;
-    using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.ViewModels;
-
-    using CryostatControlServer.Compressor;
-    using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -74,10 +68,10 @@ namespace CryostatControlClient.Views
         {
             this.Loaded += this.MainWindowLoaded;
 
-            CommandServiceClient commandServiceClient = (Application.Current as App).CommandServiceClient;
+            ServerCheck serverCheck = (Application.Current as App).ServerCheck;
 
             this.dataReceiver = new DataReceiver();
-            this.dataSender = new DataSender(commandServiceClient);
+            this.dataSender = new DataSender(serverCheck);
 
             this.modusHandler = this.HandleModus;
             this.compHandler = this.HandleComp;
@@ -86,6 +80,20 @@ namespace CryostatControlClient.Views
         }
 
         #endregion Constructor
+
+        /// <summary>
+        /// Gets the view model container.
+        /// </summary>
+        /// <value>
+        /// The view model container.
+        /// </value>
+        public ViewModelContainer Container
+        {
+            get
+            {
+                return this.viewModelContainer;
+            }
+        }
 
         #region Methods
 
@@ -108,6 +116,26 @@ namespace CryostatControlClient.Views
         }
 
         /// <summary>
+        /// Sets the is logging.
+        /// </summary>
+        /// <param name="state">if set to <c>true</c> [state].</param>
+        public void SetIsLogging(bool state)
+        {
+            this.dataReceiver.SetIsLogging(state, this.viewModelContainer);
+        }
+
+        /// <summary>
+        /// The update notification.
+        /// </summary>
+        /// <param name="notification">
+        /// The notification.
+        /// </param>
+        public void UpdateNotification(string[] notification)
+        {
+            this.dataReceiver.UpdateNotification(notification, this.viewModelContainer);
+        }
+
+        /// <summary>
         /// Handles the Loaded event of the MainWindow control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -124,6 +152,7 @@ namespace CryostatControlClient.Views
             this.viewModelContainer.He7ViewModel.PropertyChanged += this.heliumHandler;
 
             this.dataSender.SetCompressorScales(this.viewModelContainer);
+            this.dataSender.SetLoggerState(this.viewModelContainer);
         }
 
         /// <summary>
@@ -142,6 +171,10 @@ namespace CryostatControlClient.Views
             else if (action == "CancelPressed")
             {
                 this.dataSender.CancelModus();
+            }
+            else if (action == "ManualPressed")
+            {
+                this.dataSender.ManualModus();
             }
             else
             {

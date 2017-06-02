@@ -26,7 +26,7 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// The debug information
         /// </summary>
-        private const string DebugInfo = "DebugInfo";
+        private const string DebugInfo = "SystemLog";
 
         /// <summary>
         /// The general main folder.
@@ -50,8 +50,7 @@ namespace CryostatControlServer.Logging
         public static void Error(string tag, string data)
         {
             string error = "ERROR";
-            WriteToFile(error, tag, data);
-            
+            WriteToFile(error, tag, data);           
         }
 
         /// <summary>
@@ -63,7 +62,6 @@ namespace CryostatControlServer.Logging
         {
             string warning = "Warning";
             WriteToFile(warning, tag, data);
-
         }
 
         /// <summary>
@@ -75,7 +73,6 @@ namespace CryostatControlServer.Logging
         {
             string info = "Info";
             WriteToFile(info, tag, data);
-
         }
 
         /// <summary>

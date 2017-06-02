@@ -158,9 +158,9 @@ namespace CryostatControlServer
         /// <returns>
         /// true if cool down is started, false otherwise
         /// </returns>
-        public bool StartCooldown(string time)
+        public bool StartCooldown(DateTime time)
         {
-            return this.controller.StartCooldown(DateTime.Parse(time));
+            return this.controller.StartCooldown(time);
         }
 
         /// <summary>
@@ -169,7 +169,19 @@ namespace CryostatControlServer
         /// <returns>true if heat up is started, false otherwise</returns>
         public bool StartHeatup()
         {
-            return this.controller.StartHeatup();
+            return this.controller.StartHeatup(DateTime.Now);
+        }
+
+        /// <summary>
+        /// Starts the heat up.
+        /// </summary>
+        /// <param name="time">The time.</param>
+        /// <returns>
+        /// true if heat up is started, false otherwise
+        /// </returns>
+        public bool StartHeatup(DateTime time)
+        {
+            return this.controller.StartHeatup(time);
         }
 
         /// <summary>
@@ -189,7 +201,19 @@ namespace CryostatControlServer
         /// <returns>true if recycle is started, false otherwise</returns>
         public bool StartRecycle()
         {
-            return this.controller.StartRecycle();
+            return this.controller.StartRecycle(DateTime.Now);
+        }
+
+        /// <summary>
+        /// Starts a recycle.
+        /// </summary>
+        /// <param name="time">The time.</param>
+        /// <returns>
+        /// true if recycle is started, false otherwise
+        /// </returns>
+        public bool StartRecycle(DateTime time)
+        {
+            return this.controller.StartRecycle(time);
         }
 
         /// <summary>
@@ -266,41 +290,26 @@ namespace CryostatControlServer
 
         /// <summary>
         /// Writes values to the helium7 heaters.
-        /// <seealso cref="HeaterEnumerator"/> for position for each heater.
+        /// <seealso cref="HeaterEnumerator"/>
+        /// for position for each heater.
         /// </summary>
-        /// <param name="values">The values.</param>
-        /// <returns>
-        /// <c>true</c> values could be set.
-        /// <c>false</c> values could not be set, either there is no connection,
-        /// input values are incorrect or manual control isn't allowed</returns>
-        public bool WriteHelium7Heaters(double[] values)
+        /// <param name="heater">
+        /// The heater.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        public bool WriteHelium7Heater(HeaterEnumerator heater, double value)
         {
-            ////todo add safety check, what happens if a wrong value is set.
-
-            if (values.Length != (int)HeaterEnumerator.HeaterAmount || !this.ManualControl)
+            if (this.ManualControl)
+            {
+                this.heaters[(int)heater].Voltage = value;
+                return true;
+            }
+            else
             {
                 return false;
             }
-
-            bool status = true;
-
-            for (int i = 0; i < values.Length; i++)
-            {
-                try
-                {
-                    this.heaters[i].Voltage = values[i];
-                }
-                catch (Exception e)
-                {
-                    status = false;
-                    Console.WriteLine("Sensor {0} could not be set", i);
-#if DEBUG
-                    Console.WriteLine("Exception thrown: {0}", e);
-#endif
-                }
-            }
-
-            return status;
         }
 
         /// <summary>

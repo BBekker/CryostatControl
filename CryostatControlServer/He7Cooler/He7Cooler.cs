@@ -225,6 +225,10 @@ namespace CryostatControlServer.He7Cooler
             {
                 Console.WriteLine("Reading values failed: " + ex.ToString());
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("He7 cooler connection error.");
+            }
         }
 
         /// <summary>
@@ -329,7 +333,7 @@ namespace CryostatControlServer.He7Cooler
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("Reconnecting failed");
+                        Console.WriteLine("Reconnecting failed: " + e.GetType() + e.Message);
                     }
                 }
                 else
