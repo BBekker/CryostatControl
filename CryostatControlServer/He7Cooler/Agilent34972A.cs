@@ -9,6 +9,7 @@ namespace CryostatControlServer.He7Cooler
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.Threading;
 
     using CryostatControlServer.Streams;
@@ -18,6 +19,8 @@ namespace CryostatControlServer.He7Cooler
     /// </summary>
     public class Agilent34972A
     {
+        #region Fields
+
         /// <summary>
         /// The TCP port.
         /// </summary>
@@ -27,6 +30,15 @@ namespace CryostatControlServer.He7Cooler
         /// The connection.
         /// </summary>
         private IManagedStream connection;
+
+        /// <summary>
+        /// The internet protocol address
+        /// </summary>
+        private string ipAddress;
+
+        #endregion Fields
+
+        #region Methods
 
         /// <summary>
         ///     Gets voltages from the device
@@ -41,7 +53,7 @@ namespace CryostatControlServer.He7Cooler
                 var numSensors = channelIds.Length;
                 var returnedChannels = new int[numSensors];
                 var returnedVolts = new double[numSensors];
-               
+
                 var readVolt = new double[numSensors];
 
                 // construct a command to read all specified voltages
@@ -95,11 +107,23 @@ namespace CryostatControlServer.He7Cooler
         }
 
         /// <summary>
+        /// The is connected.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool IsConnected()
+        {
+            return this.connection?.IsConnected() ?? false;
+        }
+
+        /// <summary>
         /// Initializes the specified IP address.
         /// </summary>
         /// <param name="ipAddress">The IP address.</param>
         public void Init(string ipAddress)
         {
+            this.ipAddress = ipAddress;
             this.connection = new ManagedTcpStream(ipAddress, TcpPort);
             this.connection.Open();
 
@@ -131,6 +155,23 @@ namespace CryostatControlServer.He7Cooler
         }
 
         /// <summary>
+        /// Try to reopen a disconnected connection.
+        /// Throws all sorts of exceptions
+        /// </summary>
+        public void Reopen()
+        {
+            if (this.ipAddress != null && !this.connection.IsConnected())
+            {
+                var conn = new ManagedTcpStream(this.ipAddress, TcpPort);
+                this.connection = conn;
+            }
+
+            this.connection.Open();
+            this.connection.WriteString("FORM:READ:CHAN ON\n");
+            this.CheckState();
+        }
+
+        /// <summary>
         /// Set digital output.
         /// </summary>
         /// <param name="bit">
@@ -155,7 +196,7 @@ namespace CryostatControlServer.He7Cooler
                 {
                     b_set = !b_set;
                 }
-                        
+
                 // set or clear the bit in the old values
                 var setByte = 0;
                 if (b_set)
@@ -166,7 +207,7 @@ namespace CryostatControlServer.He7Cooler
                 {
                     setByte = getByte - (getByte & bitVal);
                 }
-                
+
                 this.connection.WriteString($"SOUR:DIG:DATA:BYTE {setByte}, (@{(int)Channels.CtrlDigOut})\n");
             }
             finally
@@ -237,5 +278,7 @@ namespace CryostatControlServer.He7Cooler
                 Monitor.Exit(this.connection);
             }
         }
+
+        #endregion Methods
     }
 }

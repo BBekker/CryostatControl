@@ -6,9 +6,11 @@
 namespace CryostatControlServer
 {
     using System;
-    using System.IO.Ports;
     using System.ServiceModel;
+
+    using CryostatControlServer.Data;
     using CryostatControlServer.HostService;
+    using CryostatControlServer.Logging;
 
     /// <summary>
     /// Launcher for the server application
@@ -26,11 +28,6 @@ namespace CryostatControlServer
         /// Host address of the helium 7 cooler
         /// </summary>
         private const string CoolerHost = "192.168.1.100";
-
-        /// <summary>
-        /// The host address
-        /// </summary>
-        private const string HostAddress = "http://localhost:8080/SRON";
 
         /// <summary>
         /// The compressor
@@ -57,6 +54,11 @@ namespace CryostatControlServer
         /// </summary>
         private static Controller controller;
 
+        /// <summary>
+        /// The logger
+        /// </summary>
+        private static LogThreader logger;
+
         #endregion Fields
 
         #region Methods
@@ -67,34 +69,10 @@ namespace CryostatControlServer
         /// <param name="args">The arguments.</param>
         public static void Main(string[] args)
         {
-            InitComponents();
+            InitComponents();         
+            logger = new LogThreader(new DataReader(compressor, he7Cooler, lakeShore));
+            logger.StartGeneralDataLogging();
             StartHost();
-        }
-
-        /// <summary>
-        /// Find the lakeshore com port and connect
-        /// </summary>
-        /// <returns>
-        /// The <see cref="LakeShore"/>.
-        /// </returns>
-        private static LakeShore.LakeShore FindLakeshore()
-        {
-            string[] names = SerialPort.GetPortNames();
-            LakeShore.LakeShore newLakeShore = new LakeShore.LakeShore();
-            foreach (string name in names)
-            {
-                try
-                {
-                    newLakeShore.Init(name);
-                    return newLakeShore;
-                }
-                catch (Exception)
-                {
-                    ////ignore this exception and try new port
-                }
-            }
-
-            return null;
         }
 
         /// <summary>
@@ -102,11 +80,15 @@ namespace CryostatControlServer
         /// </summary>
         private static void InitComponents()
         {
-            lakeShore = FindLakeshore();
-
-            if (lakeShore == null)
+            var lakeShorePort = LakeShore.LakeShore.FindPort();
+            if (lakeShorePort != null)
             {
-                Console.WriteLine("No connection with LakeShore");
+                lakeShore = new LakeShore.LakeShore();
+                lakeShore.Init(lakeShorePort);
+            }
+            else
+            {
+                DebugLogger.Error("Launcher", "No connection with LakeShore");
             }
 
             try
@@ -116,7 +98,7 @@ namespace CryostatControlServer
             }
             catch (Exception e)
             {
-                Console.WriteLine("No connection with He7 cooler");
+                DebugLogger.Error("Launcher", "No connection with He7 cooler");
 
 #if DEBUG
                 Console.WriteLine("Exception thrown: {0}", e);
@@ -126,11 +108,12 @@ namespace CryostatControlServer
 
             try
             {
-                compressor = new Compressor.Compressor(CompressorHost);
+                compressor = new Compressor.Compressor();
+                compressor.Connect(CompressorHost);
             }
             catch (Exception e)
             {
-                Console.WriteLine("No connection with Compressor");
+                DebugLogger.Error("Launcher", "No connection with Compressor");
 
 #if DEBUG
                 Console.WriteLine("Exception thrown: {0}", e);
@@ -148,23 +131,24 @@ namespace CryostatControlServer
         /// </summary>
         private static void StartHost()
         {
-            CommandService hostService = new CommandService(cryostatControl);
-            Uri baseAddress = new Uri("http://localhost:8080/SRON");
-            using (ServiceHost host = new ServiceHost(hostService, baseAddress))
-            {
-                // Enable metadata publishing.
-                ////ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-                ////smb.HttpGetEnabled = true;
-                ////smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
-                ////host.Description.Behaviors.Add(smb);
-                ((ServiceBehaviorAttribute)host.Description.Behaviors[typeof(ServiceBehaviorAttribute)])
-                    .InstanceContextMode = InstanceContextMode.Single;
-                host.Open();
-                Console.WriteLine("The service is ready at {0}", baseAddress);
-                Console.WriteLine("Press <Enter> to stop the service.");
-                Console.ReadLine();
-                host.Close();
-            }
+                CommandService hostService = new CommandService(cryostatControl, logger);
+                NotificationSender.Init(hostService);
+                using (ServiceHost host = new ServiceHost(hostService))
+                {
+                    // Enable metadata publishing.
+                    ////ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+                    ////smb.HttpGetEnabled = true;
+                    ////smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
+                    ////host.Description.Behaviors.Add(smb);
+                    ((ServiceBehaviorAttribute)host.Description.Behaviors[typeof(ServiceBehaviorAttribute)])
+                        .InstanceContextMode = InstanceContextMode.Single;
+                    host.Open();
+                    DebugLogger.Info("Launcher", "The service is ready");
+                    Console.WriteLine("The service is ready");
+                    Console.WriteLine("Press <Enter> to stop the service.");
+                    Console.ReadLine();
+                    host.Close();
+                }
         }
     }
 

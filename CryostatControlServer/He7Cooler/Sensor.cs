@@ -13,7 +13,11 @@ namespace CryostatControlServer.He7Cooler
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.IO;
+
+    using CryostatControlServer.Data;
+    using CryostatControlServer.Logging;
 
     /// <summary>
     /// The he 7 cooler.
@@ -244,6 +248,7 @@ namespace CryostatControlServer.He7Cooler
                     }
 
                     // this should never be reached.
+                    DebugLogger.Error(this.GetType().Name, "Calibration code failed.");
                     throw new InvalidOperationException("Calibration code failed.");
                 }
 

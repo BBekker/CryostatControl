@@ -38,7 +38,6 @@ namespace CryostatControlClient
         public DataClientCallback(App app)
         {
             this.mainApp = app;
-            this.mainWindow = this.mainApp.MainWindow as MainWindow;
         }
 
         #endregion Constructors
@@ -51,26 +50,65 @@ namespace CryostatControlClient
         /// <param name="data">The data.</param>
         public void SendData(double[] data)
         {
-            if (this.mainWindow == null)
+            this.mainApp.Dispatcher.Invoke(() =>
             {
-                this.mainWindow = this.mainApp.MainWindow as MainWindow;
-            }
-            else
-            {
+                if (this.mainWindow == null)
+                {
+                    this.mainWindow = this.mainApp.MainWindow as MainWindow;
+                }
+
                 this.mainWindow.UpdateViewModels(data);
-            }
+            });
         }
 
+        /// <summary>
+        /// Sends the modus.
+        /// </summary>
+        /// <param name="modus">The modus.</param>
         public void SendModus(int modus)
+        {
+            this.mainApp.Dispatcher.Invoke(() =>
+            {
+                if (this.mainWindow == null)
+                {
+                    this.mainWindow = this.mainApp.MainWindow as MainWindow;
+                }
+
+                this.mainWindow.SetState(modus);
+            });
+        }
+
+        /// <summary>
+        /// Sets the state of the logging.
+        /// </summary>
+        /// <param name="status">if set to <c>true</c> [status].</param>
+        public void SetLoggingState(bool status)
+        {
+            this.mainApp.Dispatcher.Invoke(() =>
+            {
+                if (this.mainWindow == null)
+                {
+                    this.mainWindow = this.mainApp.MainWindow as MainWindow;
+                }
+
+                this.mainWindow.SetIsLogging(status);
+            });
+        }
+
+        /// <summary>
+        /// The update notification.
+        /// </summary>
+        /// <param name="notification">
+        /// The notification.
+        /// </param>
+        public void UpdateNotification(string[] notification)
         {
             if (this.mainWindow == null)
             {
                 this.mainWindow = this.mainApp.MainWindow as MainWindow;
             }
-            else
-            {
-                this.mainWindow.SetState(modus);
-            }
+
+            this.mainWindow.UpdateNotification(notification);
         }
 
         #endregion Methods

@@ -7,6 +7,8 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+// #define ShowCommunication
+
 namespace CryostatControlServer.Streams
 {
     using System;
@@ -73,7 +75,7 @@ namespace CryostatControlServer.Streams
         /// <param name="stringToWrite">The string to write.</param>
         public void WriteString(string stringToWrite)
         {
-#if (DEBUG)
+#if (DEBUG && ShowCommunication)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write(stringToWrite);
@@ -93,7 +95,7 @@ namespace CryostatControlServer.Streams
         {
             var res = this.reader.ReadLine();
 
-            #if (DEBUG)
+            #if (DEBUG && ShowCommunication)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.Write(res);
@@ -111,7 +113,7 @@ namespace CryostatControlServer.Streams
         {
             var res = await this.reader.ReadLineAsync();
 
-            #if (DEBUG)
+            #if (DEBUG && ShowCommunication)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.Write(res);

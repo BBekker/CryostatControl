@@ -9,17 +9,11 @@
 
 namespace CryostatControlClient.Views
 {
-    using System;
     using System.ComponentModel;
     using System.Windows;
-    using System.Windows.Controls;
 
     using CryostatControlClient.Communication;
-    using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.ViewModels;
-
-    using CryostatControlServer.Compressor;
-    using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -51,7 +45,17 @@ namespace CryostatControlClient.Views
         /// <summary>
         /// The handler
         /// </summary>
-        private PropertyChangedEventHandler heHandler;
+        private PropertyChangedEventHandler heliumHandler;
+
+        /// <summary>
+        /// The logger handler.
+        /// </summary>
+        private PropertyChangedEventHandler loggerHandler;
+
+        /// <summary>
+        /// The comp handler
+        /// </summary>
+        private PropertyChangedEventHandler compHandler;
 
         #endregion Fields
 
@@ -64,16 +68,32 @@ namespace CryostatControlClient.Views
         {
             this.Loaded += this.MainWindowLoaded;
 
-            CommandServiceClient commandServiceClient = (Application.Current as App).CommandServiceClient;
+            ServerCheck serverCheck = (Application.Current as App).ServerCheck;
 
             this.dataReceiver = new DataReceiver();
-            this.dataSender = new DataSender(commandServiceClient);
+            this.dataSender = new DataSender(serverCheck);
 
             this.modusHandler = this.HandleModus;
-            this.heHandler = this.HandleHe;
+            this.compHandler = this.HandleComp;
+            this.loggerHandler = this.HandleLogger;
+            this.heliumHandler = this.HandleHe;
         }
 
         #endregion Constructor
+
+        /// <summary>
+        /// Gets the view model container.
+        /// </summary>
+        /// <value>
+        /// The view model container.
+        /// </value>
+        public ViewModelContainer Container
+        {
+            get
+            {
+                return this.viewModelContainer;
+            }
+        }
 
         #region Methods
 
@@ -96,6 +116,26 @@ namespace CryostatControlClient.Views
         }
 
         /// <summary>
+        /// Sets the is logging.
+        /// </summary>
+        /// <param name="state">if set to <c>true</c> [state].</param>
+        public void SetIsLogging(bool state)
+        {
+            this.dataReceiver.SetIsLogging(state, this.viewModelContainer);
+        }
+
+        /// <summary>
+        /// The update notification.
+        /// </summary>
+        /// <param name="notification">
+        /// The notification.
+        /// </param>
+        public void UpdateNotification(string[] notification)
+        {
+            this.dataReceiver.UpdateNotification(notification, this.viewModelContainer);
+        }
+
+        /// <summary>
         /// Handles the Loaded event of the MainWindow control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -107,7 +147,12 @@ namespace CryostatControlClient.Views
             this.DataContext = this.viewModelContainer;
 
             this.viewModelContainer.ModusViewModel.PropertyChanged += this.modusHandler;
-            this.viewModelContainer.He7ViewModel.PropertyChanged += this.heHandler;
+            this.viewModelContainer.CompressorViewModel.PropertyChanged += this.compHandler;
+            this.viewModelContainer.LoggingViewModel.PropertyChanged += this.loggerHandler;
+            this.viewModelContainer.He7ViewModel.PropertyChanged += this.heliumHandler;
+
+            this.dataSender.SetCompressorScales(this.viewModelContainer);
+            this.dataSender.SetLoggerState(this.viewModelContainer);
         }
 
         /// <summary>
@@ -127,9 +172,32 @@ namespace CryostatControlClient.Views
             {
                 this.dataSender.CancelModus();
             }
+            else if (action == "ManualPressed")
+            {
+                this.dataSender.ManualModus();
+            }
             else
             {
                 // todo: unknow action, throw exception or something?
+            }
+        }
+
+        /// <summary>
+        /// Handles the comp.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void HandleComp(object sender, PropertyChangedEventArgs e)
+        {
+            string action = e.PropertyName;
+
+            if (action == "TurnOn")
+            {
+                this.dataSender.SwitchCompressor(true);
+            }
+            else if (action == "TurnOff")
+            {
+                this.dataSender.SwitchCompressor(false);
             }
         }
 
@@ -148,6 +216,28 @@ namespace CryostatControlClient.Views
             }
         }
 
+        /// <summary>
+        /// Handles the logger.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
+        private void HandleLogger(object sender, PropertyChangedEventArgs e)
+        {
+            string action = e.PropertyName;
+
+            if (action == "StartPressed")
+            {
+                this.dataSender.SendDataToBeLogged(this.viewModelContainer);
+            }
+            else if (action == "CancelPressed")
+            {
+                this.dataSender.CancelLogging();
+            }
+            else
+            {
+                // todo: unknow action, throw exception or something?
+            }
+        }
         #endregion Methods
     }
 }

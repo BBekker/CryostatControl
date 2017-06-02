@@ -10,11 +10,15 @@
 
 namespace CryostatControlServer.Compressor
 {
+    using CryostatControlServer.Data;
+
     /// <summary>
     /// The sensor.
     /// </summary>
     public class Sensor : ISensor
     {
+        #region Fields
+
         /// <summary>
         /// The register.
         /// </summary>
@@ -24,6 +28,10 @@ namespace CryostatControlServer.Compressor
         /// The device.
         /// </summary>
         private Compressor device;
+
+        #endregion Fields
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Sensor"/> class.
@@ -40,6 +48,10 @@ namespace CryostatControlServer.Compressor
             this.device = device;
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         /// <summary>
         /// Gets or sets the interval.
         /// Not relevant for this device
@@ -53,8 +65,10 @@ namespace CryostatControlServer.Compressor
         {
             get
             {
-                return this.device.ReadAnalogRegister(this.register);
+                return this.device.ReadDoubleAnalogRegister(this.register);
             }
         }
+
+        #endregion Properties
     }
 }

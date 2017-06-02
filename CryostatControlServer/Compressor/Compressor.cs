@@ -7,6 +7,9 @@ namespace CryostatControlServer.Compressor
 {
     using System;
     using System.Net.Sockets;
+
+    using CryostatControlServer.Logging;
+
     using Modbus.Device;
 
     /// <summary>
@@ -37,37 +40,31 @@ namespace CryostatControlServer.Compressor
         private const ushort DoubleRegister = 2;
 
         /// <summary>
-        /// Amount of temperature register needed to read.
-        /// </summary>
-        private const ushort TemperatureRegister = 8;
-
-        /// <summary>
-        /// Amount of pressure register needed to read.
-        /// </summary>
-        private const ushort PressureRegister = 10;
-
-        /// <summary>
         /// Master instance where MODBUS calls can be called on.
         /// </summary>
-        private readonly ModbusIpMaster master;
+        private ModbusIpMaster master;
 
         #endregion Fields
 
-        #region Constructors
+        #region Methods
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Compressor"/> class.
+        /// Connects the specified address.
         /// </summary>
-        /// <param name="address">The IP address of the compressor.</param>
-        public Compressor(string address)
+        /// <param name="address">The address.</param>
+        public void Connect(string address)
         {
             TcpClient client = new TcpClient(address, Port);
             this.master = ModbusIpMaster.CreateIp(client);
         }
 
-        #endregion Constructors
-
-        #region Methods
+        /// <summary>
+        /// Disconnects this instance.
+        /// </summary>
+        public void Disconnect()
+        {
+            this.master.Dispose();
+        }
 
         /// <summary>
         /// Turns the compressor on.
@@ -76,7 +73,31 @@ namespace CryostatControlServer.Compressor
         {
             const ushort On = 0x001;
             this.master.WriteSingleRegister(Slave, (ushort)HoldingRegistersEnum.Control, On);
-            Console.WriteLine("Compressor turned on");
+            DebugLogger.Info(this.GetType().Name, "Compressor turned on");
+        }
+
+        /// <summary>
+        /// Determines whether this instance is connected.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance is connected; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsConnected()
+        {
+            if (this.master == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                this.ReadOperatingState();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -86,7 +107,7 @@ namespace CryostatControlServer.Compressor
         {
             const ushort Off = 0x00FF;
             this.master.WriteSingleRegister(Slave, (ushort)HoldingRegistersEnum.Control, Off);
-            Console.WriteLine("Compressor turned off");
+            DebugLogger.Info(this.GetType().Name, "Compressor turned off");
         }
 
         /// <summary>
@@ -254,7 +275,9 @@ namespace CryostatControlServer.Compressor
         }
 
         /// <summary>
-        /// Reads an analog register.
+        /// Reads two analog register which follow each other.
+        /// This can be called on the most sensors.
+        /// <seealso cref="AnalogRegistersEnum"/> for the available register.
         /// </summary>
         /// <param name="register">
         /// The register.
@@ -262,7 +285,7 @@ namespace CryostatControlServer.Compressor
         /// <returns>
         /// The <see cref="float"/>.
         /// </returns>
-        public float ReadAnalogRegister(AnalogRegistersEnum register)
+        public float ReadDoubleAnalogRegister(AnalogRegistersEnum register)
         {
             ushort[] status = this.master.ReadInputRegisters((ushort)register, DoubleRegister);
             return this.ParseFloat(status);
@@ -274,9 +297,15 @@ namespace CryostatControlServer.Compressor
         /// <returns>Pressure scale.</returns>
         public PressureEnum ReadPressureScale()
         {
-            ////todo: check
-            ushort[] status = this.master.ReadInputRegisters((ushort)AnalogRegistersEnum.PressureScale, SingleRegister);
-            return (PressureEnum)status[0];
+            try
+            {
+                ushort[] status = this.master.ReadInputRegisters((ushort)AnalogRegistersEnum.PressureScale, SingleRegister);
+                return (PressureEnum)status[0];
+            }
+            catch
+            {
+                return (PressureEnum)(-1);
+            }
         }
 
         /// <summary>
@@ -285,9 +314,15 @@ namespace CryostatControlServer.Compressor
         /// <returns>Temperature scale.</returns>
         public TemperatureEnum ReadTemperatureScale()
         {
-            ////todo: check
-            ushort[] status = this.master.ReadInputRegisters((ushort)AnalogRegistersEnum.TempScale, SingleRegister);
-            return (TemperatureEnum)status[0];
+            try
+            {
+                ushort[] status = this.master.ReadInputRegisters((ushort)AnalogRegistersEnum.TempScale, SingleRegister);
+                return (TemperatureEnum)status[0];
+            }
+            catch
+            {
+                return (TemperatureEnum)(-1);
+            }
         }
 
         /// <summary>
@@ -296,7 +331,6 @@ namespace CryostatControlServer.Compressor
         /// <returns>Panel Serial number.</returns>
         public ushort ReadPanelSerialNumber()
         {
-            ////todo: check
             ushort[] status = this.master.ReadInputRegisters((ushort)AnalogRegistersEnum.PanelSerialNumber, SingleRegister);
             return status[0];
         }
@@ -307,48 +341,9 @@ namespace CryostatControlServer.Compressor
         /// <returns>Model number.</returns>
         public byte[] ReadModel()
         {
-            ////todo: check
             ushort[] status = this.master.ReadInputRegisters((ushort)AnalogRegistersEnum.Model, SingleRegister);
             byte[] bytes = BitConverter.GetBytes(status[0]);
             return bytes;
-        }
-
-        /// <summary>
-        /// Reads all temperature registers.
-        /// </summary>
-        /// <returns>Array with floats of the registers</returns>
-        public float[] ReadAllTemperatures()
-        {
-            return this.ReadAll(
-                (ushort)AnalogRegistersEnum.CoolantInTemp,
-                TemperatureRegister);
-        }
-
-        /// <summary>
-        /// Reads all pressure registers.
-        /// </summary>
-        /// <returns>Array with floats of the registers</returns>
-        public float[] ReadAllPressures()
-        {
-            return this.ReadAll((ushort)AnalogRegistersEnum.LowPressure, PressureRegister);
-        }
-
-        /// <summary>
-        /// Reads all the requested registers and parse them into <see cref="float"/>.
-        /// </summary>
-        /// <param name="startRegister">The start register.</param>
-        /// <param name="amountOfRegisters">The amount of registers.</param>
-        /// <returns>The values of the register in <see cref="float"/></returns>
-        public float[] ReadAll(ushort startRegister, ushort amountOfRegisters)
-        {
-            float[] floats = new float[amountOfRegisters / 2];
-            ushort[] data = this.master.ReadInputRegisters(startRegister, amountOfRegisters);
-            for (ushort i = 0; i < data.Length / 2; i++)
-            {
-                floats[i] = this.ParseFloat(data[i], data[i + 1]);
-            }
-
-            return floats;
         }
 
         /// <summary>

@@ -13,6 +13,8 @@ namespace CryostatControlServer
     using System.Diagnostics.CodeAnalysis;
     using System.Threading;
 
+    using CryostatControlServer.Data;
+    using CryostatControlServer.Logging;
     using CryostatControlServer.Properties;
 
     /// <summary>
@@ -46,9 +48,19 @@ namespace CryostatControlServer
         private LakeShore.LakeShore lakeshore;
 
         /// <summary>
+        /// The start time.
+        /// </summary>
+        private DateTime startTime = DateTime.Now;
+
+        /// <summary>
         /// The state.
         /// </summary>
         private Controlstate state = Controlstate.Setup;
+
+        /// <summary>
+        /// The time when the current state was entered
+        /// </summary>
+        private DateTime stateEnteredTime = DateTime.Now;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Controller"/> class. 
@@ -72,7 +84,7 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// Finalizes an instance of the <see cref="Controller"/> class. 
+        /// Finalizes an instance of the <see cref="Controller"/> class.
         /// </summary>
         ~Controller()
         {
@@ -254,7 +266,9 @@ namespace CryostatControlServer
 
             private set
             {
-                Console.WriteLine("[Control] Switched from state {0} to {1}", this.state, value);
+                string message = "[Control] Switched from state " + this.state + " to " + value;
+                DebugLogger.Info(this.GetType().Name, message);
+                this.stateEnteredTime = DateTime.Now;
                 this.state = value;
             }
         }
@@ -278,6 +292,22 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the he 3 start temperature.
         /// </summary>
+        private double He3StartMinimalTemperature
+        {
+            get
+            {
+                return Settings.Default.ControllerHe3StartMinimalTemperature;
+            }
+
+            set
+            {
+                Settings.Default.ControllerHe3StartMinimalTemperature = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he 3 start temperature.
+        /// </summary>
         private double He3StartTemperature
         {
             get
@@ -292,6 +322,22 @@ namespace CryostatControlServer
         }
 
         /// <summary>
+        /// Gets or sets the he 3 start temperature.
+        /// </summary>
+        private double He3StartWaitTimeMinutes
+        {
+            get
+            {
+                return Settings.Default.ControllerHe3StartWaitTimeMinutes;
+            }
+
+            set
+            {
+                Settings.Default.ControllerHe3StartWaitTimeMinutes = value;
+            }
+        }
+
+        /// <summary>
         /// Cancels the current command safely.
         /// </summary>
         public void CancelCommand()
@@ -302,12 +348,17 @@ namespace CryostatControlServer
         /// <summary>
         /// Starts the cool down id possible.
         /// </summary>
-        /// <returns>true if cool down is started, false otherwise</returns>
-        public bool StartCooldown()
+        /// <param name="time">The time.</param>
+        /// <returns>
+        /// true if cool down is started, false otherwise
+        /// </returns>
+        public bool StartCooldown(DateTime time)
         {
             if (this.State == Controlstate.Standby)
             {
+                this.startTime = time;
                 this.State = Controlstate.CooldownStart;
+                Console.WriteLine($"Starting cooldown at: {time}");
                 return true;
             }
 
@@ -317,11 +368,15 @@ namespace CryostatControlServer
         /// <summary>
         /// Starts the heat up.
         /// </summary>
-        /// <returns>true if heat up is started, false otherwise</returns>
-        public bool StartHeatup()
+        /// <param name="time">The time.</param>
+        /// <returns>
+        /// true if heat up is started, false otherwise
+        /// </returns>
+        public bool StartHeatup(DateTime time)
         {
             if (this.State == Controlstate.Standby)
             {
+                this.startTime = time;
                 this.State = Controlstate.WarmupStart;
                 return true;
             }
@@ -349,11 +404,15 @@ namespace CryostatControlServer
         /// <summary>
         /// Starts a recycle.
         /// </summary>
-        /// <returns>true if recycle is started, false otherwise</returns>
-        public bool StartRecycle()
+        /// <param name="time">The time.</param>
+        /// <returns>
+        /// true if recycle is started, false otherwise
+        /// </returns>
+        public bool StartRecycle(DateTime time)
         {
             if (this.State == Controlstate.Standby)
             {
+                this.startTime = time;
                 this.State = Controlstate.RecycleStart;
                 return true;
             }
@@ -376,7 +435,7 @@ namespace CryostatControlServer
             }
             else
             {
-                this.cooler.He3Pump.Voltage = 0.0;
+                this.SetHeaterVoltage(this.cooler.He3Pump, 0.0);
             }
         }
 
@@ -395,7 +454,7 @@ namespace CryostatControlServer
             }
             else
             {
-                this.cooler.He4Pump.Voltage = 0.0;
+                this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
             }
         }
 
@@ -421,14 +480,14 @@ namespace CryostatControlServer
             Justification = "SI naming, T is uppercase")]
         private void ControlHeater(He7Cooler.He7Cooler.Heater heater, ISensor sensor, double TSet, double voltage)
         {
-            double kP = voltage * 0.2;
+            double kP = 0.5;
             if (sensor.Value < TSet)
             {
-                heater.Voltage = Math.Min(voltage, (TSet - sensor.Value) * kP);
+                this.SetHeaterVoltage(heater, Math.Max(0, Math.Min(voltage, voltage * (TSet - sensor.Value) * kP)));
             }
             else
             {
-                heater.Voltage = 0.0;
+                this.SetHeaterVoltage(heater, 0.0);
             }
         }
 
@@ -440,12 +499,12 @@ namespace CryostatControlServer
         {
             if (this.cooler.Plate4KT.Value > this.HeatSwitchSafeValue && this.cooler.He4Switch.Voltage > 0.2)
             {
-                this.cooler.He4Switch.Voltage = 0.0;
+                this.SetHeaterVoltage(this.cooler.He4Switch, 0.0);
             }
 
             if (this.cooler.Plate4KT.Value > this.HeatSwitchSafeValue && this.cooler.He3Switch.Voltage > 0.2)
             {
-                this.cooler.He3Switch.Voltage = 0.0;
+                this.SetHeaterVoltage(this.cooler.He3Switch, 0.0);
             }
         }
 
@@ -457,12 +516,33 @@ namespace CryostatControlServer
         {
             if (this.cooler.Plate4KT.Value > 70.0 && this.cooler.He3Pump.Voltage > 0.2)
             {
-                this.cooler.He3Pump.Voltage = 0.0;
+                this.SetHeaterVoltage(this.cooler.He3Pump, 0.0);
             }
 
             if (this.cooler.Plate4KT.Value > 70.0 && this.cooler.He4Pump.Voltage > 0.2)
             {
-                this.cooler.He4Pump.Voltage = 0.0;
+                this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
+            }
+        }
+
+        /// <summary>
+        /// The set heater voltage capturing any errors.
+        /// </summary>
+        /// <param name="heater">
+        /// The heater.
+        /// </param>
+        /// <param name="voltage">
+        /// The voltage.
+        /// </param>
+        private void SetHeaterVoltage(He7Cooler.He7Cooler.Heater heater, double voltage)
+        {
+            try
+            {
+                heater.Voltage = voltage;
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.Error(this.GetType().Name, "Error while setting heater: " + ex.Message);
             }
         }
 
@@ -482,7 +562,7 @@ namespace CryostatControlServer
         /// <para>
         /// State machine design
         /// The entire state machine is intentionally placed in a single function.
-        /// Use of the State pattern was considered but rejected for clarity and maintainability. 
+        /// Use of the State pattern was considered but rejected for clarity and maintainability.
         /// The design of the state machine is discussed in github:
         /// https://github.com/BBekker/CryostatControl/pull/88
         /// access can be requested by emailing: Bernard@BernardBekker.nl
@@ -495,10 +575,9 @@ namespace CryostatControlServer
         {
             this.SafetyCheckHeatSwitch();
             this.SafetyCheckPumps();
-
             switch (this.State)
             {
-                case Controlstate.Setup:
+                case Controlstate.Setup:    
                     if (this.cooler != null && this.lakeshore != null && this.compressor != null)
                     {
                         this.State = Controlstate.Standby;
@@ -506,12 +585,19 @@ namespace CryostatControlServer
 
                     break;
 
-                case Controlstate.Standby: break;
+                case Controlstate.Standby:
+                    break;
 
-                case Controlstate.Manual: break;
+                case Controlstate.Manual:
+                    break;
 
                 case Controlstate.CooldownStart:
-                    this.State = Controlstate.CooldownWaitForPressure;
+                    this.lakeshore.SetHeater(false);
+                    if (DateTime.Now > this.startTime)
+                    {
+                        this.State = Controlstate.CooldownWaitForPressure;
+                    }
+
                     break;
 
                 case Controlstate.CooldownWaitForPressure:
@@ -526,7 +612,7 @@ namespace CryostatControlServer
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Compressor gave error: " + ex);
+                        DebugLogger.Error(this.GetType().Name, "Compressor gave error: " + ex);
                     }
 
                     this.State = Controlstate.CooldownWait70K;
@@ -564,7 +650,7 @@ namespace CryostatControlServer
 
                 case Controlstate.CooldownTurnOffHe4:
                     this.ControlHe3PumpHeater();
-                    this.cooler.He4Pump.Voltage = 0.0;
+                    this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
                     this.State = Controlstate.CooldownControlHe4Switch;
                     break;
 
@@ -578,23 +664,34 @@ namespace CryostatControlServer
 
                     if (this.cooler.He4SwitchT.Value > this.HeatSwitchOnTemperature)
                     {
-                        this.State = Controlstate.CooldownCondenseHe3;
+                        this.State = Controlstate.CooldownWaitHe3Heater;
                     }
 
                     break;
 
-                case Controlstate.CooldownCondenseHe3:
+                case Controlstate.CooldownWaitHe3Heater:
                     this.ControlHe3PumpHeater();
-                    if (this.cooler.He3HeadT.Value < this.He3StartTemperature)
+                    if (this.cooler.He3PumpT.Value > this.HeaterTemperatureSetpoint - 1.0)
                     {
-                        this.State = Controlstate.CooldownDisableHe3PumpHeater;
+                        this.state = Controlstate.CooldownDisableHe3PumpHeater;
                     }
 
                     break;
 
                 case Controlstate.CooldownDisableHe3PumpHeater:
-                    this.cooler.He3Pump.Voltage = 0.0;
-                    this.State = Controlstate.CooldownControlHe3;
+                    this.SetHeaterVoltage(this.cooler.He3Pump, 0.0);
+                    this.State = Controlstate.CooldownCondenseHe3;
+                    break;
+
+                case Controlstate.CooldownCondenseHe3:
+                    if (this.cooler.He3HeadT.Value < this.He3StartTemperature
+                        || (this.cooler.He3HeadT.Value < this.He3StartMinimalTemperature
+                            && (DateTime.Now - this.stateEnteredTime)
+                            < new TimeSpan(0, (int)this.He3StartWaitTimeMinutes, 0)))
+                    {
+                        this.State = Controlstate.CooldownControlHe3;
+                    }
+
                     break;
 
                 case Controlstate.CooldownControlHe3:
@@ -615,10 +712,14 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.RecycleStart:
-                    this.cooler.He3Switch.Voltage = 0.0;
-                    this.cooler.He3Switch.Voltage = 0.0;
+                    if (DateTime.Now > this.startTime)
+                    {
+                        this.SetHeaterVoltage(this.cooler.He3Switch, 0.0);
+                        this.SetHeaterVoltage(this.cooler.He4Switch, 0.0);
 
-                    this.State = Controlstate.RecycleHeatPumps;
+                        this.State = Controlstate.RecycleHeatPumps;
+                    }
+
                     break;
 
                 case Controlstate.RecycleHeatPumps:
@@ -633,8 +734,29 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.WarmupStart:
-                    // TODO: start Lakeshore heater?
-                    this.compressor.TurnOff();
+                    if (DateTime.Now > this.startTime)
+                    {
+                        try
+                        {
+                            this.lakeshore.SetHeater(true);
+                        }
+                        catch (Exception)
+                        {
+                            DebugLogger.Warning(this.GetType().Name, "lakeshore did not respond");
+                        }
+
+                        try
+                        {
+                            this.compressor.TurnOff();
+                        }
+                        catch (Exception)
+                        {
+                            DebugLogger.Warning(this.GetType().Name, "Compressor not connected, make sure it is turned off!");
+                        }
+
+                        this.State = Controlstate.WarmupHeating;
+                    }
+
                     break;
 
                 case Controlstate.WarmupHeating:
@@ -652,12 +774,12 @@ namespace CryostatControlServer
                         this.cooler.He3Switch,
                         this.cooler.He3SwitchT,
                         this.HeatupTemperature,
-                        this.He4HeaterVoltage);
+                        this.He3SwitchVoltage);
                     this.ControlHeater(
                         this.cooler.He4Switch,
                         this.cooler.He4SwitchT,
                         this.HeatupTemperature,
-                        this.He4HeaterVoltage);
+                        this.He4SwitchVoltage);
                     if (this.cooler.He4PumpT.Value > this.HeatupTemperature - 1.0
                         && this.cooler.He3PumpT.Value > this.HeatupTemperature - 1.0
                         && this.cooler.He4SwitchT.Value > this.HeatupTemperature - 1.0
@@ -673,22 +795,38 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.CancelAll:
-                    this.cooler.He3Pump.Voltage = 0.0;
-                    this.cooler.He4Pump.Voltage = 0.0;
+                    this.SetHeaterVoltage(this.cooler.He3Pump, 0.0);
+                    this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
 
                     // Keep switches and compressor on if cold, turn off otherwise.
                     if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue)
                     {
                         this.cooler.He3Switch.Voltage = this.He3SwitchVoltage;
                         this.cooler.He4Switch.Voltage = this.He4SwitchVoltage;
-                        this.compressor.TurnOn();
+                        try
+                        {
+                            this.compressor.TurnOn();
+                        }
+                        catch (Exception)
+                        {
+                            DebugLogger.Warning(this.GetType().Name, "Compressor not turning on");
+                        }
                     }
                     else
                     {
-                        this.cooler.He3Switch.Voltage = 0.0;
-                        this.cooler.He4Switch.Voltage = 0.0;
-                        this.compressor.TurnOff();
+                        this.SetHeaterVoltage(this.cooler.He3Switch, 0.0);
+                        this.SetHeaterVoltage(this.cooler.He4Switch, 0.0);
+                        try
+                        {
+                            this.compressor.TurnOff();
+                        }
+                        catch (Exception)
+                        {
+                            DebugLogger.Warning(this.GetType().Name, "Compressor not turning off");
+                        }
                     }
+
+                    this.lakeshore.SetHeater(false);
 
                     this.State = Controlstate.Standby;
                     break;
