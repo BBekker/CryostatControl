@@ -152,7 +152,7 @@ namespace CryostatControlServer.HostService
             try
             {
                 int sensorId = int.Parse(sensor);
-                return this.cryostatControl.ReadData()[sensorId];
+                return this.cryostatControl.ReadSingleSensor(sensorId);
             }
             catch (Exception e)
             {

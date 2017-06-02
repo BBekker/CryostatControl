@@ -129,8 +129,6 @@ namespace CryostatControlServer.Data
                     case (int)DataEnumerator.ComWarning: return (double)this.compressor.ReadWarningState();
                     case (int)DataEnumerator.ComHoursOfOperation: return (double)this.compressor.ReadHoursOfOperation();
                     case (int)DataEnumerator.ComOperationState: return (double)this.compressor.ReadOperatingState();
-                    case (int)DataEnumerator.LakeHeater: return 0;
-
                     default: return double.NaN;
                 }
             }
