@@ -226,6 +226,10 @@ namespace CryostatControlServer.He7Cooler
             {
                 DebugLogger.Error(this.GetType().Name, "Reading values failed: " + ex.ToString());
             }
+            catch (Exception ex)
+            {
+                DebugLogger.Error(this.GetType().Name, "He7 cooler connection error.");
+            }
         }
 
         /// <summary>
@@ -322,6 +326,7 @@ namespace CryostatControlServer.He7Cooler
                     }
                     catch (Exception e)
                     {
+                        DebugLogger.Error(this.GetType().Name, "Can not dissconnect He7Cooler: " + e.GetType() + e.Message);
                     }
 
                     try
@@ -330,7 +335,7 @@ namespace CryostatControlServer.He7Cooler
                     }
                     catch (Exception e)
                     {
-                        DebugLogger.Error(this.GetType().Name, "Reconnecting failed");
+                        DebugLogger.Error(this.GetType().Name, "Reconnecting failed: " + e.GetType() + e.Message);
                     }
                 }
                 else

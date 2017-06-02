@@ -72,8 +72,8 @@ namespace CryostatControlServer.LakeShore
         /// <summary>
         /// Gets or sets the latest sensor values;
         /// </summary>
-        public double[] SensorValues { get; set; } = new double[2] { 0, 0 };
-
+        public double[] SensorValues { get; set; } = new double[3] { 0, 0, 0 };
+        
         #endregion Properties
 
         #region Methods
@@ -233,6 +233,7 @@ namespace CryostatControlServer.LakeShore
             {
                 this.SensorValues[0] = this.ReadTemperature("A");
                 this.SensorValues[1] = this.ReadTemperature("B");
+                this.SensorValues[(int)SensorEnum.HeaterPower] = this.GetHeaterPower();
             }
             catch (Exception e)
             {

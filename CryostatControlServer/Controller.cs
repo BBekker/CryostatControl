@@ -268,7 +268,6 @@ namespace CryostatControlServer
             {
                 string message = "[Control] Switched from state " + this.state + " to " + value;
                 DebugLogger.Info(this.GetType().Name, message);
-                NotificationSender.Info(message);
                 this.stateEnteredTime = DateTime.Now;
                 this.state = value;
             }
@@ -359,6 +358,7 @@ namespace CryostatControlServer
             {
                 this.startTime = time;
                 this.State = Controlstate.CooldownStart;
+                Console.WriteLine($"Starting cooldown at: {time}");
                 return true;
             }
 
@@ -543,7 +543,6 @@ namespace CryostatControlServer
             catch (Exception ex)
             {
                 DebugLogger.Error(this.GetType().Name, "Error while setting heater: " + ex.Message);
-                NotificationSender.Error("Error while setting heater: " + ex.Message);
             }
         }
 
@@ -614,7 +613,6 @@ namespace CryostatControlServer
                     catch (Exception ex)
                     {
                         DebugLogger.Error(this.GetType().Name, "Compressor gave error: " + ex);
-                        NotificationSender.Error("Compressor gave error: " + ex);
                     }
 
                     this.State = Controlstate.CooldownWait70K;
@@ -745,7 +743,6 @@ namespace CryostatControlServer
                         catch (Exception e)
                         {
                             DebugLogger.Warning(this.GetType().Name, "lakeshore did not respond");
-                            NotificationSender.Warning("lakeshore did not respond");
                         }
                         try
                         {
@@ -754,7 +751,6 @@ namespace CryostatControlServer
                         catch (Exception e)
                         {
                             DebugLogger.Warning(this.GetType().Name, "Compressor not connected, make sure it is turned off!");
-                            NotificationSender.Warning("Compressor not connected, make sure it is turned off!");
                         }
                         this.State = Controlstate.WarmupHeating;
                     }
@@ -812,7 +808,6 @@ namespace CryostatControlServer
                         catch (Exception)
                         {
                             DebugLogger.Warning(this.GetType().Name, "Compressor not turning on");
-                            NotificationSender.Warning("Compressor not turning on");
                         }
                     }
                     else
@@ -826,7 +821,6 @@ namespace CryostatControlServer
                         catch (Exception)
                         {
                             DebugLogger.Warning(this.GetType().Name, "Compressor not turning off");
-                            NotificationSender.Warning("Compressor not turning off");
                         }
                     }
 

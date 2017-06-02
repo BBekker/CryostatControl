@@ -280,7 +280,6 @@ namespace CryostatControlServer.Logging
         private void SendInfoToLogAndClient(string message)
         {
             DebugLogger.Info(this.GetType().Name, message);
-            NotificationSender.Info(message);
         }
 
         #endregion Methods

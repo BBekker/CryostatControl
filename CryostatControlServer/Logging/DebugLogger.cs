@@ -59,7 +59,13 @@ namespace CryostatControlServer.Logging
         {
             string error = "ERROR";
             string time = DateTime.Now.ToString("HH:mm:ss");
-            NotificationSender.Error(time, data);
+            try
+            {
+                NotificationSender.Error(time, data);
+            }
+            catch (NullReferenceException)
+            {
+            }
             WriteToFile(time, error, tag, data);           
         }
 
@@ -72,7 +78,14 @@ namespace CryostatControlServer.Logging
         {
             string warning = "Warning";
             string time = DateTime.Now.ToString("HH:mm:ss");
-            NotificationSender.Warning(time, data);
+            try
+            {
+                NotificationSender.Warning(time, data);
+            }
+            catch (NullReferenceException)
+            {  
+            }
+
             WriteToFile(time, warning, tag, data);
         }
 
@@ -85,7 +98,14 @@ namespace CryostatControlServer.Logging
         {
             string info = "Info";
             string time = DateTime.Now.ToString("HH:mm:ss");
-            NotificationSender.Info(time, data);
+            try
+            {
+                NotificationSender.Info(time, data);
+            }
+            catch (NullReferenceException)
+            {  
+            }
+
             WriteToFile(time, info, tag, data);
         }
 
@@ -106,6 +126,9 @@ namespace CryostatControlServer.Logging
         /// </param>
         public static void WriteToFile(string time, string level, string tag, string data)
         {
+#if DEBUG
+            Console.WriteLine(data);
+#endif
             if (filePath == null)
             {
                CreateFile(); 
