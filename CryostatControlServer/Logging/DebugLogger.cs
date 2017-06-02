@@ -13,6 +13,8 @@ namespace CryostatControlServer.Logging
     using System.IO;
     using System.Text;
 
+    using CryostatControlServer.Properties;
+
     /// <summary>
     /// The debug logger.
     /// </summary>
@@ -29,14 +31,20 @@ namespace CryostatControlServer.Logging
         private const string DebugInfo = "SystemLog";
 
         /// <summary>
-        /// The general main folder.
-        /// </summary>
-        private const string GeneralMainFolder = @"c:\CryostatLogging\General";
-
-        /// <summary>
         /// The file path
         /// </summary>
         private static string filePath;
+
+        /// <summary>
+        /// Gets the general main folder.
+        /// </summary>
+        private static string GeneralMainFolder
+        {
+            get
+            {
+                return Settings.Default.LoggingAddress + @"\General";
+            }
+        }
 
         /// <summary>
         /// The error.
@@ -50,7 +58,9 @@ namespace CryostatControlServer.Logging
         public static void Error(string tag, string data)
         {
             string error = "ERROR";
-            WriteToFile(error, tag, data);           
+            string time = DateTime.Now.ToString("HH:mm:ss");
+            NotificationSender.Error(time, data);
+            WriteToFile(time, error, tag, data);           
         }
 
         /// <summary>
@@ -61,7 +71,9 @@ namespace CryostatControlServer.Logging
         public static void Warning(string tag, string data)
         {
             string warning = "Warning";
-            WriteToFile(warning, tag, data);
+            string time = DateTime.Now.ToString("HH:mm:ss");
+            NotificationSender.Warning(time, data);
+            WriteToFile(time, warning, tag, data);
         }
 
         /// <summary>
@@ -72,23 +84,34 @@ namespace CryostatControlServer.Logging
         public static void Info(string tag, string data)
         {
             string info = "Info";
-            WriteToFile(info, tag, data);
+            string time = DateTime.Now.ToString("HH:mm:ss");
+            NotificationSender.Info(time, data);
+            WriteToFile(time, info, tag, data);
         }
 
         /// <summary>
         /// Writes to file.
         /// </summary>
-        /// <param name="level">The level.</param>
-        /// <param name="tag">The tag.</param>
-        /// <param name="data">The data.</param>
-        public static void WriteToFile(string level, string tag, string data)
+        /// <param name="time">
+        /// The time.
+        /// </param>
+        /// <param name="level">
+        /// The level.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        public static void WriteToFile(string time, string level, string tag, string data)
         {
             if (filePath == null)
             {
                CreateFile(); 
             }
             StringBuilder sb = new StringBuilder();
-            string dataLine = DateTime.Now.ToString("HH:mm:ss") + "," + tag + "," + level + ": " + data;
+            string dataLine = time + "," + tag + "," + level + ": " + data;
 
             try
             {

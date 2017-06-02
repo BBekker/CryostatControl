@@ -37,13 +37,15 @@ namespace CryostatControlServer
         /// <summary>
         /// The error.
         /// </summary>
+        /// <param name="time">
+        /// The time.
+        /// </param>
         /// <param name="data">
         /// The data.
         /// </param>
-        public static void Error(string data)
+        public static void Error(string time, string data)
         {
             string error = "ERROR";
-            string time = DateTime.Now.ToString("HH:mm:ss");
             string[] message = new[] { time, error, data };
             SendData(message);
         }
@@ -51,13 +53,15 @@ namespace CryostatControlServer
         /// <summary>
         /// Warnings the specified tag.
         /// </summary>
+        /// <param name="time">
+        /// The time.
+        /// </param>
         /// <param name="data">
         /// The data.
         /// </param>
-        public static void Warning(string data)
+        public static void Warning(string time, string data)
         {
             string warning = "Warning";
-            string time = DateTime.Now.ToString("HH:mm:ss");
             string[] message = new[] { time, warning, data };
             SendData(message);
         }
@@ -65,13 +69,15 @@ namespace CryostatControlServer
         /// <summary>
         /// Informations the specified tag.
         /// </summary>
+        /// <param name="time">
+        /// The time.
+        /// </param>
         /// <param name="data">
         /// The data.
         /// </param>
-        public static void Info(string data)
+        public static void Info(string time, string data)
         {
             string info = "Info";
-            string time = DateTime.Now.ToString("HH:mm:ss");
             string[] message = new[] { time, info, data };
             SendData(message);
         }

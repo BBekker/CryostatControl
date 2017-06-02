@@ -40,7 +40,7 @@ namespace CryostatControlServer.HostService.Enumerators
                     "He3 adsorption start target temperature",
                     "Disable heater when switches are above",
                     "He3 adsorption start minimal temperature",
-                    "He3 adsorption maximum wait time",
+                    "He3 adsorption maximum wait time"
                 };
 
         /// <summary>
