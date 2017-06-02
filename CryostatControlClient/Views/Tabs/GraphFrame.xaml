@@ -12,17 +12,18 @@
         <ColumnDefinition Width="Auto" />
         <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
 
-    <Grid Grid.Column="0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="5*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" VerticalAlignment="Center">
+    <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
+        <StackPanel VerticalAlignment="Center">
             <Label HorizontalAlignment="Center" >Currently zooming</Label>
             <Label HorizontalAlignment="Center" Content="{Binding ZoomingViewModel.ZoomingMode, Converter={StaticResource ZoomingModeConverter}}"/>
             <Button Margin="5" Command="{Binding ZoomingViewModel.ZoomCommand}">Toggle Zoom Axis</Button>
             <Button Margin="5" Command="{Binding ZoomingViewModel.ResetCommand}">Reset zooming</Button>
+
 
             <StackPanel Margin="10 10 0 0" VerticalAlignment="Center">
                 <CheckBox Command="{Binding BlueforsViewModel.ColdPlate3KVisibilityCommand}" IsChecked="True" Background="DodgerBlue">
@@ -59,8 +60,45 @@
         </StackPanel>
     </Grid>
 
+    <Grid Grid.Column="1" Grid.Row="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 5 10 5">
+            <Label Margin="0 0 10 0">Y Min</Label>
+            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="50">
+                <TextBox Text="{Binding ZoomingViewModel.YMin}" HorizontalContentAlignment="Right" Margin="0 0 5 0"></TextBox>
+            </Border>
+        </StackPanel>
 
-    <wpf:CartesianChart Name="CartesianChart1" Grid.Column="1" Series="{Binding SeriesCollection}" Margin="0 5 5 5" DisableAnimations="True" Hoverable="False" Zoom="{Binding ZoomingViewModel.ZoomingMode}" 
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 5 10 5">
+            <Label Margin="0 0 10 0">Y Max</Label>
+            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="50">
+                <TextBox Text="{Binding ZoomingViewModel.YMax}" HorizontalContentAlignment="Right" Margin="0 0 5 0"></TextBox>
+            </Border>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 5 10 5">
+            <Label Margin="0 0 10 0">X Min</Label>
+            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="150">
+                <TextBox Text="{Binding ZoomingViewModel.XMin}" HorizontalContentAlignment="Right" Margin="0 0 5 0"></TextBox>
+            </Border>
+        </StackPanel>
+
+        <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 5 10 5">
+            <Label Margin="0 0 10 0">X Max</Label>
+            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="150">
+                <TextBox Text="{Binding ZoomingViewModel.XMax}" HorizontalContentAlignment="Right" Margin="0 0 5 0"></TextBox>
+            </Border>
+        </StackPanel>
+    </Grid>
+
+
+    <wpf:CartesianChart Name="CartesianChart1" Grid.Column="1" Grid.Row="0" Series="{Binding SeriesCollection}" Margin="0 5 5 5" DisableAnimations="True" Hoverable="False" Zoom="{Binding ZoomingViewModel.ZoomingMode}" 
                         AxisY="{Binding ZoomingViewModel.YAxisCollection}" AxisX="{Binding ZoomingViewModel.XAxisCollection}">
     </wpf:CartesianChart>
 </Grid>
