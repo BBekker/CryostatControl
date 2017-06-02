@@ -29,6 +29,7 @@ namespace CryostatControlClient.ViewModels
             this.ModusViewModel = new ModusViewModel();
             this.SettingsViewModel = new SettingsViewModel();
             this.ZoomingViewModel = new ZoomingViewModel();
+            this.MessageBoxViewModel = new MessageBoxViewModel();
 
             this.InitSeriesCollection();
             this.InitSeriesCollection2();

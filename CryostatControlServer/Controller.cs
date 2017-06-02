@@ -14,6 +14,7 @@ namespace CryostatControlServer
     using System.Threading;
 
     using CryostatControlServer.Data;
+    using CryostatControlServer.Logging;
     using CryostatControlServer.Properties;
 
     /// <summary>
@@ -265,7 +266,8 @@ namespace CryostatControlServer
 
             private set
             {
-                Console.WriteLine("[Control] Switched from state {0} to {1}", this.state, value);
+                string message = "[Control] Switched from state " + this.state + " to " + value;
+                DebugLogger.Info(this.GetType().Name, message);
                 this.stateEnteredTime = DateTime.Now;
                 this.state = value;
             }
@@ -540,7 +542,7 @@ namespace CryostatControlServer
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error while setting heater: " + ex.Message);
+                DebugLogger.Error(this.GetType().Name, "Error while setting heater: " + ex.Message);
             }
         }
 
@@ -573,10 +575,9 @@ namespace CryostatControlServer
         {
             this.SafetyCheckHeatSwitch();
             this.SafetyCheckPumps();
-
             switch (this.State)
             {
-                case Controlstate.Setup:
+                case Controlstate.Setup:    
                     if (this.cooler != null && this.lakeshore != null && this.compressor != null)
                     {
                         this.State = Controlstate.Standby;
@@ -584,12 +585,13 @@ namespace CryostatControlServer
 
                     break;
 
-                case Controlstate.Standby: break;
+                case Controlstate.Standby:
+                    break;
 
-                case Controlstate.Manual: break;
+                case Controlstate.Manual:
+                    break;
 
                 case Controlstate.CooldownStart:
-
                     this.lakeshore.SetHeater(false);
                     if (DateTime.Now > this.startTime)
                     {
@@ -599,7 +601,6 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.CooldownWaitForPressure:
-
                     // TODO: wait for pressure when sensor is connected
                     this.State = Controlstate.CooldownStartCompressor;
                     break;
@@ -611,7 +612,7 @@ namespace CryostatControlServer
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Compressor gave error: " + ex);
+                        DebugLogger.Error(this.GetType().Name, "Compressor gave error: " + ex);
                     }
 
                     this.State = Controlstate.CooldownWait70K;
@@ -741,7 +742,7 @@ namespace CryostatControlServer
                         }
                         catch (Exception)
                         {
-                            Console.WriteLine("lakeshore did not respond");
+                            DebugLogger.Warning(this.GetType().Name, "lakeshore did not respond");
                         }
 
                         try
@@ -750,7 +751,7 @@ namespace CryostatControlServer
                         }
                         catch (Exception)
                         {
-                            Console.WriteLine("Compressor not connected, make sure it is turned off!");
+                            DebugLogger.Warning(this.GetType().Name, "Compressor not connected, make sure it is turned off!");
                         }
 
                         this.State = Controlstate.WarmupHeating;
@@ -808,6 +809,7 @@ namespace CryostatControlServer
                         }
                         catch (Exception)
                         {
+                            DebugLogger.Warning(this.GetType().Name, "Compressor not turning on");
                         }
                     }
                     else
@@ -820,6 +822,7 @@ namespace CryostatControlServer
                         }
                         catch (Exception)
                         {
+                            DebugLogger.Warning(this.GetType().Name, "Compressor not turning off");
                         }
                     }
 

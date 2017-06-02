@@ -88,7 +88,7 @@ namespace CryostatControlServer
             }
             else
             {
-                Console.WriteLine("No connection with LakeShore");
+                DebugLogger.Error("Launcher", "No connection with LakeShore");
             }
 
             try
@@ -98,7 +98,7 @@ namespace CryostatControlServer
             }
             catch (Exception e)
             {
-                Console.WriteLine("No connection with He7 cooler");
+                DebugLogger.Error("Launcher", "No connection with He7 cooler");
 
 #if DEBUG
                 Console.WriteLine("Exception thrown: {0}", e);
@@ -113,7 +113,7 @@ namespace CryostatControlServer
             }
             catch (Exception e)
             {
-                Console.WriteLine("No connection with Compressor");
+                DebugLogger.Error("Launcher", "No connection with Compressor");
 
 #if DEBUG
                 Console.WriteLine("Exception thrown: {0}", e);
@@ -143,6 +143,7 @@ namespace CryostatControlServer
                     ((ServiceBehaviorAttribute)host.Description.Behaviors[typeof(ServiceBehaviorAttribute)])
                         .InstanceContextMode = InstanceContextMode.Single;
                     host.Open();
+                    DebugLogger.Info("Launcher", "The service is ready");
                     Console.WriteLine("The service is ready");
                     Console.WriteLine("Press <Enter> to stop the service.");
                     Console.ReadLine();

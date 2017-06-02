@@ -16,6 +16,7 @@ namespace CryostatControlServer.LakeShore
     using System.IO.Ports;
     using System.Threading;
 
+    using CryostatControlServer.Logging;
     using CryostatControlServer.Streams;
 
     /// <summary>
@@ -236,7 +237,7 @@ namespace CryostatControlServer.LakeShore
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error while reading lakeshore: " + e.GetType().ToString());
+                DebugLogger.Error(this.GetType().Name, "Error while reading lakeshore: " + e.GetType().ToString());
             }
         }
 
@@ -259,7 +260,7 @@ namespace CryostatControlServer.LakeShore
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("Could not reconnect to lakeshore: " + e.GetType().ToString());
+                        DebugLogger.Error(this.GetType().Name, "Could not reconnect to lakeshore: " + e.GetType().ToString());
                     }
                 }
 

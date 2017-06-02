@@ -82,7 +82,7 @@ namespace CryostatControlServer.Logging
             }
             catch (IOException)
             {
-               Console.WriteLine("The log file is opened by another process. Please close this first.");
+                DebugLogger.Warning(this.GetType().Name, "The specific log file is opened by another process. Please close this first.");
             }
         }
 

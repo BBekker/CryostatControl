@@ -11,6 +11,8 @@ namespace CryostatControlServer.He7Cooler
 {
     using System.ComponentModel;
 
+    using CryostatControlServer.Logging;
+
     /// <summary>
     /// The agilent exception.
     /// Thrown when there is an error in communication with the Agilent, or an internal error in the device occurred
@@ -33,6 +35,7 @@ namespace CryostatControlServer.He7Cooler
         public AgilentException(string description)
             : base(description)
         {
+            DebugLogger.Error(this.GetType().Name, this.GetType().Name + ": " + description);
         }
 
         /// <summary>
