@@ -357,7 +357,7 @@ namespace CryostatControlServer
         {
             if (this.State == Controlstate.Standby)
             {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("nl-NL");
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
                 this.startTime = time.ToLocalTime();
                 this.State = Controlstate.CooldownStart;
                 Console.WriteLine($"Starting cooldown at: {time}");

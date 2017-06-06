@@ -64,7 +64,7 @@ namespace CryostatControlClient.Communication
                 TimeSpan time = viewModelContainer.ModusViewModel.SelectedTime.TimeOfDay;
                 startTime = startTime.Add(time);
 
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("nl-NL");
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
                 switch (radio)
                 {
                     case (int)ModusEnumerator.Cooldown:
