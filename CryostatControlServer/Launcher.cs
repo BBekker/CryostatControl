@@ -70,7 +70,7 @@ namespace CryostatControlServer
         public static void Main(string[] args)
         {
             InitComponents();         
-            logger = new LogThreader(new DataReader(compressor, he7Cooler, lakeShore));
+            logger = new LogThreader(new DataReader(compressor, he7Cooler, lakeShore), cryostatControl);
             logger.StartGeneralDataLogging();
             StartHost();
         }

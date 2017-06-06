@@ -122,10 +122,13 @@ namespace CryostatControlServer.Logging
             }
 
             string initialLine = "Time";
+
             for (int i = 0; i < devices.Length; i++)
             {
                 initialLine += Delimiter + this.GetDeviceName(i);
             }
+
+            initialLine += Delimiter + "ControllerState";
 
             using (StreamWriter sw = File.AppendText(pathToFile))
             {

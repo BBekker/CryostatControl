@@ -55,6 +55,8 @@ namespace CryostatControlServer.Logging
 
         #endregion Fields
 
+        private CryostatControl controller;
+
         #region Constructors
 
         /// <summary>
@@ -63,8 +65,9 @@ namespace CryostatControlServer.Logging
         /// <param name="dataReader">
         /// The data reader.
         /// </param>
-        public LogThreader(DataReader dataReader)
+        public LogThreader(DataReader dataReader, CryostatControl controller)
         {
+            this.controller = controller;
             this.dataReader = dataReader;
             this.specificLoggingInProgress = false;
         }
@@ -220,7 +223,11 @@ namespace CryostatControlServer.Logging
                 return;
             }
 
-            specificDataLogger.WriteGeneralData(filePath, this.dataReader.GetDataArray(), DateTime.Now.ToString("HH:mm:ss"));
+            var arr2 = new double[this.dataReader.GetDataArray().Length + 1];
+            this.dataReader.GetDataArray().CopyTo(arr2, 0);
+            arr2[arr2.Length - 1] = (double)this.controller.ControllerState;
+
+            specificDataLogger.WriteGeneralData(filePath, arr2, DateTime.Now.ToString("HH:mm:ss"));
         }
 
         /// <summary>
