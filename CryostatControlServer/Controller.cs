@@ -11,6 +11,7 @@ namespace CryostatControlServer
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.Threading;
 
     using CryostatControlServer.Data;
@@ -356,7 +357,8 @@ namespace CryostatControlServer
         {
             if (this.State == Controlstate.Standby)
             {
-                this.startTime = time;
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("nl-NL");
+                this.startTime = time.ToLocalTime();
                 this.State = Controlstate.CooldownStart;
                 Console.WriteLine($"Starting cooldown at: {time}");
                 return true;
