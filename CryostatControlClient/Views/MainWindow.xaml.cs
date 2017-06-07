@@ -9,6 +9,7 @@
 
 namespace CryostatControlClient.Views
 {
+    using System;
     using System.ComponentModel;
     using System.Windows;
 
@@ -125,6 +126,16 @@ namespace CryostatControlClient.Views
         }
 
         /// <summary>
+        /// Updates the countdown.
+        /// </summary>
+        /// <param name="mode">The mode.</param>
+        /// <param name="time">The time.</param>
+        public void UpdateCountdown(string mode, DateTime time)
+        {
+            this.dataReceiver.UpdateCountdown(mode, time, this.viewModelContainer);
+        }
+
+        /// <summary>
         /// The update notification.
         /// </summary>
         /// <param name="notification">
@@ -153,6 +164,9 @@ namespace CryostatControlClient.Views
 
             this.dataSender.SetCompressorScales(this.viewModelContainer);
             this.dataSender.SetLoggerState(this.viewModelContainer);
+
+            this.viewModelContainer.ModusViewModel.PlannedModus = "Cooldown";
+            this.viewModelContainer.ModusViewModel.PlannedTime = DateTime.Now.AddHours(5);
         }
 
         /// <summary>

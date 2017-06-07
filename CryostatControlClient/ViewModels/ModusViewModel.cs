@@ -10,6 +10,7 @@
 namespace CryostatControlClient.ViewModels
 {
     using System;
+    using System.Windows;
     using System.Windows.Input;
 
     using CryostatControlClient.Models;
@@ -70,6 +71,79 @@ namespace CryostatControlClient.ViewModels
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the planned modus.
+        /// </summary>
+        /// <value>
+        /// The planned modus.
+        /// </value>
+        public string PlannedModus
+        {
+            get
+            {
+                return this.modusModel.PlannedModus;
+            }
+
+            set
+            {
+                this.modusModel.PlannedModus = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the planned time.
+        /// </summary>
+        /// <value>
+        /// The planned time.
+        /// </value>
+        public DateTime PlannedTime
+        {
+            get
+            {
+                return this.modusModel.PlannedTime;
+            }
+
+            set
+            {
+                this.modusModel.PlannedTime = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the planned time converted.
+        /// </summary>
+        /// <value>
+        /// The planned time converted.
+        /// </value>
+        public string PlannedTimeConverted
+        {
+            get
+            {
+                return DateTime.Now.Subtract(this.PlannedTime).ToString(@"dd\ \d\a\y\s\ hh\:mm\:ss");
+            }
+        }
+
+        /// <summary>
+        /// Gets the show countdown.
+        /// </summary>
+        /// <value>
+        /// The show countdown.
+        /// </value>
+        public Visibility ShowCountdown
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(this.PlannedModus))
+                {
+                    return Visibility.Hidden;
+                }
+                else
+                {
+                    return Visibility.Visible;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets a value indicating whether [start mode].

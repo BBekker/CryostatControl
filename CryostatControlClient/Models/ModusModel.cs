@@ -53,6 +53,16 @@ namespace CryostatControlClient.Models
         /// </summary>
         private DateTime selectedTime;
 
+        /// <summary>
+        /// The planned modus
+        /// </summary>
+        private string plannedModus;
+
+        /// <summary>
+        /// The planned time
+        /// </summary>
+        private DateTime plannedTime;
+
         #endregion Fields
 
         #region Constructor
@@ -69,6 +79,44 @@ namespace CryostatControlClient.Models
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the planned modus.
+        /// </summary>
+        /// <value>
+        /// The planned modus.
+        /// </value>
+        public string PlannedModus
+        {
+            get
+            {
+                return this.plannedModus;
+            }
+
+            set
+            {
+                this.plannedModus = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the planned time.
+        /// </summary>
+        /// <value>
+        /// The planned time.
+        /// </value>
+        public DateTime PlannedTime
+        {
+            get
+            {
+                return this.plannedTime;
+            }
+
+            set
+            {
+                this.plannedTime = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the show date time.
