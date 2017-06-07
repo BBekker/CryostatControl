@@ -113,7 +113,10 @@ namespace CryostatControlServer.Logging
         /// <param name="devices">
         /// The devices.
         /// </param>
-        public void WriteInitialLine(string pathToFile, bool[] devices)
+        /// <param name="isGeneralLogging">
+        /// The general Log.
+        /// </param>
+        public void WriteInitialLine(string pathToFile, bool[] devices, bool isGeneralLogging)
         {
             FileInfo fileInfo = new FileInfo(pathToFile);
             if (fileInfo.Length > 0)
@@ -128,7 +131,11 @@ namespace CryostatControlServer.Logging
                 initialLine += Delimiter + this.GetDeviceName(i);
             }
 
-            initialLine += Delimiter + "ControllerState";
+            if (isGeneralLogging)
+            {
+                initialLine += Delimiter + "ControllerState";
+            }
+            
 
             using (StreamWriter sw = File.AppendText(pathToFile))
             {
@@ -137,7 +144,21 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
-        /// The get device name.
+        /// The write initial line without control state header.
+        /// </summary>
+        /// <param name="pathToFile">
+        /// The path to file.
+        /// </param>
+        /// <param name="devices">
+        /// The devices.
+        /// </param>
+        public void WriteInitialLine(string pathToFile, bool[] devices)
+        {
+            this.WriteInitialLine(pathToFile, devices, false);
+        }
+
+        /// <summary>
+        /// Get the device name.
         /// </summary>
         /// <param name="dataNumber">
         /// The data number.
