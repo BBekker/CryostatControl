@@ -238,5 +238,29 @@ namespace CryostatControlServer.Properties {
                 this["ControllerHe3StartWaitTimeMinutes"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ChangeMe!")]
+        public string PasswordToken {
+            get {
+                return ((string)(this["PasswordToken"]));
+            }
+            set {
+                this["PasswordToken"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\LoggingCryostat")]
+        public string LoggingAddress {
+            get {
+                return ((string)(this["LoggingAddress"]));
+            }
+            set {
+                this["LoggingAddress"] = value;
+            }
+        }
     }
 }

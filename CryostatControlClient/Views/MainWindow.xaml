@@ -24,8 +24,9 @@
             <RowDefinition Height="3*" />
         </Grid.RowDefinitions>
         <!--<Frame Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Source="TitleFrame.xaml" HorizontalAlignment="Center" VerticalAlignment="Center"></Frame>-->
-        <Frame Name="SettingsFrame" Grid.Column="0" Grid.Row="0" Source="SettingsFrame.xaml" />
-        <Frame Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Source="MainGraphFrame.xaml" />
+        <Frame Name="SettingsFrame" Grid.Column="0" Grid.Row="0" Source="CommandPanel.xaml" />
+        <Frame Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Source="MainGraphFrame.xaml" />
         <Frame Grid.Column="1" Grid.Row="0" Source="TabFrame.xaml" />
+        <Frame Grid.Column="0" Grid.Row="1" Source="MessageBox.xaml" />
     </Grid>
 </Window>

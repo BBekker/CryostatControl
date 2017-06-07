@@ -33,7 +33,7 @@ namespace CryostatControlServerTests.Lakeshore
             //wait for the thread to run
             Thread.Sleep(500);
 
-            ISensor lssensor = new Sensor(SensorEnum.Sensor1, lakeshore);
+            ISensor lssensor = new Sensor(SensorEnum.Plate50K, lakeshore);
           
             Assert.AreEqual(5.0, lssensor.Value);
 

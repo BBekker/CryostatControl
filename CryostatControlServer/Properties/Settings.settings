@@ -56,5 +56,11 @@
     <Setting Name="ControllerHe3StartWaitTimeMinutes" Type="System.Double" Scope="User">
       <Value Profile="(Default)">30</Value>
     </Setting>
+    <Setting Name="PasswordToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ChangeMe!</Value>
+    </Setting>
+    <Setting Name="LoggingAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\LoggingCryostat</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -148,10 +148,10 @@ namespace CryostatControlServer.Logging
             switch (dataNumber)
             {
                 case (int)DataEnumerator.LakePlate50K:
-                    info = "50K Shield";
+                    info = "50K Plate";
                     break;
                 case (int)DataEnumerator.LakePlate3K:
-                    info = "3K Shield";
+                    info = "3K Plate";
                     break;
                 case (int)DataEnumerator.ComWaterIn:
                     info = "Compressor water in";

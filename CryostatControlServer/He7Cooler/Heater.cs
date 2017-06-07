@@ -13,6 +13,8 @@ namespace CryostatControlServer.He7Cooler
     using System;
     using System.IO;
 
+    using CryostatControlServer.Logging;
+
     /// <summary>
     /// The he 7 cooler.
     /// </summary>
@@ -134,9 +136,13 @@ namespace CryostatControlServer.He7Cooler
             {
                 if (volts > this.SafeRangeHigh || volts < this.SafeRangeLow)
                 {
+                    DebugLogger.Error(
+                        this.GetType().Name,
+                        $"Voltage setpoint of {volts} is out of the safe range from {this.SafeRangeLow} to {this.SafeRangeHigh}");
                     throw new ArgumentOutOfRangeException(
                         $"Voltage setpoint of {volts} is out of the safe range from {this.SafeRangeLow} to {this.SafeRangeHigh}");
                 }
+
                 this.device.SetVoltage(this.outchannel, volts);
             }
 

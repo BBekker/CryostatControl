@@ -35,6 +35,15 @@ namespace CryostatControlServer.HostService
         [OperationContract(IsOneWay = true)]
         void SetLoggingState(bool status);
 
+        /// <summary>
+        /// The send log notification.
+        /// </summary>
+        /// <param name="notification">
+        /// The notification.
+        /// </param>
+        [OperationContract(IsOneWay = true)]
+        void UpdateNotification(string[] notification);
+
         #endregion Methods
     }
 }

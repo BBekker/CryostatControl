@@ -6,19 +6,36 @@
 //   Has the hearthbeat to check the server connection
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace CryostatControlClient.Communication
 {
     using System.ServiceModel;
+    using System.ServiceModel.Security;
     using System.Threading;
 
     using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.Views;
 
     /// <summary>
-    /// Class which checks continiously the connection with the server
+    /// Class which checks continuously the connection with the server
     /// </summary>
     public class ServerCheck
     {
+        /// <summary>
+        /// The callback client
+        /// </summary>
+        private DataGetClient callbackClient;
+
+        /// <summary>
+        /// The command client
+        /// </summary>
+        private CommandServiceClient commandClient;
+
+        /// <summary>
+        /// The first time connected
+        /// </summary>
+        private bool firstTimeConnected = false;
+
         /// <summary>
         /// The main application
         /// </summary>
@@ -30,29 +47,14 @@ namespace CryostatControlClient.Communication
         private MainWindow mainWindow;
 
         /// <summary>
-        /// The timer
-        /// </summary>
-        private Timer timer;
-
-        /// <summary>
-        /// The command client
-        /// </summary>
-        private CommandServiceClient commandClient;
-
-        /// <summary>
-        /// The callback client
-        /// </summary>
-        private DataGetClient callbackClient;
-
-        /// <summary>
         /// The sender
         /// </summary>
         private DataSender sender;
 
         /// <summary>
-        /// The first time connected
+        /// The timer
         /// </summary>
-        private bool firstTimeConnected = false;
+        private Timer timer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServerCheck" /> class.
@@ -65,8 +67,6 @@ namespace CryostatControlClient.Communication
             this.mainApp = app;
             this.mainWindow = this.mainApp.MainWindow as MainWindow;
             this.commandClient = commandClient;
-            //this.commandClient.ClientCredentials.UserName.UserName = "test";
-            //this.CommandClient.ClientCredentials.UserName.Password = "test123";
             this.callbackClient = callbackClient;
             this.sender = new DataSender(this);
             this.timer = new Timer(this.CheckStatus, null, 5000, 2000);
@@ -98,12 +98,13 @@ namespace CryostatControlClient.Communication
                 {
                     this.SetConnected(true);
                     if (this.firstTimeConnected)
-                    {                        
-                        this.mainApp.Dispatcher.Invoke(() =>
-                        {
-                            this.sender.SetCompressorScales((this.mainApp.MainWindow as MainWindow).Container);
-                        });                      
-                        this.firstTimeConnected = false;                   
+                    {
+                        this.mainApp.Dispatcher.Invoke(
+                            () =>
+                                {
+                                    this.sender.SetCompressorScales((this.mainApp.MainWindow as MainWindow).Container);
+                                });
+                        this.firstTimeConnected = false;
                         this.callbackClient.SubscribeForData(1000);
                     }
                 }
@@ -117,11 +118,18 @@ namespace CryostatControlClient.Communication
                 this.SetConnected(false);
                 this.commandClient.Abort();
                 this.firstTimeConnected = true;
-                this.commandClient = new CommandServiceClient();
+                this.commandClient.ClientCredentials.UserName.UserName = "cooler";
+                this.CommandClient.ClientCredentials.UserName.Password = "ChangeMe!";
+                this.commandClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
+                            X509CertificateValidationMode.None;
                 this.mainApp.CommandServiceClient = this.commandClient;
                 DataClientCallback callback = new DataClientCallback(this.mainApp);
                 InstanceContext instanceContext = new InstanceContext(callback);
                 this.callbackClient = new DataGetClient(instanceContext);
+                this.callbackClient.ClientCredentials.UserName.UserName = "cooler";
+                this.callbackClient.ClientCredentials.UserName.Password = "ChangeMe!";
+                this.callbackClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
+                    X509CertificateValidationMode.None;
             }
         }
 
@@ -131,10 +139,8 @@ namespace CryostatControlClient.Communication
         /// <param name="state">if set to <c>true</c> [state].</param>
         private void SetConnected(bool state)
         {
-            this.mainApp.Dispatcher.Invoke(() =>
-            {
-                (this.mainApp.MainWindow as MainWindow).Container.ModusViewModel.Server = state;
-            });
+            this.mainApp.Dispatcher.Invoke(
+                () => { ((MainWindow)this.mainApp?.MainWindow).Container.ModusViewModel.ServerConnection = state; });
         }
     }
 }

@@ -10,12 +10,12 @@ namespace CryostatControlClient
 {
     using System;
     using System.ServiceModel;
+    using System.ServiceModel.Security;
     using System.Threading.Tasks;
     using System.Windows;
 
-    using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.Communication;
-    using System.ServiceModel.Security;
+    using CryostatControlClient.ServiceReference1;
 
     /// <summary>
     /// Interaction logic for <see cref="App.xaml"/>
@@ -29,6 +29,9 @@ namespace CryostatControlClient
         /// </summary>
         private CommandServiceClient commandServiceClient;
 
+        /// <summary>
+        /// The server check
+        /// </summary>
         private ServerCheck serverCheck;
 
         #endregion Fields
@@ -54,6 +57,12 @@ namespace CryostatControlClient
             }
         }
 
+        /// <summary>
+        /// Gets the server check.
+        /// </summary>
+        /// <value>
+        /// The server check.
+        /// </value>
         public ServerCheck ServerCheck
         {
             get
@@ -95,27 +104,24 @@ namespace CryostatControlClient
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
             this.commandServiceClient = new CommandServiceClient();
-            this.commandServiceClient.ClientCredentials.UserName.UserName = "test";
-            this.CommandServiceClient.ClientCredentials.UserName.Password = "test123";
-            //this.commandServiceClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
-            //            X509CertificateValidationMode.None;
-
-
+            this.commandServiceClient.ClientCredentials.UserName.UserName = "cooler";
+            this.CommandServiceClient.ClientCredentials.UserName.Password = "ChangeMe!";
+            this.commandServiceClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
+                        X509CertificateValidationMode.None;
             DataClientCallback callback = new DataClientCallback(this);
             InstanceContext instanceContext = new InstanceContext(callback);
             DataGetClient dataClient = new DataGetClient(instanceContext);
-            dataClient.ClientCredentials.UserName.UserName = "test";
-            dataClient.ClientCredentials.UserName.Password = "test123";
-            //dataClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
-            //X509CertificateValidationMode.None;
-            this.serverCheck = new ServerCheck(this, commandServiceClient, dataClient);
-
+            dataClient.ClientCredentials.UserName.UserName = "cooler";
+            dataClient.ClientCredentials.UserName.Password = "ChangeMe!";
+            dataClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
+                X509CertificateValidationMode.None;
+            this.serverCheck = new ServerCheck(this, this.commandServiceClient, dataClient);
             try
             {
                 Console.WriteLine("Server is alive: {0}", this.commandServiceClient.IsAlive());
                 Console.WriteLine("Subscribed for data");
+
                 dataClient.SubscribeForData(1000);
                 dataClient.SubscribeForUpdates();
             }
@@ -126,7 +132,6 @@ namespace CryostatControlClient
             }
 
             ////Execute(this.Unsubscribe, 5000, dataClient);
-
         }
 
         #endregion Methods

@@ -31,6 +31,11 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         private IManagedStream connection;
 
+        /// <summary>
+        /// The internet protocol address
+        /// </summary>
+        private string ipAddress;
+
         #endregion Fields
 
         #region Methods
@@ -109,7 +114,7 @@ namespace CryostatControlServer.He7Cooler
         /// </returns>
         public bool IsConnected()
         {
-            return this.connection.IsConnected();
+            return this.connection?.IsConnected() ?? false;
         }
 
         /// <summary>
@@ -118,6 +123,7 @@ namespace CryostatControlServer.He7Cooler
         /// <param name="ipAddress">The IP address.</param>
         public void Init(string ipAddress)
         {
+            this.ipAddress = ipAddress;
             this.connection = new ManagedTcpStream(ipAddress, TcpPort);
             this.connection.Open();
 
@@ -154,6 +160,12 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         public void Reopen()
         {
+            if (this.ipAddress != null && !this.connection.IsConnected())
+            {
+                var conn = new ManagedTcpStream(this.ipAddress, TcpPort);
+                this.connection = conn;
+            }
+
             this.connection.Open();
             this.connection.WriteString("FORM:READ:CHAN ON\n");
             this.CheckState();

@@ -7,6 +7,8 @@ namespace CryostatControlServer.Data
 {
     using System;
 
+    using CryostatControlServer.Logging;
+
     /// <summary>
     /// Class which returns a array filled with data according to <seealso cref="DataEnumerator"/>
     /// </summary>
@@ -79,8 +81,63 @@ namespace CryostatControlServer.Data
                 }
             }
 
-            this.FillWithMockData(data);
             return data;
+        }
+
+        /// <summary>
+        /// Reads the single sensor.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Value of the sensor, if something went wrong NaN</returns>
+        public double ReadSingleSensor(int id)
+        {
+            if (id < 0 && id >= (int)DataEnumerator.DataLength)
+            {
+                return double.NaN;
+            }
+
+            if (id < (int)DataEnumerator.SensorAmount)
+            {
+                return this.ReadSensor(id);
+            }
+
+            return this.ReadFromSwitch(id);
+        }
+
+        /// <summary>
+        /// Reads from switch.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Value of the sensor, if something went wrong NaN</returns>
+        private double ReadFromSwitch(int id)
+        {
+            try
+            {
+                switch (id)
+                {
+                    case (int)DataEnumerator.HeConnectionState: return Convert.ToDouble(this.he7Cooler.IsConnected());
+                    case (int)DataEnumerator.ComConnectionState: return Convert.ToDouble(this.compressor.IsConnected());
+                    case (int)DataEnumerator.LakeConnectionState:
+                        {
+                            if (this.lakeShore != null)
+                            {
+                                return Convert.ToDouble(this.lakeShore.OPC());
+                            }
+
+                            return 0;
+                        }
+
+                    case (int)DataEnumerator.ComError: return (double)this.compressor.ReadErrorState();
+                    case (int)DataEnumerator.ComWarning: return (double)this.compressor.ReadWarningState();
+                    case (int)DataEnumerator.ComHoursOfOperation: return (double)this.compressor.ReadHoursOfOperation();
+                    case (int)DataEnumerator.ComOperationState: return (double)this.compressor.ReadOperatingState();
+                    default: return double.NaN;
+                }
+            }
+            catch
+            {
+                return double.NaN;
+            }
         }
 
         /// <summary>
@@ -98,9 +155,7 @@ namespace CryostatControlServer.Data
                 catch (Exception)
                 {
                     data[i] = float.NaN;
-#if DEBUG
-                    ////Console.WriteLine("Could not read sensor {0}", i);
-#endif
+////                   Console.WriteLine("Could not read sensor" + i);
                 }
             }
         }
@@ -141,12 +196,29 @@ namespace CryostatControlServer.Data
         }
 
         /// <summary>
+        /// Reads the sensor.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Value of the sensor, if something went wrong NaN is returned</returns>
+        private double ReadSensor(int id)
+        {
+            try
+            {
+                return this.sensors[id].Value;
+            }
+            catch
+            {
+                return double.NaN;
+            }
+        }
+
+        /// <summary>
         /// Fills the connection data.
         /// </summary>
         /// <param name="data">The data.</param>
         private void FillConnectionData(double[] data)
         {
-            data[(int)DataEnumerator.ComConnectionState] = Convert.ToDouble(this.compressor.IsConnected());
+                data[(int)DataEnumerator.ComConnectionState] = Convert.ToDouble(this.compressor.IsConnected());
             data[(int)DataEnumerator.HeConnectionState] = Convert.ToDouble(this.he7Cooler.IsConnected());
             if (this.lakeShore != null)
             {

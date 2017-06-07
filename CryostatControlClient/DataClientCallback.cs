@@ -56,10 +56,8 @@ namespace CryostatControlClient
                 {
                     this.mainWindow = this.mainApp.MainWindow as MainWindow;
                 }
-                else
-                {
-                    this.mainWindow.UpdateViewModels(data);
-                }
+
+                this.mainWindow.UpdateViewModels(data);
             });
         }
 
@@ -75,10 +73,8 @@ namespace CryostatControlClient
                 {
                     this.mainWindow = this.mainApp.MainWindow as MainWindow;
                 }
-                else
-                {
-                    this.mainWindow.SetState(modus);
-                }
+
+                this.mainWindow.SetState(modus);
             });
         }
 
@@ -94,11 +90,25 @@ namespace CryostatControlClient
                 {
                     this.mainWindow = this.mainApp.MainWindow as MainWindow;
                 }
-                else
-                {
-                    this.mainWindow.SetIsLogging(status);
-                }
+
+                this.mainWindow.SetIsLogging(status);
             });
+        }
+
+        /// <summary>
+        /// The update notification.
+        /// </summary>
+        /// <param name="notification">
+        /// The notification.
+        /// </param>
+        public void UpdateNotification(string[] notification)
+        {
+            if (this.mainWindow == null)
+            {
+                this.mainWindow = this.mainApp.MainWindow as MainWindow;
+            }
+
+            this.mainWindow.UpdateNotification(notification);
         }
 
         #endregion Methods

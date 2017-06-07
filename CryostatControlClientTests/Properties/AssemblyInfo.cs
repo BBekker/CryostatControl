@@ -1,3 +1,10 @@
+//-----------------------------------------------------------------------
+// <copyright file="AssemblyInfo.cs" company="SRON">
+//     Copyright (c) SRON. All rights reserved.
+// </copyright>
+// auto-generated
+//-----------------------------------------------------------------------
+
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;

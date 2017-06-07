@@ -177,7 +177,7 @@ namespace CryostatControlClient.ViewModels
                 this.modusModel.Modus = value;
                 this.RaisePropertyChanged("Modus");
                 this.RaisePropertyChanged("StartMode");
-                this.RaisePropertyChanged("StopMode");
+                this.RaisePropertyChanged("CancelMode");
                 this.RaisePropertyChanged("ModusConverted");
             }
         }
@@ -202,16 +202,16 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         ///   <c>true</c> if server connected; otherwise, <c>false</c>.
         /// </value>
-        public bool Server
+        public bool ServerConnection
         {
             get
             {
-                return this.modusModel.Server;
+                return this.modusModel.ServerConnection;
             }
 
             set
             {
-                this.modusModel.Server = value;
+                this.modusModel.ServerConnection = value;
                 this.RaisePropertyChanged("Server");
                 this.RaisePropertyChanged("ServerConverted");
             }
@@ -227,7 +227,7 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                if (this.Server)
+                if (this.ServerConnection)
                 {
                     return "Connected";
                 }

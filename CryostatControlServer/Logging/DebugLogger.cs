@@ -13,6 +13,8 @@ namespace CryostatControlServer.Logging
     using System.IO;
     using System.Text;
 
+    using CryostatControlServer.Properties;
+
     /// <summary>
     /// The debug logger.
     /// </summary>
@@ -26,17 +28,23 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// The debug information
         /// </summary>
-        private const string DebugInfo = "DebugInfo";
-
-        /// <summary>
-        /// The general main folder.
-        /// </summary>
-        private const string GeneralMainFolder = @"c:\CryostatLogging\General";
+        private const string DebugInfo = "SystemLog";
 
         /// <summary>
         /// The file path
         /// </summary>
         private static string filePath;
+
+        /// <summary>
+        /// Gets the general main folder.
+        /// </summary>
+        private static string GeneralMainFolder
+        {
+            get
+            {
+                return Settings.Default.LoggingAddress + @"\General";
+            }
+        }
 
         /// <summary>
         /// The error.
@@ -49,9 +57,37 @@ namespace CryostatControlServer.Logging
         /// </param>
         public static void Error(string tag, string data)
         {
+            Error(tag, data, true);         
+        }
+
+        /// <summary>
+        /// The error.
+        /// </summary>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <param name="sendAsNotification">
+        /// The send as notification.
+        /// </param>
+        public static void Error(string tag, string data, bool sendAsNotification)
+        {
             string error = "ERROR";
-            WriteToFile(error, tag, data);
-            
+            string time = DateTime.Now.ToString("HH:mm:ss");
+            if (sendAsNotification)
+            {
+                try
+                {
+                    NotificationSender.Error(time, data);
+                }
+                catch (NullReferenceException)
+                {
+                }
+            }
+
+            WriteToFile(time, error, tag, data);
         }
 
         /// <summary>
@@ -61,37 +97,106 @@ namespace CryostatControlServer.Logging
         /// <param name="data">The data.</param>
         public static void Warning(string tag, string data)
         {
-            string warning = "Warning";
-            WriteToFile(warning, tag, data);
-
+            Warning(tag, data, true);
         }
 
         /// <summary>
-        /// Informations the specified tag.
+        /// The warning.
+        /// </summary>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <param name="sendAsNotification">
+        /// The send as notification.
+        /// </param>
+        public static void Warning(string tag, string data, bool sendAsNotification)
+        {
+            string warning = "Warning";
+            string time = DateTime.Now.ToString("HH:mm:ss");
+            if (sendAsNotification)
+            {
+                try
+                {
+                    NotificationSender.Warning(time, data);
+                }
+                catch (NullReferenceException)
+                {
+                }
+            }
+
+            WriteToFile(time, warning, tag, data);
+        }
+
+        /// <summary>
+        /// Information the specified tag.
         /// </summary>
         /// <param name="tag">The tag.</param>
         /// <param name="data">The data.</param>
         public static void Info(string tag, string data)
         {
-            string info = "Info";
-            WriteToFile(info, tag, data);
+            Info(tag, data, true);
+        }
 
+        /// <summary>
+        /// The info.
+        /// </summary>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <param name="sendAsNotification">
+        /// The send as notification.
+        /// </param>
+        public static void Info(string tag, string data, bool sendAsNotification)
+        {
+            string info = "Info";
+            string time = DateTime.Now.ToString("HH:mm:ss");
+            if (sendAsNotification)
+            {
+                try
+                {
+                    NotificationSender.Info(time, data);
+                }
+                catch (NullReferenceException)
+                {
+                }
+            }
+
+            WriteToFile(time, info, tag, data);
         }
 
         /// <summary>
         /// Writes to file.
         /// </summary>
-        /// <param name="level">The level.</param>
-        /// <param name="tag">The tag.</param>
-        /// <param name="data">The data.</param>
-        public static void WriteToFile(string level, string tag, string data)
+        /// <param name="time">
+        /// The time.
+        /// </param>
+        /// <param name="level">
+        /// The level.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        public static void WriteToFile(string time, string level, string tag, string data)
         {
+#if DEBUG
+            Console.WriteLine(data);
+#endif
             if (filePath == null)
             {
                CreateFile(); 
             }
+
             StringBuilder sb = new StringBuilder();
-            string dataLine = DateTime.Now.ToString("HH:mm:ss") + "," + tag + "," + level + ": " + data;
+            string dataLine = time + "," + tag + "," + level + ": " + data;
 
             try
             {
@@ -106,6 +211,14 @@ namespace CryostatControlServer.Logging
             }
             catch (IOException)
             {
+                try
+                {
+                    NotificationSender.Warning(time, "The debug log file is opened by another process. Please close this first.");
+                }
+                catch (NullReferenceException)
+                {
+                }
+
                 Console.WriteLine("The debug log file is opened by another process. Please close this first.");
             }
         }
