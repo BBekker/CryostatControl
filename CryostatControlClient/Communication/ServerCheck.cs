@@ -15,6 +15,7 @@ namespace CryostatControlClient.Communication
 
     using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.Views;
+    using CryostatControlClient.Properties;
 
     /// <summary>
     /// Class which checks continuously the connection with the server
@@ -118,16 +119,16 @@ namespace CryostatControlClient.Communication
                 this.SetConnected(false);
                 this.commandClient.Abort();
                 this.firstTimeConnected = true;
-                this.commandClient.ClientCredentials.UserName.UserName = "cooler";
-                this.CommandClient.ClientCredentials.UserName.Password = "ChangeMe!";
+                this.commandClient.ClientCredentials.UserName.UserName = Settings.Default.UserName;
+                this.CommandClient.ClientCredentials.UserName.Password = Settings.Default.PassWord;
                 this.commandClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
                             X509CertificateValidationMode.None;
                 this.mainApp.CommandServiceClient = this.commandClient;
                 DataClientCallback callback = new DataClientCallback(this.mainApp);
                 InstanceContext instanceContext = new InstanceContext(callback);
                 this.callbackClient = new DataGetClient(instanceContext);
-                this.callbackClient.ClientCredentials.UserName.UserName = "cooler";
-                this.callbackClient.ClientCredentials.UserName.Password = "ChangeMe!";
+                this.callbackClient.ClientCredentials.UserName.UserName = Settings.Default.UserName;
+                this.callbackClient.ClientCredentials.UserName.Password = Settings.Default.PassWord;
                 this.callbackClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
                     X509CertificateValidationMode.None;
             }

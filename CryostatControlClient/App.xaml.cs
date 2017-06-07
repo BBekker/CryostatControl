@@ -16,6 +16,7 @@ namespace CryostatControlClient
 
     using CryostatControlClient.Communication;
     using CryostatControlClient.ServiceReference1;
+    using CryostatControlClient.Properties;
 
     /// <summary>
     /// Interaction logic for <see cref="App.xaml"/>
@@ -105,15 +106,15 @@ namespace CryostatControlClient
         {
             base.OnStartup(e);
             this.commandServiceClient = new CommandServiceClient();
-            this.commandServiceClient.ClientCredentials.UserName.UserName = "cooler";
-            this.CommandServiceClient.ClientCredentials.UserName.Password = "ChangeMe!";
+            this.commandServiceClient.ClientCredentials.UserName.UserName = Settings.Default.UserName;
+            this.CommandServiceClient.ClientCredentials.UserName.Password = Settings.Default.PassWord;
             this.commandServiceClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
                         X509CertificateValidationMode.None;
             DataClientCallback callback = new DataClientCallback(this);
             InstanceContext instanceContext = new InstanceContext(callback);
             DataGetClient dataClient = new DataGetClient(instanceContext);
-            dataClient.ClientCredentials.UserName.UserName = "cooler";
-            dataClient.ClientCredentials.UserName.Password = "ChangeMe!";
+            dataClient.ClientCredentials.UserName.UserName = Settings.Default.UserName;
+            dataClient.ClientCredentials.UserName.Password = Settings.Default.PassWord;
             dataClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
                 X509CertificateValidationMode.None;
             this.serverCheck = new ServerCheck(this, this.commandServiceClient, dataClient);
