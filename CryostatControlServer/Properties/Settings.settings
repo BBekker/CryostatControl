@@ -59,5 +59,8 @@
     <Setting Name="PasswordToken" Type="System.String" Scope="User">
       <Value Profile="(Default)">ChangeMe!</Value>
     </Setting>
+    <Setting Name="LoggingAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\LoggingCryostat</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

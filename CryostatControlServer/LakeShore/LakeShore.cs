@@ -16,6 +16,7 @@ namespace CryostatControlServer.LakeShore
     using System.IO.Ports;
     using System.Threading;
 
+    using CryostatControlServer.Logging;
     using CryostatControlServer.Streams;
 
     /// <summary>
@@ -71,8 +72,8 @@ namespace CryostatControlServer.LakeShore
         /// <summary>
         /// Gets or sets the latest sensor values;
         /// </summary>
-        public double[] SensorValues { get; set; } = new double[2] { 0, 0 };
-
+        public double[] SensorValues { get; set; } = new double[3] { 0, 0, 0 };
+        
         #endregion Properties
 
         #region Methods
@@ -232,10 +233,11 @@ namespace CryostatControlServer.LakeShore
             {
                 this.SensorValues[0] = this.ReadTemperature("A");
                 this.SensorValues[1] = this.ReadTemperature("B");
+                this.SensorValues[(int)SensorEnum.HeaterPower] = this.GetHeaterPower();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error while reading lakeshore: " + e.GetType().ToString());
+                DebugLogger.Error(this.GetType().Name, "Error while reading lakeshore: " + e.GetType().ToString());
             }
         }
 
@@ -258,7 +260,7 @@ namespace CryostatControlServer.LakeShore
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("Could not reconnect to lakeshore: " + e.GetType().ToString());
+                        DebugLogger.Error(this.GetType().Name, "Could not reconnect to lakeshore: " + e.GetType().ToString());
                     }
                 }
 

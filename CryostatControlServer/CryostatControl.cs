@@ -277,7 +277,7 @@ namespace CryostatControlServer
             }
             catch (Exception e)
             {
-                Console.WriteLine("Something went wrong setting compressor state");
+                DebugLogger.Error(this.GetType().Name, "Something went wrong setting compressor state");
 
 #if DEBUG
                 Console.WriteLine("Exception thrown: {0}", e);
@@ -290,15 +290,12 @@ namespace CryostatControlServer
 
         /// <summary>
         /// Writes values to the helium7 heaters.
-        /// <seealso cref="HeaterEnumerator"/>
+        /// <seealso cref="HeaterEnumerator" />
         /// for position for each heater.
         /// </summary>
-        /// <param name="heater">
-        /// The heater.
-        /// </param>
-        /// <param name="value">
-        /// The value.
-        /// </param>
+        /// <param name="heater">The heater.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>True if succeeded false otherwise</returns>
         public bool WriteHelium7Heater(HeaterEnumerator heater, double value)
         {
             if (this.ManualControl)
@@ -328,6 +325,16 @@ namespace CryostatControlServer
         public double ReadCompressorPressureScale()
         {
             return (double)this.compressor.ReadPressureScale();
+        }
+
+        /// <summary>
+        /// Reads the single sensor.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Data of the sensor or NaN if sensor could not be read, or out of sensor range</returns>
+        public double ReadSingleSensor(int id)
+        {
+            return this.dataReader.ReadSingleSensor(id);
         }
 
         /// <summary>
