@@ -395,6 +395,7 @@ namespace CryostatControlServer.HostService
             {
                 client.SendData(data);
                 client.SendModus(this.GetState());
+                client.UpdateCountdown(this.cryostatControl.StartTime);
             }
             catch
             {

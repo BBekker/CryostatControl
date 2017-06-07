@@ -95,6 +95,11 @@ namespace CryostatControlClient
             });
         }
 
+        public void UpdateCountdown(DateTime time)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// The update notification.
         /// </summary>
