@@ -10,6 +10,7 @@
 namespace CryostatControlServer.Logging
 {
     using System;
+    using System.Globalization;
     using System.IO;
 
     /// <summary>
@@ -119,7 +120,7 @@ namespace CryostatControlServer.Logging
         public override string CreateFolder(DateTime currentDateTime, string mainFolderPath)
         {
             string year = currentDateTime.Year.ToString();
-            string month = currentDateTime.Month.ToString();
+            string month = currentDateTime.ToString("MMMM", new CultureInfo("en-US"));
             string day = currentDateTime.Day.ToString();
             string newFolderName = year + @"\" + month + @"\" + day + @"\";
             string pathToNewFolder = Path.Combine(mainFolderPath, newFolderName);

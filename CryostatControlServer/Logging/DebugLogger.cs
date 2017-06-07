@@ -10,6 +10,7 @@
 namespace CryostatControlServer.Logging
 {
     using System;
+    using System.Globalization;
     using System.IO;
     using System.Text;
 
@@ -236,13 +237,13 @@ namespace CryostatControlServer.Logging
         {
             DateTime currentDateTime = DateTime.Now;
             string year = currentDateTime.Year.ToString();
-            string month = currentDateTime.Month.ToString();
+            string month = currentDateTime.ToString("MMMM", new CultureInfo("en-US"));
             string newFolderName = year + @"\" + month + @"\";
             string pathToNewFolder = System.IO.Path.Combine(mainFolderPath, newFolderName);
 
             try
             {
-                System.IO.Directory.CreateDirectory(pathToNewFolder);
+                Directory.CreateDirectory(pathToNewFolder);
             }
             catch (Exception)
             {

@@ -204,7 +204,6 @@ namespace CryostatControlServer.Logging
             string currentDay = DateTime.Now.Day.ToString();
             if (!logDay.Equals(currentDay))
             {
-                DebugLogger.Info(this.GetType().Name, "New log file is created with name: " + logDay);
                 return true;
             }
 
