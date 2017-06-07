@@ -190,7 +190,6 @@ namespace CryostatControlServer.Logging
             string logDay = Path.GetFileName(filepath);
             if (logDay == null || !logDay.Contains(".csv"))
             {
-                DebugLogger.Warning(this.GetType().Name, logDay);
                 DebugLogger.Error(this.GetType().Name, "Can't find logfile name for checking if a new file is needed.");
                 return false;
             }
@@ -223,11 +222,9 @@ namespace CryostatControlServer.Logging
                 return;
             }
 
-            var arr2 = new double[this.dataReader.GetDataArray().Length + 1];
-            this.dataReader.GetDataArray().CopyTo(arr2, 0);
-            arr2[arr2.Length - 1] = (double)this.controller.ControllerState;
+            double[] data = this.AddControlStateToArray(this.dataReader.GetDataArray());
 
-            specificDataLogger.WriteGeneralData(filePath, arr2, DateTime.Now.ToString("HH:mm:ss"));
+            specificDataLogger.WriteGeneralData(filePath, data, DateTime.Now.ToString("HH:mm:ss"));
         }
 
         /// <summary>
@@ -258,9 +255,9 @@ namespace CryostatControlServer.Logging
         private LoggerDataObject CreateNewGeneralLoggingFile(GeneralDataLogger generalDataLogger)
         {
             string filePath = generalDataLogger.CreateFile(this.GeneralMainFolder);
-
             generalDataLogger.WriteInitialLine(filePath, generalDataLogger.CreateArrayWithOnlyTrue());
             DebugLogger.Info(this.GetType().Name, "General Data logging has started in file: " + filePath);
+
             return new LoggerDataObject(generalDataLogger, filePath);
         }
 
@@ -272,12 +269,27 @@ namespace CryostatControlServer.Logging
         private LoggerDataObject CreateNewSpecificLoggingFile(SpecificDataLogger specificDataLogger)
         {
             string filePath = specificDataLogger.CreateFile(this.SpecificMainFolder);
-
             specificDataLogger.WriteInitialLine(filePath, specificDataLogger.GetToBeLoggedOrNotToBeLogged());
-
             DebugLogger.Info(this.GetType().Name, "Specific Data logging has started in file: " + filePath);
 
             return new LoggerDataObject(specificDataLogger, filePath);
+        }
+
+        /// <summary>
+        /// Add control state to an double array.
+        /// </summary>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <returns>
+        /// The <see cref="double[]"/>.
+        /// </returns>
+        private double[] AddControlStateToArray(double[] data)
+        {
+            var data2 = new double[data.Length + 1];
+            data.CopyTo(data2, 0);
+            data2[data2.Length - 1] = (double)this.controller.ControllerState;
+            return data2;
         }
 
         #endregion Methods

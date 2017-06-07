@@ -180,6 +180,9 @@ namespace CryostatControlServer.Logging
                 case (int)DataEnumerator.ComHighAvg:
                     info = "Compressor high avg pressure";
                     break;
+                case (int)DataEnumerator.ComDeltaAvg:
+                    info = "Compressor delta avg pressure";
+                    break;
                 case (int)DataEnumerator.He3Pump:
                     info = "He3 Pump";
                     break;
@@ -233,6 +236,9 @@ namespace CryostatControlServer.Logging
                     break;
                 case (int)DataEnumerator.ComHoursOfOperation:
                     info = "Compressor hours of operation";
+                    break;
+                case (int)DataEnumerator.ComOperationState:
+                    info = "Compressor Opertating State";
                     break;
                 case (int)DataEnumerator.LakeHeater:
                     info = "LakeShore Heater";
