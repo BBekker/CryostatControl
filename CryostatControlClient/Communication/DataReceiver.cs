@@ -54,13 +54,12 @@ namespace CryostatControlClient.Communication
         /// <param name="mode">The mode.</param>
         /// <param name="time">The time.</param>
         /// <param name="dataContext">The data context.</param>
-        public void UpdateCountdown(string mode, DateTime time, ViewModelContainer dataContext)
+        public void UpdateCountdown(DateTime time, ViewModelContainer dataContext)
         {
             Console.WriteLine("Received countdown");
             if (dataContext != null)
             {
                 dataContext.ModusViewModel.PlannedTime = time;
-                dataContext.ModusViewModel.PlannedModus = mode;
             }
         }
 

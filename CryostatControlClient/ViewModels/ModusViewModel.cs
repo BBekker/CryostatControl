@@ -73,7 +73,7 @@ namespace CryostatControlClient.ViewModels
         #region Properties
 
         /// <summary>
-        /// Gets or sets the planned modus.
+        /// Gets the planned modus.
         /// </summary>
         /// <value>
         /// The planned modus.
@@ -82,12 +82,14 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.modusModel.PlannedModus;
-            }
-
-            set
-            {
-                this.modusModel.PlannedModus = value;
+                switch (this.modusModel.Modus)
+                {
+                    case (int)Controlstate.CooldownStart: return "Cool down";
+                    case (int)Controlstate.WarmupStart: return "Warm up";
+                    case (int)Controlstate.RecycleStart: return "Recycle";
+                    default: return string.Empty;
+                }
+                    
             }
         }
 
@@ -107,6 +109,8 @@ namespace CryostatControlClient.ViewModels
             set
             {
                 this.modusModel.PlannedTime = value;
+                this.RaisePropertyChanged("PlannedTime");
+                this.RaisePropertyChanged("PlannedTimeConverted");
             }
         }
 
@@ -253,6 +257,7 @@ namespace CryostatControlClient.ViewModels
                 this.RaisePropertyChanged("StartMode");
                 this.RaisePropertyChanged("CancelMode");
                 this.RaisePropertyChanged("ModusConverted");
+                this.RaisePropertyChanged("ShowCountdown");
             }
         }
 

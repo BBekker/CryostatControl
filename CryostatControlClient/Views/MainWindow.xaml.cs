@@ -130,9 +130,9 @@ namespace CryostatControlClient.Views
         /// </summary>
         /// <param name="mode">The mode.</param>
         /// <param name="time">The time.</param>
-        public void UpdateCountdown(string mode, DateTime time)
+        public void UpdateCountdown(DateTime time)
         {
-            this.dataReceiver.UpdateCountdown(mode, time, this.viewModelContainer);
+            this.dataReceiver.UpdateCountdown(time, this.viewModelContainer);
         }
 
         /// <summary>
@@ -164,9 +164,6 @@ namespace CryostatControlClient.Views
 
             this.dataSender.SetCompressorScales(this.viewModelContainer);
             this.dataSender.SetLoggerState(this.viewModelContainer);
-
-            this.viewModelContainer.ModusViewModel.PlannedModus = "Cooldown";
-            this.viewModelContainer.ModusViewModel.PlannedTime = DateTime.Now.AddHours(5);
         }
 
         /// <summary>
