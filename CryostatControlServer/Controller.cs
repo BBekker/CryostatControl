@@ -146,12 +146,12 @@ namespace CryostatControlServer
         {
             get
             {
-                return Settings.Default.ControllerHeatupTemperature;
+                return Settings.Default.ControllerHe4StartTemperature;
             }
 
             set
             {
-                Settings.Default.ControllerHeatupTemperature = value;
+                Settings.Default.ControllerHe4StartTemperature = value;
             }
         }
 
@@ -671,7 +671,8 @@ namespace CryostatControlServer
 
                 case Controlstate.CooldownWaitHe3Heater:
                     this.ControlHe3PumpHeater();
-                    if (this.cooler.He3PumpT.Value > this.HeaterTemperatureSetpoint - 1.0)
+                    if (this.cooler.He3PumpT.Value > this.HeaterTemperatureSetpoint * 0.8 &&
+                        this.cooler.He3PumpT.Value > 25.0)
                     {
                         this.state = Controlstate.CooldownDisableHe3PumpHeater;
                     }
@@ -687,7 +688,7 @@ namespace CryostatControlServer
                     if (this.cooler.He3HeadT.Value < this.He3StartTemperature
                         || (this.cooler.He3HeadT.Value < this.He3StartMinimalTemperature
                             && (DateTime.Now - this.stateEnteredTime)
-                            < new TimeSpan(0, (int)this.He3StartWaitTimeMinutes, 0)))
+                            > new TimeSpan(0, (int)this.He3StartWaitTimeMinutes, 0)))
                     {
                         this.State = Controlstate.CooldownControlHe3;
                     }
