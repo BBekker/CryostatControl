@@ -32,7 +32,7 @@ namespace CryostatControlClient.Models
         /// </summary>
         protected AbstractModel()
         {
-            this.temporaryListSize = 31;
+            this.temporaryListSize = 301;
         }
 
         #endregion Constructor

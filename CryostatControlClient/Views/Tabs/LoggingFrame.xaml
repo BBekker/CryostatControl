@@ -21,9 +21,9 @@
 
         <StackPanel Margin="5" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center">
             <Label x:Name="Main" FontSize="24" FontWeight="Bold">Options</Label>
-            <Label Margin="0 5 0 0" FontSize="16" FontWeight="Bold" FontStyle="Italic">Status</Label>
+            <Label Margin="0 5 0 0" FontSize="16" FontWeight="Bold">Status</Label>
             <Label Foreground="{Binding LoggingViewModel.LoggingInProgressColor}" Content="{Binding LoggingViewModel.LoggingInProgressConverted}"/>
-            <Label Margin="0 5 0 0" FontSize="16" FontWeight="Bold"  FontStyle="Italic">Logging interval</Label>
+            <Label Margin="0 5 0 0" FontSize="16" FontWeight="Bold">Logging interval</Label>
             <StackPanel Margin="10 5 10 10"  Orientation="Horizontal" VerticalAlignment="Center">
                 <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <TextBox Style="{StaticResource He7TextBox}" FontSize="12" Margin="0 0 5 0"
@@ -33,7 +33,7 @@
             </StackPanel>
             <Slider Margin="10 5 10 5" Minimum="1.0" Maximum="120" TickFrequency="1.0"
                         IsSnapToTickEnabled="True" Name="slValue" Value="{Binding LoggingViewModel.LoggingInterval}"/>
-            <Label Margin="0 5 0 0" FontSize="16" FontWeight="Bold"  FontStyle="Italic">Content to log</Label>
+            <Label Margin="0 5 0 0" FontSize="16" FontWeight="Bold">Content to log</Label>
             <ComboBox Margin="10 10 10 5" SelectedIndex="{Binding LoggingViewModel.PresetComboBox}">
                 <ComboBoxItem>Nothing</ComboBoxItem>
                 <ComboBoxItem>Everything</ComboBoxItem>
@@ -54,7 +54,7 @@
 
         <StackPanel Margin="5" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center">
             <Label x:Name="He7Cooler" FontSize="24" FontWeight="Bold">He-7 Cooler</Label>
-            <Label FontSize="14" FontStyle="Italic" FontWeight="Bold">Temperatures</Label>
+            <Label FontSize="14" FontWeight="Bold">Temperatures</Label>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.He3HeadTemp}">He-3 Head</CheckBox>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.He4HeadTemp}">He-4 Head</CheckBox>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.He3PumpTemp}">He-3 Pump</CheckBox>
@@ -64,7 +64,7 @@
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.TwoKPlateTemp}">2k Plate</CheckBox>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.FourKPlateTemp}">4k Plate</CheckBox>
 
-            <Label Margin="0 5 0 0" FontStyle="Italic" FontSize="14" FontWeight="Bold">Voltages</Label>
+            <Label Margin="0 5 0 0" FontSize="14" FontWeight="Bold">Voltages</Label>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.He3PumpVolt}">He-3 Pump</CheckBox>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.He4PumpVolt}">He-4 Pump</CheckBox>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.He3SwitchVolt}">He-3 Switch</CheckBox>
@@ -73,23 +73,23 @@
 
         <StackPanel Margin="5" Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center">
             <Label x:Name="BlueFors" FontSize="24" FontWeight="Bold">BlueFors</Label>
-            <Label FontSize="14" FontStyle="Italic" FontWeight="Bold">Temperatures</Label>
+            <Label FontSize="14" FontWeight="Bold">Temperatures</Label>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.Bluefors50KShieldTemp}">50k Shield</CheckBox>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.Bluefors3KShieldTemp}">3K Shield</CheckBox>
 
-            <Label Margin="0 5 0 0" FontStyle="Italic" FontSize="14" FontWeight="Bold">Voltages</Label>
+            <Label Margin="0 5 0 0" FontSize="14" FontWeight="Bold">Voltages</Label>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.BlueforsHeater}">Heater</CheckBox>
         </StackPanel>
 
         <StackPanel Margin="5" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center">
             <Label x:Name="Compressor" FontSize="24" FontWeight="Bold">Compressor</Label>
-            <Label FontSize="14" FontStyle="Italic" FontWeight="Bold">Temperatures</Label>
+            <Label FontSize="14" FontWeight="Bold">Temperatures</Label>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.CompressorWaterInTemp}">Cooling water in</CheckBox>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.CompressorWaterOutTemp}">Cooling water out</CheckBox>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.CompressorHeliumTemp}">Helium</CheckBox>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.CompressorOilTemp}">Oil</CheckBox>
 
-            <Label Margin="0 5 0 0" FontStyle="Italic" FontSize="14" FontWeight="Bold">Pressures</Label>
+            <Label Margin="0 5 0 0" FontSize="14" FontWeight="Bold">Pressures</Label>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.CompressorLowPressure}">Low</CheckBox>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.CompressorLowAveragePressure}">Low average</CheckBox>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.CompressorHighPressure}">High</CheckBox>
