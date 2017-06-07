@@ -89,7 +89,6 @@ namespace CryostatControlClient.ViewModels
                     case (int)Controlstate.RecycleStart: return "Recycle";
                     default: return string.Empty;
                 }
-                    
             }
         }
 
