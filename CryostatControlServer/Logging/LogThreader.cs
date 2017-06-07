@@ -34,6 +34,11 @@ namespace CryostatControlServer.Logging
         private const int StartTime = 0;
 
         /// <summary>
+        /// The controller.
+        /// </summary>
+        private readonly CryostatControl controller;
+
+        /// <summary>
         /// The data reader.
         /// </summary>
         private DataReader dataReader;
@@ -55,8 +60,6 @@ namespace CryostatControlServer.Logging
 
         #endregion Fields
 
-        private CryostatControl controller;
-
         #region Constructors
 
         /// <summary>
@@ -64,6 +67,9 @@ namespace CryostatControlServer.Logging
         /// </summary>
         /// <param name="dataReader">
         /// The data reader.
+        /// </param>
+        /// <param name="controller">
+        /// The controller.
         /// </param>
         public LogThreader(DataReader dataReader, CryostatControl controller)
         {
@@ -237,12 +243,6 @@ namespace CryostatControlServer.Logging
         {
             SpecificDataLogger specificDataLogger = (SpecificDataLogger)((LoggerDataObject)loggerDataObject).GetAbstractLogData();
             string filePath = ((LoggerDataObject)loggerDataObject).GetFilePath();
-            if (this.NewFileIsNeeded(filePath))
-            {
-                this.StopSpecificDataLogging();
-                this.StartSpecificDataLogging(specificDataLogger.GetInterval(), specificDataLogger.GetToBeLoggedOrNotToBeLogged());
-                return;
-            }
 
             specificDataLogger.WriteSpecificData(filePath, this.dataReader.GetDataArray(), DateTime.Now.ToString("HH:mm:ss"));
         }

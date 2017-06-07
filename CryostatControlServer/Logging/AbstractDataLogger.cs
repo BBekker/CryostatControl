@@ -32,7 +32,7 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// The csv file format.
         /// </summary>
-        private const string CsvFileFormat = ".csv";
+        protected const string CsvFileFormat = ".csv";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractDataLogger"/> class.
@@ -53,16 +53,16 @@ namespace CryostatControlServer.Logging
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string CreateFolder(DateTime currentDateTime, string mainFolderPath)
+        public virtual string CreateFolder(DateTime currentDateTime, string mainFolderPath)
         {
             string year = currentDateTime.Year.ToString();
             string month = currentDateTime.Month.ToString();
             string newFolderName = year + @"\" + month + @"\";
-            string pathToNewFolder = System.IO.Path.Combine(mainFolderPath, newFolderName);
+            string pathToNewFolder = Path.Combine(mainFolderPath, newFolderName);
 
             try
             {
-                System.IO.Directory.CreateDirectory(pathToNewFolder);
+                Directory.CreateDirectory(pathToNewFolder);
             }
             catch (Exception)
             {
@@ -81,19 +81,19 @@ namespace CryostatControlServer.Logging
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string CreateFile(string mainFolderPath)
+        public virtual string CreateFile(string mainFolderPath)
         {
             DateTime currentDateTime = DateTime.Now;
             string folderPath = this.CreateFolder(currentDateTime, mainFolderPath);
             string day = currentDateTime.Day.ToString();
             string fileName = day + CsvFileFormat;
-            string actualPathToFile = System.IO.Path.Combine(folderPath, fileName);
-            Console.WriteLine(actualPathToFile);
+            string actualPathToFile = Path.Combine(folderPath, fileName);
+
             try
             {
-                if (!System.IO.File.Exists(actualPathToFile))
+                if (!File.Exists(actualPathToFile))
                 {
-                    System.IO.File.Create(actualPathToFile).Close();
+                    File.Create(actualPathToFile).Close();
                 }
             }
             catch (Exception)
@@ -128,7 +128,10 @@ namespace CryostatControlServer.Logging
 
             for (int i = 0; i < devices.Length; i++)
             {
-                initialLine += Delimiter + this.GetDeviceName(i);
+                if (devices[i])
+                {
+                    initialLine += Delimiter + this.GetDeviceName(i);
+                }
             }
 
             if (isGeneralLogging)
@@ -136,7 +139,6 @@ namespace CryostatControlServer.Logging
                 initialLine += Delimiter + "ControllerState";
             }
             
-
             using (StreamWriter sw = File.AppendText(pathToFile))
             {
                 sw.WriteLine(initialLine);
