@@ -11,6 +11,7 @@ namespace CryostatControlClient.ViewModels
 {
     using System;
     using System.Windows.Input;
+    using System.Windows.Media;
 
     using CryostatControlClient.Models;
 
@@ -54,6 +55,20 @@ namespace CryostatControlClient.ViewModels
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets the color of the connection state.
+        /// </summary>
+        /// <value>
+        /// The color of the connection state.
+        /// </value>
+        public SolidColorBrush ConnectionStateColor
+        {
+            get
+            {
+                return this.ConnectionColor((int)this.ConnectionState);
+            }
+        }
 
         /// <summary>
         /// Gets the switch command.
@@ -467,6 +482,7 @@ namespace CryostatControlClient.ViewModels
                 this.compressorModel.ConnectionState = value;
                 this.RaisePropertyChanged("ConnectionState");
                 this.RaisePropertyChanged("ConnectionStateConverted");
+                this.RaisePropertyChanged("ConnectionStateColor");
             }
         }
 

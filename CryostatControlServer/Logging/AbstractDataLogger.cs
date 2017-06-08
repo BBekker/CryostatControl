@@ -10,6 +10,7 @@
 namespace CryostatControlServer.Logging
 {
     using System;
+    using System.Globalization;
     using System.IO;
 
     using CryostatControlServer.Data;
@@ -25,14 +26,14 @@ namespace CryostatControlServer.Logging
         protected const string Delimiter = ";";
 
         /// <summary>
-        /// The no data token.
-        /// </summary>
-        protected const string NoDataToken = "-";
-
-        /// <summary>
         /// The csv file format.
         /// </summary>
-        private const string CsvFileFormat = ".csv";
+        protected const string CsvFileFormat = ".csv";
+
+        /// <summary>
+        /// The amount of digits for logging.
+        /// </summary>
+        protected const int Amountdigits = 3;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractDataLogger"/> class.
@@ -53,16 +54,16 @@ namespace CryostatControlServer.Logging
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string CreateFolder(DateTime currentDateTime, string mainFolderPath)
+        public virtual string CreateFolder(DateTime currentDateTime, string mainFolderPath)
         {
             string year = currentDateTime.Year.ToString();
-            string month = currentDateTime.Month.ToString();
+            string month = currentDateTime.ToString("MMMM", new CultureInfo("en-US"));
             string newFolderName = year + @"\" + month + @"\";
-            string pathToNewFolder = System.IO.Path.Combine(mainFolderPath, newFolderName);
+            string pathToNewFolder = Path.Combine(mainFolderPath, newFolderName);
 
             try
             {
-                System.IO.Directory.CreateDirectory(pathToNewFolder);
+                Directory.CreateDirectory(pathToNewFolder);
             }
             catch (Exception)
             {
@@ -81,19 +82,19 @@ namespace CryostatControlServer.Logging
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public string CreateFile(string mainFolderPath)
+        public virtual string CreateFile(string mainFolderPath)
         {
             DateTime currentDateTime = DateTime.Now;
             string folderPath = this.CreateFolder(currentDateTime, mainFolderPath);
             string day = currentDateTime.Day.ToString();
             string fileName = day + CsvFileFormat;
-            string actualPathToFile = System.IO.Path.Combine(folderPath, fileName);
-            Console.WriteLine(actualPathToFile);
+            string actualPathToFile = Path.Combine(folderPath, fileName);
+
             try
             {
-                if (!System.IO.File.Exists(actualPathToFile))
+                if (!File.Exists(actualPathToFile))
                 {
-                    System.IO.File.Create(actualPathToFile).Close();
+                    File.Create(actualPathToFile).Close();
                 }
             }
             catch (Exception)
@@ -113,7 +114,10 @@ namespace CryostatControlServer.Logging
         /// <param name="devices">
         /// The devices.
         /// </param>
-        public void WriteInitialLine(string pathToFile, bool[] devices)
+        /// <param name="isGeneralLogging">
+        /// The general Log.
+        /// </param>
+        public void WriteInitialLine(string pathToFile, bool[] devices, bool isGeneralLogging)
         {
             FileInfo fileInfo = new FileInfo(pathToFile);
             if (fileInfo.Length > 0)
@@ -122,11 +126,20 @@ namespace CryostatControlServer.Logging
             }
 
             string initialLine = "Time";
+
             for (int i = 0; i < devices.Length; i++)
             {
-                initialLine += Delimiter + this.GetDeviceName(i);
+                if (devices[i])
+                {
+                    initialLine += Delimiter + this.GetDeviceName(i);
+                }
             }
 
+            if (isGeneralLogging)
+            {
+                initialLine += Delimiter + "ControllerState";
+            }
+            
             using (StreamWriter sw = File.AppendText(pathToFile))
             {
                 sw.WriteLine(initialLine);
@@ -134,7 +147,21 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
-        /// The get device name.
+        /// The write initial line without control state header.
+        /// </summary>
+        /// <param name="pathToFile">
+        /// The path to file.
+        /// </param>
+        /// <param name="devices">
+        /// The devices.
+        /// </param>
+        public void WriteInitialLine(string pathToFile, bool[] devices)
+        {
+            this.WriteInitialLine(pathToFile, devices, false);
+        }
+
+        /// <summary>
+        /// Get the device name.
         /// </summary>
         /// <param name="dataNumber">
         /// The data number.
@@ -176,6 +203,9 @@ namespace CryostatControlServer.Logging
                     break;
                 case (int)DataEnumerator.ComHighAvg:
                     info = "Compressor high avg pressure";
+                    break;
+                case (int)DataEnumerator.ComDeltaAvg:
+                    info = "Compressor delta avg pressure";
                     break;
                 case (int)DataEnumerator.He3Pump:
                     info = "He3 Pump";
@@ -230,6 +260,9 @@ namespace CryostatControlServer.Logging
                     break;
                 case (int)DataEnumerator.ComHoursOfOperation:
                     info = "Compressor hours of operation";
+                    break;
+                case (int)DataEnumerator.ComOperationState:
+                    info = "Compressor Opertating State";
                     break;
                 case (int)DataEnumerator.LakeHeater:
                     info = "LakeShore Heater";

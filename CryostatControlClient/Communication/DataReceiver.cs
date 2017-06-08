@@ -49,6 +49,19 @@ namespace CryostatControlClient.Communication
         }
 
         /// <summary>
+        /// Updates the compressor viewmodel.
+        /// </summary>
+        /// <param name="time">The time.</param>
+        /// <param name="dataContext">The data context.</param>
+        public void UpdateCountdown(DateTime time, ViewModelContainer dataContext)
+        {
+            if (dataContext != null)
+            {
+                dataContext.ModusViewModel.PlannedTime = time;
+            }
+        }
+
+        /// <summary>
         /// The update notification.
         /// </summary>
         /// <param name="notification">

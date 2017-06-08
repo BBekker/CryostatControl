@@ -10,7 +10,9 @@
 namespace CryostatControlClient.ViewModels
 {
     using System;
+    using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Media;
 
     using CryostatControlClient.Models;
 
@@ -70,6 +72,96 @@ namespace CryostatControlClient.ViewModels
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets the color of the connection state.
+        /// </summary>
+        /// <value>
+        /// The color of the connection state.
+        /// </value>
+        public SolidColorBrush ConnectionStateColor
+        {
+            get
+            {
+                return this.ConnectionColor(Convert.ToInt32(this.ServerConnection));
+            }
+        }
+
+        /// <summary>
+        /// Gets the planned modus.
+        /// </summary>
+        /// <value>
+        /// The planned modus.
+        /// </value>
+        public string PlannedModus
+        {
+            get
+            {
+                switch (this.modusModel.Modus)
+                {
+                    case (int)Controlstate.CooldownStart: return "Cool down";
+                    case (int)Controlstate.WarmupStart: return "Warm up";
+                    case (int)Controlstate.RecycleStart: return "Recycle";
+                    default: return string.Empty;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the planned time.
+        /// </summary>
+        /// <value>
+        /// The planned time.
+        /// </value>
+        public DateTime PlannedTime
+        {
+            get
+            {
+                return this.modusModel.PlannedTime;
+            }
+
+            set
+            {
+                this.modusModel.PlannedTime = value;
+                this.RaisePropertyChanged("PlannedTime");
+                this.RaisePropertyChanged("PlannedTimeConverted");
+            }
+        }
+
+        /// <summary>
+        /// Gets the planned time converted.
+        /// </summary>
+        /// <value>
+        /// The planned time converted.
+        /// </value>
+        public string PlannedTimeConverted
+        {
+            get
+            {
+                return DateTime.Now.Subtract(this.PlannedTime).ToString(@"dd\ \d\a\y\s\ hh\:mm\:ss");
+            }
+        }
+
+        /// <summary>
+        /// Gets the show countdown.
+        /// </summary>
+        /// <value>
+        /// The show countdown.
+        /// </value>
+        public Visibility ShowCountdown
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(this.PlannedModus))
+                {
+                    return Visibility.Hidden;
+                }
+                else
+                {
+                    return Visibility.Visible;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets a value indicating whether [start mode].
@@ -179,6 +271,7 @@ namespace CryostatControlClient.ViewModels
                 this.RaisePropertyChanged("StartMode");
                 this.RaisePropertyChanged("CancelMode");
                 this.RaisePropertyChanged("ModusConverted");
+                this.RaisePropertyChanged("ShowCountdown");
             }
         }
 
@@ -214,6 +307,7 @@ namespace CryostatControlClient.ViewModels
                 this.modusModel.ServerConnection = value;
                 this.RaisePropertyChanged("Server");
                 this.RaisePropertyChanged("ServerConverted");
+                this.RaisePropertyChanged("ConnectionStateColor");
             }
         }
 

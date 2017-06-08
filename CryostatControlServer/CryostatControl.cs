@@ -117,6 +117,14 @@ namespace CryostatControlServer
             }
         }
 
+        public DateTime StartTime
+        {
+            get
+            {
+                return this.controller.StartTime;
+            }
+        }
+
         #endregion Properties
 
         #region Methods

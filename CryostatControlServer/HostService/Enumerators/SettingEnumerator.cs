@@ -19,10 +19,10 @@ namespace CryostatControlServer.HostService.Enumerators
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1602:EnumerationItemsMustBeDocumented", Justification = "Reviewed. Suppression is OK here.")]
     public enum SettingEnumerator
     {
-        He3PumpMaxVoltage,
-        He4PumpMaxVoltage,
-        He4SwitchMaxVoltage,
-        He3SwitchMaxVoltage,
+//        He3PumpMaxVoltage,
+//        He4PumpMaxVoltage,
+//        He4SwitchMaxVoltage,
+//        He3SwitchMaxVoltage,
         ControllerHe3HeaterVoltage,
         ControllerHe3SwitchVoltage,
         ControllerHe4SwitchVoltage,

@@ -96,6 +96,23 @@ namespace CryostatControlClient
         }
 
         /// <summary>
+        /// Updates the countdown.
+        /// </summary>
+        /// <param name="time">The time.</param>
+        public void UpdateCountdown(DateTime time)
+        {
+            this.mainApp.Dispatcher.Invoke(() =>
+                {
+                    if (this.mainWindow == null)
+                    {
+                        this.mainWindow = this.mainApp.MainWindow as MainWindow;
+                    }
+
+                    this.mainWindow.UpdateCountdown(time);
+                });
+        }
+
+        /// <summary>
         /// The update notification.
         /// </summary>
         /// <param name="notification">

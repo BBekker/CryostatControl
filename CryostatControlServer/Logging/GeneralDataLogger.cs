@@ -19,6 +19,7 @@ namespace CryostatControlServer.Logging
     /// </summary>
     public class GeneralDataLogger : AbstractDataLogger
     {
+
         /// <summary>
         /// Write general data to log.
         /// </summary>
@@ -36,7 +37,7 @@ namespace CryostatControlServer.Logging
             string dataLine = time;
             for (int i = 0; i < data.Length; i++)
             {
-                    dataLine += AbstractDataLogger.Delimiter + data[i];
+                    dataLine += AbstractDataLogger.Delimiter + Math.Round(data[i], AbstractDataLogger.Amountdigits);
             }
 
             try

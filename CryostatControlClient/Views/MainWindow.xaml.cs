@@ -9,6 +9,7 @@
 
 namespace CryostatControlClient.Views
 {
+    using System;
     using System.ComponentModel;
     using System.Windows;
 
@@ -122,6 +123,16 @@ namespace CryostatControlClient.Views
         public void SetIsLogging(bool state)
         {
             this.dataReceiver.SetIsLogging(state, this.viewModelContainer);
+        }
+
+        /// <summary>
+        /// Updates the countdown.
+        /// </summary>
+        /// <param name="mode">The mode.</param>
+        /// <param name="time">The time.</param>
+        public void UpdateCountdown(DateTime time)
+        {
+            this.dataReceiver.UpdateCountdown(time, this.viewModelContainer);
         }
 
         /// <summary>
