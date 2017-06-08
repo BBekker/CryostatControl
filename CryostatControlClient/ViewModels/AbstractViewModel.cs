@@ -10,6 +10,7 @@
 namespace CryostatControlClient.ViewModels
 {
     using System.ComponentModel;
+    using System.Windows.Media;
 
     /// <summary>
     /// The abstract view model.
@@ -43,6 +44,27 @@ namespace CryostatControlClient.ViewModels
                 case 0: return "Disconnected";
                 case 1: return "Connected";
                 default: return "No information";
+            }
+        }
+
+        /// <summary>
+        /// Connections the color.
+        /// </summary>
+        /// <param name="state">The state.</param>
+        /// <returns>Color of connections state.</returns>
+        public SolidColorBrush ConnectionColor(int state)
+        {
+            if (state == 1)
+            {
+                return (SolidColorBrush) new BrushConverter().ConvertFrom("#4CAF50");
+            }
+            else if (state == 0)
+            {
+                return (SolidColorBrush) new BrushConverter().ConvertFrom("#F44336");
+            }
+            else
+            {
+                return new SolidColorBrush(Colors.Black);
             }
         }
 
