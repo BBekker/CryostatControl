@@ -29,20 +29,17 @@
     <Setting Name="ControllerHe7StartTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">70</Value>
     </Setting>
-    <Setting Name="ControllerHeaterTemperatureSetpoint" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">45</Value>
-    </Setting>
     <Setting Name="ControllerHeatSwitchOnTemperature" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">15</Value>
+      <Value Profile="(Default)">14</Value>
     </Setting>
     <Setting Name="ControllerHeatSwitchSafeValue" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">15</Value>
+      <Value Profile="(Default)">12</Value>
     </Setting>
     <Setting Name="ControllerHeatupTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">50</Value>
     </Setting>
     <Setting Name="ControllerHe4StartTemperature" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">4</Value>
+      <Value Profile="(Default)">4.4</Value>
     </Setting>
     <Setting Name="ControllerHe3StartTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">2</Value>
@@ -61,6 +58,12 @@
     </Setting>
     <Setting Name="LoggingAddress" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\LoggingCryostat</Value>
+    </Setting>
+    <Setting Name="ControllerHeaterTemperatureSetpoint" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+    <Setting Name="ControllerHeaterLowPowerValue" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.05</Value>
     </Setting>
   </Settings>
 </SettingsFile>

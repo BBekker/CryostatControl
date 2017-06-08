@@ -188,16 +188,15 @@ namespace CryostatControlServer.Logging
         /// </param>
         public static void WriteToFile(string time, string level, string tag, string data)
         {
+
+            string dataLine = time + "," + tag + "," + level + ": " + data;
 #if DEBUG
-            Console.WriteLine(data);
+            Console.WriteLine(dataLine);
 #endif
             if (filePath == null)
             {
                CreateFile(); 
             }
-
-            StringBuilder sb = new StringBuilder();
-            string dataLine = time + "," + tag + "," + level + ": " + data;
 
             try
             {
