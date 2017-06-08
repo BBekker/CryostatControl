@@ -84,16 +84,16 @@
         </StackPanel>
 
         <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 5 10 5">
-            <Label Margin="0 0 10 0">X Min</Label>
+            <Label Margin="0 0 5 0">X Min</Label>
             <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="150">
-                <xctk:DateTimePicker Value="{Binding ZoomingViewModel.XMin}" HorizontalContentAlignment="Right" Margin="0 0 5 0"></xctk:DateTimePicker>
+                <xctk:DateTimePicker Value="{Binding ZoomingViewModel.XMin}" HorizontalContentAlignment="Right" Margin="0 0 5 0" Width="250"></xctk:DateTimePicker>
             </Border>
         </StackPanel>
 
         <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 5 10 5">
-            <Label Margin="0 0 10 0">X Max</Label>
+            <Label Margin="0 0 5 0">X Max</Label>
             <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="150">
-                <xctk:DateTimePicker Value="{Binding ZoomingViewModel.XMax}" HorizontalContentAlignment="Right" Margin="0 0 5 0"></xctk:DateTimePicker>
+                <xctk:DateTimePicker Value="{Binding ZoomingViewModel.XMax}" HorizontalContentAlignment="Right" Margin="0 0 5 0" Width="250"></xctk:DateTimePicker>
             </Border>
         </StackPanel>
     </Grid>
