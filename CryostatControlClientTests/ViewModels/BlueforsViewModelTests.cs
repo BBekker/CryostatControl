@@ -51,25 +51,25 @@ namespace CryostatControlClient.ViewModels.Tests
             Assert.AreEqual(this.blueforsViewModel.HeaterPower, 50);
         }
 
-        [TestMethod()]
-        public void ColdPlate3KVisibilityTest()
-        {
-            this.blueforsViewModel.ColdPlate3KVisibility = System.Windows.Visibility.Hidden;
-            Assert.AreEqual(this.blueforsViewModel.ColdPlate3KVisibility, Visibility.Hidden);
-        }
+        //[TestMethod()]
+        //public void ColdPlate3KVisibilityTest()
+        //{
+        //    this.blueforsViewModel.ColdPlate3KVisibility = System.Windows.Visibility.Hidden;
+        //    Assert.AreEqual(this.blueforsViewModel.ColdPlate3KVisibility, Visibility.Hidden);
+        //}
 
-        [TestMethod()]
-        public void ColdPlate50KVisibilityTest()
-        {
-            this.blueforsViewModel.ColdPlate50KVisibility = System.Windows.Visibility.Hidden;
-            Assert.AreEqual(this.blueforsViewModel.ColdPlate50KVisibility, Visibility.Hidden);
-        }
+        //[TestMethod()]
+        //public void ColdPlate50KVisibilityTest()
+        //{
+        //    this.blueforsViewModel.ColdPlate50KVisibility = System.Windows.Visibility.Hidden;
+        //    Assert.AreEqual(this.blueforsViewModel.ColdPlate50KVisibility, Visibility.Hidden);
+        //}
 
-        [TestMethod()]
-        public void OnColdPlate50KVisibilityTest()
-        {
-            this.blueforsViewModel.ColdPlate50KVisibility = System.Windows.Visibility.Hidden;
-            Assert.AreEqual(this.blueforsViewModel.ColdPlate50KVisibility, Visibility.Hidden);
-        }
+        //[TestMethod()]
+        //public void OnColdPlate50KVisibilityTest()
+        //{
+        //    this.blueforsViewModel.ColdPlate50KVisibility = System.Windows.Visibility.Hidden;
+        //    Assert.AreEqual(this.blueforsViewModel.ColdPlate50KVisibility, Visibility.Hidden);
+        //}
     }
 }

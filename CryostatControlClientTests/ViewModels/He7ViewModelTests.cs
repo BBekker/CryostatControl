@@ -21,61 +21,61 @@ namespace CryostatControlClient.ViewModels.Tests
             this.he7ViewModel = new He7ViewModel();
         }
 
-        [TestMethod()]
-        public void TwoKPlateVisibilityTest()
-        {
-            this.he7ViewModel.TwoKPlateVisibility = System.Windows.Visibility.Hidden;
-            Assert.AreEqual(this.he7ViewModel.TwoKPlateVisibility, Visibility.Hidden);
-        }
+        //[TestMethod()]
+        //public void TwoKPlateVisibilityTest()
+        //{
+        //    this.he7ViewModel.TwoKPlateVisibility = System.Windows.Visibility.Hidden;
+        //    Assert.AreEqual(this.he7ViewModel.TwoKPlateVisibility, Visibility.Hidden);
+        //}
 
-        [TestMethod()]
-        public void FourKPlateVisibilityTest()
-        {
-            this.he7ViewModel.FourKPlateVisibility = System.Windows.Visibility.Hidden;
-            Assert.AreEqual(this.he7ViewModel.FourKPlateVisibility, Visibility.Hidden);
-        }
+        //[TestMethod()]
+        //public void FourKPlateVisibilityTest()
+        //{
+        //    this.he7ViewModel.FourKPlateVisibility = System.Windows.Visibility.Hidden;
+        //    Assert.AreEqual(this.he7ViewModel.FourKPlateVisibility, Visibility.Hidden);
+        //}
 
-        [TestMethod()]
-        public void He3HeadVisibilityTest()
-        {
-            this.he7ViewModel.He3HeadVisibility = System.Windows.Visibility.Hidden;
-            Assert.AreEqual(this.he7ViewModel.He3HeadVisibility, Visibility.Hidden);
-        }
+        //[TestMethod()]
+        //public void He3HeadVisibilityTest()
+        //{
+        //    this.he7ViewModel.He3HeadVisibility = System.Windows.Visibility.Hidden;
+        //    Assert.AreEqual(this.he7ViewModel.He3HeadVisibility, Visibility.Hidden);
+        //}
 
-        [TestMethod()]
-        public void He3SwitchVisibilityTest()
-        {
-            this.he7ViewModel.He3SwitchVisibility = System.Windows.Visibility.Hidden;
-            Assert.AreEqual(this.he7ViewModel.He3SwitchVisibility, Visibility.Hidden);
-        }
+        //[TestMethod()]
+        //public void He3SwitchVisibilityTest()
+        //{
+        //    this.he7ViewModel.He3SwitchVisibility = System.Windows.Visibility.Hidden;
+        //    Assert.AreEqual(this.he7ViewModel.He3SwitchVisibility, Visibility.Hidden);
+        //}
 
-        [TestMethod()]
-        public void He3PumpVisibilityTest()
-        {
-            this.he7ViewModel.He3PumpVisibility = System.Windows.Visibility.Hidden;
-            Assert.AreEqual(this.he7ViewModel.He3PumpVisibility, Visibility.Hidden);
-        }
+        //[TestMethod()]
+        //public void He3PumpVisibilityTest()
+        //{
+        //    this.he7ViewModel.He3PumpVisibility = System.Windows.Visibility.Hidden;
+        //    Assert.AreEqual(this.he7ViewModel.He3PumpVisibility, Visibility.Hidden);
+        //}
 
-        [TestMethod()]
-        public void He4HeadVisibilityTest()
-        {
-            this.he7ViewModel.He4HeadVisibility = System.Windows.Visibility.Hidden;
-            Assert.AreEqual(this.he7ViewModel.He4HeadVisibility, Visibility.Hidden);
-        }
+        //[TestMethod()]
+        //public void He4HeadVisibilityTest()
+        //{
+        //    this.he7ViewModel.He4HeadVisibility = System.Windows.Visibility.Hidden;
+        //    Assert.AreEqual(this.he7ViewModel.He4HeadVisibility, Visibility.Hidden);
+        //}
 
-        [TestMethod()]
-        public void He4SwitchVisibilityTest()
-        {
-            this.he7ViewModel.He4SwitchVisibility = System.Windows.Visibility.Hidden;
-            Assert.AreEqual(this.he7ViewModel.He4SwitchVisibility, Visibility.Hidden);
-        }
+        //[TestMethod()]
+        //public void He4SwitchVisibilityTest()
+        //{
+        //    this.he7ViewModel.He4SwitchVisibility = System.Windows.Visibility.Hidden;
+        //    Assert.AreEqual(this.he7ViewModel.He4SwitchVisibility, Visibility.Hidden);
+        //}
 
-        [TestMethod()]
-        public void He4PumpVisibilityTest()
-        {
-            this.he7ViewModel.He4PumpVisibility = System.Windows.Visibility.Hidden;
-            Assert.AreEqual(this.he7ViewModel.He4PumpVisibility, Visibility.Hidden);
-        }
+        //[TestMethod()]
+        //public void He4PumpVisibilityTest()
+        //{
+        //    this.he7ViewModel.He4PumpVisibility = System.Windows.Visibility.Hidden;
+        //    Assert.AreEqual(this.he7ViewModel.He4PumpVisibility, Visibility.Hidden);
+        //}
 
         [TestMethod()]
         public void FourKPlateTempTest()
