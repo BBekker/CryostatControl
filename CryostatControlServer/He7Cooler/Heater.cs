@@ -50,9 +50,18 @@ namespace CryostatControlServer.He7Cooler
             private Channels outchannel;
 
             /// <summary>
+            /// The temperature feedback sensor
+            /// </summary>
+            private Sensor TemperatureFeedback;
+
+            /// <summary>
             /// The H7 cooler device.
             /// </summary>
             private He7Cooler device;
+
+            private double resistance = 1;
+
+            private He7Cooler.Calibration calibration;
 
             #endregion Fields
 
@@ -78,7 +87,46 @@ namespace CryostatControlServer.He7Cooler
                 device.AddChannel(inputChannel);
                 this.SafeRangeHigh = DefaultSafeRangeHigh;
                 this.SafeRangeLow = DefaultSafeRangeLow;
+                this.calibration = new Calibration();
             }
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Heater"/> class.
+            /// </summary>
+            /// <param name="outputChannel">
+            /// The voltage output channel.
+            /// </param>
+            /// <param name="inputChannel">
+            /// The voltage input channel.
+            /// </param>
+            /// <param name="temperatureFeedbackSensor">
+            /// Temperature sensor used for feedback
+            /// </param>
+            /// <param name="resistance">
+            /// The resistance.
+            /// </param>
+            /// <param name="outputCalibration">
+            /// The output Calibration.
+            /// </param>
+            /// <param name="device">
+            /// The He7 cooler device the heater is connected to.
+            /// </param>
+            public Heater(Channels outputChannel, Channels inputChannel, Sensor temperatureFeedbackSensor, double resistance, He7Cooler.Calibration outputCalibration, He7Cooler device)
+            {
+                this.inchannel = inputChannel;
+                this.outchannel = outputChannel;
+                this.device = device;
+                device.AddChannel(inputChannel);
+                this.SafeRangeHigh = DefaultSafeRangeHigh;
+                this.SafeRangeLow = DefaultSafeRangeLow;
+
+                this.TemperatureFeedback = temperatureFeedbackSensor;
+                this.resistance = resistance;
+                this.calibration = outputCalibration;
+            }
+
+
+
 
             #endregion Constructors
 
@@ -118,7 +166,33 @@ namespace CryostatControlServer.He7Cooler
 
                 set
                 {
-                    this.SetOutput(value);
+                    this.SetOutput(this.calibration.ConvertValue(value));
+                }
+            }
+
+            public double Current
+            {
+                get
+                {
+                    return this.Voltage / this.resistance;
+                }
+
+                set
+                {
+                    this.Voltage = (value * this.resistance);
+                }
+            }
+
+            public double Power
+            {
+                get
+                {
+                    return this.Voltage * this.Voltage / this.resistance;
+                }
+
+                set
+                {
+                    this.Voltage = Math.Sqrt(value * this.resistance);
                 }
             }
 

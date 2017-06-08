@@ -124,14 +124,14 @@ namespace CryostatControlServer.Data
         /// <param name="sensors">The sensors array to be filled.</param>
         private void FillHe7Sensors(ISensor[] sensors)
         {
-            He7Cooler.Sensor.Calibration he3Calibration =
-                He7Cooler.Sensor.Calibration.He3Calibration;
-            He7Cooler.Sensor.Calibration he4Calibration =
-                He7Cooler.Sensor.Calibration.He4Calibration;
-            He7Cooler.Sensor.Calibration diodeCalibration =
-                He7Cooler.Sensor.Calibration.DiodeCalibration;
-            He7Cooler.Sensor.Calibration emptyCalibration =
-                He7Cooler.Sensor.Calibration.EmptyCalibration;
+            He7Cooler.Calibration he3Calibration =
+                He7Cooler.Calibration.He3Calibration;
+            He7Cooler.Calibration he4Calibration =
+                He7Cooler.Calibration.He4Calibration;
+            He7Cooler.Calibration diodeCalibration =
+                He7Cooler.Calibration.DiodeCalibration;
+            He7Cooler.Calibration emptyCalibration =
+                He7Cooler.Calibration.EmptyCalibration;
 
             sensors[(int)DataEnumerator.He3Pump] =
                 new He7Cooler.Sensor(Channels.SensHe3PumpT, this.he7Cooler, diodeCalibration);

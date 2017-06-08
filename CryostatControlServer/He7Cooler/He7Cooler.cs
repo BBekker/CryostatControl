@@ -64,9 +64,9 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         public He7Cooler()
         {
-            Sensor.Calibration he3Calibration = Sensor.Calibration.He3Calibration;
-            Sensor.Calibration he4Calibration = Sensor.Calibration.He4Calibration;
-            Sensor.Calibration diodeCalibration = Sensor.Calibration.DiodeCalibration;
+            He7Cooler.Calibration he3Calibration = He7Cooler.Calibration.He3Calibration;
+            He7Cooler.Calibration he4Calibration = He7Cooler.Calibration.He4Calibration;
+            He7Cooler.Calibration diodeCalibration = He7Cooler.Calibration.DiodeCalibration;
 
             this.He3PumpT = new Sensor(Channels.SensHe3PumpT, this, diodeCalibration);
             this.He4PumpT = new Sensor(Channels.SensHe4PumpT, this, diodeCalibration);
