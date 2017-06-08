@@ -622,9 +622,20 @@ namespace CryostatControlServer
                     if (this.cooler.He3PumpT.Value < this.He7StartTemperature
                         || this.cooler.He4PumpT.Value < this.He7StartTemperature)
                     {
-                        this.State = Controlstate.CooldownWait4K;
+                        this.State = Controlstate.CooldownWaitSwitches;
                     }
 
+                    break;
+
+                case Controlstate.CooldownWaitSwitches:
+                    //TODO: replace these lines with a new power based heater class
+                    this.ControlHeater(this.cooler.He3Pump, this.cooler.He3PumpT, this.HeaterTemperatureSetpoint, Math.Sqrt(Settings.Default.ControllerHeaterLowPowerValue * 400) / 4.4);
+                    this.ControlHeater(this.cooler.He4Pump, this.cooler.He4PumpT, this.HeaterTemperatureSetpoint, Math.Sqrt(Settings.Default.ControllerHeaterLowPowerValue * 200) / 2.2);
+                    if (this.cooler.He3SwitchT.Value < this.HeatSwitchOnTemperature
+                        && this.cooler.He4SwitchT.Value < this.HeatSwitchOnTemperature)
+                    {
+                        this.State = Controlstate.CooldownWait4K;
+                    }
                     break;
 
                 case Controlstate.CooldownWait4K:

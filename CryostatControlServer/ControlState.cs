@@ -50,6 +50,11 @@ namespace CryostatControlServer
         CooldownWait70K,
 
         /// <summary>
+        /// Wait for the heat switches to turn OFF 
+        /// </summary>
+        CooldownWaitSwitches,
+
+        /// <summary>
         /// Activate pump heaters and wait to cool to 4K.
         /// </summary>
         CooldownWait4K,
