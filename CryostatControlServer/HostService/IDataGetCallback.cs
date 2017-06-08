@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 namespace CryostatControlServer.HostService
 {
+    using System;
     using System.ServiceModel;
 
     /// <summary>
@@ -43,6 +44,15 @@ namespace CryostatControlServer.HostService
         /// </param>
         [OperationContract(IsOneWay = true)]
         void UpdateNotification(string[] notification);
+
+        /// <summary>
+        /// Updates the countdown.
+        /// </summary>
+        /// <param name="time">The time.</param>
+        [OperationContract(IsOneWay = true)]
+        void UpdateCountdown(DateTime time);
+
+
 
         #endregion Methods
     }

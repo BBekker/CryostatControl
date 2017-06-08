@@ -78,6 +78,13 @@
                 </Grid>
                 <Button Style="{StaticResource SettingsButton}" IsEnabled="{Binding ModusViewModel.StartMode}" Command="{Binding ModusViewModel.ManualButtonCommand}" Margin="10 5 10 5">Manual</Button>
 
+                <StackPanel Visibility="{Binding ModusViewModel.ShowCountdown}" Margin="0 20 0 0">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label FontSize="20" Content="{Binding ModusViewModel.PlannedModus}" />
+                        <Label FontSize="20">in</Label>
+                    </StackPanel>
+                    <Label HorizontalAlignment="Center" FontSize="20" Content="{Binding ModusViewModel.PlannedTimeConverted}" />
+                </StackPanel>
             </StackPanel>
         </Grid>
     </materialDesign:Card>
