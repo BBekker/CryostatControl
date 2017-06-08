@@ -133,7 +133,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("45")]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
         public double ControllerHeaterTemperatureSetpoint {
             get {
                 return ((double)(this["ControllerHeaterTemperatureSetpoint"]));
@@ -157,7 +157,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
         public double ControllerHeatSwitchSafeValue {
             get {
                 return ((double)(this["ControllerHeatSwitchSafeValue"]));
@@ -181,7 +181,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("4.4")]
         public double ControllerHe4StartTemperature {
             get {
                 return ((double)(this["ControllerHe4StartTemperature"]));

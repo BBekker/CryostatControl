@@ -30,19 +30,19 @@
       <Value Profile="(Default)">70</Value>
     </Setting>
     <Setting Name="ControllerHeaterTemperatureSetpoint" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">45</Value>
+      <Value Profile="(Default)">50</Value>
     </Setting>
     <Setting Name="ControllerHeatSwitchOnTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">15</Value>
     </Setting>
     <Setting Name="ControllerHeatSwitchSafeValue" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">15</Value>
+      <Value Profile="(Default)">12</Value>
     </Setting>
     <Setting Name="ControllerHeatupTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">50</Value>
     </Setting>
     <Setting Name="ControllerHe4StartTemperature" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">4</Value>
+      <Value Profile="(Default)">4.4</Value>
     </Setting>
     <Setting Name="ControllerHe3StartTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">2</Value>

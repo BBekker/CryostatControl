@@ -800,7 +800,9 @@ namespace CryostatControlServer
                     this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
 
                     // Keep switches and compressor on if cold, turn off otherwise.
-                    if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue)
+                    if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue && 
+                        this.cooler.He3Switch.Voltage > this.HeatSwitchOnTemperature &&
+                        this.cooler.He4Switch.Voltage > this.HeatSwitchOnTemperature)
                     {
                         this.cooler.He3Switch.Voltage = this.He3SwitchVoltage;
                         this.cooler.He4Switch.Voltage = this.He4SwitchVoltage;
