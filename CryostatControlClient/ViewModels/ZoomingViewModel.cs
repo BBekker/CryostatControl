@@ -102,7 +102,7 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return DateTime.Now;
+                return this.GetDateTime(this.xAxis.MaxValue);
             }
 
             set
@@ -122,7 +122,7 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return DateTime.Now;
+                return this.GetDateTime(this.xAxis.MinValue);
             }
 
             set
@@ -312,7 +312,7 @@ namespace CryostatControlClient.ViewModels
             catch (ArgumentOutOfRangeException e)
             {
                 Console.WriteLine(e.ToString());
-                return new DateTime();
+                return DateTime.Now;
             }
         }
 
