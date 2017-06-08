@@ -15,12 +15,8 @@ namespace CryostatControlServerTests.Logging
         [TestMethod]
         public void WriteInitialLineTest()
         {
-            bool[] toBeLogged = new bool[(int)DataEnumerator.DataLength];
-            toBeLogged[(int)DataEnumerator.ComHelium] = false;
-            toBeLogged[(int)DataEnumerator.He3SwitchTemp] = false;
-            toBeLogged[(int)DataEnumerator.LakePlate50K] = false;
-            AbstractDataLogger generalDataLogger = new GeneralDataLogger();
-
+            GeneralDataLogger generalDataLogger = new GeneralDataLogger();
+            bool[] toBeLogged = generalDataLogger.CreateArrayWithOnlyTrue();
             string filePath = "SpecificDataLoggerTest.csv";
 
             if (File.Exists(filePath))

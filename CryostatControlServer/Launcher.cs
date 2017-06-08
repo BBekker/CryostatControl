@@ -70,7 +70,7 @@ namespace CryostatControlServer
         public static void Main(string[] args)
         {
             InitComponents();         
-            logger = new LogThreader(new DataReader(compressor, he7Cooler, lakeShore));
+            logger = new LogThreader(new DataReader(compressor, he7Cooler, lakeShore), cryostatControl);
             logger.StartGeneralDataLogging();
             StartHost();
         }
@@ -99,11 +99,6 @@ namespace CryostatControlServer
             catch (Exception e)
             {
                 DebugLogger.Error("Launcher", "No connection with He7 cooler");
-
-#if DEBUG
-                Console.WriteLine("Exception thrown: {0}", e);
-#endif
-                ////todo handle exception
             }
 
             try
@@ -114,11 +109,6 @@ namespace CryostatControlServer
             catch (Exception e)
             {
                 DebugLogger.Error("Launcher", "No connection with Compressor");
-
-#if DEBUG
-                Console.WriteLine("Exception thrown: {0}", e);
-#endif
-                ////todo handle exception
             }
 
             controller = new Controller(he7Cooler, lakeShore, compressor);
@@ -135,16 +125,10 @@ namespace CryostatControlServer
                 NotificationSender.Init(hostService);
                 using (ServiceHost host = new ServiceHost(hostService))
                 {
-                    // Enable metadata publishing.
-                    ////ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-                    ////smb.HttpGetEnabled = true;
-                    ////smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
-                    ////host.Description.Behaviors.Add(smb);
                     ((ServiceBehaviorAttribute)host.Description.Behaviors[typeof(ServiceBehaviorAttribute)])
                         .InstanceContextMode = InstanceContextMode.Single;
                     host.Open();
                     DebugLogger.Info("Launcher", "The service is ready");
-                    Console.WriteLine("The service is ready");
                     Console.WriteLine("Press <Enter> to stop the service.");
                     Console.ReadLine();
                     host.Close();
