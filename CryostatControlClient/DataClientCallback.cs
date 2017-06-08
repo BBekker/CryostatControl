@@ -101,7 +101,6 @@ namespace CryostatControlClient
         /// <param name="time">The time.</param>
         public void UpdateCountdown(DateTime time)
         {
-            Console.WriteLine("Updating time " + time);
             this.mainApp.Dispatcher.Invoke(() =>
                 {
                     if (this.mainWindow == null)
