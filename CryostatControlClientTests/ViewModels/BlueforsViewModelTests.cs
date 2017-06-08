@@ -1,10 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Windows;
-using System.Windows.Input;
+﻿//-----------------------------------------------------------------------
+// <copyright file="CompressorViewModelTests.cs" company="SRON">
+//     Copyright (c) SRON. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels.Tests
 {
+    using System.Windows;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass()]
     public class BlueforsViewModelTests
     {
@@ -51,25 +56,25 @@ namespace CryostatControlClient.ViewModels.Tests
             Assert.AreEqual(this.blueforsViewModel.HeaterPower, 50);
         }
 
-        //[TestMethod()]
-        //public void ColdPlate3KVisibilityTest()
-        //{
-        //    this.blueforsViewModel.ColdPlate3KVisibility = System.Windows.Visibility.Hidden;
-        //    Assert.AreEqual(this.blueforsViewModel.ColdPlate3KVisibility, Visibility.Hidden);
-        //}
+        [TestMethod()]
+        public void ColdPlate3KVisibilityTest()
+        {
+            this.blueforsViewModel.ColdPlate3KVisibility = System.Windows.Visibility.Hidden;
+            Assert.AreEqual(this.blueforsViewModel.ColdPlate3KVisibility, Visibility.Hidden);
+        }
 
-        //[TestMethod()]
-        //public void ColdPlate50KVisibilityTest()
-        //{
-        //    this.blueforsViewModel.ColdPlate50KVisibility = System.Windows.Visibility.Hidden;
-        //    Assert.AreEqual(this.blueforsViewModel.ColdPlate50KVisibility, Visibility.Hidden);
-        //}
+        [TestMethod()]
+        public void ColdPlate50KVisibilityTest()
+        {
+            this.blueforsViewModel.ColdPlate50KVisibility = System.Windows.Visibility.Hidden;
+            Assert.AreEqual(this.blueforsViewModel.ColdPlate50KVisibility, Visibility.Hidden);
+        }
 
-        //[TestMethod()]
-        //public void OnColdPlate50KVisibilityTest()
-        //{
-        //    this.blueforsViewModel.ColdPlate50KVisibility = System.Windows.Visibility.Hidden;
-        //    Assert.AreEqual(this.blueforsViewModel.ColdPlate50KVisibility, Visibility.Hidden);
-        //}
+        [TestMethod()]
+        public void OnColdPlate50KVisibilityTest()
+        {
+            this.blueforsViewModel.ColdPlate50KVisibility = System.Windows.Visibility.Hidden;
+            Assert.AreEqual(this.blueforsViewModel.ColdPlate50KVisibility, Visibility.Hidden);
+        }
     }
 }

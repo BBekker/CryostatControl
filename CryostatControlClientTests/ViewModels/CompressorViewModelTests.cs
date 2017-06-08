@@ -1,6 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CryostatControlClient.ViewModels;
-//-----------------------------------------------------------------------
+﻿//-----------------------------------------------------------------------
 // <copyright file="CompressorViewModelTests.cs" company="SRON">
 //     Copyright (c) SRON. All rights reserved.
 // </copyright>
