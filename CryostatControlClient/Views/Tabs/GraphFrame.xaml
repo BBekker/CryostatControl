@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:viewModels="clr-namespace:CryostatControlClient.ViewModels"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       Background="{DynamicResource MaterialDesignPaper}">
     <Grid.Resources>
         <viewModels:ZoomingModeConverter x:Key="ZoomingModeConverter"></viewModels:ZoomingModeConverter>
@@ -64,20 +65,20 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         
         <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 5 10 5">
             <Label Margin="0 0 10 0">Y Min</Label>
-            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="50">
+            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="30">
                 <TextBox Text="{Binding ZoomingViewModel.YMin}" HorizontalContentAlignment="Right" Margin="0 0 5 0"></TextBox>
             </Border>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 5 10 5">
             <Label Margin="0 0 10 0">Y Max</Label>
-            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="50">
+            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="30">
                 <TextBox Text="{Binding ZoomingViewModel.YMax}" HorizontalContentAlignment="Right" Margin="0 0 5 0"></TextBox>
             </Border>
         </StackPanel>
@@ -85,19 +86,18 @@
         <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 5 10 5">
             <Label Margin="0 0 10 0">X Min</Label>
             <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="150">
-                <TextBox Text="{Binding ZoomingViewModel.XMin}" HorizontalContentAlignment="Right" Margin="0 0 5 0"></TextBox>
+                <xctk:DateTimePicker Value="{Binding ZoomingViewModel.XMin}" HorizontalContentAlignment="Right" Margin="0 0 5 0"></xctk:DateTimePicker>
             </Border>
         </StackPanel>
 
         <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 5 10 5">
             <Label Margin="0 0 10 0">X Max</Label>
             <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="150">
-                <TextBox Text="{Binding ZoomingViewModel.XMax}" HorizontalContentAlignment="Right" Margin="0 0 5 0"></TextBox>
+                <xctk:DateTimePicker Value="{Binding ZoomingViewModel.XMax}" HorizontalContentAlignment="Right" Margin="0 0 5 0"></xctk:DateTimePicker>
             </Border>
         </StackPanel>
     </Grid>
-
-
+    
     <wpf:CartesianChart Name="CartesianChart1" Grid.Column="1" Grid.Row="0" Series="{Binding SeriesCollection}" Margin="0 5 5 5" DisableAnimations="True" Hoverable="False" Zoom="{Binding ZoomingViewModel.ZoomingMode}" 
                         AxisY="{Binding ZoomingViewModel.YAxisCollection}" AxisX="{Binding ZoomingViewModel.XAxisCollection}">
     </wpf:CartesianChart>
