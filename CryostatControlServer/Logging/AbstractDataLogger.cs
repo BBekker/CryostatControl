@@ -26,14 +26,14 @@ namespace CryostatControlServer.Logging
         protected const string Delimiter = ";";
 
         /// <summary>
-        /// The no data token.
-        /// </summary>
-        protected const string NoDataToken = "-";
-
-        /// <summary>
         /// The csv file format.
         /// </summary>
         protected const string CsvFileFormat = ".csv";
+
+        /// <summary>
+        /// The amount of digits for logging.
+        /// </summary>
+        protected const int Amountdigits = 3;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractDataLogger"/> class.

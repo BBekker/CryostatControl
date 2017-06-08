@@ -62,7 +62,7 @@ namespace CryostatControlServer.Logging
             {
                 if (this.toBeLoggedOrNotToBeLogged[i])
                 {
-                    dataLine += AbstractDataLogger.Delimiter + Math.Round(logData[i], 3);
+                    dataLine += AbstractDataLogger.Delimiter + Math.Round(logData[i], AbstractDataLogger.Amountdigits);
                 }
             }
 
