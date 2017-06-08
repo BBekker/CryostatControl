@@ -50,13 +50,12 @@
     </Style>
 
     <Style x:Key="SettingsLabelLeft" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
-        <Setter Property="Margin" Value="5,2,0,0" />
+        <Setter Property="Margin" Value="10 5 10 5" />
         <Setter Property="FontSize" Value="12" />
     </Style>
 
     <Style x:Key="SettingsLabelRight" TargetType="Label" BasedOn="{StaticResource MaterialDesignLabel}">
-        <Setter Property="Margin" Value="5, 2, 0, 0" />
-        <Setter Property="Foreground" Value="#53d100" />
+        <Setter Property="Margin" Value="10 5 10 5" />
         <Setter Property="FontSize" Value="12" />
     </Style>
 

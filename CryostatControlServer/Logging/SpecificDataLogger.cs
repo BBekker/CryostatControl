@@ -10,6 +10,7 @@
 namespace CryostatControlServer.Logging
 {
     using System;
+    using System.Globalization;
     using System.IO;
 
     /// <summary>
@@ -61,11 +62,7 @@ namespace CryostatControlServer.Logging
             {
                 if (this.toBeLoggedOrNotToBeLogged[i])
                 {
-                    dataLine += AbstractDataLogger.Delimiter + logData[i];
-                }
-                else
-                {
-                    dataLine += AbstractDataLogger.Delimiter + AbstractDataLogger.NoDataToken;
+                    dataLine += AbstractDataLogger.Delimiter + Math.Round(logData[i], AbstractDataLogger.Amountdigits);
                 }
             }
 
@@ -106,6 +103,70 @@ namespace CryostatControlServer.Logging
         public int GetInterval()
         {
             return this.interval;
+        }
+
+        /// <summary>
+        /// Create specific folder.
+        /// </summary>
+        /// <param name="currentDateTime">
+        /// The current Date Time.
+        /// </param>
+        /// <param name="mainFolderPath">
+        /// The main Folder Path.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public override string CreateFolder(DateTime currentDateTime, string mainFolderPath)
+        {
+            string year = currentDateTime.Year.ToString();
+            string month = currentDateTime.ToString("MMMM", new CultureInfo("en-US"));
+            string day = currentDateTime.Day.ToString();
+            string newFolderName = year + @"\" + month + @"\" + day + @"\";
+            string pathToNewFolder = Path.Combine(mainFolderPath, newFolderName);
+
+            try
+            {
+                Directory.CreateDirectory(pathToNewFolder);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Creating log folder failed");
+            }
+
+            return pathToNewFolder;
+        }
+
+        /// <summary>
+        /// Create a file with the current day as name, if it does not exist yet.
+        /// </summary>
+        /// <param name="mainFolderPath">
+        /// The main Folder Path.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public override string CreateFile(string mainFolderPath)
+        {
+            DateTime currentDateTime = DateTime.Now;
+            string folderPath = this.CreateFolder(currentDateTime, mainFolderPath);
+            string time = currentDateTime.ToString("HH_mm_ss");
+            string fileName = time + AbstractDataLogger.CsvFileFormat;
+            string actualPathToFile = Path.Combine(folderPath, fileName);
+
+            try
+            {
+                if (!File.Exists(actualPathToFile))
+                {
+                    File.Create(actualPathToFile).Close();
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Creating log file failed");
+            }
+
+            return actualPathToFile;
         }
     }
 }

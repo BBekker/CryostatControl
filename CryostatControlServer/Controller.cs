@@ -160,12 +160,12 @@ namespace CryostatControlServer
         {
             get
             {
-                return Settings.Default.ControllerHeatupTemperature;
+                return Settings.Default.ControllerHe4StartTemperature;
             }
 
             set
             {
-                Settings.Default.ControllerHeatupTemperature = value;
+                Settings.Default.ControllerHe4StartTemperature = value;
             }
         }
 
@@ -636,9 +636,20 @@ namespace CryostatControlServer
                     if (this.cooler.He3PumpT.Value < this.He7StartTemperature
                         || this.cooler.He4PumpT.Value < this.He7StartTemperature)
                     {
-                        this.State = Controlstate.CooldownWait4K;
+                        this.State = Controlstate.CooldownWaitSwitches;
                     }
 
+                    break;
+
+                case Controlstate.CooldownWaitSwitches:
+                    //TODO: replace these lines with a new power based heater class
+                    this.ControlHeater(this.cooler.He3Pump, this.cooler.He3PumpT, this.HeaterTemperatureSetpoint, Math.Sqrt(Settings.Default.ControllerHeaterLowPowerValue * 400) / 4.4);
+                    this.ControlHeater(this.cooler.He4Pump, this.cooler.He4PumpT, this.HeaterTemperatureSetpoint, Math.Sqrt(Settings.Default.ControllerHeaterLowPowerValue * 200) / 2.2);
+                    if (this.cooler.He3SwitchT.Value < this.HeatSwitchOnTemperature
+                        && this.cooler.He4SwitchT.Value < this.HeatSwitchOnTemperature)
+                    {
+                        this.State = Controlstate.CooldownWait4K;
+                    }
                     break;
 
                 case Controlstate.CooldownWait4K:
@@ -685,7 +696,8 @@ namespace CryostatControlServer
 
                 case Controlstate.CooldownWaitHe3Heater:
                     this.ControlHe3PumpHeater();
-                    if (this.cooler.He3PumpT.Value > this.HeaterTemperatureSetpoint - 1.0)
+                    if (this.cooler.He3PumpT.Value > this.HeaterTemperatureSetpoint * 0.8 &&
+                        this.cooler.He3PumpT.Value > 25.0)
                     {
                         this.state = Controlstate.CooldownDisableHe3PumpHeater;
                     }
@@ -701,7 +713,7 @@ namespace CryostatControlServer
                     if (this.cooler.He3HeadT.Value < this.He3StartTemperature
                         || (this.cooler.He3HeadT.Value < this.He3StartMinimalTemperature
                             && (DateTime.Now - this.stateEnteredTime)
-                            < new TimeSpan(0, (int)this.He3StartWaitTimeMinutes, 0)))
+                            > new TimeSpan(0, (int)this.He3StartWaitTimeMinutes, 0)))
                     {
                         this.State = Controlstate.CooldownControlHe3;
                     }
@@ -813,7 +825,9 @@ namespace CryostatControlServer
                     this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
 
                     // Keep switches and compressor on if cold, turn off otherwise.
-                    if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue)
+                    if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue && 
+                        this.cooler.He3Switch.Voltage > this.HeatSwitchOnTemperature &&
+                        this.cooler.He4Switch.Voltage > this.HeatSwitchOnTemperature)
                     {
                         this.cooler.He3Switch.Voltage = this.He3SwitchVoltage;
                         this.cooler.He4Switch.Voltage = this.He4SwitchVoltage;
