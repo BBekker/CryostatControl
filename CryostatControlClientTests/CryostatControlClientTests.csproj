@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\BlueforsViewModelTests.cs" />
+    <Compile Include="ViewModels\He7ViewModelTests.cs" />
     <Compile Include="ViewModels\CompressorViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
