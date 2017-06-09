@@ -42,19 +42,19 @@
                 <CheckBox Command="{Binding He7ViewModel.He3HeadVisibilityCommand}" IsChecked="True" Background="DeepSkyBlue">
                     He7 - He3 Head
                 </CheckBox>
-                <CheckBox Command="{Binding He7ViewModel.He3SwitchVisibilityCommand}" IsChecked="True" Background="DeepPink">
+                <CheckBox Command="{Binding He7ViewModel.He3SwitchVisibilityCommand}" IsChecked="True" Background="OrangeRed">
                     He7 - He3 Switch
                 </CheckBox>
-                <CheckBox Command="{Binding He7ViewModel.He3PumpVisibilityCommand}" IsChecked="True" Background="OrangeRed">
+                <CheckBox Command="{Binding He7ViewModel.He3PumpVisibilityCommand}" IsChecked="True" Background="DeepPink">
                     He7 - He3 Pump
                 </CheckBox>
                 <CheckBox Command="{Binding He7ViewModel.He4HeadVisibilityCommand}" IsChecked="True" Background="BlueViolet">
                     He7 - He4 Head
                 </CheckBox>
-                <CheckBox Command="{Binding He7ViewModel.He4SwitchVisibilityCommand}" IsChecked="True" Background="GreenYellow">
+                <CheckBox Command="{Binding He7ViewModel.He4SwitchVisibilityCommand}" IsChecked="True" Background="LightSeaGreen">
                     He7 - He4 Switch
                 </CheckBox>
-                <CheckBox Command="{Binding He7ViewModel.He4PumpVisibilityCommand}" IsChecked="True" Background="LightSeaGreen">
+                <CheckBox Command="{Binding He7ViewModel.He4PumpVisibilityCommand}" IsChecked="True" Background="GreenYellow">
                     He7 - He4 Pump
                 </CheckBox>
             </StackPanel>
