@@ -25,7 +25,7 @@ namespace CryostatControlServer
         /// <summary>
         /// The timer period.
         /// </summary>
-        private readonly int timerPeriod = 5000;
+        private readonly int timerPeriod = 4000;
 
         /// <summary>
         /// The compressor
@@ -592,7 +592,7 @@ namespace CryostatControlServer
             switch (this.State)
             {
                 case Controlstate.Setup:    
-                    if (this.cooler != null && this.lakeshore != null && this.compressor != null)
+                    if (this.cooler != null)
                     {
                         this.State = Controlstate.Standby;
                     }
@@ -609,7 +609,8 @@ namespace CryostatControlServer
                     this.lakeshore.SetHeater(false);
                     if (DateTime.Now > this.startTime)
                     {
-                        this.State = Controlstate.CooldownWaitForPressure;
+
+                        this.State = Controlstate.CooldownStartCompressor;
                     }
 
                     break;
@@ -658,16 +659,6 @@ namespace CryostatControlServer
                     if (this.cooler.He3HeadT.Value < this.He4StartTemperature
                         && this.cooler.He4HeadT.Value < this.He4StartTemperature)
                     {
-                        this.State = Controlstate.CooldownCondenseHe4;
-                    }
-
-                    break;
-
-                case Controlstate.CooldownCondenseHe4:
-                    this.ControlHe3PumpHeater();
-                    this.ControlHe4PumpHeater();
-                    if (this.cooler.He4HeadT.Value < this.He4StartTemperature)
-                    {
                         this.State = Controlstate.CooldownTurnOffHe4;
                     }
 
@@ -696,7 +687,7 @@ namespace CryostatControlServer
 
                 case Controlstate.CooldownWaitHe3Heater:
                     this.ControlHe3PumpHeater();
-                    if (this.cooler.He3PumpT.Value > this.HeaterTemperatureSetpoint * 0.8 &&
+                    if (this.cooler.He3PumpT.Value > this.HeaterTemperatureSetpoint * 0.9 &&
                         this.cooler.He3PumpT.Value > 25.0)
                     {
                         this.state = Controlstate.CooldownDisableHe3PumpHeater;
@@ -740,6 +731,8 @@ namespace CryostatControlServer
                 case Controlstate.RecycleStart:
                     if (DateTime.Now > this.startTime)
                     {
+                        this.compressor.TurnOn();
+                        this.lakeshore.SetHeater(false);
                         this.SetHeaterVoltage(this.cooler.He3Switch, 0.0);
                         this.SetHeaterVoltage(this.cooler.He4Switch, 0.0);
 
@@ -754,7 +747,7 @@ namespace CryostatControlServer
                     if (this.cooler.He3PumpT.Value > this.HeaterTemperatureSetpoint - 1.0
                         && this.cooler.He4PumpT.Value > this.HeaterTemperatureSetpoint - 1.0)
                     {
-                        this.State = Controlstate.CooldownCondenseHe4;
+                        this.State = Controlstate.CooldownWait4K;
                     }
 
                     break;
