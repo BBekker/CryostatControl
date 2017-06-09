@@ -9,6 +9,7 @@ namespace CryostatControlClient.Models
     using System.Linq;
 
     using LiveCharts.Defaults;
+    using LiveCharts.Geared;
     using LiveCharts.Wpf;
 
     /// <summary>
@@ -32,7 +33,7 @@ namespace CryostatControlClient.Models
         /// </summary>
         protected AbstractModel()
         {
-            this.temporaryListSize = 301;
+            this.temporaryListSize = 31;
         }
 
         #endregion Constructor
@@ -66,7 +67,7 @@ namespace CryostatControlClient.Models
         /// <returns>
         /// The temporary list updated.
         /// </returns>
-        public double[] AddToGraph(double[] temporaryList, LineSeries lineSeries, double value)
+        public double[] AddToGraph(double[] temporaryList, GLineSeries lineSeries, double value)
         {
             temporaryList[(int)temporaryList[this.temporaryListSize - 1]] = value;
 
@@ -80,7 +81,7 @@ namespace CryostatControlClient.Models
             if (temporaryList[this.temporaryListSize - 1] >= this.temporaryListSize - 2)
             {
                 lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round(temporaryList.Average() - 1, 3)));
-                if (lineSeries.Values.Count > 100)
+                if (lineSeries.Values.Count > 3000)
                 {
                     lineSeries.Values.RemoveAt(0);
                 }

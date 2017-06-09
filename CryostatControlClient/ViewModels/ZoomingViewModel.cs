@@ -300,11 +300,6 @@ namespace CryostatControlClient.ViewModels
         /// <returns>Time in hours and minutes.</returns>
         private DateTime GetDateTime(double val)
         {
-            //this.RaisePropertyChanged("YMin");
-            //this.RaisePropertyChanged("YMax");
-            //this.RaisePropertyChanged("XMin");
-            //this.RaisePropertyChanged("XMax");
-
             try
             {
                 return new DateTime((long)val);
