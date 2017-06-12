@@ -19,6 +19,11 @@ namespace CryostatControlClient
     public class Notification
     {
         /// <summary>
+        /// The unknown type.
+        /// </summary>
+        private const string UnknownType = "Unknown";
+
+        /// <summary>
         /// The time.
         /// </summary>
         private string time;
@@ -70,7 +75,7 @@ namespace CryostatControlClient
                 }
                 else
                 {
-                    this.time = "Uknown";
+                    this.time = UnknownType;
                 }
             }
         }
@@ -93,7 +98,7 @@ namespace CryostatControlClient
                 }
                 else
                 {
-                    this.level = "Uknown";
+                    this.level = UnknownType;
                 }
             }
         }

@@ -44,7 +44,7 @@ namespace CryostatControlClientTests
 
             Assert.AreEqual(data, notification.Data);
             Assert.AreEqual(level, notification.Level);
-            Assert.AreEqual("Uknown", notification.Time);
+            Assert.AreEqual("Unknown", notification.Time);
         }
 
         [TestMethod]
@@ -57,7 +57,7 @@ namespace CryostatControlClientTests
 
             Assert.AreEqual(data, notification.Data);
             Assert.AreEqual(level, notification.Level);
-            Assert.AreEqual("Uknown", notification.Time);
+            Assert.AreEqual("Unknown", notification.Time);
         }
 
         [TestMethod]
@@ -89,9 +89,9 @@ namespace CryostatControlClientTests
             Notification notification2 = new Notification(time, level2, data);
             Notification notification3 = new Notification(time, level3, data);
 
-            Assert.AreEqual("Uknown", notification.Level);
-            Assert.AreEqual("Uknown", notification2.Level);
-            Assert.AreEqual("Uknown", notification3.Level);
+            Assert.AreEqual("Unknown", notification.Level);
+            Assert.AreEqual("Unknown", notification2.Level);
+            Assert.AreEqual("Unknown", notification3.Level);
         }
     }
 }
