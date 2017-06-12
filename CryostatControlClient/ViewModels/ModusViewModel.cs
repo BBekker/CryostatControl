@@ -83,7 +83,7 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.InicationColor((ColorState)Convert.ToInt32(this.ServerConnection));
+                return this.DisplayColor((ColorState)Convert.ToInt32(this.ServerConnection));
             }
         }
 

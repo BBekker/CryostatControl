@@ -106,7 +106,7 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.InicationColor((ColorState)this.ConnectionState);
+                return this.DisplayColor((ColorState)this.ConnectionState);
             }
         }
 
@@ -268,9 +268,9 @@ namespace CryostatControlClient.ViewModels
                 if (this.compressorModel.WaterInTemp < WaterInMinimum
                     || this.compressorModel.WaterInTemp > WaterInMaximum)
                 {
-                    return this.InicationColor(ColorState.Red);
+                    return this.DisplayColor(ColorState.Red);
                 }
-                return this.InicationColor(ColorState.Green);
+                return this.DisplayColor(ColorState.Green);
             }
         }
 
@@ -308,9 +308,9 @@ namespace CryostatControlClient.ViewModels
                 if (this.compressorModel.WaterOutTemp < WaterOutMinimum
                     || this.compressorModel.WaterOutTemp > WaterOutMaximum)
                 {
-                    return this.InicationColor(ColorState.Red);
+                    return this.DisplayColor(ColorState.Red);
                 }
-                return this.InicationColor(ColorState.Green);
+                return this.DisplayColor(ColorState.Green);
             }
         }
 
@@ -348,10 +348,10 @@ namespace CryostatControlClient.ViewModels
                 if (this.compressorModel.OilTemp < OilMinimum
                     || this.compressorModel.OilTemp > OilMaximum)
                 {
-                    return this.InicationColor(ColorState.Red);
+                    return this.DisplayColor(ColorState.Red);
                 }
 
-                return this.InicationColor(ColorState.Green);
+                return this.DisplayColor(ColorState.Green);
             }
         }
 
@@ -388,10 +388,10 @@ namespace CryostatControlClient.ViewModels
             {
                 if (this.compressorModel.HeliumTemp < HeliumMinimum || this.compressorModel.HeliumTemp > HeliumMaximum)
                 {
-                    return this.InicationColor(ColorState.Red);
+                    return this.DisplayColor(ColorState.Red);
                 }
 
-                return this.InicationColor(ColorState.Green);
+                return this.DisplayColor(ColorState.Green);
             }
         }
 

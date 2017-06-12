@@ -52,7 +52,7 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         /// <param name="state">The state.</param>
         /// <returns>Color of connections state.</returns>
-        public SolidColorBrush InicationColor(ColorState state)
+        public SolidColorBrush DisplayColor(ColorState state)
         {
             switch (state)
             {
