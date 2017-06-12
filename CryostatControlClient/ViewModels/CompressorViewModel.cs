@@ -106,7 +106,7 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.ConnectionColor((int)this.ConnectionState);
+                return this.InicationColor((ColorState)this.ConnectionState);
             }
         }
 
@@ -268,9 +268,9 @@ namespace CryostatControlClient.ViewModels
                 if (this.compressorModel.WaterInTemp < WaterInMinimum
                     || this.compressorModel.WaterInTemp > WaterInMaximum)
                 {
-                    return this.ConnectionColor(0);
+                    return this.InicationColor(ColorState.Red);
                 }
-                return this.ConnectionColor(1);
+                return this.InicationColor(ColorState.Green);
             }
         }
 
@@ -308,9 +308,9 @@ namespace CryostatControlClient.ViewModels
                 if (this.compressorModel.WaterOutTemp < WaterOutMinimum
                     || this.compressorModel.WaterOutTemp > WaterOutMaximum)
                 {
-                    return this.ConnectionColor(0);
+                    return this.InicationColor(ColorState.Red);
                 }
-                return this.ConnectionColor(1);
+                return this.InicationColor(ColorState.Green);
             }
         }
 
@@ -348,10 +348,10 @@ namespace CryostatControlClient.ViewModels
                 if (this.compressorModel.OilTemp < OilMinimum
                     || this.compressorModel.OilTemp > OilMaximum)
                 {
-                    return this.ConnectionColor(0);
+                    return this.InicationColor(ColorState.Red);
                 }
 
-                return this.ConnectionColor(1);
+                return this.InicationColor(ColorState.Green);
             }
         }
 
@@ -388,10 +388,10 @@ namespace CryostatControlClient.ViewModels
             {
                 if (this.compressorModel.HeliumTemp < HeliumMinimum || this.compressorModel.HeliumTemp > HeliumMaximum)
                 {
-                    return this.ConnectionColor(0);
+                    return this.InicationColor(ColorState.Red);
                 }
 
-                return this.ConnectionColor(1);
+                return this.InicationColor(ColorState.Green);
             }
         }
 

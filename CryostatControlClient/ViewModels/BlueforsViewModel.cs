@@ -71,7 +71,7 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.ConnectionColor((int)this.ConnectionState);
+                return this.InicationColor((ColorState)this.ConnectionState);
             }
         }
 
