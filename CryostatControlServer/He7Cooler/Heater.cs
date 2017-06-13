@@ -75,11 +75,6 @@ namespace CryostatControlServer.He7Cooler
             private DateTime previousLoopTime = DateTime.MinValue;
 
             /// <summary>
-            /// The temperature control enabled.
-            /// </summary>
-            private bool temperatureControlEnabled = false;
-
-            /// <summary>
             /// The temperature feedback sensor
             /// </summary>
             private Sensor temperatureFeedback;
@@ -194,6 +189,11 @@ namespace CryostatControlServer.He7Cooler
             }
 
             /// <summary>
+            /// Gets or sets a value indicating whether temperature control enabled.
+            /// </summary>
+            public bool TemperatureControlEnabled { get; set; } = false;
+
+            /// <summary>
             /// Gets or sets the power limit in Watt.
             /// </summary>
             public double PowerLimit { get; set; }
@@ -252,7 +252,10 @@ namespace CryostatControlServer.He7Cooler
 
                 set
                 {
-                    this.SetOutput(this.calibration.ConvertValue(value));
+                    if (!this.TemperatureControlEnabled)
+                    {
+                        this.SetOutput(this.calibration.ConvertValue(value));
+                    }
                 }
             }
 
@@ -261,7 +264,7 @@ namespace CryostatControlServer.He7Cooler
             /// </summary>
             public void Notify()
             {
-                if (this.temperatureControlEnabled)
+                if (this.TemperatureControlEnabled)
                 {
                     this.ControlTemperature(this.TemperatureSetpoint, this.PowerLimit);
                 }
@@ -285,19 +288,26 @@ namespace CryostatControlServer.He7Cooler
                 output += this.integrator * this.ki;
                 output += (error - this.previousError) / (DateTime.Now - this.previousLoopTime).TotalSeconds * this.kd;
 
-                if (output > maxpower)
+                try
                 {
-                    this.Power = maxpower;
+                    if (output > maxpower)
+                    {
+                        this.Power = maxpower;
+                    }
+                    else if (output < 0)
+                    {
+                        this.Power = 0;
+                        this.integrator = Math.Max(error + this.integrator, 0);
+                    }
+                    else
+                    {
+                        this.Power = output;
+                        this.integrator = Math.Max(error + this.integrator, 0);
+                    }
                 }
-                else if (output < 0)
+                catch (Exception e)
                 {
-                    this.Power = 0;
-                    this.integrator += error;
-                }
-                else
-                {
-                    this.Power = output;
-                    this.integrator += error;
+                    DebugLogger.Error("Heater",e.ToString(), false);
                 }
 
                 this.previousLoopTime = DateTime.Now;

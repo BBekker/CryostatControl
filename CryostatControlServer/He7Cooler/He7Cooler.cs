@@ -83,8 +83,8 @@ namespace CryostatControlServer.He7Cooler
             this.He4HeadT = new Sensor(Channels.SensHe4HeadT, this, he4Calibration);
             this.He3HeadT = new Sensor(Channels.SensHe3HeadT, this, he3Calibration);
 
-            this.He3Pump = new Heater(Channels.PumpHe3, Channels.SensHe3Pump, this);
-            this.He4Pump = new Heater(Channels.PumpHe4, Channels.SensHe4Pump, this);
+            this.He3Pump = new Heater(Channels.PumpHe3, Channels.SensHe3Pump, this.He3PumpT, 200, new Calibration("../../AMPLIFIERS.cal", 1, 0), this);
+            this.He4Pump = new Heater(Channels.PumpHe4, Channels.SensHe4Pump, this.He4PumpT, 400, new Calibration("../../AMPLIFIERS.cal", 2, 0), this);
             this.He3Switch = new Heater(Channels.SwitchHe3, Channels.SensHe3Switch, this);
             this.He4Switch = new Heater(Channels.SwitchHe4, Channels.SensHe4Switch, this);
 
