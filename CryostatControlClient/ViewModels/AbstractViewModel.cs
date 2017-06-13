@@ -52,19 +52,13 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         /// <param name="state">The state.</param>
         /// <returns>Color of connections state.</returns>
-        public SolidColorBrush ConnectionColor(int state)
+        public SolidColorBrush DisplayColor(ColorState state)
         {
-            if (state == 1)
+            switch (state)
             {
-                return (SolidColorBrush) new BrushConverter().ConvertFrom("#4CAF50");
-            }
-            else if (state == 0)
-            {
-                return (SolidColorBrush) new BrushConverter().ConvertFrom("#F44336");
-            }
-            else
-            {
-                return new SolidColorBrush(Colors.Black);
+                case ColorState.Green: return (SolidColorBrush)new BrushConverter().ConvertFrom("#4CAF50");
+                case ColorState.Red: return (SolidColorBrush)new BrushConverter().ConvertFrom("#F44336");
+                default: return new SolidColorBrush(Colors.Black);
             }
         }
 
