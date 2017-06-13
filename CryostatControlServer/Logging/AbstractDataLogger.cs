@@ -10,6 +10,7 @@
 namespace CryostatControlServer.Logging
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
 
@@ -34,6 +35,11 @@ namespace CryostatControlServer.Logging
         /// The amount of digits for logging.
         /// </summary>
         protected const int Amountdigits = 3;
+
+        /// <summary>
+        /// The device dictionary.
+        /// </summary>
+        private Dictionary<int, string> deviceDictionary;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractDataLogger"/> class.
@@ -161,7 +167,7 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
-        /// Get the device name.
+        /// The get device name.
         /// </summary>
         /// <param name="dataNumber">
         /// The data number.
@@ -171,105 +177,55 @@ namespace CryostatControlServer.Logging
         /// </returns>
         public string GetDeviceName(int dataNumber)
         {
-            string info = string.Empty;
-            switch (dataNumber)
+            if (this.deviceDictionary == null)
             {
-                case (int)DataEnumerator.LakePlate50K:
-                    info = "50K Plate";
-                    break;
-                case (int)DataEnumerator.LakePlate3K:
-                    info = "3K Plate";
-                    break;
-                case (int)DataEnumerator.ComWaterIn:
-                    info = "Compressor water in";
-                    break;
-                case (int)DataEnumerator.ComWaterOut:
-                    info = "Compressor water out";
-                    break;
-                case (int)DataEnumerator.ComHelium:
-                    info = "Compressor helium";
-                    break;
-                case (int)DataEnumerator.ComOil:
-                    info = "Compressor oil";
-                    break;
-                case (int)DataEnumerator.ComLow:
-                    info = "Compressor low pressure";
-                    break;
-                case (int)DataEnumerator.ComLowAvg:
-                    info = "Compressor low avg pressure";
-                    break;
-                case (int)DataEnumerator.ComHigh:
-                    info = "Compressor high pressure";
-                    break;
-                case (int)DataEnumerator.ComHighAvg:
-                    info = "Compressor high avg pressure";
-                    break;
-                case (int)DataEnumerator.ComDeltaAvg:
-                    info = "Compressor delta avg pressure";
-                    break;
-                case (int)DataEnumerator.He3Pump:
-                    info = "He3 Pump";
-                    break;
-                case (int)DataEnumerator.HePlate2K:
-                    info = "He 2K Plate";
-                    break;
-                case (int)DataEnumerator.HePlate4K:
-                    info = "He 4K Plate";
-                    break;
-                case (int)DataEnumerator.He3Head:
-                    info = "He3 Head";
-                    break;
-                case (int)DataEnumerator.He4Pump:
-                    info = "He4 Pump";
-                    break;
-                case (int)DataEnumerator.He4SwitchTemp:
-                    info = "He4 Switch Temperature";
-                    break;
-                case (int)DataEnumerator.He3SwitchTemp:
-                    info = "He3 Switch Temperature";
-                    break;
-                case (int)DataEnumerator.He4Head:
-                    info = "He4 Head";
-                    break;
-                case (int)DataEnumerator.He3VoltActual:
-                    info = "He3 Volt";
-                    break;
-                case (int)DataEnumerator.He4SwitchVoltActual:
-                    info = "He4 Switch Volt";
-                    break;
-                case (int)DataEnumerator.He3SwitchVoltActual:
-                    info = "He3 Switch Volt";
-                    break;
-                case (int)DataEnumerator.He4VoltActual:
-                    info = "He4 Volt";
-                    break;
-                case (int)DataEnumerator.HeConnectionState:
-                    info = "He Connection State";
-                    break;
-                case (int)DataEnumerator.ComConnectionState:
-                    info = "Compressor Connection State";
-                    break;
-                case (int)DataEnumerator.LakeConnectionState:
-                    info = "LakeShore Connection State";
-                    break;
-                case (int)DataEnumerator.ComError:
-                    info = "Compressor Error";
-                    break;
-                case (int)DataEnumerator.ComWarning:
-                    info = "Compressor Warning";
-                    break;
-                case (int)DataEnumerator.ComHoursOfOperation:
-                    info = "Compressor hours of operation";
-                    break;
-                case (int)DataEnumerator.ComOperationState:
-                    info = "Compressor Opertating State";
-                    break;
-                case (int)DataEnumerator.LakeHeater:
-                    info = "LakeShore Heater";
-                    break;
+                this.CreateDeviceDictionary();
             }
 
-            return info;
+            if (this.deviceDictionary.ContainsKey(dataNumber))
+            {
+                return this.deviceDictionary[dataNumber];
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Create new device dictionary.
+        /// </summary>
+        private void CreateDeviceDictionary()
+        {
+            this.deviceDictionary = new Dictionary<int, string>();
+            this.deviceDictionary.Add((int)DataEnumerator.LakePlate50K, "50K Plate");
+            this.deviceDictionary.Add((int)DataEnumerator.LakePlate3K, "3K Plate");
+            this.deviceDictionary.Add((int)DataEnumerator.ComWaterIn, "Compressor water in");
+            this.deviceDictionary.Add((int)DataEnumerator.ComWaterOut, "Compressor water out");
+            this.deviceDictionary.Add((int)DataEnumerator.ComHelium, "Compressor helium");
+            this.deviceDictionary.Add((int)DataEnumerator.ComOil, "Compressor oil");
+            this.deviceDictionary.Add((int)DataEnumerator.ComLow, "Compressor low pressure");
+            this.deviceDictionary.Add((int)DataEnumerator.ComLowAvg, "Compressor low avg pressure");
+            this.deviceDictionary.Add((int)DataEnumerator.ComHigh, "Compressor high pressure");
+            this.deviceDictionary.Add((int)DataEnumerator.ComHighAvg, "Compressor high avg pressure");
+            this.deviceDictionary.Add((int)DataEnumerator.ComDeltaAvg, "Compressor delta avg pressure");
+            this.deviceDictionary.Add((int)DataEnumerator.He3Pump, "He3 Pump");
+            this.deviceDictionary.Add((int)DataEnumerator.HePlate2K, "He 2K Plate");
+            this.deviceDictionary.Add((int)DataEnumerator.HePlate4K, "He 4K Plate");
+            this.deviceDictionary.Add((int)DataEnumerator.He3Head, "He3 Head");
+            this.deviceDictionary.Add((int)DataEnumerator.He4Pump, "He4 Pump");
+            this.deviceDictionary.Add((int)DataEnumerator.He4SwitchTemp, "He4 Switch Temperature");
+            this.deviceDictionary.Add((int)DataEnumerator.He3SwitchTemp, "He3 Switch Temperature");
+            this.deviceDictionary.Add((int)DataEnumerator.He4Head, "He4 Head");
+            this.deviceDictionary.Add((int)DataEnumerator.He3VoltActual, "He3 Volt");
+            this.deviceDictionary.Add((int)DataEnumerator.He4SwitchVoltActual, "He4 Switch Volt");
+            this.deviceDictionary.Add((int)DataEnumerator.He3SwitchVoltActual, "He3 Switch Volt");
+            this.deviceDictionary.Add((int)DataEnumerator.He4VoltActual, "He4 Volt");
+            this.deviceDictionary.Add((int)DataEnumerator.HeConnectionState, "He Connection State");
+            this.deviceDictionary.Add((int)DataEnumerator.ComConnectionState, "Compressor Connection State");
+            this.deviceDictionary.Add((int)DataEnumerator.LakeConnectionState, "LakeShore Connection State");
+            this.deviceDictionary.Add((int)DataEnumerator.ComError, "Compressor Error");
+            this.deviceDictionary.Add((int)DataEnumerator.ComWarning, "Compressor Warning");
+            this.deviceDictionary.Add((int)DataEnumerator.ComHoursOfOperation, "Compressor hours of operation");
+            this.deviceDictionary.Add((int)DataEnumerator.ComOperationState, "Compressor Opertating State");
+            this.deviceDictionary.Add((int)DataEnumerator.LakeHeater, "LakeShore Heater");
         }
     }
 }
