@@ -56,8 +56,8 @@
                     <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Label>Heater output</Label>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Label Content="{Binding BlueforsViewModel.ColdPlate3KTemp}" ContentStringFormat="{}{0:N2}" />
-                            <Label>K</Label>
+                            <Label Content="{Binding BlueforsViewModel.HeaterPower}" ContentStringFormat="{}{0:N2}" />
+                            <Label>%</Label>
                         </StackPanel>
                     </StackPanel>
                 </Border>

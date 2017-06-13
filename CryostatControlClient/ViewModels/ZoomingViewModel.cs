@@ -85,12 +85,92 @@ namespace CryostatControlClient.ViewModels
             this.yAxesCollection = new AxesCollection();
             this.yAxesCollection.Add(this.yAxis);
 
-            this.xAxis.LabelFormatter = val => this.GetDateTime(val);
+            this.xAxis.LabelFormatter = val => this.GetDateTime(val).ToString("HH:mm");
         }
 
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the x maximum.
+        /// </summary>
+        /// <value>
+        /// The x maximum.
+        /// </value>
+        public DateTime XMax
+        {
+            get
+            {
+                return this.GetDateTime(this.xAxis.MaxValue);
+            }
+
+            set
+            {
+                this.xAxis.MaxValue = value.Ticks;
+                this.RaisePropertyChanged("XAxisCollection");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the x minimum.
+        /// </summary>
+        /// <value>
+        /// The x minimum.
+        /// </value>
+        public DateTime XMin
+        {
+            get
+            {
+                return this.GetDateTime(this.xAxis.MinValue);
+            }
+
+            set
+            {
+                this.xAxis.MinValue = value.Ticks;
+                this.RaisePropertyChanged("XAxisCollection");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the y maximum.
+        /// </summary>
+        /// <value>
+        /// The y maximum.
+        /// </value>
+        public double YMax
+        {
+            get
+            {
+                return 300;
+            }
+
+            set
+            {
+                this.yAxis.MaxValue = value;
+                this.RaisePropertyChanged("YAxisCollection");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the y maximum.
+        /// </summary>
+        /// <value>
+        /// The y maximum.
+        /// </value>
+        public double YMin
+        {
+            get
+            {
+                return 0;
+            }
+
+            set
+            {
+                this.yAxis.MinValue = value;
+                this.RaisePropertyChanged("YAxisCollection");
+            }
+        }
 
         /// <summary>
         /// Gets the x axis collection.
@@ -218,16 +298,21 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         /// <param name="val">The value.</param>
         /// <returns>Time in hours and minutes.</returns>
-        private string GetDateTime(double val)
+        private DateTime GetDateTime(double val)
         {
+            //this.RaisePropertyChanged("YMin");
+            //this.RaisePropertyChanged("YMax");
+            //this.RaisePropertyChanged("XMin");
+            //this.RaisePropertyChanged("XMax");
+
             try
             {
-                return new DateTime((long)val).ToString("HH:mm");
+                return new DateTime((long)val);
             }
             catch (ArgumentOutOfRangeException e)
             {
                 Console.WriteLine(e.ToString());
-                return string.Empty;
+                return DateTime.Now;
             }
         }
 

@@ -32,7 +32,7 @@ namespace CryostatControlClient.Models
         /// </summary>
         protected AbstractModel()
         {
-            this.temporaryListSize = 31;
+            this.temporaryListSize = 301;
         }
 
         #endregion Constructor
@@ -74,12 +74,12 @@ namespace CryostatControlClient.Models
 
             if (lineSeries.Values.Count < 1)
             {
-                lineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
+                lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round(value, 3)));
             }
 
             if (temporaryList[this.temporaryListSize - 1] >= this.temporaryListSize - 2)
             {
-                lineSeries.Values.Add(new DateTimePoint(DateTime.Now, temporaryList.Average() - 1));
+                lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round(temporaryList.Average() - 1, 3)));
                 if (lineSeries.Values.Count > 100)
                 {
                     lineSeries.Values.RemoveAt(0);

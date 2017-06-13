@@ -11,6 +11,7 @@ namespace CryostatControlClient.ViewModels
 {
     using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Media;
 
     using CryostatControlClient.Models;
 
@@ -89,11 +90,11 @@ namespace CryostatControlClient.ViewModels
             this.twoKPlateVisibilityCommand = new RelayCommand(this.OnTwoKPlateVisibility, param => true);
             this.fourKPlateVisibilityCommand = new RelayCommand(this.OnFourKPlateVisibility, param => true);
             this.he3HeadVisibilityCommand = new RelayCommand(this.OnHe3HeadVisibility, param => true);
-            this.he3SwitchVisibilityCommand = new RelayCommand(this.OnHe3PumpVisibility, param => true);
-            this.he3PumpVisibilityCommand = new RelayCommand(this.OnHe3SwitchVisibility, param => true);
+            this.he3SwitchVisibilityCommand = new RelayCommand(this.OnHe3SwitchVisibility, param => true);
+            this.he3PumpVisibilityCommand = new RelayCommand(this.OnHe3PumpVisibility, param => true);
             this.he4HeadVisibilityCommand = new RelayCommand(this.OnHe4HeadVisibility, param => true);
-            this.he4SwitchVisibilityCommand = new RelayCommand(this.OnHe4PumpVisibility, param => true);
-            this.he4PumpVisibilityCommand = new RelayCommand(this.OnHe4SwitchVisibility, param => true);
+            this.he4SwitchVisibilityCommand = new RelayCommand(this.OnHe4SwitchVisibility, param => true);
+            this.he4PumpVisibilityCommand = new RelayCommand(this.OnHe4PumpVisibility, param => true);
         }
 
         #endregion Constructor
@@ -501,6 +502,20 @@ namespace CryostatControlClient.ViewModels
             get
             {
                 return this.he7Model.FourKPlateLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the color of the connection state.
+        /// </summary>
+        /// <value>
+        /// The color of the connection state.
+        /// </value>
+        public SolidColorBrush ConnectionStateColor
+        {
+            get
+            {
+                return this.DisplayColor((ColorState)this.ConnectionState);
             }
         }
 
@@ -1004,6 +1019,7 @@ namespace CryostatControlClient.ViewModels
                 this.he7Model.ConnectionState = value;
                 this.RaisePropertyChanged("ConnectionState");
                 this.RaisePropertyChanged("ConnectionStateConverted");
+                this.RaisePropertyChanged("ConnectionStateColor");
             }
         }
 

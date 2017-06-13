@@ -92,6 +92,20 @@ namespace CryostatControlServer
         }
 
         /// <summary>
+        /// Gets the start time.
+        /// </summary>
+        /// <value>
+        /// The start time.
+        /// </value>
+        public DateTime StartTime
+        {
+            get
+            {
+                return this.startTime;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the he 3 heater voltage.
         /// </summary>
         public double He3HeaterPower

@@ -11,6 +11,7 @@ namespace CryostatControlClient.ViewModels
 {
     using System;
     using System.Windows.Input;
+    using System.Windows.Media;
 
     using CryostatControlClient.Models;
 
@@ -20,6 +21,46 @@ namespace CryostatControlClient.ViewModels
     public class CompressorViewModel : AbstractViewModel
     {
         #region Fields
+
+        /// <summary>
+        /// The water in minimum
+        /// </summary>
+        private const int WaterInMinimum = 10;
+
+        /// <summary>
+        /// The water in maximum
+        /// </summary>
+        private const int WaterInMaximum = 44;
+
+        /// <summary>
+        /// The water out minimum
+        /// </summary>
+        private const int WaterOutMinimum = 10;
+
+        /// <summary>
+        /// The water out maximum
+        /// </summary>
+        private const int WaterOutMaximum = 51;
+
+        /// <summary>
+        /// The helium minimum
+        /// </summary>
+        private const int HeliumMinimum = 10;
+
+        /// <summary>
+        /// The helium maximum
+        /// </summary>
+        private const int HeliumMaximum = 87;
+
+        /// <summary>
+        /// The oil minimum
+        /// </summary>
+        private const int OilMinimum = 10;
+
+        /// <summary>
+        /// The oil maximum
+        /// </summary>
+        private const int OilMaximum = 51;
 
         /// <summary>
         /// The compressor model
@@ -54,6 +95,20 @@ namespace CryostatControlClient.ViewModels
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets the color of the connection state.
+        /// </summary>
+        /// <value>
+        /// The color of the connection state.
+        /// </value>
+        public SolidColorBrush ConnectionStateColor
+        {
+            get
+            {
+                return this.DisplayColor((ColorState)this.ConnectionState);
+            }
+        }
 
         /// <summary>
         /// Gets the switch command.
@@ -196,6 +251,26 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.WaterInTemp = value;
                 this.RaisePropertyChanged("WaterInTemp");
+                this.RaisePropertyChanged("WaterInTempColor");
+            }
+        }
+
+        /// <summary>
+        /// Gets the color of the water in temporary.
+        /// </summary>
+        /// <value>
+        /// The color of the water in temporary.
+        /// </value>
+        public SolidColorBrush WaterInTempColor
+        {
+            get
+            {
+                if (this.compressorModel.WaterInTemp < WaterInMinimum
+                    || this.compressorModel.WaterInTemp > WaterInMaximum)
+                {
+                    return this.DisplayColor(ColorState.Red);
+                }
+                return this.DisplayColor(ColorState.Green);
             }
         }
 
@@ -216,6 +291,26 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.WaterOutTemp = value;
                 this.RaisePropertyChanged("WaterOutTemp");
+                this.RaisePropertyChanged("WaterOutTempColor");
+            }
+        }
+
+        /// <summary>
+        /// Gets the color of the water out temporary.
+        /// </summary>
+        /// <value>
+        /// The color of the water out temporary.
+        /// </value>
+        public SolidColorBrush WaterOutTempColor
+        {
+            get
+            {
+                if (this.compressorModel.WaterOutTemp < WaterOutMinimum
+                    || this.compressorModel.WaterOutTemp > WaterOutMaximum)
+                {
+                    return this.DisplayColor(ColorState.Red);
+                }
+                return this.DisplayColor(ColorState.Green);
             }
         }
 
@@ -236,6 +331,27 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.OilTemp = value;
                 this.RaisePropertyChanged("OilTemp");
+                this.RaisePropertyChanged("OilTempColor");
+            }
+        }
+
+        /// <summary>
+        /// Gets the color of the oil temporary.
+        /// </summary>
+        /// <value>
+        /// The color of the oil temporary.
+        /// </value>
+        public SolidColorBrush OilTempColor
+        {
+            get
+            {
+                if (this.compressorModel.OilTemp < OilMinimum
+                    || this.compressorModel.OilTemp > OilMaximum)
+                {
+                    return this.DisplayColor(ColorState.Red);
+                }
+
+                return this.DisplayColor(ColorState.Green);
             }
         }
 
@@ -256,8 +372,29 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.HeliumTemp = value;
                 this.RaisePropertyChanged("HeliumTemp");
+                this.RaisePropertyChanged("HeliumTempColor");
             }
         }
+
+        /// <summary>
+        /// Gets the color of the helium temporary.
+        /// </summary>
+        /// <value>
+        /// The color of the helium temporary.
+        /// </value>
+        public SolidColorBrush HeliumTempColor
+        {
+            get
+            {
+                if (this.compressorModel.HeliumTemp < HeliumMinimum || this.compressorModel.HeliumTemp > HeliumMaximum)
+                {
+                    return this.DisplayColor(ColorState.Red);
+                }
+
+                return this.DisplayColor(ColorState.Green);
+            }
+        }
+
 
         /// <summary>
         /// Gets or sets the low pressure.
@@ -467,6 +604,7 @@ namespace CryostatControlClient.ViewModels
                 this.compressorModel.ConnectionState = value;
                 this.RaisePropertyChanged("ConnectionState");
                 this.RaisePropertyChanged("ConnectionStateConverted");
+                this.RaisePropertyChanged("ConnectionStateColor");
             }
         }
 

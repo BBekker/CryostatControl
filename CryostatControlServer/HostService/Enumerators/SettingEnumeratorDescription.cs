@@ -23,10 +23,10 @@ namespace CryostatControlServer.HostService.Enumerators
         }
             =
                 {
-                    "He3 pump heater max voltage",
-                    "He4 pump heater max voltage",
-                    "He4 Switch max voltage",
-                    "He3 Switch max voltage",
+////                    "He3 pump heater max voltage",
+////                    "He4 pump heater max voltage",
+////                    "He4 Switch max voltage",
+////                    "He3 Switch max voltage",
                     "He3 heater max power used",
                     "He4 heater max power used",
                     "He3 switch voltage used",
@@ -52,6 +52,6 @@ namespace CryostatControlServer.HostService.Enumerators
             get;
         }
             =
-                { "V", "V", "V", "V", "W", "W", "V", "V", "K", "K", "K", "K", "K", "K", "K", "K", "K", "min.", "W" };
+                { "V", "V", "V", "V", "V", "V", "V", "V", "K", "K", "K", "K", "K", "K", "K", "K", "K", "min.", "W" };
     }
 }
