@@ -83,7 +83,14 @@ namespace CryostatControlClient.Models
 
             set
             {
-                this.xAxis.MaxValue = value.Ticks;
+                if (value == DateTime.Now)
+                {
+                    this.xAxis.MaxValue = double.NaN;
+                }
+                else
+                {
+                    this.xAxis.MaxValue = value.Ticks;
+                }
             }
         }
 
@@ -102,7 +109,14 @@ namespace CryostatControlClient.Models
 
             set
             {
-                this.xAxis.MinValue = value.Ticks;
+                if (value == DateTime.Now)
+                {
+                    this.xAxis.MinValue = double.NaN;
+                }
+                else
+                {
+                    this.xAxis.MinValue = value.Ticks;
+                }
             }
         }
 
