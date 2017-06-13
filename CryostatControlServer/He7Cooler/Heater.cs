@@ -161,6 +161,9 @@ namespace CryostatControlServer.He7Cooler
                 this.temperatureFeedback = temperatureFeedbackSensor;
                 this.resistance = resistance;
                 this.calibration = outputCalibration;
+
+
+                device.AddHeater(this);
             }
 
             /// <summary>
@@ -170,6 +173,30 @@ namespace CryostatControlServer.He7Cooler
             {
                 this.device.RemoveChannel(this.inchannel);
             }
+
+            private double temperatureSetpoint;
+            /// <summary>
+            /// Gets or sets the temperature setpoint in Kelvin.
+            /// </summary>
+            public double TemperatureSetpoint {
+                get
+                {
+                    return this.temperatureSetpoint;
+                }
+                set
+                {
+                    if (this.SafeRangeHigh < this.calibration.ConvertValue(this.PowerToVoltage(value)))
+                    {
+                        throw new ArgumentOutOfRangeException("maxpower exeeds the safety limits of this heater");
+                    }
+                    this.temperatureSetpoint = value;
+                }
+            }
+
+            /// <summary>
+            /// Gets or sets the power limit in Watt.
+            /// </summary>
+            public double PowerLimit { get; set; }
 
             /// <summary>
             /// Gets or sets the current.
@@ -230,6 +257,17 @@ namespace CryostatControlServer.He7Cooler
             }
 
             /// <summary>
+            /// Notify the heater it has received new measurements.
+            /// </summary>
+            public void Notify()
+            {
+                if (this.temperatureControlEnabled)
+                {
+                    this.ControlTemperature(this.TemperatureSetpoint, this.PowerLimit);
+                }
+            }
+
+            /// <summary>
             /// The control temperature loop function.
             /// </summary>
             /// <param name="TSet">
@@ -240,11 +278,6 @@ namespace CryostatControlServer.He7Cooler
             /// </param>
             public void ControlTemperature(double TSet, double maxpower)
             {
-                if (this.SafeRangeHigh < this.calibration.ConvertValue(this.PowerToVoltage(maxpower)))
-                {
-                    throw new ArgumentOutOfRangeException("maxpower exeeds the safety limits of this heater");
-                }
-
                 double error = TSet - this.temperatureFeedback.Value; // Positive if too cold
 
                 double output = 0;

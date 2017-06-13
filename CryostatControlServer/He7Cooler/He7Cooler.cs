@@ -11,6 +11,7 @@
 namespace CryostatControlServer.He7Cooler
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
@@ -58,6 +59,11 @@ namespace CryostatControlServer.He7Cooler
         /// The current voltage of each channel.
         /// </summary>
         private Dictionary<Channels, double> values = new Dictionary<Channels, double>();
+
+        /// <summary>
+        /// The heaters.
+        /// </summary>
+        private List<Heater> heaters = new List<Heater>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="He7Cooler"/> class.
@@ -200,7 +206,7 @@ namespace CryostatControlServer.He7Cooler
         {
             return this.device.IsConnected();
         }
-
+        
         /// <summary>
         /// Read the voltages of all registered channels
         /// </summary>
@@ -274,6 +280,11 @@ namespace CryostatControlServer.He7Cooler
             }
         }
 
+        protected void AddHeater(Heater heater)
+        {
+            this.heaters.Add(heater);
+        }
+
         /// <summary>
         /// The remove channel.
         /// </summary>
@@ -314,6 +325,17 @@ namespace CryostatControlServer.He7Cooler
         }
 
         /// <summary>
+        /// Notify heaters that a new reading has been done
+        /// </summary>
+        private void NotifyHeaters()
+        {
+            foreach (var heater in this.heaters)
+            {
+                heater.Notify();
+            }
+        }
+
+        /// <summary>
         /// The main loop of the thread that reads voltages from the He7 cooler.
         /// </summary>
         private void MainLoop()
@@ -344,6 +366,7 @@ namespace CryostatControlServer.He7Cooler
                 else
                 {
                     this.ReadVoltages();
+                    this.NotifyHeaters();
                 }
 
                 Thread.Sleep(ReadInterval);
