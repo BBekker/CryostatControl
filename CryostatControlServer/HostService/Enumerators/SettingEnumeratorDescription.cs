@@ -52,6 +52,6 @@ namespace CryostatControlServer.HostService.Enumerators
             get;
         }
             =
-                { "V", "V", "V", "V", "V", "V", "V", "V", "K", "K", "K", "K", "K", "K", "K", "K", "K", "min.", "W" };
+                { "W", "W", "V", "V", "K", "K", "K", "K", "K", "K", "K", "K", "K", "min.", "W" };
     }
 }

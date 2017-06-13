@@ -524,7 +524,15 @@ namespace CryostatControlServer
         private void SetHeaterTemperature(He7Cooler.He7Cooler.Heater heater, double temperature, double maxpower)
         {
             heater.TemperatureSetpoint = temperature;
-            heater.PowerLimit = maxpower;
+            try
+            {
+                heater.PowerLimit = maxpower;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                DebugLogger.Error("heater", e.Message, true);
+                DebugLogger.Error("Controller", "Tried to set too high power setting to heater!, not heating!", true);
+            }
             heater.TemperatureControlEnabled = true;
         }
 
@@ -709,6 +717,7 @@ namespace CryostatControlServer
                     {
                         this.SetHeaterVoltage(this.cooler.He3Switch, 0.0);
                         this.SetHeaterVoltage(this.cooler.He4Switch, 0.0);
+                        this.compressor.TurnOn();
 
                         this.State = Controlstate.RecycleHeatPumps;
                     }

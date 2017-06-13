@@ -82,17 +82,22 @@ namespace CryostatControlServer.He7Cooler
             /// <summary>
             /// The proportional gain.
             /// </summary>
-            private double kP = 0.5;
+            private double kP = 0.2;
 
             /// <summary>
             /// The integral gain.
             /// </summary>
-            private double ki = 0.1;
+            private double ki = 0.005;
 
             /// <summary>
             /// The derivative gain.
             /// </summary>
-            private double kd = 0.1;
+            private double kd = 0.0;
+
+            /// <summary>
+            /// The max value of the integrator.
+            /// </summary>
+            private double integratorMax = 20;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="Heater"/> class.
@@ -180,10 +185,6 @@ namespace CryostatControlServer.He7Cooler
                 }
                 set
                 {
-                    if (this.SafeRangeHigh < this.calibration.ConvertValue(this.PowerToVoltage(value)))
-                    {
-                        throw new ArgumentOutOfRangeException("maxpower exeeds the safety limits of this heater");
-                    }
                     this.temperatureSetpoint = value;
                 }
             }
@@ -193,10 +194,27 @@ namespace CryostatControlServer.He7Cooler
             /// </summary>
             public bool TemperatureControlEnabled { get; set; } = false;
 
+            private double powerLimit;
+
             /// <summary>
             /// Gets or sets the power limit in Watt.
             /// </summary>
-            public double PowerLimit { get; set; }
+            public double PowerLimit
+            {
+                get
+                {
+                    return this.powerLimit;
+                }
+
+                set
+                {
+                    if (this.SafeRangeHigh < this.calibration.ConvertValue(this.PowerToVoltage(value)))
+                    {
+                        throw new ArgumentOutOfRangeException($"maxpower {value} -> voltage {this.calibration.ConvertValue(this.PowerToVoltage(value))} exeeds the safety limit {this.SafeRangeHigh} of this heater.");
+                    }
+                    this.powerLimit = value;
+                }
+            }
 
             /// <summary>
             /// Gets or sets the current.
@@ -292,16 +310,16 @@ namespace CryostatControlServer.He7Cooler
                 {
                     if (output > maxpower)
                     {
-                        this.Power = maxpower;
+                        this.SetOutput(this.calibration.ConvertValue(PowerToVoltage(maxpower)));
                     }
                     else if (output < 0)
                     {
-                        this.Power = 0;
-                        this.integrator = Math.Max(error + this.integrator, 0);
+                        this.SetOutput(0);
+                        this.integrator = Math.Min(Math.Max(error + this.integrator, 0),this.integratorMax);
                     }
                     else
                     {
-                        this.Power = output;
+                        this.SetOutput(this.calibration.ConvertValue(PowerToVoltage(output)));
                         this.integrator = Math.Max(error + this.integrator, 0);
                     }
                 }
