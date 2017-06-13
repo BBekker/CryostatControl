@@ -267,6 +267,13 @@ namespace CryostatControlServer.HostService
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         bool IsLogging();
 
+        [OperationContract]
+        bool IsRegisteredForData(string ip);
+
+        [OperationContract]
+        bool IsRegisteredForUpdates(string ip);
+
+
         #endregion Methods
     }
 }

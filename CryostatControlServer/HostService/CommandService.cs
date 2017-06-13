@@ -38,12 +38,12 @@ namespace CryostatControlServer.HostService
         /// <summary>
         /// The callback list
         /// </summary>
-        private readonly Dictionary<IDataGetCallback, Timer> dataListeners = new Dictionary<IDataGetCallback, Timer>();
+        private readonly Dictionary<string, Timer> dataListeners = new Dictionary<string, Timer>();
 
         /// <summary>
         /// The update listeners
         /// </summary>
-        private readonly List<IDataGetCallback> updateListeners = new List<IDataGetCallback>();
+        private readonly Dictionary<string, IDataGetCallback> updateListeners = new Dictionary<string, IDataGetCallback>();
 
         #endregion Fields
 
@@ -269,46 +269,52 @@ namespace CryostatControlServer.HostService
         }
 
         /// <inheritdoc cref="IDataGet.SubscribeForData"/>>
-        public void SubscribeForData(int interval)
+        public void SubscribeForData(int interval, string ipAddress)
         {
-            IDataGetCallback client =
-                OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            if (!this.dataListeners.ContainsKey(client))
+            Console.WriteLine("Adding " + ipAddress);
+            foreach (KeyValuePair<string, Timer> callback in this.dataListeners)
             {
-                this.dataListeners.Add(client, new Timer(this.TimerMethod, client, 0, interval));
+                Console.WriteLine("key: " + callback.Key.ToString());
+            }
+            if (!this.dataListeners.ContainsKey(ipAddress))
+            {
+                IDataGetCallback client =
+                    OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
+                TimerPackage package = new TimerPackage(ipAddress, client);
+                Console.WriteLine("added " + ipAddress);
+                this.dataListeners.Add(ipAddress, new Timer(this.TimerMethod, package, 100, interval));
             }
         }
 
         /// <inheritdoc cref="IDataGet.UnsubscribeForData"/>>
-        public void UnsubscribeForData()
+        public void UnsubscribeForData(string ipAddress)
         {
-            IDataGetCallback client =
-                OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            if (this.dataListeners.ContainsKey(client))
+            if (this.dataListeners.ContainsKey(ipAddress))
             {
-                Timer timer = this.dataListeners[client];
+                Timer timer = this.dataListeners[ipAddress];
                 timer.Dispose();
-                this.dataListeners.Remove(client);
+                this.dataListeners.Remove(ipAddress);
             }
         }
 
         /// <inheritdoc cref="IDataGet.SubscribeForUpdates"/>>
-        public void SubscribeForUpdates()
+        public void SubscribeForUpdates(string ipAddress)
         {
             IDataGetCallback client =
                 OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            if (!this.updateListeners.Contains(client))
+            Console.WriteLine(client.ToString());
+            Console.WriteLine(updateListeners.ToString());
+            if (!this.updateListeners.ContainsKey(ipAddress))
             {
-                this.updateListeners.Add(client);
+                Console.WriteLine("accepted");
+                this.updateListeners.Add(ipAddress, client);
             }
         }
 
         /// <inheritdoc cref="IDataGet.UnsubscribeForUpdates"/>>
-        public void UnsubscribeForUpdates()
+        public void UnsubscribeForUpdates(string ipAddress)
         {
-            IDataGetCallback client =
-                OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            this.updateListeners.Remove(client);
+            this.updateListeners.Remove(ipAddress);
         }
 
         /// <inheritdoc cref="ICommandService.IsLogging"/>>
@@ -325,11 +331,21 @@ namespace CryostatControlServer.HostService
         /// </param>
         public void UpdateNotification(string[] message)
         {
-            foreach (IDataGetCallback callback in this.updateListeners.Reverse<IDataGetCallback>())
+            foreach (KeyValuePair<string, IDataGetCallback> callback in this.updateListeners)
             {
-                Thread thread = new Thread(() => this.UpdateNotification(callback, message));
+                Thread thread = new Thread(() => this.UpdateNotification(callback.Key, callback.Value, message));
                 thread.Start();
             }
+        }
+
+        public bool IsRegisteredForData(string ip)
+        {
+            return this.dataListeners.ContainsKey(ip);
+        }
+
+        public bool IsRegisteredForUpdates(string ip)
+        {
+            return this.updateListeners.ContainsKey(ip);
         }
 
         /// <summary>
@@ -338,9 +354,9 @@ namespace CryostatControlServer.HostService
         /// <param name="status">if set to <c>true</c> [status].</param>
         private void SetLoggingState(bool status)
         {
-            foreach (IDataGetCallback callback in this.updateListeners.Reverse<IDataGetCallback>())
+            foreach (KeyValuePair<string, IDataGetCallback> callback in this.updateListeners)
             {
-                Thread thread = new Thread(() => this.SendLoggingState(callback, status));
+                Thread thread = new Thread(() => this.SendLoggingState(callback.Key, callback.Value, status));
                 thread.Start();
             }
         }
@@ -350,7 +366,7 @@ namespace CryostatControlServer.HostService
         /// </summary>
         /// <param name="callback">The callback.</param>
         /// <param name="status">if set to <c>true</c> [status].</param>
-        private void SendLoggingState(IDataGetCallback callback, bool status)
+        private void SendLoggingState(String ipAddress, IDataGetCallback callback, bool status)
         {
             try
             {
@@ -358,7 +374,7 @@ namespace CryostatControlServer.HostService
             }
             catch
             {
-                this.updateListeners.Remove(callback);
+                this.updateListeners.Remove(ipAddress);
             }
         }
 
@@ -371,7 +387,7 @@ namespace CryostatControlServer.HostService
         /// <param name="message">
         /// The message.
         /// </param>
-        private void UpdateNotification(IDataGetCallback callback, string[] message)
+        private void UpdateNotification(String ipAddress, IDataGetCallback callback, string[] message)
         {
             try
             {
@@ -379,7 +395,7 @@ namespace CryostatControlServer.HostService
             }
             catch
             {
-                this.updateListeners.Remove(callback);
+                this.updateListeners.Remove(ipAddress);
             }
         }
 
@@ -389,17 +405,19 @@ namespace CryostatControlServer.HostService
         /// <param name="state">The state.</param>
         private void TimerMethod(object state)
         {
-            IDataGetCallback client = (IDataGetCallback)state;
+            TimerPackage package = (TimerPackage)state;
+            IDataGetCallback client = package.Callback;
             double[] data = this.cryostatControl.ReadData();
             try
             {
+                Console.WriteLine("Sending data to {0}", package.IpAddress);
                 client.SendData(data);
                 client.SendModus(this.GetState());
                 client.UpdateCountdown(this.cryostatControl.StartTime);
             }
             catch
             {
-                this.dataListeners.Remove(client);
+                this.dataListeners.Remove(package.IpAddress);
             }
         }
 

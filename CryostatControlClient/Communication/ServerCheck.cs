@@ -14,6 +14,8 @@ namespace CryostatControlClient.Communication
 
     using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.Views;
+    using System.Net.Sockets;
+    using System.Net;
 
     /// <summary>
     /// Class which checks continuously the connection with the server
@@ -55,18 +57,20 @@ namespace CryostatControlClient.Communication
         /// </summary>
         private Timer timer;
 
+
+        private string ipAddress = string.Empty;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ServerCheck" /> class.
         /// </summary>
         /// <param name="app">The application.</param>
         /// <param name="commandClient">The command client.</param>
         /// <param name="callbackClient">The callback client.</param>
-        public ServerCheck(App app, CommandServiceClient commandClient, DataGetClient callbackClient)
+        public ServerCheck(App app)
         {
             this.mainApp = app;
             this.mainWindow = this.mainApp.MainWindow as MainWindow;
-            this.commandClient = commandClient;
-            this.callbackClient = callbackClient;
+            this.Connect();
             this.sender = new DataSender(this);
             this.timer = new Timer(this.CheckStatus, null, 5000, 2000);
         }
@@ -86,6 +90,32 @@ namespace CryostatControlClient.Communication
         }
 
         /// <summary>
+        /// Gets the local ip address.
+        /// </summary>
+        /// <returns></returns>
+        private string GetLocalIPAddress()
+        {
+            if (this.ipAddress != string.Empty)
+            {
+                return this.ipAddress;
+            }
+            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+            {
+                var host = Dns.GetHostEntry(Dns.GetHostName());
+                foreach (var ip in host.AddressList)
+                {
+                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        this.ipAddress = ip.ToString();
+                        return ip.ToString();
+                    }
+                }
+            }
+            return "127.0.0.1";
+        }
+
+
+        /// <summary>
         /// Checks the status with the server.
         /// </summary>
         /// <param name="state">The state.</param>
@@ -95,16 +125,20 @@ namespace CryostatControlClient.Communication
             {
                 if (this.commandClient.IsAlive())
                 {
-                    this.SetConnected(true);
-                    if (this.firstTimeConnected)
-                    {
+                    this.SetConnected(true);                  
                         this.mainApp.Dispatcher.Invoke(
                             () =>
                                 {
                                     this.sender.SetCompressorScales((this.mainApp.MainWindow as MainWindow).Container);
                                 });
                         this.firstTimeConnected = false;
-                        this.callbackClient.SubscribeForData(1000);
+                    if (!commandClient.IsRegisteredForData(this.GetLocalIPAddress()))
+                    {
+                        this.callbackClient.SubscribeForData(1000, this.GetLocalIPAddress());
+                    }
+                    if (!commandClient.IsRegisteredForUpdates(this.GetLocalIPAddress()))
+                    {
+                        this.callbackClient.SubscribeForUpdates(this.GetLocalIPAddress());
                     }
                 }
                 else
@@ -116,13 +150,19 @@ namespace CryostatControlClient.Communication
             {
                 this.SetConnected(false);
                 this.commandClient.Abort();
+                this.callbackClient.Abort();
                 this.firstTimeConnected = true;
-                this.commandClient = new CommandServiceClient();
-                this.mainApp.CommandServiceClient = this.commandClient;
-                DataClientCallback callback = new DataClientCallback(this.mainApp);
-                InstanceContext instanceContext = new InstanceContext(callback);
-                this.callbackClient = new DataGetClient(instanceContext);
+                Connect();
             }
+        }
+
+        private void Connect()
+        {
+            this.commandClient = new CommandServiceClient();
+            this.mainApp.CommandServiceClient = this.commandClient;
+            DataClientCallback callback = new DataClientCallback(this.mainApp);
+            InstanceContext instanceContext = new InstanceContext(callback);
+            this.callbackClient = new DataGetClient(instanceContext);
         }
 
         /// <summary>
