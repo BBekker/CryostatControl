@@ -105,6 +105,7 @@
     <Compile Include="Data\SensorArray.cs" />
     <Compile Include="He7Cooler\Agilent34972A.cs" />
     <Compile Include="He7Cooler\AgilentException.cs" />
+    <Compile Include="He7Cooler\Calibration.cs" />
     <Compile Include="He7Cooler\Channels.cs" />
     <Compile Include="He7Cooler\DigitalSwitch.cs" />
     <Compile Include="He7Cooler\He7Cooler.cs" />
@@ -150,6 +151,15 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Calibrations\AMPLIFIERS.cal">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Calibrations\DIODE.cal">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Calibrations\RUOX.cal">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
