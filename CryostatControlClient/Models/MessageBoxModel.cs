@@ -9,6 +9,8 @@
 
 namespace CryostatControlClient.Models
 {
+    using System.Collections.ObjectModel;
+
     /// <summary>
     /// The message box model.
     /// </summary>
@@ -18,6 +20,11 @@ namespace CryostatControlClient.Models
         /// The message
         /// </summary>
         private string[] message;
+
+        /// <summary>
+        /// The notifications.
+        /// </summary>
+        private ObservableCollection<Notification> notifications;
 
         /// <summary>
         /// Gets or sets the message.
@@ -35,6 +42,24 @@ namespace CryostatControlClient.Models
             set
             {
                 this.message = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the notifications.
+        /// </summary>
+        /// <value>
+        /// The notifications.
+        /// </value>
+        public ObservableCollection<Notification> Notifications
+        {
+            get
+            {
+                return this.notifications;
+            }
+            set
+            {
+                this.notifications = value;
             }
         }
     }

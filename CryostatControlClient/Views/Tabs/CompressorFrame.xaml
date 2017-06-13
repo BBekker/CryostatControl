@@ -30,7 +30,7 @@
         <Label Style="{StaticResource CompressorTitles}" x:Name="waterInTempTitle" Grid.ColumnSpan="2" Grid.Row="0">Water In</Label>
 
         <ProgressBar x:Name="waterInTempMeter" Grid.ColumnSpan="2" Grid.Row="1" Style="{StaticResource tempBar}"
-                     Value="{Binding CompressorViewModel.WaterInTemp}" />
+                     Value="{Binding CompressorViewModel.WaterInTemp}" Foreground="{Binding CompressorViewModel.WaterInTempColor}"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
             <Label Style="{StaticResource compressorValues}" x:Name="waterInTemp"
@@ -49,7 +49,7 @@
         <Label Style="{StaticResource CompressorTitles}" x:Name="waterOutTempTitle" Grid.Row="0">Water Out</Label>
 
         <ProgressBar x:Name="waterOutTempMeter" Grid.Row="1" Style="{StaticResource tempBar}"
-                     Value="{Binding CompressorViewModel.WaterOutTemp}" />
+                     Value="{Binding CompressorViewModel.WaterOutTemp}" Foreground="{Binding CompressorViewModel.WaterOutTempColor}"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
             <Label Style="{StaticResource compressorValues}" x:Name="waterOutTemp"
@@ -68,7 +68,7 @@
         <Label Style="{StaticResource CompressorTitles}" x:Name="heliumTempTitle" Grid.Row="0">Helium</Label>
 
         <ProgressBar x:Name="heliumTempMeter" Grid.Row="1" Style="{StaticResource tempBar}"
-                     Value="{Binding CompressorViewModel.HeliumTemp}" />
+                     Value="{Binding CompressorViewModel.HeliumTemp}" Foreground="{Binding CompressorViewModel.HeliumTempColor}"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
             <Label Style="{StaticResource compressorValues}" x:Name="heliumTemp" Grid.Row="2"
@@ -87,7 +87,7 @@
         <Label Style="{StaticResource CompressorTitles}" x:Name="oilTempTitle" Grid.Row="0">Oil</Label>
 
         <ProgressBar x:Name="oilTempMeter" Grid.Row="1" Style="{StaticResource tempBar}"
-                     Value="{Binding CompressorViewModel.OilTemp}" />
+                     Value="{Binding CompressorViewModel.OilTemp}" Foreground="{Binding CompressorViewModel.OilTempColor}"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
             <Label Style="{StaticResource compressorValues}" x:Name="oilTemp" Grid.Row="2"

@@ -90,11 +90,11 @@ namespace CryostatControlClient.ViewModels
             this.twoKPlateVisibilityCommand = new RelayCommand(this.OnTwoKPlateVisibility, param => true);
             this.fourKPlateVisibilityCommand = new RelayCommand(this.OnFourKPlateVisibility, param => true);
             this.he3HeadVisibilityCommand = new RelayCommand(this.OnHe3HeadVisibility, param => true);
-            this.he3SwitchVisibilityCommand = new RelayCommand(this.OnHe3PumpVisibility, param => true);
-            this.he3PumpVisibilityCommand = new RelayCommand(this.OnHe3SwitchVisibility, param => true);
+            this.he3SwitchVisibilityCommand = new RelayCommand(this.OnHe3SwitchVisibility, param => true);
+            this.he3PumpVisibilityCommand = new RelayCommand(this.OnHe3PumpVisibility, param => true);
             this.he4HeadVisibilityCommand = new RelayCommand(this.OnHe4HeadVisibility, param => true);
-            this.he4SwitchVisibilityCommand = new RelayCommand(this.OnHe4PumpVisibility, param => true);
-            this.he4PumpVisibilityCommand = new RelayCommand(this.OnHe4SwitchVisibility, param => true);
+            this.he4SwitchVisibilityCommand = new RelayCommand(this.OnHe4SwitchVisibility, param => true);
+            this.he4PumpVisibilityCommand = new RelayCommand(this.OnHe4PumpVisibility, param => true);
         }
 
         #endregion Constructor
@@ -515,7 +515,7 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.ConnectionColor((int)this.ConnectionState);
+                return this.DisplayColor((ColorState)this.ConnectionState);
             }
         }
 
