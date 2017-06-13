@@ -11,7 +11,6 @@
 namespace CryostatControlServer.He7Cooler
 {
     using System;
-    using System.IO;
 
     using CryostatControlServer.Logging;
 
@@ -20,15 +19,11 @@ namespace CryostatControlServer.He7Cooler
     /// </summary>
     public partial class He7Cooler
     {
-        #region Classes
-
         /// <summary>
         /// Representation a heater element on the H7 cooler.
         /// </summary>
         public class Heater
         {
-            #region Fields
-
             /// <summary>
             /// The default safe range high.
             /// </summary>
@@ -40,9 +35,29 @@ namespace CryostatControlServer.He7Cooler
             private const double DefaultSafeRangeLow = 0.0;
 
             /// <summary>
+            /// The resistance of the heater resistor.
+            /// </summary>
+            private readonly double resistance = 1;
+
+            /// <summary>
+            /// The amplifier calibration. converts from post amplification to pre-amplification.
+            /// </summary>
+            private Calibration calibration;
+
+            /// <summary>
+            /// The H7 cooler device.
+            /// </summary>
+            private He7Cooler device;
+
+            /// <summary>
             /// The channel where current voltage is read.
             /// </summary>
             private Channels inchannel;
+
+            /// <summary>
+            /// The PID controller integrator.
+            /// </summary>
+            private double integrator = 0;
 
             /// <summary>
             /// The channel where to output the voltage set point.
@@ -50,22 +65,39 @@ namespace CryostatControlServer.He7Cooler
             private Channels outchannel;
 
             /// <summary>
-            /// The temperature feedback sensor
+            /// The previous error used for the PID controller.
             /// </summary>
-            private Sensor TemperatureFeedback;
+            private double previousError = 0.0;
 
             /// <summary>
-            /// The H7 cooler device.
+            /// The previous loop time.
             /// </summary>
-            private He7Cooler device;
+            private DateTime previousLoopTime = DateTime.MinValue;
 
-            private double resistance = 1;
+            /// <summary>
+            /// The temperature control enabled.
+            /// </summary>
+            private bool temperatureControlEnabled = false;
 
-            private He7Cooler.Calibration calibration;
+            /// <summary>
+            /// The temperature feedback sensor
+            /// </summary>
+            private Sensor temperatureFeedback;
 
-            #endregion Fields
+            /// <summary>
+            /// The proportional gain.
+            /// </summary>
+            private double kP = 0.5;
 
-            #region Constructors
+            /// <summary>
+            /// The integral gain.
+            /// </summary>
+            private double ki = 0.1;
+
+            /// <summary>
+            /// The derivative gain.
+            /// </summary>
+            private double kd = 0.1;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="Heater"/> class.
@@ -111,7 +143,13 @@ namespace CryostatControlServer.He7Cooler
             /// <param name="device">
             /// The He7 cooler device the heater is connected to.
             /// </param>
-            public Heater(Channels outputChannel, Channels inputChannel, Sensor temperatureFeedbackSensor, double resistance, He7Cooler.Calibration outputCalibration, He7Cooler device)
+            public Heater(
+                Channels outputChannel,
+                Channels inputChannel,
+                Sensor temperatureFeedbackSensor,
+                double resistance,
+                Calibration outputCalibration,
+                He7Cooler device)
             {
                 this.inchannel = inputChannel;
                 this.outchannel = outputChannel;
@@ -120,17 +158,10 @@ namespace CryostatControlServer.He7Cooler
                 this.SafeRangeHigh = DefaultSafeRangeHigh;
                 this.SafeRangeLow = DefaultSafeRangeLow;
 
-                this.TemperatureFeedback = temperatureFeedbackSensor;
+                this.temperatureFeedback = temperatureFeedbackSensor;
                 this.resistance = resistance;
                 this.calibration = outputCalibration;
             }
-
-
-
-
-            #endregion Constructors
-
-            #region Destructors
 
             /// <summary>
             /// Finalizes an instance of the <see cref="Heater"/> class.
@@ -140,9 +171,37 @@ namespace CryostatControlServer.He7Cooler
                 this.device.RemoveChannel(this.inchannel);
             }
 
-            #endregion Destructors
+            /// <summary>
+            /// Gets or sets the current.
+            /// </summary>
+            public double Current
+            {
+                get
+                {
+                    return this.Voltage / this.resistance;
+                }
 
-            #region Properties
+                set
+                {
+                    this.Voltage = value * this.resistance;
+                }
+            }
+
+            /// <summary>
+            /// Gets or sets the power.
+            /// </summary>
+            public double Power
+            {
+                get
+                {
+                    return this.VoltageToPower(this.Voltage);
+                }
+
+                set
+                {
+                    this.Voltage = this.PowerToVoltage(value);
+                }
+            }
 
             /// <summary>
             /// Gets or sets the voltage safe range high side.
@@ -170,35 +229,61 @@ namespace CryostatControlServer.He7Cooler
                 }
             }
 
-            public double Current
+            /// <summary>
+            /// The control temperature loop function.
+            /// </summary>
+            /// <param name="TSet">
+            /// The t set.
+            /// </param>
+            /// <param name="maxpower">
+            /// The maxpower.
+            /// </param>
+            public void ControlTemperature(double TSet, double maxpower)
             {
-                get
+                if (this.SafeRangeHigh < this.calibration.ConvertValue(this.PowerToVoltage(maxpower)))
                 {
-                    return this.Voltage / this.resistance;
+                    throw new ArgumentOutOfRangeException("maxpower exeeds the safety limits of this heater");
                 }
 
-                set
+                double error = TSet - this.temperatureFeedback.Value; // Positive if too cold
+
+                double output = 0;
+                output += error * this.kP;
+                output += this.integrator * this.ki;
+                output += (error - this.previousError) / (DateTime.Now - this.previousLoopTime).TotalSeconds * this.kd;
+
+                if (output > maxpower)
                 {
-                    this.Voltage = (value * this.resistance);
+                    this.Power = maxpower;
                 }
+                else if (output < 0)
+                {
+                    this.Power = 0;
+                    this.integrator += error;
+                }
+                else
+                {
+                    this.Power = output;
+                    this.integrator += error;
+                }
+
+                this.previousLoopTime = DateTime.Now;
+                this.previousError = error;
             }
 
-            public double Power
+            /// <summary>
+            /// Convert power to voltage using the heater resistance.
+            /// </summary>
+            /// <param name="power">
+            /// The power.
+            /// </param>
+            /// <returns>
+            /// The <see cref="double"/>.
+            /// </returns>
+            private double PowerToVoltage(double power)
             {
-                get
-                {
-                    return this.Voltage * this.Voltage / this.resistance;
-                }
-
-                set
-                {
-                    this.Voltage = Math.Sqrt(value * this.resistance);
-                }
+                return Math.Sqrt(power * this.resistance);
             }
-
-            #endregion Properties
-
-            #region Methods
 
             /// <summary>
             /// The set output.
@@ -220,9 +305,19 @@ namespace CryostatControlServer.He7Cooler
                 this.device.SetVoltage(this.outchannel, volts);
             }
 
-            #endregion Methods
+            /// <summary>
+            /// Convert voltage to power using the heater resistance.
+            /// </summary>
+            /// <param name="voltage">
+            /// The voltage.
+            /// </param>
+            /// <returns>
+            /// The <see cref="double"/>.
+            /// </returns>
+            private double VoltageToPower(double voltage)
+            {
+                return voltage * voltage / this.resistance;
+            }
         }
-
-        #endregion Classes
     }
 }
