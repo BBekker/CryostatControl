@@ -281,19 +281,19 @@ namespace CryostatControlClient.Models
             this.he4SwitchTemporaryList = new double[this.TemporaryListSize];
             this.he4PumpTemporaryList = new double[this.TemporaryListSize];
 
-            this.twoKPlateLineSeries = new GLineSeries { Title = "He7 - 2K Plate", Values = new ChartValues<DateTimePoint>() };
-            this.fourKPlateLineSeries = new GLineSeries { Title = "He7 - 4K Plate", Values = new ChartValues<DateTimePoint>() };
+            this.twoKPlateLineSeries = new GLineSeries { Title = "He7 - 2K Plate", Values = new GearedValues<DateTimePoint>() };
+            this.fourKPlateLineSeries = new GLineSeries { Title = "He7 - 4K Plate", Values = new GearedValues<DateTimePoint>() };
 
-            this.he3HeadLineSeries = new GLineSeries { Title = "He7 - He3 Head", Values = new ChartValues<DateTimePoint>() };
-            this.he3PumpLineSeries = new GLineSeries { Title = "He7 - He3 Pump", Values = new ChartValues<DateTimePoint>() };
-            this.he3SwitchLineSeries = new GLineSeries { Title = "He7 - He3 Switch", Values = new ChartValues<DateTimePoint>() };
+            this.he3HeadLineSeries = new GLineSeries { Title = "He7 - He3 Head", Values = new GearedValues<DateTimePoint>() };
+            this.he3PumpLineSeries = new GLineSeries { Title = "He7 - He3 Pump", Values = new GearedValues<DateTimePoint>() };
+            this.he3SwitchLineSeries = new GLineSeries { Title = "He7 - He3 Switch", Values = new GearedValues<DateTimePoint>() };
 
-            this.he4HeadLineSeries = new GLineSeries { Title = "He7 - He4 Head", Values = new ChartValues<DateTimePoint>() };
-            this.he4PumpLineSeries = new GLineSeries { Title = "He7 - He4 Pump", Values = new ChartValues<DateTimePoint>() };
-            this.he4SwitchLineSeries = new GLineSeries { Title = "He7 - He4 Switch", Values = new ChartValues<DateTimePoint>() };
+            this.he4HeadLineSeries = new GLineSeries { Title = "He7 - He4 Head", Values = new GearedValues<DateTimePoint>() };
+            this.he4PumpLineSeries = new GLineSeries { Title = "He7 - He4 Pump", Values = new GearedValues<DateTimePoint>() };
+            this.he4SwitchLineSeries = new GLineSeries { Title = "He7 - He4 Switch", Values = new GearedValues<DateTimePoint>() };
 
-            this.he3HeadLineSeriesBottom = new GLineSeries { Title = "He7 - He3 Head", Values = new ChartValues<DateTimePoint>() };
-            this.he4HeadLineSeriesBottom = new GLineSeries { Title = "He7 - He4 Head", Values = new ChartValues<DateTimePoint>() };
+            this.he3HeadLineSeriesBottom = new GLineSeries { Title = "He7 - He3 Head", Values = new GearedValues<DateTimePoint>() };
+            this.he4HeadLineSeriesBottom = new GLineSeries { Title = "He7 - He4 Head", Values = new GearedValues<DateTimePoint>() };
         }
 
         #endregion Constructor

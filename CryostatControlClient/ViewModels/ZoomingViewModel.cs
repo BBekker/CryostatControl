@@ -142,7 +142,15 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return 300;
+                double temp = this.yAxis.MaxValue;
+                if (double.IsNaN(temp))
+                {
+                    return 300;
+                }
+                else
+                {
+                    return temp;
+                }
             }
 
             set
@@ -162,7 +170,15 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return 0;
+                double temp = this.yAxis.MinValue;
+                if (double.IsNaN(temp))
+                {
+                    return 0;
+                }
+                else
+                {
+                    return temp;
+                }
             }
 
             set

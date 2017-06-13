@@ -97,10 +97,10 @@ namespace CryostatControlClient.Models
             this.coldPlate3KTemporaryListBottom = new double[this.TemporaryListSize];
             this.coldPlate50KTemporaryListBottom = new double[this.TemporaryListSize];
 
-            this.coldPlate3KLineSeries = new GLineSeries { Title = "Bluefors - 3K Plate", Values = new ChartValues<DateTimePoint>() };
-            this.coldPlate50KLineSeries = new GLineSeries { Title = "Bluefors - 50K Plate", Values = new ChartValues<DateTimePoint>() };
-            this.coldPlate3KLineSeriesBottom = new GLineSeries { Title = "Bluefors - 3K Plate", Values = new ChartValues<DateTimePoint>() };
-            this.coldPlate50KLineSeriesBottom = new GLineSeries { Title = "Bluefors - 50K Plate", Values = new ChartValues<DateTimePoint>() };
+            this.coldPlate3KLineSeries = new GLineSeries { Title = "Bluefors - 3K Plate", Values = new GearedValues<DateTimePoint>() };
+            this.coldPlate50KLineSeries = new GLineSeries { Title = "Bluefors - 50K Plate", Values = new GearedValues<DateTimePoint>() };
+            this.coldPlate3KLineSeriesBottom = new GLineSeries { Title = "Bluefors - 3K Plate", Values = new GearedValues<DateTimePoint>() };
+            this.coldPlate50KLineSeriesBottom = new GLineSeries { Title = "Bluefors - 50K Plate", Values = new GearedValues<DateTimePoint>() };
         }
 
         #endregion Constructor
