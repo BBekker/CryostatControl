@@ -11,9 +11,23 @@ namespace CryostatControlClient.Models
     using LiveCharts;
     using LiveCharts.Wpf;
 
+    /// <summary>
+    /// The chart model
+    /// </summary>
+    /// <seealso cref="CryostatControlClient.Models.AbstractModel" />
     public class ChartModel : AbstractModel
     {
         #region Fields
+
+        /// <summary>
+        /// The room temperature
+        /// </summary>
+        private const int RoomTemperature = 300;
+
+        /// <summary>
+        /// The coldest temperature
+        /// </summary>
+        private const int ColdestTemperature = 0;
 
         /// <summary>
         /// The zooming mode
@@ -133,7 +147,7 @@ namespace CryostatControlClient.Models
                 double temp = this.yAxis.MaxValue;
                 if (double.IsNaN(temp))
                 {
-                    return 300;
+                    return RoomTemperature;
                 }
                 else
                 {
@@ -160,7 +174,7 @@ namespace CryostatControlClient.Models
                 double temp = this.yAxis.MinValue;
                 if (double.IsNaN(temp))
                 {
-                    return 0;
+                    return ColdestTemperature;
                 }
                 else
                 {
