@@ -70,9 +70,9 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         public He7Cooler()
         {
-            He7Cooler.Calibration he3Calibration = He7Cooler.Calibration.He3Calibration;
-            He7Cooler.Calibration he4Calibration = He7Cooler.Calibration.He4Calibration;
-            He7Cooler.Calibration diodeCalibration = He7Cooler.Calibration.DiodeCalibration;
+            Calibration he3Calibration = Calibration.He3Calibration;
+            Calibration he4Calibration = Calibration.He4Calibration;
+            Calibration diodeCalibration = Calibration.DiodeCalibration;
 
             this.He3PumpT = new Sensor(Channels.SensHe3PumpT, this, diodeCalibration);
             this.He4PumpT = new Sensor(Channels.SensHe4PumpT, this, diodeCalibration);
@@ -83,8 +83,8 @@ namespace CryostatControlServer.He7Cooler
             this.He4HeadT = new Sensor(Channels.SensHe4HeadT, this, he4Calibration);
             this.He3HeadT = new Sensor(Channels.SensHe3HeadT, this, he3Calibration);
 
-            this.He3Pump = new Heater(Channels.PumpHe3, Channels.SensHe3Pump, this.He3PumpT, 400, new Calibration("..\\..\\AMPLIFIERS.cal", 1, 0), this);
-            this.He4Pump = new Heater(Channels.PumpHe4, Channels.SensHe4Pump, this.He4PumpT, 200, new Calibration("..\\..\\AMPLIFIERS.cal", 2, 0), this);
+            this.He3Pump = new Heater(Channels.PumpHe3, Channels.SensHe3Pump, this.He3PumpT, 400, Calibration.He3AmplifierCalibration, this);
+            this.He4Pump = new Heater(Channels.PumpHe4, Channels.SensHe4Pump, this.He4PumpT, 200, Calibration.He4AmplifierCalibration, this);
             this.He3Switch = new Heater(Channels.SwitchHe3, Channels.SensHe3Switch, this);
             this.He4Switch = new Heater(Channels.SwitchHe4, Channels.SensHe4Switch, this);
 

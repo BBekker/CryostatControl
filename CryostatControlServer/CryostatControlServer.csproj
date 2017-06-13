@@ -151,6 +151,15 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Calibrations\AMPLIFIERS.cal">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Calibrations\DIODE.cal">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Calibrations\RUOX.cal">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
