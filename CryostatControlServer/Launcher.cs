@@ -3,10 +3,12 @@
 //      Copyright (c) SRON. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
+
 namespace CryostatControlServer
 {
     using System;
     using System.ServiceModel;
+    using System.Threading.Tasks;
 
     using CryostatControlServer.Data;
     using CryostatControlServer.HostService;
@@ -17,8 +19,6 @@ namespace CryostatControlServer
     /// </summary>
     public class Launcher
     {
-        #region Fields
-
         /// <summary>
         /// The host address for the compressor
         /// </summary>
@@ -30,24 +30,14 @@ namespace CryostatControlServer
         private const string CoolerHost = "192.168.1.100";
 
         /// <summary>
+        /// The logger
+        /// </summary>
+        private static LogThreader logger;
+
+        /// <summary>
         /// The compressor
         /// </summary>
-        private static Compressor.Compressor compressor;
-
-        /// <summary>
-        /// The lake shore
-        /// </summary>
-        private static LakeShore.LakeShore lakeShore;
-
-        /// <summary>
-        /// The he7 cooler
-        /// </summary>
-        private static He7Cooler.He7Cooler he7Cooler;
-
-        /// <summary>
-        /// The cryostat control.
-        /// </summary>
-        private static CryostatControl cryostatControl;
+        private static Compressor.Compressor compressor = new Compressor.Compressor();
 
         /// <summary>
         /// The controller.
@@ -55,61 +45,65 @@ namespace CryostatControlServer
         private static Controller controller;
 
         /// <summary>
-        /// The logger
+        /// The cryostat control.
         /// </summary>
-        private static LogThreader logger;
-
-        #endregion Fields
-
-        #region Methods
+        private static CryostatControl cryostatControl;
 
         /// <summary>
-        /// Main method
+        /// The he7 cooler
         /// </summary>
-        /// <param name="args">The arguments.</param>
-        public static void Main(string[] args)
-        {
-            InitComponents();         
-            logger = new LogThreader(new DataReader(compressor, he7Cooler, lakeShore), cryostatControl);
-            logger.StartGeneralDataLogging();
-            StartHost();
-        }
+        private static He7Cooler.He7Cooler he7Cooler = new He7Cooler.He7Cooler();
+
+        /// <summary>
+        /// The host.
+        /// </summary>
+        private static ServiceHost host;
+
+        /// <summary>
+        /// The lake shore
+        /// </summary>
+        private static LakeShore.LakeShore lakeShore = new LakeShore.LakeShore();
 
         /// <summary>
         /// Initializes the components.
         /// </summary>
-        private static void InitComponents()
+        public static void InitComponents()
         {
             var lakeShorePort = LakeShore.LakeShore.FindPort();
             if (lakeShorePort != null)
             {
-                lakeShore = new LakeShore.LakeShore();
-                lakeShore.Init(lakeShorePort);
+                new Task(() => { lakeShore.Init(lakeShorePort); }).Start();
             }
             else
             {
                 DebugLogger.Error("Launcher", "No connection with LakeShore");
             }
 
-            try
-            {
-                he7Cooler = new He7Cooler.He7Cooler();
-                he7Cooler.Connect(CoolerHost);
-            }
-            catch (Exception e)
-            {
-                DebugLogger.Error("Launcher", "No connection with He7 cooler");
-            }
+            new Task(
+                () =>
+                    {
+                        try
+                        {
+                            he7Cooler.Connect(CoolerHost);
+                        }
+                        catch (Exception)
+                        {
+                            DebugLogger.Error("Launcher", "No connection with He7 cooler");
+                        }
+                    }).Start();
 
-            try
-            {
-                compressor = new Compressor.Compressor();
-                compressor.Connect(CompressorHost);
-            }
-            catch (Exception e)
-            {
-                DebugLogger.Error("Launcher", "No connection with Compressor");
-            }
+            new Task(
+                () =>
+                    {
+                        try
+                        {
+                            compressor.Connect(CompressorHost);
+                        }
+                        catch (Exception)
+                        {
+                            DebugLogger.Error("Launcher", "No connection with Compressor");
+                        }
+                    }).Start();
 
             controller = new Controller(he7Cooler, lakeShore, compressor);
 
@@ -117,24 +111,46 @@ namespace CryostatControlServer
         }
 
         /// <summary>
+        /// The exit.
+        /// </summary>
+        public static void Exit()
+        {
+            try
+            {
+                host.Close();
+                lakeShore.Close();
+                compressor.Disconnect();
+                he7Cooler.Disconnect();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        /// <summary>
+        /// The launch.
+        /// </summary>
+        public static void Launch()
+        {
+            InitComponents();
+            logger = new LogThreader(new DataReader(compressor, he7Cooler, lakeShore), cryostatControl);
+            logger.StartGeneralDataLogging();
+            StartHost();
+        }
+
+        /// <summary>
         /// Starts the web service.
         /// </summary>
-        private static void StartHost()
+        public static void StartHost()
         {
-                CommandService hostService = new CommandService(cryostatControl, logger);
-                NotificationSender.Init(hostService);
-                using (ServiceHost host = new ServiceHost(hostService))
-                {
-                    ((ServiceBehaviorAttribute)host.Description.Behaviors[typeof(ServiceBehaviorAttribute)])
-                        .InstanceContextMode = InstanceContextMode.Single;
-                    host.Open();
-                    DebugLogger.Info("Launcher", "The service is ready");
-                    Console.WriteLine("Press <Enter> to stop the service.");
-                    Console.ReadLine();
-                    host.Close();
-                }
+            CommandService hostService = new CommandService(cryostatControl, logger);
+            NotificationSender.Init(hostService);
+            host = new ServiceHost(hostService);
+
+            ((ServiceBehaviorAttribute)host.Description.Behaviors[typeof(ServiceBehaviorAttribute)])
+                .InstanceContextMode = InstanceContextMode.Single;
+            host.Open();
+            DebugLogger.Info("Launcher", "The service is ready");
         }
     }
-
-    #endregion Methods
 }
