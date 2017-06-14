@@ -12,11 +12,11 @@ namespace CryostatControlClient.Communication
     using System;
     using System.ServiceModel;
 
+    using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.ViewModels;
 
     using CryostatControlServer.HostService.DataContracts;
     using CryostatControlServer.HostService.Enumerators;
-    using CryostatControlClient.ServiceReference1;
 
     /// <summary>
     /// Sends data to the server
@@ -134,8 +134,7 @@ namespace CryostatControlClient.Communication
             catch (Exception)
             {
                 Console.WriteLine("Something went wrong with the server");
-            }
-                       
+            }                      
         }
 
         /// <summary>

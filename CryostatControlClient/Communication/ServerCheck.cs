@@ -9,15 +9,15 @@
 
 namespace CryostatControlClient.Communication
 {
+    using System;
+    using System.Net;
+    using System.Net.Sockets;
     using System.ServiceModel;
     using System.Threading;
 
     using CryostatControlClient.ServiceReference1;
-    using CryostatControlClient.Views;
-    using System.Net.Sockets;
-    using System.Net;
     using CryostatControlClient.ViewModels;
-    using System;
+    using CryostatControlClient.Views;
 
     /// <summary>
     /// Class which checks continuously the connection with the server
@@ -73,15 +73,13 @@ namespace CryostatControlClient.Communication
         /// Initializes a new instance of the <see cref="ServerCheck" /> class.
         /// </summary>
         /// <param name="app">The application.</param>
-        /// <param name="commandClient">The command client.</param>
-        /// <param name="callbackClient">The callback client.</param>
         public ServerCheck(App app)
         {
             this.mainApp = app;
             this.mainWindow = this.mainApp.MainWindow as MainWindow;
             this.Connect();
             this.sender = new DataSender(this);
-            this.timer = new Timer(this.CheckStatus, null, 500, 2000);
+            this.timer = new Timer(this.CheckStatus, null, 500, Timeout.Infinite);
         }
 
         /// <summary>
@@ -101,13 +99,14 @@ namespace CryostatControlClient.Communication
         /// <summary>
         /// Gets the local ip address.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Combination of the clients internet address and current time</returns>
         private string GetRegisterKey()
         {
             if (this.ipAddress != string.Empty)
             {
-                return this.ipAddress + key;
+                return this.ipAddress + this.key;
             }
+
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
                 var host = Dns.GetHostEntry(Dns.GetHostName());
@@ -116,13 +115,13 @@ namespace CryostatControlClient.Communication
                     if (ip.AddressFamily == AddressFamily.InterNetwork)
                     {
                         this.ipAddress = ip.ToString();
-                        return ip.ToString() + key;
+                        return ip.ToString() + this.key;
                     }
                 }
             }
-            return "127.0.0.1" + key;
-        }
 
+            return this.key;
+        }
 
         /// <summary>
         /// Checks the status with the server.
@@ -134,20 +133,18 @@ namespace CryostatControlClient.Communication
             {
                 this.commandClient.IsAlive();
                 this.SetConnected(true);
-                if (firstTimeConnected)
+                if (this.firstTimeConnected)
                 {
                     this.SetCompressorScales();
                     this.SetLoggingState();
                 }
 
-                string key = this.GetRegisterKey();
-                Console.WriteLine("key is " + key);
-                if (!commandClient.IsRegisteredForData(key))
+                if (!this.commandClient.IsRegisteredForData(this.GetRegisterKey()))
                 {
                     this.callbackClient.SubscribeForData(1000, this.GetRegisterKey());
                 }
 
-                if (!commandClient.IsRegisteredForUpdates(this.GetRegisterKey()))
+                if (!this.commandClient.IsRegisteredForUpdates(this.GetRegisterKey()))
                 {
                     this.callbackClient.SubscribeForUpdates(this.GetRegisterKey());
                 }
@@ -159,7 +156,11 @@ namespace CryostatControlClient.Communication
                 this.SetConnected(false);
                 this.commandClient.Abort();
                 this.callbackClient.Abort();
-                Connect();
+                this.Connect();
+            }
+            finally
+            {
+                this.timer.Change(1000, Timeout.Infinite);
             }
         }
 
@@ -168,7 +169,7 @@ namespace CryostatControlClient.Communication
         /// </summary>
         private void Connect()
         {
-            key = DateTime.Now.ToString();
+            this.key = DateTime.Now.ToString();
             this.commandClient = new CommandServiceClient();
             this.mainApp.CommandServiceClient = this.commandClient;
             DataClientCallback callback = new DataClientCallback(this.mainApp);
@@ -229,6 +230,5 @@ namespace CryostatControlClient.Communication
                     });
             }
         }
-
     }
 }

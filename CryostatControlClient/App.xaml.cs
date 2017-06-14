@@ -17,8 +17,8 @@ namespace CryostatControlClient
     using CryostatControlClient.ServiceReference1;
 
     /// <summary>
-    /// Interaction logic for <see cref="App.xaml"/>
-    /// </summary>
+    /// Interaction logic for <see cref="App.xaml" /></summary>
+    /// <seealso cref="System.Windows.Application" />
     public partial class App
     {
         #region Fields
@@ -97,6 +97,10 @@ namespace CryostatControlClient
             this.serverCheck = new ServerCheck(this);
         }
 
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Application.Exit" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.Windows.ExitEventArgs" /> that contains the event data.</param>
         protected override void OnExit(ExitEventArgs e)
         {
             base.OnExit(e);

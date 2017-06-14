@@ -12,7 +12,6 @@ namespace CryostatControlServer.HostService
     using System.ServiceModel;
     using System.Threading;
 
-    using CryostatControlServer.Data;
     using CryostatControlServer.HostService.DataContracts;
     using CryostatControlServer.HostService.Enumerators;
     using CryostatControlServer.Logging;
@@ -271,17 +270,11 @@ namespace CryostatControlServer.HostService
         /// <inheritdoc cref="IDataGet.SubscribeForData"/>>
         public void SubscribeForData(int interval, string key)
         {
-            Console.WriteLine("Adding " + key);
-            foreach (KeyValuePair<string, Timer> callback in this.dataListeners)
-            {
-                Console.WriteLine("key: " + callback.Key.ToString());
-            }
             if (!this.dataListeners.ContainsKey(key))
             {
                 IDataGetCallback client =
                     OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
                 TimerPackage package = new TimerPackage(key, client, interval);
-                Console.WriteLine("added " + key);
                 this.dataListeners.Add(key, new Timer(this.TimerMethod, package, 0, Timeout.Infinite));
             }
         }
@@ -302,11 +295,8 @@ namespace CryostatControlServer.HostService
         {
             IDataGetCallback client =
                 OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            Console.WriteLine(client.ToString());
-            Console.WriteLine(updateListeners.ToString());
             if (!this.updateListeners.ContainsKey(key))
             {
-                Console.WriteLine("accepted");
                 this.updateListeners.Add(key, client);
             }
         }
@@ -339,6 +329,30 @@ namespace CryostatControlServer.HostService
         }
 
         /// <summary>
+        /// Determines whether [is registered for data] [the specified key].
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>
+        ///   <c>true</c> if [is registered for data] [the specified key]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsRegisteredForData(string key)
+        {
+            return this.dataListeners.ContainsKey(key);
+        }
+
+        /// <summary>
+        /// Determines whether [is registered for updates] [the specified key].
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>
+        ///   <c>true</c> if [is registered for updates] [the specified key]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsRegisteredForUpdates(string key)
+        {
+            return this.updateListeners.ContainsKey(key);
+        }
+
+        /// <summary>
         /// Sets the state of the logging to all clients.
         /// </summary>
         /// <param name="status">if set to <c>true</c> [status].</param>
@@ -354,9 +368,10 @@ namespace CryostatControlServer.HostService
         /// <summary>
         /// Sends the state of the logging.
         /// </summary>
+        /// <param name="key">The key.</param>
         /// <param name="callback">The callback.</param>
         /// <param name="status">if set to <c>true</c> [status].</param>
-        private void SendLoggingState(String key, IDataGetCallback callback, bool status)
+        private void SendLoggingState(string key, IDataGetCallback callback, bool status)
         {
             try
             {
@@ -371,13 +386,10 @@ namespace CryostatControlServer.HostService
         /// <summary>
         /// The send log notification.
         /// </summary>
-        /// <param name="callback">
-        /// The callback.
-        /// </param>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        private void UpdateNotification(String key, IDataGetCallback callback, string[] message)
+        /// <param name="key">The key.</param>
+        /// <param name="callback">The callback.</param>
+        /// <param name="message">The message.</param>
+        private void UpdateNotification(string key, IDataGetCallback callback, string[] message)
         {
             try
             {
@@ -401,7 +413,6 @@ namespace CryostatControlServer.HostService
             try
             {
                 Timer timer = this.dataListeners[package.Key];
-                Console.WriteLine("Sending data to {0}", package.Key);
                 client.SendData(data);
                 client.SendModus(this.GetState());
                 client.UpdateCountdown(this.cryostatControl.StartTime);
@@ -416,16 +427,6 @@ namespace CryostatControlServer.HostService
                     timer.Dispose();
                 }
             }
-        }
-
-        public bool IsRegisteredForData(string key)
-        {
-            return this.dataListeners.ContainsKey(key);
-        }
-
-        public bool IsRegisteredForUpdates(string key)
-        {
-            return this.updateListeners.ContainsKey(key);
         }
 
         #endregion Methods
