@@ -194,6 +194,11 @@ namespace CryostatControlServer.LakeShore
             }
         }
 
+        public bool IsConnected()
+        {
+            return this.stream?.IsConnected() ?? false;
+        }
+
         /// <summary>
         /// Sends OPC command to device and waits for response.
         /// Used to confirm connection and synchronisation of state of the device.
