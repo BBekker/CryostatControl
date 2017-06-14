@@ -1,5 +1,4 @@
 # Cryostat Control
-=======
 This project consists of software to control a cryostat. The software is written in C# and is divided in two projects, a server and a client.
 The server contains all the logic of the system. The client is the GUI to control and readout the server.
 Both server and client run on Windows.
