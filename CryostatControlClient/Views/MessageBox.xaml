@@ -22,7 +22,7 @@
 
             <Label Content="{Binding MessageBoxViewModel.MessageAttributesCount}"/>
             <Label Grid.Row="0" Style="{StaticResource NotificationTitle}">Notifications</Label>
-            <ListBox Grid.Row="1" ItemsSource="{Binding MessageBoxViewModel.MessageAttributes}" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <ListBox Grid.Row="1" ItemsSource="{Binding MessageBoxViewModel.Notifications}" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListBox.ItemTemplate>
                 <DataTemplate>  
                     <StackPanel Orientation="Horizontal">

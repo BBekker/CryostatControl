@@ -14,14 +14,14 @@
     <Setting Name="He3SwitchMaxVoltage" Type="System.Double" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="ControllerHe3HeaterVoltage" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">5</Value>
+    <Setting Name="ControllerHe3HeaterPower" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1.4</Value>
     </Setting>
     <Setting Name="ControllerHe3SwitchVoltage" Type="System.Double" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="ControllerHe4HeaterVoltage" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">10</Value>
+    <Setting Name="ControllerHe4HeaterPower" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="ControllerHe4SwitchVoltage" Type="System.Double" Scope="User">
       <Value Profile="(Default)">4</Value>

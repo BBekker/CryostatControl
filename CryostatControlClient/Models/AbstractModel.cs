@@ -9,6 +9,7 @@ namespace CryostatControlClient.Models
     using System.Linq;
 
     using LiveCharts.Defaults;
+    using LiveCharts.Geared;
     using LiveCharts.Wpf;
 
     /// <summary>
@@ -17,6 +18,16 @@ namespace CryostatControlClient.Models
     public abstract class AbstractModel
     {
         #region Fields
+
+        /// <summary>
+        /// The update time
+        /// </summary>
+        private const int UpdateTime = 31;
+
+        /// <summary>
+        /// The maximum amount of chart values
+        /// </summary>
+        private const int MaxChartValues = 3000;
 
         /// <summary>
         /// The size of the temporary lists. If these lists are full a new point is added to the graph. The bigger this number the less frequent a point gets added to the graph.
@@ -32,7 +43,7 @@ namespace CryostatControlClient.Models
         /// </summary>
         protected AbstractModel()
         {
-            this.temporaryListSize = 301;
+            this.temporaryListSize = UpdateTime;
         }
 
         #endregion Constructor
@@ -66,7 +77,7 @@ namespace CryostatControlClient.Models
         /// <returns>
         /// The temporary list updated.
         /// </returns>
-        public double[] AddToGraph(double[] temporaryList, LineSeries lineSeries, double value)
+        public double[] AddToGraph(double[] temporaryList, GLineSeries lineSeries, double value)
         {
             temporaryList[(int)temporaryList[this.temporaryListSize - 1]] = value;
 
@@ -80,7 +91,7 @@ namespace CryostatControlClient.Models
             if (temporaryList[this.temporaryListSize - 1] >= this.temporaryListSize - 2)
             {
                 lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round(temporaryList.Average() - 1, 3)));
-                if (lineSeries.Values.Count > 100)
+                if (lineSeries.Values.Count > MaxChartValues)
                 {
                     lineSeries.Values.RemoveAt(0);
                 }

@@ -61,7 +61,7 @@ namespace CryostatControlClient.Communication
             {
                 startTime = viewModelContainer.ModusViewModel.SelectedDate;
                 TimeSpan time = viewModelContainer.ModusViewModel.SelectedTime.TimeOfDay;
-                startTime = startTime.Add(time);
+                startTime = startTime.Date.Add(time);
 
                 switch (radio)
                 {

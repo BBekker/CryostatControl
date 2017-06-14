@@ -28,7 +28,7 @@ namespace CryostatControlClient.ViewModels
             this.LoggingViewModel = new LoggingViewModel();
             this.ModusViewModel = new ModusViewModel();
             this.SettingsViewModel = new SettingsViewModel();
-            this.ZoomingViewModel = new ZoomingViewModel();
+            this.ChartViewModel = new ChartViewModel();
             this.MessageBoxViewModel = new MessageBoxViewModel();
 
             this.InitSeriesCollection();
@@ -117,7 +117,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The zooming view model.
         /// </value>
-        public ZoomingViewModel ZoomingViewModel { get; }
+        public ChartViewModel ChartViewModel { get; }
 
         #endregion Properties
 
