@@ -25,6 +25,21 @@ namespace CryostatControlClient.Communication
     public class ServerCheck
     {
         /// <summary>
+        /// The wait time
+        /// </summary>
+        private const int WaitTime = 500;
+
+        /// <summary>
+        /// The check interval
+        /// </summary>
+        private const int CheckInterval = 1000;
+
+        /// <summary>
+        /// The subscribe interval
+        /// </summary>
+        private const int SubscribeInterval = 1000;
+
+        /// <summary>
         /// The callback client
         /// </summary>
         private DataGetClient callbackClient;
@@ -79,7 +94,7 @@ namespace CryostatControlClient.Communication
             this.mainWindow = this.mainApp.MainWindow as MainWindow;
             this.Connect();
             this.sender = new DataSender(this);
-            this.timer = new Timer(this.CheckStatus, null, 500, Timeout.Infinite);
+            this.timer = new Timer(this.CheckStatus, null, WaitTime, Timeout.Infinite);
         }
 
         /// <summary>
@@ -141,7 +156,7 @@ namespace CryostatControlClient.Communication
 
                 if (!this.commandClient.IsRegisteredForData(this.GetRegisterKey()))
                 {
-                    this.callbackClient.SubscribeForData(1000, this.GetRegisterKey());
+                    this.callbackClient.SubscribeForData(SubscribeInterval, this.GetRegisterKey());
                 }
 
                 if (!this.commandClient.IsRegisteredForUpdates(this.GetRegisterKey()))
@@ -160,7 +175,7 @@ namespace CryostatControlClient.Communication
             }
             finally
             {
-                this.timer.Change(1000, Timeout.Infinite);
+                this.timer.Change(CheckInterval, Timeout.Infinite);
             }
         }
 

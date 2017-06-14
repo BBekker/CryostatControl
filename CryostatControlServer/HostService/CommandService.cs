@@ -402,7 +402,7 @@ namespace CryostatControlServer.HostService
         }
 
         /// <summary>
-        /// Timer method to send mock data
+        /// Timer method to sent update data to the clients
         /// </summary>
         /// <param name="state">The state.</param>
         private void TimerMethod(object state)
