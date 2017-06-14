@@ -404,7 +404,7 @@ namespace CryostatControlServer.HostService
         /// <summary>
         /// Timer method to sent update data to the clients
         /// </summary>
-        /// <param name="state">The state.</param>
+        /// <param name="state">State should contain TimerPackage</param>
         private void TimerMethod(object state)
         {
             TimerPackage package = (TimerPackage)state;

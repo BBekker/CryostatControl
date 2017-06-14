@@ -140,6 +140,11 @@ namespace CryostatControlClient.Communication
 
         /// <summary>
         /// Checks the status with the server.
+        /// Firstly it calls the server to see if it is alive. 
+        /// If the server is alive nothing happens else an exception is thrown and the connections are aborted and a reconnect is started.
+        /// If the client is for the first time connect to the client it updates some GUI elements.
+        /// Further it checks if it subscribed for data and updates, if not it subscribes for data.
+        /// Finally the timer is reactivated for a new execution.
         /// </summary>
         /// <param name="state">The state.</param>
         private void CheckStatus(object state)
