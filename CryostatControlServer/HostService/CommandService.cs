@@ -269,52 +269,52 @@ namespace CryostatControlServer.HostService
         }
 
         /// <inheritdoc cref="IDataGet.SubscribeForData"/>>
-        public void SubscribeForData(int interval, string ipAddress)
+        public void SubscribeForData(int interval, string key)
         {
-            Console.WriteLine("Adding " + ipAddress);
+            Console.WriteLine("Adding " + key);
             foreach (KeyValuePair<string, Timer> callback in this.dataListeners)
             {
                 Console.WriteLine("key: " + callback.Key.ToString());
             }
-            if (!this.dataListeners.ContainsKey(ipAddress))
+            if (!this.dataListeners.ContainsKey(key))
             {
                 IDataGetCallback client =
                     OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-                TimerPackage package = new TimerPackage(ipAddress, client);
-                Console.WriteLine("added " + ipAddress);
-                this.dataListeners.Add(ipAddress, new Timer(this.TimerMethod, package, 100, interval));
+                TimerPackage package = new TimerPackage(key, client, interval);
+                Console.WriteLine("added " + key);
+                this.dataListeners.Add(key, new Timer(this.TimerMethod, package, 0, Timeout.Infinite));
             }
         }
 
         /// <inheritdoc cref="IDataGet.UnsubscribeForData"/>>
-        public void UnsubscribeForData(string ipAddress)
+        public void UnsubscribeForData(string key)
         {
-            if (this.dataListeners.ContainsKey(ipAddress))
+            if (this.dataListeners.ContainsKey(key))
             {
-                Timer timer = this.dataListeners[ipAddress];
+                Timer timer = this.dataListeners[key];
                 timer.Dispose();
-                this.dataListeners.Remove(ipAddress);
+                this.dataListeners.Remove(key);
             }
         }
 
         /// <inheritdoc cref="IDataGet.SubscribeForUpdates"/>>
-        public void SubscribeForUpdates(string ipAddress)
+        public void SubscribeForUpdates(string key)
         {
             IDataGetCallback client =
                 OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
             Console.WriteLine(client.ToString());
             Console.WriteLine(updateListeners.ToString());
-            if (!this.updateListeners.ContainsKey(ipAddress))
+            if (!this.updateListeners.ContainsKey(key))
             {
                 Console.WriteLine("accepted");
-                this.updateListeners.Add(ipAddress, client);
+                this.updateListeners.Add(key, client);
             }
         }
 
         /// <inheritdoc cref="IDataGet.UnsubscribeForUpdates"/>>
-        public void UnsubscribeForUpdates(string ipAddress)
+        public void UnsubscribeForUpdates(string key)
         {
-            this.updateListeners.Remove(ipAddress);
+            this.updateListeners.Remove(key);
         }
 
         /// <inheritdoc cref="ICommandService.IsLogging"/>>
@@ -338,16 +338,6 @@ namespace CryostatControlServer.HostService
             }
         }
 
-        public bool IsRegisteredForData(string ip)
-        {
-            return this.dataListeners.ContainsKey(ip);
-        }
-
-        public bool IsRegisteredForUpdates(string ip)
-        {
-            return this.updateListeners.ContainsKey(ip);
-        }
-
         /// <summary>
         /// Sets the state of the logging to all clients.
         /// </summary>
@@ -366,7 +356,7 @@ namespace CryostatControlServer.HostService
         /// </summary>
         /// <param name="callback">The callback.</param>
         /// <param name="status">if set to <c>true</c> [status].</param>
-        private void SendLoggingState(String ipAddress, IDataGetCallback callback, bool status)
+        private void SendLoggingState(String key, IDataGetCallback callback, bool status)
         {
             try
             {
@@ -374,7 +364,7 @@ namespace CryostatControlServer.HostService
             }
             catch
             {
-                this.updateListeners.Remove(ipAddress);
+                this.updateListeners.Remove(key);
             }
         }
 
@@ -387,7 +377,7 @@ namespace CryostatControlServer.HostService
         /// <param name="message">
         /// The message.
         /// </param>
-        private void UpdateNotification(String ipAddress, IDataGetCallback callback, string[] message)
+        private void UpdateNotification(String key, IDataGetCallback callback, string[] message)
         {
             try
             {
@@ -395,7 +385,7 @@ namespace CryostatControlServer.HostService
             }
             catch
             {
-                this.updateListeners.Remove(ipAddress);
+                this.updateListeners.Remove(key);
             }
         }
 
@@ -410,15 +400,32 @@ namespace CryostatControlServer.HostService
             double[] data = this.cryostatControl.ReadData();
             try
             {
-                Console.WriteLine("Sending data to {0}", package.IpAddress);
+                Timer timer = this.dataListeners[package.Key];
+                Console.WriteLine("Sending data to {0}", package.Key);
                 client.SendData(data);
                 client.SendModus(this.GetState());
                 client.UpdateCountdown(this.cryostatControl.StartTime);
+                timer.Change(package.WaitTime, Timeout.Infinite);
             }
             catch
             {
-                this.dataListeners.Remove(package.IpAddress);
+                if (this.dataListeners.ContainsKey(package.Key))
+                {
+                    Timer timer = this.dataListeners[package.Key];
+                    this.dataListeners.Remove(package.Key);
+                    timer.Dispose();
+                }
             }
+        }
+
+        public bool IsRegisteredForData(string key)
+        {
+            return this.dataListeners.ContainsKey(key);
+        }
+
+        public bool IsRegisteredForUpdates(string key)
+        {
+            return this.updateListeners.ContainsKey(key);
         }
 
         #endregion Methods

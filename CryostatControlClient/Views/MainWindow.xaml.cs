@@ -162,8 +162,8 @@ namespace CryostatControlClient.Views
             this.viewModelContainer.LoggingViewModel.PropertyChanged += this.loggerHandler;
             this.viewModelContainer.He7ViewModel.PropertyChanged += this.heliumHandler;
 
-            this.dataSender.SetCompressorScales(this.viewModelContainer);
-            this.dataSender.SetLoggerState(this.viewModelContainer);
+            //this.dataSender.SetCompressorScales(this.viewModelContainer);
+            //this.dataSender.SetLoggerState(this.viewModelContainer);
         }
 
         /// <summary>

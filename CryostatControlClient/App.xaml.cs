@@ -97,6 +97,12 @@ namespace CryostatControlClient
             this.serverCheck = new ServerCheck(this);
         }
 
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+            Environment.Exit(0);
+        }
+
         #endregion Methods
     }
 }

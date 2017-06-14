@@ -81,6 +81,7 @@ namespace CryostatControlServer.Data
                 }
             }
 
+            this.FillWithMockData(data);
             return data;
         }
 

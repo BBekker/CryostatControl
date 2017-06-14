@@ -268,10 +268,10 @@ namespace CryostatControlServer.HostService
         bool IsLogging();
 
         [OperationContract]
-        bool IsRegisteredForData(string ip);
+        bool IsRegisteredForData(string key);
 
         [OperationContract]
-        bool IsRegisteredForUpdates(string ip);
+        bool IsRegisteredForUpdates(string key);
 
 
         #endregion Methods

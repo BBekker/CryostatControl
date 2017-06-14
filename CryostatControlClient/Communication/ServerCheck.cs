@@ -16,6 +16,8 @@ namespace CryostatControlClient.Communication
     using CryostatControlClient.Views;
     using System.Net.Sockets;
     using System.Net;
+    using CryostatControlClient.ViewModels;
+    using System;
 
     /// <summary>
     /// Class which checks continuously the connection with the server
@@ -57,8 +59,15 @@ namespace CryostatControlClient.Communication
         /// </summary>
         private Timer timer;
 
-
+        /// <summary>
+        /// The ip address
+        /// </summary>
         private string ipAddress = string.Empty;
+
+        /// <summary>
+        /// The key
+        /// </summary>
+        private string key;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ServerCheck" /> class.
@@ -72,7 +81,7 @@ namespace CryostatControlClient.Communication
             this.mainWindow = this.mainApp.MainWindow as MainWindow;
             this.Connect();
             this.sender = new DataSender(this);
-            this.timer = new Timer(this.CheckStatus, null, 5000, 2000);
+            this.timer = new Timer(this.CheckStatus, null, 500, 2000);
         }
 
         /// <summary>
@@ -93,11 +102,11 @@ namespace CryostatControlClient.Communication
         /// Gets the local ip address.
         /// </summary>
         /// <returns></returns>
-        private string GetLocalIPAddress()
+        private string GetRegisterKey()
         {
             if (this.ipAddress != string.Empty)
             {
-                return this.ipAddress;
+                return this.ipAddress + key;
             }
             if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {
@@ -107,11 +116,11 @@ namespace CryostatControlClient.Communication
                     if (ip.AddressFamily == AddressFamily.InterNetwork)
                     {
                         this.ipAddress = ip.ToString();
-                        return ip.ToString();
+                        return ip.ToString() + key;
                     }
                 }
             }
-            return "127.0.0.1";
+            return "127.0.0.1" + key;
         }
 
 
@@ -123,46 +132,49 @@ namespace CryostatControlClient.Communication
         {
             try
             {
-                if (this.commandClient.IsAlive())
+                this.commandClient.IsAlive();
+                this.SetConnected(true);
+                if (firstTimeConnected)
                 {
-                    this.SetConnected(true);                  
-                        this.mainApp.Dispatcher.Invoke(
-                            () =>
-                                {
-                                    this.sender.SetCompressorScales((this.mainApp.MainWindow as MainWindow).Container);
-                                });
-                        this.firstTimeConnected = false;
-                    if (!commandClient.IsRegisteredForData(this.GetLocalIPAddress()))
-                    {
-                        this.callbackClient.SubscribeForData(1000, this.GetLocalIPAddress());
-                    }
-                    if (!commandClient.IsRegisteredForUpdates(this.GetLocalIPAddress()))
-                    {
-                        this.callbackClient.SubscribeForUpdates(this.GetLocalIPAddress());
-                    }
+                    this.SetCompressorScales();
+                    this.SetLoggingState();
                 }
-                else
+
+                string key = this.GetRegisterKey();
+                Console.WriteLine("key is " + key);
+                if (!commandClient.IsRegisteredForData(key))
                 {
-                    this.SetConnected(false);
+                    this.callbackClient.SubscribeForData(1000, this.GetRegisterKey());
                 }
+
+                if (!commandClient.IsRegisteredForUpdates(this.GetRegisterKey()))
+                {
+                    this.callbackClient.SubscribeForUpdates(this.GetRegisterKey());
+                }
+
+                this.firstTimeConnected = false;
             }
             catch (CommunicationException)
             {
                 this.SetConnected(false);
                 this.commandClient.Abort();
                 this.callbackClient.Abort();
-                this.firstTimeConnected = true;
                 Connect();
             }
         }
 
+        /// <summary>
+        /// Connects the client to the server.
+        /// </summary>
         private void Connect()
         {
+            key = DateTime.Now.ToString();
             this.commandClient = new CommandServiceClient();
             this.mainApp.CommandServiceClient = this.commandClient;
             DataClientCallback callback = new DataClientCallback(this.mainApp);
             InstanceContext instanceContext = new InstanceContext(callback);
             this.callbackClient = new DataGetClient(instanceContext);
+            this.firstTimeConnected = true;
         }
 
         /// <summary>
@@ -171,8 +183,52 @@ namespace CryostatControlClient.Communication
         /// <param name="state">if set to <c>true</c> [state].</param>
         private void SetConnected(bool state)
         {
-            this.mainApp.Dispatcher.Invoke(
-                () => { ((MainWindow)this.mainApp?.MainWindow).Container.ModusViewModel.ServerConnection = state; });
+            if (this.mainApp != null)
+            {
+                this.mainApp.Dispatcher.Invoke(
+                    () =>
+                    {
+                        if ((MainWindow)this.mainApp.MainWindow != null)
+                        {
+                            ViewModelContainer container = ((MainWindow)this.mainApp.MainWindow).Container;
+                            if (container != null)
+                            {
+                                container.ModusViewModel.ServerConnection = state;
+                            }
+                        }
+                    });
+            }
         }
+
+        /// <summary>
+        /// Sets the compressor scales.
+        /// </summary>
+        private void SetCompressorScales()
+        {
+            if (this.mainApp != null)
+            {
+                this.mainApp.Dispatcher.Invoke(
+                    () =>
+                    {
+                        this.sender.SetCompressorScales((this.mainApp.MainWindow as MainWindow).Container);
+                    });
+            }
+        }
+
+        /// <summary>
+        /// Sets the state of the logging.
+        /// </summary>
+        private void SetLoggingState()
+        {
+            if (this.mainApp != null)
+            {
+                this.mainApp.Dispatcher.Invoke(
+                    () =>
+                    {
+                        this.sender.SetLoggerState((this.mainApp.MainWindow as MainWindow).Container);
+                    });
+            }
+        }
+
     }
 }

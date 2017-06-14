@@ -3,14 +3,17 @@
     public class TimerPackage
     {
 
-        public TimerPackage(string ipAddress, IDataGetCallback callback)
+        public TimerPackage(string key, IDataGetCallback callback, int waitTime)
         {
-            this.IpAddress = ipAddress;
+            this.Key = key;
             this.Callback = callback;
+            this.WaitTime = waitTime;
         }
 
-        public string IpAddress { get; set; }
+        public string Key { get; set; }
 
         public IDataGetCallback Callback { get; set; }
+
+        public int WaitTime { get; set; }
     }
 }

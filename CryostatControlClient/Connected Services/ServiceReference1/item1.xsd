@@ -299,7 +299,7 @@
   <xs:element name="IsRegisteredForData">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="ip" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -313,7 +313,7 @@
   <xs:element name="IsRegisteredForUpdates">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="ip" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -328,28 +328,28 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="interval" type="xs:int" />
-        <xs:element minOccurs="0" name="ip" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UnsubscribeForData">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="ip" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SubscribeForUpdates">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="ip" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UnsubscribeForUpdates">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="ip" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

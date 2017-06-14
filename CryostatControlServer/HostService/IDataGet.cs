@@ -22,25 +22,25 @@ namespace CryostatControlServer.HostService
         /// </summary>
         /// <param name="interval">The interval.</param>
         [OperationContract(IsOneWay = true)]
-        void SubscribeForData(int interval, string ip);
+        void SubscribeForData(int interval, string key);
 
         /// <summary>
         /// Unsubscribes for data callback.
         /// </summary>
         [OperationContract(IsOneWay = true)]
-        void UnsubscribeForData(string ip);
+        void UnsubscribeForData(string key);
 
         /// <summary>
         /// Subscribes for data callback for receiving update message.
         /// </summary>
         [OperationContract(IsOneWay = true)]
-        void SubscribeForUpdates(string ip);
+        void SubscribeForUpdates(string key);
 
         /// <summary>
         /// Unsubscribes for data callback for receiving update message.
         /// </summary>
         [OperationContract(IsOneWay = true)]
-        void UnsubscribeForUpdates(string ip);
+        void UnsubscribeForUpdates(string key);
 
         #endregion Methods
     }
