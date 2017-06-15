@@ -52,8 +52,6 @@ namespace CryostatControlServer.HostService
         [OperationContract(IsOneWay = true)]
         void UpdateCountdown(DateTime time);
 
-
-
         #endregion Methods
     }
 }

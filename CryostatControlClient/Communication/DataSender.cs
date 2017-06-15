@@ -12,6 +12,7 @@ namespace CryostatControlClient.Communication
     using System;
     using System.ServiceModel;
 
+    using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.ViewModels;
 
     using CryostatControlServer.HostService.DataContracts;
@@ -121,16 +122,19 @@ namespace CryostatControlClient.Communication
         {
             try
             {
-                viewModelContainer.CompressorViewModel.TempScale =
-                    this.server.CommandClient.ReadCompressorTemperatureScale();
-                viewModelContainer.CompressorViewModel.PressureScale =
-                    this.server.CommandClient.ReadCompressorPressureScale();
-                Console.WriteLine("Dingen");
+                CommandServiceClient commandClient = this.server.CommandClient;
+                if (commandClient.State == CommunicationState.Opened && viewModelContainer != null)
+                {
+                    viewModelContainer.CompressorViewModel.TempScale =
+                        commandClient.ReadCompressorTemperatureScale();
+                    viewModelContainer.CompressorViewModel.PressureScale =
+                        commandClient.ReadCompressorPressureScale();
+                }
             }
             catch (Exception)
             {
                 Console.WriteLine("Something went wrong with the server");
-            }
+            }                      
         }
 
         /// <summary>
@@ -141,7 +145,11 @@ namespace CryostatControlClient.Communication
         {
             try
             {
-                viewModelContainer.LoggingViewModel.LoggingInProgress = this.server.CommandClient.IsLogging();
+                CommandServiceClient commandClient = this.server.CommandClient;
+                if (commandClient.State == CommunicationState.Opened && viewModelContainer != null)
+                {
+                    viewModelContainer.LoggingViewModel.LoggingInProgress = this.server.CommandClient.IsLogging();
+                }
             }
             catch
             {
