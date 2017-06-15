@@ -18,6 +18,7 @@ namespace CryostatControlClient.ViewModels
 
     using LiveCharts;
     using LiveCharts.Defaults;
+    using LiveCharts.Geared;
     using LiveCharts.Wpf;
 
     /// <summary>
@@ -147,7 +148,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The cold plate3 k line series.
         /// </value>
-        public LineSeries ColdPlate3KLineSeriesBottom
+        public GLineSeries ColdPlate3KLineSeriesBottom
         {
             get
             {
@@ -161,7 +162,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The cold plate3 k line series.
         /// </value>
-        public LineSeries ColdPlate50KLineSeriesBottom
+        public GLineSeries ColdPlate50KLineSeriesBottom
         {
             get
             {
@@ -175,7 +176,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The cold plate3 k line series.
         /// </value>
-        public LineSeries ColdPlate3KLineSeries
+        public GLineSeries ColdPlate3KLineSeries
         {
             get
             {
@@ -189,7 +190,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The cold plate3 k line series.
         /// </value>
-        public LineSeries ColdPlate50KLineSeries
+        public GLineSeries ColdPlate50KLineSeries
         {
             get
             {

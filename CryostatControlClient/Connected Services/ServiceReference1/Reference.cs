@@ -154,6 +154,18 @@ namespace CryostatControlClient.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsLogging", ReplyAction="http://tempuri.org/ICommandService/IsLoggingResponse")]
         System.Threading.Tasks.Task<bool> IsLoggingAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsRegisteredForData", ReplyAction="http://tempuri.org/ICommandService/IsRegisteredForDataResponse")]
+        bool IsRegisteredForData(string key);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsRegisteredForData", ReplyAction="http://tempuri.org/ICommandService/IsRegisteredForDataResponse")]
+        System.Threading.Tasks.Task<bool> IsRegisteredForDataAsync(string key);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsRegisteredForUpdates", ReplyAction="http://tempuri.org/ICommandService/IsRegisteredForUpdatesResponse")]
+        bool IsRegisteredForUpdates(string key);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsRegisteredForUpdates", ReplyAction="http://tempuri.org/ICommandService/IsRegisteredForUpdatesResponse")]
+        System.Threading.Tasks.Task<bool> IsRegisteredForUpdatesAsync(string key);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -366,6 +378,22 @@ namespace CryostatControlClient.ServiceReference1 {
         public System.Threading.Tasks.Task<bool> IsLoggingAsync() {
             return base.Channel.IsLoggingAsync();
         }
+        
+        public bool IsRegisteredForData(string key) {
+            return base.Channel.IsRegisteredForData(key);
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsRegisteredForDataAsync(string key) {
+            return base.Channel.IsRegisteredForDataAsync(key);
+        }
+        
+        public bool IsRegisteredForUpdates(string key) {
+            return base.Channel.IsRegisteredForUpdates(key);
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsRegisteredForUpdatesAsync(string key) {
+            return base.Channel.IsRegisteredForUpdatesAsync(key);
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -373,28 +401,28 @@ namespace CryostatControlClient.ServiceReference1 {
     public interface IDataGet {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SubscribeForData")]
-        void SubscribeForData(int interval);
+        void SubscribeForData(int interval, string key);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SubscribeForData")]
-        System.Threading.Tasks.Task SubscribeForDataAsync(int interval);
+        System.Threading.Tasks.Task SubscribeForDataAsync(int interval, string key);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UnsubscribeForData")]
-        void UnsubscribeForData();
+        void UnsubscribeForData(string key);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UnsubscribeForData")]
-        System.Threading.Tasks.Task UnsubscribeForDataAsync();
+        System.Threading.Tasks.Task UnsubscribeForDataAsync(string key);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SubscribeForUpdates")]
-        void SubscribeForUpdates();
+        void SubscribeForUpdates(string key);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SubscribeForUpdates")]
-        System.Threading.Tasks.Task SubscribeForUpdatesAsync();
+        System.Threading.Tasks.Task SubscribeForUpdatesAsync(string key);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UnsubscribeForUpdates")]
-        void UnsubscribeForUpdates();
+        void UnsubscribeForUpdates(string key);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UnsubscribeForUpdates")]
-        System.Threading.Tasks.Task UnsubscribeForUpdatesAsync();
+        System.Threading.Tasks.Task UnsubscribeForUpdatesAsync(string key);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -444,36 +472,36 @@ namespace CryostatControlClient.ServiceReference1 {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void SubscribeForData(int interval) {
-            base.Channel.SubscribeForData(interval);
+        public void SubscribeForData(int interval, string key) {
+            base.Channel.SubscribeForData(interval, key);
         }
         
-        public System.Threading.Tasks.Task SubscribeForDataAsync(int interval) {
-            return base.Channel.SubscribeForDataAsync(interval);
+        public System.Threading.Tasks.Task SubscribeForDataAsync(int interval, string key) {
+            return base.Channel.SubscribeForDataAsync(interval, key);
         }
         
-        public void UnsubscribeForData() {
-            base.Channel.UnsubscribeForData();
+        public void UnsubscribeForData(string key) {
+            base.Channel.UnsubscribeForData(key);
         }
         
-        public System.Threading.Tasks.Task UnsubscribeForDataAsync() {
-            return base.Channel.UnsubscribeForDataAsync();
+        public System.Threading.Tasks.Task UnsubscribeForDataAsync(string key) {
+            return base.Channel.UnsubscribeForDataAsync(key);
         }
         
-        public void SubscribeForUpdates() {
-            base.Channel.SubscribeForUpdates();
+        public void SubscribeForUpdates(string key) {
+            base.Channel.SubscribeForUpdates(key);
         }
         
-        public System.Threading.Tasks.Task SubscribeForUpdatesAsync() {
-            return base.Channel.SubscribeForUpdatesAsync();
+        public System.Threading.Tasks.Task SubscribeForUpdatesAsync(string key) {
+            return base.Channel.SubscribeForUpdatesAsync(key);
         }
         
-        public void UnsubscribeForUpdates() {
-            base.Channel.UnsubscribeForUpdates();
+        public void UnsubscribeForUpdates(string key) {
+            base.Channel.UnsubscribeForUpdates(key);
         }
         
-        public System.Threading.Tasks.Task UnsubscribeForUpdatesAsync() {
-            return base.Channel.UnsubscribeForUpdatesAsync();
+        public System.Threading.Tasks.Task UnsubscribeForUpdatesAsync(string key) {
+            return base.Channel.UnsubscribeForUpdatesAsync(key);
         }
     }
 }

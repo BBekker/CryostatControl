@@ -72,10 +72,13 @@ namespace CryostatControlClient.Communication
         /// </param>
         public void UpdateNotification(string[] notification, ViewModelContainer dataContext)
         {
-            if (dataContext != null)
+            App.Current.Dispatcher.Invoke((Action)delegate
             {
-                dataContext.MessageBoxViewModel.Message = notification;
-            }
+                if (dataContext != null)
+                {
+                    dataContext.MessageBoxViewModel.Message = notification;
+                }
+            });
         }
 
         /// <summary>
