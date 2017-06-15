@@ -194,6 +194,12 @@ namespace CryostatControlServer.LakeShore
             }
         }
 
+        /// <summary>
+        /// Is the lakeshore connected.
+        /// </summary>
+        /// <returns>
+        /// Returns whether the lakeshore is connected <see cref="bool"/>.
+        /// </returns>
         public bool IsConnected()
         {
             return this.stream?.IsConnected() ?? false;
