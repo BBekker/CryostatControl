@@ -9,10 +9,14 @@
 
 namespace CryostatControlClient.Communication
 {
+    using System;
+    using System.Net;
+    using System.Net.Sockets;
     using System.ServiceModel;
     using System.Threading;
 
     using CryostatControlClient.ServiceReference1;
+    using CryostatControlClient.ViewModels;
     using CryostatControlClient.Views;
 
     /// <summary>
@@ -20,6 +24,21 @@ namespace CryostatControlClient.Communication
     /// </summary>
     public class ServerCheck
     {
+        /// <summary>
+        /// The wait time
+        /// </summary>
+        private const int WaitTime = 500;
+
+        /// <summary>
+        /// The check interval
+        /// </summary>
+        private const int CheckInterval = 1000;
+
+        /// <summary>
+        /// The subscribe interval
+        /// </summary>
+        private const int SubscribeInterval = 1000;
+
         /// <summary>
         /// The callback client
         /// </summary>
@@ -56,19 +75,26 @@ namespace CryostatControlClient.Communication
         private Timer timer;
 
         /// <summary>
+        /// The ip address
+        /// </summary>
+        private string ipAddress = string.Empty;
+
+        /// <summary>
+        /// The key
+        /// </summary>
+        private string key;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ServerCheck" /> class.
         /// </summary>
         /// <param name="app">The application.</param>
-        /// <param name="commandClient">The command client.</param>
-        /// <param name="callbackClient">The callback client.</param>
-        public ServerCheck(App app, CommandServiceClient commandClient, DataGetClient callbackClient)
+        public ServerCheck(App app)
         {
             this.mainApp = app;
             this.mainWindow = this.mainApp.MainWindow as MainWindow;
-            this.commandClient = commandClient;
-            this.callbackClient = callbackClient;
+            this.Connect();
             this.sender = new DataSender(this);
-            this.timer = new Timer(this.CheckStatus, null, 5000, 2000);
+            this.timer = new Timer(this.CheckStatus, null, WaitTime, Timeout.Infinite);
         }
 
         /// <summary>
@@ -86,43 +112,90 @@ namespace CryostatControlClient.Communication
         }
 
         /// <summary>
+        /// Gets the local ip address.
+        /// </summary>
+        /// <returns>Combination of the clients internet address and current time</returns>
+        private string GetRegisterKey()
+        {
+            if (this.ipAddress != string.Empty)
+            {
+                return this.ipAddress + this.key;
+            }
+
+            if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+            {
+                var host = Dns.GetHostEntry(Dns.GetHostName());
+                foreach (var ip in host.AddressList)
+                {
+                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        this.ipAddress = ip.ToString();
+                        return ip.ToString() + this.key;
+                    }
+                }
+            }
+
+            return this.key;
+        }
+
+        /// <summary>
         /// Checks the status with the server.
+        /// Firstly it calls the server to see if it is alive. 
+        /// If the server is alive nothing happens else an exception is thrown and the connections are aborted and a reconnect is started.
+        /// If the client is for the first time connect to the client it updates some GUI elements.
+        /// Further it checks if it subscribed for data and updates, if not it subscribes for data.
+        /// Finally the timer is reactivated for a new execution.
         /// </summary>
         /// <param name="state">The state.</param>
         private void CheckStatus(object state)
         {
             try
             {
-                if (this.commandClient.IsAlive())
+                this.commandClient.IsAlive();
+                this.SetConnected(true);
+                if (this.firstTimeConnected)
                 {
-                    this.SetConnected(true);
-                    if (this.firstTimeConnected)
-                    {
-                        this.mainApp.Dispatcher.Invoke(
-                            () =>
-                                {
-                                    this.sender.SetCompressorScales((this.mainApp.MainWindow as MainWindow).Container);
-                                });
-                        this.firstTimeConnected = false;
-                        this.callbackClient.SubscribeForData(1000);
-                    }
+                    this.SetCompressorScales();
+                    this.SetLoggingState();
                 }
-                else
+
+                if (!this.commandClient.IsRegisteredForData(this.GetRegisterKey()))
                 {
-                    this.SetConnected(false);
+                    this.callbackClient.SubscribeForData(SubscribeInterval, this.GetRegisterKey());
                 }
+
+                if (!this.commandClient.IsRegisteredForUpdates(this.GetRegisterKey()))
+                {
+                    this.callbackClient.SubscribeForUpdates(this.GetRegisterKey());
+                }
+
+                this.firstTimeConnected = false;
             }
             catch (CommunicationException)
             {
                 this.SetConnected(false);
                 this.commandClient.Abort();
-                this.firstTimeConnected = true;
-                this.commandClient = new CommandServiceClient();
-                this.mainApp.CommandServiceClient = this.commandClient;
-                DataClientCallback callback = new DataClientCallback(this.mainApp);
-                InstanceContext instanceContext = new InstanceContext(callback);
-                this.callbackClient = new DataGetClient(instanceContext);
+                this.callbackClient.Abort();
+                this.Connect();
             }
+            finally
+            {
+                this.timer.Change(CheckInterval, Timeout.Infinite);
+            }
+        }
+
+        /// <summary>
+        /// Connects the client to the server.
+        /// </summary>
+        private void Connect()
+        {
+            this.key = DateTime.Now.ToString();
+            this.commandClient = new CommandServiceClient();
+            this.mainApp.CommandServiceClient = this.commandClient;
+            DataClientCallback callback = new DataClientCallback(this.mainApp);
+            InstanceContext instanceContext = new InstanceContext(callback);
+            this.callbackClient = new DataGetClient(instanceContext);
+            this.firstTimeConnected = true;
         }
 
         /// <summary>
@@ -131,8 +204,51 @@ namespace CryostatControlClient.Communication
         /// <param name="state">if set to <c>true</c> [state].</param>
         private void SetConnected(bool state)
         {
-            this.mainApp.Dispatcher.Invoke(
-                () => { ((MainWindow)this.mainApp?.MainWindow).Container.ModusViewModel.ServerConnection = state; });
+            if (this.mainApp != null)
+            {
+                this.mainApp.Dispatcher.Invoke(
+                    () =>
+                    {
+                        if ((MainWindow)this.mainApp.MainWindow != null)
+                        {
+                            ViewModelContainer container = ((MainWindow)this.mainApp.MainWindow).Container;
+                            if (container != null)
+                            {
+                                container.ModusViewModel.ServerConnection = state;
+                            }
+                        }
+                    });
+            }
+        }
+
+        /// <summary>
+        /// Sets the compressor scales.
+        /// </summary>
+        private void SetCompressorScales()
+        {
+            if (this.mainApp != null)
+            {
+                this.mainApp.Dispatcher.Invoke(
+                    () =>
+                    {
+                        this.sender.SetCompressorScales((this.mainApp.MainWindow as MainWindow).Container);
+                    });
+            }
+        }
+
+        /// <summary>
+        /// Sets the state of the logging.
+        /// </summary>
+        private void SetLoggingState()
+        {
+            if (this.mainApp != null)
+            {
+                this.mainApp.Dispatcher.Invoke(
+                    () =>
+                    {
+                        this.sender.SetLoggerState((this.mainApp.MainWindow as MainWindow).Container);
+                    });
+            }
         }
     }
 }

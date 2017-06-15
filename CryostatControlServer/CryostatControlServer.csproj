@@ -118,6 +118,7 @@
     <Compile Include="Data\ISensor.cs" />
     <Compile Include="HostService\Enumerators\SettingEnumeratorDescription.cs" />
     <Compile Include="HostService\PasswordValidator.cs" />
+    <Compile Include="HostService\TimerPackage.cs" />
     <Compile Include="LakeShore\LakeShore.cs" />
     <Compile Include="LakeShore\Sensor.cs" />
     <Compile Include="LakeShore\SensorEnum.cs" />
