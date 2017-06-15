@@ -92,7 +92,7 @@ namespace CryostatControlServer
             // Hide tray icon, otherwise it will remain shown until user mouses over it
             this.trayIcon.Visible = false;
             Launcher.Exit();
-            Application.Exit();
+            Environment.Exit(0);
         }
 
         /// <summary>
