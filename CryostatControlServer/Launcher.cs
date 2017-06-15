@@ -111,7 +111,7 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// The exit.
+        /// Close the server and all connections.
         /// </summary>
         public static void Exit()
         {
@@ -128,7 +128,7 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// The launch.
+        /// Launch the server
         /// </summary>
         public static void Launch()
         {

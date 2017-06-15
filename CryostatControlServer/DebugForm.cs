@@ -29,7 +29,7 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// The on form closing.
+        /// Override onformclosing to prevent disposing of the form.
         /// </summary>
         /// <param name="e">
         /// The e.
@@ -50,7 +50,7 @@ namespace CryostatControlServer
         /// <summary>
         /// The control writer.
         /// </summary>
-        public class ControlWriter : TextWriter
+        private class ControlWriter : TextWriter
         {
             /// <summary>
             /// The textbox.
@@ -80,7 +80,7 @@ namespace CryostatControlServer
             }
 
             /// <summary>
-            /// The write.
+            /// Write a char to the textbox.
             /// </summary>
             /// <param name="value">
             /// The value.
@@ -91,7 +91,7 @@ namespace CryostatControlServer
             }
 
             /// <summary>
-            /// The write.
+            ///  Write a string to the textbox
             /// </summary>
             /// <param name="value">
             /// The value.

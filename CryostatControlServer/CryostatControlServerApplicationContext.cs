@@ -20,7 +20,7 @@ namespace CryostatControlServer
         /// <summary>
         /// The debugform.
         /// </summary>
-        private static DebugForm dbform = new DebugForm();
+        private static DebugForm debugform = new DebugForm();
 
         /// <summary>
         /// The tray icon.
@@ -59,7 +59,7 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// The show logs.
+        /// Show the log screen.
         /// </summary>
         /// <param name="sender">
         /// The sender.
@@ -79,7 +79,7 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// The exit.
+        /// Close the application
         /// </summary>
         /// <param name="sender">
         /// The sender.
@@ -106,7 +106,7 @@ namespace CryostatControlServer
         /// </param>
         private void ShowConsole(object sender, EventArgs e)
         {
-            dbform.Show();
+            debugform.Show();
         }
     }
 }
