@@ -40,8 +40,8 @@ namespace CryostatControlServer
                                         new ContextMenu(
                                             new[]
                                                 {
-                                                    new MenuItem("show console", this.ShowConsole),
-                                                    new MenuItem("open log folder", ShowLogs),
+                                                    new MenuItem("Show console", this.ShowConsole),
+                                                    new MenuItem("Open log folder", ShowLogs),
                                                     new MenuItem("Exit", this.Exit)
                                                 }),
                                     Visible = true
