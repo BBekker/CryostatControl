@@ -9,11 +9,7 @@
 
 namespace CryostatControlClient.ViewModels
 {
-    using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Windows.Documents;
-
     using CryostatControlClient.Models;
 
     /// <summary>
@@ -22,14 +18,14 @@ namespace CryostatControlClient.ViewModels
     public class MessageBoxViewModel : AbstractViewModel 
     {
         /// <summary>
+        /// The max amount of notifications showing in the GUI.
+        /// </summary>
+        private const int MaxAmountNotifications = 100;
+
+        /// <summary>
         /// The message box model.
         /// </summary>
         private MessageBoxModel messageBoxModel;
-
-        /// <summary>
-        /// The notifications.
-        /// </summary>
-        private ObservableCollection<Notification> notifications;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MessageBoxViewModel"/> class.
@@ -37,7 +33,6 @@ namespace CryostatControlClient.ViewModels
         public MessageBoxViewModel()
         {
             this.messageBoxModel = new MessageBoxModel();
-            this.notifications = new ObservableCollection<Notification>();
         }
 
         /// <summary>
@@ -53,20 +48,28 @@ namespace CryostatControlClient.ViewModels
             set
             {
                 this.messageBoxModel.Message = value;
-                this.notifications.Insert(0, this.CreateNotification(value));
+                this.AddToNotificationList(this.CreateNotification(value));
                 this.RaisePropertyChanged("Message");
-                this.RaisePropertyChanged("MessageAttributes");
+                this.RaisePropertyChanged("Notifications");
             } 
         }
 
         /// <summary>
-        /// Gets the message attributes.
+        /// Gets or sets the notifications.
         /// </summary>
-        public ObservableCollection<Notification> MessageAttributes
+        /// <value>
+        /// The notifications.
+        /// </value>
+        public ObservableCollection<Notification> Notifications
         {
             get
             {
-                return this.notifications;
+                return this.messageBoxModel.Notifications ?? new ObservableCollection<Notification>();
+            }
+
+            set
+            {
+                this.messageBoxModel.Notifications = value;
             }
         }
 
@@ -83,6 +86,22 @@ namespace CryostatControlClient.ViewModels
         {
             Notification notification = new Notification(data[0], data[1], data[2]);
             return notification;
+        }
+
+        /// <summary>
+        /// Adds notification to notification list and removes last item if size reached its max.
+        /// </summary>
+        /// <param name="notification">The notification.</param>
+        private void AddToNotificationList(Notification notification)
+        {
+            ObservableCollection<Notification> notifications = this.Notifications;
+            notifications.Insert(0, notification);
+            if (notifications.Count > MaxAmountNotifications)
+            {
+               notifications.RemoveAt(notifications.Count - 1);
+            }
+
+            this.Notifications = notifications;
         }
     }
 }

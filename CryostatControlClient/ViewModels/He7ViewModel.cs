@@ -11,9 +11,11 @@ namespace CryostatControlClient.ViewModels
 {
     using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Media;
 
     using CryostatControlClient.Models;
 
+    using LiveCharts.Geared;
     using LiveCharts.Wpf;
 
     /// <summary>
@@ -89,11 +91,11 @@ namespace CryostatControlClient.ViewModels
             this.twoKPlateVisibilityCommand = new RelayCommand(this.OnTwoKPlateVisibility, param => true);
             this.fourKPlateVisibilityCommand = new RelayCommand(this.OnFourKPlateVisibility, param => true);
             this.he3HeadVisibilityCommand = new RelayCommand(this.OnHe3HeadVisibility, param => true);
-            this.he3SwitchVisibilityCommand = new RelayCommand(this.OnHe3PumpVisibility, param => true);
-            this.he3PumpVisibilityCommand = new RelayCommand(this.OnHe3SwitchVisibility, param => true);
+            this.he3SwitchVisibilityCommand = new RelayCommand(this.OnHe3SwitchVisibility, param => true);
+            this.he3PumpVisibilityCommand = new RelayCommand(this.OnHe3PumpVisibility, param => true);
             this.he4HeadVisibilityCommand = new RelayCommand(this.OnHe4HeadVisibility, param => true);
-            this.he4SwitchVisibilityCommand = new RelayCommand(this.OnHe4PumpVisibility, param => true);
-            this.he4PumpVisibilityCommand = new RelayCommand(this.OnHe4SwitchVisibility, param => true);
+            this.he4SwitchVisibilityCommand = new RelayCommand(this.OnHe4SwitchVisibility, param => true);
+            this.he4PumpVisibilityCommand = new RelayCommand(this.OnHe4PumpVisibility, param => true);
         }
 
         #endregion Constructor
@@ -370,7 +372,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The he4 head line series.
         /// </value>
-        public LineSeries He4HeadLineSeriesBottom
+        public GLineSeries He4HeadLineSeriesBottom
         {
             get
             {
@@ -384,7 +386,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The he3 head line series.
         /// </value>
-        public LineSeries He3HeadLineSeriesBottom
+        public GLineSeries He3HeadLineSeriesBottom
         {
             get
             {
@@ -398,7 +400,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The he4 switch line series.
         /// </value>
-        public LineSeries He4SwitchLineSeries
+        public GLineSeries He4SwitchLineSeries
         {
             get
             {
@@ -412,7 +414,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The he4 pump line series.
         /// </value>
-        public LineSeries He4PumpLineSeries
+        public GLineSeries He4PumpLineSeries
         {
             get
             {
@@ -426,7 +428,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The he4 head line series.
         /// </value>
-        public LineSeries He4HeadLineSeries
+        public GLineSeries He4HeadLineSeries
         {
             get
             {
@@ -440,7 +442,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The he3 switch line series.
         /// </value>
-        public LineSeries He3SwitchLineSeries
+        public GLineSeries He3SwitchLineSeries
         {
             get
             {
@@ -454,7 +456,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The he3 pump line series.
         /// </value>
-        public LineSeries He3PumpLineSeries
+        public GLineSeries He3PumpLineSeries
         {
             get
             {
@@ -468,7 +470,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The he3 head line series.
         /// </value>
-        public LineSeries He3HeadLineSeries
+        public GLineSeries He3HeadLineSeries
         {
             get
             {
@@ -482,7 +484,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The two k plat line series.
         /// </value>
-        public LineSeries TwoKPlatLineSeries
+        public GLineSeries TwoKPlatLineSeries
         {
             get
             {
@@ -496,11 +498,25 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The four k plate line series.
         /// </value>
-        public LineSeries FourKPlateLineSeries
+        public GLineSeries FourKPlateLineSeries
         {
             get
             {
                 return this.he7Model.FourKPlateLineSeries;
+            }
+        }
+
+        /// <summary>
+        /// Gets the color of the connection state.
+        /// </summary>
+        /// <value>
+        /// The color of the connection state.
+        /// </value>
+        public SolidColorBrush ConnectionStateColor
+        {
+            get
+            {
+                return this.DisplayColor((ColorState)this.ConnectionState);
             }
         }
 
@@ -1004,6 +1020,7 @@ namespace CryostatControlClient.ViewModels
                 this.he7Model.ConnectionState = value;
                 this.RaisePropertyChanged("ConnectionState");
                 this.RaisePropertyChanged("ConnectionStateConverted");
+                this.RaisePropertyChanged("ConnectionStateColor");
             }
         }
 

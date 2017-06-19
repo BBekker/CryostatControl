@@ -8,7 +8,6 @@ namespace CryostatControlServer
     using System;
     using System.Diagnostics.CodeAnalysis;
 
-    using CryostatControlServer.Compressor;
     using CryostatControlServer.Data;
     using CryostatControlServer.HostService.Enumerators;
     using CryostatControlServer.Logging;
@@ -92,6 +91,20 @@ namespace CryostatControlServer
         /// </summary>
         public CryostatControl()
         {
+        }
+
+        /// <summary>
+        /// Gets the start time of scheduled process.
+        /// </summary>
+        /// <value>
+        /// The start time scheduled process.
+        /// </value>
+        public DateTime StartTime
+        {
+            get
+            {
+                return this.controller.StartTime;
+            }
         }
 
         /// <summary>

@@ -267,6 +267,26 @@ namespace CryostatControlServer.HostService
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         bool IsLogging();
 
+        /// <summary>
+        /// Determines whether [is registered for data] [the specified key].
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>
+        ///   <c>true</c> if [is registered for data] [the specified key]; otherwise, <c>false</c>.
+        /// </returns>
+        [OperationContract]
+        bool IsRegisteredForData(string key);
+
+        /// <summary>
+        /// Determines whether [is registered for updates] [the specified key].
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>
+        ///   <c>true</c> if [is registered for updates] [the specified key]; otherwise, <c>false</c>.
+        /// </returns>
+        [OperationContract]
+        bool IsRegisteredForUpdates(string key);
+        
         #endregion Methods
     }
 }

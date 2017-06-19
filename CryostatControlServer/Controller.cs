@@ -92,18 +92,32 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// Gets or sets the he 3 heater voltage.
+        /// Gets the start time.
         /// </summary>
-        public double He3HeaterVoltage
+        /// <value>
+        /// The start time.
+        /// </value>
+        public DateTime StartTime
         {
             get
             {
-                return Settings.Default.ControllerHe3HeaterVoltage;
+                return this.startTime;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the he 3 heater voltage.
+        /// </summary>
+        public double He3HeaterPower
+        {
+            get
+            {
+                return Settings.Default.ControllerHe3HeaterPower;
             }
 
             set
             {
-                Settings.Default.ControllerHe3HeaterVoltage = value;
+                Settings.Default.ControllerHe3HeaterPower = value;
             }
         }
 
@@ -126,16 +140,16 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the he 4 heater voltage.
         /// </summary>
-        public double He4HeaterVoltage
+        public double He4HeaterPower
         {
             get
             {
-                return Settings.Default.ControllerHe4HeaterVoltage;
+                return Settings.Default.ControllerHe4HeaterPower;
             }
 
             set
             {
-                Settings.Default.ControllerHe4HeaterVoltage = value;
+                Settings.Default.ControllerHe4HeaterPower = value;
             }
         }
 
@@ -146,12 +160,12 @@ namespace CryostatControlServer
         {
             get
             {
-                return Settings.Default.ControllerHeatupTemperature;
+                return Settings.Default.ControllerHe4StartTemperature;
             }
 
             set
             {
-                Settings.Default.ControllerHeatupTemperature = value;
+                Settings.Default.ControllerHe4StartTemperature = value;
             }
         }
 
@@ -427,11 +441,7 @@ namespace CryostatControlServer
         {
             if (this.cooler.He3SwitchT.Value < this.DisableHeaterHeatSwitchTemperature)
             {
-                this.ControlHeater(
-                    this.cooler.He3Pump,
-                    this.cooler.He3PumpT,
-                    this.HeaterTemperatureSetpoint,
-                    this.He3HeaterVoltage);
+                this.SetHeaterTemperature(this.cooler.He3Pump, this.HeaterTemperatureSetpoint, this.He3HeaterPower);
             }
             else
             {
@@ -446,11 +456,7 @@ namespace CryostatControlServer
         {
             if (this.cooler.He4SwitchT.Value < this.DisableHeaterHeatSwitchTemperature)
             {
-                this.ControlHeater(
-                    this.cooler.He4Pump,
-                    this.cooler.He4PumpT,
-                    this.HeaterTemperatureSetpoint,
-                    this.He4HeaterVoltage);
+                this.SetHeaterTemperature(this.cooler.He4Pump, this.HeaterTemperatureSetpoint, this.He4HeaterPower);
             }
             else
             {
@@ -458,38 +464,6 @@ namespace CryostatControlServer
             }
         }
 
-        /// <summary>
-        /// Control a heater
-        /// Uses a simple P controller for the last part, might be updated to PI later.
-        /// </summary>
-        /// <param name="heater">
-        /// The heater.
-        /// </param>
-        /// <param name="sensor">
-        /// The temperature sensor.
-        /// </param>
-        /// <param name="TSet">
-        /// The temperature set point
-        /// </param>
-        /// <param name="voltage">
-        /// The voltage used to control the heater.
-        /// </param>
-        [SuppressMessage(
-            "StyleCop.CSharp.NamingRules",
-            "SA1306:FieldNamesMustBeginWithLowerCaseLetter",
-            Justification = "SI naming, T is uppercase")]
-        private void ControlHeater(He7Cooler.He7Cooler.Heater heater, ISensor sensor, double TSet, double voltage)
-        {
-            double kP = 0.5;
-            if (sensor.Value < TSet)
-            {
-                this.SetHeaterVoltage(heater, Math.Max(0, Math.Min(voltage, voltage * (TSet - sensor.Value) * kP)));
-            }
-            else
-            {
-                this.SetHeaterVoltage(heater, 0.0);
-            }
-        }
 
         /// <summary>
         /// Checks if the heat switches are allowed to be turned on.
@@ -514,12 +488,12 @@ namespace CryostatControlServer
         /// </summary>
         private void SafetyCheckPumps()
         {
-            if (this.cooler.Plate4KT.Value > 70.0 && this.cooler.He3Pump.Voltage > 0.2)
+            if ((this.cooler.Plate4KT.Value > 100.0 || this.cooler.He3PumpT.Value > 150.0) && this.cooler.He3Pump.Voltage > 0.1)
             {
                 this.SetHeaterVoltage(this.cooler.He3Pump, 0.0);
             }
 
-            if (this.cooler.Plate4KT.Value > 70.0 && this.cooler.He4Pump.Voltage > 0.2)
+            if ((this.cooler.Plate4KT.Value > 100.0 || this.cooler.He4PumpT.Value > 150.0) && this.cooler.He4Pump.Voltage > 0.1)
             {
                 this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
             }
@@ -538,12 +512,28 @@ namespace CryostatControlServer
         {
             try
             {
+                heater.TemperatureControlEnabled = false;
                 heater.Voltage = voltage;
             }
             catch (Exception ex)
             {
                 DebugLogger.Error(this.GetType().Name, "Error while setting heater: " + ex.Message);
             }
+        }
+
+        private void SetHeaterTemperature(He7Cooler.He7Cooler.Heater heater, double temperature, double maxpower)
+        {
+            heater.TemperatureSetpoint = temperature;
+            try
+            {
+                heater.PowerLimit = maxpower;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                DebugLogger.Error("heater", e.Message, true);
+                DebugLogger.Error("Controller", "Tried to set too high power setting to heater!, not heating!", true);
+            }
+            heater.TemperatureControlEnabled = true;
         }
 
         /// <summary>
@@ -578,7 +568,7 @@ namespace CryostatControlServer
             switch (this.State)
             {
                 case Controlstate.Setup:    
-                    if (this.cooler != null && this.lakeshore != null && this.compressor != null)
+                    if (this.cooler != null && this.cooler.IsConnected() && this.lakeshore != null && this.compressor != null)
                     {
                         this.State = Controlstate.Standby;
                     }
@@ -597,7 +587,6 @@ namespace CryostatControlServer
                     {
                         this.State = Controlstate.CooldownWaitForPressure;
                     }
-
                     break;
 
                 case Controlstate.CooldownWaitForPressure:
@@ -622,9 +611,20 @@ namespace CryostatControlServer
                     if (this.cooler.He3PumpT.Value < this.He7StartTemperature
                         || this.cooler.He4PumpT.Value < this.He7StartTemperature)
                     {
-                        this.State = Controlstate.CooldownWait4K;
+                        this.State = Controlstate.CooldownWaitSwitches;
                     }
 
+                    break;
+
+                case Controlstate.CooldownWaitSwitches:
+                    this.SetHeaterTemperature(this.cooler.He3Pump, this.HeaterTemperatureSetpoint, Settings.Default.ControllerHeaterLowPowerValue);
+                    this.SetHeaterTemperature(this.cooler.He4Pump, this.HeaterTemperatureSetpoint, Settings.Default.ControllerHeaterLowPowerValue);
+
+                    if (this.cooler.He3SwitchT.Value < this.HeatSwitchOnTemperature
+                        && this.cooler.He4SwitchT.Value < this.HeatSwitchOnTemperature)
+                    {
+                        this.State = Controlstate.CooldownWait4K;
+                    }
                     break;
 
                 case Controlstate.CooldownWait4K:
@@ -671,7 +671,8 @@ namespace CryostatControlServer
 
                 case Controlstate.CooldownWaitHe3Heater:
                     this.ControlHe3PumpHeater();
-                    if (this.cooler.He3PumpT.Value > this.HeaterTemperatureSetpoint - 1.0)
+                    if (this.cooler.He3PumpT.Value > this.HeaterTemperatureSetpoint * 0.8 &&
+                        this.cooler.He3PumpT.Value > 25.0)
                     {
                         this.state = Controlstate.CooldownDisableHe3PumpHeater;
                     }
@@ -687,7 +688,7 @@ namespace CryostatControlServer
                     if (this.cooler.He3HeadT.Value < this.He3StartTemperature
                         || (this.cooler.He3HeadT.Value < this.He3StartMinimalTemperature
                             && (DateTime.Now - this.stateEnteredTime)
-                            < new TimeSpan(0, (int)this.He3StartWaitTimeMinutes, 0)))
+                            > new TimeSpan(0, (int)this.He3StartWaitTimeMinutes, 0)))
                     {
                         this.State = Controlstate.CooldownControlHe3;
                     }
@@ -716,6 +717,7 @@ namespace CryostatControlServer
                     {
                         this.SetHeaterVoltage(this.cooler.He3Switch, 0.0);
                         this.SetHeaterVoltage(this.cooler.He4Switch, 0.0);
+                        this.compressor.TurnOn();
 
                         this.State = Controlstate.RecycleHeatPumps;
                     }
@@ -760,30 +762,16 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.WarmupHeating:
-                    this.ControlHeater(
-                        this.cooler.He3Pump,
-                        this.cooler.He3PumpT,
-                        this.HeatupTemperature,
-                        this.He3HeaterVoltage);
-                    this.ControlHeater(
-                        this.cooler.He4Pump,
-                        this.cooler.He4PumpT,
-                        this.HeatupTemperature,
-                        this.He4HeaterVoltage);
-                    this.ControlHeater(
-                        this.cooler.He3Switch,
-                        this.cooler.He3SwitchT,
-                        this.HeatupTemperature,
-                        this.He3SwitchVoltage);
-                    this.ControlHeater(
-                        this.cooler.He4Switch,
-                        this.cooler.He4SwitchT,
-                        this.HeatupTemperature,
-                        this.He4SwitchVoltage);
-                    if (this.cooler.He4PumpT.Value > this.HeatupTemperature - 1.0
-                        && this.cooler.He3PumpT.Value > this.HeatupTemperature - 1.0
-                        && this.cooler.He4SwitchT.Value > this.HeatupTemperature - 1.0
-                        && this.cooler.He3SwitchT.Value > this.HeatupTemperature - 1.0)
+
+                    this.SetHeaterTemperature(this.cooler.He3Pump, this.HeatupTemperature, Settings.Default.ControllerHe3HeaterPower);
+                    this.SetHeaterTemperature(this.cooler.He4Pump, this.HeatupTemperature, Settings.Default.ControllerHe4HeaterPower);
+                    this.cooler.He3Switch.Voltage = this.He3SwitchVoltage;
+                    this.cooler.He4Switch.Voltage = this.He4SwitchVoltage;
+
+                    if (this.cooler.He4PumpT.Value > this.HeatupTemperature
+                        && this.cooler.He3PumpT.Value > this.HeatupTemperature
+                        && this.cooler.He4SwitchT.Value > this.HeatupTemperature
+                        && this.cooler.He3SwitchT.Value > this.HeatupTemperature)
                     {
                         this.State = Controlstate.WarmupFinished;
                     }
@@ -795,11 +783,14 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.CancelAll:
+                    
                     this.SetHeaterVoltage(this.cooler.He3Pump, 0.0);
                     this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
 
                     // Keep switches and compressor on if cold, turn off otherwise.
-                    if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue)
+                    if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue && 
+                        this.cooler.He3Switch.Voltage > this.HeatSwitchOnTemperature &&
+                        this.cooler.He4Switch.Voltage > this.HeatSwitchOnTemperature)
                     {
                         this.cooler.He3Switch.Voltage = this.He3SwitchVoltage;
                         this.cooler.He4Switch.Voltage = this.He4SwitchVoltage;

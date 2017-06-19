@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ZoomingViewModel.cs" company="SRON">
+// <copyright file="ChartViewModel.cs" company="SRON">
 //   k
 // </copyright>
 // <summary>
@@ -12,24 +12,18 @@ namespace CryostatControlClient.ViewModels
     using System;
     using System.Windows.Input;
 
-    using CryostatControlClient.Views.Tabs;
+    using CryostatControlClient.Models;
 
     using LiveCharts;
-    using LiveCharts.Defaults;
     using LiveCharts.Wpf;
 
     /// <summary>
     /// The zooming view model.
     /// </summary>
     /// <seealso cref="CryostatControlClient.ViewModels.AbstractViewModel" />
-    public class ZoomingViewModel : AbstractViewModel
+    public class ChartViewModel : AbstractViewModel
     {
         #region Fields
-
-        /// <summary>
-        /// The zooming mode
-        /// </summary>
-        private ZoomingOptions zoomingMode;
 
         /// <summary>
         /// The switch command
@@ -42,83 +36,28 @@ namespace CryostatControlClient.ViewModels
         private ICommand resetCommand;
 
         /// <summary>
-        /// The x axes collection
+        /// The chart model
         /// </summary>
-        private AxesCollection xAxesCollection;
-
-        /// <summary>
-        /// The y axes collection
-        /// </summary>
-        private AxesCollection yAxesCollection;
-
-        /// <summary>
-        /// The x axis
-        /// </summary>
-        private Axis xAxis;
-
-        /// <summary>
-        /// The y axis
-        /// </summary>
-        private Axis yAxis;
+        private ChartModel chartModel;
 
         #endregion Fields
 
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ZoomingViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ChartViewModel"/> class.
         /// </summary>
-        public ZoomingViewModel()
+        public ChartViewModel()
         {
-            this.ZoomingMode = ZoomingOptions.X;
+            this.chartModel = new ChartModel();
 
             this.zoomCommand = new RelayCommand(this.ToggleZoomingMode, param => true);
-            this.resetCommand = new RelayCommand(this.ResetZooming, param => true);
-
-            this.xAxis = new Axis();
-            this.xAxis.Title = "Time";
-            this.xAxesCollection = new AxesCollection();
-            this.xAxesCollection.Add(this.xAxis);
-
-            this.yAxis = new Axis();
-            this.yAxis.Title = "Kelvin";
-            this.yAxesCollection = new AxesCollection();
-            this.yAxesCollection.Add(this.yAxis);
-
-            this.xAxis.LabelFormatter = val => this.GetDateTime(val);
+            this.resetCommand = new RelayCommand(this.ResetZooming, param => true);  
         }
 
         #endregion Constructor
 
         #region Properties
-
-        /// <summary>
-        /// Gets the x axis collection.
-        /// </summary>
-        /// <value>
-        /// The x axis collection.
-        /// </value>
-        public AxesCollection XAxisCollection
-        {
-            get
-            {
-                return this.xAxesCollection;
-            }
-        }
-
-        /// <summary>
-        /// Gets the y axis collection.
-        /// </summary>
-        /// <value>
-        /// The y axis collection.
-        /// </value>
-        public AxesCollection YAxisCollection
-        {
-            get
-            {
-                return this.yAxesCollection;
-            }
-        }
 
         /// <summary>
         /// Gets the reset command.
@@ -149,6 +88,114 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the x maximum.
+        /// </summary>
+        /// <value>
+        /// The x maximum.
+        /// </value>
+        public DateTime XMax
+        {
+            get
+            {
+                return this.chartModel.XMax;
+            }
+
+            set
+            {
+                this.chartModel.XMax = value;
+                this.RaisePropertyChanged("XAxisCollection");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the x minimum.
+        /// </summary>
+        /// <value>
+        /// The x minimum.
+        /// </value>
+        public DateTime XMin
+        {
+            get
+            {
+                return this.chartModel.XMin;
+            }
+
+            set
+            {
+                this.chartModel.XMin = value;
+                this.RaisePropertyChanged("XAxisCollection");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the y maximum.
+        /// </summary>
+        /// <value>
+        /// The y maximum.
+        /// </value>
+        public double YMax
+        {
+            get
+            {
+                return this.chartModel.YMax;
+            }
+
+            set
+            {
+                this.chartModel.YMax = value;
+                this.RaisePropertyChanged("YAxisCollection");
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the y maximum.
+        /// </summary>
+        /// <value>
+        /// The y maximum.
+        /// </value>
+        public double YMin
+        {
+            get
+            {
+                return this.chartModel.YMin;
+            }
+
+            set
+            {
+                this.chartModel.YMin = value;
+                this.RaisePropertyChanged("YAxisCollection");
+            }
+        }
+
+        /// <summary>
+        /// Gets the x axis collection.
+        /// </summary>
+        /// <value>
+        /// The x axis collection.
+        /// </value>
+        public AxesCollection XAxisCollection
+        {
+            get
+            {
+                return this.chartModel.XAxisCollection;
+            }
+        }
+
+        /// <summary>
+        /// Gets the y axis collection.
+        /// </summary>
+        /// <value>
+        /// The y axis collection.
+        /// </value>
+        public AxesCollection YAxisCollection
+        {
+            get
+            {
+                return this.chartModel.YAxisCollection;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the zooming mode.
         /// </summary>
         /// <value>
@@ -158,12 +205,12 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.zoomingMode;
+                return this.chartModel.ZoomingMode;
             }
 
             set
             {
-                this.zoomingMode = value;
+                this.chartModel.ZoomingMode = value;
                 this.RaisePropertyChanged("ZoomingMode");
             }
         }
@@ -204,31 +251,13 @@ namespace CryostatControlClient.ViewModels
         /// <param name="sender">The sender.</param>
         private void ResetZooming(object sender)
         {
-            this.xAxis.MinValue = double.NaN;
-            this.xAxis.MaxValue = double.NaN;
-            this.yAxis.MaxValue = double.NaN;
-            this.yAxis.MinValue = 0;
+            this.XMin = this.chartModel.GetDateTime(double.NaN);
+            this.XMax = this.chartModel.GetDateTime(double.NaN);
+            this.YMax = double.NaN;
+            this.YMin = 0;
 
             this.RaisePropertyChanged("XAxisCollection");
             this.RaisePropertyChanged("YAxisCollection");
-        }
-
-        /// <summary>
-        /// Gets the date time.
-        /// </summary>
-        /// <param name="val">The value.</param>
-        /// <returns>Time in hours and minutes.</returns>
-        private string GetDateTime(double val)
-        {
-            try
-            {
-                return new DateTime((long)val).ToString("HH:mm");
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                Console.WriteLine(e.ToString());
-                return string.Empty;
-            }
         }
 
         #endregion Methods

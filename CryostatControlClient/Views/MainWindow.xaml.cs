@@ -9,6 +9,7 @@
 
 namespace CryostatControlClient.Views
 {
+    using System;
     using System.ComponentModel;
     using System.Windows;
 
@@ -125,6 +126,15 @@ namespace CryostatControlClient.Views
         }
 
         /// <summary>
+        /// Updates the countdown.
+        /// </summary>
+        /// <param name="time">The time.</param>
+        public void UpdateCountdown(DateTime time)
+        {
+            this.dataReceiver.UpdateCountdown(time, this.viewModelContainer);
+        }
+
+        /// <summary>
         /// The update notification.
         /// </summary>
         /// <param name="notification">
@@ -143,16 +153,11 @@ namespace CryostatControlClient.Views
         private void MainWindowLoaded(object sender, RoutedEventArgs e)
         {
             this.viewModelContainer = new ViewModelContainer();
-
             this.DataContext = this.viewModelContainer;
-
             this.viewModelContainer.ModusViewModel.PropertyChanged += this.modusHandler;
             this.viewModelContainer.CompressorViewModel.PropertyChanged += this.compHandler;
             this.viewModelContainer.LoggingViewModel.PropertyChanged += this.loggerHandler;
             this.viewModelContainer.He7ViewModel.PropertyChanged += this.heliumHandler;
-
-            this.dataSender.SetCompressorScales(this.viewModelContainer);
-            this.dataSender.SetLoggerState(this.viewModelContainer);
         }
 
         /// <summary>
