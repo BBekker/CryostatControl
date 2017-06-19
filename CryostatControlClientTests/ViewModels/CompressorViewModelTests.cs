@@ -228,5 +228,19 @@ namespace CryostatControlClient.ViewModels.Tests
             this.compressorViewModel.OperatingState = 1;
             Assert.IsFalse(this.compressorViewModel.CanTurnOff);
         }
+
+        [TestMethod()]
+        public void ConvertNanToZeroIfNanTest()
+        {
+            double nan = Double.NaN;
+            Assert.AreEqual(0, this.compressorViewModel.ConvertNanToZeroIfNan(nan));
+        }
+
+        [TestMethod()]
+        public void ConvertNanToZeroIfNanButIsNoNanTest()
+        {
+            double nan = 20;
+            Assert.AreEqual(20, this.compressorViewModel.ConvertNanToZeroIfNan(nan));
+        }
     }
 }

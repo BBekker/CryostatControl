@@ -79,26 +79,32 @@ namespace CryostatControlClient.Models
         /// </returns>
         public double[] AddToGraph(double[] temporaryList, GLineSeries lineSeries, double value)
         {
-            temporaryList[(int)temporaryList[this.temporaryListSize - 1]] = value;
-
-            temporaryList[this.temporaryListSize - 1]++;
-
-            if (lineSeries.Values.Count < 1)
+            if (!double.IsNaN(value))
             {
-                lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round(value, 3)));
-            }
+                temporaryList[(int)temporaryList[this.temporaryListSize - 1]] = value;
 
-            if (temporaryList[this.temporaryListSize - 1] >= this.temporaryListSize - 2)
-            {
-                lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round(temporaryList.Average() - 1, 3)));
-                if (lineSeries.Values.Count > MaxChartValues)
+                temporaryList[this.temporaryListSize - 1]++;
+
+                if (lineSeries.Values.Count < 1)
                 {
-                    lineSeries.Values.RemoveAt(0);
+                    lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round(value, 3)));
                 }
 
-                temporaryList = new double[this.temporaryListSize];
+                if (temporaryList[this.temporaryListSize - 1] >= this.temporaryListSize - 2)
+                {
+                    Console.WriteLine("Adding point");
+                    lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round(temporaryList.Average() - 1, 3)));
+                    Console.WriteLine("Point added");
 
-                temporaryList[this.temporaryListSize - 1] = 0;
+                    if (lineSeries.Values.Count > MaxChartValues)
+                    {
+                        lineSeries.Values.RemoveAt(0);
+                    }
+
+                    temporaryList = new double[this.temporaryListSize];
+
+                    temporaryList[this.temporaryListSize - 1] = 0;
+                }
             }
 
             return temporaryList;
