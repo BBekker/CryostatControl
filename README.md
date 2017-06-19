@@ -1,6 +1,6 @@
 # Cryostat Control
-This project consists of software to control a cryostat. The software is written in C# and is divided in two projects, a server and a client.
-The server contains all the logic of the system. The client is the GUI to control and readout the server.
+This project consists of software to control a cryostat. The software is written in C# and is divided in two components, a server and a client.
+The server contains all the logic of the system. The client is the GUI that controls and reads out the server.
 Both server and client run on Windows.
 
 CryostatControlClient
@@ -11,7 +11,7 @@ This project represents the GUI client as can be seen below. It is build as MVVM
 
 CryostatControlServer
 ---
-This project represents the server that comunicates with the cryostat devices and sends it data to connected clients.
+This project represents the server that comunicates with the cryostat devices and sends this data to connected clients.
 The server is also accessible with Phyton scripts.
 
 Running the program
