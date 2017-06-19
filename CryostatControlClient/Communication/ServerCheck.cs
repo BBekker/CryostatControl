@@ -104,6 +104,26 @@ namespace CryostatControlClient.Communication
             get; private set;
         }
 
+
+        public static void SendMessage(Task task)
+        {
+            try
+            {
+                if (CommandClient.State == CommunicationState.Opened)
+                {
+                    task.Start();
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("No connection");
+                }
+            }
+            catch
+            {
+                ////todo: do something with no server connection, maybe do method async
+            }
+        }
+
         /// <summary>
         /// Gets the local ip address.
         /// </summary>
@@ -245,23 +265,6 @@ namespace CryostatControlClient.Communication
         }
 
 
-        //public static void SendMessage(Task task) 
-        //{
-        //    try
-        //    {                
-        //        if (CommandClient.State == CommunicationState.Opened)
-        //        {
-        //            task.Start();
-        //        }
-        //        else
-        //        {
-        //            System.Windows.Forms.MessageBox.Show("Geen connectie");
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        ////todo: do something with no server connection, maybe do method async
-        //    }
-        //}
+
     }
 }

@@ -19,6 +19,7 @@ namespace CryostatControlClient.ViewModels
     using CryostatControlServer;
     using CryostatControlClient.Communication;
     using System.ServiceModel;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// For trying out
@@ -482,58 +483,38 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         public void OnClickStart(object obj)
         {
-            try
+            ServerCheck.SendMessage(new Task(() => { this.StartControlProcess(); }));
+        }
+
+        private void StartControlProcess()
+        {
+            if (ServerCheck.CommandClient.State == CommunicationState.Opened)
             {
-                if (ServerCheck.CommandClient.State == CommunicationState.Opened)
+                int radio = this.SelectedComboIndex;
+                string postpone = this.Time;
+                DateTime startTime = DateTime.Now;
+
+                if (postpone == "Scheduled")
                 {
-                    //todo write shorter....
-                    int radio = this.SelectedComboIndex;
-                    string postpone = this.Time;
-                    DateTime startTime = DateTime.Now;
-
-                    if (postpone == "Scheduled")
-                    {
-                        startTime = this.SelectedDate;
-                        TimeSpan time = this.SelectedTime.TimeOfDay;
-                        startTime = startTime.Date.Add(time);
-
-                        switch (radio)
-                        {
-                            case (int)ModusEnumerator.Cooldown:
-                                ServerCheck.CommandClient.CooldownTime(startTime);
-                                break;
-
-                            case (int)ModusEnumerator.Recycle:
-                                ServerCheck.CommandClient.RecycleTime(startTime);
-                                break;
-
-                            case (int)ModusEnumerator.Warmup:
-                                ServerCheck.CommandClient.WarmupTime(startTime);
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        switch (radio)
-                        {
-                            case (int)ModusEnumerator.Cooldown:
-                                ServerCheck.CommandClient.Cooldown();
-                                break;
-
-                            case (int)ModusEnumerator.Recycle:
-                                ServerCheck.CommandClient.Recycle();
-                                break;
-
-                            case (int)ModusEnumerator.Warmup:
-                                ServerCheck.CommandClient.Warmup();
-                                break;
-                        }
-                    }
+                    startTime = this.SelectedDate;
+                    TimeSpan time = this.SelectedTime.TimeOfDay;
+                    startTime = startTime.Date.Add(time);
                 }
-            }
-            catch
-            {
-                ////todo: do something when it cannot be sent
+
+                switch (radio)
+                {
+                    case (int)ModusEnumerator.Cooldown:
+                        ServerCheck.CommandClient.CooldownTime(startTime);
+                        break;
+
+                    case (int)ModusEnumerator.Recycle:
+                        ServerCheck.CommandClient.RecycleTime(startTime);
+                        break;
+
+                    case (int)ModusEnumerator.Warmup:
+                        ServerCheck.CommandClient.WarmupTime(startTime);
+                        break;
+                }
             }
         }
 
@@ -543,17 +524,7 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         public void OnClickCancel(object obj)
         {
-            try
-            {
-                if (ServerCheck.CommandClient.State == CommunicationState.Opened)
-                {
-                    ServerCheck.CommandClient.Cancel();
-                }
-            }
-            catch
-            {
-                ////todo: do something when it cannot be sent
-            }
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Cancel(); }));        
         }
 
         /// <summary>
@@ -562,17 +533,7 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         public void OnClickManual(object obj)
         {
-            try
-            {
-                if(ServerCheck.CommandClient.State == CommunicationState.Opened)
-                {
-                    ServerCheck.CommandClient.Manual();
-                }
-            }
-            catch
-            {
-                ////todo: do something when it cannot be sent
-            }          
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Manual(); }));       
         }
 
         /// <summary>

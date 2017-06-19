@@ -10,7 +10,6 @@
 namespace CryostatControlClient.Views
 {
     using System;
-    using System.ComponentModel;
     using System.Windows;
 
     using CryostatControlClient.Communication;
@@ -33,21 +32,6 @@ namespace CryostatControlClient.Views
         /// </summary>
         private DataReceiver dataReceiver;
 
-        /// <summary>
-        /// The data sender
-        /// </summary>
-        private DataSender dataSender;
-
-        /// <summary>
-        /// The handler
-        /// </summary>
-        private PropertyChangedEventHandler heliumHandler;
-
-        /// <summary>
-        /// The comp handler
-        /// </summary>
-        private PropertyChangedEventHandler compHandler;
-
         #endregion Fields
 
         #region Constructor
@@ -58,14 +42,7 @@ namespace CryostatControlClient.Views
         public MainWindow()
         {
             this.Loaded += this.MainWindowLoaded;
-
-            ServerCheck serverCheck = (Application.Current as App).ServerCheck;
-
             this.dataReceiver = new DataReceiver();
-            this.dataSender = new DataSender();
-
-            this.compHandler = this.HandleComp;
-            this.heliumHandler = this.HandleHe;
         }
 
         #endregion Constructor
@@ -142,42 +119,6 @@ namespace CryostatControlClient.Views
         {
             this.viewModelContainer = new ViewModelContainer();
             this.DataContext = this.viewModelContainer;
-            this.viewModelContainer.CompressorViewModel.PropertyChanged += this.compHandler;
-            this.viewModelContainer.He7ViewModel.PropertyChanged += this.heliumHandler;
-        }
-
-        /// <summary>
-        /// Handles the comp.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
-        private void HandleComp(object sender, PropertyChangedEventArgs e)
-        {
-            string action = e.PropertyName;
-
-            if (action == "TurnOn")
-            {
-                this.dataSender.SwitchCompressor(true);
-            }
-            else if (action == "TurnOff")
-            {
-                this.dataSender.SwitchCompressor(false);
-            }
-        }
-
-        /// <summary>
-        /// Handles the changes.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="PropertyChangedEventArgs" /> instance containing the event data.</param>
-        private void HandleHe(object sender, PropertyChangedEventArgs e)
-        {
-            string action = e.PropertyName;
-
-            if (action == "UpdateHe7Pressed")
-            {
-                this.dataSender.UpdateHelium(this.viewModelContainer);
-            }
         }
         #endregion Methods
     }

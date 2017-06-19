@@ -14,6 +14,8 @@ namespace CryostatControlClient.ViewModels
     using System.Windows.Media;
 
     using CryostatControlClient.Models;
+    using CryostatControlClient.Communication;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Compressor ViewModel
@@ -860,7 +862,7 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         private void TurnOn(object obj)
         {
-            this.RaisePropertyChanged("TurnOn");
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.SetCompressorState(true); }));
         }
 
         /// <summary>
@@ -869,7 +871,7 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         private void TurnOff(object obj)
         {
-            this.RaisePropertyChanged("TurnOff");
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.SetCompressorState(false); }));
         }
 
         /// <summary>

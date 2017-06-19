@@ -757,7 +757,7 @@ namespace CryostatControlClient.ViewModels
         /// </param>
         public void OnClickStart(object obj)
         {
-            //ServerCheck.SendMessage(new Task(() => { this.StartLogging(this); }));
+            ServerCheck.SendMessage(new Task(() => { this.StartLogging(this); }));
         }
 
         /// <summary>
@@ -778,7 +778,7 @@ namespace CryostatControlClient.ViewModels
         /// </param>
         public void OnClickCancel(object obj)
         {
-            //ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.CancelLogging(); }));
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.CancelLogging(); }));
         }
     }
 }

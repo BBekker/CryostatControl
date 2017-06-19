@@ -17,6 +17,11 @@ namespace CryostatControlClient.ViewModels
 
     using LiveCharts.Geared;
     using LiveCharts.Wpf;
+    using CryostatControlClient.Communication;
+    using CryostatControlServer.HostService.Enumerators;
+    using System.ServiceModel;
+    using CryostatControlServer.HostService.DataContracts;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// The he 7 view model.
@@ -1192,7 +1197,49 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         private void OnClickUpdate(object obj)
         {
-            this.RaisePropertyChanged("UpdateHe7Pressed");
+            ServerCheck.SendMessage(new Task(() => {this.HeatersUpdate();}));
+        }
+
+        /// <summary>
+        /// Task method for updating the values of the heaters
+        /// </summary>
+        private void HeatersUpdate()
+        {
+            try
+            {
+                ServerCheck.CommandClient.WriteHelium7((int)HeaterEnumerator.He4Pump, this.He4PumpNewVolt);
+            }
+            catch (FaultException<CouldNotPerformActionFault> e)
+            {
+                MessageBox.Show("Could not set He4 Pump voltage because " + e.Detail.Message);
+            }
+
+            try
+            {
+                ServerCheck.CommandClient.WriteHelium7((int)HeaterEnumerator.He3Pump, this.He3PumpNewVolt);
+            }
+            catch (FaultException<CouldNotPerformActionFault> e)
+            {
+                MessageBox.Show("Could not set He3 Pump voltage because " + e.Detail.Message);
+            }
+
+            try
+            {
+                ServerCheck.CommandClient.WriteHelium7((int)HeaterEnumerator.He3Switch, this.He3SwitchNewVolt);
+            }
+            catch (FaultException<CouldNotPerformActionFault> e)
+            {
+                MessageBox.Show("Could not set He3 Switch voltage because " + e.Detail.Message);
+            }
+
+            try
+            {
+                ServerCheck.CommandClient.WriteHelium7((int)HeaterEnumerator.He4Switch, this.He4SwitchNewVolt);
+            }
+            catch (FaultException<CouldNotPerformActionFault> e)
+            {
+                MessageBox.Show("Could not set He4 Switch voltage because " + e.Detail.Message);
+            }
         }
 
         #endregion Methods
