@@ -106,6 +106,7 @@
     <Compile Include="Compressor\Enumerators\WarningsEnum.cs" />
     <Compile Include="Compressor\Sensor.cs" />
     <Compile Include="Controller.cs" />
+    <Compile Include="Controller.StateMachine.cs" />
     <Compile Include="ControlState.cs" />
     <Compile Include="CryostatControl.cs" />
     <Compile Include="CryostatControlServerApplicationContext.cs" />
