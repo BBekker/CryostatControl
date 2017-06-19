@@ -41,17 +41,7 @@ namespace CryostatControlClient.Views
         /// <summary>
         /// The handler
         /// </summary>
-        private PropertyChangedEventHandler modusHandler;
-
-        /// <summary>
-        /// The handler
-        /// </summary>
         private PropertyChangedEventHandler heliumHandler;
-
-        /// <summary>
-        /// The logger handler.
-        /// </summary>
-        private PropertyChangedEventHandler loggerHandler;
 
         /// <summary>
         /// The comp handler
@@ -72,11 +62,9 @@ namespace CryostatControlClient.Views
             ServerCheck serverCheck = (Application.Current as App).ServerCheck;
 
             this.dataReceiver = new DataReceiver();
-            this.dataSender = new DataSender(serverCheck);
+            this.dataSender = new DataSender();
 
-            this.modusHandler = this.HandleModus;
             this.compHandler = this.HandleComp;
-            this.loggerHandler = this.HandleLogger;
             this.heliumHandler = this.HandleHe;
         }
 
@@ -154,37 +142,8 @@ namespace CryostatControlClient.Views
         {
             this.viewModelContainer = new ViewModelContainer();
             this.DataContext = this.viewModelContainer;
-            this.viewModelContainer.ModusViewModel.PropertyChanged += this.modusHandler;
             this.viewModelContainer.CompressorViewModel.PropertyChanged += this.compHandler;
-            this.viewModelContainer.LoggingViewModel.PropertyChanged += this.loggerHandler;
             this.viewModelContainer.He7ViewModel.PropertyChanged += this.heliumHandler;
-        }
-
-        /// <summary>
-        /// Handles the changes.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
-        private void HandleModus(object sender, PropertyChangedEventArgs e)
-        {
-            string action = e.PropertyName;
-
-            if (action == "StartPressed")
-            {
-                this.dataSender.UpdateModus(this.viewModelContainer);
-            }
-            else if (action == "CancelPressed")
-            {
-                this.dataSender.CancelModus();
-            }
-            else if (action == "ManualPressed")
-            {
-                this.dataSender.ManualModus();
-            }
-            else
-            {
-                // todo: unknow action, throw exception or something?
-            }
         }
 
         /// <summary>
@@ -218,29 +177,6 @@ namespace CryostatControlClient.Views
             if (action == "UpdateHe7Pressed")
             {
                 this.dataSender.UpdateHelium(this.viewModelContainer);
-            }
-        }
-
-        /// <summary>
-        /// Handles the logger.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
-        private void HandleLogger(object sender, PropertyChangedEventArgs e)
-        {
-            string action = e.PropertyName;
-
-            if (action == "StartPressed")
-            {
-                this.dataSender.SendDataToBeLogged(this.viewModelContainer);
-            }
-            else if (action == "CancelPressed")
-            {
-                this.dataSender.CancelLogging();
-            }
-            else
-            {
-                // todo: unknow action, throw exception or something?
             }
         }
         #endregion Methods

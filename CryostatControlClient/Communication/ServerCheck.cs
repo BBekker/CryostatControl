@@ -18,6 +18,7 @@ namespace CryostatControlClient.Communication
     using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.ViewModels;
     using CryostatControlClient.Views;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Class which checks continuously the connection with the server
@@ -43,11 +44,6 @@ namespace CryostatControlClient.Communication
         /// The callback client
         /// </summary>
         private DataGetClient callbackClient;
-
-        /// <summary>
-        /// The command client
-        /// </summary>
-        private CommandServiceClient commandClient;
 
         /// <summary>
         /// The first time connected
@@ -93,7 +89,7 @@ namespace CryostatControlClient.Communication
             this.mainApp = app;
             this.mainWindow = this.mainApp.MainWindow as MainWindow;
             this.Connect();
-            this.sender = new DataSender(this);
+            this.sender = new DataSender();
             this.timer = new Timer(this.CheckStatus, null, WaitTime, Timeout.Infinite);
         }
 
@@ -103,12 +99,9 @@ namespace CryostatControlClient.Communication
         /// <value>
         /// The command client.
         /// </value>
-        public CommandServiceClient CommandClient
+        public static CommandServiceClient CommandClient
         {
-            get
-            {
-                return this.commandClient;
-            }
+            get; private set;
         }
 
         /// <summary>
@@ -151,7 +144,7 @@ namespace CryostatControlClient.Communication
         {
             try
             {
-                this.commandClient.IsAlive();
+                CommandClient.IsAlive();
                 this.SetConnected(true);
                 if (this.firstTimeConnected)
                 {
@@ -159,12 +152,12 @@ namespace CryostatControlClient.Communication
                     this.SetLoggingState();
                 }
 
-                if (!this.commandClient.IsRegisteredForData(this.GetRegisterKey()))
+                if (!CommandClient.IsRegisteredForData(this.GetRegisterKey()))
                 {
                     this.callbackClient.SubscribeForData(SubscribeInterval, this.GetRegisterKey());
                 }
 
-                if (!this.commandClient.IsRegisteredForUpdates(this.GetRegisterKey()))
+                if (!CommandClient.IsRegisteredForUpdates(this.GetRegisterKey()))
                 {
                     this.callbackClient.SubscribeForUpdates(this.GetRegisterKey());
                 }
@@ -174,7 +167,7 @@ namespace CryostatControlClient.Communication
             catch (CommunicationException)
             {
                 this.SetConnected(false);
-                this.commandClient.Abort();
+                CommandClient.Abort();
                 this.callbackClient.Abort();
                 this.Connect();
             }
@@ -190,8 +183,8 @@ namespace CryostatControlClient.Communication
         private void Connect()
         {
             this.key = DateTime.Now.ToString();
-            this.commandClient = new CommandServiceClient();
-            this.mainApp.CommandServiceClient = this.commandClient;
+            CommandClient = new CommandServiceClient();
+            this.mainApp.CommandServiceClient = CommandClient;
             DataClientCallback callback = new DataClientCallback(this.mainApp);
             InstanceContext instanceContext = new InstanceContext(callback);
             this.callbackClient = new DataGetClient(instanceContext);
@@ -250,5 +243,25 @@ namespace CryostatControlClient.Communication
                     });
             }
         }
+
+
+        //public static void SendMessage(Task task) 
+        //{
+        //    try
+        //    {                
+        //        if (CommandClient.State == CommunicationState.Opened)
+        //        {
+        //            task.Start();
+        //        }
+        //        else
+        //        {
+        //            System.Windows.Forms.MessageBox.Show("Geen connectie");
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        ////todo: do something with no server connection, maybe do method async
+        //    }
+        //}
     }
 }
