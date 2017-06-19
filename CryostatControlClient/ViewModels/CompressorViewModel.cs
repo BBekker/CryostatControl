@@ -251,7 +251,22 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.WaterInTemp = value;
                 this.RaisePropertyChanged("WaterInTemp");
+                this.RaisePropertyChanged("WaterInTempProgressbar");
                 this.RaisePropertyChanged("WaterInTempColor");
+            }
+        }
+
+        /// <summary>
+        /// Gets the water in temporary progressbar.
+        /// </summary>
+        /// <value>
+        /// The water in temporary progressbar.
+        /// </value>
+        public double WaterInTempProgressbar
+        {
+            get
+            {
+                return this.ConvertNanToZeroIfNan(this.compressorModel.WaterInTemp);
             }
         }
 
@@ -291,7 +306,22 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.WaterOutTemp = value;
                 this.RaisePropertyChanged("WaterOutTemp");
+                this.RaisePropertyChanged("WaterOutTempProgressbar");
                 this.RaisePropertyChanged("WaterOutTempColor");
+            }
+        }
+
+        /// <summary>
+        /// Gets the water out temporary progressbar.
+        /// </summary>
+        /// <value>
+        /// The water out temporary progressbar.
+        /// </value>
+        public double WaterOutTempProgressbar
+        {
+            get
+            {
+                return this.ConvertNanToZeroIfNan(this.compressorModel.WaterOutTemp);
             }
         }
 
@@ -331,7 +361,22 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.OilTemp = value;
                 this.RaisePropertyChanged("OilTemp");
+                this.RaisePropertyChanged("OilTempProgressbar");
                 this.RaisePropertyChanged("OilTempColor");
+            }
+        }
+
+        /// <summary>
+        /// Gets the oil temporary progressbar.
+        /// </summary>
+        /// <value>
+        /// The oil temporary progressbar.
+        /// </value>
+        public double OilTempProgressbar
+        {
+            get
+            {
+                return this.ConvertNanToZeroIfNan(this.compressorModel.OilTemp);
             }
         }
 
@@ -372,7 +417,22 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.HeliumTemp = value;
                 this.RaisePropertyChanged("HeliumTemp");
+                this.RaisePropertyChanged("HeliumTempProgressbar");
                 this.RaisePropertyChanged("HeliumTempColor");
+            }
+        }
+
+        /// <summary>
+        /// Gets the helium temporary progressbar.
+        /// </summary>
+        /// <value>
+        /// The helium temporary progressbar.
+        /// </value>
+        public double HeliumTempProgressbar
+        {
+            get
+            {
+                return this.ConvertNanToZeroIfNan(this.compressorModel.HeliumTemp);
             }
         }
 
@@ -413,6 +473,21 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.LowPressure = value;
                 this.RaisePropertyChanged("LowPressure");
+                this.RaisePropertyChanged("LowPressureGauge");
+            }
+        }
+
+        /// <summary>
+        /// Gets the low pressure gauge.
+        /// </summary>
+        /// <value>
+        /// The low pressure gauge.
+        /// </value>
+        public double LowPressureGauge
+        {
+            get
+            {
+                return this.ConvertNanToZeroIfNan(this.compressorModel.LowPressure);
             }
         }
 
@@ -453,6 +528,21 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.HighPressure = value;
                 this.RaisePropertyChanged("HighPressure");
+                this.RaisePropertyChanged("HighPressureGauge");
+            }
+        }
+
+        /// <summary>
+        /// Gets the high pressure gauge.
+        /// </summary>
+        /// <value>
+        /// The high pressure gauge.
+        /// </value>
+        public double HighPressureGauge
+        {
+            get
+            {
+                return this.ConvertNanToZeroIfNan(this.compressorModel.HighPressure);
             }
         }
 
@@ -748,6 +838,20 @@ namespace CryostatControlClient.ViewModels
                 case -262144: return "Static Pressure Low";
                 default: return "No Information";
             }
+        }
+
+        /// <summary>
+        /// Converts the nan to zero if nan.
+        /// </summary>
+        /// <param name="possibleNan">The possible nan.</param>
+        /// <returns>0 if Nan; Normal value otherwise</returns>
+        public double ConvertNanToZeroIfNan(double possibleNan)
+        {
+            if (double.IsNaN(possibleNan))
+            {
+                return 0;
+            }
+            return possibleNan;
         }
 
         /// <summary>

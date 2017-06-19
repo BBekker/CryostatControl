@@ -195,6 +195,17 @@ namespace CryostatControlServer.LakeShore
         }
 
         /// <summary>
+        /// Is the lakeshore connected.
+        /// </summary>
+        /// <returns>
+        /// Returns whether the lakeshore is connected <see cref="bool"/>.
+        /// </returns>
+        public bool IsConnected()
+        {
+            return this.stream?.IsConnected() ?? false;
+        }
+
+        /// <summary>
         /// Sends OPC command to device and waits for response.
         /// Used to confirm connection and synchronisation of state of the device.
         /// </summary>

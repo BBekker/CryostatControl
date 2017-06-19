@@ -488,12 +488,12 @@ namespace CryostatControlServer
         /// </summary>
         private void SafetyCheckPumps()
         {
-            if (this.cooler.Plate4KT.Value > 70.0 && this.cooler.He3Pump.Voltage > 0.2)
+            if ((this.cooler.Plate4KT.Value > 100.0 || this.cooler.He3PumpT.Value > 150.0) && this.cooler.He3Pump.Voltage > 0.1)
             {
                 this.SetHeaterVoltage(this.cooler.He3Pump, 0.0);
             }
 
-            if (this.cooler.Plate4KT.Value > 70.0 && this.cooler.He4Pump.Voltage > 0.2)
+            if ((this.cooler.Plate4KT.Value > 100.0 || this.cooler.He4PumpT.Value > 150.0) && this.cooler.He4Pump.Voltage > 0.1)
             {
                 this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
             }
@@ -568,7 +568,7 @@ namespace CryostatControlServer
             switch (this.State)
             {
                 case Controlstate.Setup:    
-                    if (this.cooler != null && this.lakeshore != null && this.compressor != null)
+                    if (this.cooler != null && this.cooler.IsConnected() && this.lakeshore != null && this.compressor != null)
                     {
                         this.State = Controlstate.Standby;
                     }

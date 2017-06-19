@@ -118,14 +118,7 @@ namespace CryostatControlServer.Data
                     case (int)DataEnumerator.HeConnectionState: return Convert.ToDouble(this.he7Cooler.IsConnected());
                     case (int)DataEnumerator.ComConnectionState: return Convert.ToDouble(this.compressor.IsConnected());
                     case (int)DataEnumerator.LakeConnectionState:
-                        {
-                            if (this.lakeShore != null)
-                            {
-                                return Convert.ToDouble(this.lakeShore.OPC());
-                            }
-
-                            return 0;
-                        }
+                        return Convert.ToDouble(this.lakeShore?.IsConnected() ?? false);
 
                     case (int)DataEnumerator.ComError: return (double)this.compressor.ReadErrorState();
                     case (int)DataEnumerator.ComWarning: return (double)this.compressor.ReadWarningState();
@@ -222,7 +215,7 @@ namespace CryostatControlServer.Data
             data[(int)DataEnumerator.HeConnectionState] = Convert.ToDouble(this.he7Cooler.IsConnected());
             if (this.lakeShore != null)
             {
-                data[(int)DataEnumerator.LakeConnectionState] = Convert.ToDouble(this.lakeShore.OPC());
+                data[(int)DataEnumerator.LakeConnectionState] = Convert.ToDouble(this.lakeShore.IsConnected());
             }
             else
             {
