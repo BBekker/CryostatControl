@@ -8,6 +8,8 @@ namespace CryostatControlClient
     using System;
     using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.Views;
+    using CryostatControlClient.Communication;
+    using CryostatControlClient.ViewModels;
 
     /// <summary>
     /// Class which handles the data callback calls from the server
@@ -27,6 +29,8 @@ namespace CryostatControlClient
         /// </summary>
         private MainWindow mainWindow;
 
+        private DataReceiver dataReceiver;
+
         #endregion Fields
 
         #region Constructors
@@ -38,6 +42,7 @@ namespace CryostatControlClient
         public DataClientCallback(App app)
         {
             this.mainApp = app;
+            dataReceiver = new DataReceiver();
         }
 
         #endregion Constructors
@@ -57,7 +62,7 @@ namespace CryostatControlClient
                     this.mainWindow = this.mainApp.MainWindow as MainWindow;
                 }
 
-                this.mainWindow.UpdateViewModels(data);
+                this.dataReceiver.UpdateViewModels(data, ((MainWindow)this.mainApp.MainWindow).Container);
             });
         }
 
@@ -74,7 +79,7 @@ namespace CryostatControlClient
                     this.mainWindow = this.mainApp.MainWindow as MainWindow;
                 }
 
-                this.mainWindow.SetState(modus);
+                this.dataReceiver.SetState(modus, ((MainWindow)this.mainApp.MainWindow).Container);
             });
         }
 
@@ -91,7 +96,7 @@ namespace CryostatControlClient
                     this.mainWindow = this.mainApp.MainWindow as MainWindow;
                 }
 
-                this.mainWindow.SetIsLogging(status);
+                this.dataReceiver.SetIsLogging(status, ((MainWindow)this.mainApp.MainWindow).Container);
             });
         }
 
@@ -108,7 +113,7 @@ namespace CryostatControlClient
                         this.mainWindow = this.mainApp.MainWindow as MainWindow;
                     }
 
-                    this.mainWindow.UpdateCountdown(time);
+                    this.dataReceiver.UpdateCountdown(time, ((MainWindow)this.mainApp.MainWindow).Container);
                 });
         }
 
@@ -125,7 +130,7 @@ namespace CryostatControlClient
                 this.mainWindow = this.mainApp.MainWindow as MainWindow;
             }
 
-            this.mainWindow.UpdateNotification(notification);
+            this.dataReceiver.UpdateNotification(notification, ((MainWindow)this.mainApp.MainWindow).Container);
         }
 
         #endregion Methods

@@ -27,11 +27,6 @@ namespace CryostatControlClient.Views
         /// </summary>
         private ViewModelContainer viewModelContainer;
 
-        /// <summary>
-        /// The data receiver
-        /// </summary>
-        private DataReceiver dataReceiver;
-
         #endregion Fields
 
         #region Constructor
@@ -42,7 +37,6 @@ namespace CryostatControlClient.Views
         public MainWindow()
         {
             this.Loaded += this.MainWindowLoaded;
-            this.dataReceiver = new DataReceiver();
         }
 
         #endregion Constructor
@@ -62,53 +56,6 @@ namespace CryostatControlClient.Views
         }
 
         #region Methods
-
-        /// <summary>
-        /// Updates the view models.
-        /// </summary>
-        /// <param name="data">The data.</param>
-        public void UpdateViewModels(double[] data)
-        {
-            this.dataReceiver.UpdateViewModels(data, this.viewModelContainer);
-        }
-
-        /// <summary>
-        /// Sets the state.
-        /// </summary>
-        /// <param name="modus">The modus.</param>
-        public void SetState(int modus)
-        {
-            this.dataReceiver.SetState(modus, this.viewModelContainer);
-        }
-
-        /// <summary>
-        /// Sets the is logging.
-        /// </summary>
-        /// <param name="state">if set to <c>true</c> [state].</param>
-        public void SetIsLogging(bool state)
-        {
-            this.dataReceiver.SetIsLogging(state, this.viewModelContainer);
-        }
-
-        /// <summary>
-        /// Updates the countdown.
-        /// </summary>
-        /// <param name="time">The time.</param>
-        public void UpdateCountdown(DateTime time)
-        {
-            this.dataReceiver.UpdateCountdown(time, this.viewModelContainer);
-        }
-
-        /// <summary>
-        /// The update notification.
-        /// </summary>
-        /// <param name="notification">
-        /// The notification.
-        /// </param>
-        public void UpdateNotification(string[] notification)
-        {
-            this.dataReceiver.UpdateNotification(notification, this.viewModelContainer);
-        }
 
         /// <summary>
         /// Handles the Loaded event of the MainWindow control.

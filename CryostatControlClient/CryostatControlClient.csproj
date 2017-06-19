@@ -107,7 +107,7 @@
     </Compile>
     <Compile Include="Models\AbstractModel.cs" />
     <Compile Include="Models\BlueforsModel.cs" />
-    <Compile Include="DataClientCallback.cs" />
+    <Compile Include="Communication\DataClientCallback.cs" />
     <Compile Include="Models\ChartModel.cs" />
     <Compile Include="Models\He7Model.cs" />
     <Compile Include="Models\LoggingModel.cs" />
