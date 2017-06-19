@@ -33,7 +33,6 @@ namespace CryostatControlServerTests.Logging
             Assert.AreEqual("Time", elements[0]);
             Assert.AreEqual("Compressor helium", elements[(int)DataEnumerator.ComHelium + 1]);
             Assert.AreEqual("He3 Switch Temperature", elements[(int)DataEnumerator.He3SwitchTemp + 1]);
-            Assert.AreEqual("LakeShore Heater", elements[(int)DataEnumerator.LakeHeater + 1]);
         }
     }
 }

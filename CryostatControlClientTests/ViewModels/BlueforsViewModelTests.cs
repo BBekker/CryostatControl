@@ -50,13 +50,6 @@ namespace CryostatControlClient.ViewModels.Tests
         }
 
         [TestMethod()]
-        public void HeaterPowerTest()
-        {
-            this.blueforsViewModel.HeaterPower = 50;
-            Assert.AreEqual(this.blueforsViewModel.HeaterPower, 50);
-        }
-
-        [TestMethod()]
         public void ColdPlate3KVisibilityTest()
         {
             this.blueforsViewModel.ColdPlate3KVisibility = System.Windows.Visibility.Hidden;
