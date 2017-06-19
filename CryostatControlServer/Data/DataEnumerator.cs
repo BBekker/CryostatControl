@@ -15,7 +15,6 @@ namespace CryostatControlServer.Data
     {
         LakePlate50K = 0,
         LakePlate3K = 1,
-        LakeHeater = 2,
 
         ComWaterIn = 3,
         ComWaterOut = 4,

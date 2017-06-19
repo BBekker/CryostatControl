@@ -135,17 +135,6 @@ namespace CryostatControlServer
         #region Methods
 
         /// <summary>
-        /// The read heater power.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="double"/>.
-        /// </returns>
-        public double ReadBlueforsHeaterPower()
-        {
-            return this.lakeShore.GetHeaterPower();
-        }
-
-        /// <summary>
         /// Cancels the current command safely.
         /// </summary>
         public void CancelCommand()
@@ -236,30 +225,6 @@ namespace CryostatControlServer
         public double[] ReadData()
         {
             return this.dataReader.GetDataArray();
-        }
-
-        /// <summary>
-        /// Turn bluefors heater on or off.
-        /// </summary>
-        /// <param name="status">
-        /// The status.
-        /// </param>
-        /// <returns>
-        /// True if successfully executed <see cref="bool"/>.
-        /// </returns>
-        [SuppressMessage(
-            "StyleCop.CSharp.DocumentationRules",
-            "SA1650:ElementDocumentationMustBeSpelledCorrectly",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public bool SetBlueforsHeater(bool status)
-        {
-            if (!this.ManualControl)
-            {
-                return false;
-            }
-
-            this.lakeShore.SetHeater(true);
-            return true;
         }
 
         /// <summary>

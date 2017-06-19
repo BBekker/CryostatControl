@@ -77,11 +77,6 @@ namespace CryostatControlClient.Models
         /// </summary>
         private double connectionState;
 
-        /// <summary>
-        /// The heater power.
-        /// </summary>
-        private double heaterPower;
-
         #endregion Fields
 
         #region Constructor
@@ -258,23 +253,6 @@ namespace CryostatControlClient.Models
                 this.connectionState = value;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the heater power.
-        /// </summary>
-        public double HeaterPower
-        {
-            get
-            {
-                return this.heaterPower;
-            }
-
-            set
-            {
-                this.heaterPower = value;
-            }
-        }
-
         #endregion Properties
     }
 }

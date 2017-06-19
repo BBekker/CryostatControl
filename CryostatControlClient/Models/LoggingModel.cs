@@ -88,11 +88,6 @@ namespace CryostatControlClient.Models
         private bool bluefors3KShieldTemp;
 
         /// <summary>
-        /// The bluefors heater
-        /// </summary>
-        private bool blueforsHeater;
-
-        /// <summary>
         /// The compressor water in temperature
         /// </summary>
         private bool compressorWaterInTemp;
@@ -415,25 +410,6 @@ namespace CryostatControlClient.Models
             set
             {
                 this.bluefors3KShieldTemp = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the bluefors heater.
-        /// </summary>
-        /// <value>
-        /// The bluefors heater.
-        /// </value>
-        public bool BlueforsHeater
-        {
-            get
-            {
-                return this.blueforsHeater;
-            }
-
-            set
-            {
-                this.blueforsHeater = value;
             }
         }
 

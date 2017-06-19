@@ -50,7 +50,6 @@ namespace CryostatControlServer
                     break;
 
                 case Controlstate.CooldownStart:
-                    this.lakeshore.SetHeater(false);
                     if (DateTime.Now > this.startTime)
                     {
                         this.State = Controlstate.CooldownWaitForPressure;
@@ -206,15 +205,6 @@ namespace CryostatControlServer
                 case Controlstate.WarmupStart:
                     if (DateTime.Now > this.startTime)
                     {
-                        try
-                        {
-                            this.lakeshore.SetHeater(true);
-                        }
-                        catch (Exception)
-                        {
-                            DebugLogger.Warning(this.GetType().Name, "lakeshore did not respond");
-                        }
-
                         try
                         {
                             this.compressor.TurnOff();

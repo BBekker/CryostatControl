@@ -151,7 +151,6 @@ namespace CryostatControlClient.Communication
             viewModelContainer.BlueforsViewModel.ConnectionState = data[(int)DataEnumerator.LakeConnectionState];
             viewModelContainer.BlueforsViewModel.ColdPlate50KTemp = data[(int)DataEnumerator.LakePlate50K];
             viewModelContainer.BlueforsViewModel.ColdPlate3KTemp = data[(int)DataEnumerator.LakePlate3K];
-            viewModelContainer.BlueforsViewModel.HeaterPower = data[(int)DataEnumerator.LakeHeater];
         }
 
         #endregion Methods

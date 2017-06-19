@@ -71,7 +71,6 @@ namespace CryostatControlServer.Logging
                                                                       {(int) DataEnumerator.ComWarning, "Compressor Warning"},
                                                                       {(int) DataEnumerator.ComHoursOfOperation, "Compressor hours of operation"},
                                                                       {(int) DataEnumerator.ComOperationState, "Compressor Opertating State"},
-                                                                      {(int) DataEnumerator.LakeHeater, "LakeShore Heater"}
                                                                   };
 
         

@@ -577,8 +577,6 @@ namespace CryostatControlServer
                     DebugLogger.Warning(this.GetType().Name, "Compressor not turning off");
                 }
             }
-
-            this.lakeshore.SetHeater(false);
         }
 
         /// <summary>

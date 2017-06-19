@@ -337,26 +337,6 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the bluefors heater.
-        /// </summary>
-        /// <value>
-        /// The bluefors heater.
-        /// </value>
-        public bool BlueforsHeater
-        {
-            get
-            {
-                return this.loggingModel.BlueforsHeater;
-            }
-
-            set
-            {
-                this.loggingModel.BlueforsHeater = value;
-                this.RaisePropertyChanged("BlueforsHeater");
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the compressor water in temperature.
         /// </summary>
         /// <value>
@@ -740,7 +720,6 @@ namespace CryostatControlClient.ViewModels
             loggingDataArray[(int)DataEnumerator.He4SwitchVoltActual] = this.He4SwitchVolt;
             loggingDataArray[(int)DataEnumerator.He3SwitchVoltActual] = this.He3SwitchVolt;
             loggingDataArray[(int)DataEnumerator.He4VoltActual] = this.He4PumpVolt;
-            loggingDataArray[(int)DataEnumerator.LakeHeater] = this.BlueforsHeater;
 
             return loggingDataArray;
         }
