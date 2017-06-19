@@ -145,6 +145,12 @@ namespace CryostatControlServer.HostService
             return (int)this.cryostatControl.ControllerState;
         }
 
+        /// <inheritdoc />
+        public DateTime GetStartTime()
+        {
+            return this.cryostatControl.StartTime;
+        }
+
         /// <inheritdoc cref="ICommandService.GetValue"/>
         public double GetValue(string sensor)
         {

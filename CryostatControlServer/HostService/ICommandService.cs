@@ -115,6 +115,16 @@ namespace CryostatControlServer.HostService
         int GetState();
 
         /// <summary>
+        /// The get start time of a delayed operation (warm up, cool down etc.)
+        /// </summary>
+        /// <returns>
+        /// The <see cref="DateTime"/>.
+        /// </returns>
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        DateTime GetStartTime();
+
+        /// <summary>
         /// Sets the compressor on or off.
         /// <c>true</c> to turn the compressor on.
         /// <c>false</c> to turn the compressor off.
