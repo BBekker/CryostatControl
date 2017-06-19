@@ -23,30 +23,6 @@ namespace CryostatControlClient.ViewModels.Tests
             this.compressorViewModel = new CompressorViewModel();
         }
 
-        /// <summary>
-        /// Converts the warning state number to string test.
-        /// </summary>
-        [TestMethod]
-        public void ConvertWarningStateNumberToStringTest()
-        {
-            double warningStateNumber = -8;
-            string expected = "Water OUT running Low";
-            string actual = this.compressorViewModel.ConvertWarningStateNumberToString(warningStateNumber);
-            Assert.AreEqual(expected, actual);
-        }
-
-        /// <summary>
-        /// Converts the operating state number to string test.
-        /// </summary>
-        [TestMethod]
-        public void ConvertOperatingStateNumberToStringTest()
-        {
-            double operatingStateNumber = 5;
-            string expected = "Stopping";
-            string actual = this.compressorViewModel.ConvertOperatingStateNumberToString(operatingStateNumber);
-            Assert.AreEqual(expected, actual);
-        }
-
         [TestMethod()]
         public void OperatingStateTest()
         {
@@ -227,6 +203,20 @@ namespace CryostatControlClient.ViewModels.Tests
         {
             this.compressorViewModel.OperatingState = 1;
             Assert.IsFalse(this.compressorViewModel.CanTurnOff);
+        }
+
+        [TestMethod()]
+        public void ConvertNanToZeroIfNanTest()
+        {
+            double nan = Double.NaN;
+            Assert.AreEqual(0, this.compressorViewModel.ConvertNanToZeroIfNan(nan));
+        }
+
+        [TestMethod()]
+        public void ConvertNanToZeroIfNanButIsNoNanTest()
+        {
+            double nan = 20;
+            Assert.AreEqual(20, this.compressorViewModel.ConvertNanToZeroIfNan(nan));
         }
     }
 }
