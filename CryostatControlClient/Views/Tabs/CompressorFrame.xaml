@@ -18,7 +18,7 @@
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
         <RowDefinition Height="6*" />
-        <RowDefinition Height="1*" />
+        <RowDefinition Height="2*" />
     </Grid.RowDefinitions>
 
     <Grid Grid.Column="2" Grid.Row="0">
@@ -190,9 +190,28 @@
         </Grid>
     </Grid>
 
-    <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Label x:Name="CompressorState"
-               Content="{Binding CompressorViewModel.OperatingStateConverted}" />
+    <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,3" HorizontalAlignment="Right" Width="300">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0"
+            Content="Operating state:" />
+        <Label Grid.Column="0" Grid.Row="1"
+            Content="Warning state:"/>
+        <Label Grid.Column="0" Grid.Row="2"
+            Content="Error state:"/>
+        <Label Grid.Column="1" Grid.Row="0"
+               Content="{Binding CompressorViewModel.OperatingStateConverted}"/>
+        <Label Grid.Column="1" Grid.Row="1"
+               Content="{Binding CompressorViewModel.WarningStateConverted}"/>
+        <Label Grid.Column="1" Grid.Row="2"
+               Content="{Binding CompressorViewModel.ErrorStateConverted}"/>
     </Grid>
     <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Orientation="Horizontal">
@@ -204,8 +223,8 @@
     <Grid Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center">
         <StackPanel Orientation="Horizontal">
             <Label>Hours of operation:</Label>
-            <Label Content="{Binding CompressorViewModel.HoursOfOperation}" ContentStringFormat="{}{0:N0}"/>    
+            <Label Content="{Binding CompressorViewModel.HoursOfOperation}" ContentStringFormat="{}{0:N0}"/>
         </StackPanel>
-        
+
     </Grid>
 </Grid>
