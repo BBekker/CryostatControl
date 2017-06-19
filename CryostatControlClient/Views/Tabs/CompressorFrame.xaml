@@ -114,7 +114,7 @@
         </Label>
         <Viewbox Grid.Row="1" Grid.ColumnSpan="3">
             <gauge:CircularGaugeControl x:Name="lowPressureGauge" Style="{StaticResource lowPressureGauge}"
-                                        CurrentValue="{Binding CompressorViewModel.LowPressure}" ContentStringFormat="{}{0:N0}"/>
+                                        CurrentValue="{Binding CompressorViewModel.LowPressureGauge}" ContentStringFormat="{}{0:N0}"/>
         </Viewbox>
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="0 10 0 0">
             <Grid.RowDefinitions>
@@ -163,7 +163,7 @@
         </Label>
         <Viewbox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
             <gauge:CircularGaugeControl x:Name="highPressureGauge" Style="{StaticResource highPressureGauge}"
-                                        CurrentValue="{Binding CompressorViewModel.HighPressure}" ContentStringFormat="{}{0:N0}"/>
+                                        CurrentValue="{Binding CompressorViewModel.HighPressureGauge}" ContentStringFormat="{}{0:N0}"/>
         </Viewbox>
         <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="0 10 0 0">
             <Grid.RowDefinitions>

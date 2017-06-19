@@ -413,6 +413,21 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.LowPressure = value;
                 this.RaisePropertyChanged("LowPressure");
+                this.RaisePropertyChanged("LowPressureGauge");
+            }
+        }
+
+        /// <summary>
+        /// Gets the low pressure gauge.
+        /// </summary>
+        /// <value>
+        /// The low pressure gauge.
+        /// </value>
+        public double LowPressureGauge
+        {
+            get
+            {
+                return this.ConvertNanToZeroIfNan(this.compressorModel.LowPressure);
             }
         }
 
@@ -453,6 +468,21 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.HighPressure = value;
                 this.RaisePropertyChanged("HighPressure");
+                this.RaisePropertyChanged("HighPressureGauge");
+            }
+        }
+
+        /// <summary>
+        /// Gets the high pressure gauge.
+        /// </summary>
+        /// <value>
+        /// The high pressure gauge.
+        /// </value>
+        public double HighPressureGauge
+        {
+            get
+            {
+                return this.ConvertNanToZeroIfNan(this.compressorModel.HighPressure);
             }
         }
 
@@ -748,6 +778,20 @@ namespace CryostatControlClient.ViewModels
                 case -262144: return "Static Pressure Low";
                 default: return "No Information";
             }
+        }
+
+        /// <summary>
+        /// Converts the nan to zero if nan.
+        /// </summary>
+        /// <param name="possibleNan">The possible nan.</param>
+        /// <returns>0 if Nan; Normal value otherwise</returns>
+        public double ConvertNanToZeroIfNan(double possibleNan)
+        {
+            if (double.IsNaN(possibleNan))
+            {
+                return 0;
+            }
+            return possibleNan;
         }
 
         /// <summary>
