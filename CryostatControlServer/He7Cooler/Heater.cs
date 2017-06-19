@@ -11,6 +11,7 @@
 namespace CryostatControlServer.He7Cooler
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     using CryostatControlServer.Logging;
 
@@ -82,17 +83,27 @@ namespace CryostatControlServer.He7Cooler
             /// <summary>
             /// The proportional gain.
             /// </summary>
-            private double kP = 0.2;
+            private double kP = 0.18;
 
             /// <summary>
             /// The integral gain.
             /// </summary>
-            private double ki = 0.005;
+            private double ki = 0.004;
 
             /// <summary>
             /// The derivative gain.
             /// </summary>
-            private double kd = 0.0;
+            private double kd = 0.5;
+
+            /// <summary>
+            /// The filtered error.
+            /// </summary>
+            private double filteredError = 0.0;
+
+            /// <summary>
+            /// The filter factor.
+            /// </summary>
+            private double filterFactor = 0.2;
 
             /// <summary>
             /// The max value of the integrator.
@@ -210,7 +221,7 @@ namespace CryostatControlServer.He7Cooler
                 {
                     if (this.SafeRangeHigh < this.calibration.ConvertValue(this.PowerToVoltage(value)))
                     {
-                        throw new ArgumentOutOfRangeException($"maxpower {value} -> voltage {this.calibration.ConvertValue(this.PowerToVoltage(value))} exeeds the safety limit {this.SafeRangeHigh} of this heater.");
+                        throw new ArgumentOutOfRangeException($"maxPower {value} -> voltage {this.calibration.ConvertValue(this.PowerToVoltage(value))} exeeds the safety limit {this.SafeRangeHigh} of this heater.");
                     }
                     this.powerLimit = value;
                 }
@@ -288,29 +299,40 @@ namespace CryostatControlServer.He7Cooler
                 }
             }
 
+            private double LowPassFilter(double error)
+            {
+                this.filteredError = ((1.0 - this.filterFactor) * this.filteredError) + (this.filterFactor * error);
+                return this.filteredError;
+            }
+
             /// <summary>
             /// The control temperature loop function.
             /// </summary>
             /// <param name="TSet">
             /// The t set.
             /// </param>
-            /// <param name="maxpower">
-            /// The maxpower.
+            /// <param name="maxPower">
+            /// The maxPower.
             /// </param>
-            public void ControlTemperature(double TSet, double maxpower)
+            [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1306:FieldNamesMustBeginWithLowerCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
+            public void ControlTemperature(double TSet, double maxPower)
             {
                 double error = TSet - this.temperatureFeedback.Value; // Positive if too cold
+                var lpfError = this.LowPassFilter(error);
 
-                double output = 0;
-                output += error * this.kP;
-                output += this.integrator * this.ki;
-                output += (error - this.previousError) / (DateTime.Now - this.previousLoopTime).TotalSeconds * this.kd;
+                var P = error * this.kP;
+                var I = this.integrator * this.ki;
+                var D = (lpfError - this.previousError) / (DateTime.Now - this.previousLoopTime).TotalSeconds * this.kd;
+
+                double output = P + I + D;
+
+                Console.WriteLine($"out:{output}, P: {P}, I: {I}, D: {D}");
 
                 try
                 {
-                    if (output > maxpower)
+                    if (output > maxPower)
                     {
-                        this.SetOutput(this.calibration.ConvertValue(PowerToVoltage(maxpower)));
+                        this.SetOutput(this.calibration.ConvertValue(this.PowerToVoltage(maxPower)));
                     }
                     else if (output < 0)
                     {
@@ -319,7 +341,7 @@ namespace CryostatControlServer.He7Cooler
                     }
                     else
                     {
-                        this.SetOutput(this.calibration.ConvertValue(PowerToVoltage(output)));
+                        this.SetOutput(this.calibration.ConvertValue(this.PowerToVoltage(output)));
                         this.integrator = Math.Max(error + this.integrator, 0);
                     }
                 }
@@ -329,7 +351,7 @@ namespace CryostatControlServer.He7Cooler
                 }
 
                 this.previousLoopTime = DateTime.Now;
-                this.previousError = error;
+                this.previousError = lpfError;
             }
 
             /// <summary>
