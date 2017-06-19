@@ -287,7 +287,7 @@ namespace CryostatControlServer.Logging
         {
             var data2 = new double[data.Length + 1];
             data.CopyTo(data2, 0);
-            data2[data2.Length - 1] = (double)this.controller.ControllerState;
+            data2[data2.Length - 1] = (double)(this.controller?.ControllerState ?? 0);
             return data2;
         }
 
