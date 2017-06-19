@@ -99,7 +99,6 @@
     </ApplicationDefinition>
     <Compile Include="ColorState.cs" />
     <Compile Include="Communication\DataReceiver.cs" />
-    <Compile Include="Communication\DataSender.cs" />
     <Compile Include="Communication\ModusEnumerator.cs" />
     <Compile Include="Connected Services\ServiceReference1\Reference.cs">
       <AutoGen>True</AutoGen>

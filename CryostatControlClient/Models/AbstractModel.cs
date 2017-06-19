@@ -10,7 +10,6 @@ namespace CryostatControlClient.Models
 
     using LiveCharts.Defaults;
     using LiveCharts.Geared;
-    using LiveCharts.Wpf;
 
     /// <summary>
     /// The abstract model
@@ -82,9 +81,7 @@ namespace CryostatControlClient.Models
             if (!double.IsNaN(value))
             {
                 temporaryList[(int)temporaryList[this.temporaryListSize - 1]] = value;
-
                 temporaryList[this.temporaryListSize - 1]++;
-
                 if (lineSeries.Values.Count < 1)
                 {
                     lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round(value, 3)));
@@ -92,17 +89,13 @@ namespace CryostatControlClient.Models
 
                 if (temporaryList[this.temporaryListSize - 1] >= this.temporaryListSize - 2)
                 {
-                    Console.WriteLine("Adding point");
                     lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round(temporaryList.Average() - 1, 3)));
-                    Console.WriteLine("Point added");
-
                     if (lineSeries.Values.Count > MaxChartValues)
                     {
                         lineSeries.Values.RemoveAt(0);
                     }
 
                     temporaryList = new double[this.temporaryListSize];
-
                     temporaryList[this.temporaryListSize - 1] = 0;
                 }
             }

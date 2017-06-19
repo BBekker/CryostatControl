@@ -486,6 +486,27 @@ namespace CryostatControlClient.ViewModels
             ServerCheck.SendMessage(new Task(() => { this.StartControlProcess(); }));
         }
 
+        /// <summary>
+        /// Handles cancel click.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        public void OnClickCancel(object obj)
+        {
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Cancel(); }));        
+        }
+
+        /// <summary>
+        /// Called when [click manual].
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        public void OnClickManual(object obj)
+        {
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Manual(); }));       
+        }
+
+        /// <summary>
+        /// Task method to start the control process.
+        /// </summary>
         private void StartControlProcess()
         {
             if (ServerCheck.CommandClient.State == CommunicationState.Opened)
@@ -516,24 +537,6 @@ namespace CryostatControlClient.ViewModels
                         break;
                 }
             }
-        }
-
-        /// <summary>
-        /// Handles cancel click.
-        /// </summary>
-        /// <param name="obj">The object.</param>
-        public void OnClickCancel(object obj)
-        {
-            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Cancel(); }));        
-        }
-
-        /// <summary>
-        /// Called when [click manual].
-        /// </summary>
-        /// <param name="obj">The object.</param>
-        public void OnClickManual(object obj)
-        {
-            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Manual(); }));       
         }
 
         /// <summary>

@@ -20,6 +20,7 @@ namespace CryostatControlClient.ViewModels
     using CryostatControlClient.ServiceReference1;
 
     using CryostatControlServer.HostService.Enumerators;
+    using CryostatControlClient.Communication;
 
     /// <summary>
     /// The settings view model.
@@ -98,12 +99,12 @@ namespace CryostatControlClient.ViewModels
         private void SendChanges()
         {
             var app = Application.Current as App;
-            if (app == null || app.CommandServiceClient.State != CommunicationState.Opened)
+            if (app == null || ServerCheck.CommandClient.State != CommunicationState.Opened)
             {
                 return;
             }
 
-            CommandServiceClient commandServiceClient = app.CommandServiceClient;
+            CommandServiceClient commandServiceClient = ServerCheck.CommandClient;
 
             var newSettings = this.GetCurrentValues();
             for (int i = 0; i < newSettings.Length; i++)
@@ -142,12 +143,12 @@ namespace CryostatControlClient.ViewModels
         private void UpdateSettingsFromServerAsync()
         {
             var app = Application.Current as App;
-            if (app == null || app.CommandServiceClient.State != CommunicationState.Opened)
+            if (app == null || ServerCheck.CommandClient.State != CommunicationState.Opened)
             {
                 return;
             }
 
-            CommandServiceClient commandServiceClient = app.CommandServiceClient;
+            CommandServiceClient commandServiceClient = ServerCheck.CommandClient;
             var readTask = commandServiceClient.ReadSettingsAsync();
             readTask.ContinueWith(
                 result => this.UpdateSettings(result.Result),
