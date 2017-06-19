@@ -14,11 +14,11 @@ namespace CryostatControlClient.Communication
     using System.Net.Sockets;
     using System.ServiceModel;
     using System.Threading;
+    using System.Threading.Tasks;
 
     using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.ViewModels;
     using CryostatControlClient.Views;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// Class which checks continuously the connection with the server
@@ -98,7 +98,10 @@ namespace CryostatControlClient.Communication
             get; private set;
         }
 
-
+        /// <summary>
+        /// Sends the message to the server.
+        /// </summary>
+        /// <param name="task">The task.</param>
         public static void SendMessage(Task task)
         {
             try
@@ -114,7 +117,7 @@ namespace CryostatControlClient.Communication
             }
             catch
             {
-                ////todo: do something with no server connection, maybe do method async
+                System.Windows.Forms.MessageBox.Show("No connection");
             }
         }
 

@@ -9,13 +9,12 @@
 
 namespace CryostatControlClient.ViewModels
 {
-    using System;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using System.Windows.Media;
 
-    using CryostatControlClient.Models;
     using CryostatControlClient.Communication;
-    using System.Threading.Tasks;
+    using CryostatControlClient.Models;
 
     /// <summary>
     /// Compressor ViewModel
@@ -287,6 +286,7 @@ namespace CryostatControlClient.ViewModels
                 {
                     return this.DisplayColor(ColorState.Red);
                 }
+
                 return this.DisplayColor(ColorState.Green);
             }
         }
@@ -342,6 +342,7 @@ namespace CryostatControlClient.ViewModels
                 {
                     return this.DisplayColor(ColorState.Red);
                 }
+
                 return this.DisplayColor(ColorState.Green);
             }
         }
@@ -456,7 +457,6 @@ namespace CryostatControlClient.ViewModels
                 return this.DisplayColor(ColorState.Green);
             }
         }
-
 
         /// <summary>
         /// Gets or sets the low pressure.
@@ -853,6 +853,7 @@ namespace CryostatControlClient.ViewModels
             {
                 return 0;
             }
+
             return possibleNan;
         }
 

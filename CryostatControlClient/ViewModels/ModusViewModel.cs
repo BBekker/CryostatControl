@@ -10,16 +10,16 @@
 namespace CryostatControlClient.ViewModels
 {
     using System;
+    using System.ServiceModel;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Media;
 
+    using CryostatControlClient.Communication;
     using CryostatControlClient.Models;
 
     using CryostatControlServer;
-    using CryostatControlClient.Communication;
-    using System.ServiceModel;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// For trying out
@@ -155,7 +155,7 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                if (String.IsNullOrEmpty(this.PlannedModus))
+                if (string.IsNullOrEmpty(this.PlannedModus))
                 {
                     return Visibility.Hidden;
                 }

@@ -118,7 +118,9 @@
     <Compile Include="Notification.cs" />
     <Compile Include="ViewModels\AbstractViewModel.cs" />
     <Compile Include="ViewModels\BlueforsViewModel.cs" />
-    <Compile Include="ViewModels\CompressorViewModel.cs" />
+    <Compile Include="ViewModels\CompressorViewModel.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="ViewModels\LoggingPresets\ILoggingPreset.cs" />
     <Compile Include="ViewModels\LoggingPresets\LogAllPreset.cs" />
     <Compile Include="ViewModels\LoggingPresets\LogCompressorPreset.cs" />

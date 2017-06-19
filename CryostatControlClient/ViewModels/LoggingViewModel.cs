@@ -10,17 +10,15 @@
 namespace CryostatControlClient.ViewModels
 {
     using System.Diagnostics.CodeAnalysis;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using System.Windows.Media;
 
+    using CryostatControlClient.Communication;
     using CryostatControlClient.Models;
     using CryostatControlClient.ViewModels.LoggingPresets;
 
     using CryostatControlServer.Data;
-    using CryostatControlClient.Communication;
-    using CryostatControlClient.ServiceReference1;
-    using System.ServiceModel;
-    using System.Threading.Tasks;
 
     /// <summary>
     /// The logging view model.
@@ -757,17 +755,7 @@ namespace CryostatControlClient.ViewModels
         /// </param>
         public void OnClickStart(object obj)
         {
-            ServerCheck.SendMessage(new Task(() => { this.StartLogging(this); }));
-        }
-
-        /// <summary>
-        /// Starts the logging.
-        /// </summary>
-        private void StartLogging(LoggingViewModel model)
-        {
-            bool[] dataToBeLogged = model.GetLoggingArray();
-            int interval = (int)model.LoggingInterval;
-            ServerCheck.CommandClient.StartLogging(interval, dataToBeLogged);
+            ServerCheck.SendMessage(new Task(() => { this.StartLogging(); }));
         }
 
         /// <summary>
@@ -779,6 +767,16 @@ namespace CryostatControlClient.ViewModels
         public void OnClickCancel(object obj)
         {
             ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.CancelLogging(); }));
+        }
+
+        /// <summary>
+        /// Starts the logging.
+        /// </summary>
+        private void StartLogging()
+        {
+            bool[] dataToBeLogged = this.GetLoggingArray();
+            int interval = (int)this.LoggingInterval;
+            ServerCheck.CommandClient.StartLogging(interval, dataToBeLogged);
         }
     }
 }

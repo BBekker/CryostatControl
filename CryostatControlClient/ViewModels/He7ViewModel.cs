@@ -9,19 +9,19 @@
 
 namespace CryostatControlClient.ViewModels
 {
+    using System.ServiceModel;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Media;
 
+    using CryostatControlClient.Communication;
     using CryostatControlClient.Models;
 
-    using LiveCharts.Geared;
-    using LiveCharts.Wpf;
-    using CryostatControlClient.Communication;
-    using CryostatControlServer.HostService.Enumerators;
-    using System.ServiceModel;
     using CryostatControlServer.HostService.DataContracts;
-    using System.Threading.Tasks;
+    using CryostatControlServer.HostService.Enumerators;
+    
+    using LiveCharts.Geared;
 
     /// <summary>
     /// The he 7 view model.
@@ -1197,7 +1197,7 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         private void OnClickUpdate(object obj)
         {
-            ServerCheck.SendMessage(new Task(() => {this.HeatersUpdate();}));
+            ServerCheck.SendMessage(new Task(() => { this.HeatersUpdate(); }));
         }
 
         /// <summary>

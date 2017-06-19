@@ -57,6 +57,7 @@ namespace CryostatControlClient.Models
             {
                 return this.notifications;
             }
+
             set
             {
                 this.notifications = value;

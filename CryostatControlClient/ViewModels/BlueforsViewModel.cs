@@ -9,17 +9,13 @@
 
 namespace CryostatControlClient.ViewModels
 {
-    using System.Windows.Media;
-    using System;
     using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Media;
 
     using CryostatControlClient.Models;
 
-    using LiveCharts;
-    using LiveCharts.Defaults;
     using LiveCharts.Geared;
-    using LiveCharts.Wpf;
 
     /// <summary>
     /// Bluefors ViewModel

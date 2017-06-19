@@ -15,12 +15,12 @@ namespace CryostatControlClient.ViewModels
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
-
+    
+    using CryostatControlClient.Communication;
     using CryostatControlClient.Models;
     using CryostatControlClient.ServiceReference1;
 
     using CryostatControlServer.HostService.Enumerators;
-    using CryostatControlClient.Communication;
 
     /// <summary>
     /// The settings view model.

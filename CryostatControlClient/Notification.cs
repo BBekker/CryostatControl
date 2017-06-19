@@ -135,7 +135,6 @@ namespace CryostatControlClient
             }
         }
 
-
         /// <summary>
         /// Determines whether [time] is [the specified time].
         /// </summary>
@@ -148,7 +147,6 @@ namespace CryostatControlClient
             DateTime dateTime;
             return DateTime.TryParseExact(time, "HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None,  out dateTime);
         }
-
 
         /// <summary>
         /// Determines whether [level] is [the specified level].
