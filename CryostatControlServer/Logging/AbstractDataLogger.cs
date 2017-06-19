@@ -11,6 +11,7 @@ namespace CryostatControlServer.Logging
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.IO;
 
@@ -39,6 +40,9 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// The device dictionary.
         /// </summary>
+        [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1013:ClosingCurlyBracketsMustBeSpacedCorrectly", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1012:OpeningCurlyBracketsMustBeSpacedCorrectly", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1009:ClosingParenthesisMustBeSpacedCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         private static readonly Dictionary<int, string> DeviceDictionary = new Dictionary<int, string>()
                                                                   {
                                                                       {(int) DataEnumerator.LakePlate50K, "50K Plate"},
@@ -72,8 +76,6 @@ namespace CryostatControlServer.Logging
                                                                       {(int) DataEnumerator.ComHoursOfOperation, "Compressor hours of operation"},
                                                                       {(int) DataEnumerator.ComOperationState, "Compressor Opertating State"},
                                                                   };
-
-        
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractDataLogger"/> class.
@@ -215,6 +217,7 @@ namespace CryostatControlServer.Logging
             {
                 return DeviceDictionary[dataNumber];
             }
+
             return string.Empty;
         }
     }

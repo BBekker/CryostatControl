@@ -10,10 +10,8 @@
 namespace CryostatControlServer
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Threading;
 
-    using CryostatControlServer.Data;
     using CryostatControlServer.Logging;
     using CryostatControlServer.Properties;
 
@@ -89,20 +87,6 @@ namespace CryostatControlServer
         ~Controller()
         {
             this.StopStateMachine();
-        }
-
-        /// <summary>
-        /// Gets the start time.
-        /// </summary>
-        /// <value>
-        /// The start time.
-        /// </value>
-        public DateTime StartTime
-        {
-            get
-            {
-                return this.startTime;
-            }
         }
 
         /// <summary>
@@ -262,6 +246,20 @@ namespace CryostatControlServer
             set
             {
                 Settings.Default.ControllerHeatupTemperature = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the start time.
+        /// </summary>
+        /// <value>
+        /// The start time.
+        /// </value>
+        public DateTime StartTime
+        {
+            get
+            {
+                return this.startTime;
             }
         }
 
@@ -464,94 +462,15 @@ namespace CryostatControlServer
             }
         }
 
-
         /// <summary>
-        /// Checks if the heat switches are allowed to be turned on.
-        /// If the cooler temperature is too high, the heaters are turned off.
+        /// The reset all values.
         /// </summary>
-        private void SafetyCheckHeatSwitch()
+        private void ResetAllValues()
         {
-            if (this.cooler.Plate4KT.Value > this.HeatSwitchSafeValue && this.cooler.He4Switch.Voltage > 0.2)
-            {
-                this.SetHeaterVoltage(this.cooler.He4Switch, 0.0);
-            }
-
-            if (this.cooler.Plate4KT.Value > this.HeatSwitchSafeValue && this.cooler.He3Switch.Voltage > 0.2)
-            {
-                this.SetHeaterVoltage(this.cooler.He3Switch, 0.0);
-            }
-        }
-
-        /// <summary>
-        /// Safety check of the pump heaters.
-        /// If the cooler is to warm, the heaters are turned off
-        /// </summary>
-        private void SafetyCheckPumps()
-        {
-            if ((this.cooler.Plate4KT.Value > 100.0 || this.cooler.He3PumpT.Value > 150.0) && this.cooler.He3Pump.Voltage > 0.1)
-            {
-                this.SetHeaterVoltage(this.cooler.He3Pump, 0.0);
-            }
-
-            if ((this.cooler.Plate4KT.Value > 100.0 || this.cooler.He4PumpT.Value > 150.0) && this.cooler.He4Pump.Voltage > 0.1)
-            {
-                this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
-            }
-        }
-
-        /// <summary>
-        /// The set heater voltage capturing any errors.
-        /// </summary>
-        /// <param name="heater">
-        /// The heater.
-        /// </param>
-        /// <param name="voltage">
-        /// The voltage.
-        /// </param>
-        private void SetHeaterVoltage(He7Cooler.He7Cooler.Heater heater, double voltage)
-        {
-            try
-            {
-                heater.TemperatureControlEnabled = false;
-                heater.Voltage = voltage;
-            }
-            catch (Exception ex)
-            {
-                DebugLogger.Error(this.GetType().Name, "Error while setting heater: " + ex.Message);
-            }
-        }
-
-        private void SetHeaterTemperature(He7Cooler.He7Cooler.Heater heater, double temperature, double maxpower)
-        {
-            heater.TemperatureSetpoint = temperature;
-            try
-            {
-                heater.PowerLimit = maxpower;
-            }
-            catch (ArgumentOutOfRangeException e)
-            {
-                DebugLogger.Error("heater", e.Message, true);
-                DebugLogger.Error("Controller", "Tried to set too high power setting to heater!, not heating!", true);
-            }
-            heater.TemperatureControlEnabled = true;
-        }
-
-        /// <summary>
-        /// Start the thread running the state machine.
-        /// </summary>
-        private void StartStateMachine()
-        {
-            this.controlTimer = new Timer(timerState => this.StateMachine(), null, 0, this.timerPeriod);
-        }
-
-
-        public void resetAllValues()
-        {
-
             // Keep switches and compressor on if cold, turn off otherwise.
-            if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue &&
-                this.cooler.He3Switch.Voltage > this.HeatSwitchOnTemperature &&
-                this.cooler.He4Switch.Voltage > this.HeatSwitchOnTemperature)
+            if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue
+                && this.cooler.He3Switch.Voltage > this.HeatSwitchOnTemperature
+                && this.cooler.He4Switch.Voltage > this.HeatSwitchOnTemperature)
             {
                 this.cooler.He3Switch.Voltage = this.He3SwitchVoltage;
                 this.cooler.He4Switch.Voltage = this.He4SwitchVoltage;
@@ -577,6 +496,99 @@ namespace CryostatControlServer
                     DebugLogger.Warning(this.GetType().Name, "Compressor not turning off");
                 }
             }
+        }
+
+        /// <summary>
+        /// Checks if the heat switches are allowed to be turned on.
+        /// If the cooler temperature is too high, the heaters are turned off.
+        /// </summary>
+        private void SafetyCheckHeatSwitch()
+        {
+            if (this.cooler.Plate4KT.Value > this.HeatSwitchSafeValue && this.cooler.He4Switch.Voltage > 0.2)
+            {
+                this.SetHeaterVoltage(this.cooler.He4Switch, 0.0);
+            }
+
+            if (this.cooler.Plate4KT.Value > this.HeatSwitchSafeValue && this.cooler.He3Switch.Voltage > 0.2)
+            {
+                this.SetHeaterVoltage(this.cooler.He3Switch, 0.0);
+            }
+        }
+
+        /// <summary>
+        /// Safety check of the pump heaters.
+        /// If the cooler is to warm, the heaters are turned off
+        /// </summary>
+        private void SafetyCheckPumps()
+        {
+            if ((this.cooler.Plate4KT.Value > 100.0 || this.cooler.He3PumpT.Value > 150.0)
+                && this.cooler.He3Pump.Voltage > 0.1)
+            {
+                this.SetHeaterVoltage(this.cooler.He3Pump, 0.0);
+            }
+
+            if ((this.cooler.Plate4KT.Value > 100.0 || this.cooler.He4PumpT.Value > 150.0)
+                && this.cooler.He4Pump.Voltage > 0.1)
+            {
+                this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
+            }
+        }
+
+        /// <summary>
+        /// Set a heater to temperature control with temperature and power settings.
+        /// </summary>
+        /// <param name="heater">
+        /// The heater.
+        /// </param>
+        /// <param name="temperature">
+        /// The temperature.
+        /// </param>
+        /// <param name="maxpower">
+        /// The maximum power.
+        /// </param>
+        private void SetHeaterTemperature(He7Cooler.He7Cooler.Heater heater, double temperature, double maxpower)
+        {
+            heater.TemperatureSetpoint = temperature;
+            try
+            {
+                heater.PowerLimit = maxpower;
+                heater.TemperatureControlEnabled = true;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                DebugLogger.Error("heater", e.Message, true);
+                DebugLogger.Error("Controller", "Tried to set too high power setting to heater!, not heating!", true);
+            }
+        }
+
+        /// <summary>
+        /// The set heater voltage capturing any errors.
+        /// </summary>
+        /// <param name="heater">
+        /// The heater.
+        /// </param>
+        /// <param name="voltage">
+        /// The voltage.
+        /// </param>
+        private void SetHeaterVoltage(He7Cooler.He7Cooler.Heater heater, double voltage)
+        {
+            try
+            {
+                heater.TemperatureControlEnabled = false;
+                heater.Voltage = voltage;
+            }
+            catch (Exception ex)
+            {
+                DebugLogger.Error(this.GetType().Name, "Error while setting heater: " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Start the thread running the state machine.
+        /// </summary>
+        private void StartStateMachine()
+        {
+            this.controlTimer = new Timer(timerState => this.StateMachine(), null, 0, this.timerPeriod);
         }
 
         /// <summary>

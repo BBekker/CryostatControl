@@ -1,17 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Controller.StateMachine.cs" company="SRON">
+//   all rights reserved
+// </copyright>
+// <summary>
+//   The controller.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer
 {
+    using System;
+
     using CryostatControlServer.Logging;
     using CryostatControlServer.Properties;
 
+    /// <summary>
+    /// The sequential controller.
+    /// </summary>
     public partial class Controller
     {
-
         /// <summary>
         /// The state machine that controls the heater.
         /// Controls the Cool down, Heat up and Recycle processes, by walking trough a state machine.
@@ -21,7 +28,7 @@ namespace CryostatControlServer
         /// State machine design
         /// The entire state machine is intentionally placed in a single function.
         /// Use of the State pattern was considered but rejected for clarity and maintainability.
-        /// The design of the state machine is discussed in github:
+        /// The design of the state machine is discussed on github:
         /// https://github.com/BBekker/CryostatControl/pull/88
         /// access can be requested by emailing: Bernard@BernardBekker.nl
         /// </para>
@@ -54,6 +61,7 @@ namespace CryostatControlServer
                     {
                         this.State = Controlstate.CooldownWaitForPressure;
                     }
+
                     break;
 
                 case Controlstate.CooldownWaitForPressure:
@@ -92,6 +100,7 @@ namespace CryostatControlServer
                     {
                         this.State = Controlstate.CooldownWait4K;
                     }
+
                     break;
 
                 case Controlstate.CooldownWait4K:
@@ -244,7 +253,7 @@ namespace CryostatControlServer
 
                     this.SetHeaterVoltage(this.cooler.He3Pump, 0.0);
                     this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
-                    this.resetAllValues();
+                    this.ResetAllValues();
                     this.State = Controlstate.Standby;
                     break;
             }

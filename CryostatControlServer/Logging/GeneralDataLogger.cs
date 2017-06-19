@@ -19,7 +19,6 @@ namespace CryostatControlServer.Logging
     /// </summary>
     public class GeneralDataLogger : AbstractDataLogger
     {
-
         /// <summary>
         /// Write general data to log.
         /// </summary>

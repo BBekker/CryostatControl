@@ -51,6 +51,16 @@ namespace CryostatControlServer.He7Cooler
             private He7Cooler device;
 
             /// <summary>
+            /// The filtered error.
+            /// </summary>
+            private double filteredError = 0.0;
+
+            /// <summary>
+            /// The filter factor.
+            /// </summary>
+            private double filterFactor = 0.2;
+
+            /// <summary>
             /// The channel where current voltage is read.
             /// </summary>
             private Channels inchannel;
@@ -61,9 +71,34 @@ namespace CryostatControlServer.He7Cooler
             private double integrator = 0;
 
             /// <summary>
+            /// The max value of the integrator.
+            /// </summary>
+            private double integratorMax = 20;
+
+            /// <summary>
+            /// The derivative gain.
+            /// </summary>
+            private double kd = 0.5;
+
+            /// <summary>
+            /// The integral gain.
+            /// </summary>
+            private double ki = 0.004;
+
+            /// <summary>
+            /// The proportional gain.
+            /// </summary>
+            private double kP = 0.18;
+
+            /// <summary>
             /// The channel where to output the voltage set point.
             /// </summary>
             private Channels outchannel;
+
+            /// <summary>
+            /// The power limit
+            /// </summary>
+            private double powerLimit;
 
             /// <summary>
             /// The previous error used for the PID controller.
@@ -81,34 +116,9 @@ namespace CryostatControlServer.He7Cooler
             private Sensor temperatureFeedback;
 
             /// <summary>
-            /// The proportional gain.
+            /// The temperature setpoint
             /// </summary>
-            private double kP = 0.18;
-
-            /// <summary>
-            /// The integral gain.
-            /// </summary>
-            private double ki = 0.004;
-
-            /// <summary>
-            /// The derivative gain.
-            /// </summary>
-            private double kd = 0.5;
-
-            /// <summary>
-            /// The filtered error.
-            /// </summary>
-            private double filteredError = 0.0;
-
-            /// <summary>
-            /// The filter factor.
-            /// </summary>
-            private double filterFactor = 0.2;
-
-            /// <summary>
-            /// The max value of the integrator.
-            /// </summary>
-            private double integratorMax = 20;
+            private double temperatureSetpoint;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="Heater"/> class.
@@ -173,7 +183,6 @@ namespace CryostatControlServer.He7Cooler
                 this.resistance = resistance;
                 this.calibration = outputCalibration;
 
-
                 device.AddHeater(this);
             }
 
@@ -183,48 +192,6 @@ namespace CryostatControlServer.He7Cooler
             ~Heater()
             {
                 this.device.RemoveChannel(this.inchannel);
-            }
-
-            private double temperatureSetpoint;
-            /// <summary>
-            /// Gets or sets the temperature setpoint in Kelvin.
-            /// </summary>
-            public double TemperatureSetpoint {
-                get
-                {
-                    return this.temperatureSetpoint;
-                }
-                set
-                {
-                    this.temperatureSetpoint = value;
-                }
-            }
-
-            /// <summary>
-            /// Gets or sets a value indicating whether temperature control enabled.
-            /// </summary>
-            public bool TemperatureControlEnabled { get; set; } = false;
-
-            private double powerLimit;
-
-            /// <summary>
-            /// Gets or sets the power limit in Watt.
-            /// </summary>
-            public double PowerLimit
-            {
-                get
-                {
-                    return this.powerLimit;
-                }
-
-                set
-                {
-                    if (this.SafeRangeHigh < this.calibration.ConvertValue(this.PowerToVoltage(value)))
-                    {
-                        throw new ArgumentOutOfRangeException($"maxPower {value} -> voltage {this.calibration.ConvertValue(this.PowerToVoltage(value))} exeeds the safety limit {this.SafeRangeHigh} of this heater.");
-                    }
-                    this.powerLimit = value;
-                }
             }
 
             /// <summary>
@@ -260,6 +227,28 @@ namespace CryostatControlServer.He7Cooler
             }
 
             /// <summary>
+            /// Gets or sets the power limit in Watt.
+            /// </summary>
+            public double PowerLimit
+            {
+                get
+                {
+                    return this.powerLimit;
+                }
+
+                set
+                {
+                    if (this.SafeRangeHigh < this.calibration.ConvertValue(this.PowerToVoltage(value)))
+                    {
+                        throw new ArgumentOutOfRangeException(
+                            $"maxPower {value} -> voltage {this.calibration.ConvertValue(this.PowerToVoltage(value))} exeeds the safety limit {this.SafeRangeHigh} of this heater.");
+                    }
+
+                    this.powerLimit = value;
+                }
+            }
+
+            /// <summary>
             /// Gets or sets the voltage safe range high side.
             /// </summary>
             public double SafeRangeHigh { get; set; }
@@ -268,6 +257,27 @@ namespace CryostatControlServer.He7Cooler
             /// Gets or sets the voltage safe range low side.
             /// </summary>
             public double SafeRangeLow { get; set; }
+
+            /// <summary>
+            /// Gets or sets a value indicating whether temperature control enabled.
+            /// </summary>
+            public bool TemperatureControlEnabled { get; set; } = false;
+
+            /// <summary>
+            /// Gets or sets the temperature setpoint in Kelvin.
+            /// </summary>
+            public double TemperatureSetpoint
+            {
+                get
+                {
+                    return this.temperatureSetpoint;
+                }
+
+                set
+                {
+                    this.temperatureSetpoint = value;
+                }
+            }
 
             /// <summary>
             /// Gets or sets the voltage of the heater.
@@ -289,23 +299,6 @@ namespace CryostatControlServer.He7Cooler
             }
 
             /// <summary>
-            /// Notify the heater it has received new measurements.
-            /// </summary>
-            public void Notify()
-            {
-                if (this.TemperatureControlEnabled)
-                {
-                    this.ControlTemperature(this.TemperatureSetpoint, this.PowerLimit);
-                }
-            }
-
-            private double LowPassFilter(double error)
-            {
-                this.filteredError = ((1.0 - this.filterFactor) * this.filteredError) + (this.filterFactor * error);
-                return this.filteredError;
-            }
-
-            /// <summary>
             /// The control temperature loop function.
             /// </summary>
             /// <param name="TSet">
@@ -314,7 +307,10 @@ namespace CryostatControlServer.He7Cooler
             /// <param name="maxPower">
             /// The maxPower.
             /// </param>
-            [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1306:FieldNamesMustBeginWithLowerCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
+            [SuppressMessage(
+                "StyleCop.CSharp.NamingRules",
+                "SA1306:FieldNamesMustBeginWithLowerCaseLetter",
+                Justification = "Reviewed. Suppression is OK here.")]
             public void ControlTemperature(double TSet, double maxPower)
             {
                 double error = TSet - this.temperatureFeedback.Value; // Positive if too cold
@@ -337,7 +333,7 @@ namespace CryostatControlServer.He7Cooler
                     else if (output < 0)
                     {
                         this.SetOutput(0);
-                        this.integrator = Math.Min(Math.Max(error + this.integrator, 0),this.integratorMax);
+                        this.integrator = Math.Min(Math.Max(error + this.integrator, 0), this.integratorMax);
                     }
                     else
                     {
@@ -347,11 +343,33 @@ namespace CryostatControlServer.He7Cooler
                 }
                 catch (Exception e)
                 {
-                    DebugLogger.Error("Heater",e.ToString(), false);
+                    DebugLogger.Error("Heater", e.ToString(), false);
                 }
 
                 this.previousLoopTime = DateTime.Now;
                 this.previousError = lpfError;
+            }
+
+            /// <summary>
+            /// Notify the heater it has received new measurements.
+            /// </summary>
+            public void Notify()
+            {
+                if (this.TemperatureControlEnabled)
+                {
+                    this.ControlTemperature(this.TemperatureSetpoint, this.PowerLimit);
+                }
+            }
+
+            /// <summary>
+            /// Applies a IIF low pass filter
+            /// </summary>
+            /// <param name="error">The error.</param>
+            /// <returns>The filtered value</returns>
+            private double LowPassFilter(double error)
+            {
+                this.filteredError = ((1.0 - this.filterFactor) * this.filteredError) + (this.filterFactor * error);
+                return this.filteredError;
             }
 
             /// <summary>
