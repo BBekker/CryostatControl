@@ -59,8 +59,6 @@ namespace CryostatControlClient.ViewModels.LoggingPresets
             loggingViewModel.CompressorHighAveragePressure = false;
             loggingViewModel.CompressorLowPressure = false;
             loggingViewModel.CompressorLowAveragePressure = false;
-
-            loggingViewModel.BlueforsHeater = false;
         }
     }
 }

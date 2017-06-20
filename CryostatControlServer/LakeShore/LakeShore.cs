@@ -72,7 +72,7 @@ namespace CryostatControlServer.LakeShore
         /// <summary>
         /// Gets or sets the latest sensor values;
         /// </summary>
-        public double[] SensorValues { get; set; } = new double[3] { 0, 0, 0 };
+        public double[] SensorValues { get; set; } = new double[2] { 0, 0 };
         
         #endregion Properties
 
@@ -154,47 +154,6 @@ namespace CryostatControlServer.LakeShore
         }
 
         /// <summary>
-        /// The set heater.
-        /// </summary>
-        /// <param name="turnOn">
-        /// The on state.
-        /// </param>
-        public void SetHeater(bool turnOn)
-        {
-            try
-            {
-                Monitor.Enter(this.stream);
-                this.WaitCommandInterval();
-                this.stream.WriteString("RANGE 1," + (turnOn ? "3" : "0") + "\n");
-            }
-            finally
-            {
-                Monitor.Exit(this.stream);
-            }
-        }
-
-        /// <summary>
-        /// The set heater.
-        /// </summary>
-        /// <returns>
-        /// The power percentage from 0 to 100 <see cref="double"/>.
-        /// </returns>
-        public double GetHeaterPower()
-        {
-            try
-            {
-                Monitor.Enter(this.stream);
-                this.WaitCommandInterval();
-                this.stream.WriteString("HTR? 1\n");
-                return double.Parse(this.stream.ReadString());
-            }
-            finally
-            {
-                Monitor.Exit(this.stream);
-            }
-        }
-
-        /// <summary>
         /// Is the lakeshore connected.
         /// </summary>
         /// <returns>
@@ -244,7 +203,6 @@ namespace CryostatControlServer.LakeShore
             {
                 this.SensorValues[0] = this.ReadTemperature("A");
                 this.SensorValues[1] = this.ReadTemperature("B");
-                this.SensorValues[(int)SensorEnum.HeaterPower] = this.GetHeaterPower();
             }
             catch (Exception e)
             {

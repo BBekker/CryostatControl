@@ -23,10 +23,5 @@ namespace CryostatControlServer.LakeShore
         /// The sensor 2.
         /// </summary>
         Plate3K,
-
-        /// <summary>
-        /// The heater power.
-        /// </summary>
-        HeaterPower,
     }
 }

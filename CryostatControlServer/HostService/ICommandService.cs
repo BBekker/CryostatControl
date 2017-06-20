@@ -115,6 +115,16 @@ namespace CryostatControlServer.HostService
         int GetState();
 
         /// <summary>
+        /// The get start time of a delayed operation (warm up, cool down etc.)
+        /// </summary>
+        /// <returns>
+        /// The <see cref="DateTime"/>.
+        /// </returns>
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        DateTime GetStartTime();
+
+        /// <summary>
         /// Sets the compressor on or off.
         /// <c>true</c> to turn the compressor on.
         /// <c>false</c> to turn the compressor off.
@@ -181,17 +191,6 @@ namespace CryostatControlServer.HostService
         double ReadCompressorPressureScale();
 
         /// <summary>
-        /// Read the lakeshore/bluefors heater power.
-        /// </summary>
-        /// <returns>
-        /// The power in percentage of max power<see cref="double"/>.
-        /// </returns>
-        [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        double ReadBlueforsHeaterPower();
-
-        /// <summary>
         /// Writes the allowed settings to server.
         /// </summary>
         /// <param name="setting">
@@ -216,16 +215,6 @@ namespace CryostatControlServer.HostService
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         double[] ReadSettings();
-
-        /// <summary>
-        /// Sets the bluefors heater.
-        /// </summary>
-        /// <param name="status">if set to <c>true</c> [status].</param>
-        /// <returns>if the value could be set</returns>
-        [OperationContract]
-        [WebInvoke(ResponseFormat = WebMessageFormat.Json)]
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        bool SetBlueforsHeater(bool status);
 
         /// <summary>
         /// Reads the single sensor.

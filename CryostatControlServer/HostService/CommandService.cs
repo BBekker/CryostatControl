@@ -63,17 +63,6 @@ namespace CryostatControlServer.HostService
 
         #region Methods
 
-        /// <summary>
-        /// The read heater power.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="double"/>.
-        /// </returns>
-        public double ReadBlueforsHeaterPower()
-        {
-            return this.cryostatControl.ReadBlueforsHeaterPower();
-        }
-
         /// <inheritdoc cref="ICommandService.IsAlive"/>
         public bool IsAlive()
         {
@@ -145,6 +134,12 @@ namespace CryostatControlServer.HostService
             return (int)this.cryostatControl.ControllerState;
         }
 
+        /// <inheritdoc />
+        public DateTime GetStartTime()
+        {
+            return this.cryostatControl.StartTime;
+        }
+
         /// <inheritdoc cref="ICommandService.GetValue"/>
         public double GetValue(string sensor)
         {
@@ -202,12 +197,6 @@ namespace CryostatControlServer.HostService
         public double ReadCompressorPressureScale()
         {
             return this.cryostatControl.ReadCompressorPressureScale();
-        }
-
-        /// <inheritdoc cref="ICommandService.SetBlueforsHeater"/>>
-        public bool SetBlueforsHeater(bool status)
-        {
-            return this.cryostatControl.SetBlueforsHeater(status);
         }
 
         /// <inheritdoc cref="ICommandService.ReadSingleSensor"/>>

@@ -88,8 +88,6 @@ namespace CryostatControlServer.Data
                 new CryostatControlServer.LakeShore.Sensor(SensorEnum.Plate50K, this.lakeShore);
             sensors[(int)DataEnumerator.LakePlate3K] =
                 new CryostatControlServer.LakeShore.Sensor(SensorEnum.Plate3K, this.lakeShore);
-            sensors[(int)DataEnumerator.LakeHeater] =
-                new CryostatControlServer.LakeShore.Sensor(SensorEnum.HeaterPower, this.lakeShore);
         }
 
         /// <summary>

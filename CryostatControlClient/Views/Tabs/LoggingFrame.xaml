@@ -76,9 +76,6 @@
             <Label FontSize="14" FontWeight="Bold">Temperatures</Label>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.Bluefors50KShieldTemp}">50k Shield</CheckBox>
             <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.Bluefors3KShieldTemp}">3K Shield</CheckBox>
-
-            <Label Margin="0 5 0 0" FontSize="14" FontWeight="Bold">Voltages</Label>
-            <CheckBox Margin="10 5 0 0" IsChecked="{Binding LoggingViewModel.BlueforsHeater}">Heater</CheckBox>
         </StackPanel>
 
         <StackPanel Margin="5" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center">
