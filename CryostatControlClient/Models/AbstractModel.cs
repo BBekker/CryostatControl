@@ -68,24 +68,20 @@ namespace CryostatControlClient.Models
                 if (lineSeries.Values.Count < 1)
                 {
                     lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round(value, 3)));
-
                     temporaryList = new double[this.TemporaryListSize];
-
                     temporaryList[DataPerPoint] = 0;
                 }
                 else if (temporaryList[DataPerPoint] > this.TemporaryListSize - 2)
                 {
-                    lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round(temporaryList.Average() - 1, 3)));
+                    lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round((temporaryList.Sum() - DataPerPoint) / DataPerPoint, 3)));
                     if (lineSeries.Values.Count > MaxChartValues)
                     {
                         lineSeries.Values.RemoveAt(0);
                     }
-
                     temporaryList = new double[this.TemporaryListSize];
                     temporaryList[this.TemporaryListSize - 1] = 0;
                 }
             }
-
             return temporaryList;
         }
 
