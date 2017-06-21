@@ -146,9 +146,9 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private void ReadSettings()
         {
+            double[] settings = ServerCheck.CommandClient.ReadSettings();
             App.Current.Dispatcher.Invoke((Action)delegate
-            {
-                double[] settings = ServerCheck.CommandClient.ReadSettings();
+            {            
                 this.UpdateSettings(settings);
             });
         }
