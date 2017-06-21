@@ -25,7 +25,7 @@ namespace CryostatControlServer
         public DebugForm()
         {
             this.InitializeComponent();
-            Console.SetOut(new ControlWriter(this.textBox1));
+            //Console.SetOut(new ControlWriter(this.textBox1));
         }
 
         /// <summary>
