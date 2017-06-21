@@ -5,8 +5,8 @@ Both server and client run on Windows.
 
 CryostatControlClient
 ---
-This project represents the GUI client as can be seen below. It is build as MVVM in WPF. It connects to the server automaticly with WCF.
-![alt text](https://github.com/BBekker/CryostatControl/blob/readmeUpdate/documents/Screenshots/OverviewTab.png)
+This project represents the GUI client as can be seen below. It is build as MVVM in WPF. It connects to the server automatically with WCF.
+![Overview Tab](https://github.com/BBekker/CryostatControl/blob/dev/documents/Screenshots/OverviewTab.png)
 
 
 CryostatControlServer
