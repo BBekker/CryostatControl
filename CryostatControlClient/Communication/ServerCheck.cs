@@ -19,6 +19,7 @@ namespace CryostatControlClient.Communication
     using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.ViewModels;
     using CryostatControlClient.Views;
+    using System.Windows.Forms;
 
     /// <summary>
     /// Class which checks continuously the connection with the server
@@ -63,7 +64,7 @@ namespace CryostatControlClient.Communication
         /// <summary>
         /// The timer
         /// </summary>
-        private Timer timer;
+        private System.Threading.Timer timer;
 
         /// <summary>
         /// The ip address
@@ -84,7 +85,7 @@ namespace CryostatControlClient.Communication
             this.mainApp = app;
             this.mainWindow = this.mainApp.MainWindow as MainWindow;
             this.Connect();
-            this.timer = new Timer(this.CheckStatus, null, WaitTime, Timeout.Infinite);
+            this.timer = new System.Threading.Timer(this.CheckStatus, null, WaitTime, Timeout.Infinite);
         }
 
         /// <summary>
@@ -112,12 +113,12 @@ namespace CryostatControlClient.Communication
                 }
                 else
                 {
-                    System.Windows.Forms.MessageBox.Show("No connection");
+                    System.Windows.Forms.MessageBox.Show("No connection", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch
             {
-                System.Windows.Forms.MessageBox.Show("No connection");
+                System.Windows.Forms.MessageBox.Show("Something went wrong with the server, check connection and try again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -256,7 +257,7 @@ namespace CryostatControlClient.Communication
                             }
                             catch (Exception)
                             {
-                                Console.WriteLine("Something went wrong with the server");
+                                //// Do nothing and continue
                             }
                         }
                     });
