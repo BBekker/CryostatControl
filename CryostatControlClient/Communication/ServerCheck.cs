@@ -14,10 +14,12 @@ namespace CryostatControlClient.Communication
     using System.Net.Sockets;
     using System.ServiceModel;
     using System.Threading;
+    using System.Threading.Tasks;
 
     using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.ViewModels;
     using CryostatControlClient.Views;
+    using System.Windows.Forms;
 
     /// <summary>
     /// Class which checks continuously the connection with the server
@@ -45,11 +47,6 @@ namespace CryostatControlClient.Communication
         private DataGetClient callbackClient;
 
         /// <summary>
-        /// The command client
-        /// </summary>
-        private CommandServiceClient commandClient;
-
-        /// <summary>
         /// The first time connected
         /// </summary>
         private bool firstTimeConnected = false;
@@ -65,14 +62,9 @@ namespace CryostatControlClient.Communication
         private MainWindow mainWindow;
 
         /// <summary>
-        /// The sender
-        /// </summary>
-        private DataSender sender;
-
-        /// <summary>
         /// The timer
         /// </summary>
-        private Timer timer;
+        private System.Threading.Timer timer;
 
         /// <summary>
         /// The ip address
@@ -93,8 +85,7 @@ namespace CryostatControlClient.Communication
             this.mainApp = app;
             this.mainWindow = this.mainApp.MainWindow as MainWindow;
             this.Connect();
-            this.sender = new DataSender(this);
-            this.timer = new Timer(this.CheckStatus, null, WaitTime, Timeout.Infinite);
+            this.timer = new System.Threading.Timer(this.CheckStatus, null, WaitTime, Timeout.Infinite);
         }
 
         /// <summary>
@@ -103,11 +94,31 @@ namespace CryostatControlClient.Communication
         /// <value>
         /// The command client.
         /// </value>
-        public CommandServiceClient CommandClient
+        public static CommandServiceClient CommandClient
         {
-            get
+            get; private set;
+        }
+
+        /// <summary>
+        /// Sends the message to the server.
+        /// </summary>
+        /// <param name="task">The task.</param>
+        public static void SendMessage(Task task)
+        {
+            try
             {
-                return this.commandClient;
+                if (CommandClient.State == CommunicationState.Opened)
+                {
+                    task.Start();
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("No connection", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch
+            {
+                System.Windows.Forms.MessageBox.Show("Something went wrong with the server, check connection and try again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -151,20 +162,19 @@ namespace CryostatControlClient.Communication
         {
             try
             {
-                this.commandClient.IsAlive();
+                CommandClient.IsAlive();
                 this.SetConnected(true);
                 if (this.firstTimeConnected)
                 {
-                    this.SetCompressorScales();
-                    this.SetLoggingState();
+                    this.UpdateGUI();
                 }
 
-                if (!this.commandClient.IsRegisteredForData(this.GetRegisterKey()))
+                if (!CommandClient.IsRegisteredForData(this.GetRegisterKey()))
                 {
                     this.callbackClient.SubscribeForData(SubscribeInterval, this.GetRegisterKey());
                 }
 
-                if (!this.commandClient.IsRegisteredForUpdates(this.GetRegisterKey()))
+                if (!CommandClient.IsRegisteredForUpdates(this.GetRegisterKey()))
                 {
                     this.callbackClient.SubscribeForUpdates(this.GetRegisterKey());
                 }
@@ -174,7 +184,7 @@ namespace CryostatControlClient.Communication
             catch (CommunicationException)
             {
                 this.SetConnected(false);
-                this.commandClient.Abort();
+                CommandClient.Abort();
                 this.callbackClient.Abort();
                 this.Connect();
             }
@@ -190,8 +200,7 @@ namespace CryostatControlClient.Communication
         private void Connect()
         {
             this.key = DateTime.Now.ToString();
-            this.commandClient = new CommandServiceClient();
-            this.mainApp.CommandServiceClient = this.commandClient;
+            CommandClient = new CommandServiceClient();
             DataClientCallback callback = new DataClientCallback(this.mainApp);
             InstanceContext instanceContext = new InstanceContext(callback);
             this.callbackClient = new DataGetClient(instanceContext);
@@ -222,31 +231,35 @@ namespace CryostatControlClient.Communication
         }
 
         /// <summary>
-        /// Sets the compressor scales.
+        /// Updates the GUI components
         /// </summary>
-        private void SetCompressorScales()
+        private void UpdateGUI()
         {
             if (this.mainApp != null)
             {
-                this.mainApp.Dispatcher.Invoke(
-                    () =>
+                this.mainApp.Dispatcher.Invoke(() =>
                     {
-                        this.sender.SetCompressorScales((this.mainApp.MainWindow as MainWindow).Container);
-                    });
-            }
-        }
-
-        /// <summary>
-        /// Sets the state of the logging.
-        /// </summary>
-        private void SetLoggingState()
-        {
-            if (this.mainApp != null)
-            {
-                this.mainApp.Dispatcher.Invoke(
-                    () =>
-                    {
-                        this.sender.SetLoggerState((this.mainApp.MainWindow as MainWindow).Container);
+                        if ((MainWindow)this.mainApp.MainWindow != null)
+                        {
+                            ViewModelContainer viewModelContainer = ((MainWindow)this.mainApp.MainWindow).Container;
+                            try
+                            {
+                                CommandServiceClient commandClient = ServerCheck.CommandClient;
+                                if (commandClient.State == CommunicationState.Opened && viewModelContainer != null)
+                                {
+                                    viewModelContainer.CompressorViewModel.TempScale =
+                                        commandClient.ReadCompressorTemperatureScale();
+                                    viewModelContainer.CompressorViewModel.PressureScale =
+                                        commandClient.ReadCompressorPressureScale();
+                                    viewModelContainer.LoggingViewModel.LoggingInProgress =
+                                        commandClient.IsLogging();
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                //// Do nothing and continue
+                            }
+                        }
                     });
             }
         }

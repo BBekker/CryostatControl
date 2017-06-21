@@ -258,6 +258,5 @@ namespace CryostatControlClient.Models
         }
 
         #endregion Methods
-
     }
 }

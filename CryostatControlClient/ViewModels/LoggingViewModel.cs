@@ -10,9 +10,11 @@
 namespace CryostatControlClient.ViewModels
 {
     using System.Diagnostics.CodeAnalysis;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using System.Windows.Media;
 
+    using CryostatControlClient.Communication;
     using CryostatControlClient.Models;
     using CryostatControlClient.ViewModels.LoggingPresets;
 
@@ -732,7 +734,7 @@ namespace CryostatControlClient.ViewModels
         /// </param>
         public void OnClickStart(object obj)
         {
-            this.RaisePropertyChanged("StartPressed");
+            ServerCheck.SendMessage(new Task(() => { this.StartLogging(); }));
         }
 
         /// <summary>
@@ -743,7 +745,17 @@ namespace CryostatControlClient.ViewModels
         /// </param>
         public void OnClickCancel(object obj)
         {
-            this.RaisePropertyChanged("CancelPressed");
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.CancelLogging(); }));
+        }
+
+        /// <summary>
+        /// Starts the logging.
+        /// </summary>
+        private void StartLogging()
+        {
+            bool[] dataToBeLogged = this.GetLoggingArray();
+            int interval = (int)this.LoggingInterval;
+            ServerCheck.CommandClient.StartLogging(interval, dataToBeLogged);
         }
     }
 }

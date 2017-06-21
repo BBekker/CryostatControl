@@ -10,10 +10,13 @@
 namespace CryostatControlClient.ViewModels
 {
     using System;
+    using System.ServiceModel;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Media;
 
+    using CryostatControlClient.Communication;
     using CryostatControlClient.Models;
 
     using CryostatControlServer;
@@ -152,7 +155,7 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                if (String.IsNullOrEmpty(this.PlannedModus))
+                if (string.IsNullOrEmpty(this.PlannedModus))
                 {
                     return Visibility.Hidden;
                 }
@@ -480,7 +483,7 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         public void OnClickStart(object obj)
         {
-            this.RaisePropertyChanged("StartPressed");
+            ServerCheck.SendMessage(new Task(() => { this.StartControlProcess(); }));
         }
 
         /// <summary>
@@ -489,7 +492,7 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         public void OnClickCancel(object obj)
         {
-            this.RaisePropertyChanged("CancelPressed");
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Cancel(); }));        
         }
 
         /// <summary>
@@ -498,7 +501,42 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         public void OnClickManual(object obj)
         {
-            this.RaisePropertyChanged("ManualPressed");
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Manual(); }));       
+        }
+
+        /// <summary>
+        /// Task method to start the control process.
+        /// </summary>
+        private void StartControlProcess()
+        {
+            if (ServerCheck.CommandClient.State == CommunicationState.Opened)
+            {
+                int radio = this.SelectedComboIndex;
+                string postpone = this.Time;
+                DateTime startTime = DateTime.Now;
+
+                if (postpone == "Scheduled")
+                {
+                    startTime = this.SelectedDate;
+                    TimeSpan time = this.SelectedTime.TimeOfDay;
+                    startTime = startTime.Date.Add(time);
+                }
+
+                switch (radio)
+                {
+                    case (int)ModusEnumerator.Cooldown:
+                        ServerCheck.CommandClient.CooldownTime(startTime);
+                        break;
+
+                    case (int)ModusEnumerator.Recycle:
+                        ServerCheck.CommandClient.RecycleTime(startTime);
+                        break;
+
+                    case (int)ModusEnumerator.Warmup:
+                        ServerCheck.CommandClient.WarmupTime(startTime);
+                        break;
+                }
+            }
         }
 
         /// <summary>

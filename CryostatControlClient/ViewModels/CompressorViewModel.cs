@@ -9,11 +9,13 @@
 
 namespace CryostatControlClient.ViewModels
 {
-    using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     using System.Windows.Input;
     using System.Windows.Media;
 
+    using CryostatControlClient.Communication;
     using CryostatControlClient.Models;
 
     /// <summary>
@@ -538,7 +540,6 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
-
         /// <summary>
         /// Gets or sets the low pressure.
         /// </summary>
@@ -835,6 +836,7 @@ namespace CryostatControlClient.ViewModels
             {
                 return 0;
             }
+
             return possibleNan;
         }
 
@@ -844,7 +846,7 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         private void TurnOn(object obj)
         {
-            this.RaisePropertyChanged("TurnOn");
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.SetCompressorState(true); }));
         }
 
         /// <summary>
@@ -853,7 +855,7 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         private void TurnOff(object obj)
         {
-            this.RaisePropertyChanged("TurnOff");
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.SetCompressorState(false); }));
         }
 
         /// <summary>

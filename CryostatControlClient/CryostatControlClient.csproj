@@ -60,6 +60,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -98,7 +99,6 @@
     </ApplicationDefinition>
     <Compile Include="ColorState.cs" />
     <Compile Include="Communication\DataReceiver.cs" />
-    <Compile Include="Communication\DataSender.cs" />
     <Compile Include="Communication\ModusEnumerator.cs" />
     <Compile Include="Connected Services\ServiceReference1\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -107,7 +107,7 @@
     </Compile>
     <Compile Include="Models\AbstractModel.cs" />
     <Compile Include="Models\BlueforsModel.cs" />
-    <Compile Include="DataClientCallback.cs" />
+    <Compile Include="Communication\DataClientCallback.cs" />
     <Compile Include="Models\ChartModel.cs" />
     <Compile Include="Models\He7Model.cs" />
     <Compile Include="Models\LoggingModel.cs" />
@@ -118,7 +118,9 @@
     <Compile Include="Notification.cs" />
     <Compile Include="ViewModels\AbstractViewModel.cs" />
     <Compile Include="ViewModels\BlueforsViewModel.cs" />
-    <Compile Include="ViewModels\CompressorViewModel.cs" />
+    <Compile Include="ViewModels\CompressorViewModel.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="ViewModels\LoggingPresets\ILoggingPreset.cs" />
     <Compile Include="ViewModels\LoggingPresets\LogAllPreset.cs" />
     <Compile Include="ViewModels\LoggingPresets\LogCompressorPreset.cs" />
