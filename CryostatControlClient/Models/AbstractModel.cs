@@ -19,33 +19,16 @@ namespace CryostatControlClient.Models
         #region Fields
 
         /// <summary>
-        /// The update time
+        /// The amount of data averaged in 1 point
         /// </summary>
-        private const int UpdateTime = 31;
+        private const int DataPerPoint = 30;
 
         /// <summary>
         /// The maximum amount of chart values
         /// </summary>
         private const int MaxChartValues = 3000;
 
-        /// <summary>
-        /// The size of the temporary lists. If these lists are full a new point is added to the graph. The bigger this number the less frequent a point gets added to the graph.
-        /// </summary>
-        private int temporaryListSize;
-
         #endregion Fields
-
-        #region Constructor
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AbstractModel"/> class.
-        /// </summary>
-        protected AbstractModel()
-        {
-            this.temporaryListSize = UpdateTime;
-        }
-
-        #endregion Constructor
 
         #region Properties
 
@@ -59,7 +42,7 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.temporaryListSize;
+                return DataPerPoint + 1;
             }
         }
 
@@ -80,14 +63,17 @@ namespace CryostatControlClient.Models
         {
             if (!double.IsNaN(value))
             {
-                temporaryList[(int)temporaryList[this.temporaryListSize - 1]] = value;
-                temporaryList[this.temporaryListSize - 1]++;
+                temporaryList[(int)temporaryList[DataPerPoint]] = value;
+                temporaryList[DataPerPoint]++;
                 if (lineSeries.Values.Count < 1)
                 {
                     lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round(value, 3)));
-                }
 
-                if (temporaryList[this.temporaryListSize - 1] >= this.temporaryListSize - 2)
+                    temporaryList = new double[this.TemporaryListSize];
+
+                    temporaryList[DataPerPoint] = 0;
+                }
+                else if (temporaryList[DataPerPoint] > this.TemporaryListSize - 2)
                 {
                     lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round(temporaryList.Average() - 1, 3)));
                     if (lineSeries.Values.Count > MaxChartValues)
@@ -95,8 +81,8 @@ namespace CryostatControlClient.Models
                         lineSeries.Values.RemoveAt(0);
                     }
 
-                    temporaryList = new double[this.temporaryListSize];
-                    temporaryList[this.temporaryListSize - 1] = 0;
+                    temporaryList = new double[this.TemporaryListSize];
+                    temporaryList[this.TemporaryListSize - 1] = 0;
                 }
             }
 
