@@ -264,23 +264,6 @@ namespace CryostatControlClient.ViewModels
             }
         }
 
-        /// <summary>
-        /// Gets or sets the heater power.
-        /// </summary>
-        public double HeaterPower
-        {
-            get
-            {
-                return this.blueforsModel.HeaterPower;
-            }
-
-            set
-            {
-                this.blueforsModel.HeaterPower = value;
-                this.RaisePropertyChanged("HeaterPower");
-            }
-        }
-
         #endregion Properties
 
         #region Methods

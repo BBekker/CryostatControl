@@ -193,7 +193,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
         public double ControllerDisableHeaterHeatSwitchTemperature {
             get {
                 return ((double)(this["ControllerDisableHeaterHeatSwitchTemperature"]));
@@ -217,7 +217,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        [global::System.Configuration.DefaultSettingValueAttribute("40")]
         public double ControllerHe3StartWaitTimeMinutes {
             get {
                 return ((double)(this["ControllerHe3StartWaitTimeMinutes"]));

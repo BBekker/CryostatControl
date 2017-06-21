@@ -35,6 +35,9 @@ namespace CryostatControlServer.He7Cooler
             Justification = "Reviewed. Suppression is OK here.")]
         private const string RUOXFile = "Calibrations\\RUOX.CAL";
 
+        /// <summary>
+        /// The amplifiers calibration file.
+        /// </summary>
         private const string AmplifiersFile = "Calibrations\\AMPLIFIERS.cal";
 
         /// <summary>

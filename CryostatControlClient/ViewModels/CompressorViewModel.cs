@@ -9,7 +9,9 @@
 
 namespace CryostatControlClient.ViewModels
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
+
     using System.Windows.Input;
     using System.Windows.Media;
 
@@ -64,6 +66,11 @@ namespace CryostatControlClient.ViewModels
         private const int OilMaximum = 51;
 
         /// <summary>
+        /// No information string used when dictionary has no correct data
+        /// </summary>
+        private const string NoInformation = "No information";
+
+        /// <summary>
         /// The compressor model
         /// </summary>
         private CompressorModel compressorModel;
@@ -77,6 +84,78 @@ namespace CryostatControlClient.ViewModels
         /// The switch command
         /// </summary>
         private ICommand turnOffCommand;
+
+        /// <summary>
+        /// The operating state dictionary
+        /// </summary>
+        private Dictionary<int, string> operatingStateDictionary =
+            new Dictionary<int, string>
+                {
+                    { -1, "Disconnected" },
+                    { 0, "Ready to Start" },
+                    { 2, "Starting" },
+                    { 3, "Running" },
+                    { 5, "Stopping" },
+                    { 6, "Error Lockout" },
+                    { 7, "Error" },
+                    { 8, "Helium Cool Down" },
+                    { 9, "Error Power Related" },
+                    { 16, "Error Recovery" }
+                };
+
+        /// <summary>
+        /// The warning state dictionary
+        /// </summary>
+        private Dictionary<int, string> warningStateDictionary =
+            new Dictionary<int, string>
+                {
+                    { 0, "No warnings" },
+                    { -1, "Water IN running High" },
+                    { -2, "Water IN running Low" },
+                    { -4, "Water OUT running High" },
+                    { -8, "Water OUT running Low" },
+                    { -16, "Oil running High" },
+                    { -32, "Oil running Low" },
+                    { -64, "Helium running High" },
+                    { -128, "Helium running Low" },
+                    { -256, "Low Pressure running High" },
+                    { -512, "Low Pressure running Low" },
+                    { -1024, "High Pressure running High" },
+                    { -2048, "High Pressure running Low" },
+                    { -4096, "Delta Pressure running High" },
+                    { -8192, "Delta Pressure running Low" },
+                    { -131072, "Static Pressure running High" },
+                    { -262144, "Static Pressure running Low" },
+                    { -524288, "Cold head motor Stall" }
+                };
+
+        /// <summary>
+        /// The error state dictionary
+        /// </summary>
+        private Dictionary<int, string> errorStateDictionary =
+            new Dictionary<int, string>
+                {
+                    { 0, "No Errors" },
+                    { -1, "Water IN High" },
+                    { -2, "Water IN Low" },
+                    { -4, "Water OUT High" },
+                    { -8, "Water OUT Low" },
+                    { -16, "Oil High" },
+                    { -32, "Oil Low" },
+                    { -64, "Helium High" },
+                    { -128, "Helium Low" },
+                    { -256, "Low Pressure High" },
+                    { -512, "Low Pressure Low" },
+                    { -1024, "High Pressure High" },
+                    { -2048, "High Pressure Low" },
+                    { -4096, "Delta Pressure High" },
+                    { -8192, "Delta Pressure Low" },
+                    { -16384, "Motor Current Low" },
+                    { -32768, "Three Phase Error" },
+                    { -65536, "Power Supply Error" },
+                    { -131072, "Static Pressure High" },
+                    { -262144, "Static Pressure Low" },
+                };
 
         #endregion Fields
 
@@ -169,7 +248,8 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.ConvertOperatingStateNumberToString(this.compressorModel.OperatingState);
+                string state;
+                return this.operatingStateDictionary.TryGetValue((int)this.compressorModel.OperatingState, out state) ? state : NoInformation;
             }
         }
 
@@ -200,7 +280,8 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.ConvertWarningStateNumberToString(this.compressorModel.WarningState);
+                string state;
+                return this.warningStateDictionary.TryGetValue((int)this.compressorModel.WarningState, out state) ? state : NoInformation;
             }
         }
 
@@ -231,7 +312,8 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                return this.ConvertErrorStateNumberToString(this.compressorModel.ErrorState);
+                string state;
+                return this.errorStateDictionary.TryGetValue((int)this.compressorModel.ErrorState, out state) ? state : NoInformation;
             }
         }
 
@@ -742,106 +824,7 @@ namespace CryostatControlClient.ViewModels
         #endregion Properties
 
         #region Methods
-
-        /// <summary>
-        /// Convert operating state number to string.
-        /// </summary>
-        /// <param name="operatingStateNumber">
-        /// The operating state number.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public string ConvertOperatingStateNumberToString(double operatingStateNumber)
-        {
-            switch ((int)operatingStateNumber)
-            {
-                case -1: return "Disconnected";
-                case 0: return "Ready to Start";
-                case 2: return "Starting";
-                case 3: return "Running";
-                case 5: return "Stopping";
-                case 6: return "Error Lockout";
-                case 7: return "Error";
-                case 8: return "Helium Cool Down";
-                case 9: return "Error Power Related";
-                case 16: return "Error Recovery";
-                default: return "No Information";
-            }
-        }
-
-        /// <summary>
-        /// Convert warning state number to string.
-        /// </summary>
-        /// <param name="warningStateNumber">
-        /// The warning state number.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public string ConvertWarningStateNumberToString(double warningStateNumber)
-        {
-            switch ((int)warningStateNumber)
-            {
-                case 0: return "No warnings";
-                case -1: return "Water IN running High";
-                case -2: return "Water IN running Low";
-                case -4: return "Water OUT running High";
-                case -8: return "Water OUT running Low";
-                case -16: return "Oil running High";
-                case -32: return "Oil running Low";
-                case -64: return "Helium running High";
-                case -128: return "Helium running Low";
-                case -256: return "Low Pressure running High";
-                case -512: return "Low Pressure running Low";
-                case -1024: return "High Pressure running High";
-                case -2048: return "High Pressure running Low";
-                case -4096: return "Delta Pressure running High";
-                case -8192: return "Delta Pressure running Low";
-                case -131072: return "Static Pressure running High";
-                case -262144: return "Static Pressure running Low";
-                case -524288: return "Cold head motor Stall";
-                default: return "No Information";
-            }
-        }
-
-        /// <summary>
-        /// Convert alarm state number to string.
-        /// </summary>
-        /// <param name="errorStateNumber">
-        /// The alarm state number.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public string ConvertErrorStateNumberToString(double errorStateNumber)
-        {
-            switch ((int)errorStateNumber)
-            {
-                case 0: return "No Errors";
-                case -1: return "Water IN High";
-                case -2: return "Water IN Low";
-                case -4: return "Water OUT High";
-                case -8: return "Water OUT Low";
-                case -16: return "Oil High";
-                case -32: return "Oil Low";
-                case -64: return "Helium High";
-                case -128: return "Helium Low";
-                case -256: return "Low Pressure High";
-                case -512: return "Low Pressure Low";
-                case -1024: return "High Pressure High";
-                case -2048: return "High Pressure Low";
-                case -4096: return "Delta Pressure High";
-                case -8192: return "Delta Pressure Low";
-                case -16384: return "Motor Current Low";
-                case -32768: return "Three Phase Error";
-                case -65536: return "Power Supply Error";
-                case -131072: return "Static Pressure High";
-                case -262144: return "Static Pressure Low";
-                default: return "No Information";
-            }
-        }
-
+  
         /// <summary>
         /// Converts the nan to zero if nan.
         /// </summary>

@@ -107,6 +107,5 @@ namespace CryostatControlServer.He7Cooler
         }
 
         #endregion Classes
-
     }
 }

@@ -280,6 +280,12 @@ namespace CryostatControlServer.He7Cooler
             }
         }
 
+        /// <summary>
+        /// Add a heater to the heaters list
+        /// </summary>
+        /// <param name="heater">
+        /// The heater.
+        /// </param>
         protected void AddHeater(Heater heater)
         {
             this.heaters.Add(heater);

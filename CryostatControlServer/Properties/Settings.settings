@@ -45,13 +45,13 @@
       <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="ControllerDisableHeaterHeatSwitchTemperature" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">20</Value>
+      <Value Profile="(Default)">12</Value>
     </Setting>
     <Setting Name="ControllerHe3StartMinimalTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">2.5</Value>
     </Setting>
     <Setting Name="ControllerHe3StartWaitTimeMinutes" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">30</Value>
+      <Value Profile="(Default)">40</Value>
     </Setting>
     <Setting Name="PasswordToken" Type="System.String" Scope="User">
       <Value Profile="(Default)">ChangeMe!</Value>

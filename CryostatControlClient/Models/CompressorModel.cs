@@ -6,6 +6,7 @@
 namespace CryostatControlClient.Models
 {
     using System;
+    using System.Collections.Generic;
 
     using Dragablz.Dockablz;
 
@@ -95,7 +96,6 @@ namespace CryostatControlClient.Models
         /// The connection state
         /// </summary>
         private double connectionState;
-
         #endregion Fields
 
         #region Properties
