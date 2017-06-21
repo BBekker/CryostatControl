@@ -27,18 +27,18 @@ namespace CryostatControlServer.Data
         ComDeltaAvg,
 
         He3Pump,
+        He3Head,
+        He3SwitchTemp,
+        He4Pump,
+        He4Head,
+        He4SwitchTemp,
         HePlate2K,
         HePlate4K,
-        He3Head,
-        He4Pump,
-        He4SwitchTemp,
-        He3SwitchTemp,
-        He4Head,
 
         He3VoltActual,
-        He4SwitchVoltActual,
         He3SwitchVoltActual,
         He4VoltActual,
+        He4SwitchVoltActual,
 
         SensorAmount,
 
