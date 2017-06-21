@@ -46,7 +46,7 @@ namespace CryostatControlServer
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(669, 393);
             this.Controls.Add(this.textBox1);
-            this.Name = "CryostatControlServer";
+            this.Name = "DebugForm";
             this.Text = "CryostatControlServer";
             this.ResumeLayout(false);
             this.PerformLayout();
