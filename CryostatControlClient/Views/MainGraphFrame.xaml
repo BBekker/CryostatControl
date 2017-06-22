@@ -8,11 +8,12 @@
 
     <materialDesign:Card Style="{StaticResource graphCard}">
         <Grid Style="{StaticResource MainGraphFrame}">
-            <wpf:CartesianChart Series="{Binding SeriesCollection2}" Margin="20" LegendLocation="Left" DisableAnimations="True" Hoverable="False" >
+            <wpf:CartesianChart Series="{Binding SeriesCollection2}" Margin="20" LegendLocation="Left"
+                                DisableAnimations="True" Hoverable="False">
                 <wpf:CartesianChart.AxisX>
                     <wpf:Axis Title="Time" LabelFormatter="{Binding XFormatter}" />
                 </wpf:CartesianChart.AxisX>
-                <wpf:CartesianChart.AxisY >
+                <wpf:CartesianChart.AxisY>
                     <wpf:Axis Title="Kelvin" MinValue="0" />
                 </wpf:CartesianChart.AxisY>
             </wpf:CartesianChart>

@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="HoldingRegistersEnum.cs" company="SRON">
-//     Copyright (c) SRON. All rights reserved.
+//     Copyright (c) 2017 SRON
 // </copyright>
 //-----------------------------------------------------------------------
 namespace CryostatControlServer.Compressor

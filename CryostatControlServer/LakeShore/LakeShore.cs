@@ -1,18 +1,13 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LakeShore.cs" company="SRON">
-//   Copyright (c) SRON. All rights reserved.
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <author>Bernard Bekker</author>
-// <summary>
-//   Connection and comunication to the LakeShore 355 temperature controller.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.LakeShore
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
     using System.IO.Ports;
     using System.Threading;
 
@@ -72,6 +67,9 @@ namespace CryostatControlServer.LakeShore
         /// <summary>
         /// Gets or sets the latest sensor values;
         /// </summary>
+        /// <value>
+        /// The sensor values.
+        /// </value>
         public double[] SensorValues { get; set; } = new double[2] { 0, 0 };
         
         #endregion Properties
@@ -157,7 +155,7 @@ namespace CryostatControlServer.LakeShore
         /// Is the lakeshore connected.
         /// </summary>
         /// <returns>
-        /// Returns whether the lakeshore is connected <see cref="bool"/>.
+        /// Returns whether the lakeshore is connected <see cref="bool" />.
         /// </returns>
         public bool IsConnected()
         {

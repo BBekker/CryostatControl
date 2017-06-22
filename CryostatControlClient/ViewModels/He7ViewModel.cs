@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="He7ViewModel.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the He7ViewModel type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels
@@ -24,14 +21,14 @@ namespace CryostatControlClient.ViewModels
     using LiveCharts.Geared;
 
     /// <summary>
-    /// The he 7 view model.
+    /// The he7 view model.
     /// </summary>
     public class He7ViewModel : AbstractViewModel
     {
         #region Fields 
 
         /// <summary>
-        /// The he 7 model.
+        /// The he7 model.
         /// </summary>
         private He7Model he7Model;
 
@@ -567,6 +564,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the four k plate max 1.
         /// </summary>
+        /// <value>
+        /// The four k plate max1.
+        /// </value>
         public double FourKPlateMax1
         {
             get
@@ -584,6 +584,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the four k plate max 2.
         /// </summary>
+        /// <value>
+        /// The four k plate max2.
+        /// </value>
         public double FourKPlateMax2
         {
             get
@@ -621,6 +624,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 3 head max.
         /// </summary>
+        /// <value>
+        /// The he3 head maximum.
+        /// </value>
         public double He3HeadMax
         {
             get
@@ -658,6 +664,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 3 pump actual volt.
         /// </summary>
+        /// <value>
+        /// The he3 pump actual volt.
+        /// </value>
         public double He3PumpActualVolt
         {
             get
@@ -675,6 +684,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 3 pump new volt.
         /// </summary>
+        /// <value>
+        /// The he3 pump new volt.
+        /// </value>
         public double He3PumpNewVolt
         {
             get
@@ -692,6 +704,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 3 pump max.
         /// </summary>
+        /// <value>
+        /// The he3 pump maximum.
+        /// </value>
         public double He3PumpMax
         {
             get
@@ -729,6 +744,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 3 switch actual volt.
         /// </summary>
+        /// <value>
+        /// The he3 switch actual volt.
+        /// </value>
         public double He3SwitchActualVolt
         {
             get
@@ -746,6 +764,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 3 switch new volt.
         /// </summary>
+        /// <value>
+        /// The he3 switch new volt.
+        /// </value>
         public double He3SwitchNewVolt
         {
             get
@@ -763,6 +784,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 3 switch max 1.
         /// </summary>
+        /// <value>
+        /// The he3 switch max1.
+        /// </value>
         public double He3SwitchMax1
         {
             get
@@ -780,6 +804,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 3 switch max 2.
         /// </summary>
+        /// <value>
+        /// The he3 switch max2.
+        /// </value>
         public double He3SwitchMax2
         {
             get
@@ -817,6 +844,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 4 head max.
         /// </summary>
+        /// <value>
+        /// The he4 head maximum.
+        /// </value>
         public double He4HeadMax
         {
             get
@@ -854,6 +884,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 4 pump actual volt.
         /// </summary>
+        /// <value>
+        /// The he4 pump actual volt.
+        /// </value>
         public double He4PumpActualVolt
         {
             get
@@ -871,6 +904,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 4 pump new volt.
         /// </summary>
+        /// <value>
+        /// The he4 pump new volt.
+        /// </value>
         public double He4PumpNewVolt
         {
             get
@@ -888,6 +924,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 4 pump max.
         /// </summary>
+        /// <value>
+        /// The he4 pump maximum.
+        /// </value>
         public double He4PumpMax
         {
             get
@@ -925,6 +964,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 4 switch actual volt.
         /// </summary>
+        /// <value>
+        /// The he4 switch actual volt.
+        /// </value>
         public double He4SwitchActualVolt
         {
             get
@@ -942,6 +984,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 4 switch new volt.
         /// </summary>
+        /// <value>
+        /// The he4 switch new volt.
+        /// </value>
         public double He4SwitchNewVolt
         {
             get
@@ -959,6 +1004,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 4 switch max 1.
         /// </summary>
+        /// <value>
+        /// The he4 switch max1.
+        /// </value>
         public double He4SwitchMax1
         {
             get
@@ -976,6 +1024,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the he 4 switch max 2.
         /// </summary>
+        /// <value>
+        /// The he4 switch max2.
+        /// </value>
         public double He4SwitchMax2
         {
             get
@@ -1013,6 +1064,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the connection state.
         /// </summary>
+        /// <value>
+        /// The state of the connection.
+        /// </value>
         public double ConnectionState
         {
             get
@@ -1051,6 +1105,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets the connection state converted.
         /// </summary>
+        /// <value>
+        /// The connection state converted.
+        /// </value>
         public string ConnectionStateConverted
         {
             get

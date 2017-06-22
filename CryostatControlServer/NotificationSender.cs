@@ -1,16 +1,11 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="NotificationSender.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the NotificationSender type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer
 {
-    using System;
-
     using CryostatControlServer.HostService;
 
     /// <summary>
@@ -35,7 +30,7 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// The error.
+        /// Sends an error.
         /// </summary>
         /// <param name="time">
         /// The time.
@@ -51,7 +46,7 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// Warnings the specified tag.
+        /// Sends a warning.
         /// </summary>
         /// <param name="time">
         /// The time.
@@ -67,7 +62,7 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// Information the specified tag.
+        /// Sends info.
         /// </summary>
         /// <param name="time">
         /// The time.
@@ -83,7 +78,7 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// The send data.
+        /// Sends the data.
         /// </summary>
         /// <param name="message">
         /// The message.

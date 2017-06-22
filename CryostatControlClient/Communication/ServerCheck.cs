@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ServerCheck.cs" company="SRON">
-// k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Has the hearthbeat to check the server connection
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.Communication
@@ -15,14 +12,14 @@ namespace CryostatControlClient.Communication
     using System.ServiceModel;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Windows.Forms;
 
     using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.ViewModels;
     using CryostatControlClient.Views;
-    using System.Windows.Forms;
 
     /// <summary>
-    /// Class which checks continuously the connection with the server
+    /// Class which continuously checks the connection with the server
     /// </summary>
     public class ServerCheck
     {

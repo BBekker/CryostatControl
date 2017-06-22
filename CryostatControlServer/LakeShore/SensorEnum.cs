@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SensorEnum.cs" company="SRON">
-//   bla
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The sensor enum.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.LakeShore
@@ -15,12 +12,12 @@ namespace CryostatControlServer.LakeShore
     public enum SensorEnum
     {
         /// <summary>
-        /// The sensor 1.
+        /// The sensor 1: 50K Plate.
         /// </summary>
         Plate50K,
 
         /// <summary>
-        /// The sensor 2.
+        /// The sensor 2: 3K Plate.
         /// </summary>
         Plate3K,
     }

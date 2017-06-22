@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Controller.StateMachine.cs" company="SRON">
-//   all rights reserved
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The controller.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer
@@ -30,7 +27,7 @@ namespace CryostatControlServer
         /// Use of the State pattern was considered but rejected for clarity and maintainability.
         /// The design of the state machine is discussed on github:
         /// https://github.com/BBekker/CryostatControl/pull/88
-        /// access can be requested by emailing: Bernard@BernardBekker.nl
+        /// Access can be requested by emailing: Bernard@BernardBekker.nl
         /// </para>
         /// <para>
         /// States

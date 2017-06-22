@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="TabFrame.xaml.cs" company="SRON">
-//   k
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Interaction logic for Window1.xaml
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.Views
