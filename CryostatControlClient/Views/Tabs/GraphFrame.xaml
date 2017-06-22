@@ -6,7 +6,7 @@
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       Background="{DynamicResource MaterialDesignPaper}">
     <Grid.Resources>
-        <viewModels:ZoomingModeConverter x:Key="ZoomingModeConverter"></viewModels:ZoomingModeConverter>
+        <viewModels:ZoomingModeConverter x:Key="ZoomingModeConverter" />
     </Grid.Resources>
 
     <Grid.ColumnDefinitions>
@@ -15,46 +15,57 @@
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
         <RowDefinition Height="*" />
-        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
 
     <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
         <StackPanel VerticalAlignment="Center">
-            <Label HorizontalAlignment="Center" >Currently zooming</Label>
-            <Label HorizontalAlignment="Center" Content="{Binding ChartViewModel.ZoomingMode, Converter={StaticResource ZoomingModeConverter}}"/>
+            <Label HorizontalAlignment="Center">Currently zooming</Label>
+            <Label HorizontalAlignment="Center"
+                   Content="{Binding ChartViewModel.ZoomingMode, Converter={StaticResource ZoomingModeConverter}}" />
             <Button Margin="5" Command="{Binding ChartViewModel.ZoomCommand}">Toggle Zoom Axis</Button>
             <Button Margin="5" Command="{Binding ChartViewModel.ResetCommand}">Reset zooming</Button>
 
 
             <StackPanel Margin="10 10 0 0" VerticalAlignment="Center">
-                <CheckBox Command="{Binding BlueforsViewModel.ColdPlate3KVisibilityCommand}" IsChecked="True" Background="DodgerBlue">
+                <CheckBox Command="{Binding BlueforsViewModel.ColdPlate3KVisibilityCommand}" IsChecked="True"
+                          Background="DodgerBlue">
                     Bluefors - 3K Plate
                 </CheckBox>
-                <CheckBox Command="{Binding BlueforsViewModel.ColdPlate50KVisibilityCommand}" IsChecked="True" Background="Red">
+                <CheckBox Command="{Binding BlueforsViewModel.ColdPlate50KVisibilityCommand}" IsChecked="True"
+                          Background="Red">
                     Bluefors - 50K Plate
                 </CheckBox>
-                <CheckBox Command="{Binding He7ViewModel.TwoKPlateVisibilityCommand}" IsChecked="True" Background="CadetBlue">
+                <CheckBox Command="{Binding He7ViewModel.TwoKPlateVisibilityCommand}" IsChecked="True"
+                          Background="CadetBlue">
                     He7 - 2K Plate
                 </CheckBox>
-                <CheckBox Command="{Binding He7ViewModel.FourKPlateVisibilityCommand}" IsChecked="True" Background="Orange">
+                <CheckBox Command="{Binding He7ViewModel.FourKPlateVisibilityCommand}" IsChecked="True"
+                          Background="Orange">
                     He7 - 4K Plate
                 </CheckBox>
-                <CheckBox Command="{Binding He7ViewModel.He3HeadVisibilityCommand}" IsChecked="True" Background="DeepSkyBlue">
+                <CheckBox Command="{Binding He7ViewModel.He3HeadVisibilityCommand}" IsChecked="True"
+                          Background="DeepSkyBlue">
                     He7 - He3 Head
                 </CheckBox>
-                <CheckBox Command="{Binding He7ViewModel.He3SwitchVisibilityCommand}" IsChecked="True" Background="OrangeRed">
+                <CheckBox Command="{Binding He7ViewModel.He3SwitchVisibilityCommand}" IsChecked="True"
+                          Background="OrangeRed">
                     He7 - He3 Switch
                 </CheckBox>
-                <CheckBox Command="{Binding He7ViewModel.He3PumpVisibilityCommand}" IsChecked="True" Background="DeepPink">
+                <CheckBox Command="{Binding He7ViewModel.He3PumpVisibilityCommand}" IsChecked="True"
+                          Background="DeepPink">
                     He7 - He3 Pump
                 </CheckBox>
-                <CheckBox Command="{Binding He7ViewModel.He4HeadVisibilityCommand}" IsChecked="True" Background="BlueViolet">
+                <CheckBox Command="{Binding He7ViewModel.He4HeadVisibilityCommand}" IsChecked="True"
+                          Background="BlueViolet">
                     He7 - He4 Head
                 </CheckBox>
-                <CheckBox Command="{Binding He7ViewModel.He4SwitchVisibilityCommand}" IsChecked="True" Background="LightSeaGreen">
+                <CheckBox Command="{Binding He7ViewModel.He4SwitchVisibilityCommand}" IsChecked="True"
+                          Background="LightSeaGreen">
                     He7 - He4 Switch
                 </CheckBox>
-                <CheckBox Command="{Binding He7ViewModel.He4PumpVisibilityCommand}" IsChecked="True" Background="GreenYellow">
+                <CheckBox Command="{Binding He7ViewModel.He4PumpVisibilityCommand}" IsChecked="True"
+                          Background="GreenYellow">
                     He7 - He4 Pump
                 </CheckBox>
             </StackPanel>
@@ -63,42 +74,50 @@
 
     <Grid Grid.Column="1" Grid.Row="1">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
-        
+
         <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 5 10 5">
             <Label Margin="0 0 10 0">Y Min</Label>
-            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="30">
-                <TextBox Text="{Binding ChartViewModel.YMin}" HorizontalContentAlignment="Right" Margin="0 0 5 0"></TextBox>
+            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center"
+                    MinWidth="30">
+                <TextBox Text="{Binding ChartViewModel.YMin}" HorizontalContentAlignment="Right" Margin="0 0 5 0" />
             </Border>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 5 10 5">
             <Label Margin="0 0 10 0">Y Max</Label>
-            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="30">
-                <TextBox Text="{Binding ChartViewModel.YMax}" HorizontalContentAlignment="Right" Margin="0 0 5 0"></TextBox>
+            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center"
+                    MinWidth="30">
+                <TextBox Text="{Binding ChartViewModel.YMax}" HorizontalContentAlignment="Right" Margin="0 0 5 0" />
             </Border>
         </StackPanel>
 
         <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 5 10 5">
             <Label Margin="0 0 5 0">X Min</Label>
-            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="150">
-                <xctk:DateTimePicker Value="{Binding ChartViewModel.XMin}" HorizontalContentAlignment="Right" Margin="0 0 5 0" Width="250"></xctk:DateTimePicker>
+            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center"
+                    MinWidth="150">
+                <xctk:DateTimePicker Value="{Binding ChartViewModel.XMin}" HorizontalContentAlignment="Right"
+                                     Margin="0 0 5 0" Width="250" />
             </Border>
         </StackPanel>
 
         <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10 5 10 5">
             <Label Margin="0 0 5 0">X Max</Label>
-            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center" MinWidth="150">
-                <xctk:DateTimePicker Value="{Binding ChartViewModel.XMax}" HorizontalContentAlignment="Right" Margin="0 0 5 0" Width="250"></xctk:DateTimePicker>
+            <Border BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" VerticalAlignment="Center"
+                    MinWidth="150">
+                <xctk:DateTimePicker Value="{Binding ChartViewModel.XMax}" HorizontalContentAlignment="Right"
+                                     Margin="0 0 5 0" Width="250" />
             </Border>
         </StackPanel>
     </Grid>
 
-    <wpf:CartesianChart Name="CartesianChart1" Grid.Column="1" Grid.Row="0" Series="{Binding SeriesCollection}" Margin="0 5 5 5" DisableAnimations="True" Hoverable="False" Zoom="{Binding ChartViewModel.ZoomingMode}" 
-                        AxisY="{Binding ChartViewModel.YAxisCollection}" AxisX="{Binding ChartViewModel.XAxisCollection}">
-    </wpf:CartesianChart>
+    <wpf:CartesianChart Name="CartesianChart1" Grid.Column="1" Grid.Row="0" Series="{Binding SeriesCollection}"
+                        Margin="0 5 5 5" DisableAnimations="True" Hoverable="False"
+                        Zoom="{Binding ChartViewModel.ZoomingMode}"
+                        AxisY="{Binding ChartViewModel.YAxisCollection}"
+                        AxisX="{Binding ChartViewModel.XAxisCollection}" />
 </Grid>
