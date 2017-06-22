@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AbstractDataLogger.cs" company="SRON">
-//   k
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the AbstractDataLogger type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.Logging
@@ -18,7 +15,7 @@ namespace CryostatControlServer.Logging
     using CryostatControlServer.Data;
 
     /// <summary>
-    /// The abstract log data.
+    /// The abstract data logger.
     /// </summary>
     public abstract class AbstractDataLogger
     {
@@ -38,7 +35,7 @@ namespace CryostatControlServer.Logging
         protected const int Amountdigits = 3;
 
         /// <summary>
-        /// The device dictionary.
+        /// The device dictionary containing titles for logging.
         /// </summary>
         [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1013:ClosingCurlyBracketsMustBeSpacedCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1012:OpeningCurlyBracketsMustBeSpacedCorrectly", Justification = "Reviewed. Suppression is OK here.")]
