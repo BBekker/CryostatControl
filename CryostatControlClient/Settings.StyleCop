@@ -5,6 +5,10 @@
       <Value>xaml</Value>
       <Value>modi</Value>
       <Value>viewmodel</Value>
+      <Value>viewmodels</Value>
+      <Value>ip</Value>
+      <Value>progressbar</Value>
+      <Value>zoomingoption</Value>
     </CollectionProperty>
   </GlobalSettings>
 </StyleCopSettings>

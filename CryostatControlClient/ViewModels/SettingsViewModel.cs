@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SettingsViewModel.cs" company="SRON">
-//   bla
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The settings view model.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace CryostatControlClient.ViewModels
 {
@@ -34,7 +31,7 @@ namespace CryostatControlClient.ViewModels
         private double[] oldSettings;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
+        /// Initializes a new instance of the <see cref="SettingsViewModel" /> class.
         /// </summary>
         public SettingsViewModel()
         {
@@ -45,11 +42,17 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets the confirm settings click.
         /// </summary>
+        /// <value>
+        /// The confirm settings click.
+        /// </value>
         public ICommand ConfirmSettingsClick { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the settings tab is selected.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is selected; otherwise, <c>false</c>.
+        /// </value>
         public bool IsSelected
         {
             get
@@ -70,10 +73,13 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets the settings.
         /// </summary>
+        /// <value>
+        /// The settings.
+        /// </value>
         public ObservableCollection<SettingModel> Settings { get; }
 
         /// <summary>
-        /// The get current values.
+        /// Gets the current values.
         /// </summary>
         /// <returns>
         /// The <see cref="double[]"/>.
@@ -90,7 +96,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Send changes in settings to the server
+        /// Sends changes in settings to the server
         /// </summary>
         private void SendChanges()
         {
@@ -98,7 +104,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Write the settings to the server.
+        /// Writes the settings to the server.
         /// </summary>
         private void WriteSettings()
         {
@@ -113,7 +119,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Update the displayed settings
+        /// Updates the displayed settings
         /// </summary>
         /// <param name="settingValues">
         /// The setting values.
@@ -134,7 +140,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// The update settings from server async.
+        /// Updates the displayed settings async
         /// </summary>
         private void UpdateSettingsFromServerAsync()
         {
@@ -142,7 +148,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Read the settings from the server.
+        /// Reads the settings from the server.
         /// </summary>
         private void ReadSettings()
         {
