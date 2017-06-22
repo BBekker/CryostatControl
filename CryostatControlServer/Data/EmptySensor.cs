@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="EmptySensor.cs" company="SRON">
-//      Copyright (c) SRON. All rights reserved.
+//      Copyright (c) 2017 SRON
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 namespace CryostatControlServer.Data
@@ -33,13 +33,7 @@ namespace CryostatControlServer.Data
         /// <summary>
         /// Gets the value, min value is returned as error value.
         /// </summary>
-        public double Value
-        {
-            get
-            {
-                return double.NaN;
-            }
-        }
+        public double Value { get; } = double.NaN;
 
         #endregion Properties
     }

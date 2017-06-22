@@ -1,11 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ISensor.cs" company="SRON">
-//   bla
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <author>Bernard Bekker</author>
-// <summary>
-//   The Sensor interface.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.Data

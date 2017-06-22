@@ -1,11 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DigitalSwitch.cs" company="SRON">
-//   All rights reseverd.
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <author>Bernard Bekker</author>
-// <summary>
-//   The digital switches.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.He7Cooler
