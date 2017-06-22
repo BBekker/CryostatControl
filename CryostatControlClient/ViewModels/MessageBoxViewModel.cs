@@ -71,7 +71,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// The create notification.
+        /// Creates a notification.
         /// </summary>
         /// <param name="data">
         /// The data.

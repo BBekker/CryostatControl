@@ -373,7 +373,7 @@ namespace CryostatControlClient.ViewModels
         #region Commands
 
         /// <summary>
-        /// Gets or sets the hi button command.
+        /// Gets or sets the start button command.
         /// </summary>
         /// <value>
         /// The hi button command.
@@ -411,7 +411,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the manual button command.
+        /// Gets or sets the manual mode button command.
         /// </summary>
         /// <value>
         /// The cancel button command.
@@ -465,7 +465,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Changes time of command.
+        /// Handles radio change.
         /// </summary>
         /// <param name="obj">The object.</param>
         public void OnChangeRadio(object obj)
@@ -493,7 +493,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Called when [click manual].
+        /// Handles manual click.
         /// </summary>
         /// <param name="obj">The object.</param>
         public void OnClickManual(object obj)
