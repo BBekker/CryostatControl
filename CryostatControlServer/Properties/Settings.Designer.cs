@@ -73,13 +73,13 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
-        public double ControllerHe3HeaterVoltage {
+        [global::System.Configuration.DefaultSettingValueAttribute("1.4")]
+        public double ControllerHe3HeaterPower {
             get {
-                return ((double)(this["ControllerHe3HeaterVoltage"]));
+                return ((double)(this["ControllerHe3HeaterPower"]));
             }
             set {
-                this["ControllerHe3HeaterVoltage"] = value;
+                this["ControllerHe3HeaterPower"] = value;
             }
         }
         
@@ -97,13 +97,13 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public double ControllerHe4HeaterVoltage {
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public double ControllerHe4HeaterPower {
             get {
-                return ((double)(this["ControllerHe4HeaterVoltage"]));
+                return ((double)(this["ControllerHe4HeaterPower"]));
             }
             set {
-                this["ControllerHe4HeaterVoltage"] = value;
+                this["ControllerHe4HeaterPower"] = value;
             }
         }
         
@@ -133,19 +133,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("45")]
-        public double ControllerHeaterTemperatureSetpoint {
-            get {
-                return ((double)(this["ControllerHeaterTemperatureSetpoint"]));
-            }
-            set {
-                this["ControllerHeaterTemperatureSetpoint"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        [global::System.Configuration.DefaultSettingValueAttribute("14")]
         public double ControllerHeatSwitchOnTemperature {
             get {
                 return ((double)(this["ControllerHeatSwitchOnTemperature"]));
@@ -157,7 +145,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
         public double ControllerHeatSwitchSafeValue {
             get {
                 return ((double)(this["ControllerHeatSwitchSafeValue"]));
@@ -181,7 +169,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("4.4")]
         public double ControllerHe4StartTemperature {
             get {
                 return ((double)(this["ControllerHe4StartTemperature"]));
@@ -205,7 +193,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
         public double ControllerDisableHeaterHeatSwitchTemperature {
             get {
                 return ((double)(this["ControllerDisableHeaterHeatSwitchTemperature"]));
@@ -229,7 +217,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        [global::System.Configuration.DefaultSettingValueAttribute("40")]
         public double ControllerHe3StartWaitTimeMinutes {
             get {
                 return ((double)(this["ControllerHe3StartWaitTimeMinutes"]));
@@ -260,6 +248,30 @@ namespace CryostatControlServer.Properties {
             }
             set {
                 this["LoggingAddress"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50")]
+        public double ControllerHeaterTemperatureSetpoint {
+            get {
+                return ((double)(this["ControllerHeaterTemperatureSetpoint"]));
+            }
+            set {
+                this["ControllerHeaterTemperatureSetpoint"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.05")]
+        public double ControllerHeaterLowPowerValue {
+            get {
+                return ((double)(this["ControllerHeaterLowPowerValue"]));
+            }
+            set {
+                this["ControllerHeaterLowPowerValue"] = value;
             }
         }
     }

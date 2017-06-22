@@ -9,16 +9,20 @@
 
 namespace CryostatControlClient
 {
-    using System.Collections.Specialized;
+    using System;
+    using System.Globalization;
     using System.Windows.Media;
-
-    using Color = System.Drawing.Color;
 
     /// <summary>
     /// The notification.
     /// </summary>
     public class Notification
     {
+        /// <summary>
+        /// The unknown type.
+        /// </summary>
+        private const string UnknownType = "Unknown";
+
         /// <summary>
         /// The time.
         /// </summary>
@@ -48,9 +52,9 @@ namespace CryostatControlClient
         /// </param>
         public Notification(string time, string level, string data)
         {
-            this.time = time;
-            this.level = level;
-            this.data = data;
+            this.Time = time;
+            this.Level = level;
+            this.Data = data;
         }
 
         /// <summary>
@@ -65,7 +69,14 @@ namespace CryostatControlClient
 
             set
             {
-                this.time = value;
+                if (this.IsATime(value))
+                {
+                    this.time = value;
+                }
+                else
+                {
+                    this.time = UnknownType;
+                }
             }
         }
 
@@ -81,7 +92,14 @@ namespace CryostatControlClient
 
             set
             {
-                this.level = value;
+                if (this.IsALevel(value))
+                {
+                    this.level = value;
+                }
+                else
+                {
+                    this.level = UnknownType;
+                }
             }
         }
 
@@ -114,6 +132,37 @@ namespace CryostatControlClient
                     case "Warning": return new SolidColorBrush(Colors.Orange);
                     default: return new SolidColorBrush(Colors.Black);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Determines whether [time] is [the specified time].
+        /// </summary>
+        /// <param name="time">The time.</param>
+        /// <returns>
+        ///   <c>true</c> if [time] is [the specified time]; otherwise, <c>false</c>.
+        /// </returns>
+        private bool IsATime(string time)
+        {
+            DateTime dateTime;
+            return DateTime.TryParseExact(time, "HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None,  out dateTime);
+        }
+
+        /// <summary>
+        /// Determines whether [level] is [the specified level].
+        /// </summary>
+        /// <param name="level">The level.</param>
+        /// <returns>
+        ///   <c>true</c> if [level] is [the specified level]; otherwise, <c>false</c>.
+        /// </returns>
+        private bool IsALevel(string level)
+        {
+            switch (level)
+            {
+                case "Info": return true;
+                case "Warning": return true;
+                case "Error": return true;
+                default: return false;
             }
         }
     }

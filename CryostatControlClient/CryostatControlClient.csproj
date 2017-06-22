@@ -43,6 +43,9 @@
     <Reference Include="LiveCharts, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.0.9.6\lib\net45\LiveCharts.dll</HintPath>
     </Reference>
+    <Reference Include="LiveCharts.Geared, Version=1.2.8.0, Culture=neutral, PublicKeyToken=7292f245d14ab8bf, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Geared.1.2.8\lib\net45\LiveCharts.Geared.dll</HintPath>
+    </Reference>
     <Reference Include="LiveCharts.Wpf, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.Wpf.0.9.6\lib\net45\LiveCharts.Wpf.dll</HintPath>
     </Reference>
@@ -58,6 +61,7 @@
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -94,8 +98,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ColorState.cs" />
     <Compile Include="Communication\DataReceiver.cs" />
-    <Compile Include="Communication\DataSender.cs" />
     <Compile Include="Communication\ModusEnumerator.cs" />
     <Compile Include="Connected Services\ServiceReference1\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -104,7 +108,8 @@
     </Compile>
     <Compile Include="Models\AbstractModel.cs" />
     <Compile Include="Models\BlueforsModel.cs" />
-    <Compile Include="DataClientCallback.cs" />
+    <Compile Include="Communication\DataClientCallback.cs" />
+    <Compile Include="Models\ChartModel.cs" />
     <Compile Include="Models\He7Model.cs" />
     <Compile Include="Models\LoggingModel.cs" />
     <Compile Include="Models\MessageBoxModel.cs" />
@@ -114,7 +119,9 @@
     <Compile Include="Notification.cs" />
     <Compile Include="ViewModels\AbstractViewModel.cs" />
     <Compile Include="ViewModels\BlueforsViewModel.cs" />
-    <Compile Include="ViewModels\CompressorViewModel.cs" />
+    <Compile Include="ViewModels\CompressorViewModel.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="ViewModels\LoggingPresets\ILoggingPreset.cs" />
     <Compile Include="ViewModels\LoggingPresets\LogAllPreset.cs" />
     <Compile Include="ViewModels\LoggingPresets\LogCompressorPreset.cs" />
@@ -129,7 +136,7 @@
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\ModusViewModel.cs" />
     <Compile Include="ViewModels\ZoomingModeConverter.cs" />
-    <Compile Include="ViewModels\ZoomingViewModel.cs" />
+    <Compile Include="ViewModels\ChartViewModel.cs" />
     <Compile Include="Views\MainGraphFrame.xaml.cs">
       <DependentUpon>MainGraphFrame.xaml</DependentUpon>
     </Compile>

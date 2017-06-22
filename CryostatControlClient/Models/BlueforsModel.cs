@@ -12,6 +12,7 @@ namespace CryostatControlClient.Models
 
     using LiveCharts;
     using LiveCharts.Defaults;
+    using LiveCharts.Geared;
     using LiveCharts.Wpf;
 
     /// <summary>
@@ -34,12 +35,12 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The cold plate3 k line series
         /// </summary>
-        private LineSeries coldPlate3KLineSeries;
+        private GLineSeries coldPlate3KLineSeries;
 
         /// <summary>
         /// The cold plate50 k line series
         /// </summary>
-        private LineSeries coldPlate50KLineSeries;
+        private GLineSeries coldPlate50KLineSeries;
 
         /// <summary>
         /// The cold plate3 k temporary list
@@ -64,22 +65,17 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// The cold plate3 k line series
         /// </summary>
-        private LineSeries coldPlate3KLineSeriesBottom;
+        private GLineSeries coldPlate3KLineSeriesBottom;
 
         /// <summary>
         /// The cold plate50 k line series
         /// </summary>
-        private LineSeries coldPlate50KLineSeriesBottom;
+        private GLineSeries coldPlate50KLineSeriesBottom;
 
         /// <summary>
         /// The connection state.
         /// </summary>
         private double connectionState;
-
-        /// <summary>
-        /// The heater power.
-        /// </summary>
-        private double heaterPower;
 
         #endregion Fields
 
@@ -96,10 +92,10 @@ namespace CryostatControlClient.Models
             this.coldPlate3KTemporaryListBottom = new double[this.TemporaryListSize];
             this.coldPlate50KTemporaryListBottom = new double[this.TemporaryListSize];
 
-            this.coldPlate3KLineSeries = new LineSeries { Title = "Bluefors - 3K Plate", Values = new ChartValues<DateTimePoint>() };
-            this.coldPlate50KLineSeries = new LineSeries { Title = "Bluefors - 50K Plate", Values = new ChartValues<DateTimePoint>() };
-            this.coldPlate3KLineSeriesBottom = new LineSeries { Title = "Bluefors - 3K Plate", Values = new ChartValues<DateTimePoint>() };
-            this.coldPlate50KLineSeriesBottom = new LineSeries { Title = "Bluefors - 50K Plate", Values = new ChartValues<DateTimePoint>() };
+            this.coldPlate3KLineSeries = new GLineSeries { Title = "Bluefors - 3K Plate", Values = new GearedValues<DateTimePoint>() };
+            this.coldPlate50KLineSeries = new GLineSeries { Title = "Bluefors - 50K Plate", Values = new GearedValues<DateTimePoint>() };
+            this.coldPlate3KLineSeriesBottom = new GLineSeries { Title = "Bluefors - 3K Plate", Values = new GearedValues<DateTimePoint>() };
+            this.coldPlate50KLineSeriesBottom = new GLineSeries { Title = "Bluefors - 50K Plate", Values = new GearedValues<DateTimePoint>() };
         }
 
         #endregion Constructor
@@ -150,7 +146,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The cold plate 3 k line series.
         /// </value>
-        public LineSeries ColdPlate3KLineSeriesBottom
+        public GLineSeries ColdPlate3KLineSeriesBottom
         {
             get
             {
@@ -164,7 +160,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The cold plate 50 k line series.
         /// </value>
-        public LineSeries ColdPlate50KLineSeriesBottom
+        public GLineSeries ColdPlate50KLineSeriesBottom
         {
             get
             {
@@ -178,7 +174,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The cold plate 3 k line series.
         /// </value>
-        public LineSeries ColdPlate3KLineSeries
+        public GLineSeries ColdPlate3KLineSeries
         {
             get
             {
@@ -192,7 +188,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The cold plate 50 k line series.
         /// </value>
-        public LineSeries ColdPlate50KLineSeries
+        public GLineSeries ColdPlate50KLineSeries
         {
             get
             {
@@ -257,23 +253,6 @@ namespace CryostatControlClient.Models
                 this.connectionState = value;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the heater power.
-        /// </summary>
-        public double HeaterPower
-        {
-            get
-            {
-                return this.heaterPower;
-            }
-
-            set
-            {
-                this.heaterPower = value;
-            }
-        }
-
         #endregion Properties
     }
 }

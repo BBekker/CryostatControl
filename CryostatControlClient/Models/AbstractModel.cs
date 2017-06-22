@@ -9,7 +9,7 @@ namespace CryostatControlClient.Models
     using System.Linq;
 
     using LiveCharts.Defaults;
-    using LiveCharts.Wpf;
+    using LiveCharts.Geared;
 
     /// <summary>
     /// The abstract model
@@ -19,23 +19,16 @@ namespace CryostatControlClient.Models
         #region Fields
 
         /// <summary>
-        /// The size of the temporary lists. If these lists are full a new point is added to the graph. The bigger this number the less frequent a point gets added to the graph.
+        /// The amount of data averaged in 1 point
         /// </summary>
-        private int temporaryListSize;
-
-        #endregion Fields
-
-        #region Constructor
+        private const int DataPerPoint = 30;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AbstractModel"/> class.
+        /// The maximum amount of chart values
         /// </summary>
-        protected AbstractModel()
-        {
-            this.temporaryListSize = 31;
-        }
+        private const int MaxChartValues = 3000;
 
-        #endregion Constructor
+        #endregion Fields
 
         #region Properties
 
@@ -49,7 +42,7 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.temporaryListSize;
+                return DataPerPoint + 1;
             }
         }
 
@@ -66,30 +59,29 @@ namespace CryostatControlClient.Models
         /// <returns>
         /// The temporary list updated.
         /// </returns>
-        public double[] AddToGraph(double[] temporaryList, LineSeries lineSeries, double value)
+        public double[] AddToGraph(double[] temporaryList, GLineSeries lineSeries, double value)
         {
-            temporaryList[(int)temporaryList[this.temporaryListSize - 1]] = value;
-
-            temporaryList[this.temporaryListSize - 1]++;
-
-            if (lineSeries.Values.Count < 1)
+            if (!double.IsNaN(value))
             {
-                lineSeries.Values.Add(new DateTimePoint(DateTime.Now, value));
-            }
-
-            if (temporaryList[this.temporaryListSize - 1] >= this.temporaryListSize - 2)
-            {
-                lineSeries.Values.Add(new DateTimePoint(DateTime.Now, temporaryList.Average() - 1));
-                if (lineSeries.Values.Count > 100)
+                temporaryList[(int)temporaryList[DataPerPoint]] = value;
+                temporaryList[DataPerPoint]++;
+                if (lineSeries.Values.Count < 1)
                 {
-                    lineSeries.Values.RemoveAt(0);
+                    lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round(value, 3)));
+                    temporaryList = new double[this.TemporaryListSize];
+                    temporaryList[DataPerPoint] = 0;
                 }
-
-                temporaryList = new double[this.temporaryListSize];
-
-                temporaryList[this.temporaryListSize - 1] = 0;
+                else if (temporaryList[DataPerPoint] > this.TemporaryListSize - 2)
+                {
+                    lineSeries.Values.Add(new DateTimePoint(DateTime.Now, Math.Round((temporaryList.Sum() - DataPerPoint) / DataPerPoint, 3)));
+                    if (lineSeries.Values.Count > MaxChartValues)
+                    {
+                        lineSeries.Values.RemoveAt(0);
+                    }
+                    temporaryList = new double[this.TemporaryListSize];
+                    temporaryList[this.TemporaryListSize - 1] = 0;
+                }
             }
-
             return temporaryList;
         }
 

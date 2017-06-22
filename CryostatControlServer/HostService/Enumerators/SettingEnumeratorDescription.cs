@@ -23,14 +23,14 @@ namespace CryostatControlServer.HostService.Enumerators
         }
             =
                 {
-                    "He3 pump heater max voltage",
-                    "He4 pump heater max voltage",
-                    "He4 Switch max voltage",
-                    "He3 Switch max voltage",
-                    "He3 heater max voltage used",
+////                    "He3 pump heater max voltage",
+////                    "He4 pump heater max voltage",
+////                    "He4 Switch max voltage",
+////                    "He3 Switch max voltage",
+                    "He3 heater max power used",
+                    "He4 heater max power used",
                     "He3 switch voltage used",
                     "He4 switch voltage used",
-                    "He4 heater max voltage used",
                     "Pump heating start temperature",
                     "Pump heating temperature setpoint",
                     "Heatswitch ON temperature",
@@ -40,7 +40,8 @@ namespace CryostatControlServer.HostService.Enumerators
                     "He3 adsorption start target temperature",
                     "Disable heater when switches are above",
                     "He3 adsorption start minimal temperature",
-                    "He3 adsorption maximum wait time"
+                    "He3 adsorption maximum wait time",
+                    "Heater power while waiting for switches"
                 };
 
         /// <summary>
@@ -51,6 +52,6 @@ namespace CryostatControlServer.HostService.Enumerators
             get;
         }
             =
-                { "V", "V", "V", "V", "V", "V", "V", "V", "K", "K", "K", "K", "K", "K", "K", "K", "K", "min." };
+                { "W", "W", "V", "V", "K", "K", "K", "K", "K", "K", "K", "K", "K", "min.", "W" };
     }
 }

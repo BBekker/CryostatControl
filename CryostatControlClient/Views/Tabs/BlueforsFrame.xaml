@@ -40,11 +40,7 @@
             </StackPanel>
         </Border>
         <Border Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="3" CornerRadius="2" Background="White" >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+
                 <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <Label>3K Plate</Label>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -52,16 +48,7 @@
                         <Label>K</Label>
                     </StackPanel>
                 </StackPanel>
-                <Border Grid.Column="0" Margin="5" BorderBrush="Black" BorderThickness="3" CornerRadius="2">
-                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Label>Heater output</Label>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Label Content="{Binding BlueforsViewModel.ColdPlate3KTemp}" ContentStringFormat="{}{0:N2}" />
-                            <Label>K</Label>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-            </Grid>
+
             
         </Border>
 

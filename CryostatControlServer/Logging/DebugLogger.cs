@@ -10,6 +10,7 @@
 namespace CryostatControlServer.Logging
 {
     using System;
+    using System.Globalization;
     using System.IO;
     using System.Text;
 
@@ -187,16 +188,14 @@ namespace CryostatControlServer.Logging
         /// </param>
         public static void WriteToFile(string time, string level, string tag, string data)
         {
+            string dataLine = time + "," + tag + "," + level + ": " + data;
 #if DEBUG
-            Console.WriteLine(data);
+            Console.WriteLine(dataLine);
 #endif
             if (filePath == null)
             {
                CreateFile(); 
             }
-
-            StringBuilder sb = new StringBuilder();
-            string dataLine = time + "," + tag + "," + level + ": " + data;
 
             try
             {
@@ -236,13 +235,13 @@ namespace CryostatControlServer.Logging
         {
             DateTime currentDateTime = DateTime.Now;
             string year = currentDateTime.Year.ToString();
-            string month = currentDateTime.Month.ToString();
+            string month = currentDateTime.ToString("MMMM", new CultureInfo("en-US"));
             string newFolderName = year + @"\" + month + @"\";
             string pathToNewFolder = System.IO.Path.Combine(mainFolderPath, newFolderName);
 
             try
             {
-                System.IO.Directory.CreateDirectory(pathToNewFolder);
+                Directory.CreateDirectory(pathToNewFolder);
             }
             catch (Exception)
             {

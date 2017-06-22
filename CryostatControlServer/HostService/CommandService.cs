@@ -12,7 +12,6 @@ namespace CryostatControlServer.HostService
     using System.ServiceModel;
     using System.Threading;
 
-    using CryostatControlServer.Data;
     using CryostatControlServer.HostService.DataContracts;
     using CryostatControlServer.HostService.Enumerators;
     using CryostatControlServer.Logging;
@@ -38,12 +37,12 @@ namespace CryostatControlServer.HostService
         /// <summary>
         /// The callback list
         /// </summary>
-        private readonly Dictionary<IDataGetCallback, Timer> dataListeners = new Dictionary<IDataGetCallback, Timer>();
+        private readonly Dictionary<string, Timer> dataListeners = new Dictionary<string, Timer>();
 
         /// <summary>
         /// The update listeners
         /// </summary>
-        private readonly List<IDataGetCallback> updateListeners = new List<IDataGetCallback>();
+        private readonly Dictionary<string, IDataGetCallback> updateListeners = new Dictionary<string, IDataGetCallback>();
 
         #endregion Fields
 
@@ -63,17 +62,6 @@ namespace CryostatControlServer.HostService
         #endregion Constructors
 
         #region Methods
-
-        /// <summary>
-        /// The read heater power.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="double"/>.
-        /// </returns>
-        public double ReadBlueforsHeaterPower()
-        {
-            return this.cryostatControl.ReadBlueforsHeaterPower();
-        }
 
         /// <inheritdoc cref="ICommandService.IsAlive"/>
         public bool IsAlive()
@@ -146,6 +134,12 @@ namespace CryostatControlServer.HostService
             return (int)this.cryostatControl.ControllerState;
         }
 
+        /// <inheritdoc />
+        public DateTime GetStartTime()
+        {
+            return this.cryostatControl.StartTime;
+        }
+
         /// <inheritdoc cref="ICommandService.GetValue"/>
         public double GetValue(string sensor)
         {
@@ -203,12 +197,6 @@ namespace CryostatControlServer.HostService
         public double ReadCompressorPressureScale()
         {
             return this.cryostatControl.ReadCompressorPressureScale();
-        }
-
-        /// <inheritdoc cref="ICommandService.SetBlueforsHeater"/>>
-        public bool SetBlueforsHeater(bool status)
-        {
-            return this.cryostatControl.SetBlueforsHeater(status);
         }
 
         /// <inheritdoc cref="ICommandService.ReadSingleSensor"/>>
@@ -269,46 +257,43 @@ namespace CryostatControlServer.HostService
         }
 
         /// <inheritdoc cref="IDataGet.SubscribeForData"/>>
-        public void SubscribeForData(int interval)
+        public void SubscribeForData(int interval, string key)
         {
-            IDataGetCallback client =
-                OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            if (!this.dataListeners.ContainsKey(client))
+            if (!this.dataListeners.ContainsKey(key))
             {
-                this.dataListeners.Add(client, new Timer(this.TimerMethod, client, 0, interval));
+                IDataGetCallback client =
+                    OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
+                TimerPackage package = new TimerPackage(key, client, interval);
+                this.dataListeners.Add(key, new Timer(this.TimerMethod, package, 0, Timeout.Infinite));
             }
         }
 
         /// <inheritdoc cref="IDataGet.UnsubscribeForData"/>>
-        public void UnsubscribeForData()
+        public void UnsubscribeForData(string key)
         {
-            IDataGetCallback client =
-                OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            if (this.dataListeners.ContainsKey(client))
+            if (this.dataListeners.ContainsKey(key))
             {
-                Timer timer = this.dataListeners[client];
+                Timer timer = this.dataListeners[key];
                 timer.Dispose();
-                this.dataListeners.Remove(client);
+                this.dataListeners.Remove(key);
             }
         }
 
         /// <inheritdoc cref="IDataGet.SubscribeForUpdates"/>>
-        public void SubscribeForUpdates()
+        public void SubscribeForUpdates(string key)
         {
             IDataGetCallback client =
                 OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            if (!this.updateListeners.Contains(client))
+            if (!this.updateListeners.ContainsKey(key))
             {
-                this.updateListeners.Add(client);
+                this.updateListeners.Add(key, client);
             }
         }
 
         /// <inheritdoc cref="IDataGet.UnsubscribeForUpdates"/>>
-        public void UnsubscribeForUpdates()
+        public void UnsubscribeForUpdates(string key)
         {
-            IDataGetCallback client =
-                OperationContext.Current.GetCallbackChannel<IDataGetCallback>();
-            this.updateListeners.Remove(client);
+            this.updateListeners.Remove(key);
         }
 
         /// <inheritdoc cref="ICommandService.IsLogging"/>>
@@ -325,11 +310,35 @@ namespace CryostatControlServer.HostService
         /// </param>
         public void UpdateNotification(string[] message)
         {
-            foreach (IDataGetCallback callback in this.updateListeners.Reverse<IDataGetCallback>())
+            foreach (KeyValuePair<string, IDataGetCallback> callback in this.updateListeners)
             {
-                Thread thread = new Thread(() => this.UpdateNotification(callback, message));
+                Thread thread = new Thread(() => this.UpdateNotification(callback.Key, callback.Value, message));
                 thread.Start();
             }
+        }
+
+        /// <summary>
+        /// Determines whether [is registered for data] [the specified key].
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>
+        ///   <c>true</c> if [is registered for data] [the specified key]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsRegisteredForData(string key)
+        {
+            return this.dataListeners.ContainsKey(key);
+        }
+
+        /// <summary>
+        /// Determines whether [is registered for updates] [the specified key].
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>
+        ///   <c>true</c> if [is registered for updates] [the specified key]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsRegisteredForUpdates(string key)
+        {
+            return this.updateListeners.ContainsKey(key);
         }
 
         /// <summary>
@@ -338,9 +347,9 @@ namespace CryostatControlServer.HostService
         /// <param name="status">if set to <c>true</c> [status].</param>
         private void SetLoggingState(bool status)
         {
-            foreach (IDataGetCallback callback in this.updateListeners.Reverse<IDataGetCallback>())
+            foreach (KeyValuePair<string, IDataGetCallback> callback in this.updateListeners)
             {
-                Thread thread = new Thread(() => this.SendLoggingState(callback, status));
+                Thread thread = new Thread(() => this.SendLoggingState(callback.Key, callback.Value, status));
                 thread.Start();
             }
         }
@@ -348,9 +357,10 @@ namespace CryostatControlServer.HostService
         /// <summary>
         /// Sends the state of the logging.
         /// </summary>
+        /// <param name="key">The key.</param>
         /// <param name="callback">The callback.</param>
         /// <param name="status">if set to <c>true</c> [status].</param>
-        private void SendLoggingState(IDataGetCallback callback, bool status)
+        private void SendLoggingState(string key, IDataGetCallback callback, bool status)
         {
             try
             {
@@ -358,20 +368,17 @@ namespace CryostatControlServer.HostService
             }
             catch
             {
-                this.updateListeners.Remove(callback);
+                this.updateListeners.Remove(key);
             }
         }
 
         /// <summary>
         /// The send log notification.
         /// </summary>
-        /// <param name="callback">
-        /// The callback.
-        /// </param>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        private void UpdateNotification(IDataGetCallback callback, string[] message)
+        /// <param name="key">The key.</param>
+        /// <param name="callback">The callback.</param>
+        /// <param name="message">The message.</param>
+        private void UpdateNotification(string key, IDataGetCallback callback, string[] message)
         {
             try
             {
@@ -379,26 +386,35 @@ namespace CryostatControlServer.HostService
             }
             catch
             {
-                this.updateListeners.Remove(callback);
+                this.updateListeners.Remove(key);
             }
         }
 
         /// <summary>
-        /// Timer method to send mock data
+        /// Timer method to sent update data to the clients
         /// </summary>
-        /// <param name="state">The state.</param>
+        /// <param name="state">State should contain TimerPackage</param>
         private void TimerMethod(object state)
         {
-            IDataGetCallback client = (IDataGetCallback)state;
+            TimerPackage package = (TimerPackage)state;
+            IDataGetCallback client = package.Callback;
             double[] data = this.cryostatControl.ReadData();
             try
             {
+                Timer timer = this.dataListeners[package.Key];
                 client.SendData(data);
                 client.SendModus(this.GetState());
+                client.UpdateCountdown(this.cryostatControl.StartTime);
+                timer.Change(package.WaitTime, Timeout.Infinite);
             }
             catch
             {
-                this.dataListeners.Remove(client);
+                if (this.dataListeners.ContainsKey(package.Key))
+                {
+                    Timer timer = this.dataListeners[package.Key];
+                    this.dataListeners.Remove(package.Key);
+                    timer.Dispose();
+                }
             }
         }
 

@@ -6,18 +6,15 @@
 //   The settings view model.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace CryostatControlClient.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.ServiceModel;
     using System.Threading.Tasks;
-    using System.Windows;
     using System.Windows.Input;
-
+    
+    using CryostatControlClient.Communication;
     using CryostatControlClient.Models;
-    using CryostatControlClient.ServiceReference1;
 
     using CryostatControlServer.HostService.Enumerators;
 
@@ -97,20 +94,20 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private void SendChanges()
         {
-            var app = Application.Current as App;
-            if (app == null || app.CommandServiceClient.State != CommunicationState.Opened)
-            {
-                return;
-            }
+            ServerCheck.SendMessage(new Task(() => { this.WriteSettings(); }));
+        }
 
-            CommandServiceClient commandServiceClient = app.CommandServiceClient;
-
+        /// <summary>
+        /// Write the settings to the server.
+        /// </summary>
+        private void WriteSettings()
+        {
             var newSettings = this.GetCurrentValues();
             for (int i = 0; i < newSettings.Length; i++)
             {
                 if (Math.Abs(newSettings[i] - this.oldSettings[i]) > 0.01)
                 {
-                    commandServiceClient.WriteSettingValueAsync(i, newSettings[i]);
+                    ServerCheck.CommandClient.WriteSettingValue(i, newSettings[i]);
                 }
             }
         }
@@ -141,17 +138,19 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private void UpdateSettingsFromServerAsync()
         {
-            var app = Application.Current as App;
-            if (app == null || app.CommandServiceClient.State != CommunicationState.Opened)
-            {
-                return;
-            }
+            ServerCheck.SendMessage(new Task(() => { ReadSettings(); }));
+        }
 
-            CommandServiceClient commandServiceClient = app.CommandServiceClient;
-            var readTask = commandServiceClient.ReadSettingsAsync();
-            readTask.ContinueWith(
-                result => this.UpdateSettings(result.Result),
-                TaskScheduler.FromCurrentSynchronizationContext());
+        /// <summary>
+        /// Read the settings from the server.
+        /// </summary>
+        private void ReadSettings()
+        {
+            double[] settings = ServerCheck.CommandClient.ReadSettings();
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {            
+                this.UpdateSettings(settings);
+            });
         }
     }
 }

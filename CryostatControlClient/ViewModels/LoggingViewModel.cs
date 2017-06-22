@@ -10,9 +10,11 @@
 namespace CryostatControlClient.ViewModels
 {
     using System.Diagnostics.CodeAnalysis;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using System.Windows.Media;
 
+    using CryostatControlClient.Communication;
     using CryostatControlClient.Models;
     using CryostatControlClient.ViewModels.LoggingPresets;
 
@@ -333,26 +335,6 @@ namespace CryostatControlClient.ViewModels
             {
                 this.loggingModel.Bluefors3KShieldTemp = value;
                 this.RaisePropertyChanged("Bluefors3KShieldTemp");
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the bluefors heater.
-        /// </summary>
-        /// <value>
-        /// The bluefors heater.
-        /// </value>
-        public bool BlueforsHeater
-        {
-            get
-            {
-                return this.loggingModel.BlueforsHeater;
-            }
-
-            set
-            {
-                this.loggingModel.BlueforsHeater = value;
-                this.RaisePropertyChanged("BlueforsHeater");
             }
         }
 
@@ -740,7 +722,6 @@ namespace CryostatControlClient.ViewModels
             loggingDataArray[(int)DataEnumerator.He4SwitchVoltActual] = this.He4SwitchVolt;
             loggingDataArray[(int)DataEnumerator.He3SwitchVoltActual] = this.He3SwitchVolt;
             loggingDataArray[(int)DataEnumerator.He4VoltActual] = this.He4PumpVolt;
-            loggingDataArray[(int)DataEnumerator.LakeHeater] = this.BlueforsHeater;
 
             return loggingDataArray;
         }
@@ -753,7 +734,7 @@ namespace CryostatControlClient.ViewModels
         /// </param>
         public void OnClickStart(object obj)
         {
-            this.RaisePropertyChanged("StartPressed");
+            ServerCheck.SendMessage(new Task(() => { this.StartLogging(); }));
         }
 
         /// <summary>
@@ -764,7 +745,17 @@ namespace CryostatControlClient.ViewModels
         /// </param>
         public void OnClickCancel(object obj)
         {
-            this.RaisePropertyChanged("CancelPressed");
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.CancelLogging(); }));
+        }
+
+        /// <summary>
+        /// Starts the logging.
+        /// </summary>
+        private void StartLogging()
+        {
+            bool[] dataToBeLogged = this.GetLoggingArray();
+            int interval = (int)this.LoggingInterval;
+            ServerCheck.CommandClient.StartLogging(interval, dataToBeLogged);
         }
     }
 }

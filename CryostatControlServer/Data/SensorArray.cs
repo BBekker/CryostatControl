@@ -88,8 +88,6 @@ namespace CryostatControlServer.Data
                 new CryostatControlServer.LakeShore.Sensor(SensorEnum.Plate50K, this.lakeShore);
             sensors[(int)DataEnumerator.LakePlate3K] =
                 new CryostatControlServer.LakeShore.Sensor(SensorEnum.Plate3K, this.lakeShore);
-            sensors[(int)DataEnumerator.LakeHeater] =
-                new CryostatControlServer.LakeShore.Sensor(SensorEnum.HeaterPower, this.lakeShore);
         }
 
         /// <summary>
@@ -124,14 +122,10 @@ namespace CryostatControlServer.Data
         /// <param name="sensors">The sensors array to be filled.</param>
         private void FillHe7Sensors(ISensor[] sensors)
         {
-            He7Cooler.Sensor.Calibration he3Calibration =
-                He7Cooler.Sensor.Calibration.He3Calibration;
-            He7Cooler.Sensor.Calibration he4Calibration =
-                He7Cooler.Sensor.Calibration.He4Calibration;
-            He7Cooler.Sensor.Calibration diodeCalibration =
-                He7Cooler.Sensor.Calibration.DiodeCalibration;
-            He7Cooler.Sensor.Calibration emptyCalibration =
-                He7Cooler.Sensor.Calibration.EmptyCalibration;
+            Calibration he3Calibration = Calibration.He3Calibration;
+            Calibration he4Calibration = Calibration.He4Calibration;
+            Calibration diodeCalibration = Calibration.DiodeCalibration;
+            Calibration emptyCalibration = Calibration.EmptyCalibration;
 
             sensors[(int)DataEnumerator.He3Pump] =
                 new He7Cooler.Sensor(Channels.SensHe3PumpT, this.he7Cooler, diodeCalibration);

@@ -75,6 +75,12 @@ namespace CryostatControlClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/GetState", ReplyAction="http://tempuri.org/ICommandService/GetStateResponse")]
         System.Threading.Tasks.Task<int> GetStateAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/GetStartTime", ReplyAction="http://tempuri.org/ICommandService/GetStartTimeResponse")]
+        System.DateTime GetStartTime();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/GetStartTime", ReplyAction="http://tempuri.org/ICommandService/GetStartTimeResponse")]
+        System.Threading.Tasks.Task<System.DateTime> GetStartTimeAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/SetCompressorState", ReplyAction="http://tempuri.org/ICommandService/SetCompressorStateResponse")]
         bool SetCompressorState(bool status);
         
@@ -107,12 +113,6 @@ namespace CryostatControlClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadCompressorPressureScale", ReplyAction="http://tempuri.org/ICommandService/ReadCompressorPressureScaleResponse")]
         System.Threading.Tasks.Task<double> ReadCompressorPressureScaleAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadBlueforsHeaterPower", ReplyAction="http://tempuri.org/ICommandService/ReadBlueforsHeaterPowerResponse")]
-        double ReadBlueforsHeaterPower();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadBlueforsHeaterPower", ReplyAction="http://tempuri.org/ICommandService/ReadBlueforsHeaterPowerResponse")]
-        System.Threading.Tasks.Task<double> ReadBlueforsHeaterPowerAsync();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/WriteSettingValue", ReplyAction="http://tempuri.org/ICommandService/WriteSettingValueResponse")]
         bool WriteSettingValue(int setting, double value);
         
@@ -124,12 +124,6 @@ namespace CryostatControlClient.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadSettings", ReplyAction="http://tempuri.org/ICommandService/ReadSettingsResponse")]
         System.Threading.Tasks.Task<double[]> ReadSettingsAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/SetBlueforsHeater", ReplyAction="http://tempuri.org/ICommandService/SetBlueforsHeaterResponse")]
-        bool SetBlueforsHeater(bool status);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/SetBlueforsHeater", ReplyAction="http://tempuri.org/ICommandService/SetBlueforsHeaterResponse")]
-        System.Threading.Tasks.Task<bool> SetBlueforsHeaterAsync(bool status);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/ReadSingleSensor", ReplyAction="http://tempuri.org/ICommandService/ReadSingleSensorResponse")]
         double ReadSingleSensor(int sensorId);
@@ -154,6 +148,18 @@ namespace CryostatControlClient.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsLogging", ReplyAction="http://tempuri.org/ICommandService/IsLoggingResponse")]
         System.Threading.Tasks.Task<bool> IsLoggingAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsRegisteredForData", ReplyAction="http://tempuri.org/ICommandService/IsRegisteredForDataResponse")]
+        bool IsRegisteredForData(string key);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsRegisteredForData", ReplyAction="http://tempuri.org/ICommandService/IsRegisteredForDataResponse")]
+        System.Threading.Tasks.Task<bool> IsRegisteredForDataAsync(string key);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsRegisteredForUpdates", ReplyAction="http://tempuri.org/ICommandService/IsRegisteredForUpdatesResponse")]
+        bool IsRegisteredForUpdates(string key);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/IsRegisteredForUpdates", ReplyAction="http://tempuri.org/ICommandService/IsRegisteredForUpdatesResponse")]
+        System.Threading.Tasks.Task<bool> IsRegisteredForUpdatesAsync(string key);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -263,6 +269,14 @@ namespace CryostatControlClient.ServiceReference1 {
             return base.Channel.GetStateAsync();
         }
         
+        public System.DateTime GetStartTime() {
+            return base.Channel.GetStartTime();
+        }
+        
+        public System.Threading.Tasks.Task<System.DateTime> GetStartTimeAsync() {
+            return base.Channel.GetStartTimeAsync();
+        }
+        
         public bool SetCompressorState(bool status) {
             return base.Channel.SetCompressorState(status);
         }
@@ -303,14 +317,6 @@ namespace CryostatControlClient.ServiceReference1 {
             return base.Channel.ReadCompressorPressureScaleAsync();
         }
         
-        public double ReadBlueforsHeaterPower() {
-            return base.Channel.ReadBlueforsHeaterPower();
-        }
-        
-        public System.Threading.Tasks.Task<double> ReadBlueforsHeaterPowerAsync() {
-            return base.Channel.ReadBlueforsHeaterPowerAsync();
-        }
-        
         public bool WriteSettingValue(int setting, double value) {
             return base.Channel.WriteSettingValue(setting, value);
         }
@@ -325,14 +331,6 @@ namespace CryostatControlClient.ServiceReference1 {
         
         public System.Threading.Tasks.Task<double[]> ReadSettingsAsync() {
             return base.Channel.ReadSettingsAsync();
-        }
-        
-        public bool SetBlueforsHeater(bool status) {
-            return base.Channel.SetBlueforsHeater(status);
-        }
-        
-        public System.Threading.Tasks.Task<bool> SetBlueforsHeaterAsync(bool status) {
-            return base.Channel.SetBlueforsHeaterAsync(status);
         }
         
         public double ReadSingleSensor(int sensorId) {
@@ -366,6 +364,22 @@ namespace CryostatControlClient.ServiceReference1 {
         public System.Threading.Tasks.Task<bool> IsLoggingAsync() {
             return base.Channel.IsLoggingAsync();
         }
+        
+        public bool IsRegisteredForData(string key) {
+            return base.Channel.IsRegisteredForData(key);
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsRegisteredForDataAsync(string key) {
+            return base.Channel.IsRegisteredForDataAsync(key);
+        }
+        
+        public bool IsRegisteredForUpdates(string key) {
+            return base.Channel.IsRegisteredForUpdates(key);
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsRegisteredForUpdatesAsync(string key) {
+            return base.Channel.IsRegisteredForUpdatesAsync(key);
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -373,28 +387,28 @@ namespace CryostatControlClient.ServiceReference1 {
     public interface IDataGet {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SubscribeForData")]
-        void SubscribeForData(int interval);
+        void SubscribeForData(int interval, string key);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SubscribeForData")]
-        System.Threading.Tasks.Task SubscribeForDataAsync(int interval);
+        System.Threading.Tasks.Task SubscribeForDataAsync(int interval, string key);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UnsubscribeForData")]
-        void UnsubscribeForData();
+        void UnsubscribeForData(string key);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UnsubscribeForData")]
-        System.Threading.Tasks.Task UnsubscribeForDataAsync();
+        System.Threading.Tasks.Task UnsubscribeForDataAsync(string key);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SubscribeForUpdates")]
-        void SubscribeForUpdates();
+        void SubscribeForUpdates(string key);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/SubscribeForUpdates")]
-        System.Threading.Tasks.Task SubscribeForUpdatesAsync();
+        System.Threading.Tasks.Task SubscribeForUpdatesAsync(string key);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UnsubscribeForUpdates")]
-        void UnsubscribeForUpdates();
+        void UnsubscribeForUpdates(string key);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UnsubscribeForUpdates")]
-        System.Threading.Tasks.Task UnsubscribeForUpdatesAsync();
+        System.Threading.Tasks.Task UnsubscribeForUpdatesAsync(string key);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -411,6 +425,9 @@ namespace CryostatControlClient.ServiceReference1 {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UpdateNotification")]
         void UpdateNotification(string[] notification);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDataGet/UpdateCountdown")]
+        void UpdateCountdown(System.DateTime time);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -441,36 +458,36 @@ namespace CryostatControlClient.ServiceReference1 {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void SubscribeForData(int interval) {
-            base.Channel.SubscribeForData(interval);
+        public void SubscribeForData(int interval, string key) {
+            base.Channel.SubscribeForData(interval, key);
         }
         
-        public System.Threading.Tasks.Task SubscribeForDataAsync(int interval) {
-            return base.Channel.SubscribeForDataAsync(interval);
+        public System.Threading.Tasks.Task SubscribeForDataAsync(int interval, string key) {
+            return base.Channel.SubscribeForDataAsync(interval, key);
         }
         
-        public void UnsubscribeForData() {
-            base.Channel.UnsubscribeForData();
+        public void UnsubscribeForData(string key) {
+            base.Channel.UnsubscribeForData(key);
         }
         
-        public System.Threading.Tasks.Task UnsubscribeForDataAsync() {
-            return base.Channel.UnsubscribeForDataAsync();
+        public System.Threading.Tasks.Task UnsubscribeForDataAsync(string key) {
+            return base.Channel.UnsubscribeForDataAsync(key);
         }
         
-        public void SubscribeForUpdates() {
-            base.Channel.SubscribeForUpdates();
+        public void SubscribeForUpdates(string key) {
+            base.Channel.SubscribeForUpdates(key);
         }
         
-        public System.Threading.Tasks.Task SubscribeForUpdatesAsync() {
-            return base.Channel.SubscribeForUpdatesAsync();
+        public System.Threading.Tasks.Task SubscribeForUpdatesAsync(string key) {
+            return base.Channel.SubscribeForUpdatesAsync(key);
         }
         
-        public void UnsubscribeForUpdates() {
-            base.Channel.UnsubscribeForUpdates();
+        public void UnsubscribeForUpdates(string key) {
+            base.Channel.UnsubscribeForUpdates(key);
         }
         
-        public System.Threading.Tasks.Task UnsubscribeForUpdatesAsync() {
-            return base.Channel.UnsubscribeForUpdatesAsync();
+        public System.Threading.Tasks.Task UnsubscribeForUpdatesAsync(string key) {
+            return base.Channel.UnsubscribeForUpdatesAsync(key);
         }
     }
 }

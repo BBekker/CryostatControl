@@ -19,16 +19,11 @@ namespace CryostatControlClient
     using CryostatControlClient.Properties;
 
     /// <summary>
-    /// Interaction logic for <see cref="App.xaml"/>
-    /// </summary>
+    /// Interaction logic for <see cref="App.xaml" /></summary>
+    /// <seealso cref="System.Windows.Application" />
     public partial class App
     {
         #region Fields
-
-        /// <summary>
-        /// The command client
-        /// </summary>
-        private CommandServiceClient commandServiceClient;
 
         /// <summary>
         /// The server check
@@ -36,43 +31,6 @@ namespace CryostatControlClient
         private ServerCheck serverCheck;
 
         #endregion Fields
-
-        #region Propertis
-
-        /// <summary>
-        /// Gets or sets the command service client.
-        /// </summary>
-        /// <value>
-        /// The command service client.
-        /// </value>
-        public CommandServiceClient CommandServiceClient
-        {
-            get
-            {
-                return this.commandServiceClient;
-            }
-
-            set
-            {
-                this.commandServiceClient = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the server check.
-        /// </summary>
-        /// <value>
-        /// The server check.
-        /// </value>
-        public ServerCheck ServerCheck
-        {
-            get
-            {
-                return this.serverCheck;
-            }
-        }
-
-        #endregion Propertis
 
         #region Methods
 
@@ -90,49 +48,23 @@ namespace CryostatControlClient
         }
 
         /// <summary>
-        /// Unsubscribes the specified client.
-        /// </summary>
-        /// <param name="client">The client.</param>
-        public void Unsubscribe(DataGetClient client)
-        {
-            client.UnsubscribeForData();
-        }
-
-        /// <summary>
         /// Raises the <see cref="E:System.Windows.Application.Startup" /> event.
         /// </summary>
         /// <param name="e">A <see cref="T:System.Windows.StartupEventArgs" /> that contains the event data.</param>
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            this.commandServiceClient = new CommandServiceClient();
-            this.commandServiceClient.ClientCredentials.UserName.UserName = Settings.Default.UserName;
-            this.CommandServiceClient.ClientCredentials.UserName.Password = Settings.Default.PassWord;
-            this.commandServiceClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
-                        X509CertificateValidationMode.None;
-            DataClientCallback callback = new DataClientCallback(this);
-            InstanceContext instanceContext = new InstanceContext(callback);
-            DataGetClient dataClient = new DataGetClient(instanceContext);
-            dataClient.ClientCredentials.UserName.UserName = Settings.Default.UserName;
-            dataClient.ClientCredentials.UserName.Password = Settings.Default.PassWord;
-            dataClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
-                X509CertificateValidationMode.None;
-            this.serverCheck = new ServerCheck(this, this.commandServiceClient, dataClient);
-            try
-            {
-                Console.WriteLine("Server is alive: {0}", this.commandServiceClient.IsAlive());
-                Console.WriteLine("Subscribed for data");
+            this.serverCheck = new ServerCheck(this);
+        }
 
-                dataClient.SubscribeForData(1000);
-                dataClient.SubscribeForUpdates();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("No connection with server");
-                throw ex;                
-            }
-
-            ////Execute(this.Unsubscribe, 5000, dataClient);
+        /// <summary>
+        /// Raises the <see cref="E:System.Windows.Application.Exit" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.Windows.ExitEventArgs" /> that contains the event data.</param>
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+            Environment.Exit(0);
         }
 
         #endregion Methods

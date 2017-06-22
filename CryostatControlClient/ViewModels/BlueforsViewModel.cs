@@ -9,15 +9,13 @@
 
 namespace CryostatControlClient.ViewModels
 {
-    using System;
     using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Media;
 
     using CryostatControlClient.Models;
 
-    using LiveCharts;
-    using LiveCharts.Defaults;
-    using LiveCharts.Wpf;
+    using LiveCharts.Geared;
 
     /// <summary>
     /// Bluefors ViewModel
@@ -59,6 +57,20 @@ namespace CryostatControlClient.ViewModels
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets the color of the connection state.
+        /// </summary>
+        /// <value>
+        /// The color of the connection state.
+        /// </value>
+        public SolidColorBrush ConnectionStateColor
+        {
+            get
+            {
+                return this.DisplayColor((ColorState)this.ConnectionState);
+            }
+        }
 
         /// <summary>
         /// Gets the cold plate3 k visibility command.
@@ -132,7 +144,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The cold plate3 k line series.
         /// </value>
-        public LineSeries ColdPlate3KLineSeriesBottom
+        public GLineSeries ColdPlate3KLineSeriesBottom
         {
             get
             {
@@ -146,7 +158,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The cold plate3 k line series.
         /// </value>
-        public LineSeries ColdPlate50KLineSeriesBottom
+        public GLineSeries ColdPlate50KLineSeriesBottom
         {
             get
             {
@@ -160,7 +172,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The cold plate3 k line series.
         /// </value>
-        public LineSeries ColdPlate3KLineSeries
+        public GLineSeries ColdPlate3KLineSeries
         {
             get
             {
@@ -174,7 +186,7 @@ namespace CryostatControlClient.ViewModels
         /// <value>
         /// The cold plate3 k line series.
         /// </value>
-        public LineSeries ColdPlate50KLineSeries
+        public GLineSeries ColdPlate50KLineSeries
         {
             get
             {
@@ -237,6 +249,7 @@ namespace CryostatControlClient.ViewModels
                 this.blueforsModel.ConnectionState = value;
                 this.RaisePropertyChanged("ConnectionState");
                 this.RaisePropertyChanged("ConnectionStateConverted");
+                this.RaisePropertyChanged("ConnectionStateColor");
             }
         }
 
@@ -248,23 +261,6 @@ namespace CryostatControlClient.ViewModels
             get
             {
                 return this.ConvertConnectionStateNumberToString(this.blueforsModel.ConnectionState);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the heater power.
-        /// </summary>
-        public double HeaterPower
-        {
-            get
-            {
-                return this.blueforsModel.HeaterPower;
-            }
-
-            set
-            {
-                this.blueforsModel.HeaterPower = value;
-                this.RaisePropertyChanged("HeaterPower");
             }
         }
 

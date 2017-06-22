@@ -49,6 +49,19 @@ namespace CryostatControlClient.Communication
         }
 
         /// <summary>
+        /// Updates the compressor viewmodel.
+        /// </summary>
+        /// <param name="time">The time.</param>
+        /// <param name="dataContext">The data context.</param>
+        public void UpdateCountdown(DateTime time, ViewModelContainer dataContext)
+        {
+            if (dataContext != null)
+            {
+                dataContext.ModusViewModel.PlannedTime = time;
+            }
+        }
+
+        /// <summary>
         /// The update notification.
         /// </summary>
         /// <param name="notification">
@@ -59,10 +72,13 @@ namespace CryostatControlClient.Communication
         /// </param>
         public void UpdateNotification(string[] notification, ViewModelContainer dataContext)
         {
-            if (dataContext != null)
+            App.Current.Dispatcher.Invoke((Action)delegate
             {
-                dataContext.MessageBoxViewModel.Message = notification;
-            }
+                if (dataContext != null)
+                {
+                    dataContext.MessageBoxViewModel.Message = notification;
+                }
+            });
         }
 
         /// <summary>
@@ -135,7 +151,6 @@ namespace CryostatControlClient.Communication
             viewModelContainer.BlueforsViewModel.ConnectionState = data[(int)DataEnumerator.LakeConnectionState];
             viewModelContainer.BlueforsViewModel.ColdPlate50KTemp = data[(int)DataEnumerator.LakePlate50K];
             viewModelContainer.BlueforsViewModel.ColdPlate3KTemp = data[(int)DataEnumerator.LakePlate3K];
-            viewModelContainer.BlueforsViewModel.HeaterPower = data[(int)DataEnumerator.LakeHeater];
         }
 
         #endregion Methods

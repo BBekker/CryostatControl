@@ -14,14 +14,14 @@
     <Setting Name="He3SwitchMaxVoltage" Type="System.Double" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="ControllerHe3HeaterVoltage" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">5</Value>
+    <Setting Name="ControllerHe3HeaterPower" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1.4</Value>
     </Setting>
     <Setting Name="ControllerHe3SwitchVoltage" Type="System.Double" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="ControllerHe4HeaterVoltage" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">10</Value>
+    <Setting Name="ControllerHe4HeaterPower" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="ControllerHe4SwitchVoltage" Type="System.Double" Scope="User">
       <Value Profile="(Default)">4</Value>
@@ -29,38 +29,41 @@
     <Setting Name="ControllerHe7StartTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">70</Value>
     </Setting>
-    <Setting Name="ControllerHeaterTemperatureSetpoint" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">45</Value>
-    </Setting>
     <Setting Name="ControllerHeatSwitchOnTemperature" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">15</Value>
+      <Value Profile="(Default)">14</Value>
     </Setting>
     <Setting Name="ControllerHeatSwitchSafeValue" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">15</Value>
+      <Value Profile="(Default)">12</Value>
     </Setting>
     <Setting Name="ControllerHeatupTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">50</Value>
     </Setting>
     <Setting Name="ControllerHe4StartTemperature" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">4</Value>
+      <Value Profile="(Default)">4.4</Value>
     </Setting>
     <Setting Name="ControllerHe3StartTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="ControllerDisableHeaterHeatSwitchTemperature" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">20</Value>
+      <Value Profile="(Default)">12</Value>
     </Setting>
     <Setting Name="ControllerHe3StartMinimalTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">2.5</Value>
     </Setting>
     <Setting Name="ControllerHe3StartWaitTimeMinutes" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">30</Value>
+      <Value Profile="(Default)">40</Value>
     </Setting>
     <Setting Name="PasswordToken" Type="System.String" Scope="User">
       <Value Profile="(Default)">ChangeMe!</Value>
     </Setting>
     <Setting Name="LoggingAddress" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\LoggingCryostat</Value>
+    </Setting>
+    <Setting Name="ControllerHeaterTemperatureSetpoint" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">50</Value>
+    </Setting>
+    <Setting Name="ControllerHeaterLowPowerValue" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.05</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -10,8 +10,13 @@
 namespace CryostatControlClient.ViewModels
 {
     using System;
+    using System.ServiceModel;
+    using System.Threading.Tasks;
+    using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Media;
 
+    using CryostatControlClient.Communication;
     using CryostatControlClient.Models;
 
     using CryostatControlServer;
@@ -70,6 +75,96 @@ namespace CryostatControlClient.ViewModels
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets the color of the connection state.
+        /// </summary>
+        /// <value>
+        /// The color of the connection state.
+        /// </value>
+        public SolidColorBrush ConnectionStateColor
+        {
+            get
+            {
+                return this.DisplayColor((ColorState)Convert.ToInt32(this.ServerConnection));
+            }
+        }
+
+        /// <summary>
+        /// Gets the planned modus.
+        /// </summary>
+        /// <value>
+        /// The planned modus.
+        /// </value>
+        public string PlannedModus
+        {
+            get
+            {
+                switch (this.modusModel.Modus)
+                {
+                    case (int)Controlstate.CooldownStart: return "Cool down";
+                    case (int)Controlstate.WarmupStart: return "Warm up";
+                    case (int)Controlstate.RecycleStart: return "Recycle";
+                    default: return string.Empty;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the planned time.
+        /// </summary>
+        /// <value>
+        /// The planned time.
+        /// </value>
+        public DateTime PlannedTime
+        {
+            get
+            {
+                return this.modusModel.PlannedTime;
+            }
+
+            set
+            {
+                this.modusModel.PlannedTime = value;
+                this.RaisePropertyChanged("PlannedTime");
+                this.RaisePropertyChanged("PlannedTimeConverted");
+            }
+        }
+
+        /// <summary>
+        /// Gets the planned time converted.
+        /// </summary>
+        /// <value>
+        /// The planned time converted.
+        /// </value>
+        public string PlannedTimeConverted
+        {
+            get
+            {
+                return DateTime.Now.Subtract(this.PlannedTime).ToString(@"dd\ \d\a\y\s\ hh\:mm\:ss");
+            }
+        }
+
+        /// <summary>
+        /// Gets the show countdown.
+        /// </summary>
+        /// <value>
+        /// The show countdown.
+        /// </value>
+        public Visibility ShowCountdown
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.PlannedModus))
+                {
+                    return Visibility.Hidden;
+                }
+                else
+                {
+                    return Visibility.Visible;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets a value indicating whether [start mode].
@@ -179,6 +274,7 @@ namespace CryostatControlClient.ViewModels
                 this.RaisePropertyChanged("StartMode");
                 this.RaisePropertyChanged("CancelMode");
                 this.RaisePropertyChanged("ModusConverted");
+                this.RaisePropertyChanged("ShowCountdown");
             }
         }
 
@@ -214,6 +310,7 @@ namespace CryostatControlClient.ViewModels
                 this.modusModel.ServerConnection = value;
                 this.RaisePropertyChanged("Server");
                 this.RaisePropertyChanged("ServerConverted");
+                this.RaisePropertyChanged("ConnectionStateColor");
             }
         }
 
@@ -386,7 +483,7 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         public void OnClickStart(object obj)
         {
-            this.RaisePropertyChanged("StartPressed");
+            ServerCheck.SendMessage(new Task(() => { this.StartControlProcess(); }));
         }
 
         /// <summary>
@@ -395,7 +492,7 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         public void OnClickCancel(object obj)
         {
-            this.RaisePropertyChanged("CancelPressed");
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Cancel(); }));        
         }
 
         /// <summary>
@@ -404,7 +501,42 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         public void OnClickManual(object obj)
         {
-            this.RaisePropertyChanged("ManualPressed");
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Manual(); }));       
+        }
+
+        /// <summary>
+        /// Task method to start the control process.
+        /// </summary>
+        private void StartControlProcess()
+        {
+            if (ServerCheck.CommandClient.State == CommunicationState.Opened)
+            {
+                int radio = this.SelectedComboIndex;
+                string postpone = this.Time;
+                DateTime startTime = DateTime.Now;
+
+                if (postpone == "Scheduled")
+                {
+                    startTime = this.SelectedDate;
+                    TimeSpan time = this.SelectedTime.TimeOfDay;
+                    startTime = startTime.Date.Add(time);
+                }
+
+                switch (radio)
+                {
+                    case (int)ModusEnumerator.Cooldown:
+                        ServerCheck.CommandClient.CooldownTime(startTime);
+                        break;
+
+                    case (int)ModusEnumerator.Recycle:
+                        ServerCheck.CommandClient.RecycleTime(startTime);
+                        break;
+
+                    case (int)ModusEnumerator.Warmup:
+                        ServerCheck.CommandClient.WarmupTime(startTime);
+                        break;
+                }
+            }
         }
 
         /// <summary>

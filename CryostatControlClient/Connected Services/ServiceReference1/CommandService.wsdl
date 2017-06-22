@@ -485,6 +485,44 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_GetStartTime_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_GetStartTime_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_SetCompressorState_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -694,44 +732,6 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_ReadBlueforsHeaterPower_Input_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_ReadBlueforsHeaterPower_output_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
   <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_WriteSettingValue_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -790,44 +790,6 @@
     </wsp:ExactlyOne>
   </wsp:Policy>
   <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_ReadSettings_output_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_SetBlueforsHeater_Input_policy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
-          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
-        </sp:SignedParts>
-        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <sp:Body />
-        </sp:EncryptedParts>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_SetBlueforsHeater_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -980,6 +942,82 @@
     </wsp:ExactlyOne>
   </wsp:Policy>
   <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_IsLogging_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_IsRegisteredForData_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_IsRegisteredForData_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_IsRegisteredForUpdates_Input_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="WSHttpBinding_ICommandService_IsRegisteredForUpdates_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -1294,12 +1332,35 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="WSDualHttpBinding_IDataGet_UpdateCountdown_output_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+          <sp:Header Name="Sequence" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="SequenceAcknowledgement" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="AckRequested" Namespace="http://schemas.xmlsoap.org/ws/2005/02/rm" />
+          <sp:Header Name="ChannelInstance" Namespace="http://schemas.microsoft.com/ws/2005/02/duplex" />
+          <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing" />
+          <sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing" />
+        </sp:SignedParts>
+        <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body />
+        </sp:EncryptedParts>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="https://localhost:18081/?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="https://localhost:18081/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="https://localhost:18081/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CryostatControlServer.HostService.DataContracts" />
-      <xsd:import schemaLocation="https://localhost:18081/?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="https://145.94.226.55:18081/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="https://145.94.226.55:18081/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="https://145.94.226.55:18081/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CryostatControlServer.HostService.DataContracts" />
+      <xsd:import schemaLocation="https://145.94.226.55:18081/?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ICommandService_IsAlive_InputMessage">
@@ -1362,6 +1423,12 @@
   <wsdl:message name="ICommandService_GetState_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetStateResponse" />
   </wsdl:message>
+  <wsdl:message name="ICommandService_GetStartTime_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStartTime" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_GetStartTime_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStartTimeResponse" />
+  </wsdl:message>
   <wsdl:message name="ICommandService_SetCompressorState_InputMessage">
     <wsdl:part name="parameters" element="tns:SetCompressorState" />
   </wsdl:message>
@@ -1395,12 +1462,6 @@
   <wsdl:message name="ICommandService_ReadCompressorPressureScale_OutputMessage">
     <wsdl:part name="parameters" element="tns:ReadCompressorPressureScaleResponse" />
   </wsdl:message>
-  <wsdl:message name="ICommandService_ReadBlueforsHeaterPower_InputMessage">
-    <wsdl:part name="parameters" element="tns:ReadBlueforsHeaterPower" />
-  </wsdl:message>
-  <wsdl:message name="ICommandService_ReadBlueforsHeaterPower_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ReadBlueforsHeaterPowerResponse" />
-  </wsdl:message>
   <wsdl:message name="ICommandService_WriteSettingValue_InputMessage">
     <wsdl:part name="parameters" element="tns:WriteSettingValue" />
   </wsdl:message>
@@ -1412,12 +1473,6 @@
   </wsdl:message>
   <wsdl:message name="ICommandService_ReadSettings_OutputMessage">
     <wsdl:part name="parameters" element="tns:ReadSettingsResponse" />
-  </wsdl:message>
-  <wsdl:message name="ICommandService_SetBlueforsHeater_InputMessage">
-    <wsdl:part name="parameters" element="tns:SetBlueforsHeater" />
-  </wsdl:message>
-  <wsdl:message name="ICommandService_SetBlueforsHeater_OutputMessage">
-    <wsdl:part name="parameters" element="tns:SetBlueforsHeaterResponse" />
   </wsdl:message>
   <wsdl:message name="ICommandService_ReadSingleSensor_InputMessage">
     <wsdl:part name="parameters" element="tns:ReadSingleSensor" />
@@ -1443,6 +1498,18 @@
   <wsdl:message name="ICommandService_IsLogging_OutputMessage">
     <wsdl:part name="parameters" element="tns:IsLoggingResponse" />
   </wsdl:message>
+  <wsdl:message name="ICommandService_IsRegisteredForData_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsRegisteredForData" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_IsRegisteredForData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsRegisteredForDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_IsRegisteredForUpdates_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsRegisteredForUpdates" />
+  </wsdl:message>
+  <wsdl:message name="ICommandService_IsRegisteredForUpdates_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsRegisteredForUpdatesResponse" />
+  </wsdl:message>
   <wsdl:message name="IDataGet_SubscribeForData_InputMessage">
     <wsdl:part name="parameters" element="tns:SubscribeForData" />
   </wsdl:message>
@@ -1466,6 +1533,9 @@
   </wsdl:message>
   <wsdl:message name="IDataGet_UpdateNotification_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:UpdateNotification" />
+  </wsdl:message>
+  <wsdl:message name="IDataGet_UpdateCountdown_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCountdown" />
   </wsdl:message>
   <wsdl:portType name="ICommandService">
     <wsdl:operation name="IsAlive">
@@ -1508,6 +1578,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/GetState" message="tns:ICommandService_GetState_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/GetStateResponse" message="tns:ICommandService_GetState_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetStartTime">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/GetStartTime" message="tns:ICommandService_GetStartTime_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/GetStartTimeResponse" message="tns:ICommandService_GetStartTime_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SetCompressorState">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/SetCompressorState" message="tns:ICommandService_SetCompressorState_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/SetCompressorStateResponse" message="tns:ICommandService_SetCompressorState_OutputMessage" />
@@ -1529,10 +1603,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/ReadCompressorPressureScale" message="tns:ICommandService_ReadCompressorPressureScale_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/ReadCompressorPressureScaleResponse" message="tns:ICommandService_ReadCompressorPressureScale_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ReadBlueforsHeaterPower">
-      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/ReadBlueforsHeaterPower" message="tns:ICommandService_ReadBlueforsHeaterPower_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/ReadBlueforsHeaterPowerResponse" message="tns:ICommandService_ReadBlueforsHeaterPower_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="WriteSettingValue">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/WriteSettingValue" message="tns:ICommandService_WriteSettingValue_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/WriteSettingValueResponse" message="tns:ICommandService_WriteSettingValue_OutputMessage" />
@@ -1540,10 +1610,6 @@
     <wsdl:operation name="ReadSettings">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/ReadSettings" message="tns:ICommandService_ReadSettings_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/ReadSettingsResponse" message="tns:ICommandService_ReadSettings_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="SetBlueforsHeater">
-      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/SetBlueforsHeater" message="tns:ICommandService_SetBlueforsHeater_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/SetBlueforsHeaterResponse" message="tns:ICommandService_SetBlueforsHeater_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ReadSingleSensor">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/ReadSingleSensor" message="tns:ICommandService_ReadSingleSensor_InputMessage" />
@@ -1560,6 +1626,14 @@
     <wsdl:operation name="IsLogging">
       <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/IsLogging" message="tns:ICommandService_IsLogging_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/IsLoggingResponse" message="tns:ICommandService_IsLogging_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsRegisteredForData">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/IsRegisteredForData" message="tns:ICommandService_IsRegisteredForData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/IsRegisteredForDataResponse" message="tns:ICommandService_IsRegisteredForData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsRegisteredForUpdates">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICommandService/IsRegisteredForUpdates" message="tns:ICommandService_IsRegisteredForUpdates_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICommandService/IsRegisteredForUpdatesResponse" message="tns:ICommandService_IsRegisteredForUpdates_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType msc:usingSession="true" name="IDataGet">
@@ -1586,6 +1660,9 @@
     </wsdl:operation>
     <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UpdateNotification">
       <wsdl:output wsaw:Action="http://tempuri.org/IDataGet/UpdateNotification" message="tns:IDataGet_UpdateNotification_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UpdateCountdown">
+      <wsdl:output wsaw:Action="http://tempuri.org/IDataGet/UpdateCountdown" message="tns:IDataGet_UpdateCountdown_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSHttpBinding_ICommandService" type="tns:ICommandService">
@@ -1701,6 +1778,17 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetStartTime">
+      <soap12:operation soapAction="http://tempuri.org/ICommandService/GetStartTime" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_GetStartTime_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_GetStartTime_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SetCompressorState">
       <soap12:operation soapAction="http://tempuri.org/ICommandService/SetCompressorState" style="document" />
       <wsdl:input>
@@ -1760,17 +1848,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ReadBlueforsHeaterPower">
-      <soap12:operation soapAction="http://tempuri.org/ICommandService/ReadBlueforsHeaterPower" style="document" />
-      <wsdl:input>
-        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_ReadBlueforsHeaterPower_Input_policy" />
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_ReadBlueforsHeaterPower_output_policy" />
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="WriteSettingValue">
       <soap12:operation soapAction="http://tempuri.org/ICommandService/WriteSettingValue" style="document" />
       <wsdl:input>
@@ -1790,17 +1867,6 @@
       </wsdl:input>
       <wsdl:output>
         <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_ReadSettings_output_policy" />
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="SetBlueforsHeater">
-      <soap12:operation soapAction="http://tempuri.org/ICommandService/SetBlueforsHeater" style="document" />
-      <wsdl:input>
-        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_SetBlueforsHeater_Input_policy" />
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_SetBlueforsHeater_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -1845,6 +1911,28 @@
       </wsdl:input>
       <wsdl:output>
         <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_IsLogging_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsRegisteredForData">
+      <soap12:operation soapAction="http://tempuri.org/ICommandService/IsRegisteredForData" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_IsRegisteredForData_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_IsRegisteredForData_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsRegisteredForUpdates">
+      <soap12:operation soapAction="http://tempuri.org/ICommandService/IsRegisteredForUpdates" style="document" />
+      <wsdl:input>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_IsRegisteredForUpdates_Input_policy" />
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSHttpBinding_ICommandService_IsRegisteredForUpdates_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -1908,12 +1996,19 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdateCountdown">
+      <soap12:operation soapAction="http://tempuri.org/IDataGet/UpdateCountdown" style="document" />
+      <wsdl:output>
+        <wsp:PolicyReference URI="#WSDualHttpBinding_IDataGet_UpdateCountdown_output_policy" />
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="CommandService">
     <wsdl:port name="WSHttpBinding_ICommandService" binding="tns:WSHttpBinding_ICommandService">
-      <soap12:address location="http://localhost:18080/Command" />
+      <soap12:address location="http://145.94.226.55:18080/Command" />
       <wsa10:EndpointReference>
-        <wsa10:Address>http://localhost:18080/Command</wsa10:Address>
+        <wsa10:Address>http://145.94.226.55:18080/Command</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
           <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
             <X509Data>
@@ -1924,9 +2019,9 @@
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="WSDualHttpBinding_IDataGet" binding="tns:WSDualHttpBinding_IDataGet">
-      <soap12:address location="http://localhost:18080/Data" />
+      <soap12:address location="http://145.94.226.55:18080/Data" />
       <wsa10:EndpointReference>
-        <wsa10:Address>http://localhost:18080/Data</wsa10:Address>
+        <wsa10:Address>http://145.94.226.55:18080/Data</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
           <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
             <X509Data>

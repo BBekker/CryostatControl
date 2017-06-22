@@ -11,6 +11,7 @@
 namespace CryostatControlServer.He7Cooler
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
@@ -60,13 +61,18 @@ namespace CryostatControlServer.He7Cooler
         private Dictionary<Channels, double> values = new Dictionary<Channels, double>();
 
         /// <summary>
+        /// The heaters.
+        /// </summary>
+        private List<Heater> heaters = new List<Heater>();
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="He7Cooler"/> class.
         /// </summary>
         public He7Cooler()
         {
-            Sensor.Calibration he3Calibration = Sensor.Calibration.He3Calibration;
-            Sensor.Calibration he4Calibration = Sensor.Calibration.He4Calibration;
-            Sensor.Calibration diodeCalibration = Sensor.Calibration.DiodeCalibration;
+            Calibration he3Calibration = Calibration.He3Calibration;
+            Calibration he4Calibration = Calibration.He4Calibration;
+            Calibration diodeCalibration = Calibration.DiodeCalibration;
 
             this.He3PumpT = new Sensor(Channels.SensHe3PumpT, this, diodeCalibration);
             this.He4PumpT = new Sensor(Channels.SensHe4PumpT, this, diodeCalibration);
@@ -77,8 +83,8 @@ namespace CryostatControlServer.He7Cooler
             this.He4HeadT = new Sensor(Channels.SensHe4HeadT, this, he4Calibration);
             this.He3HeadT = new Sensor(Channels.SensHe3HeadT, this, he3Calibration);
 
-            this.He3Pump = new Heater(Channels.PumpHe3, Channels.SensHe3Pump, this);
-            this.He4Pump = new Heater(Channels.PumpHe4, Channels.SensHe4Pump, this);
+            this.He3Pump = new Heater(Channels.PumpHe3, Channels.SensHe3Pump, this.He3PumpT, 400, Calibration.He3AmplifierCalibration, this);
+            this.He4Pump = new Heater(Channels.PumpHe4, Channels.SensHe4Pump, this.He4PumpT, 200, Calibration.He4AmplifierCalibration, this);
             this.He3Switch = new Heater(Channels.SwitchHe3, Channels.SensHe3Switch, this);
             this.He4Switch = new Heater(Channels.SwitchHe4, Channels.SensHe4Switch, this);
 
@@ -200,7 +206,7 @@ namespace CryostatControlServer.He7Cooler
         {
             return this.device.IsConnected();
         }
-
+        
         /// <summary>
         /// Read the voltages of all registered channels
         /// </summary>
@@ -275,6 +281,17 @@ namespace CryostatControlServer.He7Cooler
         }
 
         /// <summary>
+        /// Add a heater to the heaters list
+        /// </summary>
+        /// <param name="heater">
+        /// The heater.
+        /// </param>
+        protected void AddHeater(Heater heater)
+        {
+            this.heaters.Add(heater);
+        }
+
+        /// <summary>
         /// The remove channel.
         /// </summary>
         /// <param name="channel">
@@ -314,6 +331,17 @@ namespace CryostatControlServer.He7Cooler
         }
 
         /// <summary>
+        /// Notify heaters that a new reading has been done
+        /// </summary>
+        private void NotifyHeaters()
+        {
+            foreach (var heater in this.heaters)
+            {
+                heater?.Notify();
+            }
+        }
+
+        /// <summary>
         /// The main loop of the thread that reads voltages from the He7 cooler.
         /// </summary>
         private void MainLoop()
@@ -344,6 +372,7 @@ namespace CryostatControlServer.He7Cooler
                 else
                 {
                     this.ReadVoltages();
+                    this.NotifyHeaters();
                 }
 
                 Thread.Sleep(ReadInterval);
