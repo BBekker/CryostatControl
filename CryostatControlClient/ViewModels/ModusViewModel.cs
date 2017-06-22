@@ -373,7 +373,7 @@ namespace CryostatControlClient.ViewModels
         #region Commands
 
         /// <summary>
-        /// Gets or sets the hi button command.
+        /// Gets or sets the start button command.
         /// </summary>
         /// <value>
         /// The hi button command.
@@ -411,7 +411,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the manual button command.
+        /// Gets or sets the manual mode button command.
         /// </summary>
         /// <value>
         /// The cancel button command.
