@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="ChartModel.cs" company="SRON">
-//     Copyright (c) SRON. All rights reserved.
+//     Copyright (c) 2017 SRON
 // </copyright>
 //-----------------------------------------------------------------------
 namespace CryostatControlClient.Models
@@ -83,10 +83,10 @@ namespace CryostatControlClient.Models
         #region Properties
 
         /// <summary>
-        /// Gets or sets the x maximum.
+        /// Gets or sets the x axis maximum.
         /// </summary>
         /// <value>
-        /// The x maximum.
+        /// The x axis maximum.
         /// </value>
         public DateTime XMax
         {
@@ -109,10 +109,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the x minimum.
+        /// Gets or sets the x axis minimum.
         /// </summary>
         /// <value>
-        /// The x minimum.
+        /// The x axis minimum.
         /// </value>
         public DateTime XMin
         {
@@ -135,10 +135,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the y maximum.
+        /// Gets or sets the y axis maximum.
         /// </summary>
         /// <value>
-        /// The y maximum.
+        /// The y axis maximum.
         /// </value>
         public double YMax
         {
@@ -162,10 +162,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the y maximum.
+        /// Gets or sets the y axis maximum.
         /// </summary>
         /// <value>
-        /// The y maximum.
+        /// The y axis maximum.
         /// </value>
         public double YMin
         {

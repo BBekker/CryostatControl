@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="BlueforsModel.cs" company="SRON">
-//     Copyright (c) SRON. All rights reserved.
+//     Copyright (c) 2017 SRON
 // </copyright>
 //-----------------------------------------------------------------------
 namespace CryostatControlClient.Models
@@ -33,42 +33,42 @@ namespace CryostatControlClient.Models
         private double coldPlate50KTemp;
 
         /// <summary>
-        /// The cold plate3 k line series
+        /// The cold plate 3 k line series
         /// </summary>
         private GLineSeries coldPlate3KLineSeries;
 
         /// <summary>
-        /// The cold plate50 k line series
+        /// The cold plate 50 k line series
         /// </summary>
         private GLineSeries coldPlate50KLineSeries;
 
         /// <summary>
-        /// The cold plate3 k temporary list
+        /// The cold plate 3 k temporary list
         /// </summary>
         private double[] coldPlate3KTemporaryList;
 
         /// <summary>
-        /// The cold plate50 k temporary list
+        /// The cold plate 50 k temporary list
         /// </summary>
         private double[] coldPlate50KTemporaryList;
 
         /// <summary>
-        /// The cold plate3 k temporary list
+        /// The cold plate 3 k temporary list
         /// </summary>
         private double[] coldPlate3KTemporaryListBottom;
 
         /// <summary>
-        /// The cold plate50 k temporary list
+        /// The cold plate 50 k temporary list
         /// </summary>
         private double[] coldPlate50KTemporaryListBottom;
 
         /// <summary>
-        /// The cold plate3 k line series
+        /// The cold plate 3 k line series
         /// </summary>
         private GLineSeries coldPlate3KLineSeriesBottom;
 
         /// <summary>
-        /// The cold plate50 k line series
+        /// The cold plate 50 k line series
         /// </summary>
         private GLineSeries coldPlate50KLineSeriesBottom;
 
@@ -103,10 +103,10 @@ namespace CryostatControlClient.Models
         #region Properties
 
         /// <summary>
-        /// Gets or sets the cold plate3 k visibility.
+        /// Gets or sets the cold plate 3 k visibility.
         /// </summary>
         /// <value>
-        /// The cold plate3 k visibility.
+        /// The cold plate 3 k visibility.
         /// </value>
         public Visibility ColdPlate3KVisibility
         {
@@ -122,10 +122,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the cold plate50 k visibility.
+        /// Gets or sets the cold plate 50 k visibility.
         /// </summary>
         /// <value>
-        /// The cold plate50 k visibility.
+        /// The cold plate 50 k visibility.
         /// </value>
         public Visibility ColdPlate50KVisibility
         {

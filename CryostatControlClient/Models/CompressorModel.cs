@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------
 // <copyright file="CompressorModel.cs" company="SRON">
-//     Copyright (c) SRON. All rights reserved.
+//     Copyright (c) 2017 SRON
 // </copyright>
 //-----------------------------------------------------------------------
 namespace CryostatControlClient.Models
@@ -101,10 +101,10 @@ namespace CryostatControlClient.Models
         #region Properties
 
         /// <summary>
-        /// Gets or sets the state of the operating.
+        /// Gets or sets the state of operation.
         /// </summary>
         /// <value>
-        /// The state of the operating.
+        /// The state of operiation.
         /// </value>
         public double OperatingState
         {
@@ -139,10 +139,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the state of the alarm.
+        /// Gets or sets the state of the error.
         /// </summary>
         /// <value>
-        /// The state of the alarm.
+        /// The state of the error.
         /// </value>
         public double ErrorState
         {
@@ -158,10 +158,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the coolant in temperature.
+        /// Gets or sets the water in temperature.
         /// </summary>
         /// <value>
-        /// The coolant in temperature.
+        /// The water in temperature.
         /// </value>
         public double WaterInTemp
         {
@@ -177,10 +177,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the coolant out temperature.
+        /// Gets or sets the water out temperature.
         /// </summary>
         /// <value>
-        /// The coolant out temperature.
+        /// The water out temperature.
         /// </value>
         public double WaterOutTemp
         {

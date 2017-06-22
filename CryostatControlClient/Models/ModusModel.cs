@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ModusModel.cs" company="SRON">
-//   k
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The abstract view model.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.Models
@@ -29,12 +26,12 @@ namespace CryostatControlClient.Models
         private int modus;
 
         /// <summary>
-        /// The command
+        /// The time
         /// </summary>
         private string time;
 
         /// <summary>
-        /// The server
+        /// The server connection
         /// </summary>
         private bool serverConnection;
 
@@ -117,7 +114,7 @@ namespace CryostatControlClient.Models
         /// Gets or sets the selected time.
         /// </summary>
         /// <value>
-        /// The selected date.
+        /// The selected time.
         /// </value>
         public DateTime SelectedTime
         {
@@ -152,10 +149,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the index of the selected combo.
+        /// Gets or sets the index of the selected combo index.
         /// </summary>
         /// <value>
-        /// The index of the selected combo.
+        /// The index of the selected combo index.
         /// </value>
         public int SelectedComboIndex
         {
@@ -174,7 +171,7 @@ namespace CryostatControlClient.Models
         /// Gets or sets a value indicating whether the server is connected.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if server connected; otherwise, <c>false</c>.
+        ///   <c>true</c> if server is connected; otherwise, <c>false</c>.
         /// </value>
         public bool ServerConnection
         {

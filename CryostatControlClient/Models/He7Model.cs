@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="He7Model.cs" company="SRON">
-// SRON 2017.
+// Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Model for He7-cooler.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.Models
@@ -612,9 +609,13 @@ namespace CryostatControlClient.Models
             }
         }
 
+
         /// <summary>
         /// Gets or sets the four k plate max 1.
         /// </summary>
+        /// <value>
+        /// The four k plate max 1.
+        /// </value>
         public double FourKPlateMax1
         {
             get
@@ -631,6 +632,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the four k plate max 2.
         /// </summary>
+        /// <value>
+        /// The four k plate max 2.
+        /// </value>
         public double FourKPlateMax2
         {
             get
@@ -666,8 +670,11 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he 3 head max.
+        /// Gets or sets the he3 head maximum.
         /// </summary>
+        /// <value>
+        /// The he3 head maximum.
+        /// </value>
         public double He3HeadMax
         {
             get
@@ -704,6 +711,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the he 3 pump actual volt.
         /// </summary>
+        /// <value>
+        /// The he3 pump actual volt.
+        /// </value>
         public double He3PumpActualVolt
         {
             get
@@ -720,6 +730,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the he 3 pump new volt.
         /// </summary>
+        /// <value>
+        /// The he3 pump new volt.
+        /// </value>
         public double He3PumpNewVolt
         {
             get
@@ -736,6 +749,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the he 3 pump max.
         /// </summary>
+        /// <value>
+        /// The he3 pump maximum.
+        /// </value>
         public double He3PumpMax
         {
             get
@@ -772,6 +788,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the he 3 switch actual volt.
         /// </summary>
+        /// <value>
+        /// The he3 switch actual volt.
+        /// </value>
         public double He3SwitchActualVolt
         {
             get
@@ -788,6 +807,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the he 3 switch new volt.
         /// </summary>
+        /// <value>
+        /// The he3 switch new volt.
+        /// </value>
         public double He3SwitchNewVolt
         {
             get
@@ -804,6 +826,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the he 3 switch max 1.
         /// </summary>
+        /// <value>
+        /// The he3 switch max1.
+        /// </value>
         public double He3SwitchMax1
         {
             get
@@ -820,6 +845,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the he 3 switch max 2.
         /// </summary>
+        /// <value>
+        /// The he3 switch max2.
+        /// </value>
         public double He3SwitchMax2
         {
             get
@@ -857,6 +885,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the he 4 head max.
         /// </summary>
+        /// <value>
+        /// The he4 head maximum.
+        /// </value>
         public double He4HeadMax
         {
             get
@@ -893,6 +924,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the he 4 pump actual volt.
         /// </summary>
+        /// <value>
+        /// The he4 pump actual volt.
+        /// </value>
         public double He4PumpActualVolt
         {
             get
@@ -909,6 +943,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the he 4 pump new volt.
         /// </summary>
+        /// <value>
+        /// The he4 pump new volt.
+        /// </value>
         public double He4PumpNewVolt
         {
             get
@@ -925,6 +962,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the he 4 pump max.
         /// </summary>
+        /// <value>
+        /// The he4 pump maximum.
+        /// </value>
         public double He4PumpMax
         {
             get
@@ -961,6 +1001,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the he 4 switch actual volt.
         /// </summary>
+        /// <value>
+        /// The he4 switch actual volt.
+        /// </value>
         public double He4SwitchActualVolt
         {
             get
@@ -977,6 +1020,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the he 4 switch new volt.
         /// </summary>
+        /// <value>
+        /// The he4 switch new volt.
+        /// </value>
         public double He4SwitchNewVolt
         {
             get
@@ -993,6 +1039,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the he 4 switch max 1.
         /// </summary>
+        /// <value>
+        /// The he4 switch max1.
+        /// </value>
         public double He4SwitchMax1
         {
             get
@@ -1009,6 +1058,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the he 4 switch max 2.
         /// </summary>
+        /// <value>
+        /// The he4 switch max2.
+        /// </value>
         public double He4SwitchMax2
         {
             get
@@ -1045,6 +1097,9 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets or sets the connection state.
         /// </summary>
+        /// <value>
+        /// The state of the connection.
+        /// </value>
         public double ConnectionState
         {
             get

@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LoggingModel.cs" company="SRON">
-//   k
+//  Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the LoggingModel type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.Models
@@ -14,16 +11,15 @@ namespace CryostatControlClient.Models
     /// <summary>
     /// The logging model.
     /// </summary>
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1623:PropertySummaryDocumentationMustMatchAccessors", Justification = "Reviewed, is ok here")]
     public class LoggingModel
     {
         /// <summary>
-        /// The he3 cold head temperature
+        /// The he3 pump temperature
         /// </summary>
         private bool he3PumpTemp;
 
         /// <summary>
-        /// The he3 warm head temperature
+        /// The he3 head temperature
         /// </summary>
         private bool he3HeadTemp;
 
@@ -33,12 +29,12 @@ namespace CryostatControlClient.Models
         private bool he3SwitchTemp;
 
         /// <summary>
-        /// The he4 cold head temperature
+        /// The he4 pump temperature
         /// </summary>
         private bool he4PumpTemp;
 
         /// <summary>
-        /// The he4 warm head temperature
+        /// The he4 head temperature
         /// </summary>
         private bool he4HeadTemp;
 
@@ -78,12 +74,12 @@ namespace CryostatControlClient.Models
         private bool he4SwitchVolt;
 
         /// <summary>
-        /// The bluefors50 k shield temperature
+        /// The bluefors 50 k shield temperature
         /// </summary>
         private bool bluefors50KShieldTemp;
 
         /// <summary>
-        /// The bluefors3 k shield temperature
+        /// The bluefors 3 k shield temperature
         /// </summary>
         private bool bluefors3KShieldTemp;
 
@@ -147,11 +143,12 @@ namespace CryostatControlClient.Models
         /// </summary>
         private bool loggingInProgress;
 
+
         /// <summary>
-        /// Gets or sets the he3 pump temperature.
+        /// Gets or sets a value indicating whether [he3 pump temperature] will be logged.
         /// </summary>
         /// <value>
-        /// The he3 pump temperature.
+        ///   <c>true</c> if [he3 pump temperature] will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool He3PumpTemp
         {
@@ -167,10 +164,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he3 head temperature.
+        /// Gets or sets a value indicating whether [he3 head temperature] will be logged.
         /// </summary>
         /// <value>
-        /// The he3 head temperature.
+        ///   <c>true</c> if [he3 head temperature] will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool He3HeadTemp
         {
@@ -186,10 +183,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he3 switch temperature.
+        /// Gets or sets a value indicating whether [he3 switch temperature]  will be logged.
         /// </summary>
         /// <value>
-        /// The he3 switch temperature.
+        ///   <c>true</c> if [he3 switch temperature]  will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool He3SwitchTemp
         {
@@ -205,10 +202,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he4 pump temperature.
+        /// Gets or sets a value indicating whether [he4 pump temperature]  will be logged.
         /// </summary>
         /// <value>
-        /// The he4 pump temperature.
+        ///   <c>true</c> if [he4 pump temperature]  will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool He4PumpTemp
         {
@@ -224,10 +221,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he4 head temperature.
+        /// Gets or sets a value indicating whether [he4 head temperature]  will be logged.
         /// </summary>
         /// <value>
-        /// The he4 head temperature.
+        ///   <c>true</c> if [he4 head temperature]  will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool He4HeadTemp
         {
@@ -243,10 +240,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he4 switch temperature.
+        /// Gets or sets a value indicating whether [he4 switch temperature]  will be logged.
         /// </summary>
         /// <value>
-        /// The he4 switch temperature.
+        ///   <c>true</c> if [he4 switch temperature]  will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool He4SwitchTemp
         {
@@ -262,10 +259,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the two k plate temperature.
+        /// Gets or sets a value indicating whether [two k plate temperature] will be logged.
         /// </summary>
         /// <value>
-        /// The two k plate temperature.
+        ///   <c>true</c> if [two k plate temperature] will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool TwoKPlateTemp
         {
@@ -281,10 +278,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the four k plate temperature.
+        /// Gets or sets a value indicating whether [four k plate temperature]  will be logged.
         /// </summary>
         /// <value>
-        /// The four k plate temperature.
+        ///   <c>true</c> if [four k plate temperature] will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool FourKPlateTemp
         {
@@ -300,10 +297,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he3 pump Volt.
+        /// Gets or sets a value indicating whether [he3 pump volt]  will be logged.
         /// </summary>
         /// <value>
-        /// The he3 pump Volt.
+        ///   <c>true</c> if [he3 pump volt]  will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool He3PumpVolt
         {
@@ -319,10 +316,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he3 switch Volt.
+        /// Gets or sets a value indicating whether [he3 switch volt]  will be logged.
         /// </summary>
         /// <value>
-        /// The he3 switch Volt.
+        ///   <c>true</c> if [he3 switch volt]  will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool He3SwitchVolt
         {
@@ -338,10 +335,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he4 pump Volt.
+        /// Gets or sets a value indicating whether [he4 pump volt]  will be logged.
         /// </summary>
         /// <value>
-        /// The he4 pump Volt.
+        ///   <c>true</c> if [he4 pump volt] will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool He4PumpVolt
         {
@@ -357,10 +354,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the he4 switch Volt.
+        /// Gets or sets a value indicating whether [he4 switch volt]  will be logged.
         /// </summary>
         /// <value>
-        /// The he4 switch Volt.
+        ///   <c>true</c> if [he4 switch volt]  will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool He4SwitchVolt
         {
@@ -376,10 +373,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the bluefors50 k shield temperature.
+        /// Gets or sets a value indicating whether [bluefors50 k shield temperature]  will be logged.
         /// </summary>
         /// <value>
-        /// The bluefors50 k shield temperature.
+        ///   <c>true</c> if [bluefors50 k shield temperature]  will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool Bluefors50KShieldTemp
         {
@@ -395,10 +392,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the bluefors3 k shield temperature.
+        /// Gets or sets a value indicating whether [bluefors3 k shield temperature]  will be logged.
         /// </summary>
         /// <value>
-        /// The bluefors3 k shield temperature.
+        ///   <c>true</c> if [bluefors3 k shield temperature]  will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool Bluefors3KShieldTemp
         {
@@ -414,10 +411,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the compressor water in temperature.
+        /// Gets or sets a value indicating whether [compressor water in temperature]  will be logged.
         /// </summary>
         /// <value>
-        /// The compressor water in temperature.
+        ///   <c>true</c> if [compressor water in temperature]  will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool CompressorWaterInTemp
         {
@@ -433,10 +430,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the compressor water out temperature.
+        /// Gets or sets a value indicating whether [compressor water out temperature]  will be logged.
         /// </summary>
         /// <value>
-        /// The compressor water out temperature.
+        ///   <c>true</c> if [compressor water out temperature] will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool CompressorWaterOutTemp
         {
@@ -452,10 +449,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the compressor helium temperature.
+        /// Gets or sets a value indicating whether [compressor helium temperature]  will be logged.
         /// </summary>
         /// <value>
-        /// The compressor helium temperature.
+        ///   <c>true</c> if [compressor helium temperature] will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool CompressorHeliumTemp
         {
@@ -471,10 +468,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the compressor oil temperature.
+        /// Gets or sets a value indicating whether [compressor oil temperature]  will be logged.
         /// </summary>
         /// <value>
-        /// The compressor oil temperature.
+        ///   <c>true</c> if [compressor oil temperature]  will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool CompressorOilTemp
         {
@@ -490,10 +487,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the compressor low pressure.
+        /// Gets or sets a value indicating whether [compressor low pressure]  will be logged.
         /// </summary>
         /// <value>
-        /// The compressor low pressure.
+        ///   <c>true</c> if [compressor low pressure] will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool CompressorLowPressure
         {
@@ -509,10 +506,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the compressor low average pressure.
+        /// Gets or sets a value indicating whether [compressor low average pressure] will be logged.
         /// </summary>
         /// <value>
-        /// The compressor low average pressure.
+        ///   <c>true</c> if [compressor low average pressure] will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool CompressorLowAveragePressure
         {
@@ -528,10 +525,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the compressor high pressure.
+        /// Gets or sets a value indicating whether [compressor high pressure] will be logged.
         /// </summary>
         /// <value>
-        /// The compressor high pressure.
+        ///   <c>true</c> if [compressor high pressure] will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool CompressorHighPressure
         {
@@ -547,10 +544,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the compressor high average pressure.
+        /// Gets or sets a value indicating whether [compressor high average pressure] will be logged.
         /// </summary>
         /// <value>
-        /// The compressor high average pressure.
+        ///   <c>true</c> if [compressor high average pressure] will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool CompressorHighAveragePressure
         {
@@ -566,10 +563,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets the compressor delta average pressure.
+        /// Gets or sets a value indicating whether [compressor delta average pressure] will be logged.
         /// </summary>
         /// <value>
-        /// The compressor delta average pressure.
+        ///   <c>true</c> if [compressor delta average pressure] will be logged; otherwise, <c>false</c>.
         /// </value>
         public bool CompressorDeltaAveragePressure
         {
@@ -623,10 +620,10 @@ namespace CryostatControlClient.Models
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [logging is in progress].
+        /// Gets or sets a value indicating whether [logging in progress].
         /// </summary>
         /// <value>
-        ///   <c>true</c> if [logging is in progress]; otherwise, <c>false</c>.
+        ///   <c>true</c> if [logging in progress]; otherwise, <c>false</c>.
         /// </value>
         public bool LoggingInProgress
         {
