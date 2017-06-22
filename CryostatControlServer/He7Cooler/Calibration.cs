@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Calibration.cs" company="SRON">
-//   All rights reserved
+//  Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The he 7 cooler.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.He7Cooler

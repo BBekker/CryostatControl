@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SensorArray.cs" company="SRON">
-//      Copyright (c) SRON. All rights reserved.
+//      Copyright (c) 2017 SRON
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 namespace CryostatControlServer.Data
@@ -10,7 +10,7 @@ namespace CryostatControlServer.Data
     using CryostatControlServer.LakeShore;
 
     /// <summary>
-    /// Class which
+    /// class which consists of an array of all sensors.
     /// </summary>
     public class SensorArray
     {
