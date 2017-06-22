@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ModusViewModel.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The abstract view model.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels
@@ -22,7 +19,7 @@ namespace CryostatControlClient.ViewModels
     using CryostatControlServer;
 
     /// <summary>
-    /// For trying out
+    /// The modus viewmodel
     /// </summary>
     /// <seealso cref="CryostatControlClient.ViewModels.AbstractViewModel" />
     public class ModusViewModel : AbstractViewModel
@@ -315,7 +312,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the server converted.
+        /// Gets the server connection converted.
         /// </summary>
         /// <value>
         /// The server converted.

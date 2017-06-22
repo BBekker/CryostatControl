@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="He7ViewModel.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the He7ViewModel type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels

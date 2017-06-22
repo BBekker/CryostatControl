@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AbstractViewModel.cs" company="SRON">
-//   k
+//   //      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The abstract view model.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels

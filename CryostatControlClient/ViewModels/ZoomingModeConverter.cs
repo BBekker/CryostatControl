@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ZoomingModeConverter.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The abstract view model.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels
@@ -22,7 +19,7 @@ namespace CryostatControlClient.ViewModels
     public class ZoomingModeConverter : IValueConverter
     {
         /// <summary>
-        /// Converts a value.
+        /// Converts the zoomingoption to a string.
         /// </summary>
         /// <param name="value">The value produced by the binding source.</param>
         /// <param name="targetType">The type of the binding target property.</param>
