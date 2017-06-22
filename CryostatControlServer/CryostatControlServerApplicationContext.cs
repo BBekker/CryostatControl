@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CryostatControlServerApplicationContext.cs" company="SRON">
-//      Copyright (c) SRON. All rights reserved.
+//      Copyright (c) 2017 SRON
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -18,7 +18,7 @@ namespace CryostatControlServer
     public class CryostatControlServerApplicationContext : ApplicationContext
     {
         /// <summary>
-        /// The debugform.
+        /// The debug form.
         /// </summary>
         private static DebugForm debugform = new DebugForm();
 
