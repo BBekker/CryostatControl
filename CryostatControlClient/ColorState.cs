@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ColorState.cs" company="SRON">
-//   k
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the ColorState type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient

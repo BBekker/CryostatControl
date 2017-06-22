@@ -5,8 +5,7 @@
     xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
-    >
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 
     <Page.Resources>
         <ResourceDictionary Source="Styles.xaml" />
@@ -14,26 +13,26 @@
 
     <materialDesign:Card Style="{StaticResource tabFrameCard}">
         <dragablz:TabablzControl Style="{StaticResource TabFrame}">
-            <TabItem Header="Overview" >
+            <TabItem Header="Overview">
                 <Frame Source="Tabs/OverviewFrame.xaml" />
             </TabItem>
             <TabItem Header="He-7 Cooler">
-                <Frame Source="Tabs/He7Frame.xaml" Navigated="FrameNavigated"/>
+                <Frame Source="Tabs/He7Frame.xaml" Navigated="FrameNavigated" />
             </TabItem>
             <TabItem Header="BlueFors">
-                <Frame Source="Tabs/BlueforsFrame.xaml" Navigated="FrameNavigated"/>
+                <Frame Source="Tabs/BlueforsFrame.xaml" Navigated="FrameNavigated" />
             </TabItem>
             <TabItem Header="Compressor">
-                <Frame Source="Tabs/CompressorFrame.xaml" Navigated="FrameNavigated"/>
+                <Frame Source="Tabs/CompressorFrame.xaml" Navigated="FrameNavigated" />
             </TabItem>
             <TabItem Header="Graph">
-                <Frame Source="Tabs/GraphFrame.xaml" Navigated="FrameNavigated"/>
+                <Frame Source="Tabs/GraphFrame.xaml" Navigated="FrameNavigated" />
             </TabItem>
             <TabItem Header="Logging">
-                <Frame Source="Tabs/LoggingFrame.xaml" Navigated="FrameNavigated"/>
+                <Frame Source="Tabs/LoggingFrame.xaml" Navigated="FrameNavigated" />
             </TabItem>
             <TabItem Header="Settings" IsSelected="{Binding SettingsViewModel.IsSelected, Mode=OneWayToSource}">
-                <Frame Source="Tabs/SettingsFrame.xaml" Navigated="FrameNavigated"></Frame>
+                <Frame Source="Tabs/SettingsFrame.xaml" Navigated="FrameNavigated" />
             </TabItem>
 
         </dragablz:TabablzControl>

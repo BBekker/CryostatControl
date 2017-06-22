@@ -1,11 +1,11 @@
 ﻿<Page x:Class="CryostatControlClient.Views.MessageBox"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:CryostatControlClient.Views"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
       d:DesignHeight="300" d:DesignWidth="300"
       Title="MessageBox">
 
@@ -14,26 +14,31 @@
     </Page.Resources>
 
     <materialDesign:Card Style="{StaticResource messageBoxCard}">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
-            <RowDefinition Height="4*" />
-        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="4*" />
+            </Grid.RowDefinitions>
 
-            <Label Content="{Binding MessageBoxViewModel.MessageAttributesCount}"/>
+            <Label Content="{Binding MessageBoxViewModel.MessageAttributesCount}" />
             <Label Grid.Row="0" Style="{StaticResource NotificationTitle}">Notifications</Label>
-            <ListBox Grid.Row="1" ItemsSource="{Binding MessageBoxViewModel.Notifications}" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <ListBox.ItemTemplate>
-                <DataTemplate>  
-                    <StackPanel Orientation="Horizontal">
-                            <Label Style="{StaticResource NotificationItemLabel}" Foreground="{Binding Color}" Content="{Binding Time}" ToolTip="{Binding Data}"/>
-                            <Label Style="{StaticResource NotificationItemLabel}" Foreground="{Binding Color}" Content="{Binding Level}" ToolTip="{Binding Data}"/>
-                            <Label Style="{StaticResource NotificationItemLabel}" Foreground="{Binding Color}" Content="{Binding Data}" ToolTip="{Binding Data}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        
-    </Grid>
+            <ListBox Grid.Row="1" ItemsSource="{Binding MessageBoxViewModel.Notifications}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Style="{StaticResource NotificationItemLabel}" Foreground="{Binding Color}"
+                                   Content="{Binding Time}" ToolTip="{Binding Data}" />
+                            <Label Style="{StaticResource NotificationItemLabel}" Foreground="{Binding Color}"
+                                   Content="{Binding Level}" ToolTip="{Binding Data}" />
+                            <Label Style="{StaticResource NotificationItemLabel}" Foreground="{Binding Color}"
+                                   Content="{Binding Data}" ToolTip="{Binding Data}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+        </Grid>
     </materialDesign:Card>
 </Page>

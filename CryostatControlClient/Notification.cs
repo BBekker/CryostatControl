@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Notification.cs" company="SRON">
-//   k
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the Notification type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient
@@ -34,11 +31,6 @@ namespace CryostatControlClient
         private string level;
 
         /// <summary>
-        /// The data.
-        /// </summary>
-        private string data;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Notification"/> class.
         /// </summary>
         /// <param name="time">
@@ -60,6 +52,9 @@ namespace CryostatControlClient
         /// <summary>
         /// Gets or sets the time.
         /// </summary>
+        /// <value>
+        /// The time.
+        /// </value>
         public string Time
         {
             get
@@ -83,6 +78,9 @@ namespace CryostatControlClient
         /// <summary>
         /// Gets or sets the level.
         /// </summary>
+        /// <value>
+        /// The level.
+        /// </value>
         public string Level
         {
             get
@@ -106,22 +104,17 @@ namespace CryostatControlClient
         /// <summary>
         /// Gets or sets the data.
         /// </summary>
-        public string Data
-        {
-            get
-            {
-                return this.data;
-            }
-
-            set
-            {
-                this.data = value;
-            }
-        }
+        /// <value>
+        /// The data.
+        /// </value>
+        public string Data { get; set; }
 
         /// <summary>
         /// Gets the color.
         /// </summary>
+        /// <value>
+        /// The color.
+        /// </value>
         public SolidColorBrush Color
         {
             get

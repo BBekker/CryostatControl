@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="AbstractModel.cs" company="SRON">
-//     Copyright (c) SRON. All rights reserved.
+//     Copyright (c) 2017 SRON
 // </copyright>
 //-----------------------------------------------------------------------
 namespace CryostatControlClient.Models
@@ -51,13 +51,13 @@ namespace CryostatControlClient.Models
         #region Methods
 
         /// <summary>
-        /// Adds to graph.
+        /// Add a value to the graph.
         /// </summary>
         /// <param name="temporaryList">The temporary list.</param>
         /// <param name="lineSeries">The line series.</param>
         /// <param name="value">The value.</param>
         /// <returns>
-        /// The temporary list updated.
+        /// The updated temporary list.
         /// </returns>
         public double[] AddToGraph(double[] temporaryList, GLineSeries lineSeries, double value)
         {
@@ -78,10 +78,12 @@ namespace CryostatControlClient.Models
                     {
                         lineSeries.Values.RemoveAt(0);
                     }
+
                     temporaryList = new double[this.TemporaryListSize];
                     temporaryList[this.TemporaryListSize - 1] = 0;
                 }
             }
+
             return temporaryList;
         }
 
