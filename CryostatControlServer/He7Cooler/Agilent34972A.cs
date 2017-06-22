@@ -112,7 +112,7 @@ namespace CryostatControlServer.He7Cooler
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public bool IsConnected()
+        public virtual bool IsConnected()
         {
             return this.connection?.IsConnected() ?? false;
         }
