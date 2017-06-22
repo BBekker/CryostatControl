@@ -15,46 +15,6 @@ namespace CryostatControlClient.Models
     {
         #region Fields
 
-        /// <summary>
-        /// The selected tab index
-        /// </summary>
-        private int selectedComboIndex;
-
-        /// <summary>
-        /// The modus
-        /// </summary>
-        private int modus;
-
-        /// <summary>
-        /// The time
-        /// </summary>
-        private string time;
-
-        /// <summary>
-        /// The server connection
-        /// </summary>
-        private bool serverConnection;
-
-        /// <summary>
-        /// The show date time
-        /// </summary>
-        private string showDateTime;
-
-        /// <summary>
-        /// The selected date
-        /// </summary>
-        private DateTime selectedDate;
-
-        /// <summary>
-        /// The selected time
-        /// </summary>
-        private DateTime selectedTime;
-
-        /// <summary>
-        /// The planned time
-        /// </summary>
-        private DateTime plannedTime;
-
         #endregion Fields
 
         #region Constructor
@@ -64,8 +24,8 @@ namespace CryostatControlClient.Models
         /// </summary>
         public ModusModel()
         {
-            this.time = "Now";
-            this.selectedDate = DateTime.Now;
+            this.Time = "Now";
+            this.SelectedDate = DateTime.Now;
         }
 
         #endregion Constructor
@@ -78,18 +38,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The planned time.
         /// </value>
-        public DateTime PlannedTime
-        {
-            get
-            {
-                return this.plannedTime;
-            }
-
-            set
-            {
-                this.plannedTime = value;
-            }
-        }
+        public DateTime PlannedTime { get; set; }
 
         /// <summary>
         /// Gets or sets the show date time.
@@ -97,18 +46,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The show date time.
         /// </value>
-        public string ShowDateTime
-        {
-            get
-            {
-                return this.showDateTime;
-            }
-
-            set
-            {
-                this.showDateTime = value;
-            }
-        }
+        public string ShowDateTime { get; set; }
 
         /// <summary>
         /// Gets or sets the selected time.
@@ -116,18 +54,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The selected time.
         /// </value>
-        public DateTime SelectedTime
-        {
-            get
-            {
-                return this.selectedTime;
-            }
-
-            set
-            {
-                this.selectedTime = value;
-            }
-        }
+        public DateTime SelectedTime { get; set; }
 
         /// <summary>
         /// Gets or sets the selected date.
@@ -135,18 +62,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The selected date.
         /// </value>
-        public DateTime SelectedDate
-        {
-            get
-            {
-                return this.selectedDate;
-            }
-
-            set
-            {
-                this.selectedDate = value;
-            }
-        }
+        public DateTime SelectedDate { get; set; }
 
         /// <summary>
         /// Gets or sets the index of the selected combo index.
@@ -154,18 +70,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The index of the selected combo index.
         /// </value>
-        public int SelectedComboIndex
-        {
-            get
-            {
-                return this.selectedComboIndex;
-            }
-
-            set
-            {
-                this.selectedComboIndex = value;
-            }
-        }
+        public int SelectedComboIndex { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the server is connected.
@@ -173,18 +78,7 @@ namespace CryostatControlClient.Models
         /// <value>
         ///   <c>true</c> if server is connected; otherwise, <c>false</c>.
         /// </value>
-        public bool ServerConnection
-        {
-            get
-            {
-                return this.serverConnection;
-            }
-
-            set
-            {
-                this.serverConnection = value;
-            }
-        }
+        public bool ServerConnection { get; set; }
 
         /// <summary>
         /// Gets or sets the time.
@@ -192,18 +86,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The time.
         /// </value>
-        public string Time
-        {
-            get
-            {
-                return this.time;
-            }
-
-            set
-            {
-                this.time = value;
-            }
-        }
+        public string Time { get; set; }
 
         /// <summary>
         /// Gets or sets the modus.
@@ -211,18 +94,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The modus.
         /// </value>
-        public int Modus
-        {
-            get
-            {
-                return this.modus;
-            }
-
-            set
-            {
-                this.modus = value;
-            }
-        }
+        public int Modus { get; set; }
 
         #endregion Properties
     }

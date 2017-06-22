@@ -78,10 +78,12 @@ namespace CryostatControlClient.Models
                     {
                         lineSeries.Values.RemoveAt(0);
                     }
+
                     temporaryList = new double[this.TemporaryListSize];
                     temporaryList[this.TemporaryListSize - 1] = 0;
                 }
             }
+
             return temporaryList;
         }
 

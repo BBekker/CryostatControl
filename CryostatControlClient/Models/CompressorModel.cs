@@ -17,85 +17,6 @@ namespace CryostatControlClient.Models
     {
         #region Fields
 
-        /// <summary>
-        /// The operating state
-        /// </summary>
-        private double operatingState = -1;
-
-        /// <summary>
-        /// The warning state
-        /// </summary>
-        private double warningState;
-
-        /// <summary>
-        /// The error state
-        /// </summary>
-        private double errorState;
-
-        /// <summary>
-        /// The water in temperature
-        /// </summary>
-        private double waterInTemp;
-
-        /// <summary>
-        /// The water out temperature
-        /// </summary>
-        private double waterOutTemp;
-
-        /// <summary>
-        /// The oil temperature
-        /// </summary>
-        private double oilTemp;
-
-        /// <summary>
-        /// The helium temperature
-        /// </summary>
-        private double heliumTemp;
-
-        /// <summary>
-        /// The low pressure
-        /// </summary>
-        private double lowPressure;
-
-        /// <summary>
-        /// The low pressure average
-        /// </summary>
-        private double lowPressureAverage;
-
-        /// <summary>
-        /// The high pressure
-        /// </summary>
-        private double highPressure;
-
-        /// <summary>
-        /// The high pressure average
-        /// </summary>
-        private double highPressureAverage;
-
-        /// <summary>
-        /// The delta pressure average
-        /// </summary>
-        private double deltaPressureAverage;
-
-        /// <summary>
-        /// The hours of operation
-        /// </summary>
-        private double hoursOfOperation;
-
-        /// <summary>
-        /// The pressure scale
-        /// </summary>
-        private double pressureScale = -1;
-
-        /// <summary>
-        /// The temperature scale
-        /// </summary>
-        private double tempScale = -1;
-
-        /// <summary>
-        /// The connection state
-        /// </summary>
-        private double connectionState;
         #endregion Fields
 
         #region Properties
@@ -106,18 +27,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The state of operiation.
         /// </value>
-        public double OperatingState
-        {
-            get
-            {
-                return this.operatingState;
-            }
-
-            set
-            {
-                this.operatingState = value;
-            }
-        }
+        public double OperatingState { get; set; } = -1;
 
         /// <summary>
         /// Gets or sets the state of the warning.
@@ -125,18 +35,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The state of the warning.
         /// </value>
-        public double WarningState
-        {
-            get
-            {
-                return this.warningState;
-            }
-
-            set
-            {
-                this.warningState = value;
-            }
-        }
+        public double WarningState { get; set; }
 
         /// <summary>
         /// Gets or sets the state of the error.
@@ -144,18 +43,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The state of the error.
         /// </value>
-        public double ErrorState
-        {
-            get
-            {
-                return this.errorState;
-            }
-
-            set
-            {
-                this.errorState = value;
-            }
-        }
+        public double ErrorState { get; set; }
 
         /// <summary>
         /// Gets or sets the water in temperature.
@@ -163,18 +51,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The water in temperature.
         /// </value>
-        public double WaterInTemp
-        {
-            get
-            {
-                return this.waterInTemp;
-            }
-
-            set
-            {
-                this.waterInTemp = value;
-            }
-        }
+        public double WaterInTemp { get; set; }
 
         /// <summary>
         /// Gets or sets the water out temperature.
@@ -182,18 +59,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The water out temperature.
         /// </value>
-        public double WaterOutTemp
-        {
-            get
-            {
-                return this.waterOutTemp;
-            }
-
-            set
-            {
-                this.waterOutTemp = value;
-            }
-        }
+        public double WaterOutTemp { get; set; }
 
         /// <summary>
         /// Gets or sets the oil temperature.
@@ -201,18 +67,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The oil temperature.
         /// </value>
-        public double OilTemp
-        {
-            get
-            {
-                return this.oilTemp;
-            }
-
-            set
-            {
-                this.oilTemp = value;
-            }
-        }
+        public double OilTemp { get; set; }
 
         /// <summary>
         /// Gets or sets the helium temperature.
@@ -220,18 +75,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The helium temperature.
         /// </value>
-        public double HeliumTemp
-        {
-            get
-            {
-                return this.heliumTemp;
-            }
-
-            set
-            {
-                this.heliumTemp = value;
-            }
-        }
+        public double HeliumTemp { get; set; }
 
         /// <summary>
         /// Gets or sets the low pressure.
@@ -239,18 +83,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The low pressure.
         /// </value>
-        public double LowPressure
-        {
-            get
-            {
-                return this.lowPressure;
-            }
-
-            set
-            {
-                this.lowPressure = value;
-            }
-        }
+        public double LowPressure { get; set; }
 
         /// <summary>
         /// Gets or sets the low pressure average.
@@ -258,18 +91,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The low pressure average.
         /// </value>
-        public double LowPressureAverage
-        {
-            get
-            {
-                return this.lowPressureAverage;
-            }
-
-            set
-            {
-                this.lowPressureAverage = value;
-            }
-        }
+        public double LowPressureAverage { get; set; }
 
         /// <summary>
         /// Gets or sets the high pressure.
@@ -277,18 +99,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The high pressure.
         /// </value>
-        public double HighPressure
-        {
-            get
-            {
-                return this.highPressure;
-            }
-
-            set
-            {
-                this.highPressure = value;
-            }
-        }
+        public double HighPressure { get; set; }
 
         /// <summary>
         /// Gets or sets the high pressure average.
@@ -296,18 +107,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The high pressure average.
         /// </value>
-        public double HighPressureAverage
-        {
-            get
-            {
-                return this.highPressureAverage;
-            }
-
-            set
-            {
-                this.highPressureAverage = value;
-            }
-        }
+        public double HighPressureAverage { get; set; }
 
         /// <summary>
         /// Gets or sets the delta pressure average.
@@ -315,18 +115,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The delta pressure average.
         /// </value>
-        public double DeltaPressureAverage
-        {
-            get
-            {
-                return this.deltaPressureAverage;
-            }
-
-            set
-            {
-                this.deltaPressureAverage = value;
-            }
-        }
+        public double DeltaPressureAverage { get; set; }
 
         /// <summary>
         /// Gets or sets the hours of operation.
@@ -334,18 +123,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The hours of operation.
         /// </value>
-        public double HoursOfOperation
-        {
-            get
-            {
-                return this.hoursOfOperation;
-            }
-
-            set
-            {
-                this.hoursOfOperation = value;
-            }
-        }
+        public double HoursOfOperation { get; set; }
 
         /// <summary>
         /// Gets or sets the pressure scale.
@@ -353,18 +131,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The pressure scale.
         /// </value>
-        public double PressureScale
-        {
-            get
-            {
-                return this.pressureScale;
-            }
-
-            set
-            {
-                this.pressureScale = value;
-            }
-        }
+        public double PressureScale { get; set; } = -1;
 
         /// <summary>
         /// Gets or sets the temperature scale.
@@ -372,18 +139,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The temperature scale.
         /// </value>
-        public double TempScale
-        {
-            get
-            {
-                return this.tempScale;
-            }
-
-            set
-            {
-                this.tempScale = value;
-            }
-        }
+        public double TempScale { get; set; } = -1;
 
         /// <summary>
         /// Gets or sets the connection state.
@@ -391,18 +147,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The connection state.
         /// </value>
-        public double ConnectionState
-        {
-            get
-            {
-                return this.connectionState;
-            }
-
-            set
-            {
-                this.connectionState = value;
-            }
-        }
+        public double ConnectionState { get; set; }
 
         #endregion Properties
     }

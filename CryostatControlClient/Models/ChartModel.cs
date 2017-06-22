@@ -30,21 +30,6 @@ namespace CryostatControlClient.Models
         private const int ColdestTemperature = 0;
 
         /// <summary>
-        /// The zooming mode
-        /// </summary>
-        private ZoomingOptions zoomingMode;
-
-        /// <summary>
-        /// The x axes collection
-        /// </summary>
-        private AxesCollection xAxesCollection;
-
-        /// <summary>
-        /// The y axes collection
-        /// </summary>
-        private AxesCollection yAxesCollection;
-
-        /// <summary>
         /// The x axis
         /// </summary>
         private Axis xAxis;
@@ -67,13 +52,13 @@ namespace CryostatControlClient.Models
 
             this.xAxis = new Axis();
             this.xAxis.Title = "Time";
-            this.xAxesCollection = new AxesCollection();
-            this.xAxesCollection.Add(this.xAxis);
+            this.XAxisCollection = new AxesCollection();
+            this.XAxisCollection.Add(this.xAxis);
 
             this.yAxis = new Axis();
             this.yAxis.Title = "Kelvin";
-            this.yAxesCollection = new AxesCollection();
-            this.yAxesCollection.Add(this.yAxis);
+            this.YAxisCollection = new AxesCollection();
+            this.YAxisCollection.Add(this.yAxis);
 
             this.xAxis.LabelFormatter = val => this.GetDateTime(val).ToString("HH:mm");
         }
@@ -194,13 +179,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The x axis collection.
         /// </value>
-        public AxesCollection XAxisCollection
-        {
-            get
-            {
-                return this.xAxesCollection;
-            }
-        }
+        public AxesCollection XAxisCollection { get; }
 
         /// <summary>
         /// Gets the y axis collection.
@@ -208,13 +187,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The y axis collection.
         /// </value>
-        public AxesCollection YAxisCollection
-        {
-            get
-            {
-                return this.yAxesCollection;
-            }
-        }
+        public AxesCollection YAxisCollection { get; }
 
         /// <summary>
         /// Gets or sets the zooming mode.
@@ -222,18 +195,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The zooming mode.
         /// </value>
-        public ZoomingOptions ZoomingMode
-        {
-            get
-            {
-                return this.zoomingMode;
-            }
-
-            set
-            {
-                this.zoomingMode = value;
-            }
-        }
+        public ZoomingOptions ZoomingMode { get; set; }
 
         #endregion Properties
 
