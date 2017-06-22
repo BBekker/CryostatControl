@@ -45,7 +45,7 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         /// <param name="channelIds">Sensor ID's to measure.</param>
         /// <returns>array of voltages in the same ordering as channelIds</returns>
-        public double[] GetVoltages(Channels[] channelIds)
+        public virtual double[] GetVoltages(Channels[] channelIds)
         {
             try
             {
@@ -221,7 +221,7 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         /// <param name="heatId">The heater identifier.</param>
         /// <param name="setVoltage">The set voltage.</param>
-        public void SetHeaterVoltage(Channels heatId, double setVoltage)
+        public virtual void SetHeaterVoltage(Channels heatId, double setVoltage)
         {
             try
             {

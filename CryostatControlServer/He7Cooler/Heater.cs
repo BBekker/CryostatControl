@@ -318,7 +318,7 @@ namespace CryostatControlServer.He7Cooler
 
                 var P = error * this.kP;
                 var I = this.integrator * this.ki;
-                var D = ((this.previousError - lpfError) / (DateTime.Now - this.previousLoopTime).TotalSeconds) * this.kd;
+                var D = ((lpfError - this.previousError) / (DateTime.Now - this.previousLoopTime).TotalSeconds) * this.kd;
 
                 double output = P + I + D;
                 
