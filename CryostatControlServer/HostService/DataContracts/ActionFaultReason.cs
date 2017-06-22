@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ActionFaultReason.cs" company="SRON">
-//   bla
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The fault reason.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.HostService.DataContracts
@@ -15,7 +12,7 @@ namespace CryostatControlServer.HostService.DataContracts
     public enum ActionFaultReason
     {
         /// <summary>
-        /// not connected to device.
+        /// Not connected to device.
         /// </summary>
         NotConnected,
 
@@ -36,7 +33,7 @@ namespace CryostatControlServer.HostService.DataContracts
         InvalidValue,
 
         /// <summary>
-        /// The unknown.
+        /// The unknown value.
         /// </summary>
         Unknown,
     }

@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CouldNotPerformActionFault.cs" company="SRON">
-//   bla
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The could not perform action fault.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.HostService.DataContracts
@@ -61,18 +58,27 @@ namespace CryostatControlServer.HostService.DataContracts
         /// <summary>
         /// Gets or sets the reason.
         /// </summary>
+        /// <value>
+        /// The reason.
+        /// </value>
         [DataMember]
         public ActionFaultReason Reason { get; set; }
 
         /// <summary>
         /// Gets or sets the operation.
         /// </summary>
+        /// <value>
+        /// The operation.
+        /// </value>
         [DataMember]
         public string Operation { get; set; }
 
         /// <summary>
         /// Gets or sets the message.
         /// </summary>
+        /// <value>
+        /// The message.
+        /// </value>
         [DataMember]
         public string Message { get; set; }
     }
