@@ -465,7 +465,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Changes time of command.
+        /// Handles radio change.
         /// </summary>
         /// <param name="obj">The object.</param>
         public void OnChangeRadio(object obj)
@@ -493,7 +493,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Called when [click manual].
+        /// Handles manual click.
         /// </summary>
         /// <param name="obj">The object.</param>
         public void OnClickManual(object obj)
