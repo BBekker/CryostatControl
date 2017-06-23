@@ -71,14 +71,9 @@ namespace CryostatControlServer.He7Cooler
             private He7Cooler device;
 
             /// <summary>
-            /// The filtered error.
-            /// </summary>
-            private double filteredError = 0.0;
-
-            /// <summary>
             /// The filter factor.
             /// </summary>
-            private double filterFactor = 0.2;
+            private double filterFactor = 0.8;
 
             /// <summary>
             /// The channel where current voltage is read.
@@ -106,6 +101,11 @@ namespace CryostatControlServer.He7Cooler
             private double previousError = 0.0;
 
             /// <summary>
+            /// The previous derivative
+            /// </summary>
+            private double previousDerivative = 0.0;
+
+            /// <summary>
             /// The previous loop time.
             /// </summary>
             private DateTime previousLoopTime = DateTime.MinValue;
@@ -119,6 +119,8 @@ namespace CryostatControlServer.He7Cooler
             /// The temperature setpoint
             /// </summary>
             private double temperatureSetpoint;
+
+            private bool temperatureControlEnabled = false;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="Heater"/> class.
@@ -261,7 +263,23 @@ namespace CryostatControlServer.He7Cooler
             /// <summary>
             /// Gets or sets a value indicating whether temperature control enabled.
             /// </summary>
-            public bool TemperatureControlEnabled { get; set; } = false;
+            public bool TemperatureControlEnabled
+            {
+                get
+                {
+                    return this.temperatureControlEnabled;
+                }
+                set
+                {
+                    if (this.temperatureControlEnabled == false && value == true)
+                    {
+                        this.integrator = 0;
+                        this.previousError = double.NaN;
+                        this.previousDerivative = double.NaN;
+                    }
+                    this.temperatureControlEnabled = value;
+                }
+            }
 
             /// <summary>
             /// Gets or sets the temperature setpoint in Kelvin.
@@ -314,11 +332,11 @@ namespace CryostatControlServer.He7Cooler
             public void ControlTemperature(double TSet, double maxPower)
             {
                 double error = TSet - this.temperatureFeedback.Value; // Positive if too cold
-                var lpfError = this.LowPassFilter(error);
+                var deltaError = this.CalculateDerivative(error);
 
                 var P = error * Heater.Kp;
                 var I = this.integrator * Heater.Ki;
-                var D = ((lpfError - this.previousError) / (DateTime.Now - this.previousLoopTime).TotalSeconds) * Heater.Kd;
+                var D = this.CalculateDerivative(error) * Heater.Kd;
 
                 double output = P + I + D;
                 
@@ -344,9 +362,32 @@ namespace CryostatControlServer.He7Cooler
                 {
                     DebugLogger.Error("Heater", e.ToString(), false);
                 }
+            }
 
+            /// <summary>
+            /// Calculate the filtered derivative
+            /// </summary>
+            /// <param name="error">The error.</param>
+            /// <returns>The filtered value</returns>
+            private double CalculateDerivative(double error)
+            { 
+                if (double.IsNaN(this.previousError))
+                {
+                    this.previousError = error;
+                }
+
+                var dedt = ((error - this.previousError) / (DateTime.Now - this.previousLoopTime).TotalSeconds);
+
+                if (double.IsNaN(this.previousDerivative))
+                {
+                    this.previousDerivative = dedt;
+                }
+
+                this.previousDerivative = (this.filterFactor * this.previousDerivative) + ((1 - this.filterFactor) * dedt);
+                this.previousError = error;
                 this.previousLoopTime = DateTime.Now;
-                this.previousError = lpfError;
+
+                return this.previousDerivative;
             }
 
             /// <summary>
@@ -360,16 +401,7 @@ namespace CryostatControlServer.He7Cooler
                 }
             }
 
-            /// <summary>
-            /// Applies a IIF low pass filter
-            /// </summary>
-            /// <param name="error">The error.</param>
-            /// <returns>The filtered value</returns>
-            private double LowPassFilter(double error)
-            {
-                this.filteredError = ((1.0 - this.filterFactor) * this.filteredError) + (this.filterFactor * error);
-                return this.filteredError;
-            }
+
 
             /// <summary>
             /// Convert power to voltage using the heater resistance.
