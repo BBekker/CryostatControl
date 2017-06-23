@@ -73,7 +73,7 @@ namespace CryostatControlServer.He7Cooler
             /// <summary>
             /// The filter factor.
             /// </summary>
-            private double filterFactor = 0.8;
+            private double filterFactor = 0.50;
 
             /// <summary>
             /// The channel where current voltage is read.
