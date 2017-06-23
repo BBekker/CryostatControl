@@ -36,6 +36,26 @@ namespace CryostatControlServer.He7Cooler
             private const double DefaultSafeRangeLow = 0.0;
 
             /// <summary>
+            /// The max value of the integrator.
+            /// </summary>
+            private const double IntegratorMax = 0.15 / Ki;
+
+            /// <summary>
+            /// The derivative gain.
+            /// </summary>
+            private const double Kd = 0.5;
+
+            /// <summary>
+            /// The integral gain.
+            /// </summary>
+            private const double Ki = 0.004;
+
+            /// <summary>
+            /// The proportional gain.
+            /// </summary>
+            private const double Kp = 0.18;
+
+            /// <summary>
             /// The resistance of the heater resistor.
             /// </summary>
             private readonly double resistance = 1;
@@ -69,26 +89,6 @@ namespace CryostatControlServer.He7Cooler
             /// The PID controller integrator.
             /// </summary>
             private double integrator = 0;
-
-            /// <summary>
-            /// The max value of the integrator.
-            /// </summary>
-            private double integratorMax = 20;
-
-            /// <summary>
-            /// The derivative gain.
-            /// </summary>
-            private double kd = 0.5;
-
-            /// <summary>
-            /// The integral gain.
-            /// </summary>
-            private double ki = 0.004;
-
-            /// <summary>
-            /// The proportional gain.
-            /// </summary>
-            private double kP = 0.18;
 
             /// <summary>
             /// The channel where to output the voltage set point.
@@ -316,9 +316,9 @@ namespace CryostatControlServer.He7Cooler
                 double error = TSet - this.temperatureFeedback.Value; // Positive if too cold
                 var lpfError = this.LowPassFilter(error);
 
-                var P = error * this.kP;
-                var I = this.integrator * this.ki;
-                var D = ((lpfError - this.previousError) / (DateTime.Now - this.previousLoopTime).TotalSeconds) * this.kd;
+                var P = error * Heater.Kp;
+                var I = this.integrator * Heater.Ki;
+                var D = ((lpfError - this.previousError) / (DateTime.Now - this.previousLoopTime).TotalSeconds) * Heater.Kd;
 
                 double output = P + I + D;
                 
@@ -327,16 +327,17 @@ namespace CryostatControlServer.He7Cooler
                     if (output > maxPower)
                     {
                         this.SetOutput(this.calibration.ConvertValue(this.PowerToVoltage(maxPower)));
+                        this.integrator = 0;
                     }
                     else if (output < 0)
                     {
                         this.SetOutput(0);
-                        this.integrator = Math.Min(Math.Max(error + this.integrator, 0), this.integratorMax);
+                        this.integrator = Math.Max(error + this.integrator, 0);
                     }
                     else
                     {
                         this.SetOutput(this.calibration.ConvertValue(this.PowerToVoltage(output)));
-                        this.integrator = Math.Max(error + this.integrator, 0);
+                        this.integrator = Math.Min(error + this.integrator, Heater.IntegratorMax);
                     }
                 }
                 catch (Exception e)
