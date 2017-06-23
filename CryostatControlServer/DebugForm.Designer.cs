@@ -48,6 +48,7 @@ namespace CryostatControlServer
             this.Controls.Add(this.textBox1);
             this.Name = "DebugForm";
             this.Text = "CryostatControlServer";
+            this.Load += new System.EventHandler(this.DebugFormLoad);
             this.ResumeLayout(false);
             this.PerformLayout();
 
