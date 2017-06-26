@@ -10,14 +10,16 @@ namespace CryostatControlClient.Communication
     using System.Net;
     using System.Net.Sockets;
     using System.ServiceModel;
+    using System.ServiceModel.Security;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Windows.Forms;
 
+    using CryostatControlClient.Properties;
     using CryostatControlClient.ServiceReference1;
     using CryostatControlClient.ViewModels;
     using CryostatControlClient.Views;
-
+    
     /// <summary>
     /// Class which continuously checks the connection with the server
     /// </summary>
@@ -198,9 +200,17 @@ namespace CryostatControlClient.Communication
         {
             this.key = DateTime.Now.ToString();
             CommandClient = new CommandServiceClient();
+            CommandClient.ClientCredentials.UserName.UserName = Settings.Default.UserName;
+            CommandClient.ClientCredentials.UserName.Password = Settings.Default.PassWord;
+            CommandClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
+                X509CertificateValidationMode.None;
             DataClientCallback callback = new DataClientCallback(this.mainApp);
             InstanceContext instanceContext = new InstanceContext(callback);
             this.callbackClient = new DataGetClient(instanceContext);
+            this.callbackClient.ClientCredentials.UserName.UserName = Settings.Default.UserName;
+            this.callbackClient.ClientCredentials.UserName.Password = Settings.Default.PassWord;
+            this.callbackClient.ClientCredentials.ServiceCertificate.Authentication.CertificateValidationMode =
+                X509CertificateValidationMode.None;
             this.firstTimeConnected = true;
         }
 

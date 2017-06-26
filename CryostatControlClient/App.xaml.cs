@@ -6,11 +6,14 @@
 namespace CryostatControlClient
 {
     using System;
+    using System.ServiceModel;
+    using System.ServiceModel.Security;
     using System.Threading.Tasks;
     using System.Windows;
 
     using CryostatControlClient.Communication;
     using CryostatControlClient.ServiceReference1;
+    using CryostatControlClient.Properties;
 
     /// <summary>
     /// Interaction logic for <see cref="App.xaml" /></summary>
