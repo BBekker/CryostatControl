@@ -1,10 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ViewModelContainer.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The abstract view model.
-// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels
 {
@@ -13,7 +11,7 @@ namespace CryostatControlClient.ViewModels
     using LiveCharts;
 
     /// <summary>
-    /// The data context.
+    /// The viewmodel container.
     /// </summary>
     public class ViewModelContainer
     {
@@ -86,7 +84,7 @@ namespace CryostatControlClient.ViewModels
         public He7ViewModel He7ViewModel { get; }
 
         /// <summary>
-        /// Gets the logging view model.
+        /// Gets the LoggingViewmodel.
         /// </summary>
         /// <value>
         /// The logging view model.
@@ -94,7 +92,7 @@ namespace CryostatControlClient.ViewModels
         public LoggingViewModel LoggingViewModel { get; }
 
         /// <summary>
-        /// Gets the modus view model.
+        /// Gets the ModusViewmodel.
         /// </summary>
         /// <value>
         /// The modus view model.
@@ -102,17 +100,17 @@ namespace CryostatControlClient.ViewModels
         public ModusViewModel ModusViewModel { get; }
 
         /// <summary>
-        /// Gets or sets the message box view model.
+        /// Gets or sets the MessageBoxViewmodel.
         /// </summary>
         public MessageBoxViewModel MessageBoxViewModel { get; set; }
         
         /// <summary>
-        /// Gets the settings view model.
+        /// Gets the SettingsViewmodel.
         /// </summary>
         public SettingsViewModel SettingsViewModel { get; private set; }
 
         /// <summary>
-        /// Gets the zooming view model.
+        /// Gets the ZoomingViewmodel.
         /// </summary>
         /// <value>
         /// The zooming view model.
@@ -124,7 +122,7 @@ namespace CryostatControlClient.ViewModels
         #region Methods
 
         /// <summary>
-        /// Initializes the series collection.
+        /// Initializes the series collection for the chart tab chart.
         /// </summary>
         private void InitSeriesCollection()
         {
@@ -146,7 +144,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Initializes the series collection.
+        /// Initializes the series collection for the bottom chart.
         /// </summary>
         private void InitSeriesCollection2()
         {

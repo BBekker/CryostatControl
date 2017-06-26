@@ -1,19 +1,14 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="ICommandService.cs" company="SRON">
-//     Copyright (c) SRON. All rights reserved.
+//     Copyright (c) 2017 SRON
 // </copyright>
 //-----------------------------------------------------------------------
 namespace CryostatControlServer.HostService
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.ServiceModel;
     using System.ServiceModel.Web;
-
-    using CryostatControlServer.Compressor;
-    using CryostatControlServer.Data;
     using CryostatControlServer.HostService.DataContracts;
-    using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
     /// Interface for the available commands

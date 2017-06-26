@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Controller.cs" company="SRON">
-//   bla
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the Control type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer
@@ -36,7 +33,7 @@ namespace CryostatControlServer
         private Timer controlTimer;
 
         /// <summary>
-        /// The H7 cooler
+        /// The He7 cooler
         /// </summary>
         private He7Cooler.He7Cooler cooler;
 
@@ -92,6 +89,9 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the he 3 heater voltage.
         /// </summary>
+        /// <value>
+        /// The he3 heater power.
+        /// </value>
         public double He3HeaterPower
         {
             get
@@ -108,6 +108,9 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the he 3 switch voltage.
         /// </summary>
+        /// <value>
+        /// The he3 switch voltage.
+        /// </value>
         public double He3SwitchVoltage
         {
             get
@@ -124,6 +127,9 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the he 4 heater voltage.
         /// </summary>
+        /// <value>
+        /// The he4 heater power.
+        /// </value>
         public double He4HeaterPower
         {
             get
@@ -140,6 +146,9 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the he 4 start temperature.
         /// </summary>
+        /// <value>
+        /// The he4 start temperature.
+        /// </value>
         public double He4StartTemperature
         {
             get
@@ -156,6 +165,9 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the he 4 switch voltage.
         /// </summary>
+        /// <value>
+        /// The he4 switch voltage.
+        /// </value>
         public double He4SwitchVoltage
         {
             get
@@ -172,6 +184,9 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the he 7 start temperature.
         /// </summary>
+        /// <value>
+        /// The he7 start temperature.
+        /// </value>
         public double He7StartTemperature
         {
             get
@@ -188,6 +203,9 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the heater temperature set point.
         /// </summary>
+        /// <value>
+        /// The heater temperature setpoint.
+        /// </value>
         public double HeaterTemperatureSetpoint
         {
             get
@@ -204,6 +222,9 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the heat switch on temperature.
         /// </summary>
+        /// <value>
+        /// The heat switch on temperature.
+        /// </value>
         public double HeatSwitchOnTemperature
         {
             get
@@ -220,6 +241,9 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the heat switch safe value.
         /// </summary>
+        /// <value>
+        /// The heat switch safe value.
+        /// </value>
         public double HeatSwitchSafeValue
         {
             get
@@ -236,6 +260,9 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the heat up temperature.
         /// </summary>
+        /// <value>
+        /// The heatup temperature.
+        /// </value>
         public double HeatupTemperature
         {
             get
@@ -288,6 +315,9 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the disable heater heat switch temperature.
         /// </summary>
+        /// <value>
+        /// The disable heater heat switch temperature.
+        /// </value>
         private double DisableHeaterHeatSwitchTemperature
         {
             get
@@ -304,6 +334,9 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the he 3 start temperature.
         /// </summary>
+        /// <value>
+        /// The he3 start minimal temperature.
+        /// </value>
         private double He3StartMinimalTemperature
         {
             get
@@ -320,6 +353,9 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the he 3 start temperature.
         /// </summary>
+        /// <value>
+        /// The he3 start temperature.
+        /// </value>
         private double He3StartTemperature
         {
             get
@@ -336,6 +372,9 @@ namespace CryostatControlServer
         /// <summary>
         /// Gets or sets the he 3 start temperature.
         /// </summary>
+        /// <value>
+        /// The he3 start wait time minutes.
+        /// </value>
         private double He3StartWaitTimeMinutes
         {
             get

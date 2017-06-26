@@ -1,15 +1,12 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="Agilent34972A.cs" company="SRON">
-//     Copyright (c) SRON. All rights reserved.
+//     Copyright (c) 2017 SRON
 // </copyright>
-// <author>Bernard Bekker</author>
 //-----------------------------------------------------------------------
 
 namespace CryostatControlServer.He7Cooler
 {
-    using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
     using System.Threading;
 
     using CryostatControlServer.Streams;
@@ -107,10 +104,10 @@ namespace CryostatControlServer.He7Cooler
         }
 
         /// <summary>
-        /// The is connected.
+        /// Determines whether this instance is connected.
         /// </summary>
         /// <returns>
-        /// The <see cref="bool"/>.
+        ///   <c>true</c> if this instance is connected; otherwise, <c>false</c>.
         /// </returns>
         public virtual bool IsConnected()
         {

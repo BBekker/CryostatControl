@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CompressorViewModel.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The abstract view model.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels
@@ -244,6 +241,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets the operating state converted.
         /// </summary>
+        /// <value>
+        /// The operating state converted.
+        /// </value>
         public string OperatingStateConverted
         {
             get
@@ -270,12 +270,16 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.WarningState = value;
                 this.RaisePropertyChanged("WarningState");
+                this.RaisePropertyChanged("WarningStateConverted");
             }
         }
 
         /// <summary>
         /// Gets the warning state converted.
         /// </summary>
+        /// <value>
+        /// The warning state converted.
+        /// </value>
         public string WarningStateConverted
         {
             get
@@ -302,12 +306,16 @@ namespace CryostatControlClient.ViewModels
             {
                 this.compressorModel.ErrorState = value;
                 this.RaisePropertyChanged("ErrorState");
+                this.RaisePropertyChanged("ErrorStateConverted");
             }
         }
 
         /// <summary>
         /// Gets the alarm state converted.
         /// </summary>
+        /// <value>
+        /// The error state converted.
+        /// </value>
         public string ErrorStateConverted
         {
             get
@@ -318,10 +326,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the Water in temperature.
+        /// Gets or sets the water in temperature.
         /// </summary>
         /// <value>
-        /// The Water in temperature.
+        /// The water in temperature.
         /// </value>
         public double WaterInTemp
         {
@@ -410,10 +418,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the color of the water out temporary.
+        /// Gets the color of the water out temperature.
         /// </summary>
         /// <value>
-        /// The color of the water out temporary.
+        /// The color of the water out temperature.
         /// </value>
         public SolidColorBrush WaterOutTempColor
         {
@@ -452,10 +460,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the oil temporary progressbar.
+        /// Gets the oil temperature progressbar.
         /// </summary>
         /// <value>
-        /// The oil temporary progressbar.
+        /// The oil temperature progressbar.
         /// </value>
         public double OilTempProgressbar
         {
@@ -466,10 +474,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the color of the oil temporary.
+        /// Gets the color of the oil temperature.
         /// </summary>
         /// <value>
-        /// The color of the oil temporary.
+        /// The color of the oil temperature.
         /// </value>
         public SolidColorBrush OilTempColor
         {
@@ -508,10 +516,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the helium temporary progressbar.
+        /// Gets the helium temperature progressbar.
         /// </summary>
         /// <value>
-        /// The helium temporary progressbar.
+        /// The helium temperature progressbar.
         /// </value>
         public double HeliumTempProgressbar
         {
@@ -522,10 +530,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the color of the helium temporary.
+        /// Gets the color of the helium temperature.
         /// </summary>
         /// <value>
-        /// The color of the helium temporary.
+        /// The color of the helium temperature.
         /// </value>
         public SolidColorBrush HeliumTempColor
         {
@@ -841,7 +849,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Shows the message.
+        /// Turns the compressor on.
         /// </summary>
         /// <param name="obj">The object.</param>
         private void TurnOn(object obj)
@@ -850,7 +858,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Turns the off.
+        /// Turns the compressor off.
         /// </summary>
         /// <param name="obj">The object.</param>
         private void TurnOff(object obj)

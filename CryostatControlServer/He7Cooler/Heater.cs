@@ -1,11 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Heater.cs" company="SRON">
-//   All rights reserved.
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <author>Bernard Bekker</author>
-// <summary>
-//   Representation a heater element on the H7 cooler.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.He7Cooler
@@ -189,7 +185,7 @@ namespace CryostatControlServer.He7Cooler
             }
 
             /// <summary>
-            /// Finalizes an instance of the <see cref="Heater"/> class.
+            /// Finalizes an instance of the <see cref="Heater" /> class.
             /// </summary>
             ~Heater()
             {
@@ -199,6 +195,9 @@ namespace CryostatControlServer.He7Cooler
             /// <summary>
             /// Gets or sets the current.
             /// </summary>
+            /// <value>
+            /// The current.
+            /// </value>
             public double Current
             {
                 get
@@ -215,6 +214,9 @@ namespace CryostatControlServer.He7Cooler
             /// <summary>
             /// Gets or sets the power.
             /// </summary>
+            /// <value>
+            /// The power.
+            /// </value>
             public double Power
             {
                 get
@@ -231,6 +233,10 @@ namespace CryostatControlServer.He7Cooler
             /// <summary>
             /// Gets or sets the power limit in Watt.
             /// </summary>
+            /// <value>
+            /// The power limit.
+            /// </value>
+            /// <exception cref="System.ArgumentOutOfRangeException">Argument out of range exception</exception>
             public double PowerLimit
             {
                 get
@@ -253,11 +259,17 @@ namespace CryostatControlServer.He7Cooler
             /// <summary>
             /// Gets or sets the voltage safe range high side.
             /// </summary>
+            /// <value>
+            /// The safe range high.
+            /// </value>
             public double SafeRangeHigh { get; set; }
 
             /// <summary>
             /// Gets or sets the voltage safe range low side.
             /// </summary>
+            /// <value>
+            /// The safe range low.
+            /// </value>
             public double SafeRangeLow { get; set; }
 
             /// <summary>
@@ -284,6 +296,9 @@ namespace CryostatControlServer.He7Cooler
             /// <summary>
             /// Gets or sets the temperature setpoint in Kelvin.
             /// </summary>
+            /// <value>
+            /// The temperature setpoint.
+            /// </value>
             public double TemperatureSetpoint
             {
                 get
@@ -300,6 +315,9 @@ namespace CryostatControlServer.He7Cooler
             /// <summary>
             /// Gets or sets the voltage of the heater.
             /// </summary>
+            /// <value>
+            /// The voltage.
+            /// </value>
             public double Voltage
             {
                 get

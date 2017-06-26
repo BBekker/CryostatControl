@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DataReceiver.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the He7ViewModel type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.Communication
@@ -62,13 +59,13 @@ namespace CryostatControlClient.Communication
         }
 
         /// <summary>
-        /// The update notification.
+        /// Updates the notification.
         /// </summary>
         /// <param name="notification">
         /// The notification.
         /// </param>
         /// <param name="dataContext">
-        /// The data context.
+        /// The viewmodels.
         /// </param>
         public void UpdateNotification(string[] notification, ViewModelContainer dataContext)
         {
