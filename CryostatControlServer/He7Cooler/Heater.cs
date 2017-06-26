@@ -375,8 +375,9 @@ namespace CryostatControlServer.He7Cooler
                 {
                     this.previousError = error;
                 }
-
-                var dedt = ((error - this.previousError) / (DateTime.Now - this.previousLoopTime).TotalSeconds);
+                
+                var dt = Math.Max((DateTime.Now - this.previousLoopTime).TotalSeconds, 1.0);
+                var dedt = ((error - this.previousError) / dt);
 
                 if (double.IsNaN(this.previousDerivative))
                 {
