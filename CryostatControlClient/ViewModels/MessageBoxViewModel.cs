@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MessageBoxViewModel.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the MessageBoxViewModel type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels
@@ -74,7 +71,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// The create notification.
+        /// Creates a notification.
         /// </summary>
         /// <param name="data">
         /// The data.

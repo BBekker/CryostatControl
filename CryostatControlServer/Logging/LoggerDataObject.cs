@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LoggerDataObject.cs" company="SRON">
-//   k
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the LoggerDataObject type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.Logging
@@ -43,7 +40,7 @@ namespace CryostatControlServer.Logging
         /// The get abstract log data.
         /// </summary>
         /// <returns>
-        /// The <see cref="AbstractDataLogger"/>.
+        /// The <see cref="AbstractDataLogger" />.
         /// </returns>
         public AbstractDataLogger GetAbstractLogData()
         {

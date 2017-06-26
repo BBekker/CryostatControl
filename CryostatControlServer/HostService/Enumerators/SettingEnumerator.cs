@@ -1,11 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SettingEnumerator.cs" company="SRON">
-//   bla
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   List of all settings
-//   Make sure these names EXACTLY match those in settings property, ordering doesn't matter
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.HostService.Enumerators

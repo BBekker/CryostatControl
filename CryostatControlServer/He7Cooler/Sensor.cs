@@ -1,23 +1,12 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Sensor.cs" company="SRON">
-//   All rights reserved.
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <author>Bernard Bekker</author>
-// <summary>
-//   The he 7 cooler.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.He7Cooler
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
-    using System.IO;
-
     using CryostatControlServer.Data;
-    using CryostatControlServer.Logging;
 
     /// <summary>
     /// The he 7 cooler.
@@ -100,10 +89,6 @@ namespace CryostatControlServer.He7Cooler
             public double Value => this.calibration.ConvertValue(this.device.values[this.channel]);
 
             #endregion Properties
-
-            #region Classes
-
-            #endregion Classes
         }
 
         #endregion Classes

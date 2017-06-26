@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MainWindow.xaml.cs" company="SRON">
-//   k
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Interaction logic for MainWindow.xaml
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.Views

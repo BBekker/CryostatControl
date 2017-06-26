@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LogThreader.cs" company="SRON">
-// k
+// Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the LogThreader type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.Logging
@@ -83,24 +80,12 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// Gets the general main folder.
         /// </summary>
-        private string GeneralMainFolder
-        {
-            get
-            {
-                return Settings.Default.LoggingAddress + @"\General";
-            }
-        }
+        private string GeneralMainFolder { get; } = Settings.Default.LoggingAddress + @"\General";
 
         /// <summary>
         /// Gets the specific main folder.
         /// </summary>
-        private string SpecificMainFolder
-        {
-            get
-            {
-                return Settings.Default.LoggingAddress + @"\Specific";
-            }
-        }
+        private string SpecificMainFolder { get; } = Settings.Default.LoggingAddress + @"\Specific";
 
         #region Methods
 
@@ -111,7 +96,7 @@ namespace CryostatControlServer.Logging
         /// The interval.
         /// </param>
         /// <param name="toBeLoggedOrNotToBeLogged">
-        /// The to be logged or not to be logged.
+        /// The to be logged or not to be logged list.
         /// </param>
         public void StartSpecificDataLogging(int interval, bool[] toBeLoggedOrNotToBeLogged)
         {

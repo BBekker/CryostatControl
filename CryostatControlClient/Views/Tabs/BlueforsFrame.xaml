@@ -31,28 +31,31 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="3" CornerRadius="2" Background="White" />
-        <Border Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="3" CornerRadius="2" Background="White" >
+        <Border Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="3"
+                CornerRadius="2" Background="White" />
+        <Border Grid.Row="3" Grid.Column="4" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="3"
+                CornerRadius="2" Background="White">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Label>50K Plate</Label>
                 <Label Content="{Binding BlueforsViewModel.ColdPlate50KTemp}" ContentStringFormat="{}{0:N2}" />
                 <Label>K</Label>
             </StackPanel>
         </Border>
-        <Border Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="3" CornerRadius="2" Background="White" >
+        <Border Grid.Row="5" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="2" BorderBrush="Black"
+                BorderThickness="3" CornerRadius="2" Background="White">
 
-                <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Label>3K Plate</Label>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="{Binding BlueforsViewModel.ColdPlate3KTemp}" ContentStringFormat="{}{0:N2}" />
-                        <Label>K</Label>
-                    </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label>3K Plate</Label>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label Content="{Binding BlueforsViewModel.ColdPlate3KTemp}" ContentStringFormat="{}{0:N2}" />
+                    <Label>K</Label>
                 </StackPanel>
+            </StackPanel>
 
-            
+
         </Border>
 
-        <Border Grid.Row="2" Grid.Column="5" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center"/>
-        <Border Grid.Row="4" Grid.Column="5" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center"/>
+        <Border Grid.Row="2" Grid.Column="5" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center" />
+        <Border Grid.Row="4" Grid.Column="5" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center" />
     </Grid>
 </Page>

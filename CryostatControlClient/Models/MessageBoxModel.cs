@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MessageBoxModel.cs" company="SRON">
-//   k
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the MessageBoxModel type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.Models
@@ -17,33 +14,12 @@ namespace CryostatControlClient.Models
     public class MessageBoxModel
     {
         /// <summary>
-        /// The message
-        /// </summary>
-        private string[] message;
-
-        /// <summary>
-        /// The notifications.
-        /// </summary>
-        private ObservableCollection<Notification> notifications;
-
-        /// <summary>
         /// Gets or sets the message.
         /// </summary>
         /// <value>
         /// The message.
         /// </value>
-        public string[] Message
-        {
-            get
-            {
-                return this.message;
-            }
-
-            set
-            {
-                this.message = value;
-            }
-        }
+        public string[] Message { get; set; }
 
         /// <summary>
         /// Gets or sets the notifications.
@@ -51,17 +27,6 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The notifications.
         /// </value>
-        public ObservableCollection<Notification> Notifications
-        {
-            get
-            {
-                return this.notifications;
-            }
-
-            set
-            {
-                this.notifications = value;
-            }
-        }
+        public ObservableCollection<Notification> Notifications { get; set; }
     }
 }

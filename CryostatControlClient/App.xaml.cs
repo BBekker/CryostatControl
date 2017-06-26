@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="App.xaml.cs" company="SRON">
-//      Copyright (c) SRON. All rights reserved.
+//  Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Interaction logic for App.xaml
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace CryostatControlClient
 {

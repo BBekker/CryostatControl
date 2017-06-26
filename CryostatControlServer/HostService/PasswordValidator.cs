@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="PasswordValidator.cs" company="SRON">
-//   bla
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the PasswordValidator type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace CryostatControlServer.HostService
 {

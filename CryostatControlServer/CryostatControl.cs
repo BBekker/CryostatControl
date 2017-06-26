@@ -1,13 +1,13 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CryostatControl.cs" company="SRON">
-//      Copyright (c) SRON. All rights reserved.
+//      Copyright (c) 2017 SRON
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 namespace CryostatControlServer
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
 
+    using CryostatControlServer.Compressor;
     using CryostatControlServer.Data;
     using CryostatControlServer.HostService.Enumerators;
     using CryostatControlServer.Logging;
@@ -143,7 +143,7 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// Starts the cool down id possible.
+        /// Starts the cool down.
         /// </summary>
         /// <returns>true if cool down is started, false otherwise</returns>
         public bool StartCooldown()
@@ -152,7 +152,7 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// Starts the cool down id possible.
+        /// Starts the cool down.
         /// </summary>
         /// <param name="time">
         /// The time.
