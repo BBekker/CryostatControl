@@ -14,7 +14,7 @@
                     <wpf:Axis Title="Time" LabelFormatter="{Binding XFormatter}" />
                 </wpf:CartesianChart.AxisX>
                 <wpf:CartesianChart.AxisY>
-                    <wpf:Axis Title="Kelvin" MinValue="0" />
+                    <wpf:LogarithmicAxis Title="Kelvin" MinValue="0" MaxValue="2.5" Base="10" LabelFormatter="{Binding YFormatter}" />
                 </wpf:CartesianChart.AxisY>
             </wpf:CartesianChart>
         </Grid>

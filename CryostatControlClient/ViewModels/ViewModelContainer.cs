@@ -9,6 +9,8 @@ namespace CryostatControlClient.ViewModels
     using System;
     using CryostatControlClient.ViewModels;
     using LiveCharts;
+    using LiveCharts.Configurations;
+    using LiveCharts.Defaults;
 
     /// <summary>
     /// The viewmodel container.
@@ -58,7 +60,15 @@ namespace CryostatControlClient.ViewModels
         /// The x formatter.
         /// </value>
         public Func<double, string> XFormatter { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the x formatter.
+        /// </summary>
+        /// <value>
+        /// The x formatter.
+        /// </value>
+        public Func<double, string> YFormatter { get; set; }
+
         /// <summary>
         /// Gets the BlueforsViewModel.
         /// </summary>
@@ -148,13 +158,19 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private void InitSeriesCollection2()
         {
-            this.SeriesCollection2 = new SeriesCollection
+            var mapper = Mappers.Xy<ObservablePoint>()
+                .X(point => point.X) //a 10 base log scale in the X axis
+                .Y(point => Math.Log(point.Y, 10));
+
+            this.SeriesCollection2 = new SeriesCollection(mapper)
                                          {
                                              this.BlueforsViewModel.ColdPlate3KLineSeriesBottom,
                                              this.BlueforsViewModel.ColdPlate50KLineSeriesBottom,
                                              this.He7ViewModel.He3HeadLineSeriesBottom,
                                              this.He7ViewModel.He4HeadLineSeriesBottom,
                                          };
+
+            this.YFormatter = value => Math.Pow(10, value).ToString("N");
         }
 
         /// <summary>

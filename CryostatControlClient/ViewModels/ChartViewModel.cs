@@ -49,7 +49,7 @@ namespace CryostatControlClient.ViewModels
             this.chartModel = new ChartModel();
 
             this.zoomCommand = new RelayCommand(this.ToggleZoomingMode, param => true);
-            this.resetCommand = new RelayCommand(this.ResetZooming, param => true);  
+            this.resetCommand = new RelayCommand(this.ResetZooming, param => true);
         }
 
         #endregion Constructor

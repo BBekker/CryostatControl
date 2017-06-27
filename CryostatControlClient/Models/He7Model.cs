@@ -437,7 +437,7 @@ namespace CryostatControlClient.Models
             {
                 this.he3HeadTemp = value;
                 this.he3HeadTemporaryList = this.AddToGraph(this.he3HeadTemporaryList, this.He3HeadLineSeries, value);
-                this.he3HeadTemporaryListBottom = this.AddToGraph(this.he3HeadTemporaryListBottom, this.He3HeadLineSeriesBottom, value);
+                this.he3HeadTemporaryListBottom = this.AddToGraph(this.he3HeadTemporaryListBottom, this.He3HeadLineSeriesBottom, Math.Log(value, 10));
             }
         }
 
@@ -562,7 +562,7 @@ namespace CryostatControlClient.Models
             {
                 this.he4HeadTemp = value;
                 this.he4HeadTemporaryList = this.AddToGraph(this.he4HeadTemporaryList, this.He4HeadLineSeries, value);
-                this.he4HeadTemporaryListBottom = this.AddToGraph(this.he4HeadTemporaryListBottom, this.He4HeadLineSeriesBottom, value);
+                this.he4HeadTemporaryListBottom = this.AddToGraph(this.he4HeadTemporaryListBottom, this.He4HeadLineSeriesBottom, Math.Log(value, 10));
             }
         }
 
