@@ -94,7 +94,7 @@
                     <Button Style="{StaticResource SettingsButton}" Grid.Column="1" Grid.Row="0"
                             IsEnabled="{Binding ModusViewModel.CancelMode}"
                             Command="{Binding ModusViewModel.CancelButtonCommand}" Margin="10 5 10 5">
-                        Stop
+                        Cancel
                     </Button>
                 </Grid>
                 <Grid>
