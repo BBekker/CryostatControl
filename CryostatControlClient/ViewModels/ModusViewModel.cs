@@ -526,9 +526,13 @@ namespace CryostatControlClient.ViewModels
             ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Manual(); }));       
         }
 
+        /// <summary>
+        /// Handles stop click.
+        /// </summary>
+        /// <param name="obj">The object.</param>
         public void onClickStop(object obj)
         {
-
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Stop(); }));
         }
 
         /// <summary>
