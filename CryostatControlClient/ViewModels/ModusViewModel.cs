@@ -154,7 +154,7 @@ namespace CryostatControlClient.ViewModels
             {
                 if (string.IsNullOrEmpty(this.PlannedModus))
                 {
-                    return Visibility.Visible;
+                    return Visibility.Hidden;
                 }
                 else
                 {
