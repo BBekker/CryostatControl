@@ -13,6 +13,7 @@ namespace CryostatControlClient.Models
     using LiveCharts.Defaults;
     using LiveCharts.Geared;
     using LiveCharts.Wpf;
+    using System.Windows.Media;
 
     /// <summary>
     /// Model for the He7-cooler.
@@ -133,19 +134,19 @@ namespace CryostatControlClient.Models
             this.he4SwitchTemporaryList = new double[this.TemporaryListSize];
             this.he4PumpTemporaryList = new double[this.TemporaryListSize];
 
-            this.TwoKPlateLineSeries = new GLineSeries { Title = "He7 - 2K Plate", Values = new GearedValues<DateTimePoint>() };
-            this.FourKPlateLineSeries = new GLineSeries { Title = "He7 - 4K Plate", Values = new GearedValues<DateTimePoint>() };
+            this.TwoKPlateLineSeries = new GLineSeries { Title = "He7 - 2K Plate", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent};
+            this.FourKPlateLineSeries = new GLineSeries { Title = "He7 - 4K Plate", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
 
-            this.He3HeadLineSeries = new GLineSeries { Title = "He7 - He3 Head", Values = new GearedValues<DateTimePoint>() };
-            this.He3PumpLineSeries = new GLineSeries { Title = "He7 - He3 Pump", Values = new GearedValues<DateTimePoint>() };
-            this.He3SwitchLineSeries = new GLineSeries { Title = "He7 - He3 Switch", Values = new GearedValues<DateTimePoint>() };
+            this.He3HeadLineSeries = new GLineSeries { Title = "He7 - He3 Head", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
+            this.He3PumpLineSeries = new GLineSeries { Title = "He7 - He3 Pump", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
+            this.He3SwitchLineSeries = new GLineSeries { Title = "He7 - He3 Switch", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
 
-            this.He4HeadLineSeries = new GLineSeries { Title = "He7 - He4 Head", Values = new GearedValues<DateTimePoint>() };
-            this.He4PumpLineSeries = new GLineSeries { Title = "He7 - He4 Pump", Values = new GearedValues<DateTimePoint>() };
-            this.He4SwitchLineSeries = new GLineSeries { Title = "He7 - He4 Switch", Values = new GearedValues<DateTimePoint>() };
+            this.He4HeadLineSeries = new GLineSeries { Title = "He7 - He4 Head", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
+            this.He4PumpLineSeries = new GLineSeries { Title = "He7 - He4 Pump", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
+            this.He4SwitchLineSeries = new GLineSeries { Title = "He7 - He4 Switch", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
 
-            this.He3HeadLineSeriesBottom = new GLineSeries { Title = "He7 - He3 Head", Values = new GearedValues<DateTimePoint>() };
-            this.He4HeadLineSeriesBottom = new GLineSeries { Title = "He7 - He4 Head", Values = new GearedValues<DateTimePoint>() };
+            this.He3HeadLineSeriesBottom = new GLineSeries { Title = "He7 - He3 Head", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
+            this.He4HeadLineSeriesBottom = new GLineSeries { Title = "He7 - He4 Head", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
         }
 
         #endregion Constructor
@@ -437,7 +438,7 @@ namespace CryostatControlClient.Models
             {
                 this.he3HeadTemp = value;
                 this.he3HeadTemporaryList = this.AddToGraph(this.he3HeadTemporaryList, this.He3HeadLineSeries, value);
-                this.he3HeadTemporaryListBottom = this.AddToGraph(this.he3HeadTemporaryListBottom, this.He3HeadLineSeriesBottom, value);
+                this.he3HeadTemporaryListBottom = this.AddToGraph(this.he3HeadTemporaryListBottom, this.He3HeadLineSeriesBottom, Math.Log(value, 10));
             }
         }
 
@@ -562,7 +563,7 @@ namespace CryostatControlClient.Models
             {
                 this.he4HeadTemp = value;
                 this.he4HeadTemporaryList = this.AddToGraph(this.he4HeadTemporaryList, this.He4HeadLineSeries, value);
-                this.he4HeadTemporaryListBottom = this.AddToGraph(this.he4HeadTemporaryListBottom, this.He4HeadLineSeriesBottom, value);
+                this.he4HeadTemporaryListBottom = this.AddToGraph(this.he4HeadTemporaryListBottom, this.He4HeadLineSeriesBottom, Math.Log(value, 10));
             }
         }
 

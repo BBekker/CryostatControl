@@ -81,7 +81,7 @@ namespace CryostatControlServer.Data
                 }
             }
 
-            if(!this.lakeShore.IsConnected())
+            if (!this.lakeShore.IsConnected())
             {
                 data[(int)DataEnumerator.LakePlate3K] = float.NaN;
                 data[(int)DataEnumerator.LakePlate50K] = float.NaN;

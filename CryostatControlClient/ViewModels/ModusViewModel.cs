@@ -694,7 +694,7 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private void ToggleTime()
         {
-            if (this.Time == "Now")
+            if (this.Time == "Now" || this.ShowCountdown == Visibility.Visible)
             {
                 this.ShowDateTime = "Hidden";
             }
