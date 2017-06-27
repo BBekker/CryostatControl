@@ -246,11 +246,17 @@ namespace CryostatControlServer
                     this.State = Controlstate.Standby;
                     break;
 
-                case Controlstate.CancelAll:
+                case Controlstate.Cancel:
+                    this.ResetAllValues();
+                    this.State = Controlstate.Standby;
+                    break;
 
+                case Controlstate.Stop:
                     this.SetHeaterVoltage(this.cooler.He3Pump, 0.0);
                     this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
-                    this.ResetAllValues();
+                    this.SetHeaterVoltage(this.cooler.He3Switch, 0.0);
+                    this.SetHeaterVoltage(this.cooler.He4Switch, 0.0);
+                    this.compressor.TurnOff();
                     this.State = Controlstate.Standby;
                     break;
             }

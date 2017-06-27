@@ -71,7 +71,7 @@
             Assert.AreEqual(false,cryostatControl.StartHeatup());
             Assert.AreEqual(Controlstate.CooldownStart, cryostatControl.ControllerState);
             cryostatControl.CancelCommand();
-            Assert.AreEqual(Controlstate.CancelAll, cryostatControl.ControllerState);
+            Assert.AreEqual(Controlstate.Cancel, cryostatControl.ControllerState);
             Thread.Sleep(8000);
             Assert.AreEqual(Controlstate.Standby, cryostatControl.ControllerState);
             Assert.AreEqual(true, cryostatControl.StartHeatup());
@@ -79,7 +79,7 @@
             Assert.AreEqual(false, cryostatControl.StartCooldown());
             Assert.AreEqual(Controlstate.WarmupStart, cryostatControl.ControllerState);
             cryostatControl.CancelCommand();
-            Assert.AreEqual(Controlstate.CancelAll, cryostatControl.ControllerState);
+            Assert.AreEqual(Controlstate.Cancel, cryostatControl.ControllerState);
             Thread.Sleep(8000);
             Assert.AreEqual(Controlstate.Standby, cryostatControl.ControllerState);
             Assert.AreEqual(true, cryostatControl.StartRecycle());
@@ -87,7 +87,7 @@
             Assert.AreEqual(false, cryostatControl.StartCooldown());
             Assert.AreEqual(Controlstate.RecycleStart, cryostatControl.ControllerState);
             cryostatControl.CancelCommand();
-            Assert.AreEqual(Controlstate.CancelAll, cryostatControl.ControllerState);
+            Assert.AreEqual(Controlstate.Cancel, cryostatControl.ControllerState);
             Thread.Sleep(8000);
             Assert.AreEqual(Controlstate.Standby, cryostatControl.ControllerState);
             Assert.AreEqual(true, cryostatControl.StartManualControl());
@@ -95,7 +95,7 @@
             Assert.AreEqual(false, cryostatControl.StartCooldown());
             Assert.AreEqual(Controlstate.Manual, cryostatControl.ControllerState);
             cryostatControl.CancelCommand();
-            Assert.AreEqual(Controlstate.CancelAll, cryostatControl.ControllerState);
+            Assert.AreEqual(Controlstate.Cancel, cryostatControl.ControllerState);
         }
 
 

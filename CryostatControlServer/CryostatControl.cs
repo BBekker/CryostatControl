@@ -156,7 +156,7 @@ namespace CryostatControlServer
         /// </summary>
         public void StopCommand()
         {
-            ////todo implement stop command in the controller
+            this.controller.StopCommand();
         }
 
         /// <summary>

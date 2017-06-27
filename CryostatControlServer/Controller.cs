@@ -393,7 +393,15 @@ namespace CryostatControlServer
         /// </summary>
         public void CancelCommand()
         {
-            this.State = Controlstate.CancelAll;
+            this.State = Controlstate.Cancel;
+        }
+
+        /// <summary>
+        /// The stop command.
+        /// </summary>
+        public void StopCommand()
+        {
+            this.state = Controlstate.Stop;
         }
 
         /// <summary>
@@ -505,35 +513,20 @@ namespace CryostatControlServer
         /// The reset all values.
         /// </summary>
         private void ResetAllValues()
-        {
+        { 
+            this.SetHeaterVoltage(this.cooler.He3Pump, 0.0);
+            this.SetHeaterVoltage(this.cooler.He4Pump, 0.0);
+
             // Keep switches and compressor on if cold, turn off otherwise.
-            if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue
-                && this.cooler.He3Switch.Voltage > this.HeatSwitchOnTemperature
-                && this.cooler.He4Switch.Voltage > this.HeatSwitchOnTemperature)
+            if (this.cooler.Plate4KT.Value < this.HeatSwitchSafeValue)
             {
                 this.cooler.He3Switch.Voltage = this.He3SwitchVoltage;
                 this.cooler.He4Switch.Voltage = this.He4SwitchVoltage;
-                try
-                {
-                    this.compressor.TurnOn();
-                }
-                catch (Exception)
-                {
-                    DebugLogger.Warning(this.GetType().Name, "Compressor not turning on");
-                }
             }
             else
             {
                 this.SetHeaterVoltage(this.cooler.He3Switch, 0.0);
                 this.SetHeaterVoltage(this.cooler.He4Switch, 0.0);
-                try
-                {
-                    this.compressor.TurnOff();
-                }
-                catch (Exception)
-                {
-                    DebugLogger.Warning(this.GetType().Name, "Compressor not turning off");
-                }
             }
         }
 
