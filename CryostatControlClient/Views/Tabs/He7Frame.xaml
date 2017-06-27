@@ -285,7 +285,13 @@
     </Border>
 
     <Button Grid.Row="7" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="3" MaxWidth="300" MaxHeight="50"
-            Command="{Binding He7ViewModel.UpdateButtonCommand}" IsEnabled="{Binding He7ViewModel.UpdateEnable}">
+            Command="{Binding He7ViewModel.UpdateButtonCommand}">
+        <Button.IsEnabled>
+            <PriorityBinding FallbackValue="False">
+                <Binding Path="ModusViewModel.IsManual" IsAsync="True"/>
+                <Binding Path="He7ViewModel.UpdateEnable" IsAsync="True"/>
+            </PriorityBinding>
+        </Button.IsEnabled>
         Set Voltages
     </Button>
 

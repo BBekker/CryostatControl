@@ -74,6 +74,20 @@ namespace CryostatControlClient.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets a value indicating whether this instance is manual.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is manual; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsManual
+        {
+            get
+            {
+                return this.Modus == (int)Controlstate.Manual;
+            }
+        }
+
+        /// <summary>
         /// Gets a value indicating whether [show tool tip start].
         /// </summary>
         /// <value>
@@ -127,7 +141,7 @@ namespace CryostatControlClient.ViewModels
             {
                 switch (this.Modus)
                 {
-                    case 1: return string.Empty;
+                    case (int)Controlstate.Standby: return string.Empty;
                     default:
                         return "Only available if system is in standby mode";
                 }
@@ -146,9 +160,9 @@ namespace CryostatControlClient.ViewModels
             {
                 switch (this.Modus)
                 {
-                    case 0:
+                    case (int)Controlstate.Standby:
                         return "Only available if a process is running";
-                    case 1:
+                    case (int)Controlstate.Setup:
                         return "Only available if a process is running";
                     default: return string.Empty;
                 }
@@ -167,7 +181,7 @@ namespace CryostatControlClient.ViewModels
             {
                 switch (this.Modus)
                 {
-                    case 1: return string.Empty;
+                    case (int)Controlstate.Standby: return string.Empty;
                     default:
                         return "Only available if system is in standby mode";
                 }
@@ -376,6 +390,7 @@ namespace CryostatControlClient.ViewModels
                 this.RaisePropertyChanged("ShowToolTipStart");
                 this.RaisePropertyChanged("ShowToolTipStop");
                 this.RaisePropertyChanged("ShowToolTipManual");
+                this.RaisePropertyChanged("IsManual");
             }
         }
 

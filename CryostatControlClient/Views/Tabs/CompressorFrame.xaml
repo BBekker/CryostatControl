@@ -222,12 +222,24 @@
     </Grid>
     <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel Orientation="Horizontal">
-            <Button IsEnabled="{Binding CompressorViewModel.CanTurnOn}" Margin="20 0 0 0"
+            <Button Margin="20 0 0 0"
                     Command="{Binding CompressorViewModel.TurnOnCommand}">
+                <Button.IsEnabled>
+                    <PriorityBinding FallbackValue="False">
+                        <Binding Path="CompressorViewModel.IsManual" IsAsync="True"/>
+                        <Binding Path="CompressorViewModel.CanTurnOn.UpdateEnable" IsAsync="True"/>
+                    </PriorityBinding>
+                </Button.IsEnabled>
                 On
             </Button>
-            <Button IsEnabled="{Binding CompressorViewModel.CanTurnOff}" Margin="20 0 0 0"
+            <Button Margin="20 0 0 0"
                     Command="{Binding CompressorViewModel.TurnOffCommand}">
+                <Button.IsEnabled>
+                    <PriorityBinding FallbackValue="False">
+                        <Binding Path="ModusViewModel.IsManual" IsAsync="True"/>
+                        <Binding Path="CompressorViewModel.CanTurnOff" IsAsync="True"/>
+                    </PriorityBinding>
+                </Button.IsEnabled>
                 Off
             </Button>
         </StackPanel>
