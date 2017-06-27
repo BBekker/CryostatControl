@@ -102,6 +102,15 @@ namespace CryostatControlServer.HostService
         bool Cancel();
 
         /// <summary>
+        /// Stops the process of the cryostat.
+        /// Everything will be turned off.
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json)]
+        bool Stop();
+
+        /// <summary>
         /// Gets the state.
         /// </summary>
         /// <returns>integer representing the controller state <see cref="Controlstate"/></returns>

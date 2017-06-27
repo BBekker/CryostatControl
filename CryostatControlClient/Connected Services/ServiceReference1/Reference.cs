@@ -69,6 +69,12 @@ namespace CryostatControlClient.ServiceReference1 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Cancel", ReplyAction="http://tempuri.org/ICommandService/CancelResponse")]
         System.Threading.Tasks.Task<bool> CancelAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Stop", ReplyAction="http://tempuri.org/ICommandService/StopResponse")]
+        bool Stop();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/Stop", ReplyAction="http://tempuri.org/ICommandService/StopResponse")]
+        System.Threading.Tasks.Task<bool> StopAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICommandService/GetState", ReplyAction="http://tempuri.org/ICommandService/GetStateResponse")]
         int GetState();
         
@@ -259,6 +265,14 @@ namespace CryostatControlClient.ServiceReference1 {
         
         public System.Threading.Tasks.Task<bool> CancelAsync() {
             return base.Channel.CancelAsync();
+        }
+        
+        public bool Stop() {
+            return base.Channel.Stop();
+        }
+        
+        public System.Threading.Tasks.Task<bool> StopAsync() {
+            return base.Channel.StopAsync();
         }
         
         public int GetState() {

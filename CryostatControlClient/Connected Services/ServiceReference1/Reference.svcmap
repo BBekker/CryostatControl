@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e1b640b4-9f06-4396-b245-777cdf0d8767" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="df8c5e1e-9e59-458b-95a8-476a40340a23" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,15 +19,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://145.94.226.55:18080/" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:18080/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="0ecefa8d-9f94-42b0-9c94-d4940a3a479c" SourceId="1" SourceUrl="https://145.94.226.55:18081/?disco" />
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="48e56976-f2c1-436a-8da4-ca616aad2fb7" SourceId="1" SourceUrl="https://145.94.226.55:18081/?xsd=xsd3" />
-    <MetadataFile FileName="CommandService.wsdl" MetadataType="Wsdl" ID="da25c59d-68a3-4e27-be42-c2e6f6e5995e" SourceId="1" SourceUrl="https://145.94.226.55:18081/?wsdl" />
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="c48bd39e-36a5-4f1b-8e06-2f82041b082d" SourceId="1" SourceUrl="https://145.94.226.55:18081/?xsd=xsd1" />
-    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="e5803b65-0eba-42ee-9d00-1ccc9ecabd6f" SourceId="1" SourceUrl="https://145.94.226.55:18081/?xsd=xsd0" />
-    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="ed90f9ed-8498-4790-b861-7ead6334065a" SourceId="1" SourceUrl="https://145.94.226.55:18081/?xsd=xsd2" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="b34e40c2-6c2a-4720-a6c3-48e212404708" SourceId="1" SourceUrl="http://localhost:18080/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="1151572a-47e8-4bed-b52b-4eae485c839b" SourceId="1" SourceUrl="http://localhost:18080/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="82243493-72ba-48a1-a0f6-c9adbe48dc8d" SourceId="1" SourceUrl="http://localhost:18080/mex" />
+    <MetadataFile FileName="CryostatControlServer.HostService.DataContracts.xsd" MetadataType="Schema" ID="c5c280b3-a8ae-48bd-ac6f-8472192fe714" SourceId="1" SourceUrl="http://localhost:18080/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="c85a2792-edf2-4543-825c-8fadeeda95dc" SourceId="1" SourceUrl="http://localhost:18080/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

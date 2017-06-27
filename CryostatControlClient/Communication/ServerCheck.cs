@@ -180,12 +180,14 @@ namespace CryostatControlClient.Communication
 
                 this.firstTimeConnected = false;
             }
-            catch (CommunicationException)
+            catch (Exception e)
             {
-                this.SetConnected(false);
-                CommandClient.Abort();
-                this.callbackClient.Abort();
-                this.Connect();
+                if (e is CommunicationException || e is TimeoutException) {
+                    this.SetConnected(false);
+                    CommandClient.Abort();
+                    this.callbackClient.Abort();
+                    this.Connect();
+                }
             }
             finally
             {

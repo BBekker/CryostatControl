@@ -75,10 +75,16 @@ namespace CryostatControlServer.Data
 
             if (!this.he7Cooler.IsConnected())
             {
-                for (int i = 10; i < (int)DataEnumerator.SensorAmount; i++)
+                for (int i = (int)DataEnumerator.He3Pump; i < (int)DataEnumerator.SensorAmount; i++)
                 {
                     data[i] = float.NaN;
                 }
+            }
+
+            if(!this.lakeShore.IsConnected())
+            {
+                data[(int)DataEnumerator.LakePlate3K] = float.NaN;
+                data[(int)DataEnumerator.LakePlate50K] = float.NaN;
             }
 
             return data;

@@ -42,6 +42,11 @@ namespace CryostatControlClient.ViewModels
         private ICommand manualButtonCommand;
 
         /// <summary>
+        /// The stop button command
+        /// </summary>
+        private ICommand stopButtonCommand;
+
+        /// <summary>
         /// The radio button command
         /// </summary>
         private ICommand radioButtonCommand;
@@ -66,6 +71,7 @@ namespace CryostatControlClient.ViewModels
             this.RadioButtonCommand = new RelayCommand(this.OnChangeRadio, param => true);
             this.cancelButtonCommand = new RelayCommand(this.OnClickCancel, param => true);
             this.manualButtonCommand = new RelayCommand(this.OnClickManual, param => true);
+            this.stopButtonCommand = new RelayCommand(this.onClickStop, param => true);
             this.ToggleTime();
         }
 
@@ -430,6 +436,25 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
+        /// Gets or sets the stop button command.
+        /// </summary>
+        /// <value>
+        /// The stop button command.
+        /// </value>
+        public ICommand StopButtonCommand
+        {
+            get
+            {
+                return this.stopButtonCommand;
+            }
+
+            set
+            {
+                this.stopButtonCommand = value;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the radio button command.
         /// </summary>
         /// <value>
@@ -499,6 +524,11 @@ namespace CryostatControlClient.ViewModels
         public void OnClickManual(object obj)
         {
             ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Manual(); }));       
+        }
+
+        public void onClickStop(object obj)
+        {
+
         }
 
         /// <summary>

@@ -152,6 +152,14 @@ namespace CryostatControlServer
         }
 
         /// <summary>
+        /// Stop command for the controller. Which stops the current process of the controller and turns everything off.
+        /// </summary>
+        public void StopCommand()
+        {
+            ////todo implement stop command in the controller
+        }
+
+        /// <summary>
         /// Starts the cool down.
         /// </summary>
         /// <param name="time">
