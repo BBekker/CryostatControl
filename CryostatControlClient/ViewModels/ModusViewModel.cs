@@ -74,6 +74,107 @@ namespace CryostatControlClient.ViewModels
         #region Properties
 
         /// <summary>
+        /// Gets a value indicating whether [show tool tip start].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [show tool tip start]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ShowToolTipStart
+        {
+            get
+            {
+                return this.ToolTipStart != string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [show tool tip stop].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [show tool tip stop]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ShowToolTipStop
+        {
+            get
+            {
+                return this.ToolTipStop != string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [show tool tip manual].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [show tool tip manual]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ShowToolTipManual
+        {
+            get
+            {
+                return this.ToolTipManual != string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Gets the tool tip start.
+        /// </summary>
+        /// <value>
+        /// The tool tip start.
+        /// </value>
+        public string ToolTipStart
+        {
+            get
+            {
+                switch (this.Modus)
+                {
+                    case 1: return string.Empty;
+                    default:
+                        return "Only available if system is in standby mode";
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the tool tip stop.
+        /// </summary>
+        /// <value>
+        /// The tool tip stop.
+        /// </value>
+        public string ToolTipStop
+        {
+            get
+            {
+                switch (this.Modus)
+                {
+                    case 0:
+                        return "Only available if a process is running";
+                    case 1:
+                        return "Only available if a process is running";
+                    default: return string.Empty;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the tool tip manual.
+        /// </summary>
+        /// <value>
+        /// The tool tip manual.
+        /// </value>
+        public string ToolTipManual
+        {
+            get
+            {
+                switch (this.Modus)
+                {
+                    case 1: return string.Empty;
+                    default:
+                        return "Only available if system is in standby mode";
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets the color of the connection state.
         /// </summary>
         /// <value>
@@ -272,6 +373,9 @@ namespace CryostatControlClient.ViewModels
                 this.RaisePropertyChanged("CancelMode");
                 this.RaisePropertyChanged("ModusConverted");
                 this.RaisePropertyChanged("ShowCountdown");
+                this.RaisePropertyChanged("ShowToolTipStart");
+                this.RaisePropertyChanged("ShowToolTipStop");
+                this.RaisePropertyChanged("ShowToolTipManual");
             }
         }
 
