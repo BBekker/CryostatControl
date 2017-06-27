@@ -56,8 +56,8 @@
                 </ComboBox>
                 <Grid Margin="10 5 10 5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
                     <RadioButton Grid.Column="0" Command="{Binding ModusViewModel.RadioButtonCommand}"
                                  CommandParameter="Now" Name="startNow" Style="{StaticResource SettingsRadioButtons}"
@@ -72,12 +72,28 @@
                         Scheduled Start
                     </RadioButton>
                 </Grid>
-                <DatePicker Margin="10 5 10 5" SelectedDate="{Binding ModusViewModel.SelectedDate}"
-                            Style="{StaticResource SettingsDatePicker}"
-                            Visibility="{Binding ModusViewModel.ShowDateTime}" />
-                <materialDesign:TimePicker Margin="10 5 10 5" SelectedTime="{Binding ModusViewModel.SelectedTime}"
-                                           Style="{StaticResource SettingsTimePicker}"
-                                           Visibility="{Binding ModusViewModel.ShowDateTime}" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <DatePicker Grid.Row="0" Margin="10 5 10 5" SelectedDate="{Binding ModusViewModel.SelectedDate}"
+                                Style="{StaticResource SettingsDatePicker}"
+                                Visibility="{Binding ModusViewModel.ShowDateTime}" />
+                    <materialDesign:TimePicker Grid.Row="1" Margin="10 5 10 5" SelectedTime="{Binding ModusViewModel.SelectedTime}"
+                                               Style="{StaticResource SettingsTimePicker}"
+                                               Visibility="{Binding ModusViewModel.ShowDateTime}" />
+                    <StackPanel Grid.Row="0" Grid.RowSpan="2" Visibility="{Binding ModusViewModel.ShowCountdown}" Margin="0 20 0 0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label FontSize="20" Content="{Binding ModusViewModel.PlannedModus}" />
+                            <Label FontSize="20">in</Label>
+                        </StackPanel>
+                        <Label HorizontalAlignment="Center" FontSize="20"
+                               Content="{Binding ModusViewModel.PlannedTimeConverted}" />
+                    </StackPanel>
+                </Grid>
+                
+                
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
@@ -101,15 +117,6 @@
                         Command="{Binding ModusViewModel.ManualButtonCommand}" Margin="10 5 10 5">
                     Manual
                 </Button>
-
-                <StackPanel Visibility="{Binding ModusViewModel.ShowCountdown}" Margin="0 20 0 0">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label FontSize="20" Content="{Binding ModusViewModel.PlannedModus}" />
-                        <Label FontSize="20">in</Label>
-                    </StackPanel>
-                    <Label HorizontalAlignment="Center" FontSize="20"
-                           Content="{Binding ModusViewModel.PlannedTimeConverted}" />
-                </StackPanel>
             </StackPanel>
         </Grid>
     </materialDesign:Card>
