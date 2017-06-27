@@ -87,6 +87,8 @@ namespace CryostatControlServer.Data
                 data[(int)DataEnumerator.LakePlate50K] = float.NaN;
             }
 
+            this.FillWithMockData(data);
+
             return data;
         }
 
