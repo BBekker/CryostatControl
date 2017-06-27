@@ -87,12 +87,12 @@
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
                     <Button Style="{StaticResource SettingsButton}" Grid.Column="0" Grid.Row="0"
-                            IsEnabled="{Binding ModusViewModel.StartMode}"
-                            Command="{Binding ModusViewModel.StartButtonCommand}" Margin="10 5 10 5">
+                            IsEnabled="{Binding ModusViewModel.StartMode}" ToolTip="{Binding ModusViewModel.ToolTipStart}" ToolTipService.ShowOnDisabled="True"
+                            Command="{Binding ModusViewModel.StartButtonCommand}" Margin="10 5 10 5"  ToolTipService.IsEnabled="{Binding ModusViewModel.ShowToolTipStart}">
                         Start
                     </Button>
                     <Button Style="{StaticResource SettingsButton}" Grid.Column="1" Grid.Row="0"
-                            IsEnabled="{Binding ModusViewModel.CancelMode}"
+                            IsEnabled="{Binding ModusViewModel.CancelMode}" ToolTip="{Binding ModusViewModel.ToolTipStop}" ToolTipService.ShowOnDisabled="True"
                             Command="{Binding ModusViewModel.CancelButtonCommand}" Margin="10 5 10 5">
                         Cancel
                     </Button>
@@ -106,7 +106,8 @@
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
                     <Button Style="{StaticResource SettingsButton}" IsEnabled="{Binding ModusViewModel.StartMode}"
-                        Command="{Binding ModusViewModel.ManualButtonCommand}" Margin="10 5 10 5">
+                        Command="{Binding ModusViewModel.ManualButtonCommand}" Margin="10 5 10 5"  ToolTipService.IsEnabled="{Binding ModusViewModel.ShowToolTipManual}"
+                        ToolTip="{Binding ModusViewModel.ToolTipManual}" ToolTipService.ShowOnDisabled="True">
                         Manual
                     </Button>
                     <Button Style="{StaticResource SettingsButton}" Grid.Column="1" Grid.Row="0"                           
@@ -115,7 +116,6 @@
                         Stop
                     </Button>
                 </Grid>
-
                 <StackPanel Visibility="{Binding ModusViewModel.ShowCountdown}" Margin="0 20 0 0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Label FontSize="20" Content="{Binding ModusViewModel.PlannedModus}" />

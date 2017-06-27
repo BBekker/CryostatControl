@@ -32,6 +32,26 @@ namespace CryostatControlServer.He7Cooler
             private const double DefaultSafeRangeLow = 0.0;
 
             /// <summary>
+            /// The max value of the integrator.
+            /// </summary>
+            private const double IntegratorMax = 0.15 / Ki;
+
+            /// <summary>
+            /// The derivative gain.
+            /// </summary>
+            private const double Kd = 0.5;
+
+            /// <summary>
+            /// The integral gain.
+            /// </summary>
+            private const double Ki = 0.004;
+
+            /// <summary>
+            /// The proportional gain.
+            /// </summary>
+            private const double Kp = 0.18;
+
+            /// <summary>
             /// The resistance of the heater resistor.
             /// </summary>
             private readonly double resistance = 1;
@@ -47,14 +67,9 @@ namespace CryostatControlServer.He7Cooler
             private He7Cooler device;
 
             /// <summary>
-            /// The filtered error.
-            /// </summary>
-            private double filteredError = 0.0;
-
-            /// <summary>
             /// The filter factor.
             /// </summary>
-            private double filterFactor = 0.2;
+            private double filterFactor = 0.50;
 
             /// <summary>
             /// The channel where current voltage is read.
@@ -65,26 +80,6 @@ namespace CryostatControlServer.He7Cooler
             /// The PID controller integrator.
             /// </summary>
             private double integrator = 0;
-
-            /// <summary>
-            /// The max value of the integrator.
-            /// </summary>
-            private double integratorMax = 20;
-
-            /// <summary>
-            /// The derivative gain.
-            /// </summary>
-            private double kd = 0.5;
-
-            /// <summary>
-            /// The integral gain.
-            /// </summary>
-            private double ki = 0.004;
-
-            /// <summary>
-            /// The proportional gain.
-            /// </summary>
-            private double kP = 0.18;
 
             /// <summary>
             /// The channel where to output the voltage set point.
@@ -102,6 +97,11 @@ namespace CryostatControlServer.He7Cooler
             private double previousError = 0.0;
 
             /// <summary>
+            /// The previous derivative
+            /// </summary>
+            private double previousDerivative = 0.0;
+
+            /// <summary>
             /// The previous loop time.
             /// </summary>
             private DateTime previousLoopTime = DateTime.MinValue;
@@ -115,6 +115,8 @@ namespace CryostatControlServer.He7Cooler
             /// The temperature setpoint
             /// </summary>
             private double temperatureSetpoint;
+
+            private bool temperatureControlEnabled = false;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="Heater"/> class.
@@ -273,10 +275,23 @@ namespace CryostatControlServer.He7Cooler
             /// <summary>
             /// Gets or sets a value indicating whether temperature control enabled.
             /// </summary>
-            /// <value>
-            ///   <c>true</c> if [temperature control enabled]; otherwise, <c>false</c>.
-            /// </value>
-            public bool TemperatureControlEnabled { get; set; } = false;
+            public bool TemperatureControlEnabled
+            {
+                get
+                {
+                    return this.temperatureControlEnabled;
+                }
+                set
+                {
+                    if (this.temperatureControlEnabled == false && value == true)
+                    {
+                        this.integrator = 0;
+                        this.previousError = double.NaN;
+                        this.previousDerivative = double.NaN;
+                    }
+                    this.temperatureControlEnabled = value;
+                }
+            }
 
             /// <summary>
             /// Gets or sets the temperature setpoint in Kelvin.
@@ -335,11 +350,11 @@ namespace CryostatControlServer.He7Cooler
             public void ControlTemperature(double TSet, double maxPower)
             {
                 double error = TSet - this.temperatureFeedback.Value; // Positive if too cold
-                var lpfError = this.LowPassFilter(error);
+                var deltaError = this.CalculateDerivative(error);
 
-                var P = error * this.kP;
-                var I = this.integrator * this.ki;
-                var D = ((lpfError - this.previousError) / (DateTime.Now - this.previousLoopTime).TotalSeconds) * this.kd;
+                var P = error * Heater.Kp;
+                var I = this.integrator * Heater.Ki;
+                var D = this.CalculateDerivative(error) * Heater.Kd;
 
                 double output = P + I + D;
                 
@@ -348,25 +363,50 @@ namespace CryostatControlServer.He7Cooler
                     if (output > maxPower)
                     {
                         this.SetOutput(this.calibration.ConvertValue(this.PowerToVoltage(maxPower)));
+                        this.integrator = 0;
                     }
                     else if (output < 0)
                     {
                         this.SetOutput(0);
-                        this.integrator = Math.Min(Math.Max(error + this.integrator, 0), this.integratorMax);
+                        this.integrator = Math.Max(error + this.integrator, 0);
                     }
                     else
                     {
                         this.SetOutput(this.calibration.ConvertValue(this.PowerToVoltage(output)));
-                        this.integrator = Math.Max(error + this.integrator, 0);
+                        this.integrator = Math.Min(error + this.integrator, Heater.IntegratorMax);
                     }
                 }
                 catch (Exception e)
                 {
                     DebugLogger.Error("Heater", e.ToString(), false);
                 }
+            }
 
+            /// <summary>
+            /// Calculate the filtered derivative
+            /// </summary>
+            /// <param name="error">The error.</param>
+            /// <returns>The filtered value</returns>
+            private double CalculateDerivative(double error)
+            { 
+                if (double.IsNaN(this.previousError))
+                {
+                    this.previousError = error;
+                }
+                
+                var dt = Math.Max((DateTime.Now - this.previousLoopTime).TotalSeconds, 1.0);
+                var dedt = ((error - this.previousError) / dt);
+
+                if (double.IsNaN(this.previousDerivative))
+                {
+                    this.previousDerivative = dedt;
+                }
+
+                this.previousDerivative = (this.filterFactor * this.previousDerivative) + ((1 - this.filterFactor) * dedt);
+                this.previousError = error;
                 this.previousLoopTime = DateTime.Now;
-                this.previousError = lpfError;
+
+                return this.previousDerivative;
             }
 
             /// <summary>
@@ -380,16 +420,7 @@ namespace CryostatControlServer.He7Cooler
                 }
             }
 
-            /// <summary>
-            /// Applies a IIF low pass filter
-            /// </summary>
-            /// <param name="error">The error.</param>
-            /// <returns>The filtered value</returns>
-            private double LowPassFilter(double error)
-            {
-                this.filteredError = ((1.0 - this.filterFactor) * this.filteredError) + (this.filterFactor * error);
-                return this.filteredError;
-            }
+
 
             /// <summary>
             /// Convert power to voltage using the heater resistance.
