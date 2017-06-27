@@ -25,11 +25,10 @@ namespace CryostatControlServer
         public DebugForm()
         {
             this.InitializeComponent();
-            //Console.SetOut(new ControlWriter(this.textBox1));
         }
 
         /// <summary>
-        /// Override onformclosing to prevent disposing of the form.
+        /// Override on form closing to prevent disposing of the form.
         /// </summary>
         /// <param name="e">
         /// The e.
@@ -48,10 +47,29 @@ namespace CryostatControlServer
         }
 
         /// <summary>
+        /// The debug form load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void DebugFormLoad(object sender, EventArgs e)
+        {
+            Console.SetOut(new ControlWriter(this.textBox1));
+        }
+
+        /// <summary>
         /// The control writer.
         /// </summary>
         private class ControlWriter : TextWriter
         {
+            /// <summary>
+            /// The buffer.
+            /// </summary>
+            private string buffer = string.Empty;
+
             /// <summary>
             /// The textbox.
             /// </summary>
@@ -87,7 +105,13 @@ namespace CryostatControlServer
             /// </param>
             public override void Write(char value)
             {
-                this.textbox.Text += value;
+                this.buffer += value;
+                if (value == '\n' || value == '\r')
+                {
+                    var buffercopy = this.buffer.Clone();
+                    this.textbox.BeginInvoke(new Action(() => { this.textbox.Text = buffercopy + this.textbox.Text; }));
+                    this.buffer = string.Empty;
+                }
             }
 
             /// <summary>
@@ -98,7 +122,7 @@ namespace CryostatControlServer
             /// </param>
             public override void Write(string value)
             {
-                this.textbox.Text += value;
+                this.textbox.BeginInvoke(new Action(() => { this.textbox.Text = value + this.textbox.Text; }));
             }
         }
     }
