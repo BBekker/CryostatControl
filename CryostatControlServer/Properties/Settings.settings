@@ -15,13 +15,13 @@
       <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="ControllerHe3HeaterPower" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">1.4</Value>
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="ControllerHe3SwitchVoltage" Type="System.Double" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="ControllerHe4HeaterPower" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">2</Value>
+      <Value Profile="(Default)">1.8</Value>
     </Setting>
     <Setting Name="ControllerHe4SwitchVoltage" Type="System.Double" Scope="User">
       <Value Profile="(Default)">4</Value>

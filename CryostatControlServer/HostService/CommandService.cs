@@ -123,6 +123,13 @@ namespace CryostatControlServer.HostService
             return true;
         }
 
+        /// <inheritdoc cref="ICommandService.Stop"/>
+        public bool Stop()
+        {
+            this.cryostatControl.StopCommand();
+            return true;
+        }
+
         /// <summary>
         /// Get the controller state
         /// </summary>
@@ -134,7 +141,7 @@ namespace CryostatControlServer.HostService
             return (int)this.cryostatControl.ControllerState;
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc cref="ICommandService.GetStartTime"/>
         public DateTime GetStartTime()
         {
             return this.cryostatControl.StartTime;

@@ -127,6 +127,11 @@ namespace CryostatControlServer
         /// <summary>
         /// Cancel the current action and go back to standby.
         /// </summary>
-        CancelAll,
+        Cancel,
+
+        /// <summary>
+        /// Stop all devices / complete shutdown.
+        /// </summary>
+        Stop
     }
 }

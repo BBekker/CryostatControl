@@ -75,7 +75,7 @@ namespace CryostatControlServer.Data
 
             if (!this.he7Cooler.IsConnected())
             {
-                for (int i = 10; i < (int)DataEnumerator.SensorAmount; i++)
+                for (int i = (int)DataEnumerator.He3Pump; i < (int)DataEnumerator.SensorAmount; i++)
                 {
                     data[i] = float.NaN;
                 }

@@ -23,7 +23,7 @@
         <RowDefinition Height="*" />
         <RowDefinition Height="*" />
         <RowDefinition Height="*" />
-        <RowDefinition Height="*" />
+        <RowDefinition Height="auto" />
         <RowDefinition Height="*" />
         <RowDefinition Height="*" />
         <RowDefinition Height="*" />
@@ -54,10 +54,20 @@
     </Border>
 
     <Border Grid.Row="7" Grid.Column="4" BorderBrush="Black" BorderThickness="3" Background="White" CornerRadius="2">
-        <StackPanel Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label Content="{Binding He7ViewModel.He3PumpTemp}" ContentStringFormat="{}{0:N3}" />
-            <Label>K</Label>
-        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Content="{Binding He7ViewModel.He3PumpTemp}" ContentStringFormat="{}{0:N3}" />
+            <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left">K</Label>
+            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Content="{Binding He7ViewModel.He3PumpActualVolt}" ContentStringFormat="{}{0:N2}" />
+            <Label Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left">V</Label>
+        </Grid>
     </Border>
     <Border Grid.Row="9" Grid.Column="4" BorderBrush="Black" BorderThickness="3" Background="White" CornerRadius="2">
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -66,10 +76,20 @@
         </StackPanel>
     </Border>
     <Border Grid.Row="7" Grid.Column="6" BorderBrush="Black" BorderThickness="3" Background="White" CornerRadius="2">
-        <StackPanel Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label Content="{Binding He7ViewModel.He4PumpTemp}" ContentStringFormat="{}{0:N3}" />
-            <Label>K</Label>
-        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Content="{Binding He7ViewModel.He4PumpTemp}" ContentStringFormat="{}{0:N3}" />
+            <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left">K</Label>
+            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Content="{Binding He7ViewModel.He4PumpActualVolt}" ContentStringFormat="{}{0:N2}" />
+            <Label Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left">V</Label>
+        </Grid>
     </Border>
     <Border Grid.Row="9" Grid.Column="6" BorderBrush="Black" BorderThickness="3" Background="White" CornerRadius="2">
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">

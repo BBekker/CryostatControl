@@ -128,12 +128,15 @@ namespace CryostatControlClient
         /// </param>
         public void UpdateNotification(string[] notification)
         {
-            if (this.mainWindow == null)
+            this.mainApp.Dispatcher.Invoke(() =>
             {
-                this.mainWindow = this.mainApp.MainWindow as MainWindow;
-            }
+                if (this.mainWindow == null)
+                {
+                    this.mainWindow = this.mainApp.MainWindow as MainWindow;
+                }
 
-            this.dataReceiver.UpdateNotification(notification, ((MainWindow)this.mainApp.MainWindow).Container);
+                this.dataReceiver.UpdateNotification(notification, ((MainWindow)this.mainApp.MainWindow).Container);
+            });
         }
 
         #endregion Methods
