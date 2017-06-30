@@ -22,10 +22,6 @@ namespace CryostatControlServer
         /// </summary>
         private readonly int timerPeriod = 5000;
 
-        /// <summary>
-        /// The compressor
-        /// </summary>
-        private Compressor.Compressor compressor;
 
         /// <summary>
         /// The control timer.
