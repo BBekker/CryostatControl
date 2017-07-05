@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="He7Model.cs" company="SRON">
-// SRON 2017.
+// Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Model for He7-cooler.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.Models
@@ -16,6 +13,7 @@ namespace CryostatControlClient.Models
     using LiveCharts.Defaults;
     using LiveCharts.Geared;
     using LiveCharts.Wpf;
+    using System.Windows.Media;
 
     /// <summary>
     /// Model for the He7-cooler.
@@ -23,56 +21,6 @@ namespace CryostatControlClient.Models
     public class He7Model : AbstractModel
     {
         #region Fields
-
-        /// <summary>
-        /// The he3 head line series
-        /// </summary>
-        private GLineSeries he3HeadLineSeriesBottom;
-
-        /// <summary>
-        /// The he4 head line series
-        /// </summary>
-        private GLineSeries he4HeadLineSeriesBottom;
-
-        /// <summary>
-        /// The two k plate line series
-        /// </summary>
-        private GLineSeries twoKPlateLineSeries;
-
-        /// <summary>
-        /// The four k plate line series
-        /// </summary>
-        private GLineSeries fourKPlateLineSeries;
-
-        /// <summary>
-        /// The he3 head line series
-        /// </summary>
-        private GLineSeries he3HeadLineSeries;
-
-        /// <summary>
-        /// The he3 pump line series
-        /// </summary>
-        private GLineSeries he3PumpLineSeries;
-
-        /// <summary>
-        /// The he3 switch line series
-        /// </summary>
-        private GLineSeries he3SwitchLineSeries;
-
-        /// <summary>
-        /// The he4 head line series
-        /// </summary>
-        private GLineSeries he4HeadLineSeries;
-
-        /// <summary>
-        /// The he4 pump line series
-        /// </summary>
-        private GLineSeries he4PumpLineSeries;
-
-        /// <summary>
-        /// The he4 switch line series
-        /// </summary>
-        private GLineSeries he4SwitchLineSeries;
 
         /// <summary>
         /// The he3 head temporary list
@@ -130,24 +78,9 @@ namespace CryostatControlClient.Models
         private double fourKPlateTemp;
 
         /// <summary>
-        /// The four k plate max 1.
-        /// </summary>
-        private double fourKPlateMax1;
-
-        /// <summary>
-        /// The four k plate max 2.
-        /// </summary>
-        private double fourKPlateMax2;
-
-        /// <summary>
         /// The he3 head temperature
         /// </summary>
         private double he3HeadTemp;
-
-        /// <summary>
-        /// The he 3 head max.
-        /// </summary>
-        private double he3HeadMax;
 
         /// <summary>
         /// The he3 pump temperature
@@ -155,44 +88,9 @@ namespace CryostatControlClient.Models
         private double he3PumpTemp;
 
         /// <summary>
-        /// The he3 pump volt
-        /// </summary>
-        private double he3PumpActualVolt;
-
-        /// <summary>
-        /// The he 3 pump new volt.
-        /// </summary>
-        private double he3PumpNewVolt;
-
-        /// <summary>
-        /// The he 3 pump max.
-        /// </summary>
-        private double he3PumpMax;
-
-        /// <summary>
         /// The he3 switch temperature
         /// </summary>
         private double he3SwitchTemp;
-
-        /// <summary>
-        /// The he3 switch actual volt
-        /// </summary>
-        private double he3SwitchActualVolt;
-
-        /// <summary>
-        /// The he 3 switch new volt.
-        /// </summary>
-        private double he3SwitchNewVolt;
-
-        /// <summary>
-        /// The he 3 switch max 1.
-        /// </summary>
-        private double he3SwitchMax1;
-
-        /// <summary>
-        /// The he 3 switch max 2.
-        /// </summary>
-        private double he3SwitchMax2;
 
         /// <summary>
         /// The he4 head temperature
@@ -200,29 +98,9 @@ namespace CryostatControlClient.Models
         private double he4HeadTemp;
 
         /// <summary>
-        /// The he 4 head max.
-        /// </summary>
-        private double he4HeadMax;
-
-        /// <summary>
         /// The he4 pump temperature
         /// </summary>
         private double he4PumpTemp;
-
-        /// <summary>
-        /// The he4 pump actual volt
-        /// </summary>
-        private double he4PumpActualVolt;
-
-        /// <summary>
-        /// The he 4 pump new volt.
-        /// </summary>
-        private double he4PumpNewVolt;
-
-        /// <summary>
-        /// The he 4 pump max.
-        /// </summary>
-        private double he4PumpMax;
 
         /// <summary>
         /// The he4 switch temperature
@@ -230,34 +108,9 @@ namespace CryostatControlClient.Models
         private double he4SwitchTemp;
 
         /// <summary>
-        /// The he4 switch actual volt
-        /// </summary>
-        private double he4SwitchActualVolt;
-
-        /// <summary>
-        /// The he4 switch new volt
-        /// </summary>
-        private double he4SwitchNewVolt;
-
-        /// <summary>
-        /// The he 4 switch max 1.
-        /// </summary>
-        private double he4SwitchMax1;
-
-        /// <summary>
-        /// The he 4 switch max 2.
-        /// </summary>
-        private double he4SwitchMax2;
-
-        /// <summary>
         /// The two k plate temperature
         /// </summary>
         private double twoKPlateTemp;
-
-        /// <summary>
-        /// The connection state.
-        /// </summary>
-        private double connectionState;
 
         #endregion Fields
 
@@ -281,19 +134,19 @@ namespace CryostatControlClient.Models
             this.he4SwitchTemporaryList = new double[this.TemporaryListSize];
             this.he4PumpTemporaryList = new double[this.TemporaryListSize];
 
-            this.twoKPlateLineSeries = new GLineSeries { Title = "He7 - 2K Plate", Values = new GearedValues<DateTimePoint>() };
-            this.fourKPlateLineSeries = new GLineSeries { Title = "He7 - 4K Plate", Values = new GearedValues<DateTimePoint>() };
+            this.TwoKPlateLineSeries = new GLineSeries { Title = "He7 - 2K Plate", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent};
+            this.FourKPlateLineSeries = new GLineSeries { Title = "He7 - 4K Plate", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
 
-            this.he3HeadLineSeries = new GLineSeries { Title = "He7 - He3 Head", Values = new GearedValues<DateTimePoint>() };
-            this.he3PumpLineSeries = new GLineSeries { Title = "He7 - He3 Pump", Values = new GearedValues<DateTimePoint>() };
-            this.he3SwitchLineSeries = new GLineSeries { Title = "He7 - He3 Switch", Values = new GearedValues<DateTimePoint>() };
+            this.He3HeadLineSeries = new GLineSeries { Title = "He7 - He3 Head", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
+            this.He3PumpLineSeries = new GLineSeries { Title = "He7 - He3 Pump", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
+            this.He3SwitchLineSeries = new GLineSeries { Title = "He7 - He3 Switch", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
 
-            this.he4HeadLineSeries = new GLineSeries { Title = "He7 - He4 Head", Values = new GearedValues<DateTimePoint>() };
-            this.he4PumpLineSeries = new GLineSeries { Title = "He7 - He4 Pump", Values = new GearedValues<DateTimePoint>() };
-            this.he4SwitchLineSeries = new GLineSeries { Title = "He7 - He4 Switch", Values = new GearedValues<DateTimePoint>() };
+            this.He4HeadLineSeries = new GLineSeries { Title = "He7 - He4 Head", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
+            this.He4PumpLineSeries = new GLineSeries { Title = "He7 - He4 Pump", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
+            this.He4SwitchLineSeries = new GLineSeries { Title = "He7 - He4 Switch", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
 
-            this.he3HeadLineSeriesBottom = new GLineSeries { Title = "He7 - He3 Head", Values = new GearedValues<DateTimePoint>() };
-            this.he4HeadLineSeriesBottom = new GLineSeries { Title = "He7 - He4 Head", Values = new GearedValues<DateTimePoint>() };
+            this.He3HeadLineSeriesBottom = new GLineSeries { Title = "He7 - He3 Head", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
+            this.He4HeadLineSeriesBottom = new GLineSeries { Title = "He7 - He4 Head", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
         }
 
         #endregion Constructor
@@ -310,12 +163,12 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.twoKPlateLineSeries.Visibility;
+                return this.TwoKPlateLineSeries.Visibility;
             }
 
             set
             {
-                this.twoKPlateLineSeries.Visibility = value;
+                this.TwoKPlateLineSeries.Visibility = value;
             }
         }
 
@@ -329,12 +182,12 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.fourKPlateLineSeries.Visibility;
+                return this.FourKPlateLineSeries.Visibility;
             }
 
             set
             {
-                this.fourKPlateLineSeries.Visibility = value;
+                this.FourKPlateLineSeries.Visibility = value;
             }
         }
 
@@ -348,12 +201,12 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he3HeadLineSeries.Visibility;
+                return this.He3HeadLineSeries.Visibility;
             }
 
             set
             {
-                this.he3HeadLineSeries.Visibility = value;
+                this.He3HeadLineSeries.Visibility = value;
             }
         }
 
@@ -367,12 +220,12 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he3SwitchLineSeries.Visibility;
+                return this.He3SwitchLineSeries.Visibility;
             }
 
             set
             {
-                this.he3SwitchLineSeries.Visibility = value;
+                this.He3SwitchLineSeries.Visibility = value;
             }
         }
 
@@ -386,12 +239,12 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he3PumpLineSeries.Visibility;
+                return this.He3PumpLineSeries.Visibility;
             }
 
             set
             {
-                this.he3PumpLineSeries.Visibility = value;
+                this.He3PumpLineSeries.Visibility = value;
             }
         }
 
@@ -405,12 +258,12 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he4HeadLineSeries.Visibility;
+                return this.He4HeadLineSeries.Visibility;
             }
 
             set
             {
-                this.he4HeadLineSeries.Visibility = value;
+                this.He4HeadLineSeries.Visibility = value;
             }
         }
 
@@ -424,12 +277,12 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he4SwitchLineSeries.Visibility;
+                return this.He4SwitchLineSeries.Visibility;
             }
 
             set
             {
-                this.he4SwitchLineSeries.Visibility = value;
+                this.He4SwitchLineSeries.Visibility = value;
             }
         }
 
@@ -443,12 +296,12 @@ namespace CryostatControlClient.Models
         {
             get
             {
-                return this.he4PumpLineSeries.Visibility;
+                return this.He4PumpLineSeries.Visibility;
             }
 
             set
             {
-                this.he4PumpLineSeries.Visibility = value;
+                this.He4PumpLineSeries.Visibility = value;
             }
         }
 
@@ -458,13 +311,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he4 head line series.
         /// </value>
-        public GLineSeries He4HeadLineSeriesBottom
-        {
-            get
-            {
-                return this.he4HeadLineSeriesBottom;
-            }
-        }
+        public GLineSeries He4HeadLineSeriesBottom { get; }
 
         /// <summary>
         /// Gets the he3 head line series.
@@ -472,13 +319,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he3 head line series.
         /// </value>
-        public GLineSeries He3HeadLineSeriesBottom
-        {
-            get
-            {
-                return this.he3HeadLineSeriesBottom;
-            }
-        }
+        public GLineSeries He3HeadLineSeriesBottom { get; }
 
         /// <summary>
         /// Gets the he4 switch line series.
@@ -486,13 +327,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he4 switch line series.
         /// </value>
-        public GLineSeries He4SwitchLineSeries
-        {
-            get
-            {
-                return this.he4SwitchLineSeries;
-            }
-        }
+        public GLineSeries He4SwitchLineSeries { get; }
 
         /// <summary>
         /// Gets the he4 pump line series.
@@ -500,13 +335,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he4 pump line series.
         /// </value>
-        public GLineSeries He4PumpLineSeries
-        {
-            get
-            {
-                return this.he4PumpLineSeries;
-            }
-        }
+        public GLineSeries He4PumpLineSeries { get; }
 
         /// <summary>
         /// Gets the he4 head line series.
@@ -514,13 +343,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he4 head line series.
         /// </value>
-        public GLineSeries He4HeadLineSeries
-        {
-            get
-            {
-                return this.he4HeadLineSeries;
-            }
-        }
+        public GLineSeries He4HeadLineSeries { get; }
 
         /// <summary>
         /// Gets the he3 switch line series.
@@ -528,13 +351,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he3 switch line series.
         /// </value>
-        public GLineSeries He3SwitchLineSeries
-        {
-            get
-            {
-                return this.he3SwitchLineSeries;
-            }
-        }
+        public GLineSeries He3SwitchLineSeries { get; }
 
         /// <summary>
         /// Gets the he3 pump line series.
@@ -542,13 +359,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he3 pump line series.
         /// </value>
-        public GLineSeries He3PumpLineSeries
-        {
-            get
-            {
-                return this.he3PumpLineSeries;
-            }
-        }
+        public GLineSeries He3PumpLineSeries { get; }
 
         /// <summary>
         /// Gets the he3 head line series.
@@ -556,13 +367,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The he3 head line series.
         /// </value>
-        public GLineSeries He3HeadLineSeries
-        {
-            get
-            {
-                return this.he3HeadLineSeries;
-            }
-        }
+        public GLineSeries He3HeadLineSeries { get; }
 
         /// <summary>
         /// Gets the two k plat line series.
@@ -570,13 +375,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The two k plat line series.
         /// </value>
-        public GLineSeries TwoKPlateLineSeries
-        {
-            get
-            {
-                return this.twoKPlateLineSeries;
-            }
-        }
+        public GLineSeries TwoKPlateLineSeries { get; }
 
         /// <summary>
         /// Gets the four k plate line series.
@@ -584,13 +383,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The four k plate line series.
         /// </value>
-        public GLineSeries FourKPlateLineSeries
-        {
-            get
-            {
-                return this.fourKPlateLineSeries;
-            }
-        }
+        public GLineSeries FourKPlateLineSeries { get; }
 
         /// <summary>
         /// Gets or sets the four k plate temperature.
@@ -608,41 +401,25 @@ namespace CryostatControlClient.Models
             set
             {
                 this.fourKPlateTemp = value;
-                this.fourKPlateTemporaryList = this.AddToGraph(this.fourKPlateTemporaryList, this.fourKPlateLineSeries, value);
+                this.fourKPlateTemporaryList = this.AddToGraph(this.fourKPlateTemporaryList, this.FourKPlateLineSeries, value);
             }
         }
 
         /// <summary>
         /// Gets or sets the four k plate max 1.
         /// </summary>
-        public double FourKPlateMax1
-        {
-            get
-            {
-                return this.fourKPlateMax1;
-            }
-
-            set
-            {
-                this.fourKPlateMax1 = value;
-            }
-        }
+        /// <value>
+        /// The four k plate max 1.
+        /// </value>
+        public double FourKPlateMax1 { get; set; }
 
         /// <summary>
         /// Gets or sets the four k plate max 2.
         /// </summary>
-        public double FourKPlateMax2
-        {
-            get
-            {
-                return this.fourKPlateMax2;
-            }
-
-            set
-            {
-                this.fourKPlateMax2 = value;
-            }
-        }
+        /// <value>
+        /// The four k plate max 2.
+        /// </value>
+        public double FourKPlateMax2 { get; set; }
 
         /// <summary>
         /// Gets or sets the he3 head temperature.
@@ -660,26 +437,18 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3HeadTemp = value;
-                this.he3HeadTemporaryList = this.AddToGraph(this.he3HeadTemporaryList, this.he3HeadLineSeries, value);
-                this.he3HeadTemporaryListBottom = this.AddToGraph(this.he3HeadTemporaryListBottom, this.he3HeadLineSeriesBottom, value);
+                this.he3HeadTemporaryList = this.AddToGraph(this.he3HeadTemporaryList, this.He3HeadLineSeries, value);
+                this.he3HeadTemporaryListBottom = this.AddToGraph(this.he3HeadTemporaryListBottom, this.He3HeadLineSeriesBottom, Math.Log(value, 10));
             }
         }
 
         /// <summary>
-        /// Gets or sets the he 3 head max.
+        /// Gets or sets the he3 head maximum.
         /// </summary>
-        public double He3HeadMax
-        {
-            get
-            {
-                return this.he3HeadMax;
-            }
-
-            set
-            {
-                this.he3HeadMax = value;
-            }
-        }
+        /// <value>
+        /// The he3 head maximum.
+        /// </value>
+        public double He3HeadMax { get; set; }
 
         /// <summary>
         /// Gets or sets the he3 pump temperature.
@@ -697,57 +466,33 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3PumpTemp = value;
-                this.he3PumpTemporaryList = this.AddToGraph(this.he3PumpTemporaryList, this.he3PumpLineSeries, value);
+                this.he3PumpTemporaryList = this.AddToGraph(this.he3PumpTemporaryList, this.He3PumpLineSeries, value);
             }
         }
 
         /// <summary>
         /// Gets or sets the he 3 pump actual volt.
         /// </summary>
-        public double He3PumpActualVolt
-        {
-            get
-            {
-                return this.he3PumpActualVolt;
-            }
-
-            set
-            {
-                this.he3PumpActualVolt = value;
-            }
-        }
+        /// <value>
+        /// The he3 pump actual volt.
+        /// </value>
+        public double He3PumpActualVolt { get; set; }
 
         /// <summary>
         /// Gets or sets the he 3 pump new volt.
         /// </summary>
-        public double He3PumpNewVolt
-        {
-            get
-            {
-                return this.he3PumpNewVolt;
-            }
-
-            set
-            {
-                this.he3PumpNewVolt = value;
-            }
-        }
+        /// <value>
+        /// The he3 pump new volt.
+        /// </value>
+        public double He3PumpNewVolt { get; set; }
 
         /// <summary>
         /// Gets or sets the he 3 pump max.
         /// </summary>
-        public double He3PumpMax
-        {
-            get
-            {
-                return this.he3PumpMax;
-            }
-
-            set
-            {
-                this.he3PumpMax = value;
-            }
-        }
+        /// <value>
+        /// The he3 pump maximum.
+        /// </value>
+        public double He3PumpMax { get; set; }
 
         /// <summary>
         /// Gets or sets the he3 switch temperature.
@@ -765,73 +510,41 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he3SwitchTemp = value;
-                this.he3SwitchTemporaryList = this.AddToGraph(this.he3SwitchTemporaryList, this.he3SwitchLineSeries, value);
+                this.he3SwitchTemporaryList = this.AddToGraph(this.he3SwitchTemporaryList, this.He3SwitchLineSeries, value);
             }
         }
 
         /// <summary>
         /// Gets or sets the he 3 switch actual volt.
         /// </summary>
-        public double He3SwitchActualVolt
-        {
-            get
-            {
-                return this.he3SwitchActualVolt;
-            }
-
-            set
-            {
-                this.he3SwitchActualVolt = value;
-            }
-        }
+        /// <value>
+        /// The he3 switch actual volt.
+        /// </value>
+        public double He3SwitchActualVolt { get; set; }
 
         /// <summary>
         /// Gets or sets the he 3 switch new volt.
         /// </summary>
-        public double He3SwitchNewVolt
-        {
-            get
-            {
-                return this.he3SwitchNewVolt;
-            }
-
-            set
-            {
-                this.he3SwitchNewVolt = value;
-            }
-        }
+        /// <value>
+        /// The he3 switch new volt.
+        /// </value>
+        public double He3SwitchNewVolt { get; set; }
 
         /// <summary>
         /// Gets or sets the he 3 switch max 1.
         /// </summary>
-        public double He3SwitchMax1
-        {
-            get
-            {
-                return this.he3SwitchMax1;
-            }
-
-            set
-            {
-                this.he3SwitchMax1 = value;
-            }
-        }
+        /// <value>
+        /// The he3 switch max1.
+        /// </value>
+        public double He3SwitchMax1 { get; set; }
 
         /// <summary>
         /// Gets or sets the he 3 switch max 2.
         /// </summary>
-        public double He3SwitchMax2
-        {
-            get
-            {
-                return this.he3SwitchMax2;
-            }
-
-            set
-            {
-                this.he3SwitchMax2 = value;
-            }
-        }
+        /// <value>
+        /// The he3 switch max2.
+        /// </value>
+        public double He3SwitchMax2 { get; set; }
 
         /// <summary>
         /// Gets or sets the he4 head temperature.
@@ -849,26 +562,18 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4HeadTemp = value;
-                this.he4HeadTemporaryList = this.AddToGraph(this.he4HeadTemporaryList, this.he4HeadLineSeries, value);
-                this.he4HeadTemporaryListBottom = this.AddToGraph(this.he4HeadTemporaryListBottom, this.he4HeadLineSeriesBottom, value);
+                this.he4HeadTemporaryList = this.AddToGraph(this.he4HeadTemporaryList, this.He4HeadLineSeries, value);
+                this.he4HeadTemporaryListBottom = this.AddToGraph(this.he4HeadTemporaryListBottom, this.He4HeadLineSeriesBottom, Math.Log(value, 10));
             }
         }
 
         /// <summary>
         /// Gets or sets the he 4 head max.
         /// </summary>
-        public double He4HeadMax
-        {
-            get
-            {
-                return this.he4HeadMax;
-            }
-
-            set
-            {
-                this.he4HeadMax = value;
-            }
-        }
+        /// <value>
+        /// The he4 head maximum.
+        /// </value>
+        public double He4HeadMax { get; set; }
 
         /// <summary>
         /// Gets or sets the he4 pump temperature.
@@ -886,57 +591,33 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4PumpTemp = value;
-                this.he4PumpTemporaryList = this.AddToGraph(this.he4PumpTemporaryList, this.he4PumpLineSeries, value);
+                this.he4PumpTemporaryList = this.AddToGraph(this.he4PumpTemporaryList, this.He4PumpLineSeries, value);
             }
         }
 
         /// <summary>
         /// Gets or sets the he 4 pump actual volt.
         /// </summary>
-        public double He4PumpActualVolt
-        {
-            get
-            {
-                return this.he4PumpActualVolt;
-            }
-
-            set
-            {
-                this.he4PumpActualVolt = value;
-            }
-        }
+        /// <value>
+        /// The he4 pump actual volt.
+        /// </value>
+        public double He4PumpActualVolt { get; set; }
 
         /// <summary>
         /// Gets or sets the he 4 pump new volt.
         /// </summary>
-        public double He4PumpNewVolt
-        {
-            get
-            {
-                return this.he4PumpNewVolt;
-            }
-
-            set
-            {
-                this.he4PumpNewVolt = value;
-            }
-        }
+        /// <value>
+        /// The he4 pump new volt.
+        /// </value>
+        public double He4PumpNewVolt { get; set; }
 
         /// <summary>
         /// Gets or sets the he 4 pump max.
         /// </summary>
-        public double He4PumpMax
-        {
-            get
-            {
-                return this.he4PumpMax;
-            }
-
-            set
-            {
-                this.he4PumpMax = value;
-            }
-        }
+        /// <value>
+        /// The he4 pump maximum.
+        /// </value>
+        public double He4PumpMax { get; set; }
 
         /// <summary>
         /// Gets or sets the he4 switch temperature.
@@ -954,73 +635,41 @@ namespace CryostatControlClient.Models
             set
             {
                 this.he4SwitchTemp = value;
-                this.he4SwitchTemporaryList = this.AddToGraph(this.he4SwitchTemporaryList, this.he4SwitchLineSeries, value);
+                this.he4SwitchTemporaryList = this.AddToGraph(this.he4SwitchTemporaryList, this.He4SwitchLineSeries, value);
             }
         }
 
         /// <summary>
         /// Gets or sets the he 4 switch actual volt.
         /// </summary>
-        public double He4SwitchActualVolt
-        {
-            get
-            {
-                return this.he4SwitchActualVolt;
-            }
-
-            set
-            {
-                this.he4SwitchActualVolt = value;
-            }
-        }
+        /// <value>
+        /// The he4 switch actual volt.
+        /// </value>
+        public double He4SwitchActualVolt { get; set; }
 
         /// <summary>
         /// Gets or sets the he 4 switch new volt.
         /// </summary>
-        public double He4SwitchNewVolt
-        {
-            get
-            {
-                return this.he4SwitchNewVolt;
-            }
-
-            set
-            {
-                this.he4SwitchNewVolt = value;
-            }
-        }
+        /// <value>
+        /// The he4 switch new volt.
+        /// </value>
+        public double He4SwitchNewVolt { get; set; }
 
         /// <summary>
         /// Gets or sets the he 4 switch max 1.
         /// </summary>
-        public double He4SwitchMax1
-        {
-            get
-            {
-                return this.he4SwitchMax1;
-            }
-
-            set
-            {
-                this.he4SwitchMax1 = value;
-            }
-        }
+        /// <value>
+        /// The he4 switch max1.
+        /// </value>
+        public double He4SwitchMax1 { get; set; }
 
         /// <summary>
         /// Gets or sets the he 4 switch max 2.
         /// </summary>
-        public double He4SwitchMax2
-        {
-            get
-            {
-                return this.he4SwitchMax2;
-            }
-
-            set
-            {
-                this.he4SwitchMax2 = value;
-            }
-        }
+        /// <value>
+        /// The he4 switch max2.
+        /// </value>
+        public double He4SwitchMax2 { get; set; }
 
         /// <summary>
         /// Gets or sets the two k plate temperature.
@@ -1038,25 +687,17 @@ namespace CryostatControlClient.Models
             set
             {
                 this.twoKPlateTemp = value;
-                this.twoKPlateTemporaryList = this.AddToGraph(this.twoKPlateTemporaryList, this.twoKPlateLineSeries, value);
+                this.twoKPlateTemporaryList = this.AddToGraph(this.twoKPlateTemporaryList, this.TwoKPlateLineSeries, value);
             }
         }
 
         /// <summary>
         /// Gets or sets the connection state.
         /// </summary>
-        public double ConnectionState
-        {
-            get
-            {
-                return this.connectionState;
-            }
-
-            set
-            {
-                this.connectionState = value;
-            }
-        }
+        /// <value>
+        /// The state of the connection.
+        /// </value>
+        public double ConnectionState { get; set; }
 
         #endregion Properties
     }

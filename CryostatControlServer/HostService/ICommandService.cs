@@ -1,19 +1,14 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="ICommandService.cs" company="SRON">
-//     Copyright (c) SRON. All rights reserved.
+//     Copyright (c) 2017 SRON
 // </copyright>
 //-----------------------------------------------------------------------
 namespace CryostatControlServer.HostService
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.ServiceModel;
     using System.ServiceModel.Web;
-
-    using CryostatControlServer.Compressor;
-    using CryostatControlServer.Data;
     using CryostatControlServer.HostService.DataContracts;
-    using CryostatControlServer.HostService.Enumerators;
 
     /// <summary>
     /// Interface for the available commands
@@ -107,12 +102,31 @@ namespace CryostatControlServer.HostService
         bool Cancel();
 
         /// <summary>
+        /// Stops the process of the cryostat.
+        /// Everything will be turned off.
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        [WebInvoke(ResponseFormat = WebMessageFormat.Json)]
+        bool Stop();
+
+        /// <summary>
         /// Gets the state.
         /// </summary>
         /// <returns>integer representing the controller state <see cref="Controlstate"/></returns>
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         int GetState();
+
+        /// <summary>
+        /// The get start time of a delayed operation (warm up, cool down etc.)
+        /// </summary>
+        /// <returns>
+        /// The <see cref="DateTime"/>.
+        /// </returns>
+        [OperationContract]
+        [WebGet(ResponseFormat = WebMessageFormat.Json)]
+        DateTime GetStartTime();
 
         /// <summary>
         /// Sets the compressor on or off.
@@ -181,17 +195,6 @@ namespace CryostatControlServer.HostService
         double ReadCompressorPressureScale();
 
         /// <summary>
-        /// Read the lakeshore/bluefors heater power.
-        /// </summary>
-        /// <returns>
-        /// The power in percentage of max power<see cref="double"/>.
-        /// </returns>
-        [OperationContract]
-        [WebGet(ResponseFormat = WebMessageFormat.Json)]
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        double ReadBlueforsHeaterPower();
-
-        /// <summary>
         /// Writes the allowed settings to server.
         /// </summary>
         /// <param name="setting">
@@ -216,16 +219,6 @@ namespace CryostatControlServer.HostService
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json)]
         double[] ReadSettings();
-
-        /// <summary>
-        /// Sets the bluefors heater.
-        /// </summary>
-        /// <param name="status">if set to <c>true</c> [status].</param>
-        /// <returns>if the value could be set</returns>
-        [OperationContract]
-        [WebInvoke(ResponseFormat = WebMessageFormat.Json)]
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
-        bool SetBlueforsHeater(bool status);
 
         /// <summary>
         /// Reads the single sensor.

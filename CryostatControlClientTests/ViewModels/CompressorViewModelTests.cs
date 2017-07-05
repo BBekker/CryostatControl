@@ -23,30 +23,6 @@ namespace CryostatControlClient.ViewModels.Tests
             this.compressorViewModel = new CompressorViewModel();
         }
 
-        /// <summary>
-        /// Converts the warning state number to string test.
-        /// </summary>
-        [TestMethod]
-        public void ConvertWarningStateNumberToStringTest()
-        {
-            double warningStateNumber = -8;
-            string expected = "Water OUT running Low";
-            string actual = this.compressorViewModel.ConvertWarningStateNumberToString(warningStateNumber);
-            Assert.AreEqual(expected, actual);
-        }
-
-        /// <summary>
-        /// Converts the operating state number to string test.
-        /// </summary>
-        [TestMethod]
-        public void ConvertOperatingStateNumberToStringTest()
-        {
-            double operatingStateNumber = 5;
-            string expected = "Stopping";
-            string actual = this.compressorViewModel.ConvertOperatingStateNumberToString(operatingStateNumber);
-            Assert.AreEqual(expected, actual);
-        }
-
         [TestMethod()]
         public void OperatingStateTest()
         {

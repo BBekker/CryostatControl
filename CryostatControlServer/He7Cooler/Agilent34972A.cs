@@ -1,15 +1,12 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="Agilent34972A.cs" company="SRON">
-//     Copyright (c) SRON. All rights reserved.
+//     Copyright (c) 2017 SRON
 // </copyright>
-// <author>Bernard Bekker</author>
 //-----------------------------------------------------------------------
 
 namespace CryostatControlServer.He7Cooler
 {
-    using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
     using System.Threading;
 
     using CryostatControlServer.Streams;
@@ -45,7 +42,7 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         /// <param name="channelIds">Sensor ID's to measure.</param>
         /// <returns>array of voltages in the same ordering as channelIds</returns>
-        public double[] GetVoltages(Channels[] channelIds)
+        public virtual double[] GetVoltages(Channels[] channelIds)
         {
             try
             {
@@ -107,12 +104,12 @@ namespace CryostatControlServer.He7Cooler
         }
 
         /// <summary>
-        /// The is connected.
+        /// Determines whether this instance is connected.
         /// </summary>
         /// <returns>
-        /// The <see cref="bool"/>.
+        ///   <c>true</c> if this instance is connected; otherwise, <c>false</c>.
         /// </returns>
-        public bool IsConnected()
+        public virtual bool IsConnected()
         {
             return this.connection?.IsConnected() ?? false;
         }
@@ -221,7 +218,7 @@ namespace CryostatControlServer.He7Cooler
         /// </summary>
         /// <param name="heatId">The heater identifier.</param>
         /// <param name="setVoltage">The set voltage.</param>
-        public void SetHeaterVoltage(Channels heatId, double setVoltage)
+        public virtual void SetHeaterVoltage(Channels heatId, double setVoltage)
         {
             try
             {

@@ -73,7 +73,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.4")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public double ControllerHe3HeaterPower {
             get {
                 return ((double)(this["ControllerHe3HeaterPower"]));
@@ -97,7 +97,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.8")]
         public double ControllerHe4HeaterPower {
             get {
                 return ((double)(this["ControllerHe4HeaterPower"]));
@@ -193,7 +193,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        [global::System.Configuration.DefaultSettingValueAttribute("12")]
         public double ControllerDisableHeaterHeatSwitchTemperature {
             get {
                 return ((double)(this["ControllerDisableHeaterHeatSwitchTemperature"]));
@@ -217,7 +217,7 @@ namespace CryostatControlServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        [global::System.Configuration.DefaultSettingValueAttribute("40")]
         public double ControllerHe3StartWaitTimeMinutes {
             get {
                 return ((double)(this["ControllerHe3StartWaitTimeMinutes"]));

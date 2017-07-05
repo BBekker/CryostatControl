@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="https://localhost:18081/?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="IsAlive">
     <xs:complexType>
       <xs:sequence />
@@ -115,6 +115,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="Stop">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StopResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="StopResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetState">
     <xs:complexType>
       <xs:sequence />
@@ -124,6 +136,18 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="GetStateResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStartTime">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStartTimeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetStartTimeResult" type="xs:dateTime" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -194,18 +218,6 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ReadBlueforsHeaterPower">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ReadBlueforsHeaterPowerResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ReadBlueforsHeaterPowerResult" type="xs:double" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="WriteSettingValue">
     <xs:complexType>
       <xs:sequence>
@@ -230,20 +242,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ReadSettingsResult" nillable="true" type="q1:ArrayOfdouble" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SetBlueforsHeater">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="status" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="SetBlueforsHeaterResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="SetBlueforsHeaterResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

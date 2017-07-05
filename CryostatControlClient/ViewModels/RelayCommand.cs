@@ -2,9 +2,6 @@
 // <copyright file="RelayCommand.cs" company="https://www.codeproject.com/Tips/813345/Basic-MVVM-and-ICommand-Usage-Example">
 //   Since this class is just a tool to implement commands in MVVM the used class is copied from the source above.
 // </copyright>
-// <summary>
-//   The abstract view model.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SensorArray.cs" company="SRON">
-//      Copyright (c) SRON. All rights reserved.
+//      Copyright (c) 2017 SRON
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 namespace CryostatControlServer.Data
@@ -10,7 +10,7 @@ namespace CryostatControlServer.Data
     using CryostatControlServer.LakeShore;
 
     /// <summary>
-    /// Class which
+    /// class which consists of an array of all sensors.
     /// </summary>
     public class SensorArray
     {
@@ -88,8 +88,6 @@ namespace CryostatControlServer.Data
                 new CryostatControlServer.LakeShore.Sensor(SensorEnum.Plate50K, this.lakeShore);
             sensors[(int)DataEnumerator.LakePlate3K] =
                 new CryostatControlServer.LakeShore.Sensor(SensorEnum.Plate3K, this.lakeShore);
-            sensors[(int)DataEnumerator.LakeHeater] =
-                new CryostatControlServer.LakeShore.Sensor(SensorEnum.HeaterPower, this.lakeShore);
         }
 
         /// <summary>

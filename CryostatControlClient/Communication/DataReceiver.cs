@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DataReceiver.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the He7ViewModel type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.Communication
@@ -62,23 +59,20 @@ namespace CryostatControlClient.Communication
         }
 
         /// <summary>
-        /// The update notification.
+        /// Updates the notification.
         /// </summary>
         /// <param name="notification">
         /// The notification.
         /// </param>
         /// <param name="dataContext">
-        /// The data context.
+        /// The viewmodels.
         /// </param>
         public void UpdateNotification(string[] notification, ViewModelContainer dataContext)
         {
-            App.Current.Dispatcher.Invoke((Action)delegate
+            if (dataContext != null)
             {
-                if (dataContext != null)
-                {
-                    dataContext.MessageBoxViewModel.Message = notification;
-                }
-            });
+                dataContext.MessageBoxViewModel.Message = notification;
+            }
         }
 
         /// <summary>
@@ -151,7 +145,6 @@ namespace CryostatControlClient.Communication
             viewModelContainer.BlueforsViewModel.ConnectionState = data[(int)DataEnumerator.LakeConnectionState];
             viewModelContainer.BlueforsViewModel.ColdPlate50KTemp = data[(int)DataEnumerator.LakePlate50K];
             viewModelContainer.BlueforsViewModel.ColdPlate3KTemp = data[(int)DataEnumerator.LakePlate3K];
-            viewModelContainer.BlueforsViewModel.HeaterPower = data[(int)DataEnumerator.LakeHeater];
         }
 
         #endregion Methods

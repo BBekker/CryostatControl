@@ -1,23 +1,21 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AbstractDataLogger.cs" company="SRON">
-//   k
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the AbstractDataLogger type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.Logging
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.IO;
 
     using CryostatControlServer.Data;
 
     /// <summary>
-    /// The abstract log data.
+    /// The abstract data logger.
     /// </summary>
     public abstract class AbstractDataLogger
     {
@@ -37,8 +35,11 @@ namespace CryostatControlServer.Logging
         protected const int Amountdigits = 3;
 
         /// <summary>
-        /// The device dictionary.
+        /// The device dictionary containing titles for logging.
         /// </summary>
+        [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1013:ClosingCurlyBracketsMustBeSpacedCorrectly", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1012:OpeningCurlyBracketsMustBeSpacedCorrectly", Justification = "Reviewed. Suppression is OK here.")]
+        [SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1009:ClosingParenthesisMustBeSpacedCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         private static readonly Dictionary<int, string> DeviceDictionary = new Dictionary<int, string>()
                                                                   {
                                                                       {(int) DataEnumerator.LakePlate50K, "50K Plate"},
@@ -71,10 +72,7 @@ namespace CryostatControlServer.Logging
                                                                       {(int) DataEnumerator.ComWarning, "Compressor Warning"},
                                                                       {(int) DataEnumerator.ComHoursOfOperation, "Compressor hours of operation"},
                                                                       {(int) DataEnumerator.ComOperationState, "Compressor Opertating State"},
-                                                                      {(int) DataEnumerator.LakeHeater, "LakeShore Heater"}
                                                                   };
-
-        
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractDataLogger"/> class.
@@ -216,6 +214,7 @@ namespace CryostatControlServer.Logging
             {
                 return DeviceDictionary[dataNumber];
             }
+
             return string.Empty;
         }
     }

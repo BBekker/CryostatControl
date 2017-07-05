@@ -1,11 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SettingEnumerator.cs" company="SRON">
-//   bla
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   List of all settings
-//   Make sure these names EXACTLY match those in settings property, ordering doesn't matter
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.HostService.Enumerators
@@ -19,10 +15,10 @@ namespace CryostatControlServer.HostService.Enumerators
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1602:EnumerationItemsMustBeDocumented", Justification = "Reviewed. Suppression is OK here.")]
     public enum SettingEnumerator
     {
-        //        He3PumpMaxVoltage,
-        //        He4PumpMaxVoltage,
-        //        He4SwitchMaxVoltage,
-        //        He3SwitchMaxVoltage,
+        // He3PumpMaxVoltage,
+        // He4PumpMaxVoltage,
+        // He4SwitchMaxVoltage,
+        // He3SwitchMaxVoltage,
         ControllerHe3HeaterPower,
         ControllerHe4HeaterPower,
         ControllerHe3SwitchVoltage,

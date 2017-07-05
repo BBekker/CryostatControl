@@ -1,17 +1,12 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="He7Cooler.cs" company="SRON">
-//   All rights reserved. 2017.
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <author>Bernard Bekker</author>
-// <summary>
-//   Defines the He7Cooler type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.He7Cooler
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
@@ -280,6 +275,12 @@ namespace CryostatControlServer.He7Cooler
             }
         }
 
+        /// <summary>
+        /// Add a heater to the heaters list
+        /// </summary>
+        /// <param name="heater">
+        /// The heater.
+        /// </param>
         protected void AddHeater(Heater heater)
         {
             this.heaters.Add(heater);

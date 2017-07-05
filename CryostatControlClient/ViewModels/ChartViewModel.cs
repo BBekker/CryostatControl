@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ChartViewModel.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The abstract view model.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels
@@ -26,12 +23,12 @@ namespace CryostatControlClient.ViewModels
         #region Fields
 
         /// <summary>
-        /// The switch command
+        /// The zoom command
         /// </summary>
         private ICommand zoomCommand;
 
         /// <summary>
-        /// The reset command
+        /// The reset zooming command
         /// </summary>
         private ICommand resetCommand;
 
@@ -52,7 +49,7 @@ namespace CryostatControlClient.ViewModels
             this.chartModel = new ChartModel();
 
             this.zoomCommand = new RelayCommand(this.ToggleZoomingMode, param => true);
-            this.resetCommand = new RelayCommand(this.ResetZooming, param => true);  
+            this.resetCommand = new RelayCommand(this.ResetZooming, param => true);
         }
 
         #endregion Constructor

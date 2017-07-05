@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SettingEnumeratorDescription.cs" company="SRON">
-//   bla
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The setting descriptions.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.HostService.Enumerators
@@ -17,6 +14,9 @@ namespace CryostatControlServer.HostService.Enumerators
         /// <summary>
         /// Gets description strings of each setting, matches with settingEnumerator
         /// </summary>
+        /// <value>
+        /// The description strings.
+        /// </value>
         public static string[] DescriptionStrings
         {
             get;
@@ -47,6 +47,9 @@ namespace CryostatControlServer.HostService.Enumerators
         /// <summary>
         /// Gets a string with the unit of each setting.
         /// </summary>
+        /// <value>
+        /// The unit strings.
+        /// </value>
         public static string[] UnitStrings
         {
             get;

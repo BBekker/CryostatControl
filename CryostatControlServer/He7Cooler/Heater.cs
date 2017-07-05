@@ -1,16 +1,13 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Heater.cs" company="SRON">
-//   All rights reserved.
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <author>Bernard Bekker</author>
-// <summary>
-//   Representation a heater element on the H7 cooler.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.He7Cooler
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     using CryostatControlServer.Logging;
 
@@ -35,6 +32,26 @@ namespace CryostatControlServer.He7Cooler
             private const double DefaultSafeRangeLow = 0.0;
 
             /// <summary>
+            /// The max value of the integrator.
+            /// </summary>
+            private const double IntegratorMax = 0.15 / Ki;
+
+            /// <summary>
+            /// The derivative gain.
+            /// </summary>
+            private const double Kd = 0.5;
+
+            /// <summary>
+            /// The integral gain.
+            /// </summary>
+            private const double Ki = 0.004;
+
+            /// <summary>
+            /// The proportional gain.
+            /// </summary>
+            private const double Kp = 0.18;
+
+            /// <summary>
             /// The resistance of the heater resistor.
             /// </summary>
             private readonly double resistance = 1;
@@ -48,6 +65,11 @@ namespace CryostatControlServer.He7Cooler
             /// The H7 cooler device.
             /// </summary>
             private He7Cooler device;
+
+            /// <summary>
+            /// The filter factor.
+            /// </summary>
+            private double filterFactor = 0.50;
 
             /// <summary>
             /// The channel where current voltage is read.
@@ -65,9 +87,19 @@ namespace CryostatControlServer.He7Cooler
             private Channels outchannel;
 
             /// <summary>
+            /// The power limit
+            /// </summary>
+            private double powerLimit;
+
+            /// <summary>
             /// The previous error used for the PID controller.
             /// </summary>
             private double previousError = 0.0;
+
+            /// <summary>
+            /// The previous derivative
+            /// </summary>
+            private double previousDerivative = 0.0;
 
             /// <summary>
             /// The previous loop time.
@@ -80,24 +112,11 @@ namespace CryostatControlServer.He7Cooler
             private Sensor temperatureFeedback;
 
             /// <summary>
-            /// The proportional gain.
+            /// The temperature setpoint
             /// </summary>
-            private double kP = 0.2;
+            private double temperatureSetpoint;
 
-            /// <summary>
-            /// The integral gain.
-            /// </summary>
-            private double ki = 0.005;
-
-            /// <summary>
-            /// The derivative gain.
-            /// </summary>
-            private double kd = 0.0;
-
-            /// <summary>
-            /// The max value of the integrator.
-            /// </summary>
-            private double integratorMax = 20;
+            private bool temperatureControlEnabled = false;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="Heater"/> class.
@@ -162,63 +181,23 @@ namespace CryostatControlServer.He7Cooler
                 this.resistance = resistance;
                 this.calibration = outputCalibration;
 
-
                 device.AddHeater(this);
             }
 
             /// <summary>
-            /// Finalizes an instance of the <see cref="Heater"/> class.
+            /// Finalizes an instance of the <see cref="Heater" /> class.
             /// </summary>
             ~Heater()
             {
                 this.device.RemoveChannel(this.inchannel);
             }
 
-            private double temperatureSetpoint;
-            /// <summary>
-            /// Gets or sets the temperature setpoint in Kelvin.
-            /// </summary>
-            public double TemperatureSetpoint {
-                get
-                {
-                    return this.temperatureSetpoint;
-                }
-                set
-                {
-                    this.temperatureSetpoint = value;
-                }
-            }
-
-            /// <summary>
-            /// Gets or sets a value indicating whether temperature control enabled.
-            /// </summary>
-            public bool TemperatureControlEnabled { get; set; } = false;
-
-            private double powerLimit;
-
-            /// <summary>
-            /// Gets or sets the power limit in Watt.
-            /// </summary>
-            public double PowerLimit
-            {
-                get
-                {
-                    return this.powerLimit;
-                }
-
-                set
-                {
-                    if (this.SafeRangeHigh < this.calibration.ConvertValue(this.PowerToVoltage(value)))
-                    {
-                        throw new ArgumentOutOfRangeException($"maxpower {value} -> voltage {this.calibration.ConvertValue(this.PowerToVoltage(value))} exeeds the safety limit {this.SafeRangeHigh} of this heater.");
-                    }
-                    this.powerLimit = value;
-                }
-            }
-
             /// <summary>
             /// Gets or sets the current.
             /// </summary>
+            /// <value>
+            /// The current.
+            /// </value>
             public double Current
             {
                 get
@@ -235,6 +214,9 @@ namespace CryostatControlServer.He7Cooler
             /// <summary>
             /// Gets or sets the power.
             /// </summary>
+            /// <value>
+            /// The power.
+            /// </value>
             public double Power
             {
                 get
@@ -249,18 +231,93 @@ namespace CryostatControlServer.He7Cooler
             }
 
             /// <summary>
+            /// Gets or sets the power limit in Watt.
+            /// </summary>
+            /// <value>
+            /// The power limit.
+            /// </value>
+            /// <exception cref="System.ArgumentOutOfRangeException">Argument out of range exception</exception>
+            public double PowerLimit
+            {
+                get
+                {
+                    return this.powerLimit;
+                }
+
+                set
+                {
+                    if (this.SafeRangeHigh < this.calibration.ConvertValue(this.PowerToVoltage(value)))
+                    {
+                        throw new ArgumentOutOfRangeException(
+                            $"maxPower {value} -> voltage {this.calibration.ConvertValue(this.PowerToVoltage(value))} exeeds the safety limit {this.SafeRangeHigh} of this heater.");
+                    }
+
+                    this.powerLimit = value;
+                }
+            }
+
+            /// <summary>
             /// Gets or sets the voltage safe range high side.
             /// </summary>
+            /// <value>
+            /// The safe range high.
+            /// </value>
             public double SafeRangeHigh { get; set; }
 
             /// <summary>
             /// Gets or sets the voltage safe range low side.
             /// </summary>
+            /// <value>
+            /// The safe range low.
+            /// </value>
             public double SafeRangeLow { get; set; }
+
+            /// <summary>
+            /// Gets or sets a value indicating whether temperature control enabled.
+            /// </summary>
+            public bool TemperatureControlEnabled
+            {
+                get
+                {
+                    return this.temperatureControlEnabled;
+                }
+                set
+                {
+                    if (this.temperatureControlEnabled == false && value == true)
+                    {
+                        this.integrator = 0;
+                        this.previousError = double.NaN;
+                        this.previousDerivative = double.NaN;
+                    }
+                    this.temperatureControlEnabled = value;
+                }
+            }
+
+            /// <summary>
+            /// Gets or sets the temperature setpoint in Kelvin.
+            /// </summary>
+            /// <value>
+            /// The temperature setpoint.
+            /// </value>
+            public double TemperatureSetpoint
+            {
+                get
+                {
+                    return this.temperatureSetpoint;
+                }
+
+                set
+                {
+                    this.temperatureSetpoint = value;
+                }
+            }
 
             /// <summary>
             /// Gets or sets the voltage of the heater.
             /// </summary>
+            /// <value>
+            /// The voltage.
+            /// </value>
             public double Voltage
             {
                 get
@@ -278,6 +335,81 @@ namespace CryostatControlServer.He7Cooler
             }
 
             /// <summary>
+            /// The control temperature loop function.
+            /// </summary>
+            /// <param name="TSet">
+            /// The t set.
+            /// </param>
+            /// <param name="maxPower">
+            /// The maxPower.
+            /// </param>
+            [SuppressMessage(
+                "StyleCop.CSharp.NamingRules",
+                "SA1306:FieldNamesMustBeginWithLowerCaseLetter",
+                Justification = "Reviewed. Suppression is OK here.")]
+            public void ControlTemperature(double TSet, double maxPower)
+            {
+                double error = TSet - this.temperatureFeedback.Value; // Positive if too cold
+                var deltaError = this.CalculateDerivative(error);
+
+                var P = error * Heater.Kp;
+                var I = this.integrator * Heater.Ki;
+                var D = this.CalculateDerivative(error) * Heater.Kd;
+
+                double output = P + I + D;
+                
+                try
+                {
+                    if (output > maxPower)
+                    {
+                        this.SetOutput(this.calibration.ConvertValue(this.PowerToVoltage(maxPower)));
+                        this.integrator = 0;
+                    }
+                    else if (output < 0)
+                    {
+                        this.SetOutput(0);
+                        this.integrator = Math.Max(error + this.integrator, 0);
+                    }
+                    else
+                    {
+                        this.SetOutput(this.calibration.ConvertValue(this.PowerToVoltage(output)));
+                        this.integrator = Math.Min(error + this.integrator, Heater.IntegratorMax);
+                    }
+                }
+                catch (Exception e)
+                {
+                    DebugLogger.Error("Heater", e.ToString(), false);
+                }
+            }
+
+            /// <summary>
+            /// Calculate the filtered derivative
+            /// </summary>
+            /// <param name="error">The error.</param>
+            /// <returns>The filtered value</returns>
+            private double CalculateDerivative(double error)
+            { 
+                if (double.IsNaN(this.previousError))
+                {
+                    this.previousError = error;
+                }
+                
+                var dt = Math.Max((DateTime.Now - this.previousLoopTime).TotalSeconds, 1.0);
+                var dedt = ((error - this.previousError) / dt);
+
+                if (double.IsNaN(this.previousDerivative))
+                {
+                    this.previousDerivative = dedt;
+                }
+
+                this.previousDerivative = (this.filterFactor * this.previousDerivative) + ((1 - this.filterFactor) * dedt);
+                this.previousError = error;
+                this.previousLoopTime = DateTime.Now;
+
+                return this.previousDerivative;
+            }
+
+            /// <summary>
             /// Notify the heater it has received new measurements.
             /// </summary>
             public void Notify()
@@ -288,49 +420,7 @@ namespace CryostatControlServer.He7Cooler
                 }
             }
 
-            /// <summary>
-            /// The control temperature loop function.
-            /// </summary>
-            /// <param name="TSet">
-            /// The t set.
-            /// </param>
-            /// <param name="maxpower">
-            /// The maxpower.
-            /// </param>
-            public void ControlTemperature(double TSet, double maxpower)
-            {
-                double error = TSet - this.temperatureFeedback.Value; // Positive if too cold
 
-                double output = 0;
-                output += error * this.kP;
-                output += this.integrator * this.ki;
-                output += (error - this.previousError) / (DateTime.Now - this.previousLoopTime).TotalSeconds * this.kd;
-
-                try
-                {
-                    if (output > maxpower)
-                    {
-                        this.SetOutput(this.calibration.ConvertValue(PowerToVoltage(maxpower)));
-                    }
-                    else if (output < 0)
-                    {
-                        this.SetOutput(0);
-                        this.integrator = Math.Min(Math.Max(error + this.integrator, 0),this.integratorMax);
-                    }
-                    else
-                    {
-                        this.SetOutput(this.calibration.ConvertValue(PowerToVoltage(output)));
-                        this.integrator = Math.Max(error + this.integrator, 0);
-                    }
-                }
-                catch (Exception e)
-                {
-                    DebugLogger.Error("Heater",e.ToString(), false);
-                }
-
-                this.previousLoopTime = DateTime.Now;
-                this.previousError = error;
-            }
 
             /// <summary>
             /// Convert power to voltage using the heater resistance.

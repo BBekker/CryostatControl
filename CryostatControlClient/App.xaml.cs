@@ -1,20 +1,19 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="App.xaml.cs" company="SRON">
-//      Copyright (c) SRON. All rights reserved.
+//  Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Interaction logic for App.xaml
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace CryostatControlClient
 {
     using System;
     using System.ServiceModel;
+    using System.ServiceModel.Security;
     using System.Threading.Tasks;
     using System.Windows;
 
     using CryostatControlClient.Communication;
     using CryostatControlClient.ServiceReference1;
+    using CryostatControlClient.Properties;
 
     /// <summary>
     /// Interaction logic for <see cref="App.xaml" /></summary>
@@ -24,53 +23,11 @@ namespace CryostatControlClient
         #region Fields
 
         /// <summary>
-        /// The command client
-        /// </summary>
-        private CommandServiceClient commandServiceClient;
-
-        /// <summary>
         /// The server check
         /// </summary>
         private ServerCheck serverCheck;
 
         #endregion Fields
-
-        #region Propertis
-
-        /// <summary>
-        /// Gets or sets the command service client.
-        /// </summary>
-        /// <value>
-        /// The command service client.
-        /// </value>
-        public CommandServiceClient CommandServiceClient
-        {
-            get
-            {
-                return this.commandServiceClient;
-            }
-
-            set
-            {
-                this.commandServiceClient = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the server check.
-        /// </summary>
-        /// <value>
-        /// The server check.
-        /// </value>
-        public ServerCheck ServerCheck
-        {
-            get
-            {
-                return this.serverCheck;
-            }
-        }
-
-        #endregion Propertis
 
         #region Methods
 

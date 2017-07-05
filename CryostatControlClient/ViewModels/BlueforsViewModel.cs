@@ -1,25 +1,17 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="BlueforsViewModel.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The abstract view model.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace CryostatControlClient.ViewModels
 {
-    using System.Windows.Media;
-    using System;
     using System.Windows;
     using System.Windows.Input;
+    using System.Windows.Media;
 
     using CryostatControlClient.Models;
 
-    using LiveCharts;
-    using LiveCharts.Defaults;
     using LiveCharts.Geared;
-    using LiveCharts.Wpf;
 
     /// <summary>
     /// Bluefors ViewModel
@@ -34,12 +26,12 @@ namespace CryostatControlClient.ViewModels
         private BlueforsModel blueforsModel;
 
         /// <summary>
-        /// The cold plate3 k visibility command
+        /// The cold plate 3 k visibility command
         /// </summary>
         private ICommand coldPlate3KVisibilityCommand;
 
         /// <summary>
-        /// The cold plate50 k visibility command
+        /// The cold plate 50 k visibility command
         /// </summary>
         private ICommand coldPlate50KVisibilityCommand;
 
@@ -77,10 +69,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the cold plate3 k visibility command.
+        /// Gets the cold plate 3 k visibility command.
         /// </summary>
         /// <value>
-        /// The cold plate3 k visibility command.
+        /// The cold plate 3 k visibility command.
         /// </value>
         public ICommand ColdPlate3KVisibilityCommand
         {
@@ -91,10 +83,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the cold plate50 k visibility command.
+        /// Gets the cold plate 50 k visibility command.
         /// </summary>
         /// <value>
-        /// The cold plate50 k visibility command.
+        /// The cold plate 50 k visibility command.
         /// </value>
         public ICommand ColdPlate50KVisibilityCommand
         {
@@ -105,10 +97,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the cold plate3 k visibility.
+        /// Gets or sets the cold plate 3 k visibility.
         /// </summary>
         /// <value>
-        /// The cold plate3 k visibility.
+        /// The cold plate 3 k visibility.
         /// </value>
         public Visibility ColdPlate3KVisibility
         {
@@ -124,10 +116,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the cold plate50 k visibility.
+        /// Gets or sets the cold plate 50 k visibility.
         /// </summary>
         /// <value>
-        /// The cold plate50 k visibility.
+        /// The cold plate 50 k visibility.
         /// </value>
         public Visibility ColdPlate50KVisibility
         {
@@ -143,10 +135,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the cold plate3 k line series.
+        /// Gets the cold plate 3 k line series.
         /// </summary>
         /// <value>
-        /// The cold plate3 k line series.
+        /// The cold plate 3 k line series.
         /// </value>
         public GLineSeries ColdPlate3KLineSeriesBottom
         {
@@ -157,10 +149,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the cold plate3 k line series.
+        /// Gets the cold plate 3 k line series.
         /// </summary>
         /// <value>
-        /// The cold plate3 k line series.
+        /// The cold plate 3 k line series.
         /// </value>
         public GLineSeries ColdPlate50KLineSeriesBottom
         {
@@ -171,10 +163,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the cold plate3 k line series.
+        /// Gets the cold plate 3 k line series.
         /// </summary>
         /// <value>
-        /// The cold plate3 k line series.
+        /// The cold plate 3 k line series.
         /// </value>
         public GLineSeries ColdPlate3KLineSeries
         {
@@ -185,10 +177,10 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the cold plate3 k line series.
+        /// Gets the cold plate 3 k line series.
         /// </summary>
         /// <value>
-        /// The cold plate3 k line series.
+        /// The cold plate 3 k line series.
         /// </value>
         public GLineSeries ColdPlate50KLineSeries
         {
@@ -241,6 +233,9 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets or sets the connection state.
         /// </summary>
+        /// <value>
+        /// The state of the connection.
+        /// </value>
         public double ConnectionState
         {
             get
@@ -260,28 +255,14 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets the connection state converted.
         /// </summary>
+        /// <value>
+        /// The connection state converted.
+        /// </value>
         public string ConnectionStateConverted
         {
             get
             {
                 return this.ConvertConnectionStateNumberToString(this.blueforsModel.ConnectionState);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the heater power.
-        /// </summary>
-        public double HeaterPower
-        {
-            get
-            {
-                return this.blueforsModel.HeaterPower;
-            }
-
-            set
-            {
-                this.blueforsModel.HeaterPower = value;
-                this.RaisePropertyChanged("HeaterPower");
             }
         }
 

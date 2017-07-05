@@ -1,19 +1,19 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ViewModelContainer.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The abstract view model.
-// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels
 {
     using System;
     using CryostatControlClient.ViewModels;
     using LiveCharts;
+    using LiveCharts.Configurations;
+    using LiveCharts.Defaults;
 
     /// <summary>
-    /// The data context.
+    /// The viewmodel container.
     /// </summary>
     public class ViewModelContainer
     {
@@ -60,7 +60,15 @@ namespace CryostatControlClient.ViewModels
         /// The x formatter.
         /// </value>
         public Func<double, string> XFormatter { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the x formatter.
+        /// </summary>
+        /// <value>
+        /// The x formatter.
+        /// </value>
+        public Func<double, string> YFormatter { get; set; }
+
         /// <summary>
         /// Gets the BlueforsViewModel.
         /// </summary>
@@ -86,7 +94,7 @@ namespace CryostatControlClient.ViewModels
         public He7ViewModel He7ViewModel { get; }
 
         /// <summary>
-        /// Gets the logging view model.
+        /// Gets the LoggingViewmodel.
         /// </summary>
         /// <value>
         /// The logging view model.
@@ -94,7 +102,7 @@ namespace CryostatControlClient.ViewModels
         public LoggingViewModel LoggingViewModel { get; }
 
         /// <summary>
-        /// Gets the modus view model.
+        /// Gets the ModusViewmodel.
         /// </summary>
         /// <value>
         /// The modus view model.
@@ -102,17 +110,17 @@ namespace CryostatControlClient.ViewModels
         public ModusViewModel ModusViewModel { get; }
 
         /// <summary>
-        /// Gets or sets the message box view model.
+        /// Gets or sets the MessageBoxViewmodel.
         /// </summary>
         public MessageBoxViewModel MessageBoxViewModel { get; set; }
         
         /// <summary>
-        /// Gets the settings view model.
+        /// Gets the SettingsViewmodel.
         /// </summary>
         public SettingsViewModel SettingsViewModel { get; private set; }
 
         /// <summary>
-        /// Gets the zooming view model.
+        /// Gets the ZoomingViewmodel.
         /// </summary>
         /// <value>
         /// The zooming view model.
@@ -124,7 +132,7 @@ namespace CryostatControlClient.ViewModels
         #region Methods
 
         /// <summary>
-        /// Initializes the series collection.
+        /// Initializes the series collection for the chart tab chart.
         /// </summary>
         private void InitSeriesCollection()
         {
@@ -146,17 +154,23 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Initializes the series collection.
+        /// Initializes the series collection for the bottom chart.
         /// </summary>
         private void InitSeriesCollection2()
         {
-            this.SeriesCollection2 = new SeriesCollection
+            var mapper = Mappers.Xy<ObservablePoint>()
+                .X(point => point.X) //a 10 base log scale in the X axis
+                .Y(point => Math.Log(point.Y, 10));
+
+            this.SeriesCollection2 = new SeriesCollection(mapper)
                                          {
                                              this.BlueforsViewModel.ColdPlate3KLineSeriesBottom,
                                              this.BlueforsViewModel.ColdPlate50KLineSeriesBottom,
                                              this.He7ViewModel.He3HeadLineSeriesBottom,
                                              this.He7ViewModel.He4HeadLineSeriesBottom,
                                          };
+
+            this.YFormatter = value => Math.Pow(10, value).ToString("N");
         }
 
         /// <summary>

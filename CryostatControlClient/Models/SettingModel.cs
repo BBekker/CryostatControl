@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SettingModel.cs" company="SRON">
-//   bla
+//  Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the SettingModel type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.Models
@@ -40,21 +37,33 @@ namespace CryostatControlClient.Models
         /// <summary>
         /// Gets the id.
         /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
         public int Id { get; }
 
         /// <summary>
         /// Gets or sets the title.
         /// </summary>
+        /// <value>
+        /// The title.
+        /// </value>
         public string Title { get; set; }
 
         /// <summary>
         /// Gets the unit.
         /// </summary>
+        /// <value>
+        /// The unit.
+        /// </value>
         public string Unit { get; }
 
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value { get; set; }
     }
 }

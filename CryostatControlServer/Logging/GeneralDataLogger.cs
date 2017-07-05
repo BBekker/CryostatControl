@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="GeneralDataLogger.cs" company="SRON">
-//   k
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the GeneralDataLogger type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.Logging
@@ -19,7 +16,6 @@ namespace CryostatControlServer.Logging
     /// </summary>
     public class GeneralDataLogger : AbstractDataLogger
     {
-
         /// <summary>
         /// Write general data to log.
         /// </summary>
@@ -61,7 +57,7 @@ namespace CryostatControlServer.Logging
         /// The create array with only true.
         /// </summary>
         /// <returns>
-        /// The <see cref="bool[]"/>.
+        /// The <see cref="bool[]"/> containing a list with only true.
         /// </returns>
         public bool[] CreateArrayWithOnlyTrue()
         {

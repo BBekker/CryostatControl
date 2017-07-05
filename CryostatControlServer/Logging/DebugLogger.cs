@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DebugLogger.cs" company="SRON">
-//   k
+//   Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the DebugLogger type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.Logging
@@ -12,7 +9,6 @@ namespace CryostatControlServer.Logging
     using System;
     using System.Globalization;
     using System.IO;
-    using System.Text;
 
     using CryostatControlServer.Properties;
 
@@ -39,16 +35,10 @@ namespace CryostatControlServer.Logging
         /// <summary>
         /// Gets the general main folder.
         /// </summary>
-        private static string GeneralMainFolder
-        {
-            get
-            {
-                return Settings.Default.LoggingAddress + @"\General";
-            }
-        }
+        private static string GeneralMainFolder { get; } = Settings.Default.LoggingAddress + @"\General";
 
         /// <summary>
-        /// The error.
+        /// Log the error in file and client notifications.
         /// </summary>
         /// <param name="tag">
         /// The tag.
@@ -62,7 +52,7 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
-        /// The error.
+        /// Log the error.
         /// </summary>
         /// <param name="tag">
         /// The tag.
@@ -71,7 +61,7 @@ namespace CryostatControlServer.Logging
         /// The data.
         /// </param>
         /// <param name="sendAsNotification">
-        /// The send as notification.
+        /// Send as notification.
         /// </param>
         public static void Error(string tag, string data, bool sendAsNotification)
         {
@@ -92,7 +82,7 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
-        /// Warnings the specified tag.
+        /// Log the warning in file and client notifications.
         /// </summary>
         /// <param name="tag">The tag.</param>
         /// <param name="data">The data.</param>
@@ -102,7 +92,7 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
-        /// The warning.
+        /// Log the warning.
         /// </summary>
         /// <param name="tag">
         /// The tag.
@@ -111,7 +101,7 @@ namespace CryostatControlServer.Logging
         /// The data.
         /// </param>
         /// <param name="sendAsNotification">
-        /// The send as notification.
+        /// Send as notification.
         /// </param>
         public static void Warning(string tag, string data, bool sendAsNotification)
         {
@@ -132,7 +122,7 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
-        /// Information the specified tag.
+        /// Log information in file and client notifications
         /// </summary>
         /// <param name="tag">The tag.</param>
         /// <param name="data">The data.</param>
@@ -142,7 +132,7 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
-        /// The info.
+        /// Log the information.
         /// </summary>
         /// <param name="tag">
         /// The tag.
@@ -151,7 +141,7 @@ namespace CryostatControlServer.Logging
         /// The data.
         /// </param>
         /// <param name="sendAsNotification">
-        /// The send as notification.
+        /// Send as notification.
         /// </param>
         public static void Info(string tag, string data, bool sendAsNotification)
         {
@@ -188,7 +178,6 @@ namespace CryostatControlServer.Logging
         /// </param>
         public static void WriteToFile(string time, string level, string tag, string data)
         {
-
             string dataLine = time + "," + tag + "," + level + ": " + data;
 #if DEBUG
             Console.WriteLine(dataLine);
@@ -224,13 +213,13 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
-        /// The create folder.
+        /// Create folder.
         /// </summary>
         /// <param name="mainFolderPath">
         /// The main folder path.
         /// </param>
         /// <returns>
-        /// The <see cref="string"/>.
+        /// The <see cref="string"/> of the folderpath.
         /// </returns>
         private static string CreateFolder(string mainFolderPath)
         {
@@ -238,7 +227,7 @@ namespace CryostatControlServer.Logging
             string year = currentDateTime.Year.ToString();
             string month = currentDateTime.ToString("MMMM", new CultureInfo("en-US"));
             string newFolderName = year + @"\" + month + @"\";
-            string pathToNewFolder = System.IO.Path.Combine(mainFolderPath, newFolderName);
+            string pathToNewFolder = Path.Combine(mainFolderPath, newFolderName);
 
             try
             {
@@ -253,7 +242,7 @@ namespace CryostatControlServer.Logging
         }
 
         /// <summary>
-        /// The create file.
+        /// Create debug logger file.
         /// </summary>
         private static void CreateFile()
         {
@@ -265,9 +254,9 @@ namespace CryostatControlServer.Logging
             Console.WriteLine(actualPathToFile);
             try
             {
-                if (!System.IO.File.Exists(actualPathToFile))
+                if (!File.Exists(actualPathToFile))
                 {
-                    System.IO.File.Create(actualPathToFile).Close();
+                    File.Create(actualPathToFile).Close();
                 }
             }
             catch (Exception)

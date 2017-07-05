@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ControlState.cs" company="SRON">
-//   bla
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Enum of possible states for the control state machine
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer
@@ -130,6 +127,11 @@ namespace CryostatControlServer
         /// <summary>
         /// Cancel the current action and go back to standby.
         /// </summary>
-        CancelAll,
+        Cancel,
+
+        /// <summary>
+        /// Stop all devices / complete shutdown.
+        /// </summary>
+        Stop
     }
 }

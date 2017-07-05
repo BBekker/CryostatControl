@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="Calibration.cs" company="SRON">
-//   All rights reserved
+//  Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The he 7 cooler.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlServer.He7Cooler
@@ -35,6 +32,9 @@ namespace CryostatControlServer.He7Cooler
             Justification = "Reviewed. Suppression is OK here.")]
         private const string RUOXFile = "Calibrations\\RUOX.CAL";
 
+        /// <summary>
+        /// The amplifiers calibration file.
+        /// </summary>
         private const string AmplifiersFile = "Calibrations\\AMPLIFIERS.cal";
 
         /// <summary>

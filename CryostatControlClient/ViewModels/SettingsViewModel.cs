@@ -1,23 +1,17 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SettingsViewModel.cs" company="SRON">
-//   bla
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The settings view model.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace CryostatControlClient.ViewModels
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.ServiceModel;
     using System.Threading.Tasks;
-    using System.Windows;
     using System.Windows.Input;
-
+    
+    using CryostatControlClient.Communication;
     using CryostatControlClient.Models;
-    using CryostatControlClient.ServiceReference1;
 
     using CryostatControlServer.HostService.Enumerators;
 
@@ -37,7 +31,7 @@ namespace CryostatControlClient.ViewModels
         private double[] oldSettings;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SettingsViewModel"/> class.
+        /// Initializes a new instance of the <see cref="SettingsViewModel" /> class.
         /// </summary>
         public SettingsViewModel()
         {
@@ -48,11 +42,17 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets the confirm settings click.
         /// </summary>
+        /// <value>
+        /// The confirm settings click.
+        /// </value>
         public ICommand ConfirmSettingsClick { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the settings tab is selected.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is selected; otherwise, <c>false</c>.
+        /// </value>
         public bool IsSelected
         {
             get
@@ -73,10 +73,13 @@ namespace CryostatControlClient.ViewModels
         /// <summary>
         /// Gets the settings.
         /// </summary>
+        /// <value>
+        /// The settings.
+        /// </value>
         public ObservableCollection<SettingModel> Settings { get; }
 
         /// <summary>
-        /// The get current values.
+        /// Gets the current values.
         /// </summary>
         /// <returns>
         /// The <see cref="double[]"/>.
@@ -93,30 +96,30 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Send changes in settings to the server
+        /// Sends changes in settings to the server
         /// </summary>
         private void SendChanges()
         {
-            var app = Application.Current as App;
-            if (app == null || app.CommandServiceClient.State != CommunicationState.Opened)
-            {
-                return;
-            }
+            ServerCheck.SendMessage(new Task(() => { this.WriteSettings(); }));
+        }
 
-            CommandServiceClient commandServiceClient = app.CommandServiceClient;
-
+        /// <summary>
+        /// Writes the settings to the server.
+        /// </summary>
+        private void WriteSettings()
+        {
             var newSettings = this.GetCurrentValues();
             for (int i = 0; i < newSettings.Length; i++)
             {
                 if (Math.Abs(newSettings[i] - this.oldSettings[i]) > 0.01)
                 {
-                    commandServiceClient.WriteSettingValueAsync(i, newSettings[i]);
+                    ServerCheck.CommandClient.WriteSettingValue(i, newSettings[i]);
                 }
             }
         }
 
         /// <summary>
-        /// Update the displayed settings
+        /// Updates the displayed settings
         /// </summary>
         /// <param name="settingValues">
         /// The setting values.
@@ -137,21 +140,23 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// The update settings from server async.
+        /// Updates the displayed settings async
         /// </summary>
         private void UpdateSettingsFromServerAsync()
         {
-            var app = Application.Current as App;
-            if (app == null || app.CommandServiceClient.State != CommunicationState.Opened)
-            {
-                return;
-            }
+            ServerCheck.SendMessage(new Task(() => { ReadSettings(); }));
+        }
 
-            CommandServiceClient commandServiceClient = app.CommandServiceClient;
-            var readTask = commandServiceClient.ReadSettingsAsync();
-            readTask.ContinueWith(
-                result => this.UpdateSettings(result.Result),
-                TaskScheduler.FromCurrentSynchronizationContext());
+        /// <summary>
+        /// Reads the settings from the server.
+        /// </summary>
+        private void ReadSettings()
+        {
+            double[] settings = ServerCheck.CommandClient.ReadSettings();
+            App.Current.Dispatcher.Invoke((Action)delegate
+            {            
+                this.UpdateSettings(settings);
+            });
         }
     }
 }

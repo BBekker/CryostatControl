@@ -1,13 +1,13 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="CryostatControl.cs" company="SRON">
-//      Copyright (c) SRON. All rights reserved.
+//      Copyright (c) 2017 SRON
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 namespace CryostatControlServer
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
 
+    using CryostatControlServer.Compressor;
     using CryostatControlServer.Data;
     using CryostatControlServer.HostService.Enumerators;
     using CryostatControlServer.Logging;
@@ -135,17 +135,6 @@ namespace CryostatControlServer
         #region Methods
 
         /// <summary>
-        /// The read heater power.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="double"/>.
-        /// </returns>
-        public double ReadBlueforsHeaterPower()
-        {
-            return this.lakeShore.GetHeaterPower();
-        }
-
-        /// <summary>
         /// Cancels the current command safely.
         /// </summary>
         public void CancelCommand()
@@ -154,7 +143,7 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// Starts the cool down id possible.
+        /// Starts the cool down.
         /// </summary>
         /// <returns>true if cool down is started, false otherwise</returns>
         public bool StartCooldown()
@@ -163,7 +152,15 @@ namespace CryostatControlServer
         }
 
         /// <summary>
-        /// Starts the cool down id possible.
+        /// Stop command for the controller. Which stops the current process of the controller and turns everything off.
+        /// </summary>
+        public void StopCommand()
+        {
+            this.controller.StopCommand();
+        }
+
+        /// <summary>
+        /// Starts the cool down.
         /// </summary>
         /// <param name="time">
         /// The time.
@@ -236,30 +233,6 @@ namespace CryostatControlServer
         public double[] ReadData()
         {
             return this.dataReader.GetDataArray();
-        }
-
-        /// <summary>
-        /// Turn bluefors heater on or off.
-        /// </summary>
-        /// <param name="status">
-        /// The status.
-        /// </param>
-        /// <returns>
-        /// True if successfully executed <see cref="bool"/>.
-        /// </returns>
-        [SuppressMessage(
-            "StyleCop.CSharp.DocumentationRules",
-            "SA1650:ElementDocumentationMustBeSpelledCorrectly",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public bool SetBlueforsHeater(bool status)
-        {
-            if (!this.ManualControl)
-            {
-                return false;
-            }
-
-            this.lakeShore.SetHeater(true);
-            return true;
         }
 
         /// <summary>

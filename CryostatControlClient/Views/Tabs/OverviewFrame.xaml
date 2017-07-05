@@ -23,26 +23,29 @@
         <RowDefinition Height="*" />
         <RowDefinition Height="*" />
         <RowDefinition Height="*" />
-        <RowDefinition Height="*" />
+        <RowDefinition Height="auto" />
         <RowDefinition Height="*" />
         <RowDefinition Height="*" />
         <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-    <Border Grid.Row="2" Grid.Column="5" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center"/>
-    <Border Grid.Row="4" Grid.Column="5" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center"/>
-    <Border Grid.Row="8" Grid.Column="4" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center"/>
-    <Border Grid.Row="8" Grid.Column="6" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center"/>
+    <Border Grid.Row="2" Grid.Column="5" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center" />
+    <Border Grid.Row="4" Grid.Column="5" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center" />
+    <Border Grid.Row="8" Grid.Column="4" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center" />
+    <Border Grid.Row="8" Grid.Column="6" BorderBrush="Black" BorderThickness="0 0 3 0" HorizontalAlignment="Center" />
 
-    <Border Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="3" Background="White" CornerRadius="2"/>
-    <Border Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="3" Background="White" CornerRadius="2">
+    <Border Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="3" Background="White"
+            CornerRadius="2" />
+    <Border Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="3" Background="White"
+            CornerRadius="2">
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label>50K Plate</Label>
             <Label Content="{Binding BlueforsViewModel.ColdPlate50KTemp}" ContentStringFormat="{}{0:N2}" />
             <Label>K</Label>
         </StackPanel>
     </Border>
-    <Border Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="3" Background="White" CornerRadius="2">
+    <Border Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="5" BorderBrush="Black" BorderThickness="3" Background="White"
+            CornerRadius="2">
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label>3K Plate</Label>
             <Label Content="{Binding BlueforsViewModel.ColdPlate3KTemp}" ContentStringFormat="{}{0:N2}" />
@@ -51,10 +54,20 @@
     </Border>
 
     <Border Grid.Row="7" Grid.Column="4" BorderBrush="Black" BorderThickness="3" Background="White" CornerRadius="2">
-        <StackPanel Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label Content="{Binding He7ViewModel.He3PumpTemp}" ContentStringFormat="{}{0:N3}" />
-            <Label>K</Label>
-        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Content="{Binding He7ViewModel.He3PumpTemp}" ContentStringFormat="{}{0:N3}" />
+            <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left">K</Label>
+            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Content="{Binding He7ViewModel.He3PumpActualVolt}" ContentStringFormat="{}{0:N2}" />
+            <Label Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left">V</Label>
+        </Grid>
     </Border>
     <Border Grid.Row="9" Grid.Column="4" BorderBrush="Black" BorderThickness="3" Background="White" CornerRadius="2">
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -63,10 +76,20 @@
         </StackPanel>
     </Border>
     <Border Grid.Row="7" Grid.Column="6" BorderBrush="Black" BorderThickness="3" Background="White" CornerRadius="2">
-        <StackPanel Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Label Content="{Binding He7ViewModel.He4PumpTemp}" ContentStringFormat="{}{0:N3}" />
-            <Label>K</Label>
-        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Content="{Binding He7ViewModel.He4PumpTemp}" ContentStringFormat="{}{0:N3}" />
+            <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left">K</Label>
+            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Content="{Binding He7ViewModel.He4PumpActualVolt}" ContentStringFormat="{}{0:N2}" />
+            <Label Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left">V</Label>
+        </Grid>
     </Border>
     <Border Grid.Row="9" Grid.Column="6" BorderBrush="Black" BorderThickness="3" Background="White" CornerRadius="2">
         <StackPanel Margin="20 0 0 0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -74,7 +97,7 @@
             <Label>K</Label>
         </StackPanel>
     </Border>
-   
+
     <Label Grid.Row="6" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center">He3</Label>
     <Label Grid.Row="6" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center">He4</Label>
 </Grid>

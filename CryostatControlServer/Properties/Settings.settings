@@ -15,13 +15,13 @@
       <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="ControllerHe3HeaterPower" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">1.4</Value>
+      <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="ControllerHe3SwitchVoltage" Type="System.Double" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="ControllerHe4HeaterPower" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">2</Value>
+      <Value Profile="(Default)">1.8</Value>
     </Setting>
     <Setting Name="ControllerHe4SwitchVoltage" Type="System.Double" Scope="User">
       <Value Profile="(Default)">4</Value>
@@ -45,13 +45,13 @@
       <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="ControllerDisableHeaterHeatSwitchTemperature" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">20</Value>
+      <Value Profile="(Default)">12</Value>
     </Setting>
     <Setting Name="ControllerHe3StartMinimalTemperature" Type="System.Double" Scope="User">
       <Value Profile="(Default)">2.5</Value>
     </Setting>
     <Setting Name="ControllerHe3StartWaitTimeMinutes" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">30</Value>
+      <Value Profile="(Default)">40</Value>
     </Setting>
     <Setting Name="PasswordToken" Type="System.String" Scope="User">
       <Value Profile="(Default)">ChangeMe!</Value>

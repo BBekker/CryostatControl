@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LogCompressorPreset.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   Defines the LogCompressorPreset type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels.LoggingPresets
@@ -22,8 +19,6 @@ namespace CryostatControlClient.ViewModels.LoggingPresets
         {
             this.SetLoggingValues(loggingViewModel);
         }
-
-        #region Implementation of ILoggingPreset
 
         /// <summary>
         /// Sets the logging values.
@@ -59,10 +54,6 @@ namespace CryostatControlClient.ViewModels.LoggingPresets
             loggingViewModel.CompressorHighAveragePressure = true;
             loggingViewModel.CompressorLowPressure = true;
             loggingViewModel.CompressorLowAveragePressure = true;
-
-            loggingViewModel.BlueforsHeater = false;
         }
-
-        #endregion
     }
 }

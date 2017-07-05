@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="LogBlueforsPreset.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The log Bluefors preset.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels.LoggingPresets
@@ -59,8 +56,6 @@ namespace CryostatControlClient.ViewModels.LoggingPresets
             loggingViewModel.CompressorHighAveragePressure = false;
             loggingViewModel.CompressorLowPressure = false;
             loggingViewModel.CompressorLowAveragePressure = false;
-
-            loggingViewModel.BlueforsHeater = true;
         }
     }
 }

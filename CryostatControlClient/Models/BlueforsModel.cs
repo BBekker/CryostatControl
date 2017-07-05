@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="BlueforsModel.cs" company="SRON">
-//     Copyright (c) SRON. All rights reserved.
+//     Copyright (c) 2017 SRON
 // </copyright>
 //-----------------------------------------------------------------------
 namespace CryostatControlClient.Models
@@ -33,54 +33,24 @@ namespace CryostatControlClient.Models
         private double coldPlate50KTemp;
 
         /// <summary>
-        /// The cold plate3 k line series
-        /// </summary>
-        private GLineSeries coldPlate3KLineSeries;
-
-        /// <summary>
-        /// The cold plate50 k line series
-        /// </summary>
-        private GLineSeries coldPlate50KLineSeries;
-
-        /// <summary>
-        /// The cold plate3 k temporary list
+        /// The cold plate 3 k temporary list
         /// </summary>
         private double[] coldPlate3KTemporaryList;
 
         /// <summary>
-        /// The cold plate50 k temporary list
+        /// The cold plate 50 k temporary list
         /// </summary>
         private double[] coldPlate50KTemporaryList;
 
         /// <summary>
-        /// The cold plate3 k temporary list
+        /// The cold plate 3 k temporary list
         /// </summary>
         private double[] coldPlate3KTemporaryListBottom;
 
         /// <summary>
-        /// The cold plate50 k temporary list
+        /// The cold plate 50 k temporary list
         /// </summary>
         private double[] coldPlate50KTemporaryListBottom;
-
-        /// <summary>
-        /// The cold plate3 k line series
-        /// </summary>
-        private GLineSeries coldPlate3KLineSeriesBottom;
-
-        /// <summary>
-        /// The cold plate50 k line series
-        /// </summary>
-        private GLineSeries coldPlate50KLineSeriesBottom;
-
-        /// <summary>
-        /// The connection state.
-        /// </summary>
-        private double connectionState;
-
-        /// <summary>
-        /// The heater power.
-        /// </summary>
-        private double heaterPower;
 
         #endregion Fields
 
@@ -97,10 +67,10 @@ namespace CryostatControlClient.Models
             this.coldPlate3KTemporaryListBottom = new double[this.TemporaryListSize];
             this.coldPlate50KTemporaryListBottom = new double[this.TemporaryListSize];
 
-            this.coldPlate3KLineSeries = new GLineSeries { Title = "Bluefors - 3K Plate", Values = new GearedValues<DateTimePoint>() };
-            this.coldPlate50KLineSeries = new GLineSeries { Title = "Bluefors - 50K Plate", Values = new GearedValues<DateTimePoint>() };
-            this.coldPlate3KLineSeriesBottom = new GLineSeries { Title = "Bluefors - 3K Plate", Values = new GearedValues<DateTimePoint>() };
-            this.coldPlate50KLineSeriesBottom = new GLineSeries { Title = "Bluefors - 50K Plate", Values = new GearedValues<DateTimePoint>() };
+            this.ColdPlate3KLineSeries = new GLineSeries { Title = "Bluefors - 3K Plate", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
+            this.ColdPlate50KLineSeries = new GLineSeries { Title = "Bluefors - 50K Plate", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
+            this.ColdPlate3KLineSeriesBottom = new GLineSeries { Title = "Bluefors - 3K Plate", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
+            this.ColdPlate50KLineSeriesBottom = new GLineSeries { Title = "Bluefors - 50K Plate", Values = new GearedValues<DateTimePoint>(), Fill = Brushes.Transparent };
         }
 
         #endregion Constructor
@@ -108,40 +78,40 @@ namespace CryostatControlClient.Models
         #region Properties
 
         /// <summary>
-        /// Gets or sets the cold plate3 k visibility.
+        /// Gets or sets the cold plate 3 k visibility.
         /// </summary>
         /// <value>
-        /// The cold plate3 k visibility.
+        /// The cold plate 3 k visibility.
         /// </value>
         public Visibility ColdPlate3KVisibility
         {
             get
             {
-                return this.coldPlate3KLineSeries.Visibility;
+                return this.ColdPlate3KLineSeries.Visibility;
             }
 
             set
             {
-                this.coldPlate3KLineSeries.Visibility = value;
+                this.ColdPlate3KLineSeries.Visibility = value;
             }
         }
 
         /// <summary>
-        /// Gets or sets the cold plate50 k visibility.
+        /// Gets or sets the cold plate 50 k visibility.
         /// </summary>
         /// <value>
-        /// The cold plate50 k visibility.
+        /// The cold plate 50 k visibility.
         /// </value>
         public Visibility ColdPlate50KVisibility
         {
             get
             {
-                return this.coldPlate50KLineSeries.Visibility;
+                return this.ColdPlate50KLineSeries.Visibility;
             }
 
             set
             {
-                this.coldPlate50KLineSeries.Visibility = value;
+                this.ColdPlate50KLineSeries.Visibility = value;
             }
         }
 
@@ -151,13 +121,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The cold plate 3 k line series.
         /// </value>
-        public GLineSeries ColdPlate3KLineSeriesBottom
-        {
-            get
-            {
-                return this.coldPlate3KLineSeriesBottom;
-            }
-        }
+        public GLineSeries ColdPlate3KLineSeriesBottom { get; }
 
         /// <summary>
         /// Gets the cold plate 50 k line series.
@@ -165,13 +129,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The cold plate 50 k line series.
         /// </value>
-        public GLineSeries ColdPlate50KLineSeriesBottom
-        {
-            get
-            {
-                return this.coldPlate50KLineSeriesBottom;
-            }
-        }
+        public GLineSeries ColdPlate50KLineSeriesBottom { get; }
 
         /// <summary>
         /// Gets the cold plate 3 k line series.
@@ -179,13 +137,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The cold plate 3 k line series.
         /// </value>
-        public GLineSeries ColdPlate3KLineSeries
-        {
-            get
-            {
-                return this.coldPlate3KLineSeries;
-            }
-        }
+        public GLineSeries ColdPlate3KLineSeries { get; }
 
         /// <summary>
         /// Gets the cold plate 50 k line series.
@@ -193,13 +145,7 @@ namespace CryostatControlClient.Models
         /// <value>
         /// The cold plate 50 k line series.
         /// </value>
-        public GLineSeries ColdPlate50KLineSeries
-        {
-            get
-            {
-                return this.coldPlate50KLineSeries;
-            }
-        }
+        public GLineSeries ColdPlate50KLineSeries { get; }
 
         /// <summary>
         /// Gets or sets the cold plate 3 K temperature.
@@ -217,8 +163,8 @@ namespace CryostatControlClient.Models
             set
             {
                 this.coldPlate3KTemp = value;
-                this.coldPlate3KTemporaryList = this.AddToGraph(this.coldPlate3KTemporaryList, this.coldPlate3KLineSeries, value);
-                this.coldPlate3KTemporaryListBottom = this.AddToGraph(this.coldPlate3KTemporaryListBottom, this.coldPlate3KLineSeriesBottom, value);
+                this.coldPlate3KTemporaryList = this.AddToGraph(this.coldPlate3KTemporaryList, this.ColdPlate3KLineSeries, value);
+                this.coldPlate3KTemporaryListBottom = this.AddToGraph(this.coldPlate3KTemporaryListBottom, this.ColdPlate3KLineSeriesBottom, Math.Log(value, 10));
             }
         }
 
@@ -238,42 +184,15 @@ namespace CryostatControlClient.Models
             set
             {
                 this.coldPlate50KTemp = value;
-                this.coldPlate50KTemporaryList = this.AddToGraph(this.coldPlate50KTemporaryList, this.coldPlate50KLineSeries, value);
-                this.coldPlate50KTemporaryListBottom = this.AddToGraph(this.coldPlate50KTemporaryListBottom, this.coldPlate50KLineSeriesBottom, value);
+                this.coldPlate50KTemporaryList = this.AddToGraph(this.coldPlate50KTemporaryList, this.ColdPlate50KLineSeries, value);
+                this.coldPlate50KTemporaryListBottom = this.AddToGraph(this.coldPlate50KTemporaryListBottom, this.ColdPlate50KLineSeriesBottom, Math.Log(value, 10));
             }
         }
 
         /// <summary>
         /// Gets or sets the connection state.
         /// </summary>
-        public double ConnectionState
-        {
-            get
-            {
-                return this.connectionState;
-            }
-
-            set
-            {
-                this.connectionState = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the heater power.
-        /// </summary>
-        public double HeaterPower
-        {
-            get
-            {
-                return this.heaterPower;
-            }
-
-            set
-            {
-                this.heaterPower = value;
-            }
-        }
+        public double ConnectionState { get; set; }
 
         #endregion Properties
     }

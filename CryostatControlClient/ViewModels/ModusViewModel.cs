@@ -1,25 +1,25 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ModusViewModel.cs" company="SRON">
-//   k
+//      Copyright (c) 2017 SRON
 // </copyright>
-// <summary>
-//   The abstract view model.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace CryostatControlClient.ViewModels
 {
     using System;
+    using System.ServiceModel;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Media;
 
+    using CryostatControlClient.Communication;
     using CryostatControlClient.Models;
 
     using CryostatControlServer;
 
     /// <summary>
-    /// For trying out
+    /// The modus viewmodel
     /// </summary>
     /// <seealso cref="CryostatControlClient.ViewModels.AbstractViewModel" />
     public class ModusViewModel : AbstractViewModel
@@ -40,6 +40,11 @@ namespace CryostatControlClient.ViewModels
         /// The manual button command
         /// </summary>
         private ICommand manualButtonCommand;
+
+        /// <summary>
+        /// The stop button command
+        /// </summary>
+        private ICommand stopButtonCommand;
 
         /// <summary>
         /// The radio button command
@@ -66,12 +71,128 @@ namespace CryostatControlClient.ViewModels
             this.RadioButtonCommand = new RelayCommand(this.OnChangeRadio, param => true);
             this.cancelButtonCommand = new RelayCommand(this.OnClickCancel, param => true);
             this.manualButtonCommand = new RelayCommand(this.OnClickManual, param => true);
+            this.stopButtonCommand = new RelayCommand(this.onClickStop, param => true);
             this.ToggleTime();
         }
 
         #endregion Constructor
 
         #region Properties
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is manual.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is manual; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsManual
+        {
+            get
+            {
+                return this.Modus == (int)Controlstate.Manual;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [show tool tip start].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [show tool tip start]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ShowToolTipStart
+        {
+            get
+            {
+                return this.ToolTipStart != string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [show tool tip stop].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [show tool tip stop]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ShowToolTipStop
+        {
+            get
+            {
+                return this.ToolTipStop != string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether [show tool tip manual].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [show tool tip manual]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ShowToolTipManual
+        {
+            get
+            {
+                return this.ToolTipManual != string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Gets the tool tip start.
+        /// </summary>
+        /// <value>
+        /// The tool tip start.
+        /// </value>
+        public string ToolTipStart
+        {
+            get
+            {
+                switch (this.Modus)
+                {
+                    case (int)Controlstate.Standby: return string.Empty;
+                    default:
+                        return "Only available if system is in standby mode";
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the tool tip stop.
+        /// </summary>
+        /// <value>
+        /// The tool tip stop.
+        /// </value>
+        public string ToolTipStop
+        {
+            get
+            {
+                switch (this.Modus)
+                {
+                    case (int)Controlstate.Standby:
+                        return "Only available if a process is running";
+                    case (int)Controlstate.Setup:
+                        return "Only available if a process is running";
+                    default: return string.Empty;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the tool tip manual.
+        /// </summary>
+        /// <value>
+        /// The tool tip manual.
+        /// </value>
+        public string ToolTipManual
+        {
+            get
+            {
+                switch (this.Modus)
+                {
+                    case (int)Controlstate.Standby: return string.Empty;
+                    default:
+                        return "Only available if system is in standby mode";
+                }
+            }
+        }
 
         /// <summary>
         /// Gets the color of the connection state.
@@ -152,7 +273,7 @@ namespace CryostatControlClient.ViewModels
         {
             get
             {
-                if (String.IsNullOrEmpty(this.PlannedModus))
+                if (string.IsNullOrEmpty(this.PlannedModus))
                 {
                     return Visibility.Hidden;
                 }
@@ -272,6 +393,10 @@ namespace CryostatControlClient.ViewModels
                 this.RaisePropertyChanged("CancelMode");
                 this.RaisePropertyChanged("ModusConverted");
                 this.RaisePropertyChanged("ShowCountdown");
+                this.RaisePropertyChanged("ShowToolTipStart");
+                this.RaisePropertyChanged("ShowToolTipStop");
+                this.RaisePropertyChanged("ShowToolTipManual");
+                this.RaisePropertyChanged("IsManual");
             }
         }
 
@@ -312,7 +437,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets the server converted.
+        /// Gets the server connection converted.
         /// </summary>
         /// <value>
         /// The server converted.
@@ -373,7 +498,7 @@ namespace CryostatControlClient.ViewModels
         #region Commands
 
         /// <summary>
-        /// Gets or sets the hi button command.
+        /// Gets or sets the start button command.
         /// </summary>
         /// <value>
         /// The hi button command.
@@ -411,7 +536,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Gets or sets the manual button command.
+        /// Gets or sets the manual mode button command.
         /// </summary>
         /// <value>
         /// The cancel button command.
@@ -426,6 +551,25 @@ namespace CryostatControlClient.ViewModels
             set
             {
                 this.manualButtonCommand = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the stop button command.
+        /// </summary>
+        /// <value>
+        /// The stop button command.
+        /// </value>
+        public ICommand StopButtonCommand
+        {
+            get
+            {
+                return this.stopButtonCommand;
+            }
+
+            set
+            {
+                this.stopButtonCommand = value;
             }
         }
 
@@ -465,7 +609,7 @@ namespace CryostatControlClient.ViewModels
         }
 
         /// <summary>
-        /// Changes time of command.
+        /// Handles radio change.
         /// </summary>
         /// <param name="obj">The object.</param>
         public void OnChangeRadio(object obj)
@@ -480,7 +624,7 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         public void OnClickStart(object obj)
         {
-            this.RaisePropertyChanged("StartPressed");
+            ServerCheck.SendMessage(new Task(() => { this.StartControlProcess(); }));
         }
 
         /// <summary>
@@ -489,16 +633,60 @@ namespace CryostatControlClient.ViewModels
         /// <param name="obj">The object.</param>
         public void OnClickCancel(object obj)
         {
-            this.RaisePropertyChanged("CancelPressed");
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Cancel(); }));        
         }
 
         /// <summary>
-        /// Called when [click manual].
+        /// Handles manual click.
         /// </summary>
         /// <param name="obj">The object.</param>
         public void OnClickManual(object obj)
         {
-            this.RaisePropertyChanged("ManualPressed");
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Manual(); }));       
+        }
+
+        /// <summary>
+        /// Handles stop click.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        public void onClickStop(object obj)
+        {
+            ServerCheck.SendMessage(new Task(() => { ServerCheck.CommandClient.Stop(); }));
+        }
+
+        /// <summary>
+        /// Task method to start the control process.
+        /// </summary>
+        private void StartControlProcess()
+        {
+            if (ServerCheck.CommandClient.State == CommunicationState.Opened)
+            {
+                int radio = this.SelectedComboIndex;
+                string postpone = this.Time;
+                DateTime startTime = DateTime.Now;
+
+                if (postpone == "Scheduled")
+                {
+                    startTime = this.SelectedDate;
+                    TimeSpan time = this.SelectedTime.TimeOfDay;
+                    startTime = startTime.Date.Add(time);
+                }
+
+                switch (radio)
+                {
+                    case (int)ModusEnumerator.Cooldown:
+                        ServerCheck.CommandClient.CooldownTime(startTime);
+                        break;
+
+                    case (int)ModusEnumerator.Recycle:
+                        ServerCheck.CommandClient.RecycleTime(startTime);
+                        break;
+
+                    case (int)ModusEnumerator.Warmup:
+                        ServerCheck.CommandClient.WarmupTime(startTime);
+                        break;
+                }
+            }
         }
 
         /// <summary>
@@ -506,7 +694,7 @@ namespace CryostatControlClient.ViewModels
         /// </summary>
         private void ToggleTime()
         {
-            if (this.Time == "Now")
+            if (this.Time == "Now" || this.ShowCountdown == Visibility.Visible)
             {
                 this.ShowDateTime = "Hidden";
             }

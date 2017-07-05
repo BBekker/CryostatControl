@@ -49,23 +49,27 @@
 
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He4PumpTemp}" ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right" />
+                   Content="{Binding He7ViewModel.He4PumpTemp}" ContentStringFormat="{}{0:N2}"
+                   HorizontalAlignment="Right" />
             <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource He7Label}">K</Label>
 
             <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
             <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He4PumpActualVolt}" ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right" />
+                   Content="{Binding He7ViewModel.He4PumpActualVolt}" ContentStringFormat="{}{0:N2}"
+                   HorizontalAlignment="Right" />
             <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource He7Label}">V</Label>
 
             <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
-            <Border Grid.Row="3" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Border Grid.Row="3" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" CornerRadius="2"
+                    HorizontalAlignment="Right" VerticalAlignment="Center">
                 <TextBox Style="{StaticResource He7TextBox}" FontSize="12" Margin="0 0 5 0"
-                         Text="{Binding He7ViewModel.He4PumpNewVolt}" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+                         Text="{Binding He7ViewModel.He4PumpNewVolt}" HorizontalAlignment="Right"
+                         HorizontalContentAlignment="Right" />
             </Border>
-            
+
             <Label Grid.Row="3" Grid.Column="2" Style="{StaticResource He7Label}">V</Label>
 
-            <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}"></Label>
+            <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}" />
         </Grid>
     </Border>
 
@@ -87,23 +91,27 @@
 
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He4SwitchTemp}" ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right" />
+                   Content="{Binding He7ViewModel.He4SwitchTemp}" ContentStringFormat="{}{0:N2}"
+                   HorizontalAlignment="Right" />
             <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource He7Label}">K</Label>
 
             <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
             <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He4SwitchActualVolt}" ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right" />
+                   Content="{Binding He7ViewModel.He4SwitchActualVolt}" ContentStringFormat="{}{0:N2}"
+                   HorizontalAlignment="Right" />
             <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource He7Label}">V</Label>
 
             <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
 
-            <Border Grid.Row="3" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Border Grid.Row="3" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" CornerRadius="2"
+                    HorizontalAlignment="Right" VerticalAlignment="Center">
                 <TextBox Style="{StaticResource He7TextBox}" FontSize="12" Margin="0 0 5 0"
-                     Text="{Binding He7ViewModel.He4SwitchNewVolt}" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+                         Text="{Binding He7ViewModel.He4SwitchNewVolt}" HorizontalAlignment="Right"
+                         HorizontalContentAlignment="Right" />
             </Border>
             <Label Grid.Row="3" Grid.Column="2" Style="{StaticResource He7Label}">V</Label>
 
-            <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}"></Label>
+            <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}" />
         </Grid>
     </Border>
 
@@ -125,24 +133,28 @@
 
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He3SwitchTemp}" ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right" />
+                   Content="{Binding He7ViewModel.He3SwitchTemp}" ContentStringFormat="{}{0:N2}"
+                   HorizontalAlignment="Right" />
             <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource He7Label}">K</Label>
 
             <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
             <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He3SwitchActualVolt}" ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right" />
+                   Content="{Binding He7ViewModel.He3SwitchActualVolt}" ContentStringFormat="{}{0:N2}"
+                   HorizontalAlignment="Right" />
             <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource He7Label}">V</Label>
 
             <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
-            
-            <Border Grid.Row="3" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+
+            <Border Grid.Row="3" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" CornerRadius="2"
+                    HorizontalAlignment="Right" VerticalAlignment="Center">
                 <TextBox Style="{StaticResource He7TextBox}" FontSize="12" Margin="0 0 5 0"
-                     Text="{Binding He7ViewModel.He3SwitchNewVolt}" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+                         Text="{Binding He7ViewModel.He3SwitchNewVolt}" HorizontalAlignment="Right"
+                         HorizontalContentAlignment="Right" />
             </Border>
-            
+
             <Label Grid.Row="3" Grid.Column="2" Style="{StaticResource He7Label}">V</Label>
 
-            <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}"></Label>
+            <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}" />
         </Grid>
     </Border>
 
@@ -164,60 +176,69 @@
 
             <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource He7Label}">Volt</Label>
             <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He3PumpActualVolt}" ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right" />
+                   Content="{Binding He7ViewModel.He3PumpActualVolt}" ContentStringFormat="{}{0:N2}"
+                   HorizontalAlignment="Right" />
             <Label Grid.Row="2" Grid.Column="2" Style="{StaticResource He7Label}">V</Label>
 
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He3PumpTemp}" ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right" />
+                   Content="{Binding He7ViewModel.He3PumpTemp}" ContentStringFormat="{}{0:N2}"
+                   HorizontalAlignment="Right" />
             <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource He7Label}">K</Label>
 
             <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource He7Label}">Set Volt</Label>
 
-            <Border Grid.Row="3" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" CornerRadius="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Border Grid.Row="3" Grid.Column="1" BorderThickness="1" BorderBrush="LightGray" CornerRadius="2"
+                    HorizontalAlignment="Right" VerticalAlignment="Center">
                 <TextBox Style="{StaticResource He7TextBox}" FontSize="12" Margin="0 0 5 0"
-                     Text="{Binding He7ViewModel.He3PumpNewVolt}" HorizontalAlignment="Right" HorizontalContentAlignment="Right" />
+                         Text="{Binding He7ViewModel.He3PumpNewVolt}" HorizontalAlignment="Right"
+                         HorizontalContentAlignment="Right" />
             </Border>
-            
+
             <Label Grid.Row="3" Grid.Column="2" Style="{StaticResource He7Label}">V</Label>
 
-            <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}"></Label>
+            <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource He7Label}" />
         </Grid>
     </Border>
 
-    <Border Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="7" BorderBrush="Black" Background="White" BorderThickness="3" CornerRadius="2">
+    <Border Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="7" BorderBrush="Black" Background="White" BorderThickness="3"
+            CornerRadius="2">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*" />
                 <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="24*" />
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0" Style="{StaticResource He7Title}">4K Plate</Label>
-            <Label Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.FourKPlateTemp}" ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right"/>
+            <Label Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.FourKPlateTemp}"
+                   ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right" />
             <Label Grid.Column="2" Style="{StaticResource He7Label}" Content="K" />
 
         </Grid>
     </Border>
 
-    <Border Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="7" BorderBrush="Black" Background="White" BorderThickness="3" CornerRadius="2">
+    <Border Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="7" BorderBrush="Black" Background="White" BorderThickness="3"
+            CornerRadius="2">
         <Grid>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*" />
                 <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="24*" />
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0" Style="{StaticResource He7Title}">2K Plate</Label>
-            <Label Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.TwoKPlateTemp}" ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right" />
+            <Label Grid.Column="1" Style="{StaticResource He7Label}" Content="{Binding He7ViewModel.TwoKPlateTemp}"
+                   ContentStringFormat="{}{0:N2}" HorizontalAlignment="Right" />
             <Label Grid.Column="2" Style="{StaticResource He7Label}" Content="K" />
         </Grid>
     </Border>
 
-    <Border Grid.Row="7" Grid.Column="1" Grid.RowSpan="2" BorderBrush="Black" Background="White" BorderThickness="3" CornerRadius="2">
+    <Border Grid.Row="7" Grid.Column="1" Grid.RowSpan="2" BorderBrush="Black" Background="White" BorderThickness="3"
+            CornerRadius="2">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />
@@ -233,13 +254,15 @@
 
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He4HeadTemp}" ContentStringFormat="{}{0:N3}" HorizontalAlignment="Right" />
+                   Content="{Binding He7ViewModel.He4HeadTemp}" ContentStringFormat="{}{0:N3}"
+                   HorizontalAlignment="Right" />
             <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource He7Label}"
                    Content="K" />
         </Grid>
     </Border>
 
-    <Border Grid.Row="7" Grid.Column="7" Grid.RowSpan="2" BorderBrush="Black" Background="White" BorderThickness="3" CornerRadius="2">
+    <Border Grid.Row="7" Grid.Column="7" Grid.RowSpan="2" BorderBrush="Black" Background="White" BorderThickness="3"
+            CornerRadius="2">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />
@@ -255,24 +278,34 @@
 
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource He7Label}">Temp</Label>
             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource He7Label}"
-                   Content="{Binding He7ViewModel.He3HeadTemp}" ContentStringFormat="{}{0:N3}" HorizontalAlignment="Right"/>
+                   Content="{Binding He7ViewModel.He3HeadTemp}" ContentStringFormat="{}{0:N3}"
+                   HorizontalAlignment="Right" />
             <Label Grid.Row="1" Grid.Column="2" Style="{StaticResource He7Label}">K</Label>
         </Grid>
     </Border>
 
-    <Button Grid.Row="7" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="3" MaxWidth="300" MaxHeight="50" BorderBrush="Black" Command="{Binding He7ViewModel.UpdateButtonCommand}" IsEnabled="{Binding He7ViewModel.UpdateEnable}">Set Voltages</Button>
+    <Button Grid.Row="7" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="3" MaxWidth="300" MaxHeight="50"
+            Command="{Binding He7ViewModel.UpdateButtonCommand}">
+        <Button.IsEnabled>
+            <PriorityBinding FallbackValue="False">
+                <Binding Path="ModusViewModel.IsManual" IsAsync="True"/>
+                <Binding Path="He7ViewModel.UpdateEnable" IsAsync="True"/>
+            </PriorityBinding>
+        </Button.IsEnabled>
+        Set Voltages
+    </Button>
 
-    <Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="0 3 0 0" VerticalAlignment="Center"/>
-    <Border Grid.Row="1" Grid.Column="6" BorderBrush="Black" BorderThickness="0 3 0 0" VerticalAlignment="Center"/>
+    <Border Grid.Row="1" Grid.Column="2" BorderBrush="Black" BorderThickness="0 3 0 0" VerticalAlignment="Center" />
+    <Border Grid.Row="1" Grid.Column="6" BorderBrush="Black" BorderThickness="0 3 0 0" VerticalAlignment="Center" />
     <Border Grid.Row="7" Grid.Column="2" BorderBrush="Black" BorderThickness="0 0 0 3" />
     <Border Grid.Row="6" Grid.Column="2" Grid.RowSpan="2" BorderBrush="Black" BorderThickness="0 0 3 0" />
 
-    <Border Grid.Row="2" Grid.Column="1" BorderBrush="LightGray" BorderThickness="20" HorizontalAlignment="Center"/>
-    <Border Grid.Row="4" Grid.Column="1" BorderBrush="LightGray" BorderThickness="20" HorizontalAlignment="Center"/>
-    <Border Grid.Row="6" Grid.Column="1" BorderBrush="LightGray" BorderThickness="20" HorizontalAlignment="Center"/>
+    <Border Grid.Row="2" Grid.Column="1" BorderBrush="LightGray" BorderThickness="20" HorizontalAlignment="Center" />
+    <Border Grid.Row="4" Grid.Column="1" BorderBrush="LightGray" BorderThickness="20" HorizontalAlignment="Center" />
+    <Border Grid.Row="6" Grid.Column="1" BorderBrush="LightGray" BorderThickness="20" HorizontalAlignment="Center" />
 
-    <Border Grid.Row="2" Grid.Column="7" BorderBrush="LightGray" BorderThickness="20" HorizontalAlignment="Center"/>
-    <Border Grid.Row="4" Grid.Column="7" BorderBrush="LightGray" BorderThickness="20" HorizontalAlignment="Center"/>
-    <Border Grid.Row="6" Grid.Column="7" BorderBrush="LightGray" BorderThickness="20" HorizontalAlignment="Center"/>
+    <Border Grid.Row="2" Grid.Column="7" BorderBrush="LightGray" BorderThickness="20" HorizontalAlignment="Center" />
+    <Border Grid.Row="4" Grid.Column="7" BorderBrush="LightGray" BorderThickness="20" HorizontalAlignment="Center" />
+    <Border Grid.Row="6" Grid.Column="7" BorderBrush="LightGray" BorderThickness="20" HorizontalAlignment="Center" />
 
 </Grid>
